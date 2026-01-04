@@ -1,0 +1,57 @@
+name: SEO and Tag Optimization
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Prepare - Check if last commit was by Action
+        id: check_commit
+        run: |
+          last_author=$(git log -1 --pretty=format:'%an')
+          echo "Last commit author: $last_author"
+          if [[ "$last_author" == "github-actions[bot]" ]]; then
+            echo "Last commit was by github-actions[bot]. Skipping execution."
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "Proceeding with optimization."
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set up Python
+        if: steps.check_commit.outputs.skip == 'false'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run Tag and SEO Optimization
+        if: steps.check_commit.outputs.skip == 'false'
+        run: |
+          python scripts/optimize.py
+
+      - name: Commit and push changes
+        if: steps.check_commit.outputs.skip == 'false'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          # Check if there are changes staged
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: optimize tags and update catalog"
+            git push
+          fi
