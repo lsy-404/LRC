@@ -5,12 +5,10 @@
 ## 收录专辑
 
 <!-- ALBUM_LIST_START -->
-
 - [五维介质REBIRTH](%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH)
 - [星愿StarWish](%E6%98%9F%E6%84%BFStarWish)
 - [森罗万象Kaleido](%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido)
 - [繁星于雨云之上](%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A)
-
 <!-- ALBUM_LIST_END -->
 
 ## 注意事项
@@ -32,7 +30,6 @@
 ## 完整目录
 
 <!-- CATALOG_START -->
-
 ### 五维介质REBIRTH
 
 - [01.箱庭剧目.lrc](%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/01.%E7%AE%B1%E5%BA%AD%E5%89%A7%E7%9B%AE.lrc)
@@ -57,14 +54,14 @@
 
 ### 森罗万象Kaleido
 
-- [01. 噩梦铺 - 星尘 &amp; 海伊 &amp; 赤羽.lrc](%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/01.%20%E5%99%A9%E6%A2%A6%E9%93%BA%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc)
-- [02. Requiem of Excalibur - 海伊 &amp; 赤羽.lrc](%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/02.%20Requiem%20of%20Excalibur%20-%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc)
+- [01. 噩梦铺 - 星尘 & 海伊 & 赤羽.lrc](%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/01.%20%E5%99%A9%E6%A2%A6%E9%93%BA%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc)
+- [02. Requiem of Excalibur - 海伊 & 赤羽.lrc](%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/02.%20Requiem%20of%20Excalibur%20-%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc)
 - [03. 四季 - 海伊.lrc](%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/03.%20%E5%9B%9B%E5%AD%A3%20-%20%E6%B5%B7%E4%BC%8A.lrc)
-- [04. 恒星坠落之时 - 星尘 &amp; 赤羽.lrc](%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/04.%20%E6%81%92%E6%98%9F%E5%9D%A0%E8%90%BD%E4%B9%8B%E6%97%B6%20-%20%E6%98%9F%E5%B0%98%20%26%20%E8%B5%A4%E7%BE%BD.lrc)
+- [04. 恒星坠落之时 - 星尘 & 赤羽.lrc](%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/04.%20%E6%81%92%E6%98%9F%E5%9D%A0%E8%90%BD%E4%B9%8B%E6%97%B6%20-%20%E6%98%9F%E5%B0%98%20%26%20%E8%B5%A4%E7%BE%BD.lrc)
 - [06. 带我逃跑 - 海伊.lrc](%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/06.%20%E5%B8%A6%E6%88%91%E9%80%83%E8%B7%91%20-%20%E6%B5%B7%E4%BC%8A.lrc)
-- [07. Talking to the Rain - 星尘 &amp; 海伊.lrc](%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/07.%20Talking%20to%20the%20Rain%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A.lrc)
+- [07. Talking to the Rain - 星尘 & 海伊.lrc](%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/07.%20Talking%20to%20the%20Rain%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A.lrc)
 - [08. 尘埃 - 星尘.lrc](%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/08.%20%E5%B0%98%E5%9F%83%20-%20%E6%98%9F%E5%B0%98.lrc)
-- [09. 斑驳 - 星尘 &amp; 海伊 &amp; 赤羽.lrc](%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/09.%20%E6%96%91%E9%A9%B3%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc)
+- [09. 斑驳 - 星尘 & 海伊 & 赤羽.lrc](%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/09.%20%E6%96%91%E9%A9%B3%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc)
 
 ### 繁星于雨云之上
 
@@ -75,5 +72,6 @@
 - [5 呼唤利维坦的大山.lrc](%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/5%20%E5%91%BC%E5%94%A4%E5%88%A9%E7%BB%B4%E5%9D%A6%E7%9A%84%E5%A4%A7%E5%B1%B1.lrc)
 - [6 老人与海，少年与路.lrc](%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/6%20%E8%80%81%E4%BA%BA%E4%B8%8E%E6%B5%B7%EF%BC%8C%E5%B0%91%E5%B9%B4%E4%B8%8E%E8%B7%AF.lrc)
 - [7 亵渎.lrc](%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/7%20%E4%BA%B5%E6%B8%8E.lrc)
+
 
 <!-- CATALOG_END -->
