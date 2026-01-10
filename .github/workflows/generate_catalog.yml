@@ -1,0 +1,132 @@
+name: Generate Catalog and Album Packs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'res/**'
+  workflow_dispatch:
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Prepare - Check if last commit was by Action
+        id: check_commit
+        run: |
+          last_author=$(git log -1 --pretty=format:'%an')
+          echo "Last commit author: $last_author"
+          if [[ "$last_author" == "github-actions[bot]" ]]; then
+            echo "Last commit was by github-actions[bot]. Skipping execution."
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "Proceeding with optimization."
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set up Python
+        if: steps.check_commit.outputs.skip == 'false'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Detect changed album folders
+        if: steps.check_commit.outputs.skip == 'false'
+        id: detect_changes
+        run: |
+          # Get changed files in res/ folder
+          if git rev-parse HEAD~1 >/dev/null 2>&1; then
+            # Get list of changed files in the last commit
+            CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD | grep '^res/')
+          else
+            # First commit, consider all lrc files in res/
+            CHANGED_FILES=$(find res -name "*.lrc" -type f)
+          fi
+          
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+          
+          # Extract unique album directories from res/ folder
+          CHANGED_ALBUMS=$(echo "$CHANGED_FILES" | grep -E '\.lrc$' | sed 's|^res/||' | sed 's|/[^/]*$||' | sort -u)
+          
+          echo "Changed albums:"
+          echo "$CHANGED_ALBUMS"
+          
+          # Save to file for next step
+          echo "$CHANGED_ALBUMS" > changed_albums.txt
+
+      - name: Create or update album zip files
+        if: steps.check_commit.outputs.skip == 'false'
+        run: |
+          # Ensure pack directory exists
+          mkdir -p pack
+          
+          # Read changed albums
+          if [ -f changed_albums.txt ] && [ -s changed_albums.txt ]; then
+            echo "Creating/updating zip files for changed albums..."
+            while IFS= read -r album; do
+              if [ -d "res/$album" ] && [ ! -z "$album" ]; then
+                echo "Processing album: $album"
+                # Remove old zip if exists
+                album_name=$(basename "$album")
+                zip_file="pack/${album_name}.zip"
+                if [ -f "$zip_file" ]; then
+                  rm "$zip_file"
+                  echo "Removed old $zip_file"
+                fi
+                # Create new zip with all .lrc files
+                if ls "res/$album"/*.lrc 1> /dev/null 2>&1; then
+                  cd "res/$album"
+                  zip -q "../../$zip_file" *.lrc
+                  cd ../..
+                  echo "Created $zip_file"
+                else
+                  echo "No .lrc files found in res/$album"
+                fi
+              fi
+            done < changed_albums.txt
+          else
+            echo "No album changes detected"
+          fi
+          
+          # Also check for albums without zip files and create them
+          echo "Checking for albums without zip files..."
+          for album in res/*/; do
+            album_name=$(basename "$album")
+            zip_file="pack/${album_name}.zip"
+            if [ ! -f "$zip_file" ] && ls "$album"/*.lrc 1> /dev/null 2>&1; then
+              echo "Creating missing zip for: $album_name"
+              cd "$album"
+              zip -q "../../$zip_file" *.lrc
+              cd ../..
+              echo "Created $zip_file"
+            fi
+          done
+
+      - name: Run Tag and SEO Optimization
+        if: steps.check_commit.outputs.skip == 'false'
+        run: |
+          python .github/scripts/optimize.py
+
+      - name: Commit and push changes
+        if: steps.check_commit.outputs.skip == 'false'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          # Check if there are changes staged
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: optimize tags and update catalog"
+            git push
+          fi
