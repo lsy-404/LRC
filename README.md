@@ -29,7 +29,7 @@
 - **下载单个专辑**：在下方目录中找到对应专辑，点击 📦 下载专辑歌词包
 - **下载单首歌曲**：展开专辑详细曲目，点击歌曲旁的 📥 下载按钮
 
-## 使用指南
+## 贡献指南
 
 <details>
 <summary>📁 项目结构</summary>
@@ -54,7 +54,7 @@
 
 欢迎提交新的歌词文件！请将 LRC 文件放在 `res/对应专辑/` 文件夹中。
 
-推荐使用 [GitHub Desktop 中文发行版](https://github.com/zetaloop/desktop/releases/latest)，它提供了简单易用的图形界面，适合初学者快速上手。
+上传工具推荐使用 [GitHub Desktop 中文发行版](https://github.com/zetaloop/desktop/releases/latest)，它提供了简单易用的图形界面，适合初学者快速上手。
 
 安装完成后点击网页上的 Code - Open with Github Desktop
 
