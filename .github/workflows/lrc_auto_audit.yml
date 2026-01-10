@@ -2,7 +2,7 @@ name: LRC Repository Auto Audit
 
 on:
   pull_request:
-    types: [opened, reopened, synchronized]
+    types: [opened, reopened, synchronize]
     paths:
       - 'res/**'
 
@@ -13,8 +13,6 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    # 仅针对外部贡献者进行审计，你自己提交建议手动合并或走另一套逻辑
-    if: github.event.pull_request.user.login != 'wuyilingwei'
     
     steps:
       - name: Checkout code
