@@ -89,13 +89,27 @@ def main():
     
     dirs = sorted([d for d in os.listdir(res_dir_path) if os.path.isdir(os.path.join(res_dir_path, d)) and not d.startswith('.')])
     
-    for album_name in dirs:
+    for idx, album_name in enumerate(dirs):
         dir_path = os.path.join(res_dir_path, album_name)
         
         # Add to Album List
         encoded_album_path = urllib.parse.quote(f"{RES_DIR}/{album_name}")
         album_list_content.append(f"- [{album_name}]({encoded_album_path})")
 
+        # Add horizontal line between albums (not before first one)
+        if idx > 0:
+            catalog_content.append("---\n\n")
+        
+        # Find cover image first
+        cover_file = find_cover_image(dir_path)
+        
+        # Add cover image if exists (before title)
+        if cover_file:
+            cover_path = f"{RES_DIR}/{album_name}/{cover_file}"
+            encoded_cover = urllib.parse.quote(cover_path)
+            cdn_cover_url = f"https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/{encoded_cover}"
+            catalog_content.append(f'<img src="{cdn_cover_url}" alt="专辑封面" width="120" align="right">\n\n')
+        
         # Add to Catalog with download buttons
         catalog_content.append(f"### {album_name}\n\n")
         
@@ -107,24 +121,14 @@ def main():
             cdn_zip_url = f"https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/{encoded_zip}"
             catalog_content.append(f"**📦 [下载专辑歌词包]({cdn_zip_url})**\n\n")
         
-        # Find cover image
-        cover_file = find_cover_image(dir_path)
-        
         files = sorted([f for f in os.listdir(dir_path) if os.path.splitext(f)[1] in EXTENSIONS])
         
         if not files:
             catalog_content.append("_暂无 LRC 文件_\n\n")
             continue
 
-        # Start details/summary for track list with cover preview if exists
-        if cover_file:
-            cover_path = f"{RES_DIR}/{album_name}/{cover_file}"
-            encoded_cover = urllib.parse.quote(cover_path)
-            cdn_cover_url = f"https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/{encoded_cover}"
-            catalog_content.append(f'<details>\n<summary>📝 查看详细曲目 ({len(files)} 首)</summary>\n\n')
-            catalog_content.append(f'<img src="{cdn_cover_url}" alt="专辑封面" width="150" align="right">\n\n')
-        else:
-            catalog_content.append(f"<details>\n<summary>📝 查看详细曲目 ({len(files)} 首)</summary>\n\n")
+        # Start details/summary for track list
+        catalog_content.append(f"<details>\n<summary>📝 查看详细曲目 ({len(files)} 首)</summary>\n\n")
 
         for filename in files:
             file_path = os.path.join(dir_path, filename)
