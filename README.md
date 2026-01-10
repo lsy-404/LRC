@@ -87,6 +87,8 @@
 
 </details>
 
+---
+
 ### Freesia
 
 **📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Freesia.zip)**
@@ -109,14 +111,16 @@
 
 </details>
 
+---
+
+<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/cover.jpg" alt="专辑封面" width="120" align="right">
+
 ### 丛林法则Jungle Rules
 
 **📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules.zip)**
 
 <details>
 <summary>📝 查看详细曲目 (9 首)</summary>
-
-<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/cover.jpg" alt="专辑封面" width="150" align="right">
 
 - [星尘、星辉P - 修月匠.lrc](res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E6%98%9F%E5%B0%98%E3%80%81%E6%98%9F%E8%BE%89P%20-%20%E4%BF%AE%E6%9C%88%E5%8C%A0.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E6%98%9F%E5%B0%98%E3%80%81%E6%98%9F%E8%BE%89P%20-%20%E4%BF%AE%E6%9C%88%E5%8C%A0.lrc)
 - [星尘、苍穹、磁带君 - Strayed Stalker - 迷路的跟踪狂.lrc](res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E6%98%9F%E5%B0%98%E3%80%81%E8%8B%8D%E7%A9%B9%E3%80%81%E7%A3%81%E5%B8%A6%E5%90%9B%20-%20Strayed%20Stalker%20-%20%E8%BF%B7%E8%B7%AF%E7%9A%84%E8%B7%9F%E8%B8%AA%E7%8B%82.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E6%98%9F%E5%B0%98%E3%80%81%E8%8B%8D%E7%A9%B9%E3%80%81%E7%A3%81%E5%B8%A6%E5%90%9B%20-%20Strayed%20Stalker%20-%20%E8%BF%B7%E8%B7%AF%E7%9A%84%E8%B7%9F%E8%B8%AA%E7%8B%82.lrc)
@@ -129,6 +133,8 @@
 - [诗岸、哈密瓜 - 光明之森.lrc](res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E8%AF%97%E5%B2%B8%E3%80%81%E5%93%88%E5%AF%86%E7%93%9C%20-%20%E5%85%89%E6%98%8E%E4%B9%8B%E6%A3%AE.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E8%AF%97%E5%B2%B8%E3%80%81%E5%93%88%E5%AF%86%E7%93%9C%20-%20%E5%85%89%E6%98%8E%E4%B9%8B%E6%A3%AE.lrc)
 
 </details>
+
+---
 
 ### 五维介质REBIRTH
 
@@ -147,6 +153,8 @@
 - [08.whispering snowflakes.lrc](res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/08.whispering%20snowflakes.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/08.whispering%20snowflakes.lrc)
 
 </details>
+
+---
 
 ### 加冕日 CORONATION DAY
 
@@ -171,6 +179,8 @@
 
 </details>
 
+---
+
 ### 星愿StarWish
 
 **📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E6%84%BFStarWish.zip)**
@@ -189,14 +199,16 @@
 
 </details>
 
+---
+
+<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/cover.jpg" alt="专辑封面" width="120" align="right">
+
 ### 森罗万象Kaleido
 
 **📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido.zip)**
 
 <details>
 <summary>📝 查看详细曲目 (8 首)</summary>
-
-<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/cover.jpg" alt="专辑封面" width="150" align="right">
 
 - [01. 噩梦铺 - 星尘 & 海伊 & 赤羽.lrc](res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/01.%20%E5%99%A9%E6%A2%A6%E9%93%BA%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/01.%20%E5%99%A9%E6%A2%A6%E9%93%BA%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc)
 - [02. Requiem of Excalibur - 海伊 & 赤羽.lrc](res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/02.%20Requiem%20of%20Excalibur%20-%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/02.%20Requiem%20of%20Excalibur%20-%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc)
@@ -209,14 +221,16 @@
 
 </details>
 
+---
+
+<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/cover.jpg" alt="专辑封面" width="120" align="right">
+
 ### 繁星于雨云之上
 
 **📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A.zip)**
 
 <details>
 <summary>📝 查看详细曲目 (7 首)</summary>
-
-<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/cover.jpg" alt="专辑封面" width="150" align="right">
 
 - [1 序曲.lrc](res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/1%20%E5%BA%8F%E6%9B%B2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/1%20%E5%BA%8F%E6%9B%B2.lrc)
 - [2 繁星于雨云之上-星尘ver.lrc](res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/2%20%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A-%E6%98%9F%E5%B0%98ver.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/2%20%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A-%E6%98%9F%E5%B0%98ver.lrc)
