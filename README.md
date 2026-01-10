@@ -65,6 +65,8 @@
 <!-- CATALOG_START -->
 ### FVOCALOID™4星尘 全息演唱会专辑『平行四界LIVE TOUR OFFICIAL ALBUM』
 
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/FVOCALOID%E2%84%A24%E6%98%9F%E5%B0%98%20%E5%85%A8%E6%81%AF%E6%BC%94%E5%94%B1%E4%BC%9A%E4%B8%93%E8%BE%91%E3%80%8E%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CLIVE%20TOUR%20OFFICIAL%20ALBUM%E3%80%8F.zip)**
+
 <details>
 <summary>📝 查看详细曲目 (14 首)</summary>
 
@@ -87,6 +89,8 @@
 
 ### Freesia
 
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Freesia.zip)**
+
 <details>
 <summary>📝 查看详细曲目 (12 首)</summary>
 
@@ -107,8 +111,12 @@
 
 ### 丛林法则Jungle Rules
 
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules.zip)**
+
 <details>
 <summary>📝 查看详细曲目 (9 首)</summary>
+
+<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/cover.jpg" alt="专辑封面" width="150" align="right">
 
 - [星尘、星辉P - 修月匠.lrc](res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E6%98%9F%E5%B0%98%E3%80%81%E6%98%9F%E8%BE%89P%20-%20%E4%BF%AE%E6%9C%88%E5%8C%A0.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E6%98%9F%E5%B0%98%E3%80%81%E6%98%9F%E8%BE%89P%20-%20%E4%BF%AE%E6%9C%88%E5%8C%A0.lrc)
 - [星尘、苍穹、磁带君 - Strayed Stalker - 迷路的跟踪狂.lrc](res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E6%98%9F%E5%B0%98%E3%80%81%E8%8B%8D%E7%A9%B9%E3%80%81%E7%A3%81%E5%B8%A6%E5%90%9B%20-%20Strayed%20Stalker%20-%20%E8%BF%B7%E8%B7%AF%E7%9A%84%E8%B7%9F%E8%B8%AA%E7%8B%82.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E6%98%9F%E5%B0%98%E3%80%81%E8%8B%8D%E7%A9%B9%E3%80%81%E7%A3%81%E5%B8%A6%E5%90%9B%20-%20Strayed%20Stalker%20-%20%E8%BF%B7%E8%B7%AF%E7%9A%84%E8%B7%9F%E8%B8%AA%E7%8B%82.lrc)
@@ -123,6 +131,8 @@
 </details>
 
 ### 五维介质REBIRTH
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH.zip)**
 
 <details>
 <summary>📝 查看详细曲目 (8 首)</summary>
@@ -139,6 +149,8 @@
 </details>
 
 ### 加冕日 CORONATION DAY
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY.zip)**
 
 <details>
 <summary>📝 查看详细曲目 (13 首)</summary>
@@ -161,6 +173,8 @@
 
 ### 星愿StarWish
 
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E6%84%BFStarWish.zip)**
+
 <details>
 <summary>📝 查看详细曲目 (8 首)</summary>
 
@@ -177,8 +191,12 @@
 
 ### 森罗万象Kaleido
 
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido.zip)**
+
 <details>
 <summary>📝 查看详细曲目 (8 首)</summary>
+
+<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/cover.jpg" alt="专辑封面" width="150" align="right">
 
 - [01. 噩梦铺 - 星尘 & 海伊 & 赤羽.lrc](res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/01.%20%E5%99%A9%E6%A2%A6%E9%93%BA%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/01.%20%E5%99%A9%E6%A2%A6%E9%93%BA%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc)
 - [02. Requiem of Excalibur - 海伊 & 赤羽.lrc](res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/02.%20Requiem%20of%20Excalibur%20-%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/02.%20Requiem%20of%20Excalibur%20-%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc)
@@ -192,6 +210,8 @@
 </details>
 
 ### 繁星于雨云之上
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A.zip)**
 
 <details>
 <summary>📝 查看详细曲目 (7 首)</summary>
