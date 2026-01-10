@@ -86,7 +86,7 @@ jobs:
                 # Create new zip with all .lrc files
                 if ls "res/$album"/*.lrc 1> /dev/null 2>&1; then
                   cd "res/$album"
-                  zip -q "../../$zip_file" *.lrc
+                  zip -q -- "../../$zip_file" *.lrc
                   cd ../..
                   echo "Created $zip_file"
                 else
@@ -106,7 +106,7 @@ jobs:
             if [ ! -f "$zip_file" ] && ls "$album"/*.lrc 1> /dev/null 2>&1; then
               echo "Creating missing zip for: $album_name"
               cd "$album"
-              zip -q "../../$zip_file" *.lrc
+              zip -q -- "../../$zip_file" *.lrc
               cd ../..
               echo "Created $zip_file"
             fi
