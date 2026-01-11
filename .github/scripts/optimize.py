@@ -142,6 +142,10 @@ def main():
         # Start details/summary for track list
         catalog_content.append(f"<details>\n<summary>📝 查看详细曲目 ({len(files)} 首)</summary>\n\n")
 
+        # Render a uniform-width table across albums
+        catalog_content.append("| 曲目 | 操作 |\n")
+        catalog_content.append("| :- | :-: |\n")
+
         for filename in files:
             file_path = os.path.join(dir_path, filename)
             process_lrc(file_path, album_name)
@@ -151,7 +155,7 @@ def main():
             encoded_path = urllib.parse.quote(rel_path)
             # Create CDN download link
             cdn_url = f"https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/{encoded_path}"
-            catalog_content.append(f"- [{filename}]({encoded_path}) | [📥 下载]({cdn_url})\n")
+            catalog_content.append(f"| [{filename}]({encoded_path}) | [📥 下载]({cdn_url}) |\n")
         
         catalog_content.append("\n</details>\n\n")
 
