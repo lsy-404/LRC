@@ -85,6 +85,8 @@
 
 ---
 
+<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Freesia/cover.webp" alt="专辑封面" width="120" align="right">
+
 ### Freesia
 
 **📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Freesia.zip)**
@@ -132,6 +134,8 @@
 
 ---
 
+<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/cover.jpg" alt="专辑封面" width="120" align="right">
+
 ### 五维介质REBIRTH
 
 **📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH.zip)**
@@ -151,6 +155,8 @@
 </details>
 
 ---
+
+<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 加冕日 CORONATION DAY
 
@@ -176,6 +182,8 @@
 </details>
 
 ---
+
+<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 星愿StarWish
 
