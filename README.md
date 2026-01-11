@@ -8,6 +8,8 @@
 - [Freesia](https://github.com/wuyilingwei/LRC#freesia)
 - [丛林法则Jungle Rules](https://github.com/wuyilingwei/LRC#%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99jungle-rules)
 - [加冕日CORONATION DAY](https://github.com/wuyilingwei/LRC#%E5%8A%A0%E5%86%95%E6%97%A5coronation-day)
+- [天方夜谭Fairyland](https://github.com/wuyilingwei/LRC#%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADfairyland)
+- [天马行空Fairytale](https://github.com/wuyilingwei/LRC#%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAfairytale)
 - [平行四界LIVE TOUR OFFICIAL ALBUM](https://github.com/wuyilingwei/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Clive-tour-official-album)
 - [平行四界Quadimension X-1](https://github.com/wuyilingwei/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Cquadimension-x-1)
 - [平行四界Quadimension X-2](https://github.com/wuyilingwei/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Cquadimension-x-2)
@@ -15,6 +17,7 @@
 - [平行四界REBIRTH](https://github.com/wuyilingwei/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Crebirth)
 - [星愿StarWish](https://github.com/wuyilingwei/LRC#%E6%98%9F%E6%84%BFstarwish)
 - [森罗万象Kaleido](https://github.com/wuyilingwei/LRC#%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1kaleido)
+- [海纳百川Storybook](https://github.com/wuyilingwei/LRC#%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9Dstorybook)
 - [繁星于雨云之上](https://github.com/wuyilingwei/LRC#%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A)
 <!-- ALBUM_LIST_END -->
 
@@ -139,6 +142,56 @@
 | [妖刀出鞘 - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E5%A6%96%E5%88%80%E5%87%BA%E9%9E%98%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E5%A6%96%E5%88%80%E5%87%BA%E9%9E%98%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) |
 | [永眠 (Ballade ver.) - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E6%B0%B8%E7%9C%A0%20%28Ballade%20ver.%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E6%B0%B8%E7%9C%A0%20%28Ballade%20ver.%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) |
 | [解体诸因 - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E8%A7%A3%E4%BD%93%E8%AF%B8%E5%9B%A0%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E8%A7%A3%E4%BD%93%E8%AF%B8%E5%9B%A0%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 天方夜谭Fairyland
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (9 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [星尘、Kide - 渡桥挽歌 ~soul leaving~.lrc](res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E6%98%9F%E5%B0%98%E3%80%81Kide%20-%20%E6%B8%A1%E6%A1%A5%E6%8C%BD%E6%AD%8C%20~soul%20leaving~.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E6%98%9F%E5%B0%98%E3%80%81Kide%20-%20%E6%B8%A1%E6%A1%A5%E6%8C%BD%E6%AD%8C%20~soul%20leaving~.lrc) |
+| [星尘、海伊、磁带君 - 诗人之血.lrc](res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E6%98%9F%E5%B0%98%E3%80%81%E6%B5%B7%E4%BC%8A%E3%80%81%E7%A3%81%E5%B8%A6%E5%90%9B%20-%20%E8%AF%97%E4%BA%BA%E4%B9%8B%E8%A1%80.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E6%98%9F%E5%B0%98%E3%80%81%E6%B5%B7%E4%BC%8A%E3%80%81%E7%A3%81%E5%B8%A6%E5%90%9B%20-%20%E8%AF%97%E4%BA%BA%E4%B9%8B%E8%A1%80.lrc) |
+| [星尘、海伊、苍穹、Evalia - 无色.lrc](res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E6%98%9F%E5%B0%98%E3%80%81%E6%B5%B7%E4%BC%8A%E3%80%81%E8%8B%8D%E7%A9%B9%E3%80%81Evalia%20-%20%E6%97%A0%E8%89%B2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E6%98%9F%E5%B0%98%E3%80%81%E6%B5%B7%E4%BC%8A%E3%80%81%E8%8B%8D%E7%A9%B9%E3%80%81Evalia%20-%20%E6%97%A0%E8%89%B2.lrc) |
+| [星尘、苍穹、Melo - 绮物缘.lrc](res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E6%98%9F%E5%B0%98%E3%80%81%E8%8B%8D%E7%A9%B9%E3%80%81Melo%20-%20%E7%BB%AE%E7%89%A9%E7%BC%98.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E6%98%9F%E5%B0%98%E3%80%81%E8%8B%8D%E7%A9%B9%E3%80%81Melo%20-%20%E7%BB%AE%E7%89%A9%E7%BC%98.lrc) |
+| [海伊、小野道 - 胡旋姬.lrc](res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E6%B5%B7%E4%BC%8A%E3%80%81%E5%B0%8F%E9%87%8E%E9%81%93%20-%20%E8%83%A1%E6%97%8B%E5%A7%AC.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E6%B5%B7%E4%BC%8A%E3%80%81%E5%B0%8F%E9%87%8E%E9%81%93%20-%20%E8%83%A1%E6%97%8B%E5%A7%AC.lrc) |
+| [海伊、星尘、黄雷基 - 飞花流去.lrc](res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E6%B5%B7%E4%BC%8A%E3%80%81%E6%98%9F%E5%B0%98%E3%80%81%E9%BB%84%E9%9B%B7%E5%9F%BA%20-%20%E9%A3%9E%E8%8A%B1%E6%B5%81%E5%8E%BB.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E6%B5%B7%E4%BC%8A%E3%80%81%E6%98%9F%E5%B0%98%E3%80%81%E9%BB%84%E9%9B%B7%E5%9F%BA%20-%20%E9%A3%9E%E8%8A%B1%E6%B5%81%E5%8E%BB.lrc) |
+| [苍穹、星尘、Zeno - Final⇄Endless.lrc](res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E8%8B%8D%E7%A9%B9%E3%80%81%E6%98%9F%E5%B0%98%E3%80%81Zeno%20-%20Final%E2%87%84Endless.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E8%8B%8D%E7%A9%B9%E3%80%81%E6%98%9F%E5%B0%98%E3%80%81Zeno%20-%20Final%E2%87%84Endless.lrc) |
+| [苍穹、海伊、Zeno - D!slodge.lrc](res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E8%8B%8D%E7%A9%B9%E3%80%81%E6%B5%B7%E4%BC%8A%E3%80%81Zeno%20-%20D%21slodge.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E8%8B%8D%E7%A9%B9%E3%80%81%E6%B5%B7%E4%BC%8A%E3%80%81Zeno%20-%20D%21slodge.lrc) |
+| [苍穹、海伊、erazedfx - 六条御息所.lrc](res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E8%8B%8D%E7%A9%B9%E3%80%81%E6%B5%B7%E4%BC%8A%E3%80%81erazedfx%20-%20%E5%85%AD%E6%9D%A1%E5%BE%A1%E6%81%AF%E6%89%80.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E8%8B%8D%E7%A9%B9%E3%80%81%E6%B5%B7%E4%BC%8A%E3%80%81erazedfx%20-%20%E5%85%AD%E6%9D%A1%E5%BE%A1%E6%81%AF%E6%89%80.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 天马行空Fairytale
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (9 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [星尘、Kide - ArroganT.lrc](res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E6%98%9F%E5%B0%98%E3%80%81Kide%20-%20ArroganT.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E6%98%9F%E5%B0%98%E3%80%81Kide%20-%20ArroganT.lrc) |
+| [星尘、Melo - 为新生振翅而上.lrc](res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E6%98%9F%E5%B0%98%E3%80%81Melo%20-%20%E4%B8%BA%E6%96%B0%E7%94%9F%E6%8C%AF%E7%BF%85%E8%80%8C%E4%B8%8A.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E6%98%9F%E5%B0%98%E3%80%81Melo%20-%20%E4%B8%BA%E6%96%B0%E7%94%9F%E6%8C%AF%E7%BF%85%E8%80%8C%E4%B8%8A.lrc) |
+| [星尘、泓 - 小魔女的占卜屋.lrc](res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E6%98%9F%E5%B0%98%E3%80%81%E6%B3%93%20-%20%E5%B0%8F%E9%AD%94%E5%A5%B3%E7%9A%84%E5%8D%A0%E5%8D%9C%E5%B1%8B.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E6%98%9F%E5%B0%98%E3%80%81%E6%B3%93%20-%20%E5%B0%8F%E9%AD%94%E5%A5%B3%E7%9A%84%E5%8D%A0%E5%8D%9C%E5%B1%8B.lrc) |
+| [星尘、赤羽、诗岸、Hoskey - Misty Party.lrc](res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E6%98%9F%E5%B0%98%E3%80%81%E8%B5%A4%E7%BE%BD%E3%80%81%E8%AF%97%E5%B2%B8%E3%80%81Hoskey%20-%20Misty%20Party.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E6%98%9F%E5%B0%98%E3%80%81%E8%B5%A4%E7%BE%BD%E3%80%81%E8%AF%97%E5%B2%B8%E3%80%81Hoskey%20-%20Misty%20Party.lrc) |
+| [诗岸、小野道 - 寓言预见遇见你的那刻.lrc](res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E8%AF%97%E5%B2%B8%E3%80%81%E5%B0%8F%E9%87%8E%E9%81%93%20-%20%E5%AF%93%E8%A8%80%E9%A2%84%E8%A7%81%E9%81%87%E8%A7%81%E4%BD%A0%E7%9A%84%E9%82%A3%E5%88%BB.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E8%AF%97%E5%B2%B8%E3%80%81%E5%B0%8F%E9%87%8E%E9%81%93%20-%20%E5%AF%93%E8%A8%80%E9%A2%84%E8%A7%81%E9%81%87%E8%A7%81%E4%BD%A0%E7%9A%84%E9%82%A3%E5%88%BB.lrc) |
+| [诗岸、星辉P - 森林之子.lrc](res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E8%AF%97%E5%B2%B8%E3%80%81%E6%98%9F%E8%BE%89P%20-%20%E6%A3%AE%E6%9E%97%E4%B9%8B%E5%AD%90.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E8%AF%97%E5%B2%B8%E3%80%81%E6%98%9F%E8%BE%89P%20-%20%E6%A3%AE%E6%9E%97%E4%B9%8B%E5%AD%90.lrc) |
+| [赤羽、Kide - 404 Not Found.lrc](res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E8%B5%A4%E7%BE%BD%E3%80%81Kide%20-%20404%20Not%20Found.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E8%B5%A4%E7%BE%BD%E3%80%81Kide%20-%20404%20Not%20Found.lrc) |
+| [赤羽、Zeno - 翡夜Racing Game.lrc](res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E8%B5%A4%E7%BE%BD%E3%80%81Zeno%20-%20%E7%BF%A1%E5%A4%9CRacing%20Game.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E8%B5%A4%E7%BE%BD%E3%80%81Zeno%20-%20%E7%BF%A1%E5%A4%9CRacing%20Game.lrc) |
+| [赤羽、战场原妖精 - 菲尼克斯的羽翼.lrc](res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E8%B5%A4%E7%BE%BD%E3%80%81%E6%88%98%E5%9C%BA%E5%8E%9F%E5%A6%96%E7%B2%BE%20-%20%E8%8F%B2%E5%B0%BC%E5%85%8B%E6%96%AF%E7%9A%84%E7%BE%BD%E7%BF%BC.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale/%E8%B5%A4%E7%BE%BD%E3%80%81%E6%88%98%E5%9C%BA%E5%8E%9F%E5%A6%96%E7%B2%BE%20-%20%E8%8F%B2%E5%B0%BC%E5%85%8B%E6%96%AF%E7%9A%84%E7%BE%BD%E7%BF%BC.lrc) |
 
 </details>
 
@@ -316,6 +369,31 @@
 | [07. Talking to the Rain - 星尘 & 海伊.lrc](res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/07.%20Talking%20to%20the%20Rain%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/07.%20Talking%20to%20the%20Rain%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A.lrc) |
 | [08. 尘埃 - 星尘.lrc](res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/08.%20%E5%B0%98%E5%9F%83%20-%20%E6%98%9F%E5%B0%98.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/08.%20%E5%B0%98%E5%9F%83%20-%20%E6%98%9F%E5%B0%98.lrc) |
 | [09. 斑驳 - 星尘 & 海伊 & 赤羽.lrc](res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/09.%20%E6%96%91%E9%A9%B3%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/09.%20%E6%96%91%E9%A9%B3%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 海纳百川Storybook
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (9 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [星尘、Kide - 零和Zero-sun.lrc](res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%98%9F%E5%B0%98%E3%80%81Kide%20-%20%E9%9B%B6%E5%92%8CZero-sun.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%98%9F%E5%B0%98%E3%80%81Kide%20-%20%E9%9B%B6%E5%92%8CZero-sun.lrc) |
+| [星尘、海伊、papaw泡泡 - 一剪人间客.lrc](res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%98%9F%E5%B0%98%E3%80%81%E6%B5%B7%E4%BC%8A%E3%80%81papaw%E6%B3%A1%E6%B3%A1%20-%20%E4%B8%80%E5%89%AA%E4%BA%BA%E9%97%B4%E5%AE%A2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%98%9F%E5%B0%98%E3%80%81%E6%B5%B7%E4%BC%8A%E3%80%81papaw%E6%B3%A1%E6%B3%A1%20-%20%E4%B8%80%E5%89%AA%E4%BA%BA%E9%97%B4%E5%AE%A2.lrc) |
+| [星尘、海伊、诗岸、Evaliaa - 蜜药.lrc](res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%98%9F%E5%B0%98%E3%80%81%E6%B5%B7%E4%BC%8A%E3%80%81%E8%AF%97%E5%B2%B8%E3%80%81Evaliaa%20-%20%E8%9C%9C%E8%8D%AF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%98%9F%E5%B0%98%E3%80%81%E6%B5%B7%E4%BC%8A%E3%80%81%E8%AF%97%E5%B2%B8%E3%80%81Evaliaa%20-%20%E8%9C%9C%E8%8D%AF.lrc) |
+| [星尘、诗岸、星辉P - 墨恋仙.lrc](res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%98%9F%E5%B0%98%E3%80%81%E8%AF%97%E5%B2%B8%E3%80%81%E6%98%9F%E8%BE%89P%20-%20%E5%A2%A8%E6%81%8B%E4%BB%99.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%98%9F%E5%B0%98%E3%80%81%E8%AF%97%E5%B2%B8%E3%80%81%E6%98%9F%E8%BE%89P%20-%20%E5%A2%A8%E6%81%8B%E4%BB%99.lrc) |
+| [海伊、公兔 - 海底.lrc](res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%B5%B7%E4%BC%8A%E3%80%81%E5%85%AC%E5%85%94%20-%20%E6%B5%B7%E5%BA%95.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%B5%B7%E4%BC%8A%E3%80%81%E5%85%AC%E5%85%94%20-%20%E6%B5%B7%E5%BA%95.lrc) |
+| [海伊、磁带君 - Stranded Siren - 搁浅的塞壬.lrc](res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%B5%B7%E4%BC%8A%E3%80%81%E7%A3%81%E5%B8%A6%E5%90%9B%20-%20Stranded%20Siren%20-%20%E6%90%81%E6%B5%85%E7%9A%84%E5%A1%9E%E5%A3%AC.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%B5%B7%E4%BC%8A%E3%80%81%E7%A3%81%E5%B8%A6%E5%90%9B%20-%20Stranded%20Siren%20-%20%E6%90%81%E6%B5%85%E7%9A%84%E5%A1%9E%E5%A3%AC.lrc) |
+| [海伊、诗岸、MeLo - 百里芭蕉百里花.lrc](res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%B5%B7%E4%BC%8A%E3%80%81%E8%AF%97%E5%B2%B8%E3%80%81MeLo%20-%20%E7%99%BE%E9%87%8C%E8%8A%AD%E8%95%89%E7%99%BE%E9%87%8C%E8%8A%B1.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%B5%B7%E4%BC%8A%E3%80%81%E8%AF%97%E5%B2%B8%E3%80%81MeLo%20-%20%E7%99%BE%E9%87%8C%E8%8A%AD%E8%95%89%E7%99%BE%E9%87%8C%E8%8A%B1.lrc) |
+| [诗岸、PoKeR - cola palapa.lrc](res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E8%AF%97%E5%B2%B8%E3%80%81PoKeR%20-%20cola%20palapa.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E8%AF%97%E5%B2%B8%E3%80%81PoKeR%20-%20cola%20palapa.lrc) |
+| [诗岸、Zeno - 最后的守护.lrc](res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E8%AF%97%E5%B2%B8%E3%80%81Zeno%20-%20%E6%9C%80%E5%90%8E%E7%9A%84%E5%AE%88%E6%8A%A4.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E8%AF%97%E5%B2%B8%E3%80%81Zeno%20-%20%E6%9C%80%E5%90%8E%E7%9A%84%E5%AE%88%E6%8A%A4.lrc) |
 
 </details>
 
