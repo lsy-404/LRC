@@ -5,17 +5,17 @@
 ## 收录专辑
 
 <!-- ALBUM_LIST_START -->
-- [Freesia](res/Freesia)
-- [丛林法则Jungle Rules](res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules)
-- [加冕日CORONATION DAY](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY)
-- [平行四界LIVE TOUR OFFICIAL ALBUM](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CLIVE%20TOUR%20OFFICIAL%20ALBUM)
-- [平行四界Quadimension X-1](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1)
-- [平行四界Quadimension X-2](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2)
-- [平行四界Quadimension X-3](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3)
-- [平行四界REBIRTH](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH)
-- [星愿StarWish](res/%E6%98%9F%E6%84%BFStarWish)
-- [森罗万象Kaleido](res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido)
-- [繁星于雨云之上](res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A)
+- [Freesia](https://github.com/wuyilingwei/LRC#freesia)
+- [丛林法则Jungle Rules](https://github.com/wuyilingwei/LRC#%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99jungle-rules)
+- [加冕日CORONATION DAY](https://github.com/wuyilingwei/LRC#%E5%8A%A0%E5%86%95%E6%97%A5coronation-day)
+- [平行四界LIVE TOUR OFFICIAL ALBUM](https://github.com/wuyilingwei/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Clive-tour-official-album)
+- [平行四界Quadimension X-1](https://github.com/wuyilingwei/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Cquadimension-x-1)
+- [平行四界Quadimension X-2](https://github.com/wuyilingwei/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Cquadimension-x-2)
+- [平行四界Quadimension X-3](https://github.com/wuyilingwei/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Cquadimension-x-3)
+- [平行四界REBIRTH](https://github.com/wuyilingwei/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Crebirth)
+- [星愿StarWish](https://github.com/wuyilingwei/LRC#%E6%98%9F%E6%84%BFstarwish)
+- [森罗万象Kaleido](https://github.com/wuyilingwei/LRC#%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1kaleido)
+- [繁星于雨云之上](https://github.com/wuyilingwei/LRC#%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A)
 <!-- ALBUM_LIST_END -->
 
 ## 注意事项
