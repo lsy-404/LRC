@@ -62,7 +62,7 @@
 ## 完整目录
 ---
 <!-- CATALOG_START -->
-<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Freesia/cover.webp" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/Freesia/cover.webp" alt="专辑封面" width="120" align="right">
 
 ### Freesia
 
@@ -90,7 +90,7 @@
 
 ---
 
-<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 丛林法则Jungle Rules
 
@@ -115,7 +115,7 @@
 
 ---
 
-<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 加冕日CORONATION DAY
 
@@ -144,7 +144,7 @@
 
 ---
 
-<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CLIVE%20TOUR%20OFFICIAL%20ALBUM/cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CLIVE%20TOUR%20OFFICIAL%20ALBUM/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 平行四界LIVE TOUR OFFICIAL ALBUM
 
@@ -174,7 +174,7 @@
 
 ---
 
-<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 平行四界Quadimension X-1
 
@@ -199,7 +199,7 @@
 
 ---
 
-<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 平行四界Quadimension X-2
 
@@ -224,7 +224,7 @@
 
 ---
 
-<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 平行四界Quadimension X-3
 
@@ -249,7 +249,7 @@
 
 ---
 
-<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 平行四界REBIRTH
 
@@ -273,7 +273,7 @@
 
 ---
 
-<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E6%98%9F%E6%84%BFStarWish/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 星愿StarWish
 
@@ -297,7 +297,7 @@
 
 ---
 
-<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 森罗万象Kaleido
 
@@ -321,7 +321,7 @@
 
 ---
 
-<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 繁星于雨云之上
 
