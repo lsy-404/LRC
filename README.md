@@ -8,6 +8,7 @@
 - [Freesia](https://github.com/wuyilingwei/LRC#freesia)
 - [丛林法则Jungle Rules](https://github.com/wuyilingwei/LRC#%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99jungle-rules)
 - [加冕日CORONATION DAY](https://github.com/wuyilingwei/LRC#%E5%8A%A0%E5%86%95%E6%97%A5coronation-day)
+- [吉光片羽Queendom](https://github.com/wuyilingwei/LRC#%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDqueendom)
 - [天方夜谭Fairyland](https://github.com/wuyilingwei/LRC#%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADfairyland)
 - [天马行空Fairytale](https://github.com/wuyilingwei/LRC#%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAfairytale)
 - [平行四界LIVE TOUR OFFICIAL ALBUM](https://github.com/wuyilingwei/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Clive-tour-official-album)
@@ -142,6 +143,31 @@
 | [妖刀出鞘 - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E5%A6%96%E5%88%80%E5%87%BA%E9%9E%98%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E5%A6%96%E5%88%80%E5%87%BA%E9%9E%98%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) |
 | [永眠 (Ballade ver.) - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E6%B0%B8%E7%9C%A0%20%28Ballade%20ver.%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E6%B0%B8%E7%9C%A0%20%28Ballade%20ver.%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) |
 | [解体诸因 - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E8%A7%A3%E4%BD%93%E8%AF%B8%E5%9B%A0%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E8%A7%A3%E4%BD%93%E8%AF%B8%E5%9B%A0%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 吉光片羽Queendom
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (9 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [星尘、苍穹、赤羽、Evalia - 不夜国.lrc](res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E6%98%9F%E5%B0%98%E3%80%81%E8%8B%8D%E7%A9%B9%E3%80%81%E8%B5%A4%E7%BE%BD%E3%80%81Evalia%20-%20%E4%B8%8D%E5%A4%9C%E5%9B%BD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E6%98%9F%E5%B0%98%E3%80%81%E8%8B%8D%E7%A9%B9%E3%80%81%E8%B5%A4%E7%BE%BD%E3%80%81Evalia%20-%20%E4%B8%8D%E5%A4%9C%E5%9B%BD.lrc) |
+| [星尘、苍穹、赤羽、Melo - 优雅的罪恶之源.lrc](res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E6%98%9F%E5%B0%98%E3%80%81%E8%8B%8D%E7%A9%B9%E3%80%81%E8%B5%A4%E7%BE%BD%E3%80%81Melo%20-%20%E4%BC%98%E9%9B%85%E7%9A%84%E7%BD%AA%E6%81%B6%E4%B9%8B%E6%BA%90.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E6%98%9F%E5%B0%98%E3%80%81%E8%8B%8D%E7%A9%B9%E3%80%81%E8%B5%A4%E7%BE%BD%E3%80%81Melo%20-%20%E4%BC%98%E9%9B%85%E7%9A%84%E7%BD%AA%E6%81%B6%E4%B9%8B%E6%BA%90.lrc) |
+| [苍穹、JUSF周存 - 第七颗恒星自毁.lrc](res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E8%8B%8D%E7%A9%B9%E3%80%81JUSF%E5%91%A8%E5%AD%98%20-%20%E7%AC%AC%E4%B8%83%E9%A2%97%E6%81%92%E6%98%9F%E8%87%AA%E6%AF%81.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E8%8B%8D%E7%A9%B9%E3%80%81JUSF%E5%91%A8%E5%AD%98%20-%20%E7%AC%AC%E4%B8%83%E9%A2%97%E6%81%92%E6%98%9F%E8%87%AA%E6%AF%81.lrc) |
+| [苍穹、Kide - 苍穹.lrc](res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E8%8B%8D%E7%A9%B9%E3%80%81Kide%20-%20%E8%8B%8D%E7%A9%B9.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E8%8B%8D%E7%A9%B9%E3%80%81Kide%20-%20%E8%8B%8D%E7%A9%B9.lrc) |
+| [苍穹、papaw泡泡 - 少年诗.lrc](res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E8%8B%8D%E7%A9%B9%E3%80%81papaw%E6%B3%A1%E6%B3%A1%20-%20%E5%B0%91%E5%B9%B4%E8%AF%97.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E8%8B%8D%E7%A9%B9%E3%80%81papaw%E6%B3%A1%E6%B3%A1%20-%20%E5%B0%91%E5%B9%B4%E8%AF%97.lrc) |
+| [苍穹、磁带君 - Suspended Sepro - 希望悬空.lrc](res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E8%8B%8D%E7%A9%B9%E3%80%81%E7%A3%81%E5%B8%A6%E5%90%9B%20-%20Suspended%20Sepro%20-%20%E5%B8%8C%E6%9C%9B%E6%82%AC%E7%A9%BA.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E8%8B%8D%E7%A9%B9%E3%80%81%E7%A3%81%E5%B8%A6%E5%90%9B%20-%20Suspended%20Sepro%20-%20%E5%B8%8C%E6%9C%9B%E6%82%AC%E7%A9%BA.lrc) |
+| [苍穹、赤羽、味素 - Dancing like a wind.lrc](res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E8%8B%8D%E7%A9%B9%E3%80%81%E8%B5%A4%E7%BE%BD%E3%80%81%E5%91%B3%E7%B4%A0%20-%20Dancing%20like%20a%20wind.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E8%8B%8D%E7%A9%B9%E3%80%81%E8%B5%A4%E7%BE%BD%E3%80%81%E5%91%B3%E7%B4%A0%20-%20Dancing%20like%20a%20wind.lrc) |
+| [赤羽、Zeno - 沙舟.lrc](res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E8%B5%A4%E7%BE%BD%E3%80%81Zeno%20-%20%E6%B2%99%E8%88%9F.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E8%B5%A4%E7%BE%BD%E3%80%81Zeno%20-%20%E6%B2%99%E8%88%9F.lrc) |
+| [赤羽、胧 - Mandala.lrc](res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E8%B5%A4%E7%BE%BD%E3%80%81%E8%83%A7%20-%20Mandala.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/%E8%B5%A4%E7%BE%BD%E3%80%81%E8%83%A7%20-%20Mandala.lrc) |
 
 </details>
 
