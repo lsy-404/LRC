@@ -2,6 +2,14 @@
 
 这是五维介质官方/第三方专辑的 LRC 歌词文件储存与共享仓库。
 
+所有 LRC 文件版权归原作者或版权所有方所有，请勿用于商业用途。
+
+## 下载方式
+
+- **下载所有内容**：[点击这里](https://github.com/wuyilingwei/Medium5-LRC/archive/refs/heads/main.zip) 下载完整仓库
+- **下载单个专辑**：在下方目录中找到对应专辑，点击 📦 下载专辑歌词包
+- **下载单首歌曲**：展开专辑详细曲目，点击歌曲旁的 📥 下载按钮
+
 ## 收录专辑
 
 <!-- ALBUM_LIST_START -->
@@ -24,16 +32,6 @@
 - [生息Leave in Breath](https://github.com/wuyilingwei/LRC#%E7%94%9F%E6%81%AFleave-in-breath)
 - [繁星于雨云之上](https://github.com/wuyilingwei/LRC#%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A)
 <!-- ALBUM_LIST_END -->
-
-## 注意事项
-
-**版权声明**：所有 LRC 文件版权归原作者或版权所有方所有，请勿用于商业用途。
-
-### 下载方式
-
-- **下载所有内容**：[点击这里](https://github.com/wuyilingwei/Medium5-LRC/archive/refs/heads/main.zip) 下载完整仓库
-- **下载单个专辑**：在下方目录中找到对应专辑，点击 📦 下载专辑歌词包
-- **下载单首歌曲**：展开专辑详细曲目，点击歌曲旁的 📥 下载按钮
 
 ## 贡献指南
 
