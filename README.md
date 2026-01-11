@@ -10,6 +10,7 @@
 - [丛林法则Jungle Rules](res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules)
 - [五维介质REBIRTH](res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH)
 - [加冕日 CORONATION DAY](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY)
+- [平行四界Quadimension X-3](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3)
 - [星愿StarWish](res/%E6%98%9F%E6%84%BFStarWish)
 - [森罗万象Kaleido](res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido)
 - [繁星于雨云之上](res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A)
@@ -178,6 +179,29 @@
 - [妖刀出鞘 - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/%E5%A6%96%E5%88%80%E5%87%BA%E9%9E%98%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/%E5%A6%96%E5%88%80%E5%87%BA%E9%9E%98%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
 - [永眠 (Ballade ver.) - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/%E6%B0%B8%E7%9C%A0%20%28Ballade%20ver.%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/%E6%B0%B8%E7%9C%A0%20%28Ballade%20ver.%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
 - [解体诸因 - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/%E8%A7%A3%E4%BD%93%E8%AF%B8%E5%9B%A0%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/%E8%A7%A3%E4%BD%93%E8%AF%B8%E5%9B%A0%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
+
+</details>
+
+---
+
+<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 平行四界Quadimension X-3
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (9 首)</summary>
+
+- [01. 东之阙.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/01.%20%E4%B8%9C%E4%B9%8B%E9%98%99.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/01.%20%E4%B8%9C%E4%B9%8B%E9%98%99.lrc)
+- [02. 下个夏天的烟火.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/02.%20%E4%B8%8B%E4%B8%AA%E5%A4%8F%E5%A4%A9%E7%9A%84%E7%83%9F%E7%81%AB.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/02.%20%E4%B8%8B%E4%B8%AA%E5%A4%8F%E5%A4%A9%E7%9A%84%E7%83%9F%E7%81%AB.lrc)
+- [03. 爆燃Deflagration.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/03.%20%E7%88%86%E7%87%83Deflagration.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/03.%20%E7%88%86%E7%87%83Deflagration.lrc)
+- [04. 苦若吞沙.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/04.%20%E8%8B%A6%E8%8B%A5%E5%90%9E%E6%B2%99.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/04.%20%E8%8B%A6%E8%8B%A5%E5%90%9E%E6%B2%99.lrc)
+- [05. 烈阳.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/05.%20%E7%83%88%E9%98%B3.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/05.%20%E7%83%88%E9%98%B3.lrc)
+- [06. 深红.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/06.%20%E6%B7%B1%E7%BA%A2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/06.%20%E6%B7%B1%E7%BA%A2.lrc)
+- [07. 红颜侠客.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/07.%20%E7%BA%A2%E9%A2%9C%E4%BE%A0%E5%AE%A2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/07.%20%E7%BA%A2%E9%A2%9C%E4%BE%A0%E5%AE%A2.lrc)
+- [08. 远溯.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/08.%20%E8%BF%9C%E6%BA%AF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/08.%20%E8%BF%9C%E6%BA%AF.lrc)
+- [09. 最终祈愿.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/09.%20%E6%9C%80%E7%BB%88%E7%A5%88%E6%84%BF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/09.%20%E6%9C%80%E7%BB%88%E7%A5%88%E6%84%BF.lrc)
 
 </details>
 
