@@ -119,8 +119,8 @@ def main():
         if cover_file:
             cover_path = f"{RES_DIR}/{album_name}/{cover_file}"
             encoded_cover = urllib.parse.quote(cover_path)
-            cdn_cover_url = f"https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/{encoded_cover}"
-            catalog_content.append(f'<img src="{cdn_cover_url}" alt="专辑封面" width="120" align="right">\n\n')
+            raw_cover_url = f"https://raw.githubusercontent.com/wuyilingwei/LRC/main/{encoded_cover}"
+            catalog_content.append(f'<img src="{raw_cover_url}" alt="专辑封面" width="120" align="right">\n\n')
         
         # Add to Catalog with download buttons
         catalog_content.append(f"### {album_name}\n\n")
