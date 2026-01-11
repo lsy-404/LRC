@@ -19,6 +19,7 @@
 - [星愿StarWish](https://github.com/wuyilingwei/LRC#%E6%98%9F%E6%84%BFstarwish)
 - [森罗万象Kaleido](https://github.com/wuyilingwei/LRC#%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1kaleido)
 - [海纳百川Storybook](https://github.com/wuyilingwei/LRC#%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9Dstorybook)
+- [生息Leave in Breath](https://github.com/wuyilingwei/LRC#%E7%94%9F%E6%81%AFleave-in-breath)
 - [繁星于雨云之上](https://github.com/wuyilingwei/LRC#%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A)
 <!-- ALBUM_LIST_END -->
 
@@ -420,6 +421,31 @@
 | [海伊、诗岸、MeLo - 百里芭蕉百里花.lrc](res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%B5%B7%E4%BC%8A%E3%80%81%E8%AF%97%E5%B2%B8%E3%80%81MeLo%20-%20%E7%99%BE%E9%87%8C%E8%8A%AD%E8%95%89%E7%99%BE%E9%87%8C%E8%8A%B1.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%B5%B7%E4%BC%8A%E3%80%81%E8%AF%97%E5%B2%B8%E3%80%81MeLo%20-%20%E7%99%BE%E9%87%8C%E8%8A%AD%E8%95%89%E7%99%BE%E9%87%8C%E8%8A%B1.lrc) |
 | [诗岸、PoKeR - cola palapa.lrc](res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E8%AF%97%E5%B2%B8%E3%80%81PoKeR%20-%20cola%20palapa.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E8%AF%97%E5%B2%B8%E3%80%81PoKeR%20-%20cola%20palapa.lrc) |
 | [诗岸、Zeno - 最后的守护.lrc](res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E8%AF%97%E5%B2%B8%E3%80%81Zeno%20-%20%E6%9C%80%E5%90%8E%E7%9A%84%E5%AE%88%E6%8A%A4.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E8%AF%97%E5%B2%B8%E3%80%81Zeno%20-%20%E6%9C%80%E5%90%8E%E7%9A%84%E5%AE%88%E6%8A%A4.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 生息Leave in Breath
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%94%9F%E6%81%AFLeave%20in%20Breath.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (9 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [1 关于海的一切.lrc](res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/1%20%E5%85%B3%E4%BA%8E%E6%B5%B7%E7%9A%84%E4%B8%80%E5%88%87.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/1%20%E5%85%B3%E4%BA%8E%E6%B5%B7%E7%9A%84%E4%B8%80%E5%88%87.lrc) |
+| [2 Live in Breaths.lrc](res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/2%20Live%20in%20Breaths.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/2%20Live%20in%20Breaths.lrc) |
+| [3 蓝色幻想——仿生·觉醒.lrc](res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/3%20%E8%93%9D%E8%89%B2%E5%B9%BB%E6%83%B3%E2%80%94%E2%80%94%E4%BB%BF%E7%94%9F%C2%B7%E8%A7%89%E9%86%92.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/3%20%E8%93%9D%E8%89%B2%E5%B9%BB%E6%83%B3%E2%80%94%E2%80%94%E4%BB%BF%E7%94%9F%C2%B7%E8%A7%89%E9%86%92.lrc) |
+| [4 Breathe you in me.lrc](res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/4%20Breathe%20you%20in%20me.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/4%20Breathe%20you%20in%20me.lrc) |
+| [5 海魅.lrc](res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/5%20%E6%B5%B7%E9%AD%85.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/5%20%E6%B5%B7%E9%AD%85.lrc) |
+| [6 沉溺.lrc](res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/6%20%E6%B2%89%E6%BA%BA.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/6%20%E6%B2%89%E6%BA%BA.lrc) |
+| [7 As a Moment(remake).lrc](res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/7%20As%20a%20Moment%28remake%29.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/7%20As%20a%20Moment%28remake%29.lrc) |
+| [8 群星赠予的舞台.lrc](res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/8%20%E7%BE%A4%E6%98%9F%E8%B5%A0%E4%BA%88%E7%9A%84%E8%88%9E%E5%8F%B0.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/8%20%E7%BE%A4%E6%98%9F%E8%B5%A0%E4%BA%88%E7%9A%84%E8%88%9E%E5%8F%B0.lrc) |
+| [9 依存分离.lrc](res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/9%20%E4%BE%9D%E5%AD%98%E5%88%86%E7%A6%BB.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/9%20%E4%BE%9D%E5%AD%98%E5%88%86%E7%A6%BB.lrc) |
 
 </details>
 
