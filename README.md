@@ -60,6 +60,8 @@
 ## 完整目录
 
 <!-- CATALOG_START -->
+<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/FVOCALOID%E2%84%A24%E6%98%9F%E5%B0%98%20%E5%85%A8%E6%81%AF%E6%BC%94%E5%94%B1%E4%BC%9A%E4%B8%93%E8%BE%91%E3%80%8E%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CLIVE%20TOUR%20OFFICIAL%20ALBUM%E3%80%8F/cover.jpg" alt="专辑封面" width="120" align="right">
+
 ### FVOCALOID™4星尘 全息演唱会专辑『平行四界LIVE TOUR OFFICIAL ALBUM』
 
 **📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/FVOCALOID%E2%84%A24%E6%98%9F%E5%B0%98%20%E5%85%A8%E6%81%AF%E6%BC%94%E5%94%B1%E4%BC%9A%E4%B8%93%E8%BE%91%E3%80%8E%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CLIVE%20TOUR%20OFFICIAL%20ALBUM%E3%80%8F.zip)**
