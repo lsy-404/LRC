@@ -9,6 +9,18 @@ RES_DIR = 'res'
 PACK_DIR = 'pack'
 COVER_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp'}
 
+def github_slug(text):
+    """Generate a GitHub-like anchor slug from a heading text.
+    Keeps ASCII letters/numbers and CJK, lowercases, replaces whitespace with hyphens,
+    removes other punctuation, collapses hyphens.
+    """
+    s = text.strip().lower()
+    s = re.sub(r"\s+", "-", s)
+    s = re.sub(r"[^a-z0-9\-\u4e00-\u9fff]", "", s)
+    s = re.sub(r"-{2,}", "-", s)
+    s = s.strip('-')
+    return s
+
 def find_cover_image(dir_path):
     """Find cover image in the album directory"""
     for file in os.listdir(dir_path):
@@ -92,17 +104,17 @@ def main():
     for idx, album_name in enumerate(dirs):
         dir_path = os.path.join(res_dir_path, album_name)
         
-        # Add to Album List
-        encoded_album_path = urllib.parse.quote(f"{RES_DIR}/{album_name}")
-        album_list_content.append(f"- [{album_name}]({encoded_album_path})")
+        # Add to Album List (use GitHub anchors for README headings)
+        anchor = github_slug(album_name)
+        album_list_content.append(f"- [{album_name}](https://github.com/wuyilingwei/LRC#{urllib.parse.quote(anchor)})")
 
         # Add horizontal line between albums (not before first one)
         if idx > 0:
             catalog_content.append("---\n\n")
-        
+
         # Find cover image first
         cover_file = find_cover_image(dir_path)
-        
+
         # Add cover image if exists (before title)
         if cover_file:
             cover_path = f"{RES_DIR}/{album_name}/{cover_file}"

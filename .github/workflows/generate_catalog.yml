@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'res/**'
+      - '.github/**'
   workflow_dispatch:
 
 jobs:
@@ -177,6 +178,20 @@ jobs:
                 fi
               fi
             done
+          fi
+
+          # Clean up orphan zip files in pack/ that no longer have corresponding album directories
+          echo "Cleaning orphan zip files in pack/..."
+          if compgen -G "pack/*.zip" > /dev/null; then
+            for zip in pack/*.zip; do
+              album_name=$(basename "$zip" .zip)
+              if [ ! -d "res/$album_name" ]; then
+                rm "$zip"
+                echo "Removed obsolete $zip (no matching res/$album_name)"
+              fi
+            done
+          else
+            echo "No zip files found in pack/ to clean."
           fi
 
       - name: Run Tag and SEO Optimization
