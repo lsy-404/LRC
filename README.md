@@ -8,9 +8,9 @@
 - [FVOCALOID™4星尘 全息演唱会专辑『平行四界LIVE TOUR OFFICIAL ALBUM』](res/FVOCALOID%E2%84%A24%E6%98%9F%E5%B0%98%20%E5%85%A8%E6%81%AF%E6%BC%94%E5%94%B1%E4%BC%9A%E4%B8%93%E8%BE%91%E3%80%8E%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CLIVE%20TOUR%20OFFICIAL%20ALBUM%E3%80%8F)
 - [Freesia](res/Freesia)
 - [丛林法则Jungle Rules](res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules)
-- [五维介质REBIRTH](res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH)
-- [加冕日 CORONATION DAY](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY)
+- [加冕日CORONATION DAY](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY)
 - [平行四界Quadimension X-3](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3)
+- [平行四界REBIRTH](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH)
 - [星愿StarWish](res/%E6%98%9F%E6%84%BFStarWish)
 - [森罗万象Kaleido](res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido)
 - [繁星于雨云之上](res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A)
@@ -137,50 +137,28 @@
 
 ---
 
-<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/cover.jpg" alt="专辑封面" width="120" align="right">
 
-### 五维介质REBIRTH
+### 加冕日CORONATION DAY
 
-**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH.zip)**
-
-<details>
-<summary>📝 查看详细曲目 (8 首)</summary>
-
-- [01.箱庭剧目.lrc](res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/01.%E7%AE%B1%E5%BA%AD%E5%89%A7%E7%9B%AE.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/01.%E7%AE%B1%E5%BA%AD%E5%89%A7%E7%9B%AE.lrc)
-- [02.发条鸟即兴曲.lrc](res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/02.%E5%8F%91%E6%9D%A1%E9%B8%9F%E5%8D%B3%E5%85%B4%E6%9B%B2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/02.%E5%8F%91%E6%9D%A1%E9%B8%9F%E5%8D%B3%E5%85%B4%E6%9B%B2.lrc)
-- [03.错误的.lrc](res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/03.%E9%94%99%E8%AF%AF%E7%9A%84.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/03.%E9%94%99%E8%AF%AF%E7%9A%84.lrc)
-- [04.假花没有枯萎的权利.lrc](res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/04.%E5%81%87%E8%8A%B1%E6%B2%A1%E6%9C%89%E6%9E%AF%E8%90%8E%E7%9A%84%E6%9D%83%E5%88%A9.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/04.%E5%81%87%E8%8A%B1%E6%B2%A1%E6%9C%89%E6%9E%AF%E8%90%8E%E7%9A%84%E6%9D%83%E5%88%A9.lrc)
-- [05.念.lrc](res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/05.%E5%BF%B5.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/05.%E5%BF%B5.lrc)
-- [06.夏日激奏.lrc](res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/06.%E5%A4%8F%E6%97%A5%E6%BF%80%E5%A5%8F.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/06.%E5%A4%8F%E6%97%A5%E6%BF%80%E5%A5%8F.lrc)
-- [07.星星的孩子.lrc](res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/07.%E6%98%9F%E6%98%9F%E7%9A%84%E5%AD%A9%E5%AD%90.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/07.%E6%98%9F%E6%98%9F%E7%9A%84%E5%AD%A9%E5%AD%90.lrc)
-- [08.whispering snowflakes.lrc](res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/08.whispering%20snowflakes.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%94%E7%BB%B4%E4%BB%8B%E8%B4%A8REBIRTH/08.whispering%20snowflakes.lrc)
-
-</details>
-
----
-
-<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/cover.jpg" alt="专辑封面" width="120" align="right">
-
-### 加冕日 CORONATION DAY
-
-**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY.zip)**
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY.zip)**
 
 <details>
 <summary>📝 查看详细曲目 (13 首)</summary>
 
-- [-WIRED- - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/-WIRED-%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/-WIRED-%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [COCOON - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/COCOON%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/COCOON%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [Downfall=Reunion - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/Downfall%3DReunion%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/Downfall%3DReunion%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [Echo of null - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/Echo%20of%20null%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/Echo%20of%20null%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [I, Non-believer, God Builder - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/I%2C%20Non-believer%2C%20God%20Builder%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/I%2C%20Non-believer%2C%20God%20Builder%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [PROTOCOL 7 (feat.亢毛毛) - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/PROTOCOL%207%20%28feat.%E4%BA%A2%E6%AF%9B%E6%AF%9B%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/PROTOCOL%207%20%28feat.%E4%BA%A2%E6%AF%9B%E6%AF%9B%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [UTTER - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/UTTER%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/UTTER%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [iota - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/iota%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/iota%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [余容 - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/%E4%BD%99%E5%AE%B9%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/%E4%BD%99%E5%AE%B9%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [坏想 - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/%E5%9D%8F%E6%83%B3%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/%E5%9D%8F%E6%83%B3%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [妖刀出鞘 - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/%E5%A6%96%E5%88%80%E5%87%BA%E9%9E%98%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/%E5%A6%96%E5%88%80%E5%87%BA%E9%9E%98%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [永眠 (Ballade ver.) - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/%E6%B0%B8%E7%9C%A0%20%28Ballade%20ver.%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/%E6%B0%B8%E7%9C%A0%20%28Ballade%20ver.%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [解体诸因 - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/%E8%A7%A3%E4%BD%93%E8%AF%B8%E5%9B%A0%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5%20CORONATION%20DAY/%E8%A7%A3%E4%BD%93%E8%AF%B8%E5%9B%A0%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
+- [-WIRED- - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/-WIRED-%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/-WIRED-%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
+- [COCOON - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/COCOON%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/COCOON%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
+- [Downfall=Reunion - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/Downfall%3DReunion%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/Downfall%3DReunion%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
+- [Echo of null - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/Echo%20of%20null%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/Echo%20of%20null%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
+- [I, Non-believer, God Builder - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/I%2C%20Non-believer%2C%20God%20Builder%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/I%2C%20Non-believer%2C%20God%20Builder%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
+- [PROTOCOL 7 (feat.亢毛毛) - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/PROTOCOL%207%20%28feat.%E4%BA%A2%E6%AF%9B%E6%AF%9B%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/PROTOCOL%207%20%28feat.%E4%BA%A2%E6%AF%9B%E6%AF%9B%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
+- [UTTER - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/UTTER%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/UTTER%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
+- [iota - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/iota%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/iota%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
+- [余容 - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E4%BD%99%E5%AE%B9%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E4%BD%99%E5%AE%B9%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
+- [坏想 - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E5%9D%8F%E6%83%B3%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E5%9D%8F%E6%83%B3%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
+- [妖刀出鞘 - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E5%A6%96%E5%88%80%E5%87%BA%E9%9E%98%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E5%A6%96%E5%88%80%E5%87%BA%E9%9E%98%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
+- [永眠 (Ballade ver.) - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E6%B0%B8%E7%9C%A0%20%28Ballade%20ver.%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E6%B0%B8%E7%9C%A0%20%28Ballade%20ver.%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
+- [解体诸因 - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E8%A7%A3%E4%BD%93%E8%AF%B8%E5%9B%A0%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E8%A7%A3%E4%BD%93%E8%AF%B8%E5%9B%A0%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
 
 </details>
 
@@ -204,6 +182,28 @@
 - [07. 红颜侠客.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/07.%20%E7%BA%A2%E9%A2%9C%E4%BE%A0%E5%AE%A2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/07.%20%E7%BA%A2%E9%A2%9C%E4%BE%A0%E5%AE%A2.lrc)
 - [08. 远溯.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/08.%20%E8%BF%9C%E6%BA%AF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/08.%20%E8%BF%9C%E6%BA%AF.lrc)
 - [09. 最终祈愿.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/09.%20%E6%9C%80%E7%BB%88%E7%A5%88%E6%84%BF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3/09.%20%E6%9C%80%E7%BB%88%E7%A5%88%E6%84%BF.lrc)
+
+</details>
+
+---
+
+<img src="https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 平行四界REBIRTH
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (8 首)</summary>
+
+- [01.箱庭剧目.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/01.%E7%AE%B1%E5%BA%AD%E5%89%A7%E7%9B%AE.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/01.%E7%AE%B1%E5%BA%AD%E5%89%A7%E7%9B%AE.lrc)
+- [02.发条鸟即兴曲.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/02.%E5%8F%91%E6%9D%A1%E9%B8%9F%E5%8D%B3%E5%85%B4%E6%9B%B2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/02.%E5%8F%91%E6%9D%A1%E9%B8%9F%E5%8D%B3%E5%85%B4%E6%9B%B2.lrc)
+- [03.错误的.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/03.%E9%94%99%E8%AF%AF%E7%9A%84.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/03.%E9%94%99%E8%AF%AF%E7%9A%84.lrc)
+- [04.假花没有枯萎的权利.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/04.%E5%81%87%E8%8A%B1%E6%B2%A1%E6%9C%89%E6%9E%AF%E8%90%8E%E7%9A%84%E6%9D%83%E5%88%A9.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/04.%E5%81%87%E8%8A%B1%E6%B2%A1%E6%9C%89%E6%9E%AF%E8%90%8E%E7%9A%84%E6%9D%83%E5%88%A9.lrc)
+- [05.念.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/05.%E5%BF%B5.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/05.%E5%BF%B5.lrc)
+- [06.夏日激奏.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/06.%E5%A4%8F%E6%97%A5%E6%BF%80%E5%A5%8F.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/06.%E5%A4%8F%E6%97%A5%E6%BF%80%E5%A5%8F.lrc)
+- [07.星星的孩子.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/07.%E6%98%9F%E6%98%9F%E7%9A%84%E5%AD%A9%E5%AD%90.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/07.%E6%98%9F%E6%98%9F%E7%9A%84%E5%AD%A9%E5%AD%90.lrc)
+- [08.whispering snowflakes.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/08.whispering%20snowflakes.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/08.whispering%20snowflakes.lrc)
 
 </details>
 
