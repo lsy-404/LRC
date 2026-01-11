@@ -16,6 +16,7 @@
 - [平行四界Quadimension X-2](https://github.com/wuyilingwei/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Cquadimension-x-2)
 - [平行四界Quadimension X-3](https://github.com/wuyilingwei/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Cquadimension-x-3)
 - [平行四界REBIRTH](https://github.com/wuyilingwei/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Crebirth)
+- [星之海StarOcean](https://github.com/wuyilingwei/LRC#%E6%98%9F%E4%B9%8B%E6%B5%B7starocean)
 - [星愿StarWish](https://github.com/wuyilingwei/LRC#%E6%98%9F%E6%84%BFstarwish)
 - [森罗万象Kaleido](https://github.com/wuyilingwei/LRC#%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1kaleido)
 - [海纳百川Storybook](https://github.com/wuyilingwei/LRC#%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9Dstorybook)
@@ -348,6 +349,32 @@
 | [06.夏日激奏.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/06.%E5%A4%8F%E6%97%A5%E6%BF%80%E5%A5%8F.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/06.%E5%A4%8F%E6%97%A5%E6%BF%80%E5%A5%8F.lrc) |
 | [07.星星的孩子.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/07.%E6%98%9F%E6%98%9F%E7%9A%84%E5%AD%A9%E5%AD%90.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/07.%E6%98%9F%E6%98%9F%E7%9A%84%E5%AD%A9%E5%AD%90.lrc) |
 | [08.whispering snowflakes.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/08.whispering%20snowflakes.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH/08.whispering%20snowflakes.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 星之海StarOcean
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (10 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [01 Awakening.lrc](res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/01%20Awakening.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/01%20Awakening.lrc) |
+| [02 STOP.lrc](res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/02%20STOP.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/02%20STOP.lrc) |
+| [03 网一尾好梦.lrc](res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/03%20%E7%BD%91%E4%B8%80%E5%B0%BE%E5%A5%BD%E6%A2%A6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/03%20%E7%BD%91%E4%B8%80%E5%B0%BE%E5%A5%BD%E6%A2%A6.lrc) |
+| [04 涟漪 星海Ver.lrc](res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/04%20%E6%B6%9F%E6%BC%AA%20%E6%98%9F%E6%B5%B7Ver.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/04%20%E6%B6%9F%E6%BC%AA%20%E6%98%9F%E6%B5%B7Ver.lrc) |
+| [05 浅滩.lrc](res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/05%20%E6%B5%85%E6%BB%A9.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/05%20%E6%B5%85%E6%BB%A9.lrc) |
+| [06 记忆残片.lrc](res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/06%20%E8%AE%B0%E5%BF%86%E6%AE%8B%E7%89%87.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/06%20%E8%AE%B0%E5%BF%86%E6%AE%8B%E7%89%87.lrc) |
+| [07 拂晓.lrc](res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/07%20%E6%8B%82%E6%99%93.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/07%20%E6%8B%82%E6%99%93.lrc) |
+| [08 绮云泽.lrc](res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/08%20%E7%BB%AE%E4%BA%91%E6%B3%BD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/08%20%E7%BB%AE%E4%BA%91%E6%B3%BD.lrc) |
+| [09 Journey.lrc](res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/09%20Journey.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/09%20Journey.lrc) |
+| [10 浅滩 星海Ver.lrc](res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/10%20%E6%B5%85%E6%BB%A9%20%E6%98%9F%E6%B5%B7Ver.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean/10%20%E6%B5%85%E6%BB%A9%20%E6%98%9F%E6%B5%B7Ver.lrc) |
 
 </details>
 
