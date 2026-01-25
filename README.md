@@ -29,9 +29,11 @@
 - [星之海StarOcean](https://github.com/wuyilingwei/LRC#%E6%98%9F%E4%B9%8B%E6%B5%B7starocean)
 - [星愿StarWish](https://github.com/wuyilingwei/LRC#%E6%98%9F%E6%84%BFstarwish)
 - [森罗万象Kaleido](https://github.com/wuyilingwei/LRC#%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1kaleido)
+- [流星空间站](https://github.com/wuyilingwei/LRC#%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99)
 - [海纳百川Storybook](https://github.com/wuyilingwei/LRC#%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9Dstorybook)
 - [生息Leave in Breath](https://github.com/wuyilingwei/LRC#%E7%94%9F%E6%81%AFleave-in-breath)
 - [繁星于雨云之上](https://github.com/wuyilingwei/LRC#%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A)
+- [藏雪SnowGrave](https://github.com/wuyilingwei/LRC#%E8%97%8F%E9%9B%AAsnowgrave)
 <!-- ALBUM_LIST_END -->
 
 ## 贡献指南
@@ -476,6 +478,31 @@
 
 ---
 
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 流星空间站
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (9 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [10 浅尝恋之星途.lrc](res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/10%20%E6%B5%85%E5%B0%9D%E6%81%8B%E4%B9%8B%E6%98%9F%E9%80%94.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/10%20%E6%B5%85%E5%B0%9D%E6%81%8B%E4%B9%8B%E6%98%9F%E9%80%94.lrc) |
+| [11 我放走了那天的流星.lrc](res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/11%20%E6%88%91%E6%94%BE%E8%B5%B0%E4%BA%86%E9%82%A3%E5%A4%A9%E7%9A%84%E6%B5%81%E6%98%9F.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/11%20%E6%88%91%E6%94%BE%E8%B5%B0%E4%BA%86%E9%82%A3%E5%A4%A9%E7%9A%84%E6%B5%81%E6%98%9F.lrc) |
+| [12 长沙三分雨.lrc](res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/12%20%E9%95%BF%E6%B2%99%E4%B8%89%E5%88%86%E9%9B%A8.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/12%20%E9%95%BF%E6%B2%99%E4%B8%89%E5%88%86%E9%9B%A8.lrc) |
+| [2 去月球.lrc](res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/2%20%E5%8E%BB%E6%9C%88%E7%90%83.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/2%20%E5%8E%BB%E6%9C%88%E7%90%83.lrc) |
+| [3 李宇晴.lrc](res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/3%20%E6%9D%8E%E5%AE%87%E6%99%B4.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/3%20%E6%9D%8E%E5%AE%87%E6%99%B4.lrc) |
+| [4 木星 木星.lrc](res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/4%20%E6%9C%A8%E6%98%9F%20%E6%9C%A8%E6%98%9F.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/4%20%E6%9C%A8%E6%98%9F%20%E6%9C%A8%E6%98%9F.lrc) |
+| [6 幻得孤地无目的.lrc](res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/6%20%E5%B9%BB%E5%BE%97%E5%AD%A4%E5%9C%B0%E6%97%A0%E7%9B%AE%E7%9A%84.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/6%20%E5%B9%BB%E5%BE%97%E5%AD%A4%E5%9C%B0%E6%97%A0%E7%9B%AE%E7%9A%84.lrc) |
+| [7 邮寄星光.lrc](res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/7%20%E9%82%AE%E5%AF%84%E6%98%9F%E5%85%89.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/7%20%E9%82%AE%E5%AF%84%E6%98%9F%E5%85%89.lrc) |
+| [8 混合烦恼100%.lrc](res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/8%20%E6%B7%B7%E5%90%88%E7%83%A6%E6%81%BC100%25.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/8%20%E6%B7%B7%E5%90%88%E7%83%A6%E6%81%BC100%25.lrc) |
+
+</details>
+
+---
+
 <img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 海纳百川Storybook
@@ -544,6 +571,27 @@
 | [5 呼唤利维坦的大山.lrc](res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/5%20%E5%91%BC%E5%94%A4%E5%88%A9%E7%BB%B4%E5%9D%A6%E7%9A%84%E5%A4%A7%E5%B1%B1.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/5%20%E5%91%BC%E5%94%A4%E5%88%A9%E7%BB%B4%E5%9D%A6%E7%9A%84%E5%A4%A7%E5%B1%B1.lrc) |
 | [6 老人与海，少年与路.lrc](res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/6%20%E8%80%81%E4%BA%BA%E4%B8%8E%E6%B5%B7%EF%BC%8C%E5%B0%91%E5%B9%B4%E4%B8%8E%E8%B7%AF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/6%20%E8%80%81%E4%BA%BA%E4%B8%8E%E6%B5%B7%EF%BC%8C%E5%B0%91%E5%B9%B4%E4%B8%8E%E8%B7%AF.lrc) |
 | [7 亵渎.lrc](res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/7%20%E4%BA%B5%E6%B8%8E.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/7%20%E4%BA%B5%E6%B8%8E.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E8%97%8F%E9%9B%AASnowGrave/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 藏雪SnowGrave
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E8%97%8F%E9%9B%AASnowGrave.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (5 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [01 - Lovely Song.lrc](res/%E8%97%8F%E9%9B%AASnowGrave/01%20-%20Lovely%20Song.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/01%20-%20Lovely%20Song.lrc) |
+| [02 - In White.lrc](res/%E8%97%8F%E9%9B%AASnowGrave/02%20-%20In%20White.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/02%20-%20In%20White.lrc) |
+| [03 - 爱意痉挛.lrc](res/%E8%97%8F%E9%9B%AASnowGrave/03%20-%20%E7%88%B1%E6%84%8F%E7%97%89%E6%8C%9B.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/03%20-%20%E7%88%B1%E6%84%8F%E7%97%89%E6%8C%9B.lrc) |
+| [04 - 潮息.lrc](res/%E8%97%8F%E9%9B%AASnowGrave/04%20-%20%E6%BD%AE%E6%81%AF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/04%20-%20%E6%BD%AE%E6%81%AF.lrc) |
+| [05 - 不孤单的自由夜晚.lrc](res/%E8%97%8F%E9%9B%AASnowGrave/05%20-%20%E4%B8%8D%E5%AD%A4%E5%8D%95%E7%9A%84%E8%87%AA%E7%94%B1%E5%A4%9C%E6%99%9A.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/05%20-%20%E4%B8%8D%E5%AD%A4%E5%8D%95%E7%9A%84%E8%87%AA%E7%94%B1%E5%A4%9C%E6%99%9A.lrc) |
 
 </details>
 
