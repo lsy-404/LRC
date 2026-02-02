@@ -13,6 +13,7 @@
 ## 收录专辑
 
 <!-- ALBUM_LIST_START -->
+- [ELOHIM](https://github.com/wuyilingwei/LRC#elohim)
 - [Freesia](https://github.com/wuyilingwei/LRC#freesia)
 - [Lunar Dusk](https://github.com/wuyilingwei/LRC#lunar-dusk)
 - [丛林法则Jungle Rules](https://github.com/wuyilingwei/LRC#%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99jungle-rules)
@@ -32,6 +33,8 @@
 - [流星空间站](https://github.com/wuyilingwei/LRC#%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99)
 - [海纳百川Storybook](https://github.com/wuyilingwei/LRC#%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9Dstorybook)
 - [生息Leave in Breath](https://github.com/wuyilingwei/LRC#%E7%94%9F%E6%81%AFleave-in-breath)
+- [秘宝旅人I](https://github.com/wuyilingwei/LRC#%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAi)
+- [秘宝旅人II](https://github.com/wuyilingwei/LRC#%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAii)
 - [繁星于雨云之上](https://github.com/wuyilingwei/LRC#%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A)
 - [藏雪SnowGrave](https://github.com/wuyilingwei/LRC#%E8%97%8F%E9%9B%AAsnowgrave)
 <!-- ALBUM_LIST_END -->
@@ -70,6 +73,27 @@
 ## 完整目录
 ---
 <!-- CATALOG_START -->
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/ELOHIM/Cover.jpg" alt="专辑封面" width="120" align="right">
+
+### ELOHIM
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/ELOHIM.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (5 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [01 Ephemeris.lrc](res/ELOHIM/01%20Ephemeris.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/01%20Ephemeris.lrc) |
+| [02 Lacrima.lrc](res/ELOHIM/02%20Lacrima.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/02%20Lacrima.lrc) |
+| [03 Ordinatio.lrc](res/ELOHIM/03%20Ordinatio.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/03%20Ordinatio.lrc) |
+| [04 Holophrasis.lrc](res/ELOHIM/04%20Holophrasis.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/04%20Holophrasis.lrc) |
+| [05 I'm.lrc](res/ELOHIM/05%20I%27m.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/05%20I%27m.lrc) |
+
+</details>
+
+---
+
 <img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/Freesia/cover.webp" alt="专辑封面" width="120" align="right">
 
 ### Freesia
@@ -548,6 +572,55 @@
 | [7 As a Moment(remake).lrc](res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/7%20As%20a%20Moment%28remake%29.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/7%20As%20a%20Moment%28remake%29.lrc) |
 | [8 群星赠予的舞台.lrc](res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/8%20%E7%BE%A4%E6%98%9F%E8%B5%A0%E4%BA%88%E7%9A%84%E8%88%9E%E5%8F%B0.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/8%20%E7%BE%A4%E6%98%9F%E8%B5%A0%E4%BA%88%E7%9A%84%E8%88%9E%E5%8F%B0.lrc) |
 | [9 依存分离.lrc](res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/9%20%E4%BE%9D%E5%AD%98%E5%88%86%E7%A6%BB.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/9%20%E4%BE%9D%E5%AD%98%E5%88%86%E7%A6%BB.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/Cover.png" alt="专辑封面" width="120" align="right">
+
+### 秘宝旅人I
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (10 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [1 风沙下的遗物.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/1%20%E9%A3%8E%E6%B2%99%E4%B8%8B%E7%9A%84%E9%81%97%E7%89%A9.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/1%20%E9%A3%8E%E6%B2%99%E4%B8%8B%E7%9A%84%E9%81%97%E7%89%A9.lrc) |
+| [10 贤者之书.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/10%20%E8%B4%A4%E8%80%85%E4%B9%8B%E4%B9%A6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/10%20%E8%B4%A4%E8%80%85%E4%B9%8B%E4%B9%A6.lrc) |
+| [2 月光下的魔女商铺.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/2%20%E6%9C%88%E5%85%89%E4%B8%8B%E7%9A%84%E9%AD%94%E5%A5%B3%E5%95%86%E9%93%BA.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/2%20%E6%9C%88%E5%85%89%E4%B8%8B%E7%9A%84%E9%AD%94%E5%A5%B3%E5%95%86%E9%93%BA.lrc) |
+| [3 蛇蛊.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/3%20%E8%9B%87%E8%9B%8A.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/3%20%E8%9B%87%E8%9B%8A.lrc) |
+| [4 世界终了物语.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/4%20%E4%B8%96%E7%95%8C%E7%BB%88%E4%BA%86%E7%89%A9%E8%AF%AD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/4%20%E4%B8%96%E7%95%8C%E7%BB%88%E4%BA%86%E7%89%A9%E8%AF%AD.lrc) |
+| [5 梦幻休止符.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/5%20%E6%A2%A6%E5%B9%BB%E4%BC%91%E6%AD%A2%E7%AC%A6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/5%20%E6%A2%A6%E5%B9%BB%E4%BC%91%E6%AD%A2%E7%AC%A6.lrc) |
+| [6 无我心咒.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/6%20%E6%97%A0%E6%88%91%E5%BF%83%E5%92%92.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/6%20%E6%97%A0%E6%88%91%E5%BF%83%E5%92%92.lrc) |
+| [7 吃掉我的心脏.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/7%20%E5%90%83%E6%8E%89%E6%88%91%E7%9A%84%E5%BF%83%E8%84%8F.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/7%20%E5%90%83%E6%8E%89%E6%88%91%E7%9A%84%E5%BF%83%E8%84%8F.lrc) |
+| [8 与你的旅行.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/8%20%E4%B8%8E%E4%BD%A0%E7%9A%84%E6%97%85%E8%A1%8C.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/8%20%E4%B8%8E%E4%BD%A0%E7%9A%84%E6%97%85%E8%A1%8C.lrc) |
+| [9 无形火.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/9%20%E6%97%A0%E5%BD%A2%E7%81%AB.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/9%20%E6%97%A0%E5%BD%A2%E7%81%AB.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/Cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 秘宝旅人II
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (7 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [1 Polymorphism.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/1%20Polymorphism.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/1%20Polymorphism.lrc) |
+| [2 Osmosis.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/2%20Osmosis.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/2%20Osmosis.lrc) |
+| [3 Lateralisation.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/3%20Lateralisation.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/3%20Lateralisation.lrc) |
+| [4 Allelopathy.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/4%20Allelopathy.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/4%20Allelopathy.lrc) |
+| [5 Rumination.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/5%20Rumination.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/5%20Rumination.lrc) |
+| [6 Imprinting.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/6%20Imprinting.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/6%20Imprinting.lrc) |
+| [7 Syrinx.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/7%20Syrinx.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/7%20Syrinx.lrc) |
 
 </details>
 
