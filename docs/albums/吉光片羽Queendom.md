@@ -3,15 +3,17 @@ title: 吉光片羽Queendom
 category:
   - 吉光片羽Queendom
 tag:
-  - 星尘、苍穹、赤羽
   - 吉光片羽Queendom
+  - 吉光
 ---
 
 # 吉光片羽Queendom
 
 <img src="/albums/吉光片羽Queendom.jpg" alt="吉光片羽Queendom 封面" style="max-width: 40%; height: auto;" />
 
-**Artist:** 星尘、苍穹、赤羽
+**发行年份:** 2023
+
+**演唱:** 吉光
 
 **歌曲数量:** 9 首
 

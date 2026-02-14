@@ -3,15 +3,17 @@ title: ELOHIM
 category:
   - ELOHIM
 tag:
-  - 言和
   - ELOHIM
+  - 言和
 ---
 
 # ELOHIM
 
 <img src="/albums/ELOHIM.jpg" alt="ELOHIM 封面" style="max-width: 40%; height: auto;" />
 
-**Artist:** 言和
+**发行年份:** 2023
+
+**演唱:** 言和
 
 **歌曲数量:** 5 首
 

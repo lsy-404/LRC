@@ -3,7 +3,6 @@ title: 平行四界LIVE TOUR OFFICIAL ALBUM
 category:
   - 平行四界LIVE TOUR OFFICIAL ALBUM
 tag:
-  - 星尘
   - 平行四界LIVE TOUR OFFICIAL ALBUM
 ---
 
@@ -11,7 +10,7 @@ tag:
 
 <img src="/albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界LIVE TOUR OFFICIAL ALBUM 封面" style="max-width: 40%; height: auto;" />
 
-**Artist:** 星尘
+**发行年份:** 2023
 
 **歌曲数量:** 14 首
 

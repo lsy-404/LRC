@@ -10,7 +10,7 @@ tag:
 
 <img src="/albums/平行四界Quadimension_X-2.jpg" alt="平行四界Quadimension X-2 封面" style="max-width: 40%; height: auto;" />
 
-**Artist:** Unknown
+**发行年份:** 2023
 
 **歌曲数量:** 9 首
 

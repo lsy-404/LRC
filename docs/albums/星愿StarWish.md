@@ -3,7 +3,6 @@ title: 星愿StarWish
 category:
   - 星愿StarWish
 tag:
-  - 星尘
   - 星愿StarWish
 ---
 
@@ -11,7 +10,7 @@ tag:
 
 <img src="/albums/星愿StarWish.jpg" alt="星愿StarWish 封面" style="max-width: 40%; height: auto;" />
 
-**Artist:** 星尘
+**发行年份:** 2023
 
 **歌曲数量:** 8 首
 

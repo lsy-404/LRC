@@ -3,7 +3,6 @@ title: 生息Leave in Breath
 category:
   - 生息Leave in Breath
 tag:
-  - 海伊
   - 生息Leave in Breath
 ---
 
@@ -11,7 +10,7 @@ tag:
 
 <img src="/albums/生息Leave_in_Breath.jpg" alt="生息Leave in Breath 封面" style="max-width: 40%; height: auto;" />
 
-**Artist:** 海伊
+**发行年份:** 2023
 
 **歌曲数量:** 9 首
 

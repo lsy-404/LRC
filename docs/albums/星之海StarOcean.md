@@ -3,7 +3,6 @@ title: 星之海StarOcean
 category:
   - 星之海StarOcean
 tag:
-  - 星尘 海伊
   - 星之海StarOcean
 ---
 
@@ -11,7 +10,7 @@ tag:
 
 <img src="/albums/星之海StarOcean.jpg" alt="星之海StarOcean 封面" style="max-width: 40%; height: auto;" />
 
-**Artist:** 星尘 海伊
+**发行年份:** 2023
 
 **歌曲数量:** 10 首
 

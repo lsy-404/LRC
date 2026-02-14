@@ -5,7 +5,7 @@ export default navbar([
   {
     text: "关于本站",
     icon: "line-md:plus-square-filled",
-    link: "/about/",
+    link: "/about",
   },
   /**{
     text: "文章",

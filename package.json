@@ -19,6 +19,8 @@
     "vuepress-theme-hope": "2.0.0-rc.71"
   },
   "dependencies": {
+    "chardet": "^2.1.1",
+    "iconv-lite": "^0.7.2",
     "markdown-it": "^14.1.0",
     "vue-scriptx": "^0.2.7",
     "vuepress-plugin-alert": "0.0.5"

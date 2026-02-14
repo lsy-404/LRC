@@ -3,15 +3,29 @@ title: 丛林法则Jungle Rules
 category:
   - 丛林法则Jungle Rules
 tag:
-  - 星尘
   - 丛林法则Jungle Rules
+  - 五维介质Official
+  - 苍穹", "Melo
+  - 苍穹
+  - Melo
+  - N/A
 ---
 
 # 丛林法则Jungle Rules
 
 <img src="/albums/丛林法则Jungle_Rules.jpg" alt="丛林法则Jungle Rules 封面" style="max-width: 40%; height: auto;" />
 
-**Artist:** 星尘
+**发行年份:** 2024
+
+**出品:** 五维介质Official
+
+**演唱:** 苍穹", "Melo
+
+**作词:** 苍穹
+
+**作曲:** Melo
+
+**调校:** N/A
 
 **歌曲数量:** 9 首
 

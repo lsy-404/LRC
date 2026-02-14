@@ -3,7 +3,6 @@ title: 藏雪SnowGrave
 category:
   - 藏雪SnowGrave
 tag:
-  - 北极圈Arcticlab
   - 藏雪SnowGrave
 ---
 
@@ -11,7 +10,7 @@ tag:
 
 <img src="/albums/藏雪SnowGrave.jpg" alt="藏雪SnowGrave 封面" style="max-width: 40%; height: auto;" />
 
-**Artist:** 北极圈Arcticlab
+**发行年份:** 2023
 
 **歌曲数量:** 5 首
 

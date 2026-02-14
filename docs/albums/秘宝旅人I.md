@@ -3,7 +3,6 @@ title: 秘宝旅人I
 category:
   - 秘宝旅人I
 tag:
-  - 苍穹.feat 星尘/海伊/诗岸
   - 秘宝旅人I
 ---
 
@@ -11,7 +10,7 @@ tag:
 
 <img src="/albums/秘宝旅人I.png" alt="秘宝旅人I 封面" style="max-width: 40%; height: auto;" />
 
-**Artist:** 苍穹.feat 星尘/海伊/诗岸
+**发行年份:** 2023
 
 **歌曲数量:** 10 首
 

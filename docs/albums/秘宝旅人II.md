@@ -3,7 +3,6 @@ title: 秘宝旅人II
 category:
   - 秘宝旅人II
 tag:
-  - Minus
   - 秘宝旅人II
 ---
 
@@ -11,7 +10,7 @@ tag:
 
 <img src="/albums/秘宝旅人II.jpg" alt="秘宝旅人II 封面" style="max-width: 40%; height: auto;" />
 
-**Artist:** Minus
+**发行年份:** 2023
 
 **歌曲数量:** 7 首
 

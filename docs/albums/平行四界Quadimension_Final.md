@@ -3,7 +3,6 @@ title: 平行四界Quadimension Final
 category:
   - 平行四界Quadimension Final
 tag:
-  - 海伊 赤羽
   - 平行四界Quadimension Final
 ---
 
@@ -11,7 +10,7 @@ tag:
 
 <img src="/albums/平行四界Quadimension_Final.png" alt="平行四界Quadimension Final 封面" style="max-width: 40%; height: auto;" />
 
-**Artist:** 海伊 赤羽
+**发行年份:** 2023
 
 **歌曲数量:** 9 首
 

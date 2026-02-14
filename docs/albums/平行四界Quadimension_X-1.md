@@ -3,7 +3,6 @@ title: 平行四界Quadimension X-1
 category:
   - 平行四界Quadimension X-1
 tag:
-  - 胧
   - 平行四界Quadimension X-1
 ---
 
@@ -11,7 +10,7 @@ tag:
 
 <img src="/albums/平行四界Quadimension_X-1.jpg" alt="平行四界Quadimension X-1 封面" style="max-width: 40%; height: auto;" />
 
-**Artist:** 胧
+**发行年份:** 2023
 
 **歌曲数量:** 9 首
 

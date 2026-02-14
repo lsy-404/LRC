@@ -3,7 +3,6 @@ title: 海纳百川Storybook
 category:
   - 海纳百川Storybook
 tag:
-  - 星尘
   - 海纳百川Storybook
 ---
 
@@ -11,7 +10,7 @@ tag:
 
 <img src="/albums/海纳百川Storybook.jpg" alt="海纳百川Storybook 封面" style="max-width: 40%; height: auto;" />
 
-**Artist:** 星尘
+**发行年份:** 2023
 
 **歌曲数量:** 9 首
 

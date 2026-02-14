@@ -3,7 +3,6 @@ title: 天马行空Fairytale
 category:
   - 天马行空Fairytale
 tag:
-  - 星尘
   - 天马行空Fairytale
 ---
 
@@ -11,7 +10,7 @@ tag:
 
 <img src="/albums/天马行空Fairytale.jpg" alt="天马行空Fairytale 封面" style="max-width: 40%; height: auto;" />
 
-**Artist:** 星尘
+**发行年份:** 2023
 
 **歌曲数量:** 9 首
 

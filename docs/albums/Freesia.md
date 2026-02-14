@@ -10,7 +10,7 @@ tag:
 
 <img src="/albums/Freesia.webp" alt="Freesia 封面" style="max-width: 40%; height: auto;" />
 
-**Artist:** Unknown
+**发行年份:** 2024
 
 **歌曲数量:** 12 首
 
