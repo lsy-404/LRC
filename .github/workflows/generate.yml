@@ -199,17 +199,31 @@ jobs:
         run: |
           python .github/scripts/optimize.py
 
+      - name: Setup Node.js
+        if: steps.check_commit.outputs.skip == 'false'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        if: steps.check_commit.outputs.skip == 'false'
+        run: npm install
+
+      - name: Generate MD files
+        if: steps.check_commit.outputs.skip == 'false'
+        run: npm run generate-md
+
       - name: Commit and push changes
         if: steps.check_commit.outputs.skip == 'false'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          # Add only necessary files (exclude changed_albums.txt)
-          git add README.md pack/
+          # Add all generated files
+          git add README.md pack/ docs/
           # Check if there are changes staged
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "chore: optimize tags and update catalog"
+            git commit -m "chore: optimize tags, update catalog and generate pages"
             git push
           fi

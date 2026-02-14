@@ -93,15 +93,4 @@ Download all LRC files for this album: [ZIP](https://cdn.jsdelivr.net/gh/${repo}
   albumList.push(`- [${album}](albums/${album}.md)`);
 });
 
-// Update main README
-const readmePath = path.join(docsDir, 'README.md');
-let readme = fs.readFileSync(readmePath, 'utf-8');
-const albumSection = '## Albums\n\n' + albumList.join('\n');
-if (readme.includes('## Albums')) {
-  readme = readme.replace(/## Albums[\s\S]*/, albumSection);
-} else {
-  readme += '\n\n' + albumSection;
-}
-fs.writeFileSync(readmePath, readme);
-
 console.log('MD files generated successfully.');
