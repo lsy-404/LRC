@@ -3,13 +3,9 @@ import { navbar } from "vuepress-theme-hope";
 export default navbar([
   "/",
   {
-    text: "本站",
+    text: "关于本站",
     icon: "line-md:plus-square-filled",
-    prefix: "/",
-    children: [
-      "about",
-      "statement",
-    ]
+    link: "/about/",
   },
   /**{
     text: "文章",
@@ -22,9 +18,9 @@ export default navbar([
     ]
   },*/
   {
-    text: "API",
+    text: "Github",
     icon: "mynaui:api-solid",
-    link: "api"
+    link: "https://github.com/wuyilingwei/LRC"
   },
   {
     text: "迷迭香的小窝",
