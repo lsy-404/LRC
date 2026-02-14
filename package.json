@@ -1,0 +1,16 @@
+{
+  "name": "lrc-vuepress",
+  "version": "1.0.0",
+  "description": "VuePress site for LRC albums",
+  "scripts": {
+    "build": "vuepress build docs",
+    "dev": "vuepress dev docs",
+    "generate-md": "node .github/scripts/generate-md.js"
+  },
+  "devDependencies": {
+    "vuepress": "next"
+  },
+  "dependencies": {
+    "@vuepress/bundler-vite": "^2.0.0-rc.26"
+  }
+}
