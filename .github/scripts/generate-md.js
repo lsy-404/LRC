@@ -49,17 +49,31 @@ albums.forEach(album => {
   // Copy cover image if exists
   const coverExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
   let coverFile = null;
+  let coverExt = '';
   for (const ext of coverExtensions) {
     const potentialCover = path.join(albumPath, `cover${ext}`);
     if (fs.existsSync(potentialCover)) {
       coverFile = `cover${ext}`;
+      coverExt = ext;
       break;
     }
   }
   if (coverFile) {
     const srcCover = path.join(albumPath, coverFile);
-    const destCover = path.join(albumsDir, `${album}.jpg`); // Always save as .jpg for simplicity
+    const destCover = path.join(albumsDir, `${album}${coverExt}`);
     fs.copyFileSync(srcCover, destCover);
+  }
+
+  // Check if cover exists in docs (any supported extension)
+  let hasCover = false;
+  let coverDisplayExt = '';
+  for (const ext of coverExtensions) {
+    const potentialCover = path.join(albumsDir, `${album}${ext}`);
+    if (fs.existsSync(potentialCover)) {
+      hasCover = true;
+      coverDisplayExt = ext;
+      break;
+    }
   }
 
   // Generate MD for album
@@ -76,7 +90,7 @@ ${tagList.map(t => `  - ${t}`).join('\n')}
 
 # ${album}
 
-${coverFile ? `![Cover](${album}.jpg)` : ''}
+${hasCover ? `![Cover](${album}${coverDisplayExt})` : ''}
 
 Artist: ${albumArtist || 'Unknown'}
 
