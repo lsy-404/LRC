@@ -28,7 +28,7 @@ export default navbar([
   },
   {
     text: "迷迭香的小窝",
-    icon: "line-md:cloud-alt-download-filled-loop",
+    icon: "material-symbols:book-2",
     link: "https://blog.wuyilingwei.com/"
   }
 ]);

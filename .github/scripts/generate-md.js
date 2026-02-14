@@ -36,6 +36,9 @@ albums.forEach(album => {
   const albumPath = path.join(resDir, album);
   const lrcFiles = fs.readdirSync(albumPath).filter(file => file.endsWith('.lrc'));
 
+  // 将文件名中的空格替换为下划线，避免VuePress路由问题
+  const albumFileName = album.replace(/\s+/g, '_');
+
   const songs = [];
   let albumArtist = '';
   lrcFiles.forEach(file => {
@@ -60,7 +63,7 @@ albums.forEach(album => {
   }
   if (coverFile) {
     const srcCover = path.join(albumPath, coverFile);
-    const destCover = path.join(albumsDir, `${album}${coverExt}`);
+    const destCover = path.join(albumsDir, `${albumFileName}${coverExt}`);
     fs.copyFileSync(srcCover, destCover);
   }
 
@@ -68,7 +71,7 @@ albums.forEach(album => {
   let hasCover = false;
   let coverDisplayExt = '';
   for (const ext of coverExtensions) {
-    const potentialCover = path.join(albumsDir, `${album}${ext}`);
+    const potentialCover = path.join(albumsDir, `${albumFileName}${ext}`);
     if (fs.existsSync(potentialCover)) {
       hasCover = true;
       coverDisplayExt = ext;
@@ -90,7 +93,7 @@ ${tagList.map(t => `  - ${t}`).join('\n')}
 
 # ${album}
 
-${hasCover ? `![Cover](${album}${coverDisplayExt})` : ''}
+${hasCover ? `![Cover](${albumFileName}${coverDisplayExt})` : ''}
 
 Artist: ${albumArtist || 'Unknown'}
 
@@ -103,8 +106,8 @@ ${songs.map(song => `- [${song.title}](https://cdn.jsdelivr.net/gh/${repo}@main/
 Download all LRC files for this album: [ZIP](https://cdn.jsdelivr.net/gh/${repo}@main.zip) (placeholder)
 `;
 
-  fs.writeFileSync(path.join(albumsDir, `${album}.md`), mdContent);
-  albumList.push(`- [${album}](albums/${album}.md)`);
+  fs.writeFileSync(path.join(albumsDir, `${albumFileName}.md`), mdContent);
+  albumList.push(`- [${album}](albums/${albumFileName}.md)`);
 });
 
 console.log('MD files generated successfully.');

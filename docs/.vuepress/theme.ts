@@ -44,6 +44,7 @@ export default hopeTheme({
         collapsible: true,
         children: "structure",
       },
+      "about",
     ],
   },
 
