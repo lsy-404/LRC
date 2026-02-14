@@ -10,14 +10,16 @@
     "upgrade": "pnpm dlx vp-update"
   },
   "devDependencies": {
+    "@vuepress/bundler-vite": "2.0.0-rc.19",
+    "@vuepress/plugin-search": "2.0.0-rc.74",
+    "@vuepress/plugin-slimsearch": "2.0.0-rc.74",
     "vue": "^3.5.13",
-    "vuepress": "2.0.0-rc.26",
-    "vuepress-theme-hope": "2.0.0-rc.102"
+    "vuepress": "2.0.0-rc.19",
+    "vuepress-theme-hope": "2.0.0-rc.71"
   },
   "dependencies": {
-    "@vuepress/bundler-vite": "^2.0.0-rc.26",
-    "pnpm": "^10.29.3",
-    "vue": "^3.5.13",
-    "vuepress": "2.0.0-rc.26"
+    "markdown-it": "^14.1.0",
+    "vue-scriptx": "^0.2.7",
+    "vuepress-plugin-alert": "0.0.5"
   }
 }
