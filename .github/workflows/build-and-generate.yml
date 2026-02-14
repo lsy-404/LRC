@@ -1,4 +1,4 @@
-name: Build and Generate MD
+name: Generate MD
 
 on:
   push:
@@ -11,17 +11,19 @@ on:
       - 'package.json'
 
 jobs:
-  build:
+  generate:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '20'
 
     - name: Install dependencies
       run: npm install
@@ -29,11 +31,10 @@ jobs:
     - name: Generate MD files
       run: npm run generate-md
 
-    - name: Build VuePress
-      run: npm run build
-
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/.vuepress/dist
+    - name: Commit changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add docs/
+        git diff --quiet && git diff --staged --quiet || git commit -m "Update generated MD files"
+        git push
