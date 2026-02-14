@@ -15,6 +15,7 @@
 <!-- ALBUM_LIST_START -->
 - [ELOHIM](https://github.com/wuyilingwei/LRC#elohim)
 - [Freesia](https://github.com/wuyilingwei/LRC#freesia)
+- [Iris](https://github.com/wuyilingwei/LRC#iris)
 - [Starlit Whisper](https://github.com/wuyilingwei/LRC#starlit-whisper)
 - [丛林法则Jungle Rules](https://github.com/wuyilingwei/LRC#%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99jungle-rules)
 - [加冕日CORONATION DAY](https://github.com/wuyilingwei/LRC#%E5%8A%A0%E5%86%95%E6%97%A5coronation-day)
@@ -117,6 +118,29 @@
 | [10 心的葬礼.lrc](res/Freesia/10%20%E5%BF%83%E7%9A%84%E8%91%AC%E7%A4%BC.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Freesia/10%20%E5%BF%83%E7%9A%84%E8%91%AC%E7%A4%BC.lrc) |
 | [11 神明废墟.lrc](res/Freesia/11%20%E7%A5%9E%E6%98%8E%E5%BA%9F%E5%A2%9F.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Freesia/11%20%E7%A5%9E%E6%98%8E%E5%BA%9F%E5%A2%9F.lrc) |
 | [12 Freesia.lrc](res/Freesia/12%20Freesia.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Freesia/12%20Freesia.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/Iris/cover.png" alt="专辑封面" width="120" align="right">
+
+### Iris
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Iris.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (7 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [01.song of iris.lrc](res/Iris/01.song%20of%20iris.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/01.song%20of%20iris.lrc) |
+| [02.月神之呓.lrc](res/Iris/02.%E6%9C%88%E7%A5%9E%E4%B9%8B%E5%91%93.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/02.%E6%9C%88%E7%A5%9E%E4%B9%8B%E5%91%93.lrc) |
+| [03.永生之酒.lrc](res/Iris/03.%E6%B0%B8%E7%94%9F%E4%B9%8B%E9%85%92.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/03.%E6%B0%B8%E7%94%9F%E4%B9%8B%E9%85%92.lrc) |
+| [04.魔女之愿.lrc](res/Iris/04.%E9%AD%94%E5%A5%B3%E4%B9%8B%E6%84%BF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/04.%E9%AD%94%E5%A5%B3%E4%B9%8B%E6%84%BF.lrc) |
+| [05.魔女之宴.lrc](res/Iris/05.%E9%AD%94%E5%A5%B3%E4%B9%8B%E5%AE%B4.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/05.%E9%AD%94%E5%A5%B3%E4%B9%8B%E5%AE%B4.lrc) |
+| [06.诗人之茧.lrc](res/Iris/06.%E8%AF%97%E4%BA%BA%E4%B9%8B%E8%8C%A7.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/06.%E8%AF%97%E4%BA%BA%E4%B9%8B%E8%8C%A7.lrc) |
+| [Iris.lrc](res/Iris/Iris.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/Iris.lrc) |
 
 </details>
 
