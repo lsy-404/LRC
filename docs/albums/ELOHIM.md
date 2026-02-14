@@ -11,7 +11,7 @@ tag:
 
 <img src="/albums/ELOHIM.jpg" alt="ELOHIM 封面" style="max-width: 40%; height: auto;" />
 
-**发行年份:** 2023
+**发行年份:** 
 
 **演唱:** 言和
 

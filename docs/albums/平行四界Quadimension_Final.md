@@ -10,7 +10,7 @@ tag:
 
 <img src="/albums/平行四界Quadimension_Final.png" alt="平行四界Quadimension Final 封面" style="max-width: 40%; height: auto;" />
 
-**发行年份:** 2023
+**发行年份:** 
 
 **歌曲数量:** 9 首
 

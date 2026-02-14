@@ -10,7 +10,7 @@ tag:
 
 <img src="/albums/星愿StarWish.jpg" alt="星愿StarWish 封面" style="max-width: 40%; height: auto;" />
 
-**发行年份:** 2023
+**发行年份:** 
 
 **歌曲数量:** 8 首
 

@@ -5,7 +5,8 @@ category:
 tag:
   - 丛林法则Jungle Rules
   - 五维介质Official
-  - 苍穹", "Melo
+  - 苍穹
+  - Melo
   - 苍穹
   - Melo
   - N/A
@@ -19,7 +20,7 @@ tag:
 
 **出品:** 五维介质Official
 
-**演唱:** 苍穹", "Melo
+**演唱:** 苍穹、Melo
 
 **作词:** 苍穹
 

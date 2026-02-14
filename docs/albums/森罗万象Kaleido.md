@@ -10,7 +10,7 @@ tag:
 
 <img src="/albums/森罗万象Kaleido.jpg" alt="森罗万象Kaleido 封面" style="max-width: 40%; height: auto;" />
 
-**发行年份:** 2023
+**发行年份:** 
 
 **歌曲数量:** 8 首
 

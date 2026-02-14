@@ -69,7 +69,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [丛林法则Jungle Rules](albums/丛林法则Jungle_Rules.md)
 
-年份：2024 | 出品：五维介质Official | 演唱：苍穹", "Melo  
+年份：2024 | 出品：五维介质Official | 演唱：苍穹、Melo  
 **曲目数：** 9 首
 
 [查看详情 →](albums/丛林法则Jungle_Rules.md)

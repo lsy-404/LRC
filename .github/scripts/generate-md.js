@@ -95,7 +95,7 @@ function parseInfoFile(albumPath) {
         if (val.startsWith('[')) {
           const arrayContent = val.slice(1, -1);
           if (!arrayContent.trim()) return [];
-          return arrayContent.split('/,/').map(v => {
+          return arrayContent.split(/\s*,\s*/).map(v => {
             v = v.trim();
             if (v.startsWith('"') && v.endsWith('"')) return v.slice(1, -1);
             if (v.startsWith("'") && v.endsWith("'")) return v.slice(1, -1);
