@@ -9,7 +9,7 @@ tag:
 
 # 天马行空Fairytale
 
-<img src="天马行空Fairytale.jpg" alt="天马行空Fairytale 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/天马行空Fairytale.jpg" alt="天马行空Fairytale 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** 星尘
 

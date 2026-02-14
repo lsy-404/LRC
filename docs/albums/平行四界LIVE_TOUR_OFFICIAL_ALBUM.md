@@ -9,7 +9,7 @@ tag:
 
 # 平行四界LIVE TOUR OFFICIAL ALBUM
 
-<img src="平行四界LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界LIVE TOUR OFFICIAL ALBUM 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界LIVE TOUR OFFICIAL ALBUM 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** 星尘
 

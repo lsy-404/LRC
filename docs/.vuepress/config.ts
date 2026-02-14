@@ -1,7 +1,6 @@
 import { defineUserConfig } from "vuepress";
 import theme from "./theme";
 import { viteBundler } from '@vuepress/bundler-vite';
-import { slimsearchPlugin } from '@vuepress/plugin-slimsearch'
 
 export default defineUserConfig({
   lang: "zh-CN",
@@ -33,9 +32,6 @@ export default defineUserConfig({
     ],
   ],
 
-  plugins: [
-    slimsearchPlugin({
-      // 搜索配置 - 用于查找歌曲和专辑
-    }),
-  ],
-},);
+  // 插件配置移至theme.ts中
+  // plugins: [],
+});

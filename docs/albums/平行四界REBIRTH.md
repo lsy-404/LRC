@@ -8,7 +8,7 @@ tag:
 
 # 平行四界REBIRTH
 
-<img src="平行四界REBIRTH.jpg" alt="平行四界REBIRTH 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/平行四界REBIRTH.jpg" alt="平行四界REBIRTH 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** Unknown
 

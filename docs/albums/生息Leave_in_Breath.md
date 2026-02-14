@@ -9,7 +9,7 @@ tag:
 
 # 生息Leave in Breath
 
-<img src="生息Leave_in_Breath.jpg" alt="生息Leave in Breath 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/生息Leave_in_Breath.jpg" alt="生息Leave in Breath 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** 海伊
 

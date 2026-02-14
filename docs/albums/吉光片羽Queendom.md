@@ -9,7 +9,7 @@ tag:
 
 # 吉光片羽Queendom
 
-<img src="吉光片羽Queendom.jpg" alt="吉光片羽Queendom 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/吉光片羽Queendom.jpg" alt="吉光片羽Queendom 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** 星尘、苍穹、赤羽
 

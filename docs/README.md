@@ -16,7 +16,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ## 专辑列表
 
-<img src="albums/ELOHIM.jpg" alt="ELOHIM" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/ELOHIM.jpg" alt="ELOHIM" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [ELOHIM](albums/ELOHIM.md)
 
@@ -29,7 +29,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/Freesia.jpg" alt="Freesia" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/Freesia.webp" alt="Freesia" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [Freesia](albums/Freesia.md)
 
@@ -42,7 +42,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/Iris.jpg" alt="Iris" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/Iris.png" alt="Iris" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [Iris](albums/Iris.md)
 
@@ -55,7 +55,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/Starlit_Whisper.png" alt="Starlit Whisper" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/Starlit_Whisper.png" alt="Starlit Whisper" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [Starlit Whisper](albums/Starlit_Whisper.md)
 
@@ -68,7 +68,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/丛林法则Jungle_Rules.jpg" alt="丛林法则Jungle Rules" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/丛林法则Jungle_Rules.jpg" alt="丛林法则Jungle Rules" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [丛林法则Jungle Rules](albums/丛林法则Jungle_Rules.md)
 
@@ -81,7 +81,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/加冕日CORONATION_DAY.jpg" alt="加冕日CORONATION DAY" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/加冕日CORONATION_DAY.jpg" alt="加冕日CORONATION DAY" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [加冕日CORONATION DAY](albums/加冕日CORONATION_DAY.md)
 
@@ -94,7 +94,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/吉光片羽Queendom.jpg" alt="吉光片羽Queendom" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/吉光片羽Queendom.jpg" alt="吉光片羽Queendom" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [吉光片羽Queendom](albums/吉光片羽Queendom.md)
 
@@ -107,7 +107,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/天方夜谭Fairyland.jpg" alt="天方夜谭Fairyland" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/天方夜谭Fairyland.jpg" alt="天方夜谭Fairyland" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [天方夜谭Fairyland](albums/天方夜谭Fairyland.md)
 
@@ -120,7 +120,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/天马行空Fairytale.jpg" alt="天马行空Fairytale" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/天马行空Fairytale.jpg" alt="天马行空Fairytale" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [天马行空Fairytale](albums/天马行空Fairytale.md)
 
@@ -133,7 +133,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界LIVE TOUR OFFICIAL ALBUM" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界LIVE TOUR OFFICIAL ALBUM" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [平行四界LIVE TOUR OFFICIAL ALBUM](albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.md)
 
@@ -146,7 +146,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/平行四界Quadimension_Final.png" alt="平行四界Quadimension Final" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/平行四界Quadimension_Final.png" alt="平行四界Quadimension Final" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [平行四界Quadimension Final](albums/平行四界Quadimension_Final.md)
 
@@ -159,7 +159,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/平行四界Quadimension_X-1.jpg" alt="平行四界Quadimension X-1" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/平行四界Quadimension_X-1.jpg" alt="平行四界Quadimension X-1" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [平行四界Quadimension X-1](albums/平行四界Quadimension_X-1.md)
 
@@ -172,7 +172,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/平行四界Quadimension_X-2.jpg" alt="平行四界Quadimension X-2" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/平行四界Quadimension_X-2.jpg" alt="平行四界Quadimension X-2" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [平行四界Quadimension X-2](albums/平行四界Quadimension_X-2.md)
 
@@ -185,7 +185,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/平行四界Quadimension_X-3.jpg" alt="平行四界Quadimension X-3" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/平行四界Quadimension_X-3.jpg" alt="平行四界Quadimension X-3" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [平行四界Quadimension X-3](albums/平行四界Quadimension_X-3.md)
 
@@ -198,7 +198,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/平行四界REBIRTH.jpg" alt="平行四界REBIRTH" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/平行四界REBIRTH.jpg" alt="平行四界REBIRTH" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [平行四界REBIRTH](albums/平行四界REBIRTH.md)
 
@@ -211,7 +211,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/星之海StarOcean.jpg" alt="星之海StarOcean" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/星之海StarOcean.jpg" alt="星之海StarOcean" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [星之海StarOcean](albums/星之海StarOcean.md)
 
@@ -224,7 +224,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/星愿StarWish.jpg" alt="星愿StarWish" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/星愿StarWish.jpg" alt="星愿StarWish" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [星愿StarWish](albums/星愿StarWish.md)
 
@@ -237,7 +237,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/森罗万象Kaleido.jpg" alt="森罗万象Kaleido" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/森罗万象Kaleido.jpg" alt="森罗万象Kaleido" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [森罗万象Kaleido](albums/森罗万象Kaleido.md)
 
@@ -250,7 +250,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/流星空间站.jpg" alt="流星空间站" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/流星空间站.jpg" alt="流星空间站" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [流星空间站](albums/流星空间站.md)
 
@@ -263,7 +263,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/海纳百川Storybook.jpg" alt="海纳百川Storybook" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/海纳百川Storybook.jpg" alt="海纳百川Storybook" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [海纳百川Storybook](albums/海纳百川Storybook.md)
 
@@ -276,7 +276,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/生息Leave_in_Breath.jpg" alt="生息Leave in Breath" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/生息Leave_in_Breath.jpg" alt="生息Leave in Breath" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [生息Leave in Breath](albums/生息Leave_in_Breath.md)
 
@@ -289,7 +289,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/秘宝旅人I.jpg" alt="秘宝旅人I" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/秘宝旅人I.png" alt="秘宝旅人I" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [秘宝旅人I](albums/秘宝旅人I.md)
 
@@ -302,7 +302,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/秘宝旅人II.jpg" alt="秘宝旅人II" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/秘宝旅人II.jpg" alt="秘宝旅人II" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [秘宝旅人II](albums/秘宝旅人II.md)
 
@@ -315,7 +315,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/繁星于雨云之上.jpg" alt="繁星于雨云之上" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/繁星于雨云之上.jpg" alt="繁星于雨云之上" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [繁星于雨云之上](albums/繁星于雨云之上.md)
 
@@ -328,7 +328,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="albums/藏雪SnowGrave.jpg" alt="藏雪SnowGrave" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
+<img src="/albums/藏雪SnowGrave.jpg" alt="藏雪SnowGrave" width="150" align="left" style="margin-right: 20px; margin-bottom: 10px;" />
 
 ### [藏雪SnowGrave](albums/藏雪SnowGrave.md)
 

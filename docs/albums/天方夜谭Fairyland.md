@@ -9,7 +9,7 @@ tag:
 
 # 天方夜谭Fairyland
 
-<img src="天方夜谭Fairyland.jpg" alt="天方夜谭Fairyland 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/天方夜谭Fairyland.jpg" alt="天方夜谭Fairyland 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** 星尘
 

@@ -8,7 +8,7 @@ tag:
 
 # 平行四界Quadimension X-2
 
-<img src="平行四界Quadimension_X-2.jpg" alt="平行四界Quadimension X-2 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/平行四界Quadimension_X-2.jpg" alt="平行四界Quadimension X-2 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** Unknown
 

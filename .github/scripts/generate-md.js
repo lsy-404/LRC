@@ -6,10 +6,15 @@ const rootDir = path.resolve(__dirname, '..', '..');
 const resDir = path.join(rootDir, 'res');
 const docsDir = path.join(rootDir, 'docs');
 const albumsDir = path.join(docsDir, 'albums');
+const publicDir = path.join(docsDir, '.vuepress', 'public');
+const publicAlbumsDir = path.join(publicDir, 'albums');
 
-// Ensure albums directory exists
+// Ensure directories exist
 if (!fs.existsSync(albumsDir)) {
   fs.mkdirSync(albumsDir, { recursive: true });
+}
+if (!fs.existsSync(publicAlbumsDir)) {
+  fs.mkdirSync(publicAlbumsDir, { recursive: true });
 }
 
 // Function to parse LRC file for metadata
@@ -64,15 +69,16 @@ albums.forEach(album => {
   }
   if (coverFile) {
     const srcCover = path.join(albumPath, coverFile);
-    const destCover = path.join(albumsDir, `${albumFileName}${coverExt}`);
+    // Copy to public directory for VuePress static assets
+    const destCover = path.join(publicAlbumsDir, `${albumFileName}${coverExt}`);
     fs.copyFileSync(srcCover, destCover);
   }
 
-  // Check if cover exists in docs (any supported extension)
+  // Check if cover exists in public directory
   let hasCover = false;
   let coverDisplayExt = '';
   for (const ext of coverExtensions) {
-    const potentialCover = path.join(albumsDir, `${albumFileName}${ext}`);
+    const potentialCover = path.join(publicAlbumsDir, `${albumFileName}${ext}`);
     if (fs.existsSync(potentialCover)) {
       hasCover = true;
       coverDisplayExt = ext;
@@ -94,7 +100,7 @@ ${tagList.map(t => `  - ${t}`).join('\n')}
 
 # ${album}
 
-${hasCover ? `<img src="${albumFileName}${coverDisplayExt}" alt="${album} 封面" style="max-width: 40%; height: auto;" />` : ''}
+${hasCover ? `<img src="/albums/${albumFileName}${coverDisplayExt}" alt="${album} 封面" style="max-width: 40%; height: auto;" />` : ''}
 
 **Artist:** ${albumArtist || 'Unknown'}
 
@@ -113,7 +119,7 @@ ${songs.map((song, index) => `${index + 1}. [${song.title}](https://cdn.jsdelivr
   albumList.push(`- [${album}](albums/${albumFileName}.md)`);
   
   // 为docs/README.md生成专辑卡片
-  const coverUrl = hasCover ? `albums/${albumFileName}${coverDisplayExt}` : '';
+  const coverUrl = hasCover ? `/albums/${albumFileName}${coverDisplayExt}` : '';
   albumCards.push({
     name: album,
     fileName: albumFileName,

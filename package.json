@@ -7,6 +7,7 @@
     "docs:clean-dev": "vuepress dev docs --clean-cache",
     "docs:dev": "vuepress dev docs",
     "docs:prod": "live-server docs/.vuepress/dist",
+    "generate-md": "node .github/scripts/generate-md.js",
     "upgrade": "pnpm dlx vp-update"
   },
   "devDependencies": {

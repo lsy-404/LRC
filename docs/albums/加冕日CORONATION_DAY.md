@@ -8,7 +8,7 @@ tag:
 
 # 加冕日CORONATION DAY
 
-<img src="加冕日CORONATION_DAY.jpg" alt="加冕日CORONATION DAY 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/加冕日CORONATION_DAY.jpg" alt="加冕日CORONATION DAY 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** Unknown
 

@@ -63,6 +63,11 @@ export default hopeTheme({
     // 歌词网站不需要评论功能
     comment: false,
 
+    // 搜索配置
+    slimsearch: {
+      indexContent: true,
+    },
+
     // Markdown增强 - 保留基础格式化功能
     mdEnhance: {
       attrs: true,      // 属性支持

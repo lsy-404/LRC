@@ -9,7 +9,7 @@ tag:
 
 # 星愿StarWish
 
-<img src="星愿StarWish.jpg" alt="星愿StarWish 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/星愿StarWish.jpg" alt="星愿StarWish 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** 星尘
 

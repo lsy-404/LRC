@@ -9,7 +9,7 @@ tag:
 
 # ELOHIM
 
-<img src="ELOHIM.jpg" alt="ELOHIM 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/ELOHIM.jpg" alt="ELOHIM 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** 言和
 

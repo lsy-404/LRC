@@ -9,7 +9,7 @@ tag:
 
 # 海纳百川Storybook
 
-<img src="海纳百川Storybook.jpg" alt="海纳百川Storybook 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/海纳百川Storybook.jpg" alt="海纳百川Storybook 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** 星尘
 

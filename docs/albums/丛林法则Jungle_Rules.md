@@ -9,7 +9,7 @@ tag:
 
 # 丛林法则Jungle Rules
 
-<img src="丛林法则Jungle_Rules.jpg" alt="丛林法则Jungle Rules 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/丛林法则Jungle_Rules.jpg" alt="丛林法则Jungle Rules 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** 星尘
 

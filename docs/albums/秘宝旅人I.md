@@ -9,7 +9,7 @@ tag:
 
 # 秘宝旅人I
 
-<img src="秘宝旅人I.jpg" alt="秘宝旅人I 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/秘宝旅人I.png" alt="秘宝旅人I 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** 苍穹.feat 星尘/海伊/诗岸
 

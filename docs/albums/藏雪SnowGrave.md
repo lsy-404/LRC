@@ -9,7 +9,7 @@ tag:
 
 # 藏雪SnowGrave
 
-<img src="藏雪SnowGrave.jpg" alt="藏雪SnowGrave 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/藏雪SnowGrave.jpg" alt="藏雪SnowGrave 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** 北极圈Arcticlab
 

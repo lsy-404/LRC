@@ -9,7 +9,7 @@ tag:
 
 # 秘宝旅人II
 
-<img src="秘宝旅人II.jpg" alt="秘宝旅人II 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/秘宝旅人II.jpg" alt="秘宝旅人II 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** Minus
 

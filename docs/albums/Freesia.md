@@ -8,7 +8,7 @@ tag:
 
 # Freesia
 
-<img src="Freesia.jpg" alt="Freesia 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/Freesia.webp" alt="Freesia 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** Unknown
 

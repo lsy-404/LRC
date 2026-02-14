@@ -8,7 +8,7 @@ tag:
 
 # Starlit Whisper
 
-<img src="Starlit_Whisper.png" alt="Starlit Whisper 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/Starlit_Whisper.png" alt="Starlit Whisper 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** Unknown
 

@@ -9,7 +9,7 @@ tag:
 
 # 平行四界Quadimension Final
 
-<img src="平行四界Quadimension_Final.png" alt="平行四界Quadimension Final 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/平行四界Quadimension_Final.png" alt="平行四界Quadimension Final 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** 海伊 赤羽
 

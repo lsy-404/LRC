@@ -8,7 +8,7 @@ tag:
 
 # 森罗万象Kaleido
 
-<img src="森罗万象Kaleido.jpg" alt="森罗万象Kaleido 封面" style="max-width: 40%; height: auto;" />
+<img src="/albums/森罗万象Kaleido.jpg" alt="森罗万象Kaleido 封面" style="max-width: 40%; height: auto;" />
 
 **Artist:** Unknown
 
