@@ -22,8 +22,8 @@ Artist: 星尘
 - [胡旋姬](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/天方夜谭Fairyland/海伊、小野道 - 胡旋姬.lrc)
 - [飞花流去](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/天方夜谭Fairyland/海伊、星尘、黄雷基 - 飞花流去.lrc)
 - [Final⇄Endless](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/天方夜谭Fairyland/苍穹、星尘、Zeno - Final⇄Endless.lrc)
-- [六条御息所](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/天方夜谭Fairyland/苍穹、海伊、erazedfx - 六条御息所.lrc)
 - [D!slodge](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/天方夜谭Fairyland/苍穹、海伊、Zeno - D!slodge.lrc)
+- [六条御息所](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/天方夜谭Fairyland/苍穹、海伊、erazedfx - 六条御息所.lrc)
 
 ## Download
 

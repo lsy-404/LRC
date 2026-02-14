@@ -9,7 +9,7 @@ tag:
 
 # 秘宝旅人II
 
-![Cover](秘宝旅人II.jpg)
+
 
 Artist: Minus
 
