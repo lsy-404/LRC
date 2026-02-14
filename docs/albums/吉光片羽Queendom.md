@@ -11,8 +11,6 @@ tag:
 
 <img src="/albums/吉光片羽Queendom.jpg" alt="吉光片羽Queendom 封面" style="max-width: 40%; height: auto;" />
 
-**发行年份:** 
-
 **演唱:** 吉光
 
 **歌曲数量:** 9 首

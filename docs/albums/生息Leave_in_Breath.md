@@ -10,7 +10,6 @@ tag:
 
 <img src="/albums/生息Leave_in_Breath.jpg" alt="生息Leave in Breath 封面" style="max-width: 40%; height: auto;" />
 
-**发行年份:** 
 
 **歌曲数量:** 9 首
 

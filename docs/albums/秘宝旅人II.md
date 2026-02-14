@@ -10,7 +10,6 @@ tag:
 
 <img src="/albums/秘宝旅人II.jpg" alt="秘宝旅人II 封面" style="max-width: 40%; height: auto;" />
 
-**发行年份:** 
 
 **歌曲数量:** 7 首
 

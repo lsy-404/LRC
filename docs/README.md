@@ -17,7 +17,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [ELOHIM](albums/ELOHIM.md)
 
-年份：2023 | 出品：缺少信息 | 演唱：言和  
+出品：缺少信息 | 演唱：言和  
 **曲目数：** 5 首
 
 [查看详情 →](albums/ELOHIM.md)
@@ -43,7 +43,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [Iris](albums/Iris.md)
 
-年份：2023 | 出品：缺少信息  
+年份：2026 | 出品：缺少信息  
 **曲目数：** 7 首
 
 [查看详情 →](albums/Iris.md)
@@ -56,7 +56,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [Starlit Whisper](albums/Starlit_Whisper.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 7 首
 
 [查看详情 →](albums/Starlit_Whisper.md)
@@ -82,7 +82,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [加冕日CORONATION DAY](albums/加冕日CORONATION_DAY.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 13 首
 
 [查看详情 →](albums/加冕日CORONATION_DAY.md)
@@ -95,7 +95,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [吉光片羽Queendom](albums/吉光片羽Queendom.md)
 
-年份：2023 | 出品：缺少信息 | 演唱：吉光  
+出品：缺少信息 | 演唱：吉光  
 **曲目数：** 9 首
 
 [查看详情 →](albums/吉光片羽Queendom.md)
@@ -108,7 +108,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [天方夜谭Fairyland](albums/天方夜谭Fairyland.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 9 首
 
 [查看详情 →](albums/天方夜谭Fairyland.md)
@@ -121,7 +121,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [天马行空Fairytale](albums/天马行空Fairytale.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 9 首
 
 [查看详情 →](albums/天马行空Fairytale.md)
@@ -134,7 +134,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [平行四界LIVE TOUR OFFICIAL ALBUM](albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 14 首
 
 [查看详情 →](albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.md)
@@ -147,7 +147,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [平行四界Quadimension Final](albums/平行四界Quadimension_Final.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 9 首
 
 [查看详情 →](albums/平行四界Quadimension_Final.md)
@@ -160,7 +160,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [平行四界Quadimension X-1](albums/平行四界Quadimension_X-1.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 9 首
 
 [查看详情 →](albums/平行四界Quadimension_X-1.md)
@@ -173,7 +173,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [平行四界Quadimension X-2](albums/平行四界Quadimension_X-2.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 9 首
 
 [查看详情 →](albums/平行四界Quadimension_X-2.md)
@@ -186,7 +186,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [平行四界Quadimension X-3](albums/平行四界Quadimension_X-3.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 9 首
 
 [查看详情 →](albums/平行四界Quadimension_X-3.md)
@@ -199,7 +199,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [平行四界REBIRTH](albums/平行四界REBIRTH.md)
 
-年份：2023 | 出品：缺少信息  
+年份：2025 | 出品：缺少信息  
 **曲目数：** 8 首
 
 [查看详情 →](albums/平行四界REBIRTH.md)
@@ -212,7 +212,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [星之海StarOcean](albums/星之海StarOcean.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 10 首
 
 [查看详情 →](albums/星之海StarOcean.md)
@@ -225,7 +225,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [星愿StarWish](albums/星愿StarWish.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 8 首
 
 [查看详情 →](albums/星愿StarWish.md)
@@ -238,7 +238,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [森罗万象Kaleido](albums/森罗万象Kaleido.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 8 首
 
 [查看详情 →](albums/森罗万象Kaleido.md)
@@ -251,7 +251,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [流星空间站](albums/流星空间站.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 9 首
 
 [查看详情 →](albums/流星空间站.md)
@@ -264,7 +264,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [海纳百川Storybook](albums/海纳百川Storybook.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 9 首
 
 [查看详情 →](albums/海纳百川Storybook.md)
@@ -277,7 +277,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [生息Leave in Breath](albums/生息Leave_in_Breath.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 9 首
 
 [查看详情 →](albums/生息Leave_in_Breath.md)
@@ -290,7 +290,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [秘宝旅人I](albums/秘宝旅人I.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 10 首
 
 [查看详情 →](albums/秘宝旅人I.md)
@@ -303,7 +303,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [秘宝旅人II](albums/秘宝旅人II.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 7 首
 
 [查看详情 →](albums/秘宝旅人II.md)
@@ -316,7 +316,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [繁星于雨云之上](albums/繁星于雨云之上.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 7 首
 
 [查看详情 →](albums/繁星于雨云之上.md)
@@ -329,7 +329,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [藏雪SnowGrave](albums/藏雪SnowGrave.md)
 
-年份：2023 | 出品：缺少信息  
+出品：缺少信息  
 **曲目数：** 5 首
 
 [查看详情 →](albums/藏雪SnowGrave.md)
