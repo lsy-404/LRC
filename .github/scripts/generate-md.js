@@ -46,6 +46,22 @@ albums.forEach(album => {
     songs.push({ title: songTitle, file });
   });
 
+  // Copy cover image if exists
+  const coverExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
+  let coverFile = null;
+  for (const ext of coverExtensions) {
+    const potentialCover = path.join(albumPath, `cover${ext}`);
+    if (fs.existsSync(potentialCover)) {
+      coverFile = `cover${ext}`;
+      break;
+    }
+  }
+  if (coverFile) {
+    const srcCover = path.join(albumPath, coverFile);
+    const destCover = path.join(albumsDir, `${album}.jpg`); // Always save as .jpg for simplicity
+    fs.copyFileSync(srcCover, destCover);
+  }
+
   // Generate MD for album
   const tagList = [];
   if (albumArtist) tagList.push(albumArtist);
@@ -60,15 +76,17 @@ ${tagList.map(t => `  - ${t}`).join('\n')}
 
 # ${album}
 
+${coverFile ? `![Cover](${album}.jpg)` : ''}
+
 Artist: ${albumArtist || 'Unknown'}
 
 ## Songs
 
-${songs.map(song => `- [${song.title}](https://raw.githubusercontent.com/${repo}/main/res/${album}/${song.file})`).join('\n')}
+${songs.map(song => `- [${song.title}](https://cdn.jsdelivr.net/gh/${repo}@main/res/${album}/${song.file})`).join('\n')}
 
 ## Download
 
-Download all LRC files for this album: [ZIP](https://github.com/${repo}/archive/main.zip) (placeholder)
+Download all LRC files for this album: [ZIP](https://cdn.jsdelivr.net/gh/${repo}@main.zip) (placeholder)
 `;
 
   fs.writeFileSync(path.join(albumsDir, `${album}.md`), mdContent);

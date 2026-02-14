@@ -11,4 +11,7 @@ export default defineUserConfig({
   head: [
     ['meta', { name: 'keywords', content: 'LRC, lyrics, albums, music' }],
   ],
+  themeConfig: {
+    sidebar: 'auto',
+  },
 })
