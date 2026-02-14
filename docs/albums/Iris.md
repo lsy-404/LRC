@@ -10,7 +10,7 @@ tag:
 
 <img src="/albums/Iris.png" alt="Iris 封面" style="max-width: 40%; height: auto;" />
 
-**发行年份:** 2026
+**发行年份:** 2026-01-01
 
 **歌曲数量:** 7 首
 

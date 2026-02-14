@@ -258,6 +258,13 @@ ${songs.map((song, index) => `${index + 1}. [${song.title}](https://cdn.jsdelivr
   });
 });
 
+// Sort albums by date (newest first, no date last)
+albumCards.sort((a, b) => {
+  const dateA = a.year && a.year !== '缺少信息' ? a.year : '0000-00-00';
+  const dateB = b.year && b.year !== '缺少信息' ? b.year : '0000-00-00';
+  return dateB.localeCompare(dateA); // Sort descending (newest first)
+});
+
 // 生成docs/README.md
 const docsReadmeContent = `---
 icon: material-symbols:home
@@ -276,11 +283,9 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ${albumCards.map(card => {
   
-  // 构建信息字符串
-  let infoStr = '';
-  if (card.year !== '缺少信息') infoStr += `年份：${card.year} | `;
-  infoStr += `出品：${card.produce}`;
-  if (card.vocal && card.vocal.length > 0) infoStr += ` | 演唱：${card.vocal.join('、')}`;
+  // 构建信息字符串：只显示出品 | 年份
+  let infoStr = `出品：${card.produce}`;
+  if (card.year !== '缺少信息') infoStr += ` | 发行：${card.year}`;
   
   // 构建cover image HTML
   const coverImg = card.cover ? `<img src="${card.cover}" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">` : '';

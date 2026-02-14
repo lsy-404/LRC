@@ -16,7 +16,7 @@ tag:
 
 <img src="/albums/丛林法则Jungle_Rules.jpg" alt="丛林法则Jungle Rules 封面" style="max-width: 40%; height: auto;" />
 
-**发行年份:** 2024
+**发行年份:** 2024-01-01
 
 **出品:** 五维介质Official
 

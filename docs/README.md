@@ -13,14 +13,27 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ## 专辑列表
 
-<img src="/albums/ELOHIM.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/Iris.png" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
-### [ELOHIM](albums/ELOHIM.md)
+### [Iris](albums/Iris.md)
 
-出品：缺少信息 | 演唱：言和  
-**曲目数：** 5 首
+出品：缺少信息 | 发行：2026-01-01  
+**曲目数：** 7 首
 
-[查看详情 →](albums/ELOHIM.md)
+[查看详情 →](albums/Iris.md)
+
+<div style="clear: both;"></div>
+
+---
+
+<img src="/albums/平行四界REBIRTH.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [平行四界REBIRTH](albums/平行四界REBIRTH.md)
+
+出品：缺少信息 | 发行：2025-01-01  
+**曲目数：** 8 首
+
+[查看详情 →](albums/平行四界REBIRTH.md)
 
 <div style="clear: both;"></div>
 
@@ -30,7 +43,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [Freesia](albums/Freesia.md)
 
-年份：2024 | 出品：缺少信息  
+出品：缺少信息 | 发行：2024-01-01  
 **曲目数：** 12 首
 
 [查看详情 →](albums/Freesia.md)
@@ -39,14 +52,27 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ---
 
-<img src="/albums/Iris.png" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/丛林法则Jungle_Rules.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
-### [Iris](albums/Iris.md)
+### [丛林法则Jungle Rules](albums/丛林法则Jungle_Rules.md)
 
-年份：2026 | 出品：缺少信息  
-**曲目数：** 7 首
+出品：五维介质Official | 发行：2024-01-01  
+**曲目数：** 9 首
 
-[查看详情 →](albums/Iris.md)
+[查看详情 →](albums/丛林法则Jungle_Rules.md)
+
+<div style="clear: both;"></div>
+
+---
+
+<img src="/albums/ELOHIM.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [ELOHIM](albums/ELOHIM.md)
+
+出品：缺少信息  
+**曲目数：** 5 首
+
+[查看详情 →](albums/ELOHIM.md)
 
 <div style="clear: both;"></div>
 
@@ -60,19 +86,6 @@ tagline: 中术虚拟歌手团体的歌词资源库
 **曲目数：** 7 首
 
 [查看详情 →](albums/Starlit_Whisper.md)
-
-<div style="clear: both;"></div>
-
----
-
-<img src="/albums/丛林法则Jungle_Rules.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [丛林法则Jungle Rules](albums/丛林法则Jungle_Rules.md)
-
-年份：2024 | 出品：五维介质Official | 演唱：苍穹、Melo  
-**曲目数：** 9 首
-
-[查看详情 →](albums/丛林法则Jungle_Rules.md)
 
 <div style="clear: both;"></div>
 
@@ -95,7 +108,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [吉光片羽Queendom](albums/吉光片羽Queendom.md)
 
-出品：缺少信息 | 演唱：吉光  
+出品：缺少信息  
 **曲目数：** 9 首
 
 [查看详情 →](albums/吉光片羽Queendom.md)
@@ -190,19 +203,6 @@ tagline: 中术虚拟歌手团体的歌词资源库
 **曲目数：** 9 首
 
 [查看详情 →](albums/平行四界Quadimension_X-3.md)
-
-<div style="clear: both;"></div>
-
----
-
-<img src="/albums/平行四界REBIRTH.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [平行四界REBIRTH](albums/平行四界REBIRTH.md)
-
-年份：2025 | 出品：缺少信息  
-**曲目数：** 8 首
-
-[查看详情 →](albums/平行四界REBIRTH.md)
 
 <div style="clear: both;"></div>
 

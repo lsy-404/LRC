@@ -10,7 +10,7 @@ tag:
 
 <img src="/albums/Freesia.webp" alt="Freesia 封面" style="max-width: 40%; height: auto;" />
 
-**发行年份:** 2024
+**发行年份:** 2024-01-01
 
 **歌曲数量:** 12 首
 
