@@ -11,11 +11,12 @@
   },
   "devDependencies": {
     "vue": "^3.5.13",
-    "vuepress": "2.0.0-rc.19"
+    "vuepress": "2.0.0-rc.26"
   },
   "dependencies": {
+    "@vuepress/bundler-vite": "^2.0.0-rc.26",
+    "pnpm": "^10.29.3",
     "vue": "^3.5.13",
-    "vuepress": "2.0.0-rc.26",
-    "@vuepress/bundler-vite": "^2.0.0-rc.26"
+    "vuepress": "2.0.0-rc.26"
   }
 }
