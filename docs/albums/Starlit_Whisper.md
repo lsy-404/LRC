@@ -4,12 +4,32 @@ category:
   - Starlit Whisper
 tag:
   - Starlit Whisper
+  - 胧
+  - 胧
+  - Aya-亚夜-
+  - 林檎
+  - 阿卡娜
+  - 胧
+  - Aya-亚夜-
+  - Creuzer
+  - 血焰玖蝶
+  - 跨海星尘
+  - 瑞安Ryan
 ---
 
 # Starlit Whisper
 
 <img src="/albums/Starlit_Whisper.png" alt="Starlit Whisper 封面" style="max-width: 40%; height: auto;" />
 
+**发行年份:** 2025-12-05
+
+**出品:** 胧
+
+**作词:** 胧、Aya-亚夜-、林檎、阿卡娜
+
+**作曲:** 胧、Aya-亚夜-
+
+**调校:** Creuzer、血焰玖蝶、跨海星尘、瑞安Ryan
 
 **歌曲数量:** 7 首
 

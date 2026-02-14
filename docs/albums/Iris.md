@@ -4,13 +4,19 @@ category:
   - Iris
 tag:
   - Iris
+  - Zeno
+  - Zeno
 ---
 
 # Iris
 
 <img src="/albums/Iris.png" alt="Iris 封面" style="max-width: 40%; height: auto;" />
 
-**发行年份:** 2026-01-01
+**发行年份:** 2026-01-31
+
+**出品:** Zeno
+
+**调校:** Zeno
 
 **歌曲数量:** 7 首
 

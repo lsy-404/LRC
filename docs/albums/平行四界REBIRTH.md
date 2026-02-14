@@ -4,13 +4,16 @@ category:
   - 平行四界REBIRTH
 tag:
   - 平行四界REBIRTH
+  - 五维介质Official
 ---
 
 # 平行四界REBIRTH
 
 <img src="/albums/平行四界REBIRTH.jpg" alt="平行四界REBIRTH 封面" style="max-width: 40%; height: auto;" />
 
-**发行年份:** 2025-01-01
+**发行年份:** 2025-08-12
+
+**出品:** 五维介质Official
 
 **歌曲数量:** 8 首
 

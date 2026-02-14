@@ -4,12 +4,14 @@ category:
   - 平行四界Quadimension Final
 tag:
   - 平行四界Quadimension Final
+  - 五维介质Official
 ---
 
 # 平行四界Quadimension Final
 
 <img src="/albums/平行四界Quadimension_Final.png" alt="平行四界Quadimension Final 封面" style="max-width: 40%; height: auto;" />
 
+**出品:** 五维介质Official
 
 **歌曲数量:** 9 首
 

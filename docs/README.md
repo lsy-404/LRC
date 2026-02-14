@@ -17,10 +17,23 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [Iris](albums/Iris.md)
 
-出品：缺少信息 | 发行：2026-01-01  
+出品：Zeno | 发行：2026-01-31  
 **曲目数：** 7 首
 
 [查看详情 →](albums/Iris.md)
+
+<div style="clear: both;"></div>
+
+---
+
+<img src="/albums/Starlit_Whisper.png" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [Starlit Whisper](albums/Starlit_Whisper.md)
+
+出品：胧 | 发行：2025-12-05  
+**曲目数：** 7 首
+
+[查看详情 →](albums/Starlit_Whisper.md)
 
 <div style="clear: both;"></div>
 
@@ -30,7 +43,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [平行四界REBIRTH](albums/平行四界REBIRTH.md)
 
-出品：缺少信息 | 发行：2025-01-01  
+出品：五维介质Official | 发行：2025-08-12  
 **曲目数：** 8 首
 
 [查看详情 →](albums/平行四界REBIRTH.md)
@@ -73,19 +86,6 @@ tagline: 中术虚拟歌手团体的歌词资源库
 **曲目数：** 5 首
 
 [查看详情 →](albums/ELOHIM.md)
-
-<div style="clear: both;"></div>
-
----
-
-<img src="/albums/Starlit_Whisper.png" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [Starlit Whisper](albums/Starlit_Whisper.md)
-
-出品：缺少信息  
-**曲目数：** 7 首
-
-[查看详情 →](albums/Starlit_Whisper.md)
 
 <div style="clear: both;"></div>
 
@@ -160,7 +160,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [平行四界Quadimension Final](albums/平行四界Quadimension_Final.md)
 
-出品：缺少信息  
+出品：五维介质Official  
 **曲目数：** 9 首
 
 [查看详情 →](albums/平行四界Quadimension_Final.md)
@@ -173,7 +173,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [平行四界Quadimension X-1](albums/平行四界Quadimension_X-1.md)
 
-出品：缺少信息  
+出品：五维介质Official  
 **曲目数：** 9 首
 
 [查看详情 →](albums/平行四界Quadimension_X-1.md)
@@ -186,7 +186,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [平行四界Quadimension X-2](albums/平行四界Quadimension_X-2.md)
 
-出品：缺少信息  
+出品：五维介质Official  
 **曲目数：** 9 首
 
 [查看详情 →](albums/平行四界Quadimension_X-2.md)
@@ -199,7 +199,7 @@ tagline: 中术虚拟歌手团体的歌词资源库
 
 ### [平行四界Quadimension X-3](albums/平行四界Quadimension_X-3.md)
 
-出品：缺少信息  
+出品：五维介质Official  
 **曲目数：** 9 首
 
 [查看详情 →](albums/平行四界Quadimension_X-3.md)
