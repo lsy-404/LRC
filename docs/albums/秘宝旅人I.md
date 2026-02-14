@@ -9,7 +9,7 @@ tag:
 
 # 秘宝旅人I
 
-
+![Cover](秘宝旅人I.jpg)
 
 Artist: 苍穹.feat 星尘/海伊/诗岸
 

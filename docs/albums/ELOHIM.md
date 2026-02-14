@@ -9,7 +9,7 @@ tag:
 
 # ELOHIM
 
-
+![Cover](ELOHIM.jpg)
 
 Artist: 言和
 
