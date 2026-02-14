@@ -1,6 +1,8 @@
-年份 = "2026-01-01"
-出品 = ""
+年份 = "2026-01-31"
+出品 = "Zeno"
+发布 = "https://www.bilibili.com/video/BV1vz6pBxEqh/"
+购买 = "https://item.taobao.com/item.htm?id=1019788252972"
 演唱 = []
 作词 = []
 作曲 = []
-调校 = []
+调校 = ["Zeno"]
