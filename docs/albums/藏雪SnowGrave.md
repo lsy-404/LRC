@@ -9,18 +9,20 @@ tag:
 
 # 藏雪SnowGrave
 
-![Cover](藏雪SnowGrave.jpg)
+<img src="藏雪SnowGrave.jpg" alt="藏雪SnowGrave 封面" style="max-width: 40%; height: auto;" />
 
-Artist: 北极圈Arcticlab
+**Artist:** 北极圈Arcticlab
 
-## Songs
+**歌曲数量:** 5 首
 
-- [In White](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/藏雪SnowGrave/01 - Lovely Song.lrc)
-- [02 - In White](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/藏雪SnowGrave/02 - In White.lrc)
-- [爱意痉挛](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/藏雪SnowGrave/03 - 爱意痉挛.lrc)
-- [不孤单的自由夜晚](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/藏雪SnowGrave/04 - 潮息.lrc)
-- [05 - 不孤单的自由夜晚](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/藏雪SnowGrave/05 - 不孤单的自由夜晚.lrc)
+## 曲目列表
 
-## Download
+1. [In White](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/01%20-%20Lovely%20Song.lrc)
+2. [02 - In White](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/02%20-%20In%20White.lrc)
+3. [爱意痉挛](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/03%20-%20%E7%88%B1%E6%84%8F%E7%97%89%E6%8C%9B.lrc)
+4. [不孤单的自由夜晚](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/04%20-%20%E6%BD%AE%E6%81%AF.lrc)
+5. [05 - 不孤单的自由夜晚](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/05%20-%20%E4%B8%8D%E5%AD%A4%E5%8D%95%E7%9A%84%E8%87%AA%E7%94%B1%E5%A4%9C%E6%99%9A.lrc)
 
-Download all LRC files for this album: [ZIP](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main.zip) (placeholder)
+## 下载
+
+下载本专辑所有歌词文件：[📦 ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E8%97%8F%E9%9B%AASnowGrave.zip)

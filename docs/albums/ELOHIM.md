@@ -9,18 +9,20 @@ tag:
 
 # ELOHIM
 
-![Cover](ELOHIM.jpg)
+<img src="ELOHIM.jpg" alt="ELOHIM 封面" style="max-width: 40%; height: auto;" />
 
-Artist: 言和
+**Artist:** 言和
 
-## Songs
+**歌曲数量:** 5 首
 
-- [Ephemeris](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/01 Ephemeris.lrc)
-- [Lacrima](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/02 Lacrima.lrc)
-- [Ordinatio](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/03 Ordinatio.lrc)
-- [Holophrasis](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/04 Holophrasis.lrc)
-- [I’m](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/05 I'm.lrc)
+## 曲目列表
 
-## Download
+1. [Ephemeris](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/01%20Ephemeris.lrc)
+2. [Lacrima](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/02%20Lacrima.lrc)
+3. [Ordinatio](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/03%20Ordinatio.lrc)
+4. [Holophrasis](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/04%20Holophrasis.lrc)
+5. [I’m](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/05%20I'm.lrc)
 
-Download all LRC files for this album: [ZIP](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main.zip) (placeholder)
+## 下载
+
+下载本专辑所有歌词文件：[📦 ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/ELOHIM.zip)

@@ -9,20 +9,22 @@ tag:
 
 # 秘宝旅人II
 
-![Cover](秘宝旅人II.jpg)
+<img src="秘宝旅人II.jpg" alt="秘宝旅人II 封面" style="max-width: 40%; height: auto;" />
 
-Artist: Minus
+**Artist:** Minus
 
-## Songs
+**歌曲数量:** 7 首
 
-- [Polymorphism](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/秘宝旅人II/1 Polymorphism.lrc)
-- [Osmosis](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/秘宝旅人II/2 Osmosis.lrc)
-- [Lateralisation](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/秘宝旅人II/3 Lateralisation.lrc)
-- [Allelopathy](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/秘宝旅人II/4 Allelopathy.lrc)
-- [Rumination](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/秘宝旅人II/5 Rumination.lrc)
-- [Imprinting](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/秘宝旅人II/6 Imprinting.lrc)
-- [Syrinx](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/秘宝旅人II/7 Syrinx.lrc)
+## 曲目列表
 
-## Download
+1. [Polymorphism](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/1%20Polymorphism.lrc)
+2. [Osmosis](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/2%20Osmosis.lrc)
+3. [Lateralisation](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/3%20Lateralisation.lrc)
+4. [Allelopathy](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/4%20Allelopathy.lrc)
+5. [Rumination](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/5%20Rumination.lrc)
+6. [Imprinting](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/6%20Imprinting.lrc)
+7. [Syrinx](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/7%20Syrinx.lrc)
 
-Download all LRC files for this album: [ZIP](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main.zip) (placeholder)
+## 下载
+
+下载本专辑所有歌词文件：[📦 ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII.zip)

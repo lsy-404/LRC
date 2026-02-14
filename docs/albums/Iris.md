@@ -8,20 +8,22 @@ tag:
 
 # Iris
 
-![Cover](Iris.jpg)
+<img src="Iris.jpg" alt="Iris 封面" style="max-width: 40%; height: auto;" />
 
-Artist: Unknown
+**Artist:** Unknown
 
-## Songs
+**歌曲数量:** 7 首
 
-- [Intro](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/01.song of iris.lrc)
-- [月神之呓](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/02.月神之呓.lrc)
-- [永生之酒](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/03.永生之酒.lrc)
-- [魔女之愿](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/04.魔女之愿.lrc)
-- [魔女之宴](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/05.魔女之宴.lrc)
-- [诗人之茧](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/06.诗人之茧.lrc)
-- [Iris](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/Iris.lrc)
+## 曲目列表
 
-## Download
+1. [Intro](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/01.song%20of%20iris.lrc)
+2. [月神之呓](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/02.%E6%9C%88%E7%A5%9E%E4%B9%8B%E5%91%93.lrc)
+3. [永生之酒](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/03.%E6%B0%B8%E7%94%9F%E4%B9%8B%E9%85%92.lrc)
+4. [魔女之愿](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/04.%E9%AD%94%E5%A5%B3%E4%B9%8B%E6%84%BF.lrc)
+5. [魔女之宴](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/05.%E9%AD%94%E5%A5%B3%E4%B9%8B%E5%AE%B4.lrc)
+6. [诗人之茧](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/06.%E8%AF%97%E4%BA%BA%E4%B9%8B%E8%8C%A7.lrc)
+7. [Iris](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/Iris.lrc)
 
-Download all LRC files for this album: [ZIP](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main.zip) (placeholder)
+## 下载
+
+下载本专辑所有歌词文件：[📦 ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Iris.zip)
