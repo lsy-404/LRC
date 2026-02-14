@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "VuePress site for LRC albums",
   "scripts": {
-    "build": "vuepress build docs",
-    "dev": "vuepress dev docs",
-    "generate-md": "node .github/scripts/generate-md.js"
+    "docs:build": "vuepress build docs",
+    "docs:clean-dev": "vuepress dev docs --clean-cache",
+    "docs:dev": "vuepress dev docs",
+    "docs:prod": "live-server docs/.vuepress/dist",
+    "upgrade": "pnpm dlx vp-update"
   },
   "devDependencies": {
     "vuepress": "next"
