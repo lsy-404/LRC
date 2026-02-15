@@ -1,13 +1,13 @@
 ---
 icon: material-symbols:home
 title: 首页
-heroText: 中术 LRC 歌词分享
-tagline: 中术虚拟歌手团体的歌词资源库
+heroText: 虚拟歌手 LRC 歌词分享
+tagline: 虚拟歌手虚拟歌手团体的歌词资源库
 ---
 
 ## 关于本站
 
-本站收录并整理中术虚拟歌手团体官方及第三方专辑的 LRC 歌词文件，方便爱好者在线浏览和下载使用。
+本站收录并整理虚拟歌手虚拟歌手团体官方及第三方专辑的 LRC 歌词文件，方便爱好者在线浏览和下载使用。
 
 所有歌词资源遵循 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议。本站仅收集网上公开资源。
 

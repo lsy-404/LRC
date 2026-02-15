@@ -55,7 +55,7 @@ export default hopeTheme({
   // 禁用页面目录
   toc: false,
 
-  footer: `中术 LRC 歌词分享 - 所有歌词版权归原作者或版权所有方所有<br>Powered by <a href="https://v2.vuepress.vuejs.org/" target="_blank"><b>Vuepress</b></a> v2`,
+  footer: `虚拟歌手 LRC 歌词分享 - 所有歌词版权归原作者或版权所有方所有<br>Powered by <a href="https://v2.vuepress.vuejs.org/" target="_blank"><b>Vuepress</b></a> v2`,
 
   copyright: "Copyright © 2023-Now All rights reserved.",
 

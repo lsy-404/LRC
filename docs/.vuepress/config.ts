@@ -4,8 +4,8 @@ import { viteBundler } from '@vuepress/bundler-vite';
 
 export default defineUserConfig({
   lang: "zh-CN",
-  title: "中术 LRC 歌词分享",
-  description: "中术官方/第三方专辑的 LRC 歌词文件储存与共享",
+  title: "虚拟歌手 LRC 歌词分享",
+  description: "虚拟歌手官方/第三方专辑的 LRC 歌词文件储存与共享",
   base: "/",
   shouldPrefetch: false,
   theme, // 使用主题

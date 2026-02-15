@@ -51,24 +51,24 @@ function parseInfoFile(albumPath) {
     try {
       const content = fs.readFileSync(jsonPath, 'utf-8');
       const parsed = JSON.parse(content);
-      
+
       info.year = parsed['年份'] || parsed['year'] || '';
       info.produce = parsed['出品'] || parsed['produce'] || '';
-      info.vocal = Array.isArray(parsed['演唱'] || parsed['vocal']) 
-        ? (parsed['演唱'] || parsed['vocal']).filter(v => v && v !== 'N/A' && v !== '') 
+      info.vocal = Array.isArray(parsed['演唱'] || parsed['vocal'])
+        ? (parsed['演唱'] || parsed['vocal']).filter(v => v && v !== 'N/A' && v !== '')
         : [];
-      info.lyricist = Array.isArray(parsed['作词'] || parsed['lyricist']) 
-        ? (parsed['作词'] || parsed['lyricist']).filter(v => v && v !== 'N/A' && v !== '') 
+      info.lyricist = Array.isArray(parsed['作词'] || parsed['lyricist'])
+        ? (parsed['作词'] || parsed['lyricist']).filter(v => v && v !== 'N/A' && v !== '')
         : [];
-      info.composer = Array.isArray(parsed['作曲'] || parsed['composer']) 
-        ? (parsed['作曲'] || parsed['composer']).filter(v => v && v !== 'N/A' && v !== '') 
+      info.composer = Array.isArray(parsed['作曲'] || parsed['composer'])
+        ? (parsed['作曲'] || parsed['composer']).filter(v => v && v !== 'N/A' && v !== '')
         : [];
-      info.tuning = Array.isArray(parsed['调校'] || parsed['tuning']) 
-        ? (parsed['调校'] || parsed['tuning']).filter(v => v && v !== 'N/A' && v !== '') 
+      info.tuning = Array.isArray(parsed['调校'] || parsed['tuning'])
+        ? (parsed['调校'] || parsed['tuning']).filter(v => v && v !== 'N/A' && v !== '')
         : [];
       info.release = parsed['发布'] || parsed['release'] || '';
       info.purchase = parsed['购买'] || parsed['purchase'] || '';
-      
+
       return info;
     } catch (err) {
       // Fall through to TOML
@@ -113,7 +113,7 @@ function parseInfoFile(albumPath) {
       for (const line of lines) {
         const match = line.match(/^([^=]+?)\s*=\s*(.+)$/);
         if (!match) continue;
-        
+
         const key = match[1].trim();
         const value = parseValue(match[2]);
 
@@ -219,7 +219,7 @@ albums.forEach(album => {
 
   // Generate MD for album
   const mdContent = `---
-title: ${album}
+title: ${album} 歌词 LRC
 category:
   - ${album}
 tag:
@@ -244,7 +244,7 @@ ${songs.map((song, index) => `${index + 1}. [${song.title}](https://cdn.jsdelivr
 
   fs.writeFileSync(path.join(albumsDir, `${albumFileName}.md`), mdContent);
   albumList.push(`- [${album}](albums/${albumFileName}.md)`);
-  
+
   // 为docs/README.md生成专辑卡片
   const coverUrl = hasCover ? `/albums/${albumFileName}${coverDisplayExt}` : '';
   albumCards.push({
@@ -269,27 +269,27 @@ albumCards.sort((a, b) => {
 const docsReadmeContent = `---
 icon: material-symbols:home
 title: 首页
-heroText: 中术 LRC 歌词分享
-tagline: 中术虚拟歌手团体的歌词资源库
+heroText: 虚拟歌手 LRC 歌词分享
+tagline: 虚拟歌手虚拟歌手团体的歌词资源库
 ---
 
 ## 关于本站
 
-本站收录并整理中术虚拟歌手团体官方及第三方专辑的 LRC 歌词文件，方便爱好者在线浏览和下载使用。
+本站收录并整理虚拟歌手虚拟歌手团体官方及第三方专辑的 LRC 歌词文件，方便爱好者在线浏览和下载使用。
 
 所有歌词资源遵循 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议。本站仅收集网上公开资源。
 
 ## 专辑列表
 
 ${albumCards.map(card => {
-  
+
   // 构建信息字符串：只显示出品 | 年份
   let infoStr = `出品：${card.produce}`;
   if (card.year !== '缺少信息') infoStr += ` | 发行：${card.year}`;
-  
+
   // 构建cover image HTML
   const coverImg = card.cover ? `<img src="${card.cover}" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">` : '';
-  
+
   return `${coverImg}
 
 ### [${card.name}](albums/${card.fileName}.md)
