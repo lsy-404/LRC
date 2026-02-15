@@ -1,5 +1,5 @@
 ---
-title: 森罗万象Kaleido
+title: 森罗万象Kaleido 歌词 LRC
 category:
   - 森罗万象Kaleido
 tag:

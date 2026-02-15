@@ -1,5 +1,5 @@
 ---
-title: 星之海StarOcean
+title: 星之海StarOcean 歌词 LRC
 category:
   - 星之海StarOcean
 tag:

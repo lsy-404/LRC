@@ -1,5 +1,5 @@
 ---
-title: 平行四界REBIRTH
+title: 平行四界REBIRTH 歌词 LRC
 category:
   - 平行四界REBIRTH
 tag:

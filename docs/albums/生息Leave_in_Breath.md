@@ -1,5 +1,5 @@
 ---
-title: 生息Leave in Breath
+title: 生息Leave in Breath 歌词 LRC
 category:
   - 生息Leave in Breath
 tag:

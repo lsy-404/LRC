@@ -1,5 +1,5 @@
 ---
-title: 加冕日CORONATION DAY
+title: 加冕日CORONATION DAY 歌词 LRC
 category:
   - 加冕日CORONATION DAY
 tag:

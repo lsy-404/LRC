@@ -1,5 +1,5 @@
 ---
-title: 星愿StarWish
+title: 星愿StarWish 歌词 LRC
 category:
   - 星愿StarWish
 tag:

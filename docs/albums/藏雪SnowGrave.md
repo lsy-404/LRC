@@ -1,5 +1,5 @@
 ---
-title: 藏雪SnowGrave
+title: 藏雪SnowGrave 歌词 LRC
 category:
   - 藏雪SnowGrave
 tag:

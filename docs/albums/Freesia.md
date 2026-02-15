@@ -1,5 +1,5 @@
 ---
-title: Freesia
+title: Freesia 歌词 LRC
 category:
   - Freesia
 tag:

@@ -1,5 +1,5 @@
 ---
-title: 平行四界LIVE TOUR OFFICIAL ALBUM
+title: 平行四界LIVE TOUR OFFICIAL ALBUM 歌词 LRC
 category:
   - 平行四界LIVE TOUR OFFICIAL ALBUM
 tag:

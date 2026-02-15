@@ -1,5 +1,5 @@
 ---
-title: 平行四界Quadimension X-3
+title: 平行四界Quadimension X-3 歌词 LRC
 category:
   - 平行四界Quadimension X-3
 tag:

@@ -1,5 +1,5 @@
 ---
-title: 丛林法则Jungle Rules
+title: 丛林法则Jungle Rules 歌词 LRC
 category:
   - 丛林法则Jungle Rules
 tag:

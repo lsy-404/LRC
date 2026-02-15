@@ -1,5 +1,5 @@
 ---
-title: 平行四界Quadimension X-1
+title: 平行四界Quadimension X-1 歌词 LRC
 category:
   - 平行四界Quadimension X-1
 tag:

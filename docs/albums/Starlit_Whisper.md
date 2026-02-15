@@ -1,5 +1,5 @@
 ---
-title: Starlit Whisper
+title: Starlit Whisper 歌词 LRC
 category:
   - Starlit Whisper
 tag:

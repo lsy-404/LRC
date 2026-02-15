@@ -1,5 +1,5 @@
 ---
-title: 海纳百川Storybook
+title: 海纳百川Storybook 歌词 LRC
 category:
   - 海纳百川Storybook
 tag:

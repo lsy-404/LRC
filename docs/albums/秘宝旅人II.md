@@ -1,5 +1,5 @@
 ---
-title: 秘宝旅人II
+title: 秘宝旅人II 歌词 LRC
 category:
   - 秘宝旅人II
 tag:

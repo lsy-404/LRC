@@ -1,5 +1,5 @@
 ---
-title: ELOHIM
+title: ELOHIM 歌词 LRC
 category:
   - ELOHIM
 tag:

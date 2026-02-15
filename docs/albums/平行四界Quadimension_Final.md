@@ -1,5 +1,5 @@
 ---
-title: 平行四界Quadimension Final
+title: 平行四界Quadimension Final 歌词 LRC
 category:
   - 平行四界Quadimension Final
 tag:

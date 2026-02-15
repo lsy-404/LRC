@@ -1,5 +1,5 @@
 ---
-title: 天马行空Fairytale
+title: 天马行空Fairytale 歌词 LRC
 category:
   - 天马行空Fairytale
 tag:

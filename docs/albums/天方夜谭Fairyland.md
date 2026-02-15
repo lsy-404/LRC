@@ -1,5 +1,5 @@
 ---
-title: 天方夜谭Fairyland
+title: 天方夜谭Fairyland 歌词 LRC
 category:
   - 天方夜谭Fairyland
 tag:

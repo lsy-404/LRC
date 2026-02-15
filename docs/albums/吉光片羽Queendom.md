@@ -1,5 +1,5 @@
 ---
-title: 吉光片羽Queendom
+title: 吉光片羽Queendom 歌词 LRC
 category:
   - 吉光片羽Queendom
 tag:
