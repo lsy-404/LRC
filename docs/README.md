@@ -49,14 +49,14 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/Freesia.webp" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/繁星于雨云之上.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
-### [Freesia](albums/Freesia.md)
+### [繁星于雨云之上](albums/繁星于雨云之上.md)
 
-出品：缺少信息 | 发行日期：2024-01-01  
-**曲目数：** 12 首
+出品：会咬人的白海豹 | 发行日期：2025-05-01  
+**曲目数：** 7 首
 
-[查看详情 →](albums/Freesia.md)
+[查看详情 →](albums/繁星于雨云之上.md)
 
 <div style="clear: both;"></div>
 
@@ -65,10 +65,22 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 ### [丛林法则Jungle Rules](albums/丛林法则Jungle_Rules.md)
 
-出品：五维介质Official | 发行日期：2024-01-01  
+出品：五维介质Official | 发行日期：2020-02-28  
 **曲目数：** 9 首
 
 [查看详情 →](albums/丛林法则Jungle_Rules.md)
+
+<div style="clear: both;"></div>
+
+---
+<img src="/albums/Freesia.webp" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [Freesia](albums/Freesia.md)
+
+出品：Zeno | 发行日期：2017-10-01  
+**曲目数：** 12 首
+
+[查看详情 →](albums/Freesia.md)
 
 <div style="clear: both;"></div>
 
@@ -285,18 +297,6 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 **曲目数：** 7 首
 
 [查看详情 →](albums/秘宝旅人II.md)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/繁星于雨云之上.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [繁星于雨云之上](albums/繁星于雨云之上.md)
-
-出品：缺少信息  
-**曲目数：** 7 首
-
-[查看详情 →](albums/繁星于雨云之上.md)
 
 <div style="clear: both;"></div>
 

@@ -5,21 +5,41 @@ category:
 tag:
   - 丛林法则Jungle Rules
   - 五维介质Official
+  - 星尘
   - 苍穹
-  - Melo
-  - 苍穹
-  - Melo
+  - 诗岸
+  - Evalia
+  - 哈密瓜
+  - 绿无
+  - 琉璃菌
+  - Zeno
+  - 赭柚奶
+  - 大九_LN
+  - Evalia
+  - 哈密瓜
+  - MeLo
+  - 十音
+  - Zeno
+  - 小野道
+  - 星辉
+  - 磁带君
+  - 坐标P
+  - 瑞安Ryan
+  - Zeno
+  - 顾令
 ---
 
 # 丛林法则Jungle Rules
 
 <img src="/albums/丛林法则Jungle_Rules.jpg" alt="丛林法则Jungle Rules 封面" style="max-width: 40%; height: auto;" />
 
-**发行日期:** 2024-01-01
+**发行日期:** 2020-02-28
 **出品:** 五维介质Official
-**演唱:** 苍穹、Melo
-**作词:** 苍穹
-**作曲:** Melo
+**演唱:** 星尘、苍穹、诗岸
+**作词:** Evalia、哈密瓜、绿无、琉璃菌、Zeno、赭柚奶、大九_LN
+**作曲:** Evalia、哈密瓜、MeLo、十音、Zeno、小野道、星辉、磁带君
+**调校:** 坐标P、瑞安Ryan、Zeno、顾令
+**购买:** [淘宝 平行四界Quadimension](http://t.cn/A6PVX2ud)
 
 **歌曲数量:** 9 首
 
