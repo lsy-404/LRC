@@ -7,7 +7,9 @@
     "docs:clean-dev": "vuepress dev docs --clean-cache",
     "docs:dev": "vuepress dev docs",
     "docs:prod": "live-server docs/.vuepress/dist",
-    "generate-md": "node .github/scripts/generate-md.js",
+    "generate-md": "python .github/scripts/generate_md.py",
+    "test-meta": "python .github/scripts/test_meta.py",
+    "update-meta-dates": "python .github/scripts/update_meta_dates.py",
     "upgrade": "pnpm dlx vp-update"
   },
   "devDependencies": {
@@ -19,9 +21,6 @@
     "vuepress-theme-hope": "2.0.0-rc.71"
   },
   "dependencies": {
-    "@iarna/toml": "^2.2.5",
-    "chardet": "^2.0.0",
-    "iconv-lite": "^0.6.3",
     "markdown-it": "^14.1.0",
     "vue-scriptx": "^0.2.7",
     "vuepress-plugin-alert": "0.0.5"

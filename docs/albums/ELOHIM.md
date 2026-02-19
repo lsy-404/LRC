@@ -17,11 +17,11 @@ tag:
 
 ## 曲目列表
 
-1. [Ephemeris](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/01%20Ephemeris.lrc)
-2. [Lacrima](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/02%20Lacrima.lrc)
-3. [Ordinatio](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/03%20Ordinatio.lrc)
-4. [Holophrasis](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/04%20Holophrasis.lrc)
-5. [I’m](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/05%20I'm.lrc)
+- [Ephemeris](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/01%20Ephemeris.lrc)
+- [Lacrima](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/02%20Lacrima.lrc)
+- [Ordinatio](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/03%20Ordinatio.lrc)
+- [Holophrasis](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/04%20Holophrasis.lrc)
+- [I’m](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/05%20I%27m.lrc)
 
 ## 下载
 

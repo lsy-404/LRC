@@ -85,10 +85,10 @@ jobs:
                         error_msgs.append(f"❌ 封面图片过大 (>5MB): {file}")
                 
                 elif ext == '.toml':
-                    if filename != 'info.toml':
-                        error_msgs.append(f"❌ TOML文件必须命名为 info.toml: {file}")
+                    if filename != 'meta.toml':
+                        error_msgs.append(f"❌ TOML文件必须命名为 meta.toml: {file}")
                     if file_size > 5 * 1024:
-                        error_msgs.append(f"❌ info.toml文件过大 (>5KB): {file}")
+                        error_msgs.append(f"❌ meta.toml文件过大 (>5KB): {file}")
                 
                 else:
                     error_msgs.append(f"❌ 不支持的文件类型 ({ext}): {file}")

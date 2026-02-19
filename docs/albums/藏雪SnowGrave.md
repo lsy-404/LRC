@@ -15,11 +15,11 @@ tag:
 
 ## 曲目列表
 
-1. [In White](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/01%20-%20Lovely%20Song.lrc)
-2. [02 - In White](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/02%20-%20In%20White.lrc)
-3. [爱意痉挛](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/03%20-%20%E7%88%B1%E6%84%8F%E7%97%89%E6%8C%9B.lrc)
-4. [不孤单的自由夜晚](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/04%20-%20%E6%BD%AE%E6%81%AF.lrc)
-5. [05 - 不孤单的自由夜晚](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/05%20-%20%E4%B8%8D%E5%AD%A4%E5%8D%95%E7%9A%84%E8%87%AA%E7%94%B1%E5%A4%9C%E6%99%9A.lrc)
+- [In White](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/01%20-%20Lovely%20Song.lrc)
+- [02 - In White](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/02%20-%20In%20White.lrc)
+- [爱意痉挛](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/03%20-%20%E7%88%B1%E6%84%8F%E7%97%89%E6%8C%9B.lrc)
+- [不孤单的自由夜晚](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/04%20-%20%E6%BD%AE%E6%81%AF.lrc)
+- [05 - 不孤单的自由夜晚](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/05%20-%20%E4%B8%8D%E5%AD%A4%E5%8D%95%E7%9A%84%E8%87%AA%E7%94%B1%E5%A4%9C%E6%99%9A.lrc)
 
 ## 下载
 
