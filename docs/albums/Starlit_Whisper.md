@@ -26,8 +26,8 @@ tag:
 **作词:** 胧、Aya-亚夜-、林檎、阿卡娜
 **作曲:** 胧、Aya-亚夜-
 **调校:** Creuzer、血焰玖蝶、跨海星尘、瑞安Ryan
-**发布:** https://www.bilibili.com/video/BV1Jm2LBbEzi/
-**购买:** ![淘宝](https://item.taobao.com/item.htm?id=999122563646)
+**发布:** ![Bilibili](https://www.bilibili.com/video/BV1Jm2LBbEzi/)
+**购买:** ![淘宝 喵之宝库miota](https://item.taobao.com/item.htm?id=999122563646)
 
 **歌曲数量:** 7 首
 

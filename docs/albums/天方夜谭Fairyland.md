@@ -22,8 +22,8 @@ tag:
 - [胡旋姬](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E6%B5%B7%E4%BC%8A%E3%80%81%E5%B0%8F%E9%87%8E%E9%81%93%20-%20%E8%83%A1%E6%97%8B%E5%A7%AC.lrc)
 - [飞花流去](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E6%B5%B7%E4%BC%8A%E3%80%81%E6%98%9F%E5%B0%98%E3%80%81%E9%BB%84%E9%9B%B7%E5%9F%BA%20-%20%E9%A3%9E%E8%8A%B1%E6%B5%81%E5%8E%BB.lrc)
 - [Final⇄Endless](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E8%8B%8D%E7%A9%B9%E3%80%81%E6%98%9F%E5%B0%98%E3%80%81Zeno%20-%20Final%E2%87%84Endless.lrc)
-- [六条御息所](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E8%8B%8D%E7%A9%B9%E3%80%81%E6%B5%B7%E4%BC%8A%E3%80%81erazedfx%20-%20%E5%85%AD%E6%9D%A1%E5%BE%A1%E6%81%AF%E6%89%80.lrc)
 - [D!slodge](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E8%8B%8D%E7%A9%B9%E3%80%81%E6%B5%B7%E4%BC%8A%E3%80%81Zeno%20-%20D%21slodge.lrc)
+- [六条御息所](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland/%E8%8B%8D%E7%A9%B9%E3%80%81%E6%B5%B7%E4%BC%8A%E3%80%81erazedfx%20-%20%E5%85%AD%E6%9D%A1%E5%BE%A1%E6%81%AF%E6%89%80.lrc)
 
 ## 下载
 

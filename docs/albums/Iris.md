@@ -15,7 +15,7 @@ tag:
 **发行日期:** 2026-01-31
 **出品:** Zeno
 **调校:** Zeno
-**发布:** https://www.bilibili.com/video/BV1vz6pBxEqh/
+**发布:** ![Bilibili](https://www.bilibili.com/video/BV1vz6pBxEqh/)
 **购买:** ![淘宝 平行四界Quadimension](https://item.taobao.com/item.htm?id=1019788252972)
 
 **歌曲数量:** 7 首
