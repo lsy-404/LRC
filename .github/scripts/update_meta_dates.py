@@ -42,13 +42,14 @@ def main() -> None:
         try:
             content = _decode_bytes(meta_path.read_bytes())
             def replace_year_line(match: re.Match[str]) -> str:
-                raw_value = match.group(1)
+                key_name = match.group(1)
+                raw_value = match.group(2)
                 normalized = normalize_year_text(raw_value)
                 if normalized is None:
                     return match.group(0)
-                return f'年份 = "{normalized}"'
+                return f'{key_name} = "{normalized}"'
 
-            updated = re.sub(r'^年份\s*=\s*"([^"]+)"\s*$', replace_year_line, content, flags=re.MULTILINE)
+            updated = re.sub(r'^(年份|发行日期)\s*=\s*"([^"]+)"\s*$', replace_year_line, content, flags=re.MULTILINE)
             meta_path.write_text(updated, encoding="utf-8")
             print(f"Updated: {album_dir.name}")
         except Exception as error:

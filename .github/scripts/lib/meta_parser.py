@@ -78,7 +78,9 @@ def parse_meta_text(content: str) -> dict[str, Any]:
     meta = dict(DEFAULT_META)
     mapping = {
         "年份": "year",
+        "发行日期": "year",
         "year": "year",
+        "release_date": "year",
         "出品": "produce",
         "produce": "produce",
         "演唱": "vocal",

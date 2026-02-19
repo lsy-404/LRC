@@ -16,7 +16,7 @@ tag:
 **出品:** Zeno
 **调校:** Zeno
 **发布:** https://www.bilibili.com/video/BV1vz6pBxEqh/
-**购买:** ![淘宝](https://item.taobao.com/item.htm?id=1019788252972)
+**购买:** ![淘宝 平行四界Quadimension](https://item.taobao.com/item.htm?id=1019788252972)
 
 **歌曲数量:** 7 首
 
