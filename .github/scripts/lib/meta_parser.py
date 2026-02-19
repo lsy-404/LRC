@@ -14,6 +14,7 @@ DEFAULT_META: dict[str, Any] = {
     "tuning": [],
     "release": "",
     "purchase": "",
+    "electronic": "",
     "lyric_maker": "",
 }
 
@@ -95,6 +96,8 @@ def parse_meta_text(content: str) -> dict[str, Any]:
         "release": "release",
         "购买": "purchase",
         "purchase": "purchase",
+        "电子": "electronic",
+        "electronic": "electronic",
         "歌词制作": "lyric_maker",
         "lyric_maker": "lyric_maker",
     }

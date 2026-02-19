@@ -135,10 +135,13 @@ def main() -> None:
 
         release_value = raw_meta_value(str(info.get("release") or ""))
         purchase_value = raw_meta_value(str(info.get("purchase") or ""))
+        electronic_value = raw_meta_value(str(info.get("electronic") or ""))
         if release_value:
             info_display.append(f"**发布:** {release_value}")
         if purchase_value:
             info_display.append(f"**购买:** {purchase_value}")
+        if electronic_value:
+            info_display.append(f"**电子:** {electronic_value}")
 
         song_lines = "\n".join(
             f"- [{song['title']}](https://cdn.jsdelivr.net/gh/{REPO}@main/res/{urllib.parse.quote(album)}/{urllib.parse.quote(song['file'])})"
