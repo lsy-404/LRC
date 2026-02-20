@@ -1,5 +1,5 @@
 ---
-title: Freesia 歌词 LRC
+title: Freesia 歌词 LRC 文件下载
 order: -20171001
 category:
   - Freesia

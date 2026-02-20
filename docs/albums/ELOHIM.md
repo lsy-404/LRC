@@ -1,5 +1,6 @@
 ---
-title: ELOHIM 歌词 LRC
+title: ELOHIM 歌词 LRC 文件下载
+order: -1
 category:
   - ELOHIM
 tag:

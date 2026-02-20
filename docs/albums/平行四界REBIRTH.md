@@ -1,5 +1,5 @@
 ---
-title: 平行四界REBIRTH 歌词 LRC
+title: 平行四界REBIRTH 歌词 LRC 文件下载
 order: -20250812
 category:
   - 平行四界REBIRTH

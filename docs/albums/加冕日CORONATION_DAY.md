@@ -1,5 +1,6 @@
 ---
-title: 加冕日CORONATION DAY 歌词 LRC
+title: 加冕日CORONATION DAY 歌词 LRC 文件下载
+order: -1
 category:
   - 加冕日CORONATION DAY
 tag:

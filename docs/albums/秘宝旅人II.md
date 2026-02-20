@@ -1,5 +1,6 @@
 ---
-title: 秘宝旅人II 歌词 LRC
+title: 秘宝旅人II 歌词 LRC 文件下载
+order: -1
 category:
   - 秘宝旅人II
 tag:

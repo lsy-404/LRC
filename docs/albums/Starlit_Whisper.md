@@ -1,5 +1,5 @@
 ---
-title: Starlit Whisper 歌词 LRC
+title: Starlit Whisper 歌词 LRC 文件下载
 order: -20251205
 category:
   - Starlit Whisper

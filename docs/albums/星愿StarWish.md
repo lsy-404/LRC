@@ -1,5 +1,6 @@
 ---
-title: 星愿StarWish 歌词 LRC
+title: 星愿StarWish 歌词 LRC 文件下载
+order: -1
 category:
   - 星愿StarWish
 tag:

@@ -1,5 +1,5 @@
 ---
-title: 丛林法则Jungle Rules 歌词 LRC
+title: 丛林法则Jungle Rules 歌词 LRC 文件下载
 order: -20200228
 category:
   - 丛林法则Jungle Rules

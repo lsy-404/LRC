@@ -1,5 +1,6 @@
 ---
-title: 森罗万象Kaleido 歌词 LRC
+title: 森罗万象Kaleido 歌词 LRC 文件下载
+order: -1
 category:
   - 森罗万象Kaleido
 tag:

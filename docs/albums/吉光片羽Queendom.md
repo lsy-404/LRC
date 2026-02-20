@@ -1,5 +1,6 @@
 ---
-title: 吉光片羽Queendom 歌词 LRC
+title: 吉光片羽Queendom 歌词 LRC 文件下载
+order: -1
 category:
   - 吉光片羽Queendom
 tag:
