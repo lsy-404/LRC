@@ -1,5 +1,6 @@
 ---
 title: Freesia 歌词 LRC
+order: -20171001
 category:
   - Freesia
 tag:
@@ -16,11 +17,17 @@ tag:
 <img src="/albums/Freesia.webp" alt="Freesia 封面" style="max-width: 40%; height: auto;" />
 
 **发行日期:** 2017-10-01
+
 **出品:** Zeno
+
 **演唱:** 星尘
+
 **作词:** Zeno
+
 **作曲:** Zeno
+
 **调校:** Zeno
+
 **购买:** [专辑购买](http://t.cn/R0nFwnV)
 
 **歌曲数量:** 12 首

@@ -1,5 +1,6 @@
 ---
 title: 平行四界REBIRTH 歌词 LRC
+order: -20250812
 category:
   - 平行四界REBIRTH
 tag:
@@ -12,8 +13,11 @@ tag:
 <img src="/albums/平行四界REBIRTH.jpg" alt="平行四界REBIRTH 封面" style="max-width: 40%; height: auto;" />
 
 **发行日期:** 2025-08-12
+
 **出品:** 五维介质Official
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1uKtSz6EgF/)
+
 **购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?id=991410246698)
 
 **歌曲数量:** 8 首
