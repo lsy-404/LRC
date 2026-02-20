@@ -18,7 +18,7 @@ export default hopeTheme({
   print: false,
 
   //enable full screen button
-  fullscreen: true,
+  fullscreen: false,
 
   lastUpdated: false,
   contributors: false,
