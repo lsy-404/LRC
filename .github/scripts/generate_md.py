@@ -151,9 +151,9 @@ def main() -> None:
         date_tuple = parse_sortable_date(str(info.get("year") or ""))
         if date_tuple[0] != 0:
             order_val = -(date_tuple[0] * 10000 + date_tuple[1] * 100 + date_tuple[2])
-            order_line = f"order: {order_val}\n"
         else:
-            order_line = ""
+            order_val = -1
+        order_line = f"order: {order_val}\n"
 
         md_content = f"""---
 title: {album} 歌词 LRC
