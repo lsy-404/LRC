@@ -148,9 +148,16 @@ def main() -> None:
             for song in songs
         )
 
+        date_tuple = parse_sortable_date(str(info.get("year") or ""))
+        if date_tuple[0] != 0:
+            order_val = -(date_tuple[0] * 10000 + date_tuple[1] * 100 + date_tuple[2])
+            order_line = f"order: {order_val}\n"
+        else:
+            order_line = ""
+
         md_content = f"""---
 title: {album} 歌词 LRC
-category:
+{order_line}category:
   - {album}
 tag:
 {''.join(f'  - {tag}\n' for tag in tags)}---
@@ -159,7 +166,7 @@ tag:
 
 {f'<img src="/albums/{album_file_name}{cover_display_ext}" alt="{album} 封面" style="max-width: 40%; height: auto;" />' if has_cover else ''}
 
-{(chr(10).join(info_display) + chr(10)) if info_display else ''}
+{((chr(10) + chr(10)).join(info_display) + chr(10)) if info_display else ''}
 **歌曲数量:** {len(songs)} 首
 
 ## 曲目列表
