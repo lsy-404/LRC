@@ -1,15 +1,16 @@
 ---
 title: ELOHIM
-order: -1
+order: -20230923
 category:
   - ELOHIM
 tag:
   - ELOHIM
+  - 秘宝旅人
   - 言和
   - 大九_LN
-  - lbg
+  - lbg_萝卜根
   - 辻原一郎
-  - 雪人Snowman
+  - 雪人Snowman_
   - 星辉p
   - litterzy
   - 瑞安Ryan不跑调
@@ -25,19 +26,31 @@ tag:
 
 <img src="./ELOHIM.jpg" alt="ELOHIM 封面" style="max-width: 40%; height: auto;" />
 
-**发行日期:** 缺少信息
+**发行日期:** 2023-09-23
+
+**出品:** 秘宝旅人
 
 **歌词制作:** RQvan
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1w8411i7tE/)
+
+**购买:** 通贩不可用
+
+**电子:** [Dizzylab](https://www.dizzylab.net/d/Elohim/) ￥63
 
 **演唱:** 言和
 
 **作词:** 大九_LN
 
-**作曲:** lbg、辻原一郎、雪人Snowman、星辉p、litterzy
+**作曲:** lbg_萝卜根、辻原一郎、雪人Snowman_、星辉p、litterzy
+
+**编曲:** lbg_萝卜根、辻原一郎、雪人Snowman_、星辉p、litterzy
 
 **调校:** 瑞安Ryan不跑调、某只泽、陌生来访、litterzy
 
-**曲绘:** 多尔及利亚
+**曲绘:** 多尔及利亚、毛腿猪兔子
+
+**混音:** lbg_萝卜根、辻原一郎、雪人Snowman_、星辉p、litterzy
 
 ## 曲目列表
 

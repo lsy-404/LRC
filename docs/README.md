@@ -61,6 +61,30 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
+
+
+### [秘宝旅人II Polaris](albums/秘宝旅人II_Polaris.md)
+
+出品：秘宝旅人  
+**发行日期：** 2025-07-04
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris.zip)
+
+<div style="clear: both;"></div>
+
+---
+<img src="/albums/流星空间站Ⅱ聆星者.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [流星空间站Ⅱ聆星者](albums/流星空间站Ⅱ聆星者.md)
+
+出品：流星空间站创作组  
+**发行日期：** 2025-05-02
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99%E2%85%A1%E8%81%86%E6%98%9F%E8%80%85.zip)
+
+<div style="clear: both;"></div>
+
+---
 <img src="/albums/繁星于雨云之上.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [繁星于雨云之上](albums/繁星于雨云之上.md)
@@ -85,6 +109,30 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
+<img src="/albums/秘宝旅人I.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [秘宝旅人I](albums/秘宝旅人I.md)
+
+出品：秘宝旅人  
+**发行日期：** 2023-11-25
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI.zip)
+
+<div style="clear: both;"></div>
+
+---
+<img src="/albums/ELOHIM.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [ELOHIM](albums/ELOHIM.md)
+
+出品：秘宝旅人  
+**发行日期：** 2023-09-23
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/ELOHIM.zip)
+
+<div style="clear: both;"></div>
+
+---
 <img src="/albums/加冕日CORONATION_DAY.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [加冕日CORONATION DAY](albums/加冕日CORONATION_DAY.md)
@@ -93,6 +141,18 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 **发行日期：** 2023-04-19
 
 [ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY.zip)
+
+<div style="clear: both;"></div>
+
+---
+<img src="/albums/流星空间站.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [流星空间站](albums/流星空间站.md)
+
+出品：流星空间站  
+**发行日期：** 2022-12-31
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99.zip)
 
 <div style="clear: both;"></div>
 
@@ -141,18 +201,6 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 **发行日期：** 2017-10-01
 
 [ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Freesia.zip)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/ELOHIM.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [ELOHIM](albums/ELOHIM.md)
-
-出品：缺少信息  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/ELOHIM.zip)
 
 <div style="clear: both;"></div>
 
@@ -277,18 +325,6 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/流星空间站.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [流星空间站](albums/流星空间站.md)
-
-出品：缺少信息  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99.zip)
-
-<div style="clear: both;"></div>
-
----
 <img src="/albums/生息Leave_in_Breath.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [生息Leave in Breath](albums/生息Leave_in_Breath.md)
@@ -297,30 +333,6 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 **发行日期：** 缺少信息
 
 [ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%94%9F%E6%81%AFLeave%20in%20Breath.zip)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/秘宝旅人I.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [秘宝旅人I](albums/秘宝旅人I.md)
-
-出品：缺少信息  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI.zip)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/秘宝旅人II.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [秘宝旅人II](albums/秘宝旅人II.md)
-
-出品：缺少信息  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII.zip)
 
 <div style="clear: both;"></div>
 

@@ -32,10 +32,11 @@
 - [星愿StarWish](https://github.com/wuyilingwei/LRC#%E6%98%9F%E6%84%BFstarwish)
 - [森罗万象Kaleido](https://github.com/wuyilingwei/LRC#%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1kaleido)
 - [流星空间站](https://github.com/wuyilingwei/LRC#%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99)
+- [流星空间站Ⅱ聆星者](https://github.com/wuyilingwei/LRC#%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99%E8%81%86%E6%98%9F%E8%80%85)
 - [海纳百川Storybook](https://github.com/wuyilingwei/LRC#%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9Dstorybook)
 - [生息Leave in Breath](https://github.com/wuyilingwei/LRC#%E7%94%9F%E6%81%AFleave-in-breath)
 - [秘宝旅人I](https://github.com/wuyilingwei/LRC#%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAi)
-- [秘宝旅人II](https://github.com/wuyilingwei/LRC#%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAii)
+- [秘宝旅人II Polaris](https://github.com/wuyilingwei/LRC#%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAii-polaris)
 - [繁星于雨云之上](https://github.com/wuyilingwei/LRC#%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A)
 - [终梦Journeyed on Everdream](https://github.com/wuyilingwei/LRC#%E7%BB%88%E6%A2%A6journeyed-on-everdream)
 - [藏雪SnowGrave](https://github.com/wuyilingwei/LRC#%E8%97%8F%E9%9B%AAsnowgrave)
@@ -552,6 +553,14 @@
 
 ---
 
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99%E2%85%A1%E8%81%86%E6%98%9F%E8%80%85/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 流星空间站Ⅱ聆星者
+
+_暂无 LRC 文件_
+
+---
+
 <img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 海纳百川Storybook
@@ -628,24 +637,24 @@
 
 ---
 
-<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/Cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris/Cover.jpg" alt="专辑封面" width="120" align="right">
 
-### 秘宝旅人II
+### 秘宝旅人II Polaris
 
-**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII.zip)**
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris.zip)**
 
 <details>
 <summary>📝 查看详细曲目 (7 首)</summary>
 
 | 曲目 | 操作 |
 | :- | :-: |
-| [1 Polymorphism.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/1%20Polymorphism.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/1%20Polymorphism.lrc) |
-| [2 Osmosis.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/2%20Osmosis.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/2%20Osmosis.lrc) |
-| [3 Lateralisation.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/3%20Lateralisation.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/3%20Lateralisation.lrc) |
-| [4 Allelopathy.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/4%20Allelopathy.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/4%20Allelopathy.lrc) |
-| [5 Rumination.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/5%20Rumination.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/5%20Rumination.lrc) |
-| [6 Imprinting.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/6%20Imprinting.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/6%20Imprinting.lrc) |
-| [7 Syrinx.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/7%20Syrinx.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/7%20Syrinx.lrc) |
+| [1 Polymorphism.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris/1%20Polymorphism.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris/1%20Polymorphism.lrc) |
+| [2 Osmosis.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris/2%20Osmosis.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris/2%20Osmosis.lrc) |
+| [3 Lateralisation.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris/3%20Lateralisation.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris/3%20Lateralisation.lrc) |
+| [4 Allelopathy.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris/4%20Allelopathy.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris/4%20Allelopathy.lrc) |
+| [5 Rumination.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris/5%20Rumination.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris/5%20Rumination.lrc) |
+| [6 Imprinting.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris/6%20Imprinting.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris/6%20Imprinting.lrc) |
+| [7 Syrinx.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris/7%20Syrinx.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris/7%20Syrinx.lrc) |
 
 </details>
 
