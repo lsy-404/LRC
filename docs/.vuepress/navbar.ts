@@ -8,11 +8,6 @@ export default navbar([
     link: "/about",
   },
   {
-    text: "按标签浏览",
-    icon: "material-symbols:label",
-    link: "/tag/",
-  },
-  {
     text: "Github",
     icon: "mynaui:api-solid",
     link: "https://github.com/wuyilingwei/LRC"

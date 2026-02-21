@@ -64,7 +64,9 @@ export default hopeTheme({
   pageInfo: ["Tag"],
 
   // 启用博客插件以支持 /tag/ 聚合页
-  blog: {},
+  blog: {
+    article: "/non-exist-placeholder/", // 不让任何页面作为博客文章列表
+  },
 
 
   plugins: {
