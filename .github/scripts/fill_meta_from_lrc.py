@@ -73,8 +73,8 @@ FIELD_SCHEMA: list[tuple[str, str, str]] = [
     ("mixer",       "混音",       "list"),
 ]
 
-# 可从 LRC 提取的列表字段（其余字符串字段 LRC 无法填充）
-_LRC_FILLABLE = {"vocal", "lyricist", "composer", "arranger", "tuning", "illustrator", "mixer"}
+# 可从 LRC 提取的字段（包括列表字段和lyric_maker字符串字段）
+_LRC_FILLABLE = {"vocal", "lyricist", "composer", "arranger", "tuning", "illustrator", "mixer", "lyric_maker"}
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -120,7 +120,8 @@ def merge(existing: dict[str, Any], lrc: dict[str, Any]) -> dict[str, Any]:
 
     规则：
     - 列表字段：meta.toml 非空则保留；空则使用 LRC 结果（可能仍为空）
-    - 字符串字段：始终保留 meta.toml 的值（LRC 无法提供）
+    - 字符串字段（除lyric_maker外）：始终保留 meta.toml 的值（LRC 无法提供）
+    - lyric_maker字段：meta.toml 非空则保留；空则使用 LRC 结果
     """
     merged: dict[str, Any] = {}
     for internal, _toml_key, typ in FIELD_SCHEMA:
@@ -133,7 +134,14 @@ def merge(existing: dict[str, Any], lrc: dict[str, Any]) -> dict[str, Any]:
             else:
                 merged[internal] = []
         else:
-            merged[internal] = existing.get(internal) or ""
+            # 字符串字段
+            ex_val = existing.get(internal) or ""
+            if ex_val:
+                merged[internal] = ex_val  # meta.toml 有值→保留
+            elif internal in _LRC_FILLABLE:
+                merged[internal] = lrc.get(internal) or ""  # 用 LRC 填充
+            else:
+                merged[internal] = ""
     return merged
 
 

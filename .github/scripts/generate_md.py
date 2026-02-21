@@ -87,10 +87,8 @@ def main() -> None:
 
         songs = []
         for lrc_file in lrc_files:
-            # 以文件名（去掉 NN - 或 NN 序号前缀）为标题，LRC ti 标签不可靠
-            # 兼容两种格式：「01 - 标题」和「1 标题」
-            clean_stem = re.sub(r'^\d+\s*[-\u2013.]?\s+', '', lrc_file.stem).strip()
-            song_title = clean_stem or lrc_file.stem
+            # 直接使用文件名（去掉 .lrc 后缀）作为歌曲标题
+            song_title = lrc_file.stem
             songs.append({"title": song_title, "file": lrc_file.name})
 
         cover_file, cover_ext = find_cover(album_dir)

@@ -65,7 +65,8 @@ _LRC_ID_TAG: dict[str, str] = {
     "ti": "title",
     "ar": "artist",
     "al": "album",
-    "by": "creator",
+    "by": "lyric_maker",  # [by:xxx] 标识歌词制作者
+    "lrc by": "lyric_maker",  # [lrc by:xxx] 也是歌词制作者
 }
 
 #: 歌词行里识别的字段别名 → 归一化字段
@@ -150,7 +151,7 @@ def extract_lrc_metadata(file_path: Path) -> dict[str, Any]:
             "title":      str,         # [ti:...] 标签中的标题
             "artist":     str,         # [ar:...] 标签中的艺术家
             "album":      str,         # [al:...] 标签中的专辑名
-            "creator":    str,         # [by:...] 标签中的制作者
+            "lyric_maker": str,        # [by:...] 或 [lrc by:...] 标签中的歌词制作者
             "song_title": str,         # 正文 《曲名》 形式的标题
             "vocal":      list[str],   # 演唱者
             "composer":   list[str],   # 作曲者
@@ -168,7 +169,7 @@ def extract_lrc_metadata(file_path: Path) -> dict[str, Any]:
         "title": "",
         "artist": "",
         "album": "",
-        "creator": "",
+        "lyric_maker": "",
         "song_title": "",
         "vocal": [],
         "composer": [],
@@ -209,14 +210,32 @@ def extract_lrc_metadata(file_path: Path) -> dict[str, Any]:
         if not content_part:
             continue  # 空时间戳行
 
-        # 2a. 曲名包裹：《亵渎》 / 【Title】 / 「Title」
+        # 2a. 检查是否为嵌套的 LRC 标签（如 [lrc by：Magicst]）
+        # 先尝试标准格式 [tag:value]
+        nested_tag_m = _LRC_TAG_RE.match(content_part)
+        if nested_tag_m:
+            tag_key = nested_tag_m.group(1).lower()
+            tag_val = nested_tag_m.group(2).strip()
+            field = _LRC_ID_TAG.get(tag_key)
+            if field and tag_val and not meta[field]:
+                meta[field] = tag_val
+            continue
+        
+        # 特殊处理 [lrc by：xxx] 格式（包含空格的标签名）
+        lrc_by_m = re.match(r'^\[lrc\s+by\s*[：:]\s*(.+?)\]\s*$', content_part, re.IGNORECASE)
+        if lrc_by_m:
+            if not meta["lyric_maker"]:
+                meta["lyric_maker"] = lrc_by_m.group(1).strip()
+            continue
+
+        # 2b. 曲名包裹：《亵渎》 / 【Title】 / 「Title」
         wrap_m = _TITLE_WRAP_RE.match(content_part)
         if wrap_m:
             if not meta["song_title"]:
                 meta["song_title"] = wrap_m.group(1).strip()
             continue
 
-        # 2b. 字段：值（含联合字段 "作曲&编曲：PoKeR"）
+        # 2c. 字段：值（含联合字段 "作曲&编曲：PoKeR"）
         # 用 maxsplit=1 只在第一个冒号处分割
         parts = _FIELD_SEP_RE.split(content_part, maxsplit=1)
         if len(parts) != 2:
@@ -257,7 +276,7 @@ def merge_album_lrc_metadata(lrc_files: list[Path]) -> dict[str, Any]:
         "title": "",
         "artist": "",
         "album": "",
-        "creator": "",
+        "lyric_maker": "",
         "song_title": "",
         "vocal": [],
         "composer": [],
@@ -278,7 +297,7 @@ def merge_album_lrc_metadata(lrc_files: list[Path]) -> dict[str, Any]:
                     _seen[field].add(person)
                     merged[field].append(person)
         # 字符串字段只采纳首次有效值
-        for field in ("title", "artist", "album", "creator", "song_title", "album_tag"):
+        for field in ("title", "artist", "album", "lyric_maker", "song_title", "album_tag"):
             if not merged[field] and song_meta.get(field):
                 merged[field] = song_meta[field]
 
