@@ -157,7 +157,7 @@ def main() -> None:
         order_line = f"order: {order_val}\n"
 
         md_content = f"""---
-title: {album} 歌词 LRC 文件下载
+title: {album} 歌词
 {order_line}category:
   - {album}
 tag:
