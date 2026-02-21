@@ -188,6 +188,7 @@ tag:
                 "cover": cover_url,
                 "produce": str(info["produce"] or "缺少信息"),
                 "year": str(info["year"] or "缺少信息"),
+                "tags": tags,
             }
         )
 
@@ -202,6 +203,7 @@ tag:
         )
 
         year_line = f"**发行日期：** {card['year']}" if card["year"] != "缺少信息" else ""
+        tags_line = "、".join(card["tags"]) if card.get("tags") else ""
 
         cards_text.append(
             f"""{cover_img}
@@ -209,7 +211,8 @@ tag:
 ### [{card['name']}](albums/{card['file_name']}.md)
 
 出品：{card['produce']}  
-{year_line}
+{year_line}  
+{f'标签：{tags_line}' if tags_line else ''}
 
 [查看详情 →](albums/{card['file_name']}.md)
 

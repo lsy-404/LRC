@@ -7,16 +7,11 @@ export default navbar([
     icon: "line-md:plus-square-filled",
     link: "/about",
   },
-  /**{
-    text: "文章",
-    icon: "article",
-    prefix: "/",
-    children: [
-      "/timeline/",
-      "/category/",
-      "/tag/",
-    ]
-  },*/
+  {
+    text: "按标签浏览",
+    icon: "material-symbols:label",
+    link: "/tag/",
+  },
   {
     text: "Github",
     icon: "mynaui:api-solid",
