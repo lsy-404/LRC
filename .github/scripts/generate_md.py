@@ -12,7 +12,6 @@ ROOT_DIR = Path(__file__).resolve().parents[2]
 RES_DIR = ROOT_DIR / "res"
 DOCS_DIR = ROOT_DIR / "docs"
 ALBUMS_DIR = DOCS_DIR / "albums"
-PUBLIC_ALBUMS_DIR = DOCS_DIR / ".vuepress" / "public" / "albums"
 COVER_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif", ".webp"]
 
 
@@ -51,7 +50,6 @@ def find_cover(album_path: Path) -> tuple[Path | None, str]:
 
 def ensure_dirs() -> None:
     ALBUMS_DIR.mkdir(parents=True, exist_ok=True)
-    PUBLIC_ALBUMS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def parse_sortable_date(value: str) -> tuple[int, int, int]:
@@ -89,19 +87,21 @@ def main() -> None:
 
         songs = []
         for lrc_file in lrc_files:
-            parsed = parse_lrc(lrc_file)
-            song_title = parsed["title"] or lrc_file.stem
+            # 以文件名（去掉 NN - 或 NN 序号前缀）为标题，LRC ti 标签不可靠
+            # 兼容两种格式：「01 - 标题」和「1 标题」
+            clean_stem = re.sub(r'^\d+\s*[-\u2013.]?\s+', '', lrc_file.stem).strip()
+            song_title = clean_stem or lrc_file.stem
             songs.append({"title": song_title, "file": lrc_file.name})
 
         cover_file, cover_ext = find_cover(album_dir)
         if cover_file:
-            dest_cover = PUBLIC_ALBUMS_DIR / f"{album_file_name}{cover_ext}"
+            dest_cover = ALBUMS_DIR / f"{album_file_name}{cover_ext}"
             shutil.copyfile(cover_file, dest_cover)
 
         has_cover = False
         cover_display_ext = ""
         for ext in COVER_EXTENSIONS:
-            target = PUBLIC_ALBUMS_DIR / f"{album_file_name}{ext}"
+            target = ALBUMS_DIR / f"{album_file_name}{ext}"
             if target.exists():
                 has_cover = True
                 cover_display_ext = ext
@@ -167,7 +167,7 @@ tag:
 
 # {album}
 
-{f'<img src="/albums/{album_file_name}{cover_display_ext}" alt="{album} 封面" style="max-width: 40%; height: auto;" />' if has_cover else ''}
+{f'<img src="./{album_file_name}{cover_display_ext}" alt="{album} 封面" style="max-width: 40%; height: auto;" />' if has_cover else ''}
 
 {((chr(10) + chr(10)).join(info_display) + chr(10)) if info_display else ''}
 ## 曲目列表
@@ -181,7 +181,8 @@ tag:
 
         (ALBUMS_DIR / f"{album_file_name}.md").write_text(md_content, encoding="utf-8")
 
-        cover_url = f"/albums/{album_file_name}{cover_display_ext}" if has_cover else ""
+        # 首页卡片图片路径：相对于 docs/README.md，需带 albums/ 前缀
+        cover_url = f"albums/{album_file_name}{cover_display_ext}" if has_cover else ""
         album_cards.append(
             {
                 "name": album,
@@ -205,6 +206,7 @@ tag:
 
         year_line = f"**发行日期：** {card['year']}"
         tags_line = "、".join(card["tags"]) if card.get("tags") else ""
+        zip_url = f"https://cdn.jsdelivr.net/gh/{REPO}@main/pack/{urllib.parse.quote(card['name'])}.zip"
 
         cards_text.append(
             f"""{cover_img}
@@ -214,7 +216,7 @@ tag:
 出品：{card['produce']}  
 {year_line}
 
-[查看详情 →](albums/{card['file_name']}.md)
+[查看详情 →](albums/{card['file_name']}.md) &nbsp;·&nbsp; [📦 ZIP 下载]({zip_url})
 
 <div style=\"clear: both;\"></div>
 
