@@ -6,11 +6,11 @@ category:
 tag:
   - 平行四界Quadimension X-2
   - 五维介质Official
-  - 星尘&海伊
-  - 诗岸
-  - 海伊
-  - 苍穹&赤羽
   - 星尘
+  - 海伊
+  - 诗岸
+  - 苍穹
+  - 赤羽
   - minus
   - 大九_LM
   - K_Lacid
@@ -34,7 +34,7 @@ tag:
 
 **出品:** 五维介质Official
 
-**演唱:** 星尘&海伊、诗岸、海伊、苍穹&赤羽、星尘、minus
+**演唱:** 星尘、海伊、诗岸、苍穹、赤羽、minus
 
 **作词:** 大九_LM、K_Lacid、浓缩排骨、Evalia、Zeno
 
