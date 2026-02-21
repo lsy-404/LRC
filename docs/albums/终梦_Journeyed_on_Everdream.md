@@ -1,10 +1,13 @@
 ---
 title: 终梦 Journeyed on Everdream
-order: -1
+order: -20251224
 category:
   - 终梦 Journeyed on Everdream
 tag:
   - 终梦 Journeyed on Everdream
+  - 北极圈Arcticlab
+  - 星尘
+  - 铃蓝Suzusnow
   - 歌词
   - lrc
   - 下载
@@ -15,7 +18,27 @@ tag:
 
 <img src="./终梦_Journeyed_on_Everdream.jpg" alt="终梦 Journeyed on Everdream 封面" style="max-width: 40%; height: auto;" />
 
-**发行日期:** 缺少信息
+**发行日期:** 2025-12-24
+
+**出品:** 北极圈Arcticlab
+
+**歌词制作:** 武乙凌薇
+
+**发布:** https://www.bilibili.com/video/BV1q3qZBDE9y
+
+**购买:** https://item.taobao.com/item.htm?id=1004976437319
+
+**电子:** https://www.dizzylab.net/albums/d/ALCD0101/
+
+**演唱:** 星尘
+
+**作词:** 铃蓝Suzusnow
+
+**作曲:** 铃蓝Suzusnow
+
+**编曲:** 陆云极、悬空指针
+
+**曲绘:** 咬流心蛋、狄拉克海里的X鱼、DPea9、苦荞KQ
 
 ## 曲目列表
 

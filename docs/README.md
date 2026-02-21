@@ -25,6 +25,18 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
+<img src="/albums/终梦_Journeyed_on_Everdream.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [终梦 Journeyed on Everdream](albums/终梦_Journeyed_on_Everdream.md)
+
+出品：北极圈Arcticlab  
+**发行日期：** 2025-12-24
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream.zip)
+
+<div style="clear: both;"></div>
+
+---
 <img src="/albums/Starlit_Whisper.png" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [Starlit Whisper](albums/Starlit_Whisper.md)
@@ -297,18 +309,6 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 **发行日期：** 缺少信息
 
 [ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII.zip)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/终梦_Journeyed_on_Everdream.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [终梦 Journeyed on Everdream](albums/终梦_Journeyed_on_Everdream.md)
-
-出品：缺少信息  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream.zip)
 
 <div style="clear: both;"></div>
 
