@@ -66,4 +66,4 @@ tag:
 
 ## 下载
 
-下载本专辑所有歌词文件：[📦 ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules.zip)

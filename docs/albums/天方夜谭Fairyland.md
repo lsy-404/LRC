@@ -59,4 +59,4 @@ tag:
 
 ## 下载
 
-下载本专辑所有歌词文件：[📦 ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland.zip)

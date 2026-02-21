@@ -57,4 +57,4 @@ tag:
 
 ## 下载
 
-下载本专辑所有歌词文件：[📦 ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido.zip)
