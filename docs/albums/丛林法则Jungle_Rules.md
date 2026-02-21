@@ -38,7 +38,11 @@ tag:
 
 **出品:** 五维介质Official
 
-**购买:** [淘宝 平行四界Quadimension](http://t.cn/A6PVX2ud)
+**发布:** [Bilibili](https://www.bilibili.com/video/BV147411N79K/)
+
+**购买:** [淘宝 平行四界Quadimension](http://t.cn/A6PVX2ud) ￥75/￥120/￥140/￥220
+
+**电子:** 随专辑附赠
 
 **演唱:** 星尘、苍穹、诗岸
 

@@ -1,10 +1,22 @@
 ---
 title: 藏雪SnowGrave
-order: -1
+order: -20240112
 category:
   - 藏雪SnowGrave
 tag:
   - 藏雪SnowGrave
+  - 北极圈ArcticLab
+  - 星尘
+  - 海伊
+  - 铃蓝SuzuSnow
+  - 麒炩Kindling
+  - 苍梧_abilrue
+  - 燈林
+  - 阿林什么也没做
+  - 云极Yunji
+  - 苏尔达
+  - 悬空指针NP
+  - 锝是TC德小猪
   - 歌词
   - lrc
   - 下载
@@ -15,7 +27,29 @@ tag:
 
 <img src="./藏雪SnowGrave.jpg" alt="藏雪SnowGrave 封面" style="max-width: 40%; height: auto;" />
 
-**发行日期:** 缺少信息
+**发行日期:** 2024-01-12
+
+**出品:** 北极圈ArcticLab
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV18a4y117p2/)
+
+**购买:** 通贩不可用
+
+**电子:** [Dizzylab](https://www.dizzylab.net/d/ALCD0001/) ￥38
+
+**演唱:** 星尘、海伊
+
+**作词:** 铃蓝SuzuSnow、麒炩Kindling、苍梧_abilrue、燈林、阿林什么也没做
+
+**作曲:** 铃蓝SuzuSnow、云极Yunji、苏尔达、燈林、悬空指针NP
+
+**编曲:** 燈林、云极Yunji
+
+**调校:** 铃蓝SuzuSnow、苍梧_abilrue、燈林、锝是TC德小猪
+
+**曲绘:** FrostOrange_D冰橙汁、⑨的小圆本
+
+**混音:** 云极Yunji
 
 ## 曲目列表
 

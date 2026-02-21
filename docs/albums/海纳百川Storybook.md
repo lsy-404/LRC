@@ -1,10 +1,11 @@
 ---
 title: 海纳百川Storybook
-order: -1
+order: -20201106
 category:
   - 海纳百川Storybook
 tag:
   - 海纳百川Storybook
+  - 五维介质Official
   - 星尘
   - 海伊
   - 诗岸
@@ -29,7 +30,15 @@ tag:
 
 <img src="./海纳百川Storybook.jpg" alt="海纳百川Storybook 封面" style="max-width: 40%; height: auto;" />
 
-**发行日期:** 缺少信息
+**发行日期:** 2020-11-06
+
+**出品:** 五维介质Official
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1ND4y1R7fB/)
+
+**购买:** [淘宝 平行四界Quadimension](http://t.cn/A6GtIEhX) ￥75/￥110/￥150/￥200
+
+**电子:** 随专辑附赠
 
 **演唱:** 星尘、海伊、诗岸
 

@@ -25,14 +25,14 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/终梦_Journeyed_on_Everdream.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/终梦Journeyed_on_Everdream.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
-### [终梦 Journeyed on Everdream](albums/终梦_Journeyed_on_Everdream.md)
+### [终梦Journeyed on Everdream](albums/终梦Journeyed_on_Everdream.md)
 
 出品：北极圈Arcticlab  
 **发行日期：** 2025-12-24
 
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream.zip)
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%88%E6%A2%A6Journeyed%20on%20Everdream.zip)
 
 <div style="clear: both;"></div>
 
@@ -73,6 +73,54 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
+<img src="/albums/藏雪SnowGrave.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [藏雪SnowGrave](albums/藏雪SnowGrave.md)
+
+出品：北极圈ArcticLab  
+**发行日期：** 2024-01-12
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E8%97%8F%E9%9B%AASnowGrave.zip)
+
+<div style="clear: both;"></div>
+
+---
+<img src="/albums/加冕日CORONATION_DAY.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [加冕日CORONATION DAY](albums/加冕日CORONATION_DAY.md)
+
+出品：Aya-亚夜-  
+**发行日期：** 2023-04-19
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY.zip)
+
+<div style="clear: both;"></div>
+
+---
+<img src="/albums/海纳百川Storybook.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [海纳百川Storybook](albums/海纳百川Storybook.md)
+
+出品：五维介质Official  
+**发行日期：** 2020-11-06
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook.zip)
+
+<div style="clear: both;"></div>
+
+---
+<img src="/albums/吉光片羽Queendom.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [吉光片羽Queendom](albums/吉光片羽Queendom.md)
+
+出品：五维介质Official  
+**发行日期：** 2020-06-12
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom.zip)
+
+<div style="clear: both;"></div>
+
+---
 <img src="/albums/丛林法则Jungle_Rules.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [丛林法则Jungle Rules](albums/丛林法则Jungle_Rules.md)
@@ -105,30 +153,6 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 **发行日期：** 缺少信息
 
 [ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/ELOHIM.zip)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/加冕日CORONATION_DAY.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [加冕日CORONATION DAY](albums/加冕日CORONATION_DAY.md)
-
-出品：缺少信息  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY.zip)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/吉光片羽Queendom.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [吉光片羽Queendom](albums/吉光片羽Queendom.md)
-
-出品：缺少信息  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom.zip)
 
 <div style="clear: both;"></div>
 
@@ -265,18 +289,6 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/海纳百川Storybook.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [海纳百川Storybook](albums/海纳百川Storybook.md)
-
-出品：缺少信息  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook.zip)
-
-<div style="clear: both;"></div>
-
----
 <img src="/albums/生息Leave_in_Breath.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [生息Leave in Breath](albums/生息Leave_in_Breath.md)
@@ -309,18 +321,6 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 **发行日期：** 缺少信息
 
 [ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII.zip)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/藏雪SnowGrave.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [藏雪SnowGrave](albums/藏雪SnowGrave.md)
-
-出品：缺少信息  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E8%97%8F%E9%9B%AASnowGrave.zip)
 
 <div style="clear: both;"></div>
 

@@ -1,11 +1,12 @@
 ---
 title: 加冕日CORONATION DAY
-order: -1
+order: -20230419
 category:
   - 加冕日CORONATION DAY
 tag:
   - 加冕日CORONATION DAY
   - Aya-亚夜-
+  - 赤羽
   - 歌词
   - lrc
   - 下载
@@ -16,13 +17,31 @@ tag:
 
 <img src="./加冕日CORONATION_DAY.jpg" alt="加冕日CORONATION DAY 封面" style="max-width: 40%; height: auto;" />
 
-**发行日期:** 缺少信息
+**发行日期:** 2023-04-19
+
+**出品:** Aya-亚夜-
+
+**歌词制作:** Aya-亚夜-
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1bc411H7xN/)
+
+**购买:** 通贩不可用
+
+**电子:** [Dizzylab](https://www.dizzylab.net/d/SFA-001/) ￥20
+
+**演唱:** 赤羽
 
 **作词:** Aya-亚夜-
 
 **作曲:** Aya-亚夜-
 
 **编曲:** Aya-亚夜-
+
+**调校:** Aya-亚夜-
+
+**曲绘:** _QNE
+
+**混音:** Aya-亚夜-
 
 ## 曲目列表
 

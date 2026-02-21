@@ -1,23 +1,33 @@
 ---
 title: 吉光片羽Queendom
-order: -1
+order: -20200612
 category:
   - 吉光片羽Queendom
 tag:
   - 吉光片羽Queendom
-  - 吉光
-  - 绿无
-  - 沈病娇
-  - 芍杳
-  - 浓缩排骨
+  - 五维介质Official
+  - 星尘
+  - 苍穹
+  - 赤羽
+  - Evalia
   - 大九_LN
-  - 瑞安Ryan
-  - Melo
+  - 浓缩排骨
+  - Zeno
+  - 绿无
+  - 芍杳
   - JUSF周存
-  - 顾令
-  - Creuzer
+  - 胧
+  - 沈病娇
+  - 味素
+  - 磁带君
+  - MeLo
+  - papaw泡泡
+  - Kide
+  - 瑞安Ryan
   - 木变石
+  - Creuzer
   - 坐标P
+  - 顾令
   - 歌词
   - lrc
   - 下载
@@ -28,15 +38,27 @@ tag:
 
 <img src="./吉光片羽Queendom.jpg" alt="吉光片羽Queendom 封面" style="max-width: 40%; height: auto;" />
 
-**发行日期:** 缺少信息
+**发行日期:** 2020-06-12
 
-**演唱:** 吉光
+**出品:** 五维介质Official
 
-**作词:** 绿无、沈病娇、芍杳、浓缩排骨、大九_LN
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1BA411v7uJ/)
 
-**调校:** 瑞安Ryan、Melo、JUSF周存、顾令、Creuzer、木变石、坐标P
+**购买:** [淘宝 平行四界Quadimension](http://t.cn/A62s4zQQ)
 
-**曲绘:** Hanasa、原子Dan、KyuriTizu、匙、November、立旗、大汉Jax、Ncir、Leiq雷
+**电子:** 随专辑附赠
+
+**演唱:** 星尘、苍穹、赤羽
+
+**作词:** Evalia、大九_LN、浓缩排骨、Zeno、绿无、芍杳、JUSF周存、胧、沈病娇
+
+**作曲:** Evalia、味素、磁带君、Zeno、MeLo、papaw泡泡、JUSF周存、胧、Kide
+
+**编曲:** Evalia、味素、磁带君、Zeno、MeLo、papaw泡泡、JUSF周存、胧、Kide
+
+**调校:** 瑞安Ryan、木变石、Creuzer、MeLo、JUSF周存、坐标P、顾令
+
+**曲绘:** Hanasa、原子Dan、大汉Jax、立旗、Noir、KyuriTizu、November、匙、Leiq雷
 
 ## 曲目列表
 
