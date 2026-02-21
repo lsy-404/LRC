@@ -158,7 +158,7 @@ def main() -> None:
         order_line = f"order: {order_val}\n"
 
         md_content = f"""---
-title: {album} 歌词
+title: {album}
 {order_line}category:
   - {album}
 tag:

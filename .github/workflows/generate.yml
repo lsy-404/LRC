@@ -230,5 +230,8 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "chore: optimize tags, update catalog and generate pages"
-            git push
+            if ! git push; then
+              echo "Push failed - remote may have newer commits. Exiting gracefully."
+              exit 0
+            fi
           fi
