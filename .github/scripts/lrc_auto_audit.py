@@ -3,6 +3,12 @@ import re
 import sys
 from urllib.parse import urlparse
 
+from lib.config_loader import load_config
+
+CONFIG = load_config()
+PULL_CONFIG = CONFIG.get("pull", {})
+COMMON_CONFIG = CONFIG.get("common", {})
+
 
 def split_changed_files(raw: str) -> list[str]:
     if not raw:
@@ -22,15 +28,7 @@ URL_PATTERN = re.compile(
     r'(?:(?:https?://)|(?:www\.))[^\s<>"]+|(?:\b[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+/[^\s<>"]*)'
 )
 
-ALLOWED_HOST_SUFFIXES = [
-    "bilibili.com",
-    "b23.tv",
-    "taobao.com",
-    "tb.cn",
-    "m.tb.cn",
-    "e.tb.cn",
-    "dizzylab.com",
-]
+ALLOWED_HOST_SUFFIXES = [str(item) for item in PULL_CONFIG.get("whitelist_url", []) if item]
 
 
 def normalize_host(raw_url: str) -> str:
@@ -78,6 +76,14 @@ def main() -> int:
 
     error_msgs: list[str] = []
 
+    lrc_max_size = int(PULL_CONFIG.get("lrc_max_kb", 20)) * 1024
+    meta_max_size = int(PULL_CONFIG.get("meta_max_kb", 5)) * 1024
+    cover_max_size = int(PULL_CONFIG.get("cover_max_mb", 5)) * 1024 * 1024
+    max_files_per_folder = int(PULL_CONFIG.get("max_files_per_folder", 20))
+    cover_name = str(PULL_CONFIG.get("cover_name", "cover")).lower()
+    meta_name = str(PULL_CONFIG.get("meta_name", "meta.toml")).lower()
+    cover_ext = {str(item).lower() for item in COMMON_CONFIG.get("cover_ext", [".jpg", ".png", ".jpeg", ".webp", ".bmp"])}
+
     if deleted:
         error_msgs.append(f"❌ 禁止删除或重命名文件: {deleted}")
 
@@ -100,7 +106,7 @@ def main() -> int:
             continue
 
         if ext == ".lrc":
-            if file_size > 20 * 1024:
+            if file_size > lrc_max_size:
                 error_msgs.append(f"❌ LRC文件过大 (>20KB): {file}")
             try:
                 with open(file, "r", encoding="utf-8") as f:
@@ -114,16 +120,16 @@ def main() -> int:
             except UnicodeDecodeError:
                 error_msgs.append(f"❌ LRC必须使用 UTF-8 编码: {file}")
 
-        elif ext in [".jpg", ".png", ".jpeg", ".webp"]:
-            if name_part != "cover":
+        elif ext in cover_ext:
+            if name_part != cover_name:
                 error_msgs.append(f"❌ 图片必须命名为 cover (如 cover.jpg): {file}")
-            if file_size > 5 * 1024 * 1024:
+            if file_size > cover_max_size:
                 error_msgs.append(f"❌ 封面图片过大 (>5MB): {file}")
 
         elif ext == ".toml":
-            if filename != "meta.toml":
+            if filename != meta_name:
                 error_msgs.append(f"❌ TOML文件必须命名为 meta.toml: {file}")
-            if file_size > 5 * 1024:
+            if file_size > meta_max_size:
                 error_msgs.append(f"❌ meta.toml文件过大 (>5KB): {file}")
             try:
                 with open(file, "r", encoding="utf-8") as f:
@@ -140,7 +146,7 @@ def main() -> int:
 
         dirname = os.path.dirname(file)
         folder_counts[dirname] = folder_counts.get(dirname, 0) + 1
-        if folder_counts[dirname] > 20:
+        if folder_counts[dirname] > max_files_per_folder:
             error_msgs.append(f"❌ 文件夹 {dirname} 内文件超过20个限制")
 
     if error_msgs:

@@ -34,6 +34,12 @@ import re
 from pathlib import Path
 from typing import Any
 
+from .config_loader import load_config
+
+_CONFIG = load_config()
+_LRC_CONFIG = _CONFIG.get("lrc", {})
+_META_CONFIG = _CONFIG.get("meta", {})
+
 # ---------------------------------------------------------------------------
 # 正则模式
 # ---------------------------------------------------------------------------
@@ -62,43 +68,16 @@ _TITLE_WRAP_RE = re.compile(r"^[《【「『〈](.+?)[》】」』〉]\s*$")
 
 #: 标准 LRC ID 标签 → 归一化字段
 _LRC_ID_TAG: dict[str, str] = {
-    "ti": "title",
-    "ar": "artist",
-    "al": "album",
-    "by": "lyric_maker",  # [by:xxx] 标识歌词制作者
-    "lrc by": "lyric_maker",  # [lrc by:xxx] 也是歌词制作者
+    **dict(_LRC_CONFIG.get("id_tag", {})),
 }
 
 #: 歌词行里识别的字段别名 → 归一化字段
 _ROW_FIELD_ALIAS: dict[str, str] = {
-    # 演唱 / 主唱
-    "演唱": "vocal",
-    "主唱": "vocal",
-    "歌手": "vocal",
-    # 作曲 / 曲
-    "作曲": "composer",
-    "曲": "composer",
-    # 编曲
-    "编曲": "arranger",
-    # 作词 / 词
-    "作词": "lyricist",
-    "词": "lyricist",
-    # 调校 / 调
-    "调校": "tuning",
-    "调": "tuning",
-    # 曲绘 / 绘 / 封面 / 美术
-    "曲绘": "illustrator",
-    "绘": "illustrator",
-    "封面": "illustrator",
-    "美术": "illustrator",
-    # 混音
-    "混音": "mixer",
-    # 专辑字段（歌词内正文专辑名）
-    "专辑": "album_tag",
+    **dict(_LRC_CONFIG.get("row_field_alias", {})),
 }
 
 #: 所有列表型字段
-_LIST_FIELDS = {"vocal", "composer", "arranger", "lyricist", "tuning", "illustrator", "mixer"}
+_LIST_FIELDS = set(_LRC_CONFIG.get("list_fields", _META_CONFIG.get("lrc_fillable", []))) - {"lyric_maker"}
 
 # ---------------------------------------------------------------------------
 # 编码解码辅助

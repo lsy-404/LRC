@@ -3,7 +3,16 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-RES_DIR = Path(__file__).resolve().parents[2] / "res"
+from lib.config_loader import load_config
+
+CONFIG = load_config()
+PROJECT = CONFIG.get("project", {})
+META = CONFIG.get("meta", {})
+
+ROOT_DIR = Path(__file__).resolve().parents[2]
+RES_DIR = ROOT_DIR / PROJECT.get("res_dir", "res")
+_MAPPING = dict(META.get("mapping", {}))
+DATE_ALIASES = [str(key) for key, value in _MAPPING.items() if value == "year"] or ["年份", "发行日期", "year", "release_date"]
 
 
 def _decode_bytes(raw: bytes) -> str:
@@ -49,7 +58,8 @@ def main() -> None:
                     return match.group(0)
                 return f'{key_name} = "{normalized}"'
 
-            updated = re.sub(r'^(年份|发行日期)\s*=\s*"([^"]+)"\s*$', replace_year_line, content, flags=re.MULTILINE)
+            alias_pattern = "|".join(re.escape(item) for item in DATE_ALIASES)
+            updated = re.sub(rf'^({alias_pattern})\s*=\s*"([^"]+)"\s*$', replace_year_line, content, flags=re.MULTILINE)
             meta_path.write_text(updated, encoding="utf-8")
             print(f"Updated: {album_dir.name}")
         except Exception as error:

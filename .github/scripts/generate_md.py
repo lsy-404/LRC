@@ -5,14 +5,19 @@ import shutil
 import urllib.parse
 from pathlib import Path
 
+from lib.config_loader import load_config
 from lib.meta_parser import load_album_meta
 
-REPO = "wuyilingwei/LRC"
+CONFIG = load_config()
+PROJECT = CONFIG.get("project", {})
+COMMON = CONFIG.get("common", {})
+
+REPO = str(PROJECT.get("repo", "wuyilingwei/LRC"))
 ROOT_DIR = Path(__file__).resolve().parents[2]
-RES_DIR = ROOT_DIR / "res"
-DOCS_DIR = ROOT_DIR / "docs"
-ALBUMS_DIR = DOCS_DIR / "albums"
-COVER_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif", ".webp"]
+RES_DIR = ROOT_DIR / str(PROJECT.get("res_dir", "res"))
+DOCS_DIR = ROOT_DIR / str(PROJECT.get("docs_dir", "docs"))
+ALBUMS_DIR = ROOT_DIR / str(PROJECT.get("albums_dir", "docs/albums"))
+COVER_EXTENSIONS = [str(item) for item in COMMON.get("cover_ext", [".jpg", ".png", ".jpeg", ".webp", ".bmp"])]
 
 
 def _decode_lrc(raw: bytes) -> str:

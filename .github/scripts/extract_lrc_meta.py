@@ -37,29 +37,23 @@ if str(_SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(_SCRIPT_DIR))
 
 from lib.lrc_meta_extractor import extract_lrc_metadata, merge_album_lrc_metadata
+from lib.config_loader import load_config
 from lib.meta_parser import load_album_meta
 
+CONFIG = load_config()
+META_CONFIG = CONFIG.get("meta", {})
+PROJECT = CONFIG.get("project", {})
+
 ROOT_DIR = Path(__file__).resolve().parents[2]
-RES_DIR = ROOT_DIR / "res"
+RES_DIR = ROOT_DIR / str(PROJECT.get("res_dir", "res"))
 
-# 从 LRC 提取到的字段 → meta.toml 中的对应中文键（用于建议）
 _FIELD_TO_META_KEY: dict[str, str] = {
-    "vocal": "演唱",
-    "composer": "作曲",
-    "arranger": "编曲",
-    "lyricist": "作词",
-    "tuning": "调校",
-    "illustrator": "曲绘",
-    "mixer": "混音",
+    str(item.get("internal")): str(item.get("toml_key"))
+    for item in META_CONFIG.get("field_schema", [])
+    if item.get("type") == "list"
 }
 
-# meta.toml 中已有的对应字段名（用于比对）
-_META_CANONICAL: dict[str, str] = {
-    "vocal": "vocal",
-    "composer": "composer",
-    "lyricist": "lyricist",
-    "tuning": "tuning",
-}
+_META_CANONICAL: dict[str, str] = {key: key for key in _FIELD_TO_META_KEY}
 
 
 def fmt_list(lst: list[str]) -> str:

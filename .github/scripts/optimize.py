@@ -2,12 +2,20 @@
 import urllib.parse
 import re
 
-EXCLUDE_DIRS = {'.git', '.github', 'scripts', 'node_modules', '.vscode'}
-EXTENSIONS = {'.lrc'}
-README_PATH = 'README.md'
-RES_DIR = 'res'
-PACK_DIR = 'pack'
-COVER_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp'}
+from lib.config_loader import load_config
+
+CONFIG = load_config()
+PROJECT = CONFIG.get("project", {})
+OPTIMIZE = CONFIG.get("optimize", {})
+COMMON = CONFIG.get("common", {})
+
+EXCLUDE_DIRS = {str(item) for item in OPTIMIZE.get("exclude_dirs", [".git", ".github", "scripts", "node_modules", ".vscode"])}
+EXTENSIONS = {str(item) for item in OPTIMIZE.get("extensions", [".lrc"])}
+README_PATH = str(PROJECT.get("readme_path", "README.md"))
+RES_DIR = str(PROJECT.get("res_dir", "res"))
+PACK_DIR = str(PROJECT.get("pack_dir", "pack"))
+COVER_EXTENSIONS = {str(item) for item in COMMON.get("cover_ext", [".jpg", ".png", ".jpeg", ".webp", ".bmp"])}
+REPO = str(PROJECT.get("repo", "wuyilingwei/LRC"))
 
 def github_slug(text):
     """Generate a GitHub-like anchor slug from a heading text.
@@ -106,7 +114,7 @@ def main():
         
         # Add to Album List (use GitHub anchors for README headings)
         anchor = github_slug(album_name)
-        album_list_content.append(f"- [{album_name}](https://github.com/wuyilingwei/LRC#{urllib.parse.quote(anchor)})")
+        album_list_content.append(f"- [{album_name}](https://github.com/{REPO}#{urllib.parse.quote(anchor)})")
 
         # Add horizontal line between albums (not before first one)
         if idx > 0:
@@ -119,7 +127,7 @@ def main():
         if cover_file:
             cover_path = f"{RES_DIR}/{album_name}/{cover_file}"
             encoded_cover = urllib.parse.quote(cover_path)
-            raw_cover_url = f"https://raw.githubusercontent.com/wuyilingwei/LRC/main/{encoded_cover}"
+            raw_cover_url = f"https://raw.githubusercontent.com/{REPO}/main/{encoded_cover}"
             catalog_content.append(f'<img src="{raw_cover_url}" alt="专辑封面" width="120" align="right">\n\n')
         
         # Add to Catalog with download buttons
@@ -130,7 +138,7 @@ def main():
         zip_path = os.path.join(pack_dir_path, zip_filename)
         if os.path.exists(zip_path):
             encoded_zip = urllib.parse.quote(f"{PACK_DIR}/{zip_filename}")
-            cdn_zip_url = f"https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/{encoded_zip}"
+            cdn_zip_url = f"https://cdn.jsdelivr.net/gh/{REPO}@main/{encoded_zip}"
             catalog_content.append(f"**📦 [下载专辑歌词包]({cdn_zip_url})**\n\n")
         
         files = sorted([f for f in os.listdir(dir_path) if os.path.splitext(f)[1] in EXTENSIONS])
@@ -154,7 +162,7 @@ def main():
             rel_path = f"{RES_DIR}/{album_name}/{filename}"
             encoded_path = urllib.parse.quote(rel_path)
             # Create CDN download link
-            cdn_url = f"https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/{encoded_path}"
+            cdn_url = f"https://cdn.jsdelivr.net/gh/{REPO}@main/{encoded_path}"
             catalog_content.append(f"| [{filename}]({encoded_path}) | [📥 下载]({cdn_url}) |\n")
         
         catalog_content.append("\n</details>\n\n")

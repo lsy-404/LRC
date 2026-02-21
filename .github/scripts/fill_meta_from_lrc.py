@@ -48,33 +48,27 @@ if str(_SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(_SCRIPT_DIR))
 
 from lib.lrc_meta_extractor import merge_album_lrc_metadata
+from lib.config_loader import load_config
 from lib.meta_parser import load_album_meta
 
+CONFIG = load_config()
+META_CONFIG = CONFIG.get("meta", {})
+PROJECT = CONFIG.get("project", {})
+
 ROOT_DIR = Path(__file__).resolve().parents[2]
-RES_DIR = ROOT_DIR / "res"
+RES_DIR = ROOT_DIR / str(PROJECT.get("res_dir", "res"))
 
 # ──────────────────────────────────────────────────────────────────────────────
 # 字段定义：canonical 内部名称 → (TOML 中文键, 类型)
 # ──────────────────────────────────────────────────────────────────────────────
 FIELD_SCHEMA: list[tuple[str, str, str]] = [
-    # (internal_name, toml_key, type: "str" | "list")
-    ("year",        "发行日期",   "str"),
-    ("produce",     "出品",       "str"),
-    ("lyric_maker", "歌词制作",   "str"),
-    ("release",     "发布",       "str"),
-    ("purchase",    "购买",       "str"),
-    ("electronic",  "电子",       "str"),
-    ("vocal",       "演唱",       "list"),
-    ("lyricist",    "作词",       "list"),
-    ("composer",    "作曲",       "list"),
-    ("arranger",    "编曲",       "list"),
-    ("tuning",      "调校",       "list"),
-    ("illustrator", "曲绘",       "list"),
-    ("mixer",       "混音",       "list"),
+    (str(item.get("internal", "")), str(item.get("toml_key", "")), str(item.get("type", "str")))
+    for item in META_CONFIG.get("field_schema", [])
+    if item.get("internal") and item.get("toml_key")
 ]
 
 # 可从 LRC 提取的字段（包括列表字段和lyric_maker字符串字段）
-_LRC_FILLABLE = {"vocal", "lyricist", "composer", "arranger", "tuning", "illustrator", "mixer", "lyric_maker"}
+_LRC_FILLABLE = set(META_CONFIG.get("lrc_fillable", ["vocal", "lyricist", "composer", "arranger", "tuning", "illustrator", "mixer", "lyric_maker"]))
 
 
 # ──────────────────────────────────────────────────────────────────────────────

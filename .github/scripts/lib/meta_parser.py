@@ -4,26 +4,19 @@ import re
 from pathlib import Path
 from typing import Any
 
+from .config_loader import load_config
 
-DEFAULT_META: dict[str, Any] = {
-    "year": "",
-    "produce": "",
-    "vocal": [],
-    "lyricist": [],
-    "composer": [],
-    "arranger": [],
-    "tuning": [],
-    "illustrator": [],
-    "mixer": [],
-    "lyric_maker": "",
-    "release": "",
-    "purchase": "",
-    "electronic": "",
-}
+
+_CONFIG = load_config()
+_META_CONFIG = _CONFIG.get("meta", {})
+
+DEFAULT_META: dict[str, Any] = dict(_META_CONFIG.get("defaults", {}))
+_DECODE_ORDER = tuple(_META_CONFIG.get("decode_order", ["utf-8-sig", "utf-8", "gb18030", "gbk"]))
+_MAPPING: dict[str, str] = dict(_META_CONFIG.get("mapping", {}))
 
 
 def _decode_bytes(raw: bytes) -> str:
-    for encoding in ("utf-8-sig", "utf-8", "gb18030", "gbk"):
+    for encoding in _DECODE_ORDER:
         try:
             return raw.decode(encoding)
         except UnicodeDecodeError:
@@ -80,36 +73,7 @@ def _parse_array(value: str) -> list[str]:
 
 def parse_meta_text(content: str) -> dict[str, Any]:
     meta = dict(DEFAULT_META)
-    mapping = {
-        "年份": "year",
-        "发行日期": "year",
-        "year": "year",
-        "release_date": "year",
-        "出品": "produce",
-        "produce": "produce",
-        "演唱": "vocal",
-        "vocal": "vocal",
-        "作词": "lyricist",
-        "lyricist": "lyricist",
-        "作曲": "composer",
-        "composer": "composer",
-        "编曲": "arranger",
-        "arranger": "arranger",
-        "调校": "tuning",
-        "tuning": "tuning",
-        "曲绘": "illustrator",
-        "illustrator": "illustrator",
-        "混音": "mixer",
-        "mixer": "mixer",
-        "发布": "release",
-        "release": "release",
-        "购买": "purchase",
-        "purchase": "purchase",
-        "电子": "electronic",
-        "electronic": "electronic",
-        "歌词制作": "lyric_maker",
-        "lyric_maker": "lyric_maker",
-    }
+    mapping = _MAPPING
 
     for raw_line in content.splitlines():
         line = raw_line.strip()
