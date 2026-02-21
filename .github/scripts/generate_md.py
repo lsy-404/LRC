@@ -175,7 +175,7 @@ tag:
 
 ## 下载
 
-下载本专辑所有歌词文件：[📦 ZIP 打包下载](https://cdn.jsdelivr.net/gh/{REPO}@main/pack/{urllib.parse.quote(album)}.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/{REPO}@main/pack/{urllib.parse.quote(album)}.zip)
 """
 
         (ALBUMS_DIR / f"{album_file_name}.md").write_text(md_content, encoding="utf-8")
@@ -215,7 +215,7 @@ tag:
 出品：{card['produce']}  
 {year_line}
 
-[查看详情 →](albums/{card['file_name']}.md) &nbsp;·&nbsp; [📦 ZIP 下载]({zip_url})
+[ZIP 下载]({zip_url})
 
 <div style=\"clear: both;\"></div>
 
