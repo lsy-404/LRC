@@ -1,5 +1,5 @@
 ---
-title: 平行四界Quadimension X-2 歌词 LRC 文件下载
+title: 平行四界Quadimension X-2 歌词
 order: -1
 category:
   - 平行四界Quadimension X-2
@@ -24,6 +24,10 @@ tag:
   - 胧
   - 瑞安Ryan
   - 顾令
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # 平行四界Quadimension X-2

@@ -1,11 +1,10 @@
 ---
-title: ELOHIM 歌词 LRC 文件下载
+title: ELOHIM 歌词
 order: -1
 category:
   - ELOHIM
 tag:
   - ELOHIM
-  - RQvan
   - 言和
   - 大九_LN
   - lbg
@@ -16,6 +15,10 @@ tag:
   - 瑞安Ryan不跑调
   - 某只泽
   - 陌生来访
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # ELOHIM

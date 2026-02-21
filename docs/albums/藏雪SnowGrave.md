@@ -1,10 +1,14 @@
 ---
-title: 藏雪SnowGrave 歌词 LRC 文件下载
+title: 藏雪SnowGrave 歌词
 order: -1
 category:
   - 藏雪SnowGrave
 tag:
   - 藏雪SnowGrave
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # 藏雪SnowGrave

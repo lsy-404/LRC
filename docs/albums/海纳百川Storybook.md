@@ -1,5 +1,5 @@
 ---
-title: 海纳百川Storybook 歌词 LRC 文件下载
+title: 海纳百川Storybook 歌词
 order: -1
 category:
   - 海纳百川Storybook
@@ -19,6 +19,10 @@ tag:
   - 折v
   - 奶油蘑菇
   - 坐标P
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # 海纳百川Storybook

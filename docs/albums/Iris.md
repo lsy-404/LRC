@@ -1,12 +1,15 @@
 ---
-title: Iris 歌词 LRC 文件下载
+title: Iris 歌词
 order: -20260131
 category:
   - Iris
 tag:
   - Iris
   - Zeno
-  - RQvan
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # Iris

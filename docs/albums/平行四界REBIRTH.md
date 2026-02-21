@@ -1,5 +1,5 @@
 ---
-title: 平行四界REBIRTH 歌词 LRC 文件下载
+title: 平行四界REBIRTH 歌词
 order: -20250812
 category:
   - 平行四界REBIRTH
@@ -25,6 +25,10 @@ tag:
   - 瑞安Ryan
   - 跨海星尘
   - 苍梧 玖蝶
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # 平行四界REBIRTH

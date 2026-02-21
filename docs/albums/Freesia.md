@@ -1,13 +1,16 @@
 ---
-title: Freesia 歌词 LRC 文件下载
+title: Freesia 歌词
 order: -20171001
 category:
   - Freesia
 tag:
   - Freesia
   - Zeno
-  - 九九Lrc歌词网～www.99Lrc.com
   - 星尘
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # Freesia

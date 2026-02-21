@@ -1,11 +1,15 @@
 ---
-title: 加冕日CORONATION DAY 歌词 LRC 文件下载
+title: 加冕日CORONATION DAY 歌词
 order: -1
 category:
   - 加冕日CORONATION DAY
 tag:
   - 加冕日CORONATION DAY
   - Aya-亚夜-
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # 加冕日CORONATION DAY

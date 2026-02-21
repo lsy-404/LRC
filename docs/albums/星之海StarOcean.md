@@ -1,5 +1,5 @@
 ---
-title: 星之海StarOcean 歌词 LRC 文件下载
+title: 星之海StarOcean 歌词
 order: -1
 category:
   - 星之海StarOcean
@@ -21,6 +21,10 @@ tag:
   - 瑞安Ryan
   - MeLo
   - Napstina
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # 星之海StarOcean

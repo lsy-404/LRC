@@ -1,5 +1,5 @@
 ---
-title: 丛林法则Jungle Rules 歌词 LRC 文件下载
+title: 丛林法则Jungle Rules 歌词
 order: -20200228
 category:
   - 丛林法则Jungle Rules
@@ -24,6 +24,10 @@ tag:
   - 坐标P
   - 瑞安Ryan
   - 顾令
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # 丛林法则Jungle Rules

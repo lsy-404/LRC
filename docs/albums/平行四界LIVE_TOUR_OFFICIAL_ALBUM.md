@@ -1,11 +1,10 @@
 ---
-title: 平行四界LIVE TOUR OFFICIAL ALBUM 歌词 LRC 文件下载
+title: 平行四界LIVE TOUR OFFICIAL ALBUM 歌词
 order: -1
 category:
   - 平行四界LIVE TOUR OFFICIAL ALBUM
 tag:
   - 平行四界LIVE TOUR OFFICIAL ALBUM
-  - RQvan
   - 星尘
   - 冥凰
   - Zeno
@@ -28,6 +27,10 @@ tag:
   - 芹菜猪肉大馄饨
   - ZOMiG
   - Ddickky
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # 平行四界LIVE TOUR OFFICIAL ALBUM

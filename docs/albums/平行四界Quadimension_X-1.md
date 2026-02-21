@@ -1,12 +1,15 @@
 ---
-title: 平行四界Quadimension X-1 歌词 LRC 文件下载
+title: 平行四界Quadimension X-1 歌词
 order: -1
 category:
   - 平行四界Quadimension X-1
 tag:
   - 平行四界Quadimension X-1
   - 五维介质Official
-  - 虎啸ROAR
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # 平行四界Quadimension X-1

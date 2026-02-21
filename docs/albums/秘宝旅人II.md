@@ -1,11 +1,10 @@
 ---
-title: 秘宝旅人II 歌词 LRC 文件下载
+title: 秘宝旅人II 歌词
 order: -1
 category:
   - 秘宝旅人II
 tag:
   - 秘宝旅人II
-  - RQvan
   - 大九_LN
   - 曾怡
   - 星辉p
@@ -17,6 +16,10 @@ tag:
   - 瑞安Ryan
   - 某只泽
   - 陌生来访
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # 秘宝旅人II

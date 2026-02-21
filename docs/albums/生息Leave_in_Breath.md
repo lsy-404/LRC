@@ -1,11 +1,14 @@
 ---
-title: 生息Leave in Breath 歌词 LRC 文件下载
+title: 生息Leave in Breath 歌词
 order: -1
 category:
   - 生息Leave in Breath
 tag:
   - 生息Leave in Breath
-  - RQvan
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # 生息Leave in Breath

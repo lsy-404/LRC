@@ -1,5 +1,5 @@
 ---
-title: 天马行空Fairytale 歌词 LRC 文件下载
+title: 天马行空Fairytale 歌词
 order: -1
 category:
   - 天马行空Fairytale
@@ -23,6 +23,10 @@ tag:
   - 小野道
   - cillia
   - 战场原妖精
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # 天马行空Fairytale

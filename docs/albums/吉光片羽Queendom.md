@@ -1,5 +1,5 @@
 ---
-title: 吉光片羽Queendom 歌词 LRC 文件下载
+title: 吉光片羽Queendom 歌词
 order: -1
 category:
   - 吉光片羽Queendom
@@ -18,6 +18,10 @@ tag:
   - Creuzer
   - 木变石
   - 坐标P
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # 吉光片羽Queendom

@@ -1,5 +1,5 @@
 ---
-title: 天方夜谭Fairyland 歌词 LRC 文件下载
+title: 天方夜谭Fairyland 歌词
 order: -1
 category:
   - 天方夜谭Fairyland
@@ -19,6 +19,10 @@ tag:
   - Zeno
   - Napstina
   - Melo
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # 天方夜谭Fairyland

@@ -1,5 +1,5 @@
 ---
-title: 森罗万象Kaleido 歌词 LRC 文件下载
+title: 森罗万象Kaleido 歌词
 order: -1
 category:
   - 森罗万象Kaleido
@@ -20,6 +20,10 @@ tag:
   - Creuzer
   - 心
   - 流绪
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # 森罗万象Kaleido

@@ -1,12 +1,11 @@
 ---
-title: Starlit Whisper 歌词 LRC 文件下载
+title: Starlit Whisper 歌词
 order: -20251205
 category:
   - Starlit Whisper
 tag:
   - Starlit Whisper
   - 胧
-  - Magicst
   - 星尘
   - 赤羽
   - 诗岸
@@ -19,6 +18,10 @@ tag:
   - 血焰玖蝶
   - 跨海星尘
   - 瑞安Ryan
+  - 歌词
+  - lrc
+  - 下载
+  - 文件
 ---
 
 # Starlit Whisper
