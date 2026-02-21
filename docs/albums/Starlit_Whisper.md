@@ -1,5 +1,5 @@
 ---
-title: Starlit Whisper 歌词
+title: Starlit Whisper
 order: -20251205
 category:
   - Starlit Whisper

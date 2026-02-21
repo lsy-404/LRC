@@ -1,5 +1,5 @@
 ---
-title: 天马行空Fairytale 歌词
+title: 天马行空Fairytale
 order: -1
 category:
   - 天马行空Fairytale

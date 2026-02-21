@@ -1,5 +1,5 @@
 ---
-title: 星之海StarOcean 歌词
+title: 星之海StarOcean
 order: -1
 category:
   - 星之海StarOcean

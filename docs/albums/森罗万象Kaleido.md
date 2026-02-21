@@ -1,5 +1,5 @@
 ---
-title: 森罗万象Kaleido 歌词
+title: 森罗万象Kaleido
 order: -1
 category:
   - 森罗万象Kaleido

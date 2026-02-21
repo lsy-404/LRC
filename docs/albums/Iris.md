@@ -1,5 +1,5 @@
 ---
-title: Iris 歌词
+title: Iris
 order: -20260131
 category:
   - Iris

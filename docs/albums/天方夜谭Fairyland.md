@@ -1,5 +1,5 @@
 ---
-title: 天方夜谭Fairyland 歌词
+title: 天方夜谭Fairyland
 order: -1
 category:
   - 天方夜谭Fairyland

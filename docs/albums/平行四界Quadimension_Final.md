@@ -1,5 +1,5 @@
 ---
-title: 平行四界Quadimension Final 歌词
+title: 平行四界Quadimension Final
 order: -1
 category:
   - 平行四界Quadimension Final

@@ -1,5 +1,5 @@
 ---
-title: ELOHIM 歌词
+title: ELOHIM
 order: -1
 category:
   - ELOHIM

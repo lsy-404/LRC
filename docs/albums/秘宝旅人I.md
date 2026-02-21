@@ -1,5 +1,5 @@
 ---
-title: 秘宝旅人I 歌词
+title: 秘宝旅人I
 order: -1
 category:
   - 秘宝旅人I

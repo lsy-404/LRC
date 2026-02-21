@@ -1,5 +1,5 @@
 ---
-title: 生息Leave in Breath 歌词
+title: 生息Leave in Breath
 order: -1
 category:
   - 生息Leave in Breath

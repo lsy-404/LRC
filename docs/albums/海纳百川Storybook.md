@@ -1,5 +1,5 @@
 ---
-title: 海纳百川Storybook 歌词
+title: 海纳百川Storybook
 order: -1
 category:
   - 海纳百川Storybook

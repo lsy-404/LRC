@@ -1,5 +1,5 @@
 ---
-title: 加冕日CORONATION DAY 歌词
+title: 加冕日CORONATION DAY
 order: -1
 category:
   - 加冕日CORONATION DAY

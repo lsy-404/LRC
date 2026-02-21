@@ -1,5 +1,5 @@
 ---
-title: 平行四界REBIRTH 歌词
+title: 平行四界REBIRTH
 order: -20250812
 category:
   - 平行四界REBIRTH

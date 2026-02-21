@@ -1,5 +1,5 @@
 ---
-title: 藏雪SnowGrave 歌词
+title: 藏雪SnowGrave
 order: -1
 category:
   - 藏雪SnowGrave

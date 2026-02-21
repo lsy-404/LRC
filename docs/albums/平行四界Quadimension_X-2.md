@@ -1,5 +1,5 @@
 ---
-title: 平行四界Quadimension X-2 歌词
+title: 平行四界Quadimension X-2
 order: -1
 category:
   - 平行四界Quadimension X-2

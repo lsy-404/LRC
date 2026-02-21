@@ -1,5 +1,5 @@
 ---
-title: 丛林法则Jungle Rules 歌词
+title: 丛林法则Jungle Rules
 order: -20200228
 category:
   - 丛林法则Jungle Rules

@@ -1,5 +1,5 @@
 ---
-title: Freesia 歌词
+title: Freesia
 order: -20171001
 category:
   - Freesia

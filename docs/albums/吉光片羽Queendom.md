@@ -1,5 +1,5 @@
 ---
-title: 吉光片羽Queendom 歌词
+title: 吉光片羽Queendom
 order: -1
 category:
   - 吉光片羽Queendom

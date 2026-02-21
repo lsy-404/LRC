@@ -1,5 +1,5 @@
 ---
-title: 星愿StarWish 歌词
+title: 星愿StarWish
 order: -1
 category:
   - 星愿StarWish
