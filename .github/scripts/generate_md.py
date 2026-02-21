@@ -108,12 +108,13 @@ def main() -> None:
         tags = [album]
         if info["produce"]:
             tags.append(str(info["produce"]))
-        if info["lyric_maker"]:
-            tags.append(str(info["lyric_maker"]))
+        # 不将歌词制作者加入tag，只显示在正文中
         for key in ("vocal", "lyricist", "composer", "tuning"):
             values = info.get(key) or []
             if isinstance(values, list):
                 tags.extend(values)
+        # 添加固定的搜索关键词
+        tags.extend(["歌词", "lrc", "下载", "文件"])
         # 去重，保留首次出现顺序
         tags = list(dict.fromkeys(tags))
 
@@ -179,8 +180,8 @@ tag:
 
         (ALBUMS_DIR / f"{album_file_name}.md").write_text(md_content, encoding="utf-8")
 
-        # 首页卡片图片路径：相对于 docs/README.md，需带 albums/ 前缀
-        cover_url = f"albums/{album_file_name}{cover_display_ext}" if has_cover else ""
+        # 首页卡片图片路径：使用绝对路径（以 / 开头），VuePress会从网站根目录解析
+        cover_url = f"/albums/{album_file_name}{cover_display_ext}" if has_cover else ""
         album_cards.append(
             {
                 "name": album,

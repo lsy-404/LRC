@@ -10,8 +10,6 @@ export default hopeTheme({
     url: "https://github.com/wuyilingwei",
   },
 
-  iconAssets: "iconify",
-
   logo: "/logo.svg",
 
   // print button
@@ -28,6 +26,10 @@ export default hopeTheme({
 
   markdown: {
     attrs: true,
+    align: true,
+    sub: true,
+    sup: true,
+    footnote: true,
   },
 
   // navbar
@@ -63,13 +65,15 @@ export default hopeTheme({
 
   pageInfo: ["Tag"],
 
-  // 启用博客插件以支持 /tag/ 聚合页
-  blog: {
-    article: "/non-exist-placeholder/", // 不让任何页面作为博客文章列表
-  },
-
-
   plugins: {
+    // 启用博客插件以支持 /tag/ 聚合页
+    blog: true,
+
+    // 图标资源
+    icon: {
+      assets: "iconify",
+    },
+
     // 歌词网站不需要评论功能
     comment: false,
 
@@ -78,14 +82,7 @@ export default hopeTheme({
       indexContent: true,
     },
 
-    // Markdown增强 - 保留基础格式化功能
-    mdEnhance: {
-      attrs: true,      // 属性支持
-      sub: true,        // 下标
-      sup: true,        // 上标
-      footnote: true,   // 脚注
-      align: true,      // 对齐
-    },
+    // Markdown增强已移至 markdown 配置中
   },
 },
   {
