@@ -12,6 +12,8 @@ tag:
 
 <img src="/albums/加冕日CORONATION_DAY.jpg" alt="加冕日CORONATION DAY 封面" style="max-width: 40%; height: auto;" />
 
+**发行日期:** 缺少信息
+
 **作词:** Aya-亚夜-
 
 **作曲:** Aya-亚夜-

@@ -29,6 +29,8 @@ tag:
 
 <img src="/albums/天马行空Fairytale.jpg" alt="天马行空Fairytale 封面" style="max-width: 40%; height: auto;" />
 
+**发行日期:** 缺少信息
+
 **演唱:** 星尘、赤羽、诗岸
 
 **作词:** 绿无、大九_LN、Uniparity、赭柚奶、浓缩排骨、Kide

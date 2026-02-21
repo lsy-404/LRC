@@ -26,6 +26,8 @@ tag:
 
 <img src="/albums/星之海StarOcean.jpg" alt="星之海StarOcean 封面" style="max-width: 40%; height: auto;" />
 
+**发行日期:** 缺少信息
+
 **演唱:** 星尘＆海伊、星尘
 
 **作词:** 大♂古、浓缩排骨、袖蓝、Zeno、赭莓奶、冥凰、绿无

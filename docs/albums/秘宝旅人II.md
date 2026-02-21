@@ -22,6 +22,8 @@ tag:
 
 <img src="/albums/秘宝旅人II.jpg" alt="秘宝旅人II 封面" style="max-width: 40%; height: auto;" />
 
+**发行日期:** 缺少信息
+
 **作词:** 大九_LN
 
 **作曲:** 曾怡、星辉p、Takna、雪人Snowman、Yida、辻原一郎、十音Molho

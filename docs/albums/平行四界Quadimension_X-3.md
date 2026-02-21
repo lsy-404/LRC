@@ -16,6 +16,8 @@ tag:
 
 <img src="/albums/平行四界Quadimension_X-3.jpg" alt="平行四界Quadimension X-3 封面" style="max-width: 40%; height: auto;" />
 
+**发行日期:** 缺少信息
+
 **出品:** 五维介质Official
 
 **作词:** 绿无、浓缩排骨

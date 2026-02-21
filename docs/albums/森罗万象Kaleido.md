@@ -28,6 +28,8 @@ tag:
 
 <img src="/albums/森罗万象Kaleido.jpg" alt="森罗万象Kaleido 封面" style="max-width: 40%; height: auto;" />
 
+**发行日期:** 缺少信息
+
 **演唱:** 星尘(造梦者) & 海伊(看板娘) & 赤羽(贩卖商)、海伊 & 赤羽、海伊、星尘 & 赤羽、星尘 & 海伊
 
 **作词:** ANK、Zeno

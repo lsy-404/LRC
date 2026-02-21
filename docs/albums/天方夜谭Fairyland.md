@@ -25,6 +25,8 @@ tag:
 
 <img src="/albums/天方夜谭Fairyland.jpg" alt="天方夜谭Fairyland 封面" style="max-width: 40%; height: auto;" />
 
+**发行日期:** 缺少信息
+
 **演唱:** 星尘、海伊、苍穹
 
 **作词:** 琉璃君、浓缩排骨、绿无、赭柚奶、沈病娇、大♂古、大九_LN

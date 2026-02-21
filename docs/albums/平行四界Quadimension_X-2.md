@@ -30,6 +30,8 @@ tag:
 
 <img src="/albums/平行四界Quadimension_X-2.jpg" alt="平行四界Quadimension X-2 封面" style="max-width: 40%; height: auto;" />
 
+**发行日期:** 缺少信息
+
 **出品:** 五维介质Official
 
 **演唱:** 星尘&海伊、诗岸、海伊、苍穹&赤羽、星尘、minus

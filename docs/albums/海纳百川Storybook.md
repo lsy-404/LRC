@@ -25,6 +25,8 @@ tag:
 
 <img src="/albums/海纳百川Storybook.jpg" alt="海纳百川Storybook 封面" style="max-width: 40%; height: auto;" />
 
+**发行日期:** 缺少信息
+
 **演唱:** 星尘、海伊、诗岸
 
 **作词:** Ddickky、大♂古、芍杳、大九_LN、绿无、杏花包子、Zeno

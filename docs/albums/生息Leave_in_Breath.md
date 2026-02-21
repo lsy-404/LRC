@@ -11,6 +11,7 @@ tag:
 
 <img src="/albums/生息Leave_in_Breath.jpg" alt="生息Leave in Breath 封面" style="max-width: 40%; height: auto;" />
 
+**发行日期:** 缺少信息
 
 ## 曲目列表
 

@@ -21,6 +21,8 @@ tag:
 
 <img src="/albums/ELOHIM.jpg" alt="ELOHIM 封面" style="max-width: 40%; height: auto;" />
 
+**发行日期:** 缺少信息
+
 **演唱:** 言和
 
 **作词:** 大九_LN

@@ -30,6 +30,8 @@ tag:
 
 <img src="/albums/秘宝旅人I.png" alt="秘宝旅人I 封面" style="max-width: 40%; height: auto;" />
 
+**发行日期:** 缺少信息
+
 **演唱:** 苍穹.feat 星尘/海伊/诗岸、希罗多德（青溯）、海伊、Minus、牧心、诗岸、苍穹、星尘Infinity、赤羽
 
 **作词:** 大九_LN

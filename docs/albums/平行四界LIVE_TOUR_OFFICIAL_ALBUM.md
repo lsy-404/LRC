@@ -31,6 +31,8 @@ tag:
 
 <img src="/albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界LIVE TOUR OFFICIAL ALBUM 封面" style="max-width: 40%; height: auto;" />
 
+**发行日期:** 缺少信息
+
 **演唱:** 星尘
 
 **作词:** 冥凰、Zeno、陌小幽、Ceekyo、果汁凉菜、绿无、Systjcfl、袖蓝&意志驼、紫寒怜梦&咲逸十八、便器p、Seven、筠箬

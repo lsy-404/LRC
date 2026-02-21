@@ -11,6 +11,7 @@ tag:
 
 <img src="/albums/藏雪SnowGrave.jpg" alt="藏雪SnowGrave 封面" style="max-width: 40%; height: auto;" />
 
+**发行日期:** 缺少信息
 
 ## 曲目列表
 

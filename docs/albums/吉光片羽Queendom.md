@@ -24,6 +24,8 @@ tag:
 
 <img src="/albums/吉光片羽Queendom.jpg" alt="吉光片羽Queendom 封面" style="max-width: 40%; height: auto;" />
 
+**发行日期:** 缺少信息
+
 **演唱:** 吉光
 
 **作词:** 绿无、沈病娇、芍杳、浓缩排骨、大九_LN

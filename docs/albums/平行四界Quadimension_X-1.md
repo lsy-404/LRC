@@ -12,6 +12,8 @@ tag:
 
 <img src="/albums/平行四界Quadimension_X-1.jpg" alt="平行四界Quadimension X-1 封面" style="max-width: 40%; height: auto;" />
 
+**发行日期:** 缺少信息
+
 **出品:** 五维介质Official
 
 ## 曲目列表

@@ -28,6 +28,8 @@ tag:
 
 <img src="/albums/平行四界Quadimension_Final.png" alt="平行四界Quadimension Final 封面" style="max-width: 40%; height: auto;" />
 
+**发行日期:** 缺少信息
+
 **出品:** 五维介质Official
 
 **演唱:** 海伊、赤羽、诗岸、苍穹、星尘、Minus、星尘Infinity
