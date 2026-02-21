@@ -63,10 +63,9 @@ export default hopeTheme({
 
   pageInfo: ["Tag"],
 
-  // 启用博客插件最小配置，以支持 /tag/ 聚合页（不启用博客首页）
-  blog: {
-    article: "/non-exist-placeholder/", // 不让任何页面作为博客文章列表
-  },
+  // 启用博客插件以支持 /tag/ 聚合页
+  blog: {},
+
 
   plugins: {
     // 歌词网站不需要评论功能

@@ -116,6 +116,8 @@ def main() -> None:
             values = info.get(key) or []
             if isinstance(values, list):
                 tags.extend(values)
+        # 去重，保留首次出现顺序
+        tags = list(dict.fromkeys(tags))
 
         info_display = []
         if info["year"]:
