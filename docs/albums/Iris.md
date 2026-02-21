@@ -6,8 +6,6 @@ category:
 tag:
   - Iris
   - Zeno
-  - Zeno
-  - Zeno
 ---
 
 # Iris

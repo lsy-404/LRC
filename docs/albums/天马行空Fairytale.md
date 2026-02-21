@@ -22,7 +22,6 @@ tag:
   - 瑞安Ryan
   - 小野道
   - cillia
-  - Kide
   - 战场原妖精
 ---
 

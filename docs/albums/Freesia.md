@@ -7,9 +7,6 @@ tag:
   - Freesia
   - Zeno
   - 星尘
-  - Zeno
-  - Zeno
-  - Zeno
 ---
 
 # Freesia

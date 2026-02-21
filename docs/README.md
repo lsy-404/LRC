@@ -19,7 +19,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 出品：Zeno  
 **发行日期：** 2026-01-31  
-标签：Iris、Zeno、Zeno、Zeno
+标签：Iris、Zeno
 
 [查看详情 →](albums/Iris.md)
 
@@ -32,7 +32,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 出品：胧  
 **发行日期：** 2025-12-05  
-标签：Starlit Whisper、胧、星尘、星尘&赤羽&诗岸&海伊&苍穹、胧、Aya-亚夜-、林檎、阿卡娜、胧、Aya-亚夜-、Creuzer、血焰玖蝶、跨海星尘、瑞安Ryan
+标签：Starlit Whisper、胧、星尘、星尘&赤羽&诗岸&海伊&苍穹、Aya-亚夜-、林檎、阿卡娜、Creuzer、血焰玖蝶、跨海星尘、瑞安Ryan
 
 [查看详情 →](albums/Starlit_Whisper.md)
 
@@ -45,7 +45,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 出品：五维介质Official  
 **发行日期：** 2025-08-12  
-标签：平行四界REBIRTH、五维介质Official、星尘 & 赤羽 & 海伊 & 诗岸 & 苍穹、诗岸、星尘、海伊、赤羽、星尘 & 海伊、黑金语、林擒、乌梅Pd、Zeno、浓缩排骨、Aya-亚夜-、大久、烂兔子P、乌梅Pd、Zeno、胧、Kide、Aya-亚夜-、Bitman、瑞安Ryan、跨海星尘、苍梧 玖蝶
+标签：平行四界REBIRTH、五维介质Official、星尘 & 赤羽 & 海伊 & 诗岸 & 苍穹、诗岸、星尘、海伊、赤羽、星尘 & 海伊、黑金语、林擒、乌梅Pd、Zeno、浓缩排骨、Aya-亚夜-、大久、烂兔子P、胧、Kide、Bitman、瑞安Ryan、跨海星尘、苍梧 玖蝶
 
 [查看详情 →](albums/平行四界REBIRTH.md)
 
@@ -58,7 +58,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 出品：会咬人的白海豹  
 **发行日期：** 2025-05-01  
-标签：繁星于雨云之上、会咬人的白海豹、星尘、永夜、洛天依、乐正绫、诗岸、赤羽、又瓷、雷小晏、四一、槃清、muri、幻、怀归、奇怪雷子QGRay、槃清、muri、崽无儿音、苍梧、雨巷、正十字p、muri
+标签：繁星于雨云之上、会咬人的白海豹、星尘、永夜、洛天依、乐正绫、诗岸、赤羽、又瓷、雷小晏、四一、槃清、muri、幻、怀归、奇怪雷子QGRay、崽无儿音、苍梧、雨巷、正十字p
 
 [查看详情 →](albums/繁星于雨云之上.md)
 
@@ -71,7 +71,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 出品：五维介质Official  
 **发行日期：** 2020-02-28  
-标签：丛林法则Jungle Rules、五维介质Official、星尘、苍穹、诗岸、Evalia、哈密瓜、绿无、琉璃菌、Zeno、赭柚奶、大九_LN、Evalia、哈密瓜、MeLo、十音、Zeno、小野道、星辉、磁带君、坐标P、瑞安Ryan、Zeno、顾令
+标签：丛林法则Jungle Rules、五维介质Official、星尘、苍穹、诗岸、Evalia、哈密瓜、绿无、琉璃菌、Zeno、赭柚奶、大九_LN、MeLo、十音、小野道、星辉、磁带君、坐标P、瑞安Ryan、顾令
 
 [查看详情 →](albums/丛林法则Jungle_Rules.md)
 
@@ -84,7 +84,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 出品：Zeno  
 **发行日期：** 2017-10-01  
-标签：Freesia、Zeno、星尘、Zeno、Zeno、Zeno
+标签：Freesia、Zeno、星尘
 
 [查看详情 →](albums/Freesia.md)
 
@@ -97,7 +97,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 出品：缺少信息  
   
-标签：ELOHIM、言和、大九_LN、lbg、辻原一郎、雪人Snowman、星辉p、litterzy、瑞安Ryan不跑调、某只泽、陌生来访、litterzy
+标签：ELOHIM、言和、大九_LN、lbg、辻原一郎、雪人Snowman、星辉p、litterzy、瑞安Ryan不跑调、某只泽、陌生来访
 
 [查看详情 →](albums/ELOHIM.md)
 
@@ -110,7 +110,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 出品：缺少信息  
   
-标签：加冕日CORONATION DAY、Aya-亚夜-、Aya-亚夜-
+标签：加冕日CORONATION DAY、Aya-亚夜-
 
 [查看详情 →](albums/加冕日CORONATION_DAY.md)
 
@@ -149,7 +149,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 出品：缺少信息  
   
-标签：天马行空Fairytale、星尘、赤羽、诗岸、绿无、大九_LN、Uniparity、赭柚奶、浓缩排骨、Kide、Creuzer、Melo、心、Zeno、坐标P、瑞安Ryan、小野道、cillia、Kide、战场原妖精
+标签：天马行空Fairytale、星尘、赤羽、诗岸、绿无、大九_LN、Uniparity、赭柚奶、浓缩排骨、Kide、Creuzer、Melo、心、Zeno、坐标P、瑞安Ryan、小野道、cillia、战场原妖精
 
 [查看详情 →](albums/天马行空Fairytale.md)
 
@@ -162,7 +162,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 出品：缺少信息  
   
-标签：平行四界LIVE TOUR OFFICIAL ALBUM、星尘、冥凰、Zeno、陌小幽、Ceekyo、果汁凉菜、绿无、Systjcfl、袖蓝&意志驼、紫寒怜梦&咲逸十八、便器p、Seven、筠箬、ST.K4N3、Ceekyo、COP、Melo、小野道、芹菜猪肉大馄饨、ZOMiG、便器p、Zeno、Ddickky
+标签：平行四界LIVE TOUR OFFICIAL ALBUM、星尘、冥凰、Zeno、陌小幽、Ceekyo、果汁凉菜、绿无、Systjcfl、袖蓝&意志驼、紫寒怜梦&咲逸十八、便器p、Seven、筠箬、ST.K4N3、COP、Melo、小野道、芹菜猪肉大馄饨、ZOMiG、Ddickky
 
 [查看详情 →](albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.md)
 
@@ -175,7 +175,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 出品：五维介质Official  
   
-标签：平行四界Quadimension Final、五维介质Official、海伊、赤羽、诗岸、苍穹、星尘、Minus、星尘Infinity、Evalia、溯回、芍杳、Zeno、浓缩排骨、绿无、Ddickky、瑞安Ryan、陌生来访、Zeno
+标签：平行四界Quadimension Final、五维介质Official、海伊、赤羽、诗岸、苍穹、星尘、Minus、星尘Infinity、Evalia、溯回、芍杳、Zeno、浓缩排骨、绿无、Ddickky、瑞安Ryan、陌生来访
 
 [查看详情 →](albums/平行四界Quadimension_Final.md)
 
@@ -201,7 +201,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 出品：五维介质Official  
   
-标签：平行四界Quadimension X-2、五维介质Official、星尘&海伊、诗岸、海伊、苍穹&赤羽、星尘、minus、大九_LM、K_Lacid、浓缩排骨、Evalia、Zeno、BITMAN、PoKeR、星辉P、papaw泡泡、胧、Evalia、Zeno、瑞安Ryan、顾令
+标签：平行四界Quadimension X-2、五维介质Official、星尘&海伊、诗岸、海伊、苍穹&赤羽、星尘、minus、大九_LM、K_Lacid、浓缩排骨、Evalia、Zeno、BITMAN、PoKeR、星辉P、papaw泡泡、胧、瑞安Ryan、顾令
 
 [查看详情 →](albums/平行四界Quadimension_X-2.md)
 
@@ -227,7 +227,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 出品：缺少信息  
   
-标签：星之海StarOcean、星尘＆海伊、星尘、大♂古、浓缩排骨、袖蓝、Zeno、赭莓奶、冥凰、绿无、Kide、大馄饨、Zeno、小野道、Zoey、瑞安Ryan、小野道、MeLo&Napstina
+标签：星之海StarOcean、星尘＆海伊、星尘、大♂古、浓缩排骨、袖蓝、Zeno、赭莓奶、冥凰、绿无、Kide、大馄饨、小野道、Zoey、瑞安Ryan、MeLo&Napstina
 
 [查看详情 →](albums/星之海StarOcean.md)
 
@@ -253,7 +253,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 出品：缺少信息  
   
-标签：森罗万象Kaleido、星尘(造梦者) & 海伊(看板娘) & 赤羽(贩卖商)、海伊 & 赤羽、海伊、星尘 & 赤羽、星尘 & 海伊、ANK、Zeno、Evalia、Hoskey、KAII（St.K4N3）、erazedfx、大馄饨、ANK、Zeno、瑞安Ryan、坐标P、Creuzer & 坐标P、心 & 流绪、心、Zeno
+标签：森罗万象Kaleido、星尘(造梦者) & 海伊(看板娘) & 赤羽(贩卖商)、海伊 & 赤羽、海伊、星尘 & 赤羽、星尘 & 海伊、ANK、Zeno、Evalia、Hoskey、KAII（St.K4N3）、erazedfx、大馄饨、瑞安Ryan、坐标P、Creuzer & 坐标P、心 & 流绪、心
 
 [查看详情 →](albums/森罗万象Kaleido.md)
 
@@ -318,7 +318,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 出品：缺少信息  
   
-标签：秘宝旅人II、大九_LN、曾怡、星辉p、Takna、雪人Snowman、Yida、辻原一郎、十音Molho、瑞安Ryan、某只泽、陌生来访、星辉p
+标签：秘宝旅人II、大九_LN、曾怡、星辉p、Takna、雪人Snowman、Yida、辻原一郎、十音Molho、瑞安Ryan、某只泽、陌生来访
 
 [查看详情 →](albums/秘宝旅人II.md)
 

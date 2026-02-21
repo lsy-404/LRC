@@ -17,14 +17,11 @@ tag:
   - KAII（St.K4N3）
   - erazedfx
   - 大馄饨
-  - ANK
-  - Zeno
   - 瑞安Ryan
   - 坐标P
   - Creuzer & 坐标P
   - 心 & 流绪
   - 心
-  - Zeno
 ---
 
 # 森罗万象Kaleido

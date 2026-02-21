@@ -15,7 +15,6 @@ tag:
   - 瑞安Ryan不跑调
   - 某只泽
   - 陌生来访
-  - litterzy
 ---
 
 # ELOHIM

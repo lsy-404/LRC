@@ -19,14 +19,11 @@ tag:
   - Seven
   - 筠箬
   - ST.K4N3
-  - Ceekyo
   - COP
   - Melo
   - 小野道
   - 芹菜猪肉大馄饨
   - ZOMiG
-  - 便器p
-  - Zeno
   - Ddickky
 ---
 

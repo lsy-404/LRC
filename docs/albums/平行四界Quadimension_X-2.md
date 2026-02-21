@@ -22,8 +22,6 @@ tag:
   - 星辉P
   - papaw泡泡
   - 胧
-  - Evalia
-  - Zeno
   - 瑞安Ryan
   - 顾令
 ---

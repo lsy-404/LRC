@@ -6,7 +6,6 @@ category:
 tag:
   - 加冕日CORONATION DAY
   - Aya-亚夜-
-  - Aya-亚夜-
 ---
 
 # 加冕日CORONATION DAY

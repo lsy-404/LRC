@@ -16,17 +16,13 @@ tag:
   - Zeno
   - 赭柚奶
   - 大九_LN
-  - Evalia
-  - 哈密瓜
   - MeLo
   - 十音
-  - Zeno
   - 小野道
   - 星辉
   - 磁带君
   - 坐标P
   - 瑞安Ryan
-  - Zeno
   - 顾令
 ---
 

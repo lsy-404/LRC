@@ -16,11 +16,9 @@ tag:
   - 绿无
   - Kide
   - 大馄饨
-  - Zeno
   - 小野道
   - Zoey
   - 瑞安Ryan
-  - 小野道
   - MeLo&Napstina
 ---
 
