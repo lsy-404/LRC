@@ -6,6 +6,8 @@ category:
 tag:
   - Starlit Whisper
   - 胧
+  - 星尘
+  - 星尘&赤羽&诗岸&海伊&苍穹
   - 胧
   - Aya-亚夜-
   - 林檎
@@ -26,17 +28,19 @@ tag:
 
 **出品:** 胧
 
-**作词:** 胧、Aya-亚夜-、林檎、阿卡娜
-
-**作曲:** 胧、Aya-亚夜-
-
-**调校:** Creuzer、血焰玖蝶、跨海星尘、瑞安Ryan
-
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Jm2LBbEzi/)
 
 **购买:** [淘宝 喵之宝库miota](https://item.taobao.com/item.htm?id=999122563646)
 
-**歌曲数量:** 7 首
+**演唱:** 星尘、星尘&赤羽&诗岸&海伊&苍穹
+
+**作词:** 胧、Aya-亚夜-、林檎、阿卡娜
+
+**作曲:** 胧、Aya-亚夜-
+
+**编曲:** 胧、Aya-亚夜
+
+**调校:** Creuzer、血焰玖蝶、跨海星尘、瑞安Ryan
 
 ## 曲目列表
 

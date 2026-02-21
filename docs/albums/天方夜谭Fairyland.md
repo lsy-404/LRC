@@ -5,14 +5,39 @@ category:
   - 天方夜谭Fairyland
 tag:
   - 天方夜谭Fairyland
+  - 星尘
+  - 海伊
+  - 苍穹
+  - 琉璃君
+  - 浓缩排骨
+  - 绿无
+  - 赭柚奶
+  - 沈病娇
+  - 大♂古
+  - 大九_LN
+  - 黄雷基
+  - Zeno
+  - Napstina
+  - Melo
 ---
 
 # 天方夜谭Fairyland
 
 <img src="/albums/天方夜谭Fairyland.jpg" alt="天方夜谭Fairyland 封面" style="max-width: 40%; height: auto;" />
 
+**演唱:** 星尘、海伊、苍穹
 
-**歌曲数量:** 9 首
+**作词:** 琉璃君、浓缩排骨、绿无、赭柚奶、沈病娇、大♂古、大九_LN
+
+**作曲:** 黄雷基
+
+**编曲:** lbg
+
+**调校:** Zeno、Napstina、Melo
+
+**曲绘:** kieed、November、Hanasa、原子Dan、TOMATO、Leiq雷、Sainker、匙
+
+**混音:** 老E
 
 ## 曲目列表
 

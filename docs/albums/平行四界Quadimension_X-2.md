@@ -6,6 +6,26 @@ category:
 tag:
   - 平行四界Quadimension X-2
   - 五维介质Official
+  - 星尘&海伊
+  - 诗岸
+  - 海伊
+  - 苍穹&赤羽
+  - 星尘
+  - minus
+  - 大九_LM
+  - K_Lacid
+  - 浓缩排骨
+  - Evalia
+  - Zeno
+  - BITMAN
+  - PoKeR
+  - 星辉P
+  - papaw泡泡
+  - 胧
+  - Evalia
+  - Zeno
+  - 瑞安Ryan
+  - 顾令
 ---
 
 # 平行四界Quadimension X-2
@@ -14,7 +34,17 @@ tag:
 
 **出品:** 五维介质Official
 
-**歌曲数量:** 9 首
+**演唱:** 星尘&海伊、诗岸、海伊、苍穹&赤羽、星尘、minus
+
+**作词:** 大九_LM、K_Lacid、浓缩排骨、Evalia、Zeno
+
+**作曲:** BITMAN、PoKeR、星辉P、papaw泡泡、胧、Evalia、Zeno
+
+**编曲:** BITMAN、PoKeR、星辉P、papaw泡泡、胧、Evalia、Zeno、Kide
+
+**调校:** 瑞安Ryan、顾令
+
+**曲绘:** 大汉Jax、立旗、yu-x、QNZY
 
 ## 曲目列表
 

@@ -7,6 +7,7 @@ tag:
   - Iris
   - Zeno
   - Zeno
+  - Zeno
 ---
 
 # Iris
@@ -17,13 +18,17 @@ tag:
 
 **出品:** Zeno
 
-**调校:** Zeno
-
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1vz6pBxEqh/)
 
 **购买:** [淘宝 平行四界Quadimension](https://item.taobao.com/item.htm?id=1019788252972)
 
-**歌曲数量:** 7 首
+**作曲:** Zeno
+
+**编曲:** Zeno
+
+**调校:** Zeno
+
+**曲绘:** 白祈
 
 ## 曲目列表
 

@@ -6,6 +6,16 @@ category:
 tag:
   - ELOHIM
   - 言和
+  - 大九_LN
+  - lbg
+  - 辻原一郎
+  - 雪人Snowman
+  - 星辉p
+  - litterzy
+  - 瑞安Ryan不跑调
+  - 某只泽
+  - 陌生来访
+  - litterzy
 ---
 
 # ELOHIM
@@ -14,7 +24,13 @@ tag:
 
 **演唱:** 言和
 
-**歌曲数量:** 5 首
+**作词:** 大九_LN
+
+**作曲:** lbg、辻原一郎、雪人Snowman、星辉p、litterzy
+
+**调校:** 瑞安Ryan不跑调、某只泽、陌生来访、litterzy
+
+**曲绘:** 多尔及利亚
 
 ## 曲目列表
 

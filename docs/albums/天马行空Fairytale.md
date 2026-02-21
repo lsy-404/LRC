@@ -5,14 +5,38 @@ category:
   - 天马行空Fairytale
 tag:
   - 天马行空Fairytale
+  - 星尘
+  - 赤羽
+  - 诗岸
+  - 绿无
+  - 大九_LN
+  - Uniparity
+  - 赭柚奶
+  - 浓缩排骨
+  - Kide
+  - Creuzer
+  - Melo
+  - 心
+  - Zeno
+  - 坐标P
+  - 瑞安Ryan
+  - 小野道
+  - cillia
+  - Kide
+  - 战场原妖精
 ---
 
 # 天马行空Fairytale
 
 <img src="/albums/天马行空Fairytale.jpg" alt="天马行空Fairytale 封面" style="max-width: 40%; height: auto;" />
 
+**演唱:** 星尘、赤羽、诗岸
 
-**歌曲数量:** 9 首
+**作词:** 绿无、大九_LN、Uniparity、赭柚奶、浓缩排骨、Kide
+
+**调校:** Creuzer、Melo、心、Zeno、坐标P、瑞安Ryan、小野道、cillia、Kide、战场原妖精
+
+**曲绘:** kieed、匙、Hanasa、原子Dan、TOMATO、烧饼、大汉Jax
 
 ## 曲目列表
 

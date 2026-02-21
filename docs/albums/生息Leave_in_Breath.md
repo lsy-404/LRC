@@ -12,8 +12,6 @@ tag:
 <img src="/albums/生息Leave_in_Breath.jpg" alt="生息Leave in Breath 封面" style="max-width: 40%; height: auto;" />
 
 
-**歌曲数量:** 9 首
-
 ## 曲目列表
 
 - [关于海的一切](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/1%20%E5%85%B3%E4%BA%8E%E6%B5%B7%E7%9A%84%E4%B8%80%E5%88%87.lrc)

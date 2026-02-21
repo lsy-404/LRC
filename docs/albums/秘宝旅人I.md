@@ -5,14 +5,40 @@ category:
   - 秘宝旅人I
 tag:
   - 秘宝旅人I
+  - 苍穹.feat 星尘/海伊/诗岸
+  - 希罗多德（青溯）
+  - 海伊
+  - Minus
+  - 牧心
+  - 诗岸
+  - 苍穹
+  - 星尘Infinity
+  - 赤羽
+  - 大九_LN
+  - 雪人Snowman_
+  - Yida
+  - 果子Hugo
+  - 磨蹭_platix_zhang
+  - 星辉p
+  - MooNote
+  - 瑞安Ryan不跑调
+  - 某只泽
+  - 陌生来访
 ---
 
 # 秘宝旅人I
 
 <img src="/albums/秘宝旅人I.png" alt="秘宝旅人I 封面" style="max-width: 40%; height: auto;" />
 
+**演唱:** 苍穹.feat 星尘/海伊/诗岸、希罗多德（青溯）、海伊、Minus、牧心、诗岸、苍穹、星尘Infinity、赤羽
 
-**歌曲数量:** 10 首
+**作词:** 大九_LN
+
+**作曲:** 雪人Snowman_、Yida、果子Hugo、磨蹭_platix_zhang、星辉p、MooNote
+
+**调校:** 瑞安Ryan不跑调、某只泽、陌生来访
+
+**曲绘:** -白以慧-、年糕、不鱼P、Fanghx_D、宿崎临也、天马九茶、多尔及利亚、---ACR、阿裕
 
 ## 曲目列表
 

@@ -6,6 +6,10 @@ category:
 tag:
   - 平行四界Quadimension X-3
   - 五维介质Official
+  - 绿无
+  - 浓缩排骨
+  - 瑞安Ryan
+  - Zeno
 ---
 
 # 平行四界Quadimension X-3
@@ -14,7 +18,9 @@ tag:
 
 **出品:** 五维介质Official
 
-**歌曲数量:** 9 首
+**作词:** 绿无、浓缩排骨
+
+**调校:** 瑞安Ryan、Zeno
 
 ## 曲目列表
 

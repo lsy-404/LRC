@@ -5,14 +5,35 @@ category:
   - 海纳百川Storybook
 tag:
   - 海纳百川Storybook
+  - 星尘
+  - 海伊
+  - 诗岸
+  - Ddickky
+  - 大♂古
+  - 芍杳
+  - 大九_LN
+  - 绿无
+  - 杏花包子
+  - Zeno
+  - 瑞安Ryan
+  - 折v
+  - 奶油蘑菇
+  - 坐标P
 ---
 
 # 海纳百川Storybook
 
 <img src="/albums/海纳百川Storybook.jpg" alt="海纳百川Storybook 封面" style="max-width: 40%; height: auto;" />
 
+**演唱:** 星尘、海伊、诗岸
 
-**歌曲数量:** 9 首
+**作词:** Ddickky、大♂古、芍杳、大九_LN、绿无、杏花包子、Zeno
+
+**调校:** 瑞安Ryan、折v、奶油蘑菇、坐标P
+
+**曲绘:** 大汉Jax、November、Hanasa、原子Dan、匙、影依望远镜、Leiq雷、-REDUM-、青梅丨plumw
+
+**混音:** 公兔、哈密瓜
 
 ## 曲目列表
 

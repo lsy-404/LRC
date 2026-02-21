@@ -12,8 +12,6 @@ tag:
 <img src="/albums/藏雪SnowGrave.jpg" alt="藏雪SnowGrave 封面" style="max-width: 40%; height: auto;" />
 
 
-**歌曲数量:** 5 首
-
 ## 曲目列表
 
 - [In White](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/01%20-%20Lovely%20Song.lrc)

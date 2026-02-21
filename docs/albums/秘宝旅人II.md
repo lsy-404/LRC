@@ -5,14 +5,31 @@ category:
   - 秘宝旅人II
 tag:
   - 秘宝旅人II
+  - 大九_LN
+  - 曾怡
+  - 星辉p
+  - Takna
+  - 雪人Snowman
+  - Yida
+  - 辻原一郎
+  - 十音Molho
+  - 瑞安Ryan
+  - 某只泽
+  - 陌生来访
+  - 星辉p
 ---
 
 # 秘宝旅人II
 
 <img src="/albums/秘宝旅人II.jpg" alt="秘宝旅人II 封面" style="max-width: 40%; height: auto;" />
 
+**作词:** 大九_LN
 
-**歌曲数量:** 7 首
+**作曲:** 曾怡、星辉p、Takna、雪人Snowman、Yida、辻原一郎、十音Molho
+
+**调校:** 瑞安Ryan、某只泽、陌生来访、星辉p
+
+**曲绘:** -Duoer-、河豚刺身、九茶混合物、月见玉子烧、不鱼、慧_Sophie
 
 ## 曲目列表
 

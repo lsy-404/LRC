@@ -5,14 +5,46 @@ category:
   - 平行四界LIVE TOUR OFFICIAL ALBUM
 tag:
   - 平行四界LIVE TOUR OFFICIAL ALBUM
+  - 星尘
+  - 冥凰
+  - Zeno
+  - 陌小幽
+  - Ceekyo
+  - 果汁凉菜
+  - 绿无
+  - Systjcfl
+  - 袖蓝&意志驼
+  - 紫寒怜梦&咲逸十八
+  - 便器p
+  - Seven
+  - 筠箬
+  - ST.K4N3
+  - Ceekyo
+  - COP
+  - Melo
+  - 小野道
+  - 芹菜猪肉大馄饨
+  - ZOMiG
+  - 便器p
+  - Zeno
+  - Ddickky
 ---
 
 # 平行四界LIVE TOUR OFFICIAL ALBUM
 
 <img src="/albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界LIVE TOUR OFFICIAL ALBUM 封面" style="max-width: 40%; height: auto;" />
 
+**演唱:** 星尘
 
-**歌曲数量:** 14 首
+**作词:** 冥凰、Zeno、陌小幽、Ceekyo、果汁凉菜、绿无、Systjcfl、袖蓝&意志驼、紫寒怜梦&咲逸十八、便器p、Seven、筠箬
+
+**作曲:** ST.K4N3、Ceekyo、COP、Melo、小野道、芹菜猪肉大馄饨、ZOMiG、便器p、Zeno、Ddickky
+
+**编曲:** ST.K4N3、Ceekyo、COP、Melo、小野道、芹菜猪肉大馄饨、ZOMiG&战场原妖精、便器p、Zeno、余果
+
+**曲绘:** TOMATO、莱勒
+
+**混音:** Kolaa
 
 ## 曲目列表
 

@@ -5,14 +5,43 @@ category:
   - 森罗万象Kaleido
 tag:
   - 森罗万象Kaleido
+  - 星尘(造梦者) & 海伊(看板娘) & 赤羽(贩卖商)
+  - 海伊 & 赤羽
+  - 海伊
+  - 星尘 & 赤羽
+  - 星尘 & 海伊
+  - ANK
+  - Zeno
+  - Evalia
+  - Hoskey
+  - KAII（St.K4N3）
+  - erazedfx
+  - 大馄饨
+  - ANK
+  - Zeno
+  - 瑞安Ryan
+  - 坐标P
+  - Creuzer & 坐标P
+  - 心 & 流绪
+  - 心
+  - Zeno
 ---
 
 # 森罗万象Kaleido
 
 <img src="/albums/森罗万象Kaleido.jpg" alt="森罗万象Kaleido 封面" style="max-width: 40%; height: auto;" />
 
+**演唱:** 星尘(造梦者) & 海伊(看板娘) & 赤羽(贩卖商)、海伊 & 赤羽、海伊、星尘 & 赤羽、星尘 & 海伊
 
-**歌曲数量:** 8 首
+**作词:** ANK、Zeno
+
+**作曲:** Evalia、Hoskey、KAII（St.K4N3）、erazedfx、大馄饨、ANK、Zeno
+
+**编曲:** Evalia、Hoskey、KAII（St.K4N3）、Kide、erazedfx、大馄饨、ANK、Zeno
+
+**调校:** 瑞安Ryan、坐标P、Creuzer & 坐标P、心 & 流绪、心、Zeno
+
+**曲绘:** Hanasa & 原子Dan、大汉Jax、言寺马川、kieed、Pre、枫叶、匙、鳩山井鶴
 
 ## 曲目列表
 

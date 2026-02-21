@@ -6,6 +6,18 @@ category:
 tag:
   - 吉光片羽Queendom
   - 吉光
+  - 绿无
+  - 沈病娇
+  - 芍杳
+  - 浓缩排骨
+  - 大九_LN
+  - 瑞安Ryan
+  - Melo
+  - JUSF周存
+  - 顾令
+  - Creuzer
+  - 木变石
+  - 坐标P
 ---
 
 # 吉光片羽Queendom
@@ -14,7 +26,11 @@ tag:
 
 **演唱:** 吉光
 
-**歌曲数量:** 9 首
+**作词:** 绿无、沈病娇、芍杳、浓缩排骨、大九_LN
+
+**调校:** 瑞安Ryan、Melo、JUSF周存、顾令、Creuzer、木变石、坐标P
+
+**曲绘:** Hanasa、原子Dan、KyuriTizu、匙、November、立旗、大汉Jax、Ncir、Leiq雷
 
 ## 曲目列表
 

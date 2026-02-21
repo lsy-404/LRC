@@ -14,8 +14,6 @@ tag:
 
 **出品:** 五维介质Official
 
-**歌曲数量:** 9 首
-
 ## 曲目列表
 
 - [光晕feat.牧心](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/1.%20%E5%85%89%E6%99%95%20-%20%E7%89%A7%E5%BF%83.lrc)

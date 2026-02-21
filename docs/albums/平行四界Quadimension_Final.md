@@ -6,6 +6,23 @@ category:
 tag:
   - 平行四界Quadimension Final
   - 五维介质Official
+  - 海伊
+  - 赤羽
+  - 诗岸
+  - 苍穹
+  - 星尘
+  - Minus
+  - 星尘Infinity
+  - Evalia
+  - 溯回
+  - 芍杳
+  - Zeno
+  - 浓缩排骨
+  - 绿无
+  - Ddickky
+  - 瑞安Ryan
+  - 陌生来访
+  - Zeno
 ---
 
 # 平行四界Quadimension Final
@@ -14,7 +31,13 @@ tag:
 
 **出品:** 五维介质Official
 
-**歌曲数量:** 9 首
+**演唱:** 海伊、赤羽、诗岸、苍穹、星尘、Minus、星尘Infinity
+
+**作词:** Evalia、溯回、芍杳、Zeno、浓缩排骨、绿无、Ddickky
+
+**调校:** 瑞安Ryan、陌生来访、Zeno
+
+**曲绘:** Hanasa、原子dan、Leiq雷、lnoriac、立旗、November、匙
 
 ## 曲目列表
 

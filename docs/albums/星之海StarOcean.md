@@ -5,14 +5,42 @@ category:
   - 星之海StarOcean
 tag:
   - 星之海StarOcean
+  - 星尘＆海伊
+  - 星尘
+  - 大♂古
+  - 浓缩排骨
+  - 袖蓝
+  - Zeno
+  - 赭莓奶
+  - 冥凰
+  - 绿无
+  - Kide
+  - 大馄饨
+  - Zeno
+  - 小野道
+  - Zoey
+  - 瑞安Ryan
+  - 小野道
+  - MeLo&Napstina
 ---
 
 # 星之海StarOcean
 
 <img src="/albums/星之海StarOcean.jpg" alt="星之海StarOcean 封面" style="max-width: 40%; height: auto;" />
 
+**演唱:** 星尘＆海伊、星尘
 
-**歌曲数量:** 10 首
+**作词:** 大♂古、浓缩排骨、袖蓝、Zeno、赭莓奶、冥凰、绿无
+
+**作曲:** Kide、大馄饨、Zeno、小野道、Zoey
+
+**编曲:** Kide、大馄饨、Zeno、小野道、Zoey
+
+**调校:** 瑞安Ryan、小野道、MeLo&Napstina
+
+**曲绘:** Hanasa＆原子Dan、匙、莱勒、Hanasa&原子Dan、Kieed
+
+**混音:** 磁带君
 
 ## 曲目列表
 

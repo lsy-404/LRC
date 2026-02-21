@@ -5,14 +5,19 @@ category:
   - 加冕日CORONATION DAY
 tag:
   - 加冕日CORONATION DAY
+  - Aya-亚夜-
+  - Aya-亚夜-
 ---
 
 # 加冕日CORONATION DAY
 
 <img src="/albums/加冕日CORONATION_DAY.jpg" alt="加冕日CORONATION DAY 封面" style="max-width: 40%; height: auto;" />
 
+**作词:** Aya-亚夜-
 
-**歌曲数量:** 13 首
+**作曲:** Aya-亚夜-
+
+**编曲:** Aya-亚夜-
 
 ## 曲目列表
 

@@ -12,8 +12,6 @@ tag:
 <img src="/albums/星愿StarWish.jpg" alt="星愿StarWish 封面" style="max-width: 40%; height: auto;" />
 
 
-**歌曲数量:** 8 首
-
 ## 曲目列表
 
 - [Solar Storm](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20Solar%20Storm.lrc)
