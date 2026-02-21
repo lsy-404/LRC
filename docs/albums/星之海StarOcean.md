@@ -25,7 +25,7 @@ tag:
 
 # 星之海StarOcean
 
-<img src="/albums/星之海StarOcean.jpg" alt="星之海StarOcean 封面" style="max-width: 40%; height: auto;" />
+<img src="./星之海StarOcean.jpg" alt="星之海StarOcean 封面" style="max-width: 40%; height: auto;" />
 
 **发行日期:** 缺少信息
 

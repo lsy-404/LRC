@@ -28,7 +28,7 @@ tag:
 
 # 秘宝旅人I
 
-<img src="/albums/秘宝旅人I.png" alt="秘宝旅人I 封面" style="max-width: 40%; height: auto;" />
+<img src="./秘宝旅人I.jpg" alt="秘宝旅人I 封面" style="max-width: 40%; height: auto;" />
 
 **发行日期:** 缺少信息
 

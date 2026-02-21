@@ -19,7 +19,7 @@ tag:
 
 # ELOHIM
 
-<img src="/albums/ELOHIM.jpg" alt="ELOHIM 封面" style="max-width: 40%; height: auto;" />
+<img src="./ELOHIM.jpg" alt="ELOHIM 封面" style="max-width: 40%; height: auto;" />
 
 **发行日期:** 缺少信息
 
@@ -39,7 +39,7 @@ tag:
 - [Lacrima](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/02%20Lacrima.lrc)
 - [Ordinatio](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/03%20Ordinatio.lrc)
 - [Holophrasis](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/04%20Holophrasis.lrc)
-- [I’m](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/05%20I%27m.lrc)
+- [I'm](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/ELOHIM/05%20I%27m.lrc)
 
 ## 下载
 
