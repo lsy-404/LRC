@@ -5,6 +5,7 @@ category:
   - 秘宝旅人II
 tag:
   - 秘宝旅人II
+  - RQvan
   - 大九_LN
   - 曾怡
   - 星辉p
@@ -24,6 +25,8 @@ tag:
 
 **发行日期:** 缺少信息
 
+**歌词制作:** RQvan
+
 **作词:** 大九_LN
 
 **作曲:** 曾怡、星辉p、Takna、雪人Snowman、Yida、辻原一郎、十音Molho
@@ -34,13 +37,13 @@ tag:
 
 ## 曲目列表
 
-- [Polymorphism](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/1%20Polymorphism.lrc)
-- [Osmosis](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/2%20Osmosis.lrc)
-- [Lateralisation](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/3%20Lateralisation.lrc)
-- [Allelopathy](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/4%20Allelopathy.lrc)
-- [Rumination](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/5%20Rumination.lrc)
-- [Imprinting](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/6%20Imprinting.lrc)
-- [Syrinx](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/7%20Syrinx.lrc)
+- [1 Polymorphism](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/1%20Polymorphism.lrc)
+- [2 Osmosis](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/2%20Osmosis.lrc)
+- [3 Lateralisation](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/3%20Lateralisation.lrc)
+- [4 Allelopathy](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/4%20Allelopathy.lrc)
+- [5 Rumination](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/5%20Rumination.lrc)
+- [6 Imprinting](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/6%20Imprinting.lrc)
+- [7 Syrinx](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII/7%20Syrinx.lrc)
 
 ## 下载
 
