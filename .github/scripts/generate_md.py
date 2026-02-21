@@ -120,8 +120,7 @@ def main() -> None:
         tags = list(dict.fromkeys(tags))
 
         info_display = []
-        if info["year"]:
-            info_display.append(f"**发行日期:** {info['year']}")
+        info_display.append(f"**发行日期:** {info['year'] or '缺少信息'}")
         if info["produce"]:
             info_display.append(f"**出品:** {info['produce']}")
         if info.get("lyric_maker"):
@@ -204,7 +203,7 @@ tag:
             else ""
         )
 
-        year_line = f"**发行日期：** {card['year']}" if card["year"] != "缺少信息" else ""
+        year_line = f"**发行日期：** {card['year']}"
         tags_line = "、".join(card["tags"]) if card.get("tags") else ""
 
         cards_text.append(
@@ -213,8 +212,7 @@ tag:
 ### [{card['name']}](albums/{card['file_name']}.md)
 
 出品：{card['produce']}  
-{year_line}  
-{f'标签：{tags_line}' if tags_line else ''}
+{year_line}
 
 [查看详情 →](albums/{card['file_name']}.md)
 
