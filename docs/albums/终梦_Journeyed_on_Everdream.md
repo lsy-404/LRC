@@ -24,11 +24,11 @@ tag:
 
 **歌词制作:** 武乙凌薇
 
-**发布:** https://www.bilibili.com/video/BV1q3qZBDE9y
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1q3qZBDE9y)
 
-**购买:** https://item.taobao.com/item.htm?id=1004976437319
+**购买:** [北极圈 Arcticlab](https://item.taobao.com/item.htm?id=1004976437319)
 
-**电子:** https://www.dizzylab.net/albums/d/ALCD0101/
+**电子:** [Dizzylab](https://www.dizzylab.net/albums/d/ALCD0101/)
 
 **演唱:** 星尘
 
