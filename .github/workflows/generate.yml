@@ -194,6 +194,11 @@ jobs:
             echo "No zip files found in pack/ to clean."
           fi
 
+      - name: Fill meta.toml from LRC metadata
+        if: steps.check_commit.outputs.skip == 'false'
+        run: |
+          python .github/scripts/fill_meta_from_lrc.py
+
       - name: Run Tag and SEO Optimization
         if: steps.check_commit.outputs.skip == 'false'
         run: |
@@ -219,7 +224,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           # Add all generated files
-          git add README.md pack/ docs/
+          git add README.md pack/ docs/ res/
           # Check if there are changes staged
           if git diff --staged --quiet; then
             echo "No changes to commit."

@@ -11,11 +11,14 @@ DEFAULT_META: dict[str, Any] = {
     "vocal": [],
     "lyricist": [],
     "composer": [],
+    "arranger": [],
     "tuning": [],
+    "illustrator": [],
+    "mixer": [],
+    "lyric_maker": "",
     "release": "",
     "purchase": "",
     "electronic": "",
-    "lyric_maker": "",
 }
 
 
@@ -90,8 +93,14 @@ def parse_meta_text(content: str) -> dict[str, Any]:
         "lyricist": "lyricist",
         "作曲": "composer",
         "composer": "composer",
+        "编曲": "arranger",
+        "arranger": "arranger",
         "调校": "tuning",
         "tuning": "tuning",
+        "曲绘": "illustrator",
+        "illustrator": "illustrator",
+        "混音": "mixer",
+        "mixer": "mixer",
         "发布": "release",
         "release": "release",
         "购买": "purchase",
@@ -117,7 +126,7 @@ def parse_meta_text(content: str) -> dict[str, Any]:
         if not canonical:
             continue
 
-        if canonical in {"vocal", "lyricist", "composer", "tuning"}:
+        if canonical in {"vocal", "lyricist", "composer", "arranger", "tuning", "illustrator", "mixer"}:
             meta[canonical] = _parse_array(value)
         else:
             parsed = _parse_scalar(value)

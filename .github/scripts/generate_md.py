@@ -122,26 +122,28 @@ def main() -> None:
             info_display.append(f"**发行日期:** {info['year']}")
         if info["produce"]:
             info_display.append(f"**出品:** {info['produce']}")
+        if info.get("lyric_maker"):
+            info_display.append(f"**歌词制作:** {info['lyric_maker']}")
+        if raw_meta_value(str(info.get("release") or "")):
+            info_display.append(f"**发布:** {raw_meta_value(str(info.get('release') or ''))}")
+        if raw_meta_value(str(info.get("purchase") or "")):
+            info_display.append(f"**购买:** {raw_meta_value(str(info.get('purchase') or ''))}")
+        if raw_meta_value(str(info.get("electronic") or "")):
+            info_display.append(f"**电子:** {raw_meta_value(str(info.get('electronic') or ''))}")
         if info["vocal"]:
             info_display.append(f"**演唱:** {'、'.join(info['vocal'])}")
         if info["lyricist"]:
             info_display.append(f"**作词:** {'、'.join(info['lyricist'])}")
         if info["composer"]:
             info_display.append(f"**作曲:** {'、'.join(info['composer'])}")
+        if info.get("arranger"):
+            info_display.append(f"**编曲:** {'、'.join(info['arranger'])}")
         if info["tuning"]:
             info_display.append(f"**调校:** {'、'.join(info['tuning'])}")
-        if info["lyric_maker"]:
-            info_display.append(f"**歌词制作:** {info['lyric_maker']}")
-
-        release_value = raw_meta_value(str(info.get("release") or ""))
-        purchase_value = raw_meta_value(str(info.get("purchase") or ""))
-        electronic_value = raw_meta_value(str(info.get("electronic") or ""))
-        if release_value:
-            info_display.append(f"**发布:** {release_value}")
-        if purchase_value:
-            info_display.append(f"**购买:** {purchase_value}")
-        if electronic_value:
-            info_display.append(f"**电子:** {electronic_value}")
+        if info.get("illustrator"):
+            info_display.append(f"**曲绘:** {'、'.join(info['illustrator'])}")
+        if info.get("mixer"):
+            info_display.append(f"**混音:** {'、'.join(info['mixer'])}")
 
         song_lines = "\n".join(
             f"- [{song['title']}](https://cdn.jsdelivr.net/gh/{REPO}@main/res/{urllib.parse.quote(album)}/{urllib.parse.quote(song['file'])})"
@@ -167,8 +169,6 @@ tag:
 {f'<img src="/albums/{album_file_name}{cover_display_ext}" alt="{album} 封面" style="max-width: 40%; height: auto;" />' if has_cover else ''}
 
 {((chr(10) + chr(10)).join(info_display) + chr(10)) if info_display else ''}
-**歌曲数量:** {len(songs)} 首
-
 ## 曲目列表
 
 {song_lines}
@@ -186,7 +186,6 @@ tag:
                 "name": album,
                 "file_name": album_file_name,
                 "cover": cover_url,
-                "song_count": len(songs),
                 "produce": str(info["produce"] or "缺少信息"),
                 "year": str(info["year"] or "缺少信息"),
             }
@@ -196,23 +195,21 @@ tag:
 
     cards_text = []
     for card in album_cards:
-        info_str = f"出品：{card['produce']}"
-        if card["year"] != "缺少信息":
-            info_str += f" | 发行日期：{card['year']}"
-
         cover_img = (
             f"<img src=\"{card['cover']}\" style=\"float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;\">"
             if card["cover"]
             else ""
         )
 
+        year_line = f"**发行日期：** {card['year']}" if card["year"] != "缺少信息" else ""
+
         cards_text.append(
             f"""{cover_img}
 
 ### [{card['name']}](albums/{card['file_name']}.md)
 
-{info_str}  
-**曲目数：** {card['song_count']} 首
+出品：{card['produce']}  
+{year_line}
 
 [查看详情 →](albums/{card['file_name']}.md)
 
