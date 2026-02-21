@@ -301,6 +301,18 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
+<img src="/albums/终梦_Journeyed_on_Everdream.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [终梦 Journeyed on Everdream](albums/终梦_Journeyed_on_Everdream.md)
+
+出品：缺少信息  
+**发行日期：** 缺少信息
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream.zip)
+
+<div style="clear: both;"></div>
+
+---
 <img src="/albums/藏雪SnowGrave.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [藏雪SnowGrave](albums/藏雪SnowGrave.md)

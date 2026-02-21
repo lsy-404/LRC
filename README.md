@@ -37,6 +37,7 @@
 - [秘宝旅人I](https://github.com/wuyilingwei/LRC#%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAi)
 - [秘宝旅人II](https://github.com/wuyilingwei/LRC#%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAii)
 - [繁星于雨云之上](https://github.com/wuyilingwei/LRC#%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A)
+- [终梦 Journeyed on Everdream](https://github.com/wuyilingwei/LRC#%E7%BB%88%E6%A2%A6-journeyed-on-everdream)
 - [藏雪SnowGrave](https://github.com/wuyilingwei/LRC#%E8%97%8F%E9%9B%AAsnowgrave)
 <!-- ALBUM_LIST_END -->
 
@@ -668,6 +669,30 @@
 | [5 呼唤利维坦的大山.lrc](res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/5%20%E5%91%BC%E5%94%A4%E5%88%A9%E7%BB%B4%E5%9D%A6%E7%9A%84%E5%A4%A7%E5%B1%B1.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/5%20%E5%91%BC%E5%94%A4%E5%88%A9%E7%BB%B4%E5%9D%A6%E7%9A%84%E5%A4%A7%E5%B1%B1.lrc) |
 | [6 老人与海，少年与路.lrc](res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/6%20%E8%80%81%E4%BA%BA%E4%B8%8E%E6%B5%B7%EF%BC%8C%E5%B0%91%E5%B9%B4%E4%B8%8E%E8%B7%AF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/6%20%E8%80%81%E4%BA%BA%E4%B8%8E%E6%B5%B7%EF%BC%8C%E5%B0%91%E5%B9%B4%E4%B8%8E%E8%B7%AF.lrc) |
 | [7 亵渎.lrc](res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/7%20%E4%BA%B5%E6%B8%8E.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/7%20%E4%BA%B5%E6%B8%8E.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 终梦 Journeyed on Everdream
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (8 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [1 冰点.lrc](res/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream/1%20%E5%86%B0%E7%82%B9.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream/1%20%E5%86%B0%E7%82%B9.lrc) |
+| [2 待到雪落时.lrc](res/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream/2%20%E5%BE%85%E5%88%B0%E9%9B%AA%E8%90%BD%E6%97%B6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream/2%20%E5%BE%85%E5%88%B0%E9%9B%AA%E8%90%BD%E6%97%B6.lrc) |
+| [3 独白.lrc](res/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream/3%20%E7%8B%AC%E7%99%BD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream/3%20%E7%8B%AC%E7%99%BD.lrc) |
+| [4 花.lrc](res/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream/4%20%E8%8A%B1.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream/4%20%E8%8A%B1.lrc) |
+| [5 深蓝.lrc](res/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream/5%20%E6%B7%B1%E8%93%9D.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream/5%20%E6%B7%B1%E8%93%9D.lrc) |
+| [6 倘若明天降临.lrc](res/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream/6%20%E5%80%98%E8%8B%A5%E6%98%8E%E5%A4%A9%E9%99%8D%E4%B8%B4.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream/6%20%E5%80%98%E8%8B%A5%E6%98%8E%E5%A4%A9%E9%99%8D%E4%B8%B4.lrc) |
+| [7 启程.lrc](res/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream/7%20%E5%90%AF%E7%A8%8B.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream/7%20%E5%90%AF%E7%A8%8B.lrc) |
+| [8 可我又为何还在这儿哭泣呢.lrc](res/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream/8%20%E5%8F%AF%E6%88%91%E5%8F%88%E4%B8%BA%E4%BD%95%E8%BF%98%E5%9C%A8%E8%BF%99%E5%84%BF%E5%93%AD%E6%B3%A3%E5%91%A2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%88%E6%A2%A6%20Journeyed%20on%20Everdream/8%20%E5%8F%AF%E6%88%91%E5%8F%88%E4%B8%BA%E4%BD%95%E8%BF%98%E5%9C%A8%E8%BF%99%E5%84%BF%E5%93%AD%E6%B3%A3%E5%91%A2.lrc) |
 
 </details>
 
