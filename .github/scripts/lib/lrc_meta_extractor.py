@@ -50,8 +50,8 @@ _FIELD_SEP_RE = re.compile(r"\s*[：:]\s*")
 # 联合字段分隔符号：& ＆ / ／
 _COMPOUND_SEP_RE = re.compile(r"[&＆/／]")
 
-# 人名/值列表分隔符
-_LIST_SEP_RE = re.compile(r"\s*[、,，]\s*")
+# 人名/值列表分隔符（& / ＆ 同样作为并列分隔符）
+_LIST_SEP_RE = re.compile(r"\s*[、,，&＆]\s*")
 
 # 曲名包裹字符对
 _TITLE_WRAP_RE = re.compile(r"^[《【「『〈](.+?)[》】」』〉]\s*$")
