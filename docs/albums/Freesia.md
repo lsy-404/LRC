@@ -21,9 +21,13 @@ tag:
 
 **出品:** Zeno
 
-**歌词制作:** 九九Lrc歌词网～www.99Lrc.com
+**歌词制作:** 九九Lrc歌词网
 
-**购买:** [专辑购买](http://t.cn/R0nFwnV)
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1Xx411g7uY/)
+
+**购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?id=583244604155) ￥75
+
+**电子:** 随专辑附赠
 
 **演唱:** 星尘
 
