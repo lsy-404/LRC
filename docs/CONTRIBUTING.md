@@ -1,6 +1,6 @@
 ---
-icon: material-symbols:person-add
 title: 贡献指南
+icon: material-symbols:person-add
 ---
 
 感谢你的贡献！  
