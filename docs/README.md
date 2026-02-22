@@ -7,193 +7,42 @@ tagline: 虚拟歌姬专辑的导航与歌词共享资源库
 
 ## 关于本站
 
-本站收录并整理虚拟歌姬官方及第三方专辑的 LRC 歌词文件，方便爱好者在线浏览和下载使用。
+本站收录并整理虚拟歌姬专辑的信息及LRC歌词文件，方便爱好者购买专辑、查找专辑、在线浏览和下载使用。
 
-所有歌词资源遵循 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议。本站仅收集网上公开资源。
+所有歌词资源遵循 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议并附加本站《商业使用补充条款》进行授权。
 
 ## 专辑列表
 
-| |
-|---|
-| <img src="/albums/Iris.png" alt="Iris 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/Iris.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">Iris</a><br><br>出品：Zeno<br>发行日期：2026-01-31<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Iris.zip) |
-
----
-| |
-|---|
-| <img src="/albums/终梦Journeyed_on_Everdream.jpg" alt="终梦Journeyed on Everdream 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/终梦Journeyed_on_Everdream.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">终梦Journeyed on Everdream</a><br><br>出品：北极圈Arcticlab<br>发行日期：2025-12-24<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%88%E6%A2%A6Journeyed%20on%20Everdream.zip) |
-
----
-| |
-|---|
-| <img src="/albums/Starlit_Whisper.png" alt="Starlit Whisper 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/Starlit_Whisper.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">Starlit Whisper</a><br><br>出品：胧<br>发行日期：2025-12-05<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Starlit%20Whisper.zip) |
-
----
-| |
-|---|
-| <img src="/albums/织肉匠.jpg" alt="织肉匠 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/织肉匠.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">织肉匠</a><br><br>出品：磁带君<br>发行日期：2025-12-05<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%87%E8%82%89%E5%8C%A0.zip) |
-
----
-| |
-|---|
-| <img src="/albums/平行四界REBIRTH.jpg" alt="平行四界REBIRTH 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/平行四界REBIRTH.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">平行四界REBIRTH</a><br><br>出品：五维介质Official<br>发行日期：2025-08-12<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH.zip) |
-
----
-| |
-|---|
-| <img src="/albums/秘宝旅人II_Polaris.jpg" alt="秘宝旅人II Polaris 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/秘宝旅人II_Polaris.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">秘宝旅人II Polaris</a><br><br>出品：秘宝旅人<br>发行日期：2025-07-04<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris.zip) |
-
----
-| |
-|---|
-| <img src="/albums/流星空间站Ⅱ聆星者.jpg" alt="流星空间站Ⅱ聆星者 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/流星空间站Ⅱ聆星者.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">流星空间站Ⅱ聆星者</a><br><br>出品：流星空间站创作组<br>发行日期：2025-05-02<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99%E2%85%A1%E8%81%86%E6%98%9F%E8%80%85.zip) |
-
----
-| |
-|---|
-| <img src="/albums/繁星于雨云之上.jpg" alt="繁星于雨云之上 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/繁星于雨云之上.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">繁星于雨云之上</a><br><br>出品：会咬人的白海豹<br>发行日期：2025-05-01<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A.zip) |
-
----
-| |
-|---|
-| <img src="/albums/生息Leave_in_Breath.jpg" alt="生息Leave in Breath 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/生息Leave_in_Breath.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">生息Leave in Breath</a><br><br>出品：北极圈ArcticLab<br>发行日期：2025-03-22<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%94%9F%E6%81%AFLeave%20in%20Breath.zip) |
-
----
-| |
-|---|
-| <img src="/albums/藏雪SnowGrave.jpg" alt="藏雪SnowGrave 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/藏雪SnowGrave.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">藏雪SnowGrave</a><br><br>出品：北极圈ArcticLab<br>发行日期：2024-01-12<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E8%97%8F%E9%9B%AASnowGrave.zip) |
-
----
-<a href="albums/秘宝旅人I.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">秘宝旅人I</a>
-
-出品：秘宝旅人  
-发行日期：2023-11-25  
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI.zip)
-
----
-<a href="albums/ELOHIM.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">ELOHIM</a>
-
-出品：秘宝旅人  
-发行日期：2023-09-23  
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/ELOHIM.zip)
-
----
-| |
-|---|
-| <img src="/albums/平行四界Quadimension_Finale.png" alt="平行四界Quadimension Finale 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/平行四界Quadimension_Finale.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">平行四界Quadimension Finale</a><br><br>出品：五维介质Official<br>发行日期：2023-05-24<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale.zip) |
-
----
-| |
-|---|
-| <img src="/albums/加冕日CORONATION_DAY.jpg" alt="加冕日CORONATION DAY 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/加冕日CORONATION_DAY.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">加冕日CORONATION DAY</a><br><br>出品：Aya-亚夜-<br>发行日期：2023-04-19<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY.zip) |
-
----
-| |
-|---|
-| <img src="/albums/流星空间站.jpg" alt="流星空间站 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/流星空间站.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">流星空间站</a><br><br>出品：流星空间站<br>发行日期：2022-12-31<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99.zip) |
-
----
-| |
-|---|
-| <img src="/albums/平行四界Quadimension_X-3.jpg" alt="平行四界Quadimension X-3 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/平行四界Quadimension_X-3.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">平行四界Quadimension X-3</a><br><br>出品：五维介质Official<br>发行日期：2022-04-03<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3.zip) |
-
----
-| |
-|---|
-| <img src="/albums/平行四界Quadimension_X-2.jpg" alt="平行四界Quadimension X-2 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/平行四界Quadimension_X-2.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">平行四界Quadimension X-2</a><br><br>出品：五维介质Official<br>发行日期：2021-10-29<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2.zip) |
-
----
-| |
-|---|
-| <img src="/albums/平行四界Quadimension_X-1.jpg" alt="平行四界Quadimension X-1 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/平行四界Quadimension_X-1.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">平行四界Quadimension X-1</a><br><br>出品：五维介质Official<br>发行日期：2021-06-04<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1.zip) |
-
----
-| |
-|---|
-| <img src="/albums/海纳百川Storybook.jpg" alt="海纳百川Storybook 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/海纳百川Storybook.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">海纳百川Storybook</a><br><br>出品：五维介质Official<br>发行日期：2020-11-06<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook.zip) |
-
----
-| |
-|---|
-| <img src="/albums/吉光片羽Queendom.jpg" alt="吉光片羽Queendom 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/吉光片羽Queendom.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">吉光片羽Queendom</a><br><br>出品：五维介质Official<br>发行日期：2020-06-12<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom.zip) |
-
----
-| |
-|---|
-| <img src="/albums/丛林法则Jungle_Rules.jpg" alt="丛林法则Jungle Rules 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/丛林法则Jungle_Rules.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">丛林法则Jungle Rules</a><br><br>出品：五维介质Official<br>发行日期：2020-02-28<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules.zip) |
-
----
-| |
-|---|
-| <img src="/albums/森罗万象Kaleido.jpg" alt="森罗万象Kaleido 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/森罗万象Kaleido.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">森罗万象Kaleido</a><br><br>出品：五维介质Official<br>发行日期：2019-10-05<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido.zip) |
-
----
-| |
-|---|
-| <img src="/albums/天马行空Fairytale.jpg" alt="天马行空Fairytale 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/天马行空Fairytale.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">天马行空Fairytale</a><br><br>出品：五维介质Official<br>发行日期：2019-07-05<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale.zip) |
-
----
-| |
-|---|
-| <img src="/albums/天方夜谭Fairyland.jpg" alt="天方夜谭Fairyland 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/天方夜谭Fairyland.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">天方夜谭Fairyland</a><br><br>出品：五维介质Official<br>发行日期：2019-04-05<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland.zip) |
-
----
-| |
-|---|
-| <img src="/albums/亚特兰蒂斯Atlantis.jpg" alt="亚特兰蒂斯Atlantis 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/亚特兰蒂斯Atlantis.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">亚特兰蒂斯Atlantis</a><br><br>出品：五维介质Official<br>发行日期：2018-10-30<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis.zip) |
-
----
-| |
-|---|
-| <img src="/albums/星之海StarOcean.jpg" alt="星之海StarOcean 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/星之海StarOcean.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">星之海StarOcean</a><br><br>出品：五维介质Official<br>发行日期：2018-08-11<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean.zip) |
-
----
-| |
-|---|
-| <img src="/albums/Freesia.webp" alt="Freesia 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/Freesia.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">Freesia</a><br><br>出品：Zeno<br>发行日期：2017-10-01<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Freesia.zip) |
-
----
-| |
-|---|
-| <img src="/albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界LIVE TOUR OFFICIAL ALBUM 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">平行四界LIVE TOUR OFFICIAL ALBUM</a><br><br>出品：平行四界Quadimension<br>发行日期：2017-08-12<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CLIVE%20TOUR%20OFFICIAL%20ALBUM.zip) |
-
----
-| |
-|---|
-| <img src="/albums/星愿StarWish.jpg" alt="星愿StarWish 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/星愿StarWish.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">星愿StarWish</a><br><br>出品：五维介质Official<br>发行日期：2016-03-04<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E6%84%BFStarWish.zip) |
-
----
-| |
-|---|
-| <img src="/albums/单曲.jpg" alt="单曲 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/单曲.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">单曲</a><br><br>出品：不适用<br>发行日期：不适用<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8D%95%E6%9B%B2.zip) |
-
----
-
+| | |
+|----|-----|
+| <img src="/albums/Iris.png" alt="Iris 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/Iris.md" style="color: inherit; text-decoration: none;">Iris</a></h3>出品：Zeno<br>发行日期：2026-01-31<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Iris.zip) |
+| <img src="/albums/终梦Journeyed_on_Everdream.jpg" alt="终梦Journeyed on Everdream 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/终梦Journeyed_on_Everdream.md" style="color: inherit; text-decoration: none;">终梦Journeyed on Everdream</a></h3>出品：北极圈Arcticlab<br>发行日期：2025-12-24<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%88%E6%A2%A6Journeyed%20on%20Everdream.zip) |
+| <img src="/albums/Starlit_Whisper.png" alt="Starlit Whisper 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/Starlit_Whisper.md" style="color: inherit; text-decoration: none;">Starlit Whisper</a></h3>出品：胧<br>发行日期：2025-12-05<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Starlit%20Whisper.zip) |
+| <img src="/albums/织肉匠.jpg" alt="织肉匠 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/织肉匠.md" style="color: inherit; text-decoration: none;">织肉匠</a></h3>出品：磁带君<br>发行日期：2025-12-05<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%87%E8%82%89%E5%8C%A0.zip) |
+| <img src="/albums/平行四界REBIRTH.jpg" alt="平行四界REBIRTH 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/平行四界REBIRTH.md" style="color: inherit; text-decoration: none;">平行四界REBIRTH</a></h3>出品：五维介质Official<br>发行日期：2025-08-12<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CREBIRTH.zip) |
+| <img src="/albums/秘宝旅人II_Polaris.jpg" alt="秘宝旅人II Polaris 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/秘宝旅人II_Polaris.md" style="color: inherit; text-decoration: none;">秘宝旅人II Polaris</a></h3>出品：秘宝旅人<br>发行日期：2025-07-04<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris.zip) |
+| <img src="/albums/流星空间站Ⅱ聆星者.jpg" alt="流星空间站Ⅱ聆星者 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/流星空间站Ⅱ聆星者.md" style="color: inherit; text-decoration: none;">流星空间站Ⅱ聆星者</a></h3>出品：流星空间站创作组<br>发行日期：2025-05-02<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99%E2%85%A1%E8%81%86%E6%98%9F%E8%80%85.zip) |
+| <img src="/albums/繁星于雨云之上.jpg" alt="繁星于雨云之上 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/繁星于雨云之上.md" style="color: inherit; text-decoration: none;">繁星于雨云之上</a></h3>出品：会咬人的白海豹<br>发行日期：2025-05-01<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A.zip) |
+| <img src="/albums/生息Leave_in_Breath.jpg" alt="生息Leave in Breath 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/生息Leave_in_Breath.md" style="color: inherit; text-decoration: none;">生息Leave in Breath</a></h3>出品：北极圈ArcticLab<br>发行日期：2025-03-22<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%94%9F%E6%81%AFLeave%20in%20Breath.zip) |
+| <img src="/albums/藏雪SnowGrave.jpg" alt="藏雪SnowGrave 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/藏雪SnowGrave.md" style="color: inherit; text-decoration: none;">藏雪SnowGrave</a></h3>出品：北极圈ArcticLab<br>发行日期：2024-01-12<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E8%97%8F%E9%9B%AASnowGrave.zip) |
+| | <h3><a href="albums/秘宝旅人I.md" style="color: inherit; text-decoration: none;">秘宝旅人I</a></h3>出品：秘宝旅人<br>发行日期：2023-11-25<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI.zip) |
+| | <h3><a href="albums/ELOHIM.md" style="color: inherit; text-decoration: none;">ELOHIM</a></h3>出品：秘宝旅人<br>发行日期：2023-09-23<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/ELOHIM.zip) |
+| <img src="/albums/平行四界Quadimension_Finale.png" alt="平行四界Quadimension Finale 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/平行四界Quadimension_Finale.md" style="color: inherit; text-decoration: none;">平行四界Quadimension Finale</a></h3>出品：五维介质Official<br>发行日期：2023-05-24<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale.zip) |
+| <img src="/albums/加冕日CORONATION_DAY.jpg" alt="加冕日CORONATION DAY 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/加冕日CORONATION_DAY.md" style="color: inherit; text-decoration: none;">加冕日CORONATION DAY</a></h3>出品：Aya-亚夜-<br>发行日期：2023-04-19<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY.zip) |
+| <img src="/albums/流星空间站.jpg" alt="流星空间站 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/流星空间站.md" style="color: inherit; text-decoration: none;">流星空间站</a></h3>出品：流星空间站<br>发行日期：2022-12-31<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99.zip) |
+| <img src="/albums/平行四界Quadimension_X-3.jpg" alt="平行四界Quadimension X-3 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/平行四界Quadimension_X-3.md" style="color: inherit; text-decoration: none;">平行四界Quadimension X-3</a></h3>出品：五维介质Official<br>发行日期：2022-04-03<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3.zip) |
+| <img src="/albums/平行四界Quadimension_X-2.jpg" alt="平行四界Quadimension X-2 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/平行四界Quadimension_X-2.md" style="color: inherit; text-decoration: none;">平行四界Quadimension X-2</a></h3>出品：五维介质Official<br>发行日期：2021-10-29<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2.zip) |
+| <img src="/albums/平行四界Quadimension_X-1.jpg" alt="平行四界Quadimension X-1 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/平行四界Quadimension_X-1.md" style="color: inherit; text-decoration: none;">平行四界Quadimension X-1</a></h3>出品：五维介质Official<br>发行日期：2021-06-04<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1.zip) |
+| <img src="/albums/海纳百川Storybook.jpg" alt="海纳百川Storybook 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/海纳百川Storybook.md" style="color: inherit; text-decoration: none;">海纳百川Storybook</a></h3>出品：五维介质Official<br>发行日期：2020-11-06<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook.zip) |
+| <img src="/albums/吉光片羽Queendom.jpg" alt="吉光片羽Queendom 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/吉光片羽Queendom.md" style="color: inherit; text-decoration: none;">吉光片羽Queendom</a></h3>出品：五维介质Official<br>发行日期：2020-06-12<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom.zip) |
+| <img src="/albums/丛林法则Jungle_Rules.jpg" alt="丛林法则Jungle Rules 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/丛林法则Jungle_Rules.md" style="color: inherit; text-decoration: none;">丛林法则Jungle Rules</a></h3>出品：五维介质Official<br>发行日期：2020-02-28<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules.zip) |
+| <img src="/albums/森罗万象Kaleido.jpg" alt="森罗万象Kaleido 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/森罗万象Kaleido.md" style="color: inherit; text-decoration: none;">森罗万象Kaleido</a></h3>出品：五维介质Official<br>发行日期：2019-10-05<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido.zip) |
+| <img src="/albums/天马行空Fairytale.jpg" alt="天马行空Fairytale 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/天马行空Fairytale.md" style="color: inherit; text-decoration: none;">天马行空Fairytale</a></h3>出品：五维介质Official<br>发行日期：2019-07-05<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale.zip) |
+| <img src="/albums/天方夜谭Fairyland.jpg" alt="天方夜谭Fairyland 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/天方夜谭Fairyland.md" style="color: inherit; text-decoration: none;">天方夜谭Fairyland</a></h3>出品：五维介质Official<br>发行日期：2019-04-05<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland.zip) |
+| <img src="/albums/亚特兰蒂斯Atlantis.jpg" alt="亚特兰蒂斯Atlantis 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/亚特兰蒂斯Atlantis.md" style="color: inherit; text-decoration: none;">亚特兰蒂斯Atlantis</a></h3>出品：五维介质Official<br>发行日期：2018-10-30<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis.zip) |
+| <img src="/albums/星之海StarOcean.jpg" alt="星之海StarOcean 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/星之海StarOcean.md" style="color: inherit; text-decoration: none;">星之海StarOcean</a></h3>出品：五维介质Official<br>发行日期：2018-08-11<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean.zip) |
+| <img src="/albums/Freesia.webp" alt="Freesia 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/Freesia.md" style="color: inherit; text-decoration: none;">Freesia</a></h3>出品：Zeno<br>发行日期：2017-10-01<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Freesia.zip) |
+| <img src="/albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界LIVE TOUR OFFICIAL ALBUM 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.md" style="color: inherit; text-decoration: none;">平行四界LIVE TOUR OFFICIAL ALBUM</a></h3>出品：平行四界Quadimension<br>发行日期：2017-08-12<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CLIVE%20TOUR%20OFFICIAL%20ALBUM.zip) |
+| <img src="/albums/星愿StarWish.jpg" alt="星愿StarWish 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/星愿StarWish.md" style="color: inherit; text-decoration: none;">星愿StarWish</a></h3>出品：五维介质Official<br>发行日期：2016-03-04<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E6%84%BFStarWish.zip) |
+| <img src="/albums/单曲.jpg" alt="单曲 封面" style="width: 100%; border-radius: 8px;"> | <h3><a href="albums/单曲.md" style="color: inherit; text-decoration: none;">单曲</a></h3>出品：不适用<br>发行日期：不适用<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8D%95%E6%9B%B2.zip) |
 
