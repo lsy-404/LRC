@@ -45,6 +45,16 @@ def raw_meta_value(value: str) -> str:
     return (value or "").strip()
 
 
+def is_disabled_value(value: str | list[str] | None) -> bool:
+    """检查值是否为'不适用'或空值，返回True表示应该隐藏此字段"""
+    if value is None:
+        return True
+    if isinstance(value, list):
+        return len(value) == 0 or all(v.strip() == "不适用" for v in value)
+    text = str(value).strip()
+    return text == "" or text == "不适用" or text == "缺少信息"
+
+
 def find_cover(album_path: Path) -> tuple[Path | None, str]:
     for ext in COVER_EXTENSIONS:
         cover = album_path / f"cover{ext}"
@@ -111,43 +121,50 @@ def main() -> None:
                 break
 
         tags = [album]
-        if info["produce"]:
+        if not is_disabled_value(info["produce"]):
             tags.append(str(info["produce"]))
         # 不将歌词制作者加入tag，只显示在正文中
         for key in ("vocal", "lyricist", "composer", "tuning"):
             values = info.get(key) or []
-            if isinstance(values, list):
-                tags.extend(values)
+            if isinstance(values, list) and not is_disabled_value(values):
+                tags.extend([v for v in values if not is_disabled_value(v)])
         # 添加固定的搜索关键词
         tags.extend(["歌词", "lrc", "下载", "文件"])
         # 去重，保留首次出现顺序
         tags = list(dict.fromkeys(tags))
 
         info_display = []
-        info_display.append(f"**发行日期:** {info['year'] or '缺少信息'}")
-        if info["produce"]:
+        # 发行日期：跳过 1970-01-01 或空值
+        year_value = str(info['year'] or "").strip()
+        if year_value and year_value != "1970-01-01" and not is_disabled_value(year_value):
+            info_display.append(f"**发行日期:** {year_value}")
+        # 其他字段：使用 is_disabled_value 判断
+        if not is_disabled_value(info["produce"]):
             info_display.append(f"**出品:** {info['produce']}")
-        if info.get("lyric_maker"):
+        if not is_disabled_value(info.get("lyric_maker")):
             info_display.append(f"**歌词制作:** {info['lyric_maker']}")
-        if raw_meta_value(str(info.get("release") or "")):
-            info_display.append(f"**发布:** {raw_meta_value(str(info.get('release') or ''))}")
-        if raw_meta_value(str(info.get("purchase") or "")):
-            info_display.append(f"**购买:** {raw_meta_value(str(info.get('purchase') or ''))}")
-        if raw_meta_value(str(info.get("electronic") or "")):
-            info_display.append(f"**电子:** {raw_meta_value(str(info.get('electronic') or ''))}")
-        if info["vocal"]:
+        release_val = raw_meta_value(str(info.get("release") or ""))
+        if release_val and not is_disabled_value(release_val):
+            info_display.append(f"**发布:** {release_val}")
+        purchase_val = raw_meta_value(str(info.get("purchase") or ""))
+        if purchase_val and not is_disabled_value(purchase_val):
+            info_display.append(f"**购买:** {purchase_val}")
+        electronic_val = raw_meta_value(str(info.get("electronic") or ""))
+        if electronic_val and not is_disabled_value(electronic_val):
+            info_display.append(f"**电子:** {electronic_val}")
+        if not is_disabled_value(info["vocal"]):
             info_display.append(f"**演唱:** {'、'.join(info['vocal'])}")
-        if info["lyricist"]:
+        if not is_disabled_value(info["lyricist"]):
             info_display.append(f"**作词:** {'、'.join(info['lyricist'])}")
-        if info["composer"]:
+        if not is_disabled_value(info["composer"]):
             info_display.append(f"**作曲:** {'、'.join(info['composer'])}")
-        if info.get("arranger"):
+        if not is_disabled_value(info.get("arranger")):
             info_display.append(f"**编曲:** {'、'.join(info['arranger'])}")
-        if info["tuning"]:
+        if not is_disabled_value(info["tuning"]):
             info_display.append(f"**调校:** {'、'.join(info['tuning'])}")
-        if info.get("illustrator"):
+        if not is_disabled_value(info.get("illustrator")):
             info_display.append(f"**曲绘:** {'、'.join(info['illustrator'])}")
-        if info.get("mixer"):
+        if not is_disabled_value(info.get("mixer")):
             info_display.append(f"**混音:** {'、'.join(info['mixer'])}")
 
         song_lines = "\n".join(
@@ -187,13 +204,23 @@ tag:
 
         # 首页卡片图片路径：使用绝对路径（以 / 开头），VuePress会从网站根目录解析
         cover_url = f"/albums/{album_file_name}{cover_display_ext}" if has_cover else ""
+        
+        # 处理首页显示值：将空值、"缺少信息"视为"不适用"
+        produce_display = str(info["produce"] or "")
+        if is_disabled_value(produce_display):
+            produce_display = "不适用"
+        
+        year_display = str(info["year"] or "")
+        if is_disabled_value(year_display) or year_display == "1970-01-01":
+            year_display = "不适用"
+        
         album_cards.append(
             {
                 "name": album,
                 "file_name": album_file_name,
                 "cover": cover_url,
-                "produce": str(info["produce"] or "缺少信息"),
-                "year": str(info["year"] or "缺少信息"),
+                "produce": produce_display,
+                "year": year_display,
                 "tags": tags,
             }
         )
