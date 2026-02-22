@@ -230,7 +230,7 @@ tag:
     cards_text = []
     for card in album_cards:
         cover_img = (
-            f"<img src=\"{card['cover']}\" style=\"float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;\">"
+            f"<img src=\"{card['cover']}\" style=\"float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;\">"
             if card["cover"]
             else ""
         )
