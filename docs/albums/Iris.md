@@ -14,7 +14,7 @@ tag:
 
 # Iris
 
-<img src="./Iris.png" alt="Iris 封面" style="max-width: 40%; height: auto;" />
+<img src="./Iris.png" alt="Iris 封面" class="album-cover" />
 
 **发行日期:** 2026-01-31
 

@@ -13,7 +13,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 ## 专辑列表
 
-<img src="/albums/Iris.png" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
+<img src="/albums/Iris.png" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [Iris](albums/Iris.md)
 

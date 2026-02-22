@@ -16,7 +16,7 @@ tag:
 
 # 终梦Journeyed on Everdream
 
-<img src="./终梦Journeyed_on_Everdream.jpg" alt="终梦Journeyed on Everdream 封面" style="max-width: 40%; height: auto;" />
+<img src="./终梦Journeyed_on_Everdream.jpg" alt="终梦Journeyed on Everdream 封面" class="album-cover" />
 
 **发行日期:** 2025-12-24
 

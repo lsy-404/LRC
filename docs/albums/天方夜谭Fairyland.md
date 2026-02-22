@@ -28,7 +28,7 @@ tag:
 
 # 天方夜谭Fairyland
 
-<img src="./天方夜谭Fairyland.jpg" alt="天方夜谭Fairyland 封面" style="max-width: 40%; height: auto;" />
+<img src="./天方夜谭Fairyland.jpg" alt="天方夜谭Fairyland 封面" class="album-cover" />
 
 **发行日期:** 2019-04-05
 

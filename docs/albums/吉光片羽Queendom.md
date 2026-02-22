@@ -36,7 +36,7 @@ tag:
 
 # 吉光片羽Queendom
 
-<img src="./吉光片羽Queendom.jpg" alt="吉光片羽Queendom 封面" style="max-width: 40%; height: auto;" />
+<img src="./吉光片羽Queendom.jpg" alt="吉光片羽Queendom 封面" class="album-cover" />
 
 **发行日期:** 2020-06-12
 

@@ -36,7 +36,7 @@ tag:
 
 # 天马行空Fairytale
 
-<img src="./天马行空Fairytale.jpg" alt="天马行空Fairytale 封面" style="max-width: 40%; height: auto;" />
+<img src="./天马行空Fairytale.jpg" alt="天马行空Fairytale 封面" class="album-cover" />
 
 **发行日期:** 2019-07-05
 

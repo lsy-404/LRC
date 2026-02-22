@@ -30,7 +30,7 @@ tag:
 
 # 亚特兰蒂斯Atlantis
 
-<img src="./亚特兰蒂斯Atlantis.jpg" alt="亚特兰蒂斯Atlantis 封面" style="max-width: 40%; height: auto;" />
+<img src="./亚特兰蒂斯Atlantis.jpg" alt="亚特兰蒂斯Atlantis 封面" class="album-cover" />
 
 **发行日期:** 2018-10-30
 

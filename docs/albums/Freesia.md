@@ -15,7 +15,7 @@ tag:
 
 # Freesia
 
-<img src="./Freesia.webp" alt="Freesia 封面" style="max-width: 40%; height: auto;" />
+<img src="./Freesia.webp" alt="Freesia 封面" class="album-cover" />
 
 **发行日期:** 2017-10-01
 

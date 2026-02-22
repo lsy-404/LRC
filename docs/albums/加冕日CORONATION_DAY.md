@@ -15,7 +15,7 @@ tag:
 
 # 加冕日CORONATION DAY
 
-<img src="./加冕日CORONATION_DAY.jpg" alt="加冕日CORONATION DAY 封面" style="max-width: 40%; height: auto;" />
+<img src="./加冕日CORONATION_DAY.jpg" alt="加冕日CORONATION DAY 封面" class="album-cover" />
 
 **发行日期:** 2023-04-19
 

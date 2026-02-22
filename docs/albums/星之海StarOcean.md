@@ -30,7 +30,7 @@ tag:
 
 # 星之海StarOcean
 
-<img src="./星之海StarOcean.jpg" alt="星之海StarOcean 封面" style="max-width: 40%; height: auto;" />
+<img src="./星之海StarOcean.jpg" alt="星之海StarOcean 封面" class="album-cover" />
 
 **发行日期:** 2018-08-11
 

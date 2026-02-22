@@ -30,7 +30,7 @@ tag:
 
 # 平行四界Quadimension X-1
 
-<img src="./平行四界Quadimension_X-1.jpg" alt="平行四界Quadimension X-1 封面" style="max-width: 40%; height: auto;" />
+<img src="./平行四界Quadimension_X-1.jpg" alt="平行四界Quadimension X-1 封面" class="album-cover" />
 
 **发行日期:** 2021-06-04
 
