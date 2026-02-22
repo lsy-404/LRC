@@ -79,7 +79,7 @@
 ## 完整目录
 ---
 <!-- CATALOG_START -->
-<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/ELOHIM/Cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/ELOHIM/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### ELOHIM
 
@@ -660,7 +660,7 @@ _暂无 LRC 文件_
 
 ---
 
-<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/Cover.png" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/cover.png" alt="专辑封面" width="120" align="right">
 
 ### 秘宝旅人I
 
