@@ -15,7 +15,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 <img src="/albums/Iris.png" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [Iris](albums/Iris.md)
+#### [Iris](albums/Iris.md)
 
 出品：Zeno  
 **发行日期：** 2026-01-31  
@@ -26,7 +26,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/终梦Journeyed_on_Everdream.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [终梦Journeyed on Everdream](albums/终梦Journeyed_on_Everdream.md)
+#### [终梦Journeyed on Everdream](albums/终梦Journeyed_on_Everdream.md)
 
 出品：北极圈Arcticlab  
 **发行日期：** 2025-12-24  
@@ -37,7 +37,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/Starlit_Whisper.png" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [Starlit Whisper](albums/Starlit_Whisper.md)
+#### [Starlit Whisper](albums/Starlit_Whisper.md)
 
 出品：胧  
 **发行日期：** 2025-12-05  
@@ -48,7 +48,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/织肉匠.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [织肉匠](albums/织肉匠.md)
+#### [织肉匠](albums/织肉匠.md)
 
 出品：磁带君  
 **发行日期：** 2025-12-05  
@@ -59,7 +59,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/平行四界REBIRTH.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [平行四界REBIRTH](albums/平行四界REBIRTH.md)
+#### [平行四界REBIRTH](albums/平行四界REBIRTH.md)
 
 出品：五维介质Official  
 **发行日期：** 2025-08-12  
@@ -70,7 +70,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/秘宝旅人II_Polaris.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [秘宝旅人II Polaris](albums/秘宝旅人II_Polaris.md)
+#### [秘宝旅人II Polaris](albums/秘宝旅人II_Polaris.md)
 
 出品：秘宝旅人  
 **发行日期：** 2025-07-04  
@@ -81,7 +81,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/流星空间站Ⅱ聆星者.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [流星空间站Ⅱ聆星者](albums/流星空间站Ⅱ聆星者.md)
+#### [流星空间站Ⅱ聆星者](albums/流星空间站Ⅱ聆星者.md)
 
 出品：流星空间站创作组  
 **发行日期：** 2025-05-02  
@@ -92,7 +92,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/繁星于雨云之上.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [繁星于雨云之上](albums/繁星于雨云之上.md)
+#### [繁星于雨云之上](albums/繁星于雨云之上.md)
 
 出品：会咬人的白海豹  
 **发行日期：** 2025-05-01  
@@ -103,7 +103,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/生息Leave_in_Breath.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [生息Leave in Breath](albums/生息Leave_in_Breath.md)
+#### [生息Leave in Breath](albums/生息Leave_in_Breath.md)
 
 出品：北极圈ArcticLab  
 **发行日期：** 2025-03-22  
@@ -114,7 +114,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/藏雪SnowGrave.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [藏雪SnowGrave](albums/藏雪SnowGrave.md)
+#### [藏雪SnowGrave](albums/藏雪SnowGrave.md)
 
 出品：北极圈ArcticLab  
 **发行日期：** 2024-01-12  
@@ -125,7 +125,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 
 
-### [秘宝旅人I](albums/秘宝旅人I.md)
+#### [秘宝旅人I](albums/秘宝旅人I.md)
 
 出品：秘宝旅人  
 **发行日期：** 2023-11-25  
@@ -136,7 +136,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 
 
-### [ELOHIM](albums/ELOHIM.md)
+#### [ELOHIM](albums/ELOHIM.md)
 
 出品：秘宝旅人  
 **发行日期：** 2023-09-23  
@@ -147,7 +147,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/平行四界Quadimension_Finale.png" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [平行四界Quadimension Finale](albums/平行四界Quadimension_Finale.md)
+#### [平行四界Quadimension Finale](albums/平行四界Quadimension_Finale.md)
 
 出品：五维介质Official  
 **发行日期：** 2023-05-24  
@@ -158,7 +158,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/加冕日CORONATION_DAY.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [加冕日CORONATION DAY](albums/加冕日CORONATION_DAY.md)
+#### [加冕日CORONATION DAY](albums/加冕日CORONATION_DAY.md)
 
 出品：Aya-亚夜-  
 **发行日期：** 2023-04-19  
@@ -169,7 +169,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/流星空间站.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [流星空间站](albums/流星空间站.md)
+#### [流星空间站](albums/流星空间站.md)
 
 出品：流星空间站  
 **发行日期：** 2022-12-31  
@@ -180,7 +180,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/平行四界Quadimension_X-3.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [平行四界Quadimension X-3](albums/平行四界Quadimension_X-3.md)
+#### [平行四界Quadimension X-3](albums/平行四界Quadimension_X-3.md)
 
 出品：五维介质Official  
 **发行日期：** 2022-04-03  
@@ -191,7 +191,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/平行四界Quadimension_X-2.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [平行四界Quadimension X-2](albums/平行四界Quadimension_X-2.md)
+#### [平行四界Quadimension X-2](albums/平行四界Quadimension_X-2.md)
 
 出品：五维介质Official  
 **发行日期：** 2021-10-29  
@@ -202,7 +202,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/平行四界Quadimension_X-1.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [平行四界Quadimension X-1](albums/平行四界Quadimension_X-1.md)
+#### [平行四界Quadimension X-1](albums/平行四界Quadimension_X-1.md)
 
 出品：五维介质Official  
 **发行日期：** 2021-06-04  
@@ -213,7 +213,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/海纳百川Storybook.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [海纳百川Storybook](albums/海纳百川Storybook.md)
+#### [海纳百川Storybook](albums/海纳百川Storybook.md)
 
 出品：五维介质Official  
 **发行日期：** 2020-11-06  
@@ -224,7 +224,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/吉光片羽Queendom.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [吉光片羽Queendom](albums/吉光片羽Queendom.md)
+#### [吉光片羽Queendom](albums/吉光片羽Queendom.md)
 
 出品：五维介质Official  
 **发行日期：** 2020-06-12  
@@ -235,7 +235,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/丛林法则Jungle_Rules.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [丛林法则Jungle Rules](albums/丛林法则Jungle_Rules.md)
+#### [丛林法则Jungle Rules](albums/丛林法则Jungle_Rules.md)
 
 出品：五维介质Official  
 **发行日期：** 2020-02-28  
@@ -246,7 +246,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/森罗万象Kaleido.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [森罗万象Kaleido](albums/森罗万象Kaleido.md)
+#### [森罗万象Kaleido](albums/森罗万象Kaleido.md)
 
 出品：五维介质Official  
 **发行日期：** 2019-10-05  
@@ -257,7 +257,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/天马行空Fairytale.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [天马行空Fairytale](albums/天马行空Fairytale.md)
+#### [天马行空Fairytale](albums/天马行空Fairytale.md)
 
 出品：五维介质Official  
 **发行日期：** 2019-07-05  
@@ -268,7 +268,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/天方夜谭Fairyland.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [天方夜谭Fairyland](albums/天方夜谭Fairyland.md)
+#### [天方夜谭Fairyland](albums/天方夜谭Fairyland.md)
 
 出品：五维介质Official  
 **发行日期：** 2019-04-05  
@@ -279,7 +279,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/亚特兰蒂斯Atlantis.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [亚特兰蒂斯Atlantis](albums/亚特兰蒂斯Atlantis.md)
+#### [亚特兰蒂斯Atlantis](albums/亚特兰蒂斯Atlantis.md)
 
 出品：五维介质Official  
 **发行日期：** 2018-10-30  
@@ -290,7 +290,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/星之海StarOcean.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [星之海StarOcean](albums/星之海StarOcean.md)
+#### [星之海StarOcean](albums/星之海StarOcean.md)
 
 出品：五维介质Official  
 **发行日期：** 2018-08-11  
@@ -301,7 +301,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/Freesia.webp" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [Freesia](albums/Freesia.md)
+#### [Freesia](albums/Freesia.md)
 
 出品：Zeno  
 **发行日期：** 2017-10-01  
@@ -312,7 +312,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [平行四界LIVE TOUR OFFICIAL ALBUM](albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.md)
+#### [平行四界LIVE TOUR OFFICIAL ALBUM](albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.md)
 
 出品：平行四界Quadimension  
 **发行日期：** 2017-08-12  
@@ -323,7 +323,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/星愿StarWish.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [星愿StarWish](albums/星愿StarWish.md)
+#### [星愿StarWish](albums/星愿StarWish.md)
 
 出品：五维介质Official  
 **发行日期：** 2016-03-04  
@@ -334,7 +334,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 <img src="/albums/单曲.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;">
 
-### [单曲](albums/单曲.md)
+#### [单曲](albums/单曲.md)
 
 出品：不适用  
 **发行日期：** 不适用  
