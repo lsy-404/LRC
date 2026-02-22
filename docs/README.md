@@ -13,7 +13,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 ## 专辑列表
 
-<img src="/albums/Iris.png" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/Iris.png" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [Iris](albums/Iris.md)
 
@@ -25,7 +25,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/终梦Journeyed_on_Everdream.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/终梦Journeyed_on_Everdream.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [终梦Journeyed on Everdream](albums/终梦Journeyed_on_Everdream.md)
 
@@ -37,7 +37,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/Starlit_Whisper.png" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/Starlit_Whisper.png" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [Starlit Whisper](albums/Starlit_Whisper.md)
 
@@ -49,7 +49,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/织肉匠.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/织肉匠.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [织肉匠](albums/织肉匠.md)
 
@@ -61,7 +61,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/平行四界REBIRTH.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/平行四界REBIRTH.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [平行四界REBIRTH](albums/平行四界REBIRTH.md)
 
@@ -73,7 +73,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/秘宝旅人II_Polaris.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/秘宝旅人II_Polaris.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [秘宝旅人II Polaris](albums/秘宝旅人II_Polaris.md)
 
@@ -85,7 +85,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/流星空间站Ⅱ聆星者.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/流星空间站Ⅱ聆星者.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [流星空间站Ⅱ聆星者](albums/流星空间站Ⅱ聆星者.md)
 
@@ -97,7 +97,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/繁星于雨云之上.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/繁星于雨云之上.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [繁星于雨云之上](albums/繁星于雨云之上.md)
 
@@ -109,7 +109,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/生息Leave_in_Breath.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/生息Leave_in_Breath.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [生息Leave in Breath](albums/生息Leave_in_Breath.md)
 
@@ -121,7 +121,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/藏雪SnowGrave.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/藏雪SnowGrave.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [藏雪SnowGrave](albums/藏雪SnowGrave.md)
 
@@ -157,7 +157,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/平行四界Quadimension_Finale.png" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/平行四界Quadimension_Finale.png" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [平行四界Quadimension Finale](albums/平行四界Quadimension_Finale.md)
 
@@ -169,7 +169,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/加冕日CORONATION_DAY.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/加冕日CORONATION_DAY.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [加冕日CORONATION DAY](albums/加冕日CORONATION_DAY.md)
 
@@ -181,7 +181,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/流星空间站.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/流星空间站.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [流星空间站](albums/流星空间站.md)
 
@@ -193,7 +193,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/平行四界Quadimension_X-3.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/平行四界Quadimension_X-3.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [平行四界Quadimension X-3](albums/平行四界Quadimension_X-3.md)
 
@@ -205,7 +205,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/平行四界Quadimension_X-2.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/平行四界Quadimension_X-2.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [平行四界Quadimension X-2](albums/平行四界Quadimension_X-2.md)
 
@@ -217,7 +217,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/平行四界Quadimension_X-1.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/平行四界Quadimension_X-1.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [平行四界Quadimension X-1](albums/平行四界Quadimension_X-1.md)
 
@@ -229,7 +229,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/海纳百川Storybook.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/海纳百川Storybook.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [海纳百川Storybook](albums/海纳百川Storybook.md)
 
@@ -241,7 +241,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/吉光片羽Queendom.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/吉光片羽Queendom.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [吉光片羽Queendom](albums/吉光片羽Queendom.md)
 
@@ -253,7 +253,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/丛林法则Jungle_Rules.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/丛林法则Jungle_Rules.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [丛林法则Jungle Rules](albums/丛林法则Jungle_Rules.md)
 
@@ -265,7 +265,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/森罗万象Kaleido.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/森罗万象Kaleido.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [森罗万象Kaleido](albums/森罗万象Kaleido.md)
 
@@ -277,7 +277,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/天马行空Fairytale.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/天马行空Fairytale.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [天马行空Fairytale](albums/天马行空Fairytale.md)
 
@@ -289,7 +289,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/天方夜谭Fairyland.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/天方夜谭Fairyland.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [天方夜谭Fairyland](albums/天方夜谭Fairyland.md)
 
@@ -301,7 +301,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/亚特兰蒂斯Atlantis.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/亚特兰蒂斯Atlantis.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [亚特兰蒂斯Atlantis](albums/亚特兰蒂斯Atlantis.md)
 
@@ -313,7 +313,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/星之海StarOcean.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/星之海StarOcean.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [星之海StarOcean](albums/星之海StarOcean.md)
 
@@ -325,7 +325,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/Freesia.webp" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/Freesia.webp" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [Freesia](albums/Freesia.md)
 
@@ -337,7 +337,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [平行四界LIVE TOUR OFFICIAL ALBUM](albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.md)
 
@@ -349,7 +349,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/星愿StarWish.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/星愿StarWish.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [星愿StarWish](albums/星愿StarWish.md)
 
@@ -361,7 +361,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/单曲.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/单曲.jpg" style="float: left; width: 180px; height: auto; margin-right: 20px; border-radius: 12px;">
 
 ### [单曲](albums/单曲.md)
 
