@@ -13,8 +13,7 @@ export default defineUserConfig({
     // ... Vite 特定的配置 ...
   }),
   head: [
-    ['link', { rel: 'icon', href: '/logo.svg', type: "image/svg+xml", sizes: "any" }],
-    ['link', { rel: 'icon', href: '/logo.png' }],
+    ['link', { rel: 'icon', href: '/logo.jpg', type: "image/jpeg" }],
     ['link', { rel: 'manifest', href: '/manifest.json' }],
     ['meta', { name: 'theme-color', content: '#FFFF00' }], // 主题色
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],

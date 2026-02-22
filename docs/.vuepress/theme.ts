@@ -8,9 +8,10 @@ export default hopeTheme({
   author: {
     name: "武乙凌薇",
     url: "https://github.com/wuyilingwei",
+    avatar: "/logo.jpg",
   },
 
-  logo: "/logo.svg",
+  logo: "/logo.jpg",
 
   // print button
   print: false,
