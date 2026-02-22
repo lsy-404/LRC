@@ -6,6 +6,7 @@ category:
 tag:
   - Iris
   - Zeno
+  - 星尘
   - 歌词
   - lrc
   - 下载
@@ -25,6 +26,12 @@ tag:
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1vz6pBxEqh/)
 
 **购买:** [淘宝 平行四界Quadimension](https://item.taobao.com/item.htm?id=1019788252972)
+
+**电子:** 随专辑附赠
+
+**演唱:** 星尘
+
+**作词:** Zeno
 
 **作曲:** Zeno
 
