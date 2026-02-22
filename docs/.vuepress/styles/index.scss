@@ -19,3 +19,17 @@
         max-width: 40% !important;
     }
 }
+
+// 首页专辑卡片样式优化
+.vp-page:has(> h2:first-of-type:contains("专辑列表")),
+#main-content:has(> h2:first-of-type) {
+    // 减少段落间距，让信息更紧凑
+    p {
+        margin-bottom: 0.25rem;
+        
+        // 下载链接保持适当间距
+        &:has(> a[href*=".zip"]) {
+            margin-top: 0.5rem;
+        }
+    }
+}
