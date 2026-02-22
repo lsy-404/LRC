@@ -227,29 +227,16 @@ tag:
 
     album_cards.sort(key=lambda card: parse_sortable_date(str(card["year"])), reverse=True)
 
-    cards_text = []
+    cards_text = ["| | |", "|----|-----|"]
     for card in album_cards:
         year_line = f"发行日期：{card['year']}"
         zip_url = f"https://cdn.jsdelivr.net/gh/{REPO}@main/pack/{urllib.parse.quote(card['name'])}.zip"
 
-        # 使用表格布局，图片置顶
+        # 双列表格布局，左边图片，右边信息
         if card["cover"]:
-            card_html = f"""| |
-|---|
-| <img src="{card['cover']}" alt="{card['name']} 封面" style="width: 100%; border-radius: 8px;"> |
-| <a href="albums/{card['file_name']}.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">{card['name']}</a><br><br>出品：{card['produce']}<br>{year_line}<br><br>[ZIP 下载]({zip_url}) |
-
----
-"""
+            card_html = f"| <img src=\"{card['cover']}\" alt=\"{card['name']} 封面\" style=\"width: 100%; border-radius: 8px;\"> | <h3><a href=\"albums/{card['file_name']}.md\" style=\"color: inherit; text-decoration: none;\">{card['name']}</a></h3>出品：{card['produce']}<br>{year_line}<br><br>[ZIP 下载]({zip_url}) |"
         else:
-            card_html = f"""<a href="albums/{card['file_name']}.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">{card['name']}</a>
-
-出品：{card['produce']}  
-{year_line}  
-[ZIP 下载]({zip_url})
-
----
-"""
+            card_html = f"| | <h3><a href=\"albums/{card['file_name']}.md\" style=\"color: inherit; text-decoration: none;\">{card['name']}</a></h3>出品：{card['produce']}<br>{year_line}<br><br>[ZIP 下载]({zip_url}) |"
         cards_text.append(card_html)
 
     docs_readme = f"""---
@@ -261,13 +248,13 @@ tagline: 虚拟歌姬专辑的导航与歌词共享资源库
 
 ## 关于本站
 
-本站收录并整理虚拟歌姬官方及第三方专辑的 LRC 歌词文件，方便爱好者在线浏览和下载使用。
+本站收录并整理虚拟歌姬专辑的信息及LRC歌词文件，方便爱好者购买专辑、查找专辑、在线浏览和下载使用。
 
-所有歌词资源遵循 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议。本站仅收集网上公开资源。
+所有歌词资源遵循 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议并附加本站《商业使用补充条款》进行授权。
 
 ## 专辑列表
 
-{''.join(cards_text)}
+{chr(10).join(cards_text)}
 
 """
 

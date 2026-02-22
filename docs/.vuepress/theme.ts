@@ -57,7 +57,7 @@ export default hopeTheme({
   // 禁用页面目录
   toc: false,
 
-  footer: `V宇宙词站 - 所有歌词版权归原作者或版权所有方所有<br>Powered by <a href="https://v2.vuepress.vuejs.org/" target="_blank"><b>Vuepress</b></a> v2`,
+  footer: `V宇宙词站<br>Powered by <a href="https://v2.vuepress.vuejs.org/" target="_blank"><b>Vuepress</b></a> v2`,
 
   copyright: "Copyright © 2026-Now All rights reserved.",
 

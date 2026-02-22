@@ -5,7 +5,7 @@ import { viteBundler } from '@vuepress/bundler-vite';
 export default defineUserConfig({
   lang: "zh-CN",
   title: "V宇宙词站",
-  description: "虚拟歌姬专辑的导航与歌词共享",
+  description: "虚拟歌姬专辑的信息导航与歌词共享",
   base: "/",
   shouldPrefetch: false,
   theme, // 使用主题
