@@ -265,6 +265,18 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
+<img src="/albums/天方夜谭Fairyland.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [天方夜谭Fairyland](albums/天方夜谭Fairyland.md)
+
+出品：五维介质Official  
+**发行日期：** 2019-04-05
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland.zip)
+
+<div style="clear: both;"></div>
+
+---
 <img src="/albums/Freesia.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [Freesia](albums/Freesia.md)
@@ -285,18 +297,6 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 **发行日期：** 2017-08-12
 
 [ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CLIVE%20TOUR%20OFFICIAL%20ALBUM.zip)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/天方夜谭Fairyland.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [天方夜谭Fairyland](albums/天方夜谭Fairyland.md)
-
-出品：缺少信息  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADFairyland.zip)
 
 <div style="clear: both;"></div>
 

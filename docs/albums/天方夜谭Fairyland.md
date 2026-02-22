@@ -1,10 +1,11 @@
 ---
 title: 天方夜谭Fairyland
-order: -1
+order: -20190405
 category:
   - 天方夜谭Fairyland
 tag:
   - 天方夜谭Fairyland
+  - 五维介质Official
   - 星尘
   - 海伊
   - 苍穹
@@ -29,7 +30,15 @@ tag:
 
 <img src="./天方夜谭Fairyland.jpg" alt="天方夜谭Fairyland 封面" style="max-width: 40%; height: auto;" />
 
-**发行日期:** 缺少信息
+**发行日期:** 2019-04-05
+
+**出品:** 五维介质Official
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1bb411g7Zq/)
+
+**购买:** [淘宝 平行四界Quadimension](http://t.cn/EJ1I7tT) ￥75/￥120/￥140/￥180
+
+**电子:** 随专辑附赠
 
 **演唱:** 星尘、海伊、苍穹
 
