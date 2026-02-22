@@ -252,6 +252,8 @@
 
 ---
 
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E5%8D%95%E6%9B%B2/cover.jpg" alt="专辑封面" width="120" align="right">
+
 ### 单曲
 
 **📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8D%95%E6%9B%B2.zip)**

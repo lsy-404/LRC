@@ -361,12 +361,12 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-
+<img src="/albums/单曲.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [单曲](albums/单曲.md)
 
 出品：不适用  
-**发行日期：** 1970-01-01
+**发行日期：** 不适用
 
 [ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8D%95%E6%9B%B2.zip)
 
