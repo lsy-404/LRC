@@ -258,7 +258,11 @@ tagline: 虚拟歌姬专辑的导航与歌词共享资源库
 
 ## 专辑列表
 
+<div class="album-table">
+
 {chr(10).join(cards_text)}
+
+</div>
 
 """
 

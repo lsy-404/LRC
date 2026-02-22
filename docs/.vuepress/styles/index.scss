@@ -8,13 +8,14 @@
     }
 }
 
-table {
+// 首页专辑列表表格样式
+.album-table table {
     width: 100%;
     table-layout: fixed;
 }
 
-table th,
-table td {
+.album-table table th,
+.album-table table td {
     width: 50%;
 }
 
