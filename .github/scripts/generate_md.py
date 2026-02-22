@@ -209,7 +209,6 @@ tag:
         )
 
         year_line = f"**发行日期：** {card['year']}"
-        tags_line = "、".join(card["tags"]) if card.get("tags") else ""
         zip_url = f"https://cdn.jsdelivr.net/gh/{REPO}@main/pack/{urllib.parse.quote(card['name'])}.zip"
 
         cards_text.append(
@@ -245,15 +244,6 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 {''.join(cards_text)}
 
-## 资源说明
-
-- 📝 点击专辑名称查看完整歌词列表
-- 📥 支持单曲下载和专辑打包下载
-- 🔍 使用顶部搜索框快速查找歌曲
-
-::: tip 版权声明
-所有歌词版权归原作者或版权所有方所有，请勿用于商业目的。
-:::
 """
 
     (DOCS_DIR / "README.md").write_text(docs_readme, encoding="utf-8")
