@@ -43,7 +43,7 @@ tag:
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1uKtSz6EgF/)
 
-**购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?id=991410246698)
+**购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?id=991410246698) ￥108/￥178/￥228
 
 **电子:** 随专辑附赠
 
