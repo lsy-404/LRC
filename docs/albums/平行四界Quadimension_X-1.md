@@ -1,11 +1,27 @@
 ---
 title: 平行四界Quadimension X-1
-order: -1
+order: -20210604
 category:
   - 平行四界Quadimension X-1
 tag:
   - 平行四界Quadimension X-1
   - 五维介质Official
+  - 浓缩排骨
+  - K_Lacid
+  - 大九_LN
+  - 芍杳
+  - Evalia
+  - 公兔
+  - Zeno
+  - 绿无
+  - 胧
+  - PoKeR
+  - 磁带君
+  - ANK
+  - papaw泡泡
+  - MeLo
+  - 瑞安Ryan
+  - 坐标P
   - 歌词
   - lrc
   - 下载
@@ -16,11 +32,27 @@ tag:
 
 <img src="./平行四界Quadimension_X-1.jpg" alt="平行四界Quadimension X-1 封面" style="max-width: 40%; height: auto;" />
 
-**发行日期:** 缺少信息
+**发行日期:** 2021-06-04
 
 **出品:** 五维介质Official
 
 **歌词制作:** 虎啸ROAR
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1954y1374F/)
+
+**购买:** [淘宝 平行四界Quadimension](http://t.cn/A6V6Z5gZ) ￥75/￥130/￥200/￥230
+
+**电子:** 随专辑附赠
+
+**作词:** 浓缩排骨、K_Lacid、大九_LN、芍杳、Evalia、公兔、Zeno、绿无
+
+**作曲:** 胧、PoKeR、磁带君、ANK、papaw泡泡、Evalia、公兔、Zeno、MeLo
+
+**编曲:** 胧、PoKeR、磁带君、ANK、papaw泡泡、Evalia、公兔、Zeno、MeLo
+
+**调校:** 瑞安Ryan、PoKeR、坐标P、Zeno
+
+**曲绘:** 大汉Jax、青梅丨plumw、KyuriTizu、Leiq雷、November、Hanasa、影依望远镜、立旗、某狐仙、枫叶
 
 ## 曲目列表
 

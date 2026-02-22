@@ -133,6 +133,18 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
+<img src="/albums/平行四界Quadimension_Finale.png" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [平行四界Quadimension Finale](albums/平行四界Quadimension_Finale.md)
+
+出品：五维介质Official  
+**发行日期：** 2023-05-24
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale.zip)
+
+<div style="clear: both;"></div>
+
+---
 <img src="/albums/加冕日CORONATION_DAY.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [加冕日CORONATION DAY](albums/加冕日CORONATION_DAY.md)
@@ -153,6 +165,42 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 **发行日期：** 2022-12-31
 
 [ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99.zip)
+
+<div style="clear: both;"></div>
+
+---
+<img src="/albums/平行四界Quadimension_X-3.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [平行四界Quadimension X-3](albums/平行四界Quadimension_X-3.md)
+
+出品：五维介质Official  
+**发行日期：** 2022-04-03
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3.zip)
+
+<div style="clear: both;"></div>
+
+---
+<img src="/albums/平行四界Quadimension_X-2.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [平行四界Quadimension X-2](albums/平行四界Quadimension_X-2.md)
+
+出品：五维介质Official  
+**发行日期：** 2021-10-29
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2.zip)
+
+<div style="clear: both;"></div>
+
+---
+<img src="/albums/平行四界Quadimension_X-1.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [平行四界Quadimension X-1](albums/平行四界Quadimension_X-1.md)
+
+出品：五维介质Official  
+**发行日期：** 2021-06-04
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1.zip)
 
 <div style="clear: both;"></div>
 
@@ -205,6 +253,18 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
+<img src="/albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [平行四界LIVE TOUR OFFICIAL ALBUM](albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.md)
+
+出品：平行四界Quadimension  
+**发行日期：** 2017-08-12
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CLIVE%20TOUR%20OFFICIAL%20ALBUM.zip)
+
+<div style="clear: both;"></div>
+
+---
 <img src="/albums/天方夜谭Fairyland.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [天方夜谭Fairyland](albums/天方夜谭Fairyland.md)
@@ -225,66 +285,6 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 **发行日期：** 缺少信息
 
 [ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale.zip)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [平行四界LIVE TOUR OFFICIAL ALBUM](albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.md)
-
-出品：缺少信息  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CLIVE%20TOUR%20OFFICIAL%20ALBUM.zip)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/平行四界Quadimension_Final.png" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [平行四界Quadimension Final](albums/平行四界Quadimension_Final.md)
-
-出品：五维介质Official  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Final.zip)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/平行四界Quadimension_X-1.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [平行四界Quadimension X-1](albums/平行四界Quadimension_X-1.md)
-
-出品：五维介质Official  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1.zip)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/平行四界Quadimension_X-2.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [平行四界Quadimension X-2](albums/平行四界Quadimension_X-2.md)
-
-出品：五维介质Official  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2.zip)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/平行四界Quadimension_X-3.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [平行四界Quadimension X-3](albums/平行四界Quadimension_X-3.md)
-
-出品：五维介质Official  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-3.zip)
 
 <div style="clear: both;"></div>
 

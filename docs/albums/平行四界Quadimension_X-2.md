@@ -1,6 +1,6 @@
 ---
 title: 平行四界Quadimension X-2
-order: -1
+order: -20211029
 category:
   - 平行四界Quadimension X-2
 tag:
@@ -34,9 +34,15 @@ tag:
 
 <img src="./平行四界Quadimension_X-2.jpg" alt="平行四界Quadimension X-2 封面" style="max-width: 40%; height: auto;" />
 
-**发行日期:** 缺少信息
+**发行日期:** 2021-10-29
 
 **出品:** 五维介质Official
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1RR4y1J7NJ/)
+
+**购买:** [淘宝 平行四界Quadimension](http://t.cn/A6MxerwL) ￥75/￥120/￥170/￥210
+
+**电子:** 随专辑附赠
 
 **演唱:** 星尘、海伊、诗岸、苍穹、赤羽、minus
 

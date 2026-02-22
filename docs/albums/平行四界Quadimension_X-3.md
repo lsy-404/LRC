@@ -1,6 +1,6 @@
 ---
 title: 平行四界Quadimension X-3
-order: -1
+order: -20220403
 category:
   - 平行四界Quadimension X-3
 tag:
@@ -8,8 +8,22 @@ tag:
   - 五维介质Official
   - 绿无
   - 浓缩排骨
-  - 瑞安Ryan
+  - Ddickky
+  - 大♂古
   - Zeno
+  - 公兔
+  - St
+  - Evalia
+  - MeLo
+  - 磁带君
+  - Kide
+  - 胧
+  - PoKeR
+  - 瑞安Ryan
+  - 坐标P
+  - 顾令
+  - Creuzer
+  - 陌生来访
   - 歌词
   - lrc
   - 下载
@@ -20,13 +34,27 @@ tag:
 
 <img src="./平行四界Quadimension_X-3.jpg" alt="平行四界Quadimension X-3 封面" style="max-width: 40%; height: auto;" />
 
-**发行日期:** 缺少信息
+**发行日期:** 2022-04-03
 
 **出品:** 五维介质Official
 
-**作词:** 绿无、浓缩排骨
+**歌词制作:** 虎啸ROAR
 
-**调校:** 瑞安Ryan、Zeno
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1E5411D7by/)
+
+**购买:** [淘宝 平行四界Quadimension](http://t.cn/A66IQrPC) ￥75/￥155/￥185/￥215
+
+**电子:** 随专辑附赠
+
+**作词:** 绿无、浓缩排骨、Ddickky、大♂古、Zeno、公兔、St、Evalia
+
+**作曲:** MeLo、磁带君、Kide、Zeno、胧、公兔、PoKeR、Evalia
+
+**编曲:** MeLo、磁带君、Kide、Zeno、胧、公兔、PoKeR、Evalia
+
+**调校:** 瑞安Ryan、Kide、坐标P、Zeno、顾令、Creuzer、陌生来访
+
+**曲绘:** 影依望远镜、Leiq雷、Hanasa、渡五趣、獾有财发发发、原子Dan、大汉Jax、天白灾、烧老啾
 
 ## 曲目列表
 

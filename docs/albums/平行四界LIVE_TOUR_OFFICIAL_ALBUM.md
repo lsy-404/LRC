@@ -1,10 +1,11 @@
 ---
 title: 平行四界LIVE TOUR OFFICIAL ALBUM
-order: -1
+order: -20170812
 category:
   - 平行四界LIVE TOUR OFFICIAL ALBUM
 tag:
   - 平行四界LIVE TOUR OFFICIAL ALBUM
+  - 平行四界Quadimension
   - 星尘
   - 冥凰
   - Zeno
@@ -37,9 +38,17 @@ tag:
 
 <img src="./平行四界LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界LIVE TOUR OFFICIAL ALBUM 封面" style="max-width: 40%; height: auto;" />
 
-**发行日期:** 缺少信息
+**发行日期:** 2017-08-12
+
+**出品:** 平行四界Quadimension
 
 **歌词制作:** RQvan
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV19x411n7z4/)
+
+**购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?abbucket=12&id=583278468666)
+
+**电子:** 随专辑附赠
 
 **演唱:** 星尘
 
