@@ -265,6 +265,18 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
+<img src="/albums/天马行空Fairytale.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [天马行空Fairytale](albums/天马行空Fairytale.md)
+
+出品：五维介质Official  
+**发行日期：** 2019-07-05
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale.zip)
+
+<div style="clear: both;"></div>
+
+---
 <img src="/albums/天方夜谭Fairyland.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [天方夜谭Fairyland](albums/天方夜谭Fairyland.md)
@@ -301,14 +313,14 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/天马行空Fairytale.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/亚特兰蒂斯Atlantis.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
-### [天马行空Fairytale](albums/天马行空Fairytale.md)
+### [亚特兰蒂斯Atlantis](albums/亚特兰蒂斯Atlantis.md)
 
 出品：缺少信息  
 **发行日期：** 缺少信息
 
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAFairytale.zip)
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis.zip)
 
 <div style="clear: both;"></div>
 

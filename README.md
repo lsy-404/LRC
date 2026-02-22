@@ -18,6 +18,7 @@
 - [Iris](https://github.com/wuyilingwei/LRC#iris)
 - [Starlit Whisper](https://github.com/wuyilingwei/LRC#starlit-whisper)
 - [丛林法则Jungle Rules](https://github.com/wuyilingwei/LRC#%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99jungle-rules)
+- [亚特兰蒂斯Atlantis](https://github.com/wuyilingwei/LRC#%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFatlantis)
 - [加冕日CORONATION DAY](https://github.com/wuyilingwei/LRC#%E5%8A%A0%E5%86%95%E6%97%A5coronation-day)
 - [吉光片羽Queendom](https://github.com/wuyilingwei/LRC#%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDqueendom)
 - [天方夜谭Fairyland](https://github.com/wuyilingwei/LRC#%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADfairyland)
@@ -191,6 +192,30 @@
 | [苍穹、诗岸、Melo - 西西里的自由诗.lrc](res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E8%8B%8D%E7%A9%B9%E3%80%81%E8%AF%97%E5%B2%B8%E3%80%81Melo%20-%20%E8%A5%BF%E8%A5%BF%E9%87%8C%E7%9A%84%E8%87%AA%E7%94%B1%E8%AF%97.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E8%8B%8D%E7%A9%B9%E3%80%81%E8%AF%97%E5%B2%B8%E3%80%81Melo%20-%20%E8%A5%BF%E8%A5%BF%E9%87%8C%E7%9A%84%E8%87%AA%E7%94%B1%E8%AF%97.lrc) |
 | [诗岸、Zeno - 禁忌Apple Dance.lrc](res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E8%AF%97%E5%B2%B8%E3%80%81Zeno%20-%20%E7%A6%81%E5%BF%8CApple%20Dance.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E8%AF%97%E5%B2%B8%E3%80%81Zeno%20-%20%E7%A6%81%E5%BF%8CApple%20Dance.lrc) |
 | [诗岸、哈密瓜 - 光明之森.lrc](res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E8%AF%97%E5%B2%B8%E3%80%81%E5%93%88%E5%AF%86%E7%93%9C%20-%20%E5%85%89%E6%98%8E%E4%B9%8B%E6%A3%AE.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E8%AF%97%E5%B2%B8%E3%80%81%E5%93%88%E5%AF%86%E7%93%9C%20-%20%E5%85%89%E6%98%8E%E4%B9%8B%E6%A3%AE.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 亚特兰蒂斯Atlantis
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (8 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [01 樂園-Atlantis-.lrc](res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/01%20%E6%A8%82%E5%9C%92-Atlantis-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/01%20%E6%A8%82%E5%9C%92-Atlantis-.lrc) |
+| [02 少年永梦.lrc](res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/02%20%E5%B0%91%E5%B9%B4%E6%B0%B8%E6%A2%A6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/02%20%E5%B0%91%E5%B9%B4%E6%B0%B8%E6%A2%A6.lrc) |
+| [03 水天一色.lrc](res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/03%20%E6%B0%B4%E5%A4%A9%E4%B8%80%E8%89%B2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/03%20%E6%B0%B4%E5%A4%A9%E4%B8%80%E8%89%B2.lrc) |
+| [04 月光掌.lrc](res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/04%20%E6%9C%88%E5%85%89%E6%8E%8C.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/04%20%E6%9C%88%E5%85%89%E6%8E%8C.lrc) |
+| [05 START.lrc](res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/05%20START.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/05%20START.lrc) |
+| [06 龙女.lrc](res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/06%20%E9%BE%99%E5%A5%B3.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/06%20%E9%BE%99%E5%A5%B3.lrc) |
+| [07 绮凝盏.lrc](res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/07%20%E7%BB%AE%E5%87%9D%E7%9B%8F.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/07%20%E7%BB%AE%E5%87%9D%E7%9B%8F.lrc) |
+| [08 降临.lrc](res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/08%20%E9%99%8D%E4%B8%B4.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/08%20%E9%99%8D%E4%B8%B4.lrc) |
 
 </details>
 

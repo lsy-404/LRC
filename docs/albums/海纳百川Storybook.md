@@ -16,6 +16,14 @@ tag:
   - 绿无
   - 杏花包子
   - Zeno
+  - Kide
+  - papaw泡泡
+  - Evalia
+  - 星辉P
+  - 公兔
+  - 磁带君
+  - MeLo
+  - PoKeR
   - 瑞安Ryan
   - 折v
   - 奶油蘑菇
@@ -43,6 +51,10 @@ tag:
 **演唱:** 星尘、海伊、诗岸
 
 **作词:** Ddickky、大♂古、芍杳、大九_LN、绿无、杏花包子、Zeno
+
+**作曲:** Kide、papaw泡泡、Evalia、星辉P、公兔、磁带君、MeLo、PoKeR、Zeno
+
+**编曲:** Kide、papaw泡泡、Evalia、星辉P、公兔、磁带君、MeLo、PoKeR、Zeno
 
 **调校:** 瑞安Ryan、折v、奶油蘑菇、坐标P
 

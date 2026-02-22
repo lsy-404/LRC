@@ -38,6 +38,8 @@ tag:
 
 **出品:** 五维介质Official
 
+**歌词制作:** 吸尘器
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1RR4y1J7NJ/)
 
 **购买:** [淘宝 平行四界Quadimension](http://t.cn/A6MxerwL) ￥75/￥120/￥170/￥210

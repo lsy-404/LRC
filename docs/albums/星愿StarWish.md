@@ -17,6 +17,8 @@ tag:
 
 **发行日期:** 缺少信息
 
+**歌词制作:** Baka632
+
 ## 曲目列表
 
 - [星尘 - Solar Storm](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20Solar%20Storm.lrc)

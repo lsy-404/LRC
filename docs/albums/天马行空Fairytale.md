@@ -1,10 +1,11 @@
 ---
 title: 天马行空Fairytale
-order: -1
+order: -20190705
 category:
   - 天马行空Fairytale
 tag:
   - 天马行空Fairytale
+  - 五维介质Official
   - 星尘
   - 赤羽
   - 诗岸
@@ -14,15 +15,19 @@ tag:
   - 赭柚奶
   - 浓缩排骨
   - Kide
-  - Creuzer
   - Melo
-  - 心
+  - 泓
+  - Hoskey
+  - 小野道
+  - 星辉P
+  - kide
   - Zeno
+  - 战场原妖精
+  - Creuzer
+  - 心
   - 坐标P
   - 瑞安Ryan
-  - 小野道
   - cillia
-  - 战场原妖精
   - 歌词
   - lrc
   - 下载
@@ -33,11 +38,23 @@ tag:
 
 <img src="./天马行空Fairytale.jpg" alt="天马行空Fairytale 封面" style="max-width: 40%; height: auto;" />
 
-**发行日期:** 缺少信息
+**发行日期:** 2019-07-05
+
+**出品:** 五维介质Official
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1k4411c7Ge/)
+
+**购买:** [淘宝 平行四界Quadimension](https://item.taobao.com/item.htm?id=992747517068) ￥75/￥120/￥160/￥190
+
+**电子:** 随专辑附赠
 
 **演唱:** 星尘、赤羽、诗岸
 
 **作词:** 绿无、大九_LN、Uniparity、赭柚奶、浓缩排骨、Kide
+
+**作曲:** Kide、Melo、泓、Hoskey、小野道、星辉P、kide、Zeno、战场原妖精
+
+**编曲:** Kide、Melo、泓、Hoskey、小野道、星辉P、kide、Zeno、战场原妖精
 
 **调校:** Creuzer、Melo、心、Zeno、坐标P、瑞安Ryan、小野道、cillia、Kide、战场原妖精
 
