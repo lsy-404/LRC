@@ -1,10 +1,27 @@
 ---
 title: 亚特兰蒂斯Atlantis
-order: -1
+order: -20181030
 category:
   - 亚特兰蒂斯Atlantis
 tag:
   - 亚特兰蒂斯Atlantis
+  - 五维介质Official
+  - 海伊
+  - Evalia
+  - 蒸馏奶
+  - 大九_LN
+  - Zeno
+  - 浓缩拼拼
+  - 大る古
+  - 绿无
+  - Ddickky
+  - 小野道
+  - 星橙
+  - 做带君
+  - grazedfx
+  - MeLo
+  - 天钧
+  - Napstina
   - 歌词
   - lrc
   - 下载
@@ -15,7 +32,29 @@ tag:
 
 <img src="./亚特兰蒂斯Atlantis.jpg" alt="亚特兰蒂斯Atlantis 封面" style="max-width: 40%; height: auto;" />
 
-**发行日期:** 缺少信息
+**发行日期:** 2018-10-30
+
+**出品:** 五维介质Official
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1db411A7i8/)
+
+**购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?id=583571530883) ￥75/￥120/￥140
+
+**电子:** 随专辑附赠
+
+**演唱:** 海伊
+
+**作词:** Evalia、蒸馏奶、大九_LN、Zeno、浓缩拼拼、大る古、绿无、Ddickky
+
+**作曲:** Evalia、小野道、星橙、Zeno、做带君、grazedfx、MeLo、Ddickky、天钧
+
+**编曲:** Evalia、小野道、星橙、Zeno、做带君、grazedfx、MeLo、Ddickky、天钧
+
+**调校:** Napstina
+
+**曲绘:** 原子Dan、TOMATO、Lei鱼、熙、Sainker、kieed、Jinko_神子、嵩山井猫、gods、kaze、Pre、流苍Re、阿荼、奈狐、诗则、November、拿铁、山药、胖柿飞飞飞、枫叶
+
+**混音:** 阿鲲 (Tr.8)
 
 ## 曲目列表
 
