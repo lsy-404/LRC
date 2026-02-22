@@ -20,6 +20,7 @@
 - [丛林法则Jungle Rules](https://github.com/wuyilingwei/LRC#%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99jungle-rules)
 - [亚特兰蒂斯Atlantis](https://github.com/wuyilingwei/LRC#%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFatlantis)
 - [加冕日CORONATION DAY](https://github.com/wuyilingwei/LRC#%E5%8A%A0%E5%86%95%E6%97%A5coronation-day)
+- [单曲](https://github.com/wuyilingwei/LRC#%E5%8D%95%E6%9B%B2)
 - [吉光片羽Queendom](https://github.com/wuyilingwei/LRC#%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDqueendom)
 - [天方夜谭Fairyland](https://github.com/wuyilingwei/LRC#%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%ADfairyland)
 - [天马行空Fairytale](https://github.com/wuyilingwei/LRC#%E5%A4%A9%E9%A9%AC%E8%A1%8C%E7%A9%BAfairytale)
@@ -246,6 +247,26 @@
 | [妖刀出鞘 - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E5%A6%96%E5%88%80%E5%87%BA%E9%9E%98%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E5%A6%96%E5%88%80%E5%87%BA%E9%9E%98%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) |
 | [永眠 (Ballade ver.) - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E6%B0%B8%E7%9C%A0%20%28Ballade%20ver.%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E6%B0%B8%E7%9C%A0%20%28Ballade%20ver.%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) |
 | [解体诸因 - Aya-亚夜-.lrc](res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E8%A7%A3%E4%BD%93%E8%AF%B8%E5%9B%A0%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E8%A7%A3%E4%BD%93%E8%AF%B8%E5%9B%A0%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc) |
+
+</details>
+
+---
+
+### 单曲
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8D%95%E6%9B%B2.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (6 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [极星流浪夜.lrc](res/%E5%8D%95%E6%9B%B2/%E6%9E%81%E6%98%9F%E6%B5%81%E6%B5%AA%E5%A4%9C.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%95%E6%9B%B2/%E6%9E%81%E6%98%9F%E6%B5%81%E6%B5%AA%E5%A4%9C.lrc) |
+| [浅滩.lrc](res/%E5%8D%95%E6%9B%B2/%E6%B5%85%E6%BB%A9.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%95%E6%9B%B2/%E6%B5%85%E6%BB%A9.lrc) |
+| [深红.lrc](res/%E5%8D%95%E6%9B%B2/%E6%B7%B1%E7%BA%A2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%95%E6%9B%B2/%E6%B7%B1%E7%BA%A2.lrc) |
+| [神的女儿们.lrc](res/%E5%8D%95%E6%9B%B2/%E7%A5%9E%E7%9A%84%E5%A5%B3%E5%84%BF%E4%BB%AC.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%95%E6%9B%B2/%E7%A5%9E%E7%9A%84%E5%A5%B3%E5%84%BF%E4%BB%AC.lrc) |
+| [第四天灾的宙宇分界线.lrc](res/%E5%8D%95%E6%9B%B2/%E7%AC%AC%E5%9B%9B%E5%A4%A9%E7%81%BE%E7%9A%84%E5%AE%99%E5%AE%87%E5%88%86%E7%95%8C%E7%BA%BF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%95%E6%9B%B2/%E7%AC%AC%E5%9B%9B%E5%A4%A9%E7%81%BE%E7%9A%84%E5%AE%99%E5%AE%87%E5%88%86%E7%95%8C%E7%BA%BF.lrc) |
+| [零和Zero-Sum(星尘永夜 2024Ver.).lrc](res/%E5%8D%95%E6%9B%B2/%E9%9B%B6%E5%92%8CZero-Sum%28%E6%98%9F%E5%B0%98%E6%B0%B8%E5%A4%9C%202024Ver.%29.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%95%E6%9B%B2/%E9%9B%B6%E5%92%8CZero-Sum%28%E6%98%9F%E5%B0%98%E6%B0%B8%E5%A4%9C%202024Ver.%29.lrc) |
 
 </details>
 

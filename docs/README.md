@@ -363,3 +363,15 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 ---
 
 
+### [单曲](albums/单曲.md)
+
+出品：缺少信息  
+**发行日期：** 缺少信息
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8D%95%E6%9B%B2.zip)
+
+<div style="clear: both;"></div>
+
+---
+
+
