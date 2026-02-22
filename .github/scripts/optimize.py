@@ -37,51 +37,6 @@ def find_cover_image(dir_path):
             return file
     return None
 
-def process_lrc(file_path, album_name):
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
-    except UnicodeDecodeError:
-        try:
-            with open(file_path, 'r', encoding='gbk') as f:
-                lines = f.readlines()
-        except:
-            print(f"Failed to read {file_path}")
-            return False
-
-    has_al = False
-    al_index = -1
-    
-    for i, line in enumerate(lines):
-        if line.strip().startswith('[al:'):
-            has_al = True
-            al_index = i
-            break
-    
-    modified = False
-    new_lines = list(lines)
-    
-    # Tag Optimization: Ensure [al:FolderName] exists
-    target_tag = f'[al:{album_name}]\n'
-    
-    if has_al:
-        # Check if it matches
-        current_tag = new_lines[al_index]
-        if current_tag != target_tag:
-            new_lines[al_index] = target_tag
-            modified = True
-    else:
-        # Insert at the beginning
-        new_lines.insert(0, target_tag)
-        modified = True
-
-    if modified:
-        print(f"Updating tag for: {file_path}")
-        with open(file_path, 'w', encoding='utf-8') as f:
-            f.writelines(new_lines)
-            
-    return modified
-
 def update_readme_section(content, start_marker, end_marker, new_section_content):
     pattern = re.compile(f'({re.escape(start_marker)})(.*?)({re.escape(end_marker)})', re.DOTALL)
     if pattern.search(content):
@@ -156,7 +111,6 @@ def main():
 
         for filename in files:
             file_path = os.path.join(dir_path, filename)
-            process_lrc(file_path, album_name)
             
             # SEO Optimization: Create links
             rel_path = f"{RES_DIR}/{album_name}/{filename}"
