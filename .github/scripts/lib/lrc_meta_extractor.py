@@ -53,8 +53,8 @@ _TIMESTAMPS_PREFIX_RE = re.compile(r"^(?:\[\d{1,3}:\d{2}(?:[.:]\d+)?\])+")
 # 字段/值分割：中英文冒号，前后允许空格
 _FIELD_SEP_RE = re.compile(r"\s*[：:]\s*")
 
-# 联合字段分隔符号：& ＆ / ／
-_COMPOUND_SEP_RE = re.compile(r"[&＆/／]")
+# 联合字段分隔符号：、 , ， & ＆ / ／
+_COMPOUND_SEP_RE = re.compile(r"[、,，&＆/／]")
 
 # 人名/值列表分隔符（& / ＆ 同样作为并列分隔符）
 _LIST_SEP_RE = re.compile(r"\s*[、,，&＆]\s*")
