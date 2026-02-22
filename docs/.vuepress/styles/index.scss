@@ -1,3 +1,11 @@
+:root {
+    hr,
+    tr,
+    td,
+    th {
+        border: none !important;
+    }
+}
 // 专辑封面响应式样式
 .album-cover {
     display: block;

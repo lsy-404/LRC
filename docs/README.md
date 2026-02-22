@@ -1,8 +1,8 @@
 ---
 icon: material-symbols:home
 title: 首页
-heroText: 虚拟歌姬 LRC 歌词分享
-tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
+heroText: V宇宙词站
+tagline: 虚拟歌姬团体的歌词资源库
 ---
 
 ## 关于本站

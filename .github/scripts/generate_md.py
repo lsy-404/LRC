@@ -229,35 +229,34 @@ tag:
 
     cards_text = []
     for card in album_cards:
-        cover_img = (
-            f"<img src=\"{card['cover']}\" style=\"float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 12px;\">"
-            if card["cover"]
-            else ""
-        )
-
-        year_line = f"发行日期： {card['year']}"
+        year_line = f"发行日期：{card['year']}"
         zip_url = f"https://cdn.jsdelivr.net/gh/{REPO}@main/pack/{urllib.parse.quote(card['name'])}.zip"
 
-        cards_text.append(
-            f"""{cover_img}
+        # 使用表格布局，图片置顶
+        if card["cover"]:
+            card_html = f"""| |
+|---|
+| <img src="{card['cover']}" alt="{card['name']} 封面" style="width: 100%; border-radius: 8px;"> |
+| <a href="albums/{card['file_name']}.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">{card['name']}</a><br><br>出品：{card['produce']}<br>{year_line}<br><br>[ZIP 下载]({zip_url}) |
 
-<a href="albums/{card['file_name']}.md" style="font-size: 1.25rem; font-weight: 600; text-decoration: none;">{card['name']}</a>
+---
+"""
+        else:
+            card_html = f"""<a href="albums/{card['file_name']}.md" style="font-size: 1.2rem; font-weight: 600; color: inherit;">{card['name']}</a>
 
 出品：{card['produce']}  
 {year_line}  
 [ZIP 下载]({zip_url})
 
-<div style=\"clear: both;\"></div>
-
 ---
 """
-        )
+        cards_text.append(card_html)
 
     docs_readme = f"""---
 icon: material-symbols:home
 title: 首页
-heroText: 虚拟歌姬 LRC 歌词分享
-tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
+heroText: V宇宙词站
+tagline: 虚拟歌姬专辑的导航与歌词共享资源库
 ---
 
 ## 关于本站
