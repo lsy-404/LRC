@@ -289,6 +289,18 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
+<img src="/albums/星之海StarOcean.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [星之海StarOcean](albums/星之海StarOcean.md)
+
+出品：五维介质Official  
+**发行日期：** 2018-08-11
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean.zip)
+
+<div style="clear: both;"></div>
+
+---
 <img src="/albums/Freesia.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [Freesia](albums/Freesia.md)
@@ -333,18 +345,6 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 **发行日期：** 缺少信息
 
 [ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis.zip)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/星之海StarOcean.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [星之海StarOcean](albums/星之海StarOcean.md)
-
-出品：缺少信息  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean.zip)
 
 <div style="clear: both;"></div>
 

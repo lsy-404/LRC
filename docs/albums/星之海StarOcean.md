@@ -1,10 +1,11 @@
 ---
 title: 星之海StarOcean
-order: -1
+order: -20180811
 category:
   - 星之海StarOcean
 tag:
   - 星之海StarOcean
+  - 五维介质Official
   - 星尘
   - 海伊
   - 大♂古
@@ -31,7 +32,15 @@ tag:
 
 <img src="./星之海StarOcean.jpg" alt="星之海StarOcean 封面" style="max-width: 40%; height: auto;" />
 
-**发行日期:** 缺少信息
+**发行日期:** 2018-08-11
+
+**出品:** 五维介质Official
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1cs411T7F5/)
+
+**购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?id=583711155480) ￥75/￥110
+
+**电子:** 随专辑附赠
 
 **演唱:** 星尘、海伊
 
