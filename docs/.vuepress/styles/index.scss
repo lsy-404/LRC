@@ -8,6 +8,16 @@
     }
 }
 
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+table th,
+table td {
+    width: 50%;
+}
+
 // 专辑封面响应式样式
 .album-cover {
     display: block;
