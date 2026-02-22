@@ -49,6 +49,18 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
+<img src="/albums/织肉匠.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [织肉匠](albums/织肉匠.md)
+
+出品：磁带君  
+**发行日期：** 2025-12-05
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%87%E8%82%89%E5%8C%A0.zip)
+
+<div style="clear: both;"></div>
+
+---
 <img src="/albums/平行四界REBIRTH.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [平行四界REBIRTH](albums/平行四界REBIRTH.md)
@@ -349,26 +361,5 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/织肉匠.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [织肉匠](albums/织肉匠.md)
-
-出品：缺少信息  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%87%E8%82%89%E5%8C%A0.zip)
-
-<div style="clear: both;"></div>
-
----
 
 
-## 资源说明
-
-- 📝 点击专辑名称查看完整歌词列表
-- 📥 支持单曲下载和专辑打包下载
-- 🔍 使用顶部搜索框快速查找歌曲
-
-::: tip 版权声明
-所有歌词版权归原作者或版权所有方所有，请勿用于商业目的。
-:::
