@@ -45,34 +45,7 @@
 
 ## 贡献指南
 
-<details>
-<summary>📁 项目结构</summary>
-
-```
-.
-├── res/              # 资源文件夹，存放所有专辑歌词文件
-│   ├── 专辑1/
-│   │   ├── cover.*  # 专辑封面（可选，支持 jpg/png/gif/webp 等格式）
-│   │   └── *.lrc    # 歌词文件
-│   └── 专辑2/
-├── pack/             # 自动生成的专辑打包文件夹（请勿手动修改）
-│   └── *.zip        # 专辑歌词包
-└── .github/
-    └── scripts/      # 自动化脚本
-```
-
-</details>
-
-<details>
-<summary>🤝 贡献歌词</summary>
-
-欢迎提交新的歌词文件！请将 LRC 文件放在 `res/对应专辑/` 文件夹中。在专辑文件夹中放置名为 `cover.*` 的图片文件，将自动显示在曲目列表旁
-
-上传工具推荐使用 [GitHub Desktop 中文发行版](https://github.com/zetaloop/desktop/releases/latest)，它提供了简单易用的图形界面，适合初学者快速上手。
-
-安装完成后点击网页上的 Code - Open with Github Desktop
-
-</details>
+详情请参阅 👉 [CONTRIBUTING.md](./docs/CONTRIBUTING.md)
 
 ## 完整目录
 ---

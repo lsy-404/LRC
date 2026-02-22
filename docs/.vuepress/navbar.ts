@@ -13,6 +13,11 @@ export default navbar([
     link: "/about",
   },
   {
+    text: "参与贡献",
+    icon: "material-symbols:person-add",
+    link: "/contributing",
+  },
+  {
     text: "Github",
     icon: "mynaui:api-solid",
     link: "https://github.com/wuyilingwei/LRC"
