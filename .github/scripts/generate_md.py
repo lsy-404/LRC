@@ -56,10 +56,14 @@ def is_disabled_value(value: str | list[str] | None) -> bool:
 
 
 def find_cover(album_path: Path) -> tuple[Path | None, str]:
-    for ext in COVER_EXTENSIONS:
-        cover = album_path / f"cover{ext}"
-        if cover.exists():
-            return cover, ext
+    """查找cover文件，不区分大小写，返回统一小写的扩展名"""
+    # 先尝试find_cover_files
+    for file in album_path.iterdir():
+        if file.is_file() and file.stem.lower() == "cover":
+            # 返回原始文件和小写的扩展名
+            ext_lower = file.suffix.lower()
+            if ext_lower in COVER_EXTENSIONS:
+                return file, ext_lower
     return None, ""
 
 
@@ -111,14 +115,14 @@ def main() -> None:
             dest_cover = ALBUMS_DIR / f"{album_file_name}{cover_ext}"
             shutil.copyfile(cover_file, dest_cover)
 
+        # 检查cover文件是否存在（文件名已是小写）
         has_cover = False
         cover_display_ext = ""
-        for ext in COVER_EXTENSIONS:
-            target = ALBUMS_DIR / f"{album_file_name}{ext}"
+        if cover_ext:
+            target = ALBUMS_DIR / f"{album_file_name}{cover_ext}"
             if target.exists():
                 has_cover = True
-                cover_display_ext = ext
-                break
+                cover_display_ext = cover_ext
 
         tags = [album]
         if not is_disabled_value(info["produce"]):
