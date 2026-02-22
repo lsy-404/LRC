@@ -16,6 +16,13 @@ export default defineUserConfig({
     [
       "link",
       {
+        rel: "icon",
+        href: "/logo.png",
+      }
+    ],
+    [
+      "link",
+      {
         rel: "stylesheet",
         href: "https://unpkg.com/lxgw-wenkai-screen-webfont@1.6.0/style.css",
       }
