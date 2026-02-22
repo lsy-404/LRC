@@ -26,9 +26,9 @@ tag:
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1q3qZBDE9y)
 
-**购买:** [北极圈 Arcticlab](https://item.taobao.com/item.htm?id=1004976437319)
+**购买:** [北极圈 Arcticlab](https://item.taobao.com/item.htm?id=1004976437319) ￥82
 
-**电子:** [Dizzylab](https://www.dizzylab.net/albums/d/ALCD0101/)
+**电子:** [Dizzylab](https://www.dizzylab.net/albums/d/ALCD0101/) ￥28
 
 **演唱:** 星尘
 
