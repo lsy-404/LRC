@@ -349,6 +349,18 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
+<img src="/albums/织肉匠.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [织肉匠](albums/织肉匠.md)
+
+出品：缺少信息  
+**发行日期：** 缺少信息
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%87%E8%82%89%E5%8C%A0.zip)
+
+<div style="clear: both;"></div>
+
+---
 
 
 ## 资源说明

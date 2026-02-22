@@ -39,6 +39,7 @@
 - [秘宝旅人I](https://github.com/wuyilingwei/LRC#%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAi)
 - [秘宝旅人II Polaris](https://github.com/wuyilingwei/LRC#%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAii-polaris)
 - [繁星于雨云之上](https://github.com/wuyilingwei/LRC#%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A)
+- [织肉匠](https://github.com/wuyilingwei/LRC#%E7%BB%87%E8%82%89%E5%8C%A0)
 - [终梦Journeyed on Everdream](https://github.com/wuyilingwei/LRC#%E7%BB%88%E6%A2%A6journeyed-on-everdream)
 - [藏雪SnowGrave](https://github.com/wuyilingwei/LRC#%E8%97%8F%E9%9B%AAsnowgrave)
 <!-- ALBUM_LIST_END -->
@@ -703,6 +704,30 @@ _暂无 LRC 文件_
 | [5 呼唤利维坦的大山.lrc](res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/5%20%E5%91%BC%E5%94%A4%E5%88%A9%E7%BB%B4%E5%9D%A6%E7%9A%84%E5%A4%A7%E5%B1%B1.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/5%20%E5%91%BC%E5%94%A4%E5%88%A9%E7%BB%B4%E5%9D%A6%E7%9A%84%E5%A4%A7%E5%B1%B1.lrc) |
 | [6 老人与海，少年与路.lrc](res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/6%20%E8%80%81%E4%BA%BA%E4%B8%8E%E6%B5%B7%EF%BC%8C%E5%B0%91%E5%B9%B4%E4%B8%8E%E8%B7%AF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/6%20%E8%80%81%E4%BA%BA%E4%B8%8E%E6%B5%B7%EF%BC%8C%E5%B0%91%E5%B9%B4%E4%B8%8E%E8%B7%AF.lrc) |
 | [7 亵渎.lrc](res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/7%20%E4%BA%B5%E6%B8%8E.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A/7%20%E4%BA%B5%E6%B8%8E.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%BB%87%E8%82%89%E5%8C%A0/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 织肉匠
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%87%E8%82%89%E5%8C%A0.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (8 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [1 丝 - Silk.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0/1%20%E4%B8%9D%20-%20Silk.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0/1%20%E4%B8%9D%20-%20Silk.lrc) |
+| [2 猎歌 - Tracking Song.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0/2%20%E7%8C%8E%E6%AD%8C%20-%20Tracking%20Song.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0/2%20%E7%8C%8E%E6%AD%8C%20-%20Tracking%20Song.lrc) |
+| [3 无根水 - Aleatory Deluge.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0/3%20%E6%97%A0%E6%A0%B9%E6%B0%B4%20-%20Aleatory%20Deluge.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0/3%20%E6%97%A0%E6%A0%B9%E6%B0%B4%20-%20Aleatory%20Deluge.lrc) |
+| [4 涡 - Whorl.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0/4%20%E6%B6%A1%20-%20Whorl.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0/4%20%E6%B6%A1%20-%20Whorl.lrc) |
+| [5 珠 - Pearl.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0/5%20%E7%8F%A0%20-%20Pearl.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0/5%20%E7%8F%A0%20-%20Pearl.lrc) |
+| [6 胚芽流 - Germinal Influx.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0/6%20%E8%83%9A%E8%8A%BD%E6%B5%81%20-%20Germinal%20Influx.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0/6%20%E8%83%9A%E8%8A%BD%E6%B5%81%20-%20Germinal%20Influx.lrc) |
+| [7 家谣 - Homeward Tune.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0/7%20%E5%AE%B6%E8%B0%A3%20-%20Homeward%20Tune.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0/7%20%E5%AE%B6%E8%B0%A3%20-%20Homeward%20Tune.lrc) |
+| [8 角 - Horn.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0/8%20%E8%A7%92%20-%20Horn.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0/8%20%E8%A7%92%20-%20Horn.lrc) |
 
 </details>
 
