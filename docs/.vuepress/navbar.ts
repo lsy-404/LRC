@@ -15,7 +15,7 @@ export default navbar([
   {
     text: "参与贡献",
     icon: "material-symbols:person-add",
-    link: "/contributing",
+    link: "/CONTRIBUTING",
   },
   {
     text: "Github",
