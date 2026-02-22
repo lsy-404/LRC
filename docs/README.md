@@ -13,7 +13,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 ## 专辑列表
 
-<img src="/albums/Iris.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/Iris.png" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [Iris](albums/Iris.md)
 
@@ -133,7 +133,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/秘宝旅人I.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
 
 ### [秘宝旅人I](albums/秘宝旅人I.md)
 
@@ -145,7 +145,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/ELOHIM.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
 
 ### [ELOHIM](albums/ELOHIM.md)
 
@@ -325,7 +325,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-<img src="/albums/Freesia.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+<img src="/albums/Freesia.webp" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [Freesia](albums/Freesia.md)
 
@@ -365,8 +365,8 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 
 ### [单曲](albums/单曲.md)
 
-出品：缺少信息  
-**发行日期：** 缺少信息
+出品：不适用  
+**发行日期：** 1970-01-01
 
 [ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8D%95%E6%9B%B2.zip)
 

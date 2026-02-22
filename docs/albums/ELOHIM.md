@@ -24,7 +24,7 @@ tag:
 
 # ELOHIM
 
-<img src="./ELOHIM.jpg" alt="ELOHIM 封面" style="max-width: 40%; height: auto;" />
+
 
 **发行日期:** 2023-09-23
 
