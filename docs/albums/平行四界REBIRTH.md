@@ -39,9 +39,13 @@ tag:
 
 **出品:** 五维介质Official
 
+**歌词制作:** 武乙凌薇
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1uKtSz6EgF/)
 
 **购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?id=991410246698)
+
+**电子:** 随专辑附赠
 
 **演唱:** 星尘、赤羽、海伊、诗岸、苍穹
 

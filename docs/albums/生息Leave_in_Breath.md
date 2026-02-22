@@ -1,10 +1,30 @@
 ---
 title: 生息Leave in Breath
-order: -1
+order: -20250322
 category:
   - 生息Leave in Breath
 tag:
   - 生息Leave in Breath
+  - 北极圈ArcticLab
+  - 海伊
+  - 星尘
+  - 北山薇
+  - 麒炩Kindling
+  - 秦欲坠
+  - 丁小爷p
+  - 苍梧_abilrue
+  - 流星落雨若星琉
+  - 铃蓝SuzuSnow
+  - 阿林什么也没做
+  - 雨翼p
+  - 燈林
+  - 云极Yunji
+  - 半糖果泥
+  - 苏尔达
+  - 悬空指针NP
+  - ccffcc骷髅
+  - 某只泽
+  - 楷然AkiRA
   - 歌词
   - lrc
   - 下载
@@ -15,9 +35,29 @@ tag:
 
 <img src="./生息Leave_in_Breath.jpg" alt="生息Leave in Breath 封面" style="max-width: 40%; height: auto;" />
 
-**发行日期:** 缺少信息
+**发行日期:** 2025-03-22
+
+**出品:** 北极圈ArcticLab
 
 **歌词制作:** RQvan
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1faX1YAE9z/)
+
+**购买:** 通贩不可用
+
+**电子:** [Dizzylab](https://www.dizzylab.net/d/ALCD0002/) ￥38
+
+**演唱:** 海伊、星尘
+
+**作词:** 北山薇、麒炩Kindling、秦欲坠、丁小爷p、苍梧_abilrue、流星落雨若星琉、铃蓝SuzuSnow、阿林什么也没做、雨翼p
+
+**作曲:** 燈林、云极Yunji、半糖果泥、苍梧_abilrue、苏尔达、铃蓝SuzuSnow、悬空指针NP、雨翼p
+
+**编曲:** 燈林、云极Yunji、半糖果泥、苍梧_abilrue、苏尔达、铃蓝SuzuSnow、悬空指针NP、雨翼p
+
+**调校:** ccffcc骷髅、某只泽、楷然AkiRA、苍梧_abilrue、铃蓝SuzuSnow
+
+**曲绘:** 白石鹿野一号机、⑨的小圆本、十辰HERO、萤川灰
 
 ## 曲目列表
 

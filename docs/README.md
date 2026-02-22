@@ -97,6 +97,18 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
+<img src="/albums/生息Leave_in_Breath.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [生息Leave in Breath](albums/生息Leave_in_Breath.md)
+
+出品：北极圈ArcticLab  
+**发行日期：** 2025-03-22
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%94%9F%E6%81%AFLeave%20in%20Breath.zip)
+
+<div style="clear: both;"></div>
+
+---
 <img src="/albums/藏雪SnowGrave.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [藏雪SnowGrave](albums/藏雪SnowGrave.md)
@@ -241,6 +253,18 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
+<img src="/albums/森罗万象Kaleido.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [森罗万象Kaleido](albums/森罗万象Kaleido.md)
+
+出品：五维介质Official  
+**发行日期：** 2019-10-05
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido.zip)
+
+<div style="clear: both;"></div>
+
+---
 <img src="/albums/Freesia.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [Freesia](albums/Freesia.md)
@@ -309,30 +333,6 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 **发行日期：** 缺少信息
 
 [ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E6%84%BFStarWish.zip)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/森罗万象Kaleido.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [森罗万象Kaleido](albums/森罗万象Kaleido.md)
-
-出品：缺少信息  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido.zip)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/生息Leave_in_Breath.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [生息Leave in Breath](albums/生息Leave_in_Breath.md)
-
-出品：缺少信息  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%94%9F%E6%81%AFLeave%20in%20Breath.zip)
 
 <div style="clear: both;"></div>
 

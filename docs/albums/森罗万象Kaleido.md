@@ -1,10 +1,11 @@
 ---
 title: 森罗万象Kaleido
-order: -1
+order: -20191005
 category:
   - 森罗万象Kaleido
 tag:
   - 森罗万象Kaleido
+  - 五维介质Official
   - 星尘
   - 海伊
   - 赤羽
@@ -30,7 +31,17 @@ tag:
 
 <img src="./森罗万象Kaleido.jpg" alt="森罗万象Kaleido 封面" style="max-width: 40%; height: auto;" />
 
-**发行日期:** 缺少信息
+**发行日期:** 2019-10-05
+
+**出品:** 五维介质Official
+
+**歌词制作:** 武乙凌薇
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV17E411Z7oY/)
+
+**购买:** [淘宝 平行四界Quadimension](http://t.cn/Aimxvvky) ￥75/￥130/￥198
+
+**电子:** 随专辑附赠
 
 **演唱:** 星尘、海伊、赤羽
 
