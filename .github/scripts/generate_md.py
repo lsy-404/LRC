@@ -241,7 +241,7 @@ tag:
         cards_text.append(
             f"""{cover_img}
 
-### [{card['name']}](albums/{card['file_name']}.md)
+#### [{card['name']}](albums/{card['file_name']}.md)
 
 出品：{card['produce']}  
 {year_line}  

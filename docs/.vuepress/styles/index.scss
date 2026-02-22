@@ -24,7 +24,7 @@
 .vp-page:has(> h2:first-of-type:contains("专辑列表")),
 #main-content:has(> h2:first-of-type) {
     // 调整专辑标题间距
-    h3 {
+    h4 {
         margin-top: 0.25rem !important;
         margin-bottom: 0.5rem !important;
     }
