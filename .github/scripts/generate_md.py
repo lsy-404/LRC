@@ -235,13 +235,13 @@ tag:
             else ""
         )
 
-        year_line = f"**发行日期：** {card['year']}"
+        year_line = f"发行日期： {card['year']}"
         zip_url = f"https://cdn.jsdelivr.net/gh/{REPO}@main/pack/{urllib.parse.quote(card['name'])}.zip"
 
         cards_text.append(
             f"""{cover_img}
 
-**[{card['name']}](albums/{card['file_name']}.md)**
+<a href="albums/{card['file_name']}.md" style="font-size: 1.25rem; font-weight: 600; text-decoration: none;">{card['name']}</a>
 
 出品：{card['produce']}  
 {year_line}  
