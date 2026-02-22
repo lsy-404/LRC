@@ -13,6 +13,8 @@ tagline: 虚拟歌姬专辑的导航与歌词共享资源库
 
 ## 专辑列表
 
+<div class="album-table">
+
 | | |
 |----|-----|
 | <img src="/albums/Iris.png" alt="Iris 封面" style="width: 100%; border-radius: 8px;"> | <h3><a class="route-link" href="/albums/Iris.html">Iris</a></h3>出品：Zeno<br>发行日期：2026-01-31<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Iris.zip) |
@@ -45,4 +47,6 @@ tagline: 虚拟歌姬专辑的导航与歌词共享资源库
 | <img src="/albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界LIVE TOUR OFFICIAL ALBUM 封面" style="width: 100%; border-radius: 8px;"> | <h3><a class="route-link" href="/albums/平行四界LIVE_TOUR_OFFICIAL_ALBUM.html">平行四界LIVE TOUR OFFICIAL ALBUM</a></h3>出品：平行四界Quadimension<br>发行日期：2017-08-12<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CLIVE%20TOUR%20OFFICIAL%20ALBUM.zip) |
 | <img src="/albums/星愿StarWish.jpg" alt="星愿StarWish 封面" style="width: 100%; border-radius: 8px;"> | <h3><a class="route-link" href="/albums/星愿StarWish.html">星愿StarWish</a></h3>出品：五维介质Official<br>发行日期：2016-03-04<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E6%84%BFStarWish.zip) |
 | <img src="/albums/单曲.jpg" alt="单曲 封面" style="width: 100%; border-radius: 8px;"> | <h3><a class="route-link" href="/albums/单曲.html">单曲</a></h3>出品：不适用<br>发行日期：不适用<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8D%95%E6%9B%B2.zip) |
+
+</div>
 

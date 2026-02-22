@@ -44,7 +44,7 @@ tag:
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1BA411v7uJ/)
 
-**购买:** [淘宝 平行四界Quadimension](http://t.cn/A62s4zQQ)
+**购买:** [淘宝 平行四界Quadimension](http://t.cn/A62s4zQQ) ￥75/￥120/￥140/￥190/￥220
 
 **电子:** 随专辑附赠
 
