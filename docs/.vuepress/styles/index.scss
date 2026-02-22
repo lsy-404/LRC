@@ -23,15 +23,15 @@
 // 首页专辑卡片样式优化
 .vp-page:has(> h2:first-of-type:contains("专辑列表")),
 #main-content:has(> h2:first-of-type) {
-    // 调整专辑标题间距
-    h4 {
-        margin-top: 0.25rem !important;
-        margin-bottom: 0.5rem !important;
-    }
-    
     // 减少段落间距，让信息更紧凑
     p {
         margin-bottom: 0.25rem !important;
+        
+        // 专辑名称加大字号
+        &:has(> strong > a) {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem !important;
+        }
         
         // 下载链接保持适当间距
         &:has(> a[href*=".zip"]) {
