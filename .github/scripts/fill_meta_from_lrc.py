@@ -194,6 +194,7 @@ def process_album(
             print(f"    {toml_key:<6} = {display}{source}")
 
     if changed and not dry_run:
+        # 使用 utf-8-sig 防止意外BOM被写入；整个过程已清理BOM，所以不会添加新的BOM
         target.write_text(new_content, encoding="utf-8")
 
     return changed

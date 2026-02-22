@@ -32,7 +32,7 @@ def _parse_scalar(value: str) -> str:
 
 
 def _parse_array(value: str) -> list[str]:
-    text = value.strip()
+    text = _clean_bom(value.strip())
     if not (text.startswith("[") and text.endswith("]")):
         return []
 
@@ -76,6 +76,8 @@ def parse_meta_text(content: str) -> dict[str, Any]:
     mapping = _MAPPING
 
     for raw_line in content.splitlines():
+        # 清理每行开头的BOM字符（虽然_decode应该处理过，但这是额外防护）
+        raw_line = _clean_bom(raw_line)
         line = raw_line.strip()
         if not line or line.startswith("#"):
             continue

@@ -92,13 +92,18 @@ def _decode(raw: bytes) -> str:
     return raw.decode("utf-8", errors="replace")
 
 
+def _clean_bom(text: str) -> str:
+    """移除文本中的BOM字符（U+FEFF），包括开头和中间位置。"""
+    return text.replace('\ufeff', '')
+
+
 # ---------------------------------------------------------------------------
 # 解析辅助函数
 # ---------------------------------------------------------------------------
 
 def _split_list(value: str) -> list[str]:
-    """将人名/值字符串按分隔符拆分，返回非空列表。"""
-    return [item.strip() for item in _LIST_SEP_RE.split(value) if item.strip()]
+    """将人名/值字符串按分隔符拆分，返回非空列表。移除每个元素中的BOM字符。"""
+    return [_clean_bom(item.strip()) for item in _LIST_SEP_RE.split(value) if item.strip()]
 
 
 def _decompose_field_name(raw: str) -> list[str]:
@@ -221,6 +226,8 @@ def extract_lrc_metadata(file_path: Path) -> dict[str, Any]:
             continue  # 无法解析为 "字段：值" 格式
 
         field_raw, value = parts[0].strip(), parts[1].strip()
+        # 清理值中可能存在的BOM字符
+        value = _clean_bom(value)
         if not field_raw or not value:
             continue
 
