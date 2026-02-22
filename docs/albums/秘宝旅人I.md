@@ -32,7 +32,7 @@ tag:
 
 # 秘宝旅人I
 
-
+<img src="./秘宝旅人I.png" alt="秘宝旅人I 封面" class="album-cover" />
 
 **发行日期:** 2023-11-25
 
