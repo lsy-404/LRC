@@ -37,7 +37,7 @@ tag:
 
 **歌词制作:** Baka632
 
-**发布:** [Bilibili](https://www.bilibili.com/video/BV1k4411c7Ge/)
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1xs411Q78p/)
 
 **购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?id=583724383026) ￥80
 
