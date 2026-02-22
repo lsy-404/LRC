@@ -8,14 +8,14 @@ export default navbar([
     link: "/tag/",
   },
   {
-    text: "关于本站",
-    icon: "line-md:plus-square-filled",
-    link: "/about",
-  },
-  {
     text: "参与贡献",
     icon: "material-symbols:person-add",
     link: "/CONTRIBUTING",
+  },
+  {
+    text: "关于本站",
+    icon: "material-symbols:info",
+    link: "/about",
   },
   {
     text: "Github",
