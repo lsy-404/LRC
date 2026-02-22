@@ -313,6 +313,18 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
+<img src="/albums/星愿StarWish.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
+
+### [星愿StarWish](albums/星愿StarWish.md)
+
+出品：五维介质Official  
+**发行日期：** 2016-03-04
+
+[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E6%84%BFStarWish.zip)
+
+<div style="clear: both;"></div>
+
+---
 <img src="/albums/亚特兰蒂斯Atlantis.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [亚特兰蒂斯Atlantis](albums/亚特兰蒂斯Atlantis.md)
@@ -333,18 +345,6 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 **发行日期：** 缺少信息
 
 [ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E4%B9%8B%E6%B5%B7StarOcean.zip)
-
-<div style="clear: both;"></div>
-
----
-<img src="/albums/星愿StarWish.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
-
-### [星愿StarWish](albums/星愿StarWish.md)
-
-出品：缺少信息  
-**发行日期：** 缺少信息
-
-[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E6%84%BFStarWish.zip)
 
 <div style="clear: both;"></div>
 
