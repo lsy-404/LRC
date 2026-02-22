@@ -214,6 +214,14 @@ jobs:
         if: steps.check_commit.outputs.skip == 'false'
         run: npm install
 
+      - name: Clean albums directory
+        if: steps.check_commit.outputs.skip == 'false'
+        run: |
+          echo "Cleaning docs/albums directory..."
+          rm -rf docs/albums
+          mkdir -p docs/albums
+          echo "docs/albums cleaned and recreated"
+
       - name: Generate MD files
         if: steps.check_commit.outputs.skip == 'false'
         run: npm run generate-md
