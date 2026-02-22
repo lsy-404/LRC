@@ -38,6 +38,8 @@ tag:
 
 **购买:** [淘宝 喵之宝库miota](https://item.taobao.com/item.htm?id=999122563646)
 
+**电子:** [Dizzylab](https://www.dizzylab.net/d/lnct002/) ￥20
+
 **演唱:** 星尘、赤羽、诗岸、海伊、苍穹
 
 **作词:** 胧、Aya-亚夜-、林檎、阿卡娜
