@@ -33,7 +33,7 @@ tag:
 
 # 秘宝旅人II Polaris
 
-
+<img src="./秘宝旅人II_Polaris.jpg" alt="秘宝旅人II Polaris 封面" style="max-width: 40%; height: auto;" />
 
 **发行日期:** 2025-07-04
 

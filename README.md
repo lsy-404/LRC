@@ -637,7 +637,7 @@ _暂无 LRC 文件_
 
 ---
 
-<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris/Cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAII%20Polaris/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 秘宝旅人II Polaris
 

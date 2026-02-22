@@ -61,7 +61,7 @@ tagline: 虚拟歌姬虚拟歌姬团体的歌词资源库
 <div style="clear: both;"></div>
 
 ---
-
+<img src="/albums/秘宝旅人II_Polaris.jpg" style="float: left; width: 150px; height: auto; margin-right: 20px; border-radius: 4px;">
 
 ### [秘宝旅人II Polaris](albums/秘宝旅人II_Polaris.md)
 
