@@ -188,7 +188,7 @@ tag:
 
 # {album}
 
-{f'<img src="./{album_file_name}{cover_display_ext}" alt="{album} 封面" style="max-width: 40%; height: auto;" />' if has_cover else ''}
+{f'<img src="./{album_file_name}{cover_display_ext}" alt="{album} 封面" class="album-cover" />' if has_cover else ''}
 
 {((chr(10) + chr(10)).join(info_display) + chr(10)) if info_display else ''}
 ## 曲目列表

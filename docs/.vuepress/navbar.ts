@@ -4,7 +4,7 @@ export default navbar([
   "/",
   {
     text: "标签列表",
-    icon: "line-md:tag-filled",
+    icon: "material-symbols:label",
     link: "/tag/",
   },
   {
