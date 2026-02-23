@@ -128,29 +128,54 @@ def _run_git(args: list[str]) -> str:
     return result.stdout.strip()
 
 
+def _run_git_bytes(args: list[str]) -> bytes:
+    result = subprocess.run(args, capture_output=True, check=False)
+    if result.returncode != 0:
+        stderr = result.stderr.decode("utf-8", errors="ignore").strip()
+        raise RuntimeError(stderr or "git command failed")
+    return result.stdout
+
+
 def _get_head_sha() -> str:
     return _run_git(["git", "rev-parse", "HEAD"]).strip()
 
 
+def _split_null_paths(raw: bytes) -> list[str]:
+    parts = [item for item in raw.split(b"\x00") if item]
+    decoded: list[str] = []
+    for item in parts:
+        text = item.decode("utf-8", errors="replace").strip()
+        if len(text) >= 2 and text[0] == '"' and text[-1] == '"':
+            text = text[1:-1]
+        decoded.append(text)
+    return decoded
+
+
 def _get_git_changed_files(base_sha: str, head_sha: str) -> tuple[list[str], list[str]]:
-    changed_raw = _run_git([
+    changed_raw = _run_git_bytes([
         "git",
+        "-c",
+        "core.quotepath=false",
         "diff",
         "--name-only",
+        "-z",
         "--diff-filter=ACMR",
         base_sha,
         head_sha,
     ])
-    deleted_raw = _run_git([
+    deleted_raw = _run_git_bytes([
         "git",
+        "-c",
+        "core.quotepath=false",
         "diff",
         "--name-only",
+        "-z",
         "--diff-filter=D",
         base_sha,
         head_sha,
     ])
-    changed = [line.strip() for line in changed_raw.splitlines() if line.strip()]
-    deleted = [line.strip() for line in deleted_raw.splitlines() if line.strip()]
+    changed = _split_null_paths(changed_raw)
+    deleted = _split_null_paths(deleted_raw)
     return changed, deleted
 
 
