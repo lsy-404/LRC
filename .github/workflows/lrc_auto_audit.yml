@@ -71,10 +71,21 @@ jobs:
           base_sha: ${{ steps.pr.outputs.base_sha }}
           sha: ${{ steps.pr.outputs.head_sha }}
 
+      - name: Persist changed files payload as TOML
+        env:
+          RAW_CHANGED: ${{ steps.changed-files.outputs.all_changed_files }}
+          RAW_DELETED: ${{ steps.changed-files.outputs.deleted_files }}
+          CHANGED_FILES_TOML_OUT: .changed_files.toml
+          DELETED_FILES_TOML_OUT: .deleted_files.toml
+        run: |
+          python3 .github/scripts/changed_files_to_toml.py
+
       - name: Security and Content Audit
         id: python-audit
         run: python3 .github/scripts/lrc_auto_audit.py
         env:
+          CHANGED_FILES_TOML: .changed_files.toml
+          DELETED_FILES_TOML: .deleted_files.toml
           CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
           DELETED_FILES: ${{ steps.changed-files.outputs.deleted_files }}
         continue-on-error: true

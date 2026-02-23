@@ -3,6 +3,7 @@ import json
 import os
 import re
 import sys
+import tomllib
 from urllib.parse import urlparse
 
 from lib.config_loader import load_config
@@ -69,6 +70,37 @@ def split_changed_files(raw: str) -> list[str]:
     return [_clean_changed_item(item) for item in re.split(r"\s+", raw) if item]
 
 
+def load_changed_files_from_inputs(env_key: str, file_env_key: str) -> list[str]:
+    toml_path = (os.getenv(f"{env_key}_TOML", "") or "").strip()
+    if toml_path:
+        try:
+            with open(toml_path, "rb") as f:
+                payload = tomllib.load(f)
+            entries = payload.get("files")
+            if isinstance(entries, list):
+                return [_clean_changed_item(str(item)) for item in entries if str(item).strip()]
+        except OSError:
+            pass
+        except tomllib.TOMLDecodeError:
+            try:
+                with open(toml_path, "r", encoding="utf-8-sig") as f:
+                    payload = tomllib.loads(f.read())
+                entries = payload.get("files")
+                if isinstance(entries, list):
+                    return [_clean_changed_item(str(item)) for item in entries if str(item).strip()]
+            except (OSError, tomllib.TOMLDecodeError):
+                pass
+
+    file_path = (os.getenv(file_env_key, "") or "").strip()
+    if file_path:
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                return split_changed_files(f.read())
+        except OSError:
+            pass
+    return split_changed_files(os.getenv(env_key, ""))
+
+
 def is_meaningful_text(content: str) -> bool:
     allowed_pattern = re.compile(r"[\u4e00-\u9fff\u0020-\u007f\s\[\]\(\)\:\.\,\-'\"\?！，。：]")
     if not content:
@@ -124,8 +156,8 @@ def find_disallowed_urls(text: str) -> list[str]:
 
 
 def main() -> int:
-    files = split_changed_files(os.getenv("CHANGED_FILES", ""))
-    deleted = split_changed_files(os.getenv("DELETED_FILES", ""))
+    files = load_changed_files_from_inputs("CHANGED_FILES", "CHANGED_FILES_FILE")
+    deleted = load_changed_files_from_inputs("DELETED_FILES", "DELETED_FILES_FILE")
 
     error_msgs: list[str] = []
 
