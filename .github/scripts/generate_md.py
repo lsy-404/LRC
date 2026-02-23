@@ -137,6 +137,10 @@ def main() -> None:
         # 去重，保留首次出现顺序
         tags = list(dict.fromkeys(tags))
 
+        category_value = str(info.get("produce") or "").strip()
+        if is_disabled_value(category_value):
+            category_value = "未知出品方"
+
         info_display = []
         # 发行日期：跳过 1970-01-01 或空值
         year_value = str(info['year'] or "").strip()
@@ -186,7 +190,7 @@ def main() -> None:
         md_content = f"""---
 title: {album}
 {order_line}category:
-  - {album}
+    - {category_value}
 tag:
 {''.join(f'  - {tag}\n' for tag in tags)}---
 
