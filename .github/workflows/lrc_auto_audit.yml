@@ -49,10 +49,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-tags: false
           repository: ${{ steps.pr.outputs.head_repo }}
           ref: ${{ steps.pr.outputs.head_sha }}
           token: ${{ secrets.PULL_TOKEN }}
+
+      - name: Fetch PR base commit
+        run: |
+          if ! git remote get-url base >/dev/null 2>&1; then
+            git remote add base "https://x-access-token:${{ secrets.PULL_TOKEN }}@github.com/${{ github.repository }}.git"
+          fi
+          git fetch --no-tags base "$BASE_SHA"
+        env:
+          BASE_SHA: ${{ steps.pr.outputs.base_sha }}
 
       - name: Get changed files
         id: changed-files
