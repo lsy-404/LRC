@@ -25,16 +25,42 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Resolve PR context
+        id: pr
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+            echo "head_sha=${{ github.event.pull_request.head.sha }}" >> $GITHUB_OUTPUT
+            echo "base_sha=${{ github.event.pull_request.base.sha }}" >> $GITHUB_OUTPUT
+            echo "head_ref=${{ github.event.pull_request.head.ref }}" >> $GITHUB_OUTPUT
+            echo "head_repo=${{ github.event.pull_request.head.repo.full_name }}" >> $GITHUB_OUTPUT
+          else
+            pr_number=${{ github.event.issue.number }}
+            echo "number=$pr_number" >> $GITHUB_OUTPUT
+            pr_json=$(gh api "repos/${{ github.repository }}/pulls/$pr_number")
+            echo "head_sha=$(echo "$pr_json" | jq -r '.head.sha')" >> $GITHUB_OUTPUT
+            echo "base_sha=$(echo "$pr_json" | jq -r '.base.sha')" >> $GITHUB_OUTPUT
+            echo "head_ref=$(echo "$pr_json" | jq -r '.head.ref')" >> $GITHUB_OUTPUT
+            echo "head_repo=$(echo "$pr_json" | jq -r '.head.repo.full_name')" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.PULL_TOKEN }}
+
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          repository: ${{ steps.pr.outputs.head_repo }}
+          ref: ${{ steps.pr.outputs.head_sha }}
+          token: ${{ secrets.PULL_TOKEN }}
 
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v44
         with:
           json: true
+          base_sha: ${{ steps.pr.outputs.base_sha }}
+          sha: ${{ steps.pr.outputs.head_sha }}
 
       - name: Security and Content Audit
         id: python-audit
@@ -56,7 +82,20 @@ jobs:
           *修改代码后直接 Push，系统会自动重新检查。*"
         env:
           GH_TOKEN: ${{ secrets.PULL_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number || github.event.issue.number }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+
+      - name: Ensure PR head unchanged before merge
+        if: success()
+        run: |
+          latest_sha=$(gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER" --jq '.head.sha')
+          if [ "$latest_sha" != "$EXPECTED_SHA" ]; then
+            echo "PR head changed during audit: expected $EXPECTED_SHA, got $latest_sha"
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.PULL_TOKEN }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+          EXPECTED_SHA: ${{ steps.pr.outputs.head_sha }}
 
       - name: Auto Approve and Merge
         if: success()
@@ -65,4 +104,4 @@ jobs:
           gh pr merge --auto --squash "$PR_NUMBER"
         env:
           GH_TOKEN: ${{ secrets.PULL_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number || github.event.issue.number }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
