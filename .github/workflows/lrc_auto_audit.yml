@@ -23,6 +23,8 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v44
+        with:
+          json: true
 
       - name: Security and Content Audit
         id: python-audit

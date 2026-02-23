@@ -1,3 +1,4 @@
+import json
 import os
 import re
 import sys
@@ -10,10 +11,27 @@ PULL_CONFIG = CONFIG.get("pull", {})
 COMMON_CONFIG = CONFIG.get("common", {})
 
 
+def _clean_changed_item(item: str) -> str:
+    cleaned = (item or "").strip()
+    if len(cleaned) >= 2 and cleaned[0] == '"' and cleaned[-1] == '"':
+        cleaned = cleaned[1:-1]
+    return cleaned
+
+
 def split_changed_files(raw: str) -> list[str]:
     if not raw:
         return []
-    return [item for item in re.split(r"\s+", raw.strip()) if item]
+    raw = raw.strip()
+    if raw.startswith("[") and raw.endswith("]"):
+        try:
+            parsed = json.loads(raw)
+        except json.JSONDecodeError:
+            parsed = None
+        if isinstance(parsed, list):
+            return [_clean_changed_item(str(item)) for item in parsed if str(item).strip()]
+    if "\n" in raw:
+        return [_clean_changed_item(line) for line in raw.splitlines() if line.strip()]
+    return [_clean_changed_item(item) for item in re.split(r"\s+", raw) if item]
 
 
 def is_meaningful_text(content: str) -> bool:
