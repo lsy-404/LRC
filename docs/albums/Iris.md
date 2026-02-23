@@ -1,6 +1,6 @@
 ---
 title: Iris
-date: "2026-01-31"
+date: 2026-01-31
 order: -20260131
 category:
     - Zeno

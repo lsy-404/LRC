@@ -1,6 +1,6 @@
 ---
 title: 加冕日CORONATION DAY
-date: "2023-04-19"
+date: 2023-04-19
 order: -20230419
 category:
     - Aya-亚夜-

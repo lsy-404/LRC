@@ -1,6 +1,6 @@
 ---
 title: 亚特兰蒂斯Atlantis
-date: "2018-10-30"
+date: 2018-10-30
 order: -20181030
 category:
     - 五维介质Official

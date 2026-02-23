@@ -1,6 +1,6 @@
 ---
 title: ELOHIM
-date: "2023-09-23"
+date: 2023-09-23
 order: -20230923
 category:
     - 秘宝旅人

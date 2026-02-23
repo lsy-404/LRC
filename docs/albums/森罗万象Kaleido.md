@@ -1,6 +1,6 @@
 ---
 title: 森罗万象Kaleido
-date: "2019-10-05"
+date: 2019-10-05
 order: -20191005
 category:
     - 五维介质Official

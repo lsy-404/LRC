@@ -1,6 +1,6 @@
 ---
 title: 天马行空Fairytale
-date: "2019-07-05"
+date: 2019-07-05
 order: -20190705
 category:
     - 五维介质Official

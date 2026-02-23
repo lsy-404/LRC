@@ -1,6 +1,6 @@
 ---
 title: 星愿StarWish
-date: "2016-03-04"
+date: 2016-03-04
 order: -20160304
 category:
     - 五维介质Official

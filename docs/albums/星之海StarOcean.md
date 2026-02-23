@@ -1,6 +1,6 @@
 ---
 title: 星之海StarOcean
-date: "2018-08-11"
+date: 2018-08-11
 order: -20180811
 category:
     - 五维介质Official

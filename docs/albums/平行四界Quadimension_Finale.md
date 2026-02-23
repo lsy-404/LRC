@@ -1,6 +1,6 @@
 ---
 title: 平行四界Quadimension Finale
-date: "2023-05-24"
+date: 2023-05-24
 order: -20230524
 category:
     - 五维介质Official
