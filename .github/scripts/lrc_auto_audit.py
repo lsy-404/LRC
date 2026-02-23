@@ -1,3 +1,4 @@
+import codecs
 import json
 import os
 import re
@@ -18,27 +19,46 @@ def _clean_changed_item(item: str) -> str:
     return cleaned
 
 
+def _decode_octal_escapes(raw: str) -> str:
+    if not raw or "\\" not in raw:
+        return raw
+    if not re.search(r"\\[0-7]{3}", raw):
+        return raw
+    try:
+        decoded = codecs.decode(raw, "unicode_escape")
+    except Exception:
+        return raw
+    try:
+        return decoded.encode("latin-1").decode("utf-8")
+    except UnicodeDecodeError:
+        return decoded
+
+
+def _try_load_json(raw: str):
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        return None
+
+
 def split_changed_files(raw: str) -> list[str]:
     if not raw:
         return []
     raw = raw.strip()
     if len(raw) >= 2 and raw[0] == '"' and raw[-1] == '"':
-        try:
-            raw = json.loads(raw)
-        except json.JSONDecodeError:
-            pass
+        unwrapped = _try_load_json(raw)
+        if unwrapped is not None:
+            raw = unwrapped
     if isinstance(raw, str):
         raw = raw.strip()
     if raw.startswith("[") and raw.endswith("]"):
-        try:
-            parsed = json.loads(raw)
-        except json.JSONDecodeError:
-            parsed = None
+        parsed = _try_load_json(raw)
+        if parsed is None:
+            decoded = _decode_octal_escapes(raw)
+            if decoded != raw:
+                parsed = _try_load_json(decoded)
         if isinstance(parsed, str):
-            try:
-                parsed = json.loads(parsed)
-            except json.JSONDecodeError:
-                parsed = None
+            parsed = _try_load_json(parsed)
         if isinstance(parsed, list):
             return [_clean_changed_item(str(item)) for item in parsed if str(item).strip()]
     if "\n" in raw:
