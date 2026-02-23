@@ -147,7 +147,7 @@ def main() -> None:
         date_line = ""
         if year_value and year_value != "1970-01-01" and not is_disabled_value(year_value):
             date_yaml_value = year_value.replace('"', '\\"')
-            date_line = f'date: "{date_yaml_value}"\n'
+            date_line = f'date: {date_yaml_value}\n'
             info_display.append(f"**发行日期:** {year_value}")
         # 其他字段：使用 is_disabled_value 判断
         if not is_disabled_value(info["produce"]):
