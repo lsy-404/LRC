@@ -16,6 +16,7 @@ def _clean_changed_item(item: str) -> str:
     cleaned = (item or "").strip()
     if len(cleaned) >= 2 and cleaned[0] == '"' and cleaned[-1] == '"':
         cleaned = cleaned[1:-1]
+    cleaned = _decode_octal_escapes(cleaned)
     return cleaned
 
 
@@ -51,6 +52,8 @@ def split_changed_files(raw: str) -> list[str]:
             raw = unwrapped
     if isinstance(raw, str):
         raw = raw.strip()
+        if raw == "[]":
+            return []
     if raw.startswith("[") and raw.endswith("]"):
         parsed = _try_load_json(raw)
         if parsed is None:
