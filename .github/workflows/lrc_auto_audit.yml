@@ -73,31 +73,12 @@ jobs:
         env:
           BASE_SHA: ${{ steps.pr.outputs.base_sha }}
 
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v44
-        with:
-          json: true
-          base_sha: ${{ steps.pr.outputs.base_sha }}
-          sha: ${{ steps.pr.outputs.head_sha }}
-
-      - name: Persist changed files payload as TOML
-        env:
-          RAW_CHANGED: ${{ steps.changed-files.outputs.all_changed_files }}
-          RAW_DELETED: ${{ steps.changed-files.outputs.deleted_files }}
-          CHANGED_FILES_TOML_OUT: .changed_files.toml
-          DELETED_FILES_TOML_OUT: .deleted_files.toml
-        run: |
-          python3 .ci-base/.github/scripts/changed_files_to_toml.py
-
       - name: Security and Content Audit
         id: python-audit
         run: python3 .ci-base/.github/scripts/lrc_auto_audit.py
         env:
-          CHANGED_FILES_TOML: .changed_files.toml
-          DELETED_FILES_TOML: .deleted_files.toml
-          CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
-          DELETED_FILES: ${{ steps.changed-files.outputs.deleted_files }}
+          BASE_SHA: ${{ steps.pr.outputs.base_sha }}
+          HEAD_SHA: ${{ steps.pr.outputs.head_sha }}
         continue-on-error: true
 
       - name: Notify Failure
@@ -114,20 +95,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.PULL_TOKEN }}
           PR_NUMBER: ${{ steps.pr.outputs.number }}
-          GH_REPO: ${{ github.repository }}
-
-      - name: Ensure PR head unchanged before merge
-        if: steps.python-audit.outcome == 'success'
-        run: |
-          latest_sha=$(gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER" --jq '.head.sha')
-          if [ "$latest_sha" != "$EXPECTED_SHA" ]; then
-            echo "PR head changed during audit: expected $EXPECTED_SHA, got $latest_sha"
-            exit 1
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.PULL_TOKEN }}
-          PR_NUMBER: ${{ steps.pr.outputs.number }}
-          EXPECTED_SHA: ${{ steps.pr.outputs.head_sha }}
           GH_REPO: ${{ github.repository }}
 
       - name: Auto Approve and Merge

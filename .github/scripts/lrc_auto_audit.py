@@ -1,9 +1,9 @@
-import codecs
 import json
 import os
 import re
 import sys
 import tomllib
+import subprocess
 from urllib.parse import urlparse
 
 from lib.config_loader import load_config
@@ -26,14 +26,23 @@ def _decode_octal_escapes(raw: str) -> str:
         return raw
     if not re.search(r"\\[0-7]{3}", raw):
         return raw
+    buffer = bytearray()
+    index = 0
+    length = len(raw)
+    while index < length:
+        char = raw[index]
+        if char == "\\" and index + 3 < length:
+            octal = raw[index + 1 : index + 4]
+            if re.fullmatch(r"[0-7]{3}", octal):
+                buffer.append(int(octal, 8))
+                index += 4
+                continue
+        buffer.extend(char.encode("utf-8"))
+        index += 1
     try:
-        decoded = codecs.decode(raw, "unicode_escape")
-    except Exception:
-        return raw
-    try:
-        return decoded.encode("latin-1").decode("utf-8")
+        return buffer.decode("utf-8")
     except UnicodeDecodeError:
-        return decoded
+        return raw
 
 
 def _try_load_json(raw: str):
@@ -61,12 +70,23 @@ def split_changed_files(raw: str) -> list[str]:
             decoded = _decode_octal_escapes(raw)
             if decoded != raw:
                 parsed = _try_load_json(decoded)
+        if parsed is None:
+            normalized = raw.replace('""', '"')
+            parsed = _try_load_json(normalized)
+        if parsed is None:
+            normalized = raw.replace('""', '"')
+            quoted = re.findall(r'"((?:\\.|[^"\\])*)"', normalized)
+            if quoted:
+                parsed = [item.replace(r'\\"', '"') for item in quoted if item.strip()]
         if isinstance(parsed, str):
             parsed = _try_load_json(parsed)
         if isinstance(parsed, list):
             return [_clean_changed_item(str(item)) for item in parsed if str(item).strip()]
     if "\n" in raw:
         return [_clean_changed_item(line) for line in raw.splitlines() if line.strip()]
+    quoted = re.findall(r'"((?:\\.|[^"\\])*)"', raw)
+    if quoted:
+        return [_clean_changed_item(item.replace(r'\\"', '"')) for item in quoted if item.strip()]
     return [_clean_changed_item(item) for item in re.split(r"\s+", raw) if item]
 
 
@@ -99,6 +119,39 @@ def load_changed_files_from_inputs(env_key: str, file_env_key: str) -> list[str]
         except OSError:
             pass
     return split_changed_files(os.getenv(env_key, ""))
+
+
+def _run_git(args: list[str]) -> str:
+    result = subprocess.run(args, capture_output=True, text=True, check=False)
+    if result.returncode != 0:
+        raise RuntimeError(result.stderr.strip() or "git command failed")
+    return result.stdout.strip()
+
+
+def _get_head_sha() -> str:
+    return _run_git(["git", "rev-parse", "HEAD"]).strip()
+
+
+def _get_git_changed_files(base_sha: str, head_sha: str) -> tuple[list[str], list[str]]:
+    changed_raw = _run_git([
+        "git",
+        "diff",
+        "--name-only",
+        "--diff-filter=ACMR",
+        base_sha,
+        head_sha,
+    ])
+    deleted_raw = _run_git([
+        "git",
+        "diff",
+        "--name-only",
+        "--diff-filter=D",
+        base_sha,
+        head_sha,
+    ])
+    changed = [line.strip() for line in changed_raw.splitlines() if line.strip()]
+    deleted = [line.strip() for line in deleted_raw.splitlines() if line.strip()]
+    return changed, deleted
 
 
 def is_meaningful_text(content: str) -> bool:
@@ -156,8 +209,26 @@ def find_disallowed_urls(text: str) -> list[str]:
 
 
 def main() -> int:
-    files = load_changed_files_from_inputs("CHANGED_FILES", "CHANGED_FILES_FILE")
-    deleted = load_changed_files_from_inputs("DELETED_FILES", "DELETED_FILES_FILE")
+    base_sha = (os.getenv("BASE_SHA", "") or "").strip()
+    head_sha = (os.getenv("HEAD_SHA", "") or "").strip()
+
+    if base_sha and head_sha:
+        head_before = _get_head_sha()
+        if head_before != head_sha:
+            print(f"❌ 本地 HEAD 与期望不一致: {head_before} != {head_sha}")
+            return 1
+        try:
+            files, deleted = _get_git_changed_files(base_sha, head_sha)
+        except RuntimeError as exc:
+            print(f"❌ 获取改动列表失败: {exc}")
+            return 1
+        head_after = _get_head_sha()
+        if head_after != head_before:
+            print(f"❌ 审计期间 HEAD 发生变化: {head_before} -> {head_after}")
+            return 1
+    else:
+        files = load_changed_files_from_inputs("CHANGED_FILES", "CHANGED_FILES_FILE")
+        deleted = load_changed_files_from_inputs("DELETED_FILES", "DELETED_FILES_FILE")
 
     error_msgs: list[str] = []
 
