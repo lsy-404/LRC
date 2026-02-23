@@ -60,7 +60,7 @@ export default hopeTheme({
 
   displayFooter: true,
 
-  pageInfo: ["Tag", "Date"],
+  pageInfo: ["Tag"],
 
   plugins: {
     // 启用博客插件以支持 /tag/ 聚合页
