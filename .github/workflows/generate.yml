@@ -40,6 +40,10 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Normalize cover filenames
+        if: steps.check_commit.outputs.skip == 'false'
+        run: python .github/scripts/normalize_cover_case.py
+
       - name: Detect changed album folders
         if: steps.check_commit.outputs.skip == 'false'
         id: detect_changes
