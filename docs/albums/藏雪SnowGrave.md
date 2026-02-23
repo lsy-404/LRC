@@ -1,5 +1,6 @@
 ---
 title: 藏雪SnowGrave
+date: "2024-01-12"
 order: -20240112
 category:
     - 北极圈ArcticLab

@@ -1,5 +1,6 @@
 ---
 title: Freesia
+date: "2017-10-01"
 order: -20171001
 category:
     - Zeno

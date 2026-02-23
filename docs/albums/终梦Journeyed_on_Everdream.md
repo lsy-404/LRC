@@ -1,5 +1,6 @@
 ---
 title: 终梦Journeyed on Everdream
+date: "2025-12-24"
 order: -20251224
 category:
     - 北极圈Arcticlab

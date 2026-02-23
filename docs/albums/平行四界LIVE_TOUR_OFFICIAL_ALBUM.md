@@ -1,5 +1,6 @@
 ---
 title: 平行四界LIVE TOUR OFFICIAL ALBUM
+date: "2017-08-12"
 order: -20170812
 category:
     - 平行四界Quadimension

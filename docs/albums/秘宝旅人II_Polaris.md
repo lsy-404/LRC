@@ -1,5 +1,6 @@
 ---
 title: 秘宝旅人II Polaris
+date: "2025-07-04"
 order: -20250704
 category:
     - 秘宝旅人

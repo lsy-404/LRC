@@ -1,5 +1,6 @@
 ---
 title: Starlit Whisper
+date: "2025-12-05"
 order: -20251205
 category:
     - 胧

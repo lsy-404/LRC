@@ -1,5 +1,6 @@
 ---
 title: 平行四界REBIRTH
+date: "2025-08-12"
 order: -20250812
 category:
     - 五维介质Official

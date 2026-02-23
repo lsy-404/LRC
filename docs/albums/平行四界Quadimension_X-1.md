@@ -1,5 +1,6 @@
 ---
 title: 平行四界Quadimension X-1
+date: "2021-06-04"
 order: -20210604
 category:
     - 五维介质Official
