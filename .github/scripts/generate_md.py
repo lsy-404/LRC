@@ -247,8 +247,7 @@ tag:
 icon: material-symbols:home
 title: 首页
 heroText: V宇宙词站
-tagline: 虚拟歌姬专辑的导航与歌词共享资源库
-lastUpdated: false
+tagline: 虚拟歌姬专辑的信息导航与歌词共享资源库
 ---
 
 ## 关于本站
