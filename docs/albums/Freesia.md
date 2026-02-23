@@ -2,7 +2,7 @@
 title: Freesia
 order: -20171001
 category:
-  - Freesia
+    - Zeno
 tag:
   - Freesia
   - Zeno

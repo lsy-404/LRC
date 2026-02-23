@@ -2,7 +2,7 @@
 title: 藏雪SnowGrave
 order: -20240112
 category:
-  - 藏雪SnowGrave
+    - 北极圈ArcticLab
 tag:
   - 藏雪SnowGrave
   - 北极圈ArcticLab

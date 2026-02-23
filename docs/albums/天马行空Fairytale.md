@@ -2,7 +2,7 @@
 title: 天马行空Fairytale
 order: -20190705
 category:
-  - 天马行空Fairytale
+    - 五维介质Official
 tag:
   - 天马行空Fairytale
   - 五维介质Official

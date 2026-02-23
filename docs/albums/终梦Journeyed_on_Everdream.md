@@ -2,7 +2,7 @@
 title: 终梦Journeyed on Everdream
 order: -20251224
 category:
-  - 终梦Journeyed on Everdream
+    - 北极圈Arcticlab
 tag:
   - 终梦Journeyed on Everdream
   - 北极圈Arcticlab

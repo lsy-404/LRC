@@ -2,7 +2,7 @@
 title: 星愿StarWish
 order: -20160304
 category:
-  - 星愿StarWish
+    - 五维介质Official
 tag:
   - 星愿StarWish
   - 五维介质Official

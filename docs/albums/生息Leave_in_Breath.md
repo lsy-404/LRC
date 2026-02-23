@@ -2,7 +2,7 @@
 title: 生息Leave in Breath
 order: -20250322
 category:
-  - 生息Leave in Breath
+    - 北极圈ArcticLab
 tag:
   - 生息Leave in Breath
   - 北极圈ArcticLab

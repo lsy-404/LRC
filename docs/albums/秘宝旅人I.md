@@ -2,7 +2,7 @@
 title: 秘宝旅人I
 order: -20231125
 category:
-  - 秘宝旅人I
+    - 秘宝旅人
 tag:
   - 秘宝旅人I
   - 秘宝旅人

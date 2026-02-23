@@ -2,7 +2,7 @@
 title: Starlit Whisper
 order: -20251205
 category:
-  - Starlit Whisper
+    - 胧
 tag:
   - Starlit Whisper
   - 胧

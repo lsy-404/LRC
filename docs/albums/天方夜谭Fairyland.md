@@ -2,7 +2,7 @@
 title: 天方夜谭Fairyland
 order: -20190405
 category:
-  - 天方夜谭Fairyland
+    - 五维介质Official
 tag:
   - 天方夜谭Fairyland
   - 五维介质Official

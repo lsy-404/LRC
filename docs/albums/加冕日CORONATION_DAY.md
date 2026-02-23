@@ -2,7 +2,7 @@
 title: 加冕日CORONATION DAY
 order: -20230419
 category:
-  - 加冕日CORONATION DAY
+    - Aya-亚夜-
 tag:
   - 加冕日CORONATION DAY
   - Aya-亚夜-

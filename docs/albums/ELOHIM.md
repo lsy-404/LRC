@@ -2,7 +2,7 @@
 title: ELOHIM
 order: -20230923
 category:
-  - ELOHIM
+    - 秘宝旅人
 tag:
   - ELOHIM
   - 秘宝旅人

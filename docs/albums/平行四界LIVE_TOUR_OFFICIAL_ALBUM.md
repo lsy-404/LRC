@@ -2,7 +2,7 @@
 title: 平行四界LIVE TOUR OFFICIAL ALBUM
 order: -20170812
 category:
-  - 平行四界LIVE TOUR OFFICIAL ALBUM
+    - 平行四界Quadimension
 tag:
   - 平行四界LIVE TOUR OFFICIAL ALBUM
   - 平行四界Quadimension

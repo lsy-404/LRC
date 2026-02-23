@@ -2,7 +2,7 @@
 title: 平行四界Quadimension X-2
 order: -20211029
 category:
-  - 平行四界Quadimension X-2
+    - 五维介质Official
 tag:
   - 平行四界Quadimension X-2
   - 五维介质Official

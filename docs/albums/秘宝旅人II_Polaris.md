@@ -2,7 +2,7 @@
 title: 秘宝旅人II Polaris
 order: -20250704
 category:
-  - 秘宝旅人II Polaris
+    - 秘宝旅人
 tag:
   - 秘宝旅人II Polaris
   - 秘宝旅人
