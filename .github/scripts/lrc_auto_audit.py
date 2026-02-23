@@ -22,11 +22,23 @@ def split_changed_files(raw: str) -> list[str]:
     if not raw:
         return []
     raw = raw.strip()
+    if len(raw) >= 2 and raw[0] == '"' and raw[-1] == '"':
+        try:
+            raw = json.loads(raw)
+        except json.JSONDecodeError:
+            pass
+    if isinstance(raw, str):
+        raw = raw.strip()
     if raw.startswith("[") and raw.endswith("]"):
         try:
             parsed = json.loads(raw)
         except json.JSONDecodeError:
             parsed = None
+        if isinstance(parsed, str):
+            try:
+                parsed = json.loads(parsed)
+            except json.JSONDecodeError:
+                parsed = None
         if isinstance(parsed, list):
             return [_clean_changed_item(str(item)) for item in parsed if str(item).strip()]
     if "\n" in raw:

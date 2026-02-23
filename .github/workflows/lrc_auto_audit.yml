@@ -68,9 +68,10 @@ jobs:
         env:
           CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
           DELETED_FILES: ${{ steps.changed-files.outputs.deleted_files }}
+        continue-on-error: true
 
       - name: Notify Failure
-        if: failure()
+        if: steps.python-audit.outcome == 'failure'
         run: |
           ERRORS=$(cat audit_errors.txt)
           gh pr comment "$PR_NUMBER" --body "### ⚠️ 自动化审计未通过
@@ -83,9 +84,10 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.PULL_TOKEN }}
           PR_NUMBER: ${{ steps.pr.outputs.number }}
+          GH_REPO: ${{ github.repository }}
 
       - name: Ensure PR head unchanged before merge
-        if: success()
+        if: steps.python-audit.outcome == 'success'
         run: |
           latest_sha=$(gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER" --jq '.head.sha')
           if [ "$latest_sha" != "$EXPECTED_SHA" ]; then
@@ -96,12 +98,14 @@ jobs:
           GH_TOKEN: ${{ secrets.PULL_TOKEN }}
           PR_NUMBER: ${{ steps.pr.outputs.number }}
           EXPECTED_SHA: ${{ steps.pr.outputs.head_sha }}
+          GH_REPO: ${{ github.repository }}
 
       - name: Auto Approve and Merge
-        if: success()
+        if: steps.python-audit.outcome == 'success'
         run: |
           gh pr approve "$PR_NUMBER"
           gh pr merge --auto --squash "$PR_NUMBER"
         env:
           GH_TOKEN: ${{ secrets.PULL_TOKEN }}
           PR_NUMBER: ${{ steps.pr.outputs.number }}
+          GH_REPO: ${{ github.repository }}
