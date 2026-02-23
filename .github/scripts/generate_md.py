@@ -238,7 +238,7 @@ tag:
 
         # 双列表格布局，左边图片，右边信息
         if card["cover"]:
-            card_html = f"| <img src=\"{card['cover']}\" alt=\"{card['name']} 封面\" style=\"width: 100%; border-radius: 8px;\"> | <h3><a class=\"route-link\" href=\"/albums/{card['file_name']}.html\">{card['name']}</a></h3>出品：{card['produce']}<br>{year_line}<br><br>[ZIP 下载]({zip_url}) |"
+            card_html = f"| <img src=\"{card['cover']}\" alt=\"{card['name']} 封面\" style=\"width: 100%; border-radius: 12px;\"> | <h3><a class=\"route-link\" href=\"/albums/{card['file_name']}.html\">{card['name']}</a></h3>出品：{card['produce']}<br>{year_line}<br><br>[ZIP 下载]({zip_url}) |"
         else:
             card_html = f"| | <h3><a class=\"route-link\" href=\"/albums/{card['file_name']}.html\">{card['name']}</a></h3>出品：{card['produce']}<br>{year_line}<br><br>[ZIP 下载]({zip_url}) |"
         cards_text.append(card_html)
