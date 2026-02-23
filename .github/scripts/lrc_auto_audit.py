@@ -286,20 +286,20 @@ def main() -> int:
         except OSError:
             continue
 
-        if ext == ".lrc":
+        if ext in {".lrc", ".txt"}:
             if file_size > lrc_max_size:
-                error_msgs.append(f"❌ LRC文件过大 (>20KB): {file}")
+                error_msgs.append(f"❌ 歌词文件过大 (>20KB): {file}")
             try:
                 with open(file, "r", encoding="utf-8") as f:
                     content = f.read()
                 if not is_meaningful_text(content):
-                    error_msgs.append(f"❌ LRC内容无效(疑似乱码或非歌词文本): {file}")
+                    error_msgs.append(f"❌ 歌词内容无效(疑似乱码或非文本): {file}")
                 disallowed_urls = find_disallowed_urls(content)
                 if disallowed_urls:
                     preview = ", ".join(disallowed_urls[:3])
-                    error_msgs.append(f"❌ LRC存在非白名单网址: {file} -> {preview}")
+                    error_msgs.append(f"❌ 歌词存在非白名单网址: {file} -> {preview}")
             except UnicodeDecodeError:
-                error_msgs.append(f"❌ LRC必须使用 UTF-8 编码: {file}")
+                error_msgs.append(f"❌ 歌词必须使用 UTF-8 编码: {file}")
 
         elif ext in cover_ext:
             if name_part != cover_name:
