@@ -503,7 +503,7 @@
 
 ---
 
-<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8C%C3%97%E8%BD%BB%E6%96%87%E8%BD%BB%E5%B0%8F%E8%AF%B4%20Vol.1/Cover.png" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8C%C3%97%E8%BD%BB%E6%96%87%E8%BD%BB%E5%B0%8F%E8%AF%B4%20Vol.1/cover.png" alt="专辑封面" width="120" align="right">
 
 ### 平行四界×轻文轻小说 Vol.1
 
@@ -655,7 +655,7 @@ _暂无 LRC 文件_
 
 ---
 
-<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0/Cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 甜食日记
 
@@ -843,7 +843,7 @@ _暂无 LRC 文件_
 
 ---
 
-<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E8%B4%9F%E7%89%87/Cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E8%B4%9F%E7%89%87/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 负片
 
