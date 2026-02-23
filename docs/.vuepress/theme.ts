@@ -5,11 +5,6 @@ import navbar from "./navbar";
 export default hopeTheme({
   hostname: "https://lrc.wuyilingwei.com",
 
-  author: {
-    name: "武乙凌薇",
-    url: "https://github.com/wuyilingwei",
-    avatar: "/logo.png",
-  },
 
   logo: "/logo.png",
 
