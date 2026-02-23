@@ -54,6 +54,16 @@ jobs:
           ref: ${{ steps.pr.outputs.head_sha }}
           token: ${{ secrets.PULL_TOKEN }}
 
+      - name: Checkout base workflow scripts
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          fetch-tags: false
+          repository: ${{ github.repository }}
+          ref: ${{ github.sha }}
+          path: .ci-base
+          token: ${{ secrets.PULL_TOKEN }}
+
       - name: Fetch PR base commit
         run: |
           if ! git remote get-url base >/dev/null 2>&1; then
@@ -78,11 +88,11 @@ jobs:
           CHANGED_FILES_TOML_OUT: .changed_files.toml
           DELETED_FILES_TOML_OUT: .deleted_files.toml
         run: |
-          python3 .github/scripts/changed_files_to_toml.py
+          python3 .ci-base/.github/scripts/changed_files_to_toml.py
 
       - name: Security and Content Audit
         id: python-audit
-        run: python3 .github/scripts/lrc_auto_audit.py
+        run: python3 .ci-base/.github/scripts/lrc_auto_audit.py
         env:
           CHANGED_FILES_TOML: .changed_files.toml
           DELETED_FILES_TOML: .deleted_files.toml
