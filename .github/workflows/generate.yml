@@ -105,10 +105,18 @@ jobs:
                   rm "$zip_file"
                   echo "Removed old $zip_file"
                 fi
-                # Create new zip with all .lrc files and cover files
+                # Create new zip with all .lrc, .txt, meta.toml, and cover files
                 files_to_zip=()
                 if ls "res/$album"/*.lrc 1> /dev/null 2>&1; then
                   files_to_zip+=(*.lrc)
+                fi
+                # Add .txt files if they exist
+                if ls "res/$album"/*.txt 1> /dev/null 2>&1; then
+                  files_to_zip+=(*.txt)
+                fi
+                # Add meta.toml if it exists
+                if [ -f "res/$album/meta.toml" ]; then
+                  files_to_zip+=(meta.toml)
                 fi
                 # Add cover files if they exist
                 if ls "res/$album"/cover.* 1> /dev/null 2>&1; then
@@ -146,6 +154,14 @@ jobs:
               if ls "$album"/*.lrc 1> /dev/null 2>&1; then
                 files_to_zip+=(*.lrc)
               fi
+              # Add .txt files if they exist
+              if ls "$album"/*.txt 1> /dev/null 2>&1; then
+                files_to_zip+=(*.txt)
+              fi
+              # Add meta.toml if it exists
+              if [ -f "$album/meta.toml" ]; then
+                files_to_zip+=(meta.toml)
+              fi
               # Add cover files if they exist
               if ls "$album"/cover.* 1> /dev/null 2>&1; then
                 files_to_zip+=(cover.*)
@@ -168,6 +184,14 @@ jobs:
                 files_to_zip=()
                 if ls "$album"/*.lrc 1> /dev/null 2>&1; then
                   files_to_zip+=(*.lrc)
+                fi
+                # Add .txt files if they exist
+                if ls "$album"/*.txt 1> /dev/null 2>&1; then
+                  files_to_zip+=(*.txt)
+                fi
+                # Add meta.toml if it exists
+                if [ -f "$album/meta.toml" ]; then
+                  files_to_zip+=(meta.toml)
                 fi
                 # Add cover files if they exist
                 if ls "$album"/cover.* 1> /dev/null 2>&1; then
