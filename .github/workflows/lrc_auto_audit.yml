@@ -43,7 +43,7 @@ jobs:
           ---
           *修改代码后直接 Push，系统会自动重新检查。*"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PULL_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
 
       - name: Auto Approve and Merge
@@ -52,5 +52,5 @@ jobs:
           gh pr approve "$PR_URL"
           gh pr merge --auto --squash "$PR_URL"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PULL_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
