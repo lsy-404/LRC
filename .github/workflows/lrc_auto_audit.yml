@@ -47,7 +47,7 @@ jobs:
         if: failure()
         run: |
           ERRORS=$(cat audit_errors.txt)
-          gh pr comment "$PR_URL" --body "### ⚠️ 自动化审计未通过
+          gh pr comment "$PR_NUMBER" --body "### ⚠️ 自动化审计未通过
           感谢您的贡献！但本次提交存在以下问题，请修改后重新推送：
           
           $ERRORS
@@ -56,13 +56,13 @@ jobs:
           *修改代码后直接 Push，系统会自动重新检查。*"
         env:
           GH_TOKEN: ${{ secrets.PULL_TOKEN }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_NUMBER: ${{ github.event.pull_request.number || github.event.issue.number }}
 
       - name: Auto Approve and Merge
         if: success()
         run: |
-          gh pr approve "$PR_URL"
-          gh pr merge --auto --squash "$PR_URL"
+          gh pr approve "$PR_NUMBER"
+          gh pr merge --auto --squash "$PR_NUMBER"
         env:
           GH_TOKEN: ${{ secrets.PULL_TOKEN }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_NUMBER: ${{ github.event.pull_request.number || github.event.issue.number }}
