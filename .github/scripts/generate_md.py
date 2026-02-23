@@ -144,7 +144,10 @@ def main() -> None:
         info_display = []
         # 发行日期：跳过 1970-01-01 或空值
         year_value = str(info['year'] or "").strip()
+        date_line = ""
         if year_value and year_value != "1970-01-01" and not is_disabled_value(year_value):
+            date_yaml_value = year_value.replace('"', '\\"')
+            date_line = f'date: "{date_yaml_value}"\n'
             info_display.append(f"**发行日期:** {year_value}")
         # 其他字段：使用 is_disabled_value 判断
         if not is_disabled_value(info["produce"]):
@@ -189,7 +192,7 @@ def main() -> None:
 
         md_content = f"""---
 title: {album}
-{order_line}category:
+{date_line}{order_line}category:
     - {category_value}
 tag:
 {''.join(f'  - {tag}\n' for tag in tags)}---

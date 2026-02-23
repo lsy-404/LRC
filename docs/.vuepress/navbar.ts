@@ -3,9 +3,9 @@ import { navbar } from "vuepress-theme-hope";
 export default navbar([
   "/",
   {
-    text: "标签列表",
+    text: "分类",
     icon: "material-symbols:label",
-    link: "/tag/",
+    link: "/category/",
   },
   {
     text: "参与贡献",
