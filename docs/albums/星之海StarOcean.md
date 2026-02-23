@@ -37,6 +37,8 @@ tag:
 
 **出品:** 五维介质Official
 
+**歌词制作:** RQvan
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1cs411T7F5/)
 
 **购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?id=583711155480) ￥75/￥110

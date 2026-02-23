@@ -22,7 +22,7 @@ tag:
 
 **出品:** Zeno
 
-**歌词制作:** 九九Lrc歌词网
+**歌词制作:** 西霜月Lune
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Xx411g7uY/)
 
