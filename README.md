@@ -830,6 +830,8 @@ _暂无 LRC 文件_
 
 ---
 
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/cover.jpg" alt="专辑封面" width="120" align="right">
+
 ### 茜色诗集
 
 **📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86.zip)**
