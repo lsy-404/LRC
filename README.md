@@ -34,8 +34,8 @@
 - [星之海StarOcean](https://github.com/wuyilingwei/LRC#%E6%98%9F%E4%B9%8B%E6%B5%B7starocean)
 - [星愿StarWish](https://github.com/wuyilingwei/LRC#%E6%98%9F%E6%84%BFstarwish)
 - [森罗万象Kaleido](https://github.com/wuyilingwei/LRC#%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1kaleido)
+- [流星空间II聆星者](https://github.com/wuyilingwei/LRC#%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4ii%E8%81%86%E6%98%9F%E8%80%85)
 - [流星空间站](https://github.com/wuyilingwei/LRC#%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99)
-- [流星空间站Ⅱ聆星者](https://github.com/wuyilingwei/LRC#%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99%E8%81%86%E6%98%9F%E8%80%85)
 - [海纳百川Storybook](https://github.com/wuyilingwei/LRC#%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9Dstorybook)
 - [甜食日记](https://github.com/wuyilingwei/LRC#%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0)
 - [生息Leave in Breath](https://github.com/wuyilingwei/LRC#%E7%94%9F%E6%81%AFleave-in-breath)
@@ -605,6 +605,14 @@ _暂无 LRC 文件_
 
 ---
 
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4II%E8%81%86%E6%98%9F%E8%80%85/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 流星空间II聆星者
+
+_暂无 LRC 文件_
+
+---
+
 <img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 流星空间站
@@ -627,14 +635,6 @@ _暂无 LRC 文件_
 | [8 混合烦恼100%.lrc](res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/8%20%E6%B7%B7%E5%90%88%E7%83%A6%E6%81%BC100%25.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99/8%20%E6%B7%B7%E5%90%88%E7%83%A6%E6%81%BC100%25.lrc) |
 
 </details>
-
----
-
-<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99%E2%85%A1%E8%81%86%E6%98%9F%E8%80%85/cover.jpg" alt="专辑封面" width="120" align="right">
-
-### 流星空间站Ⅱ聆星者
-
-_暂无 LRC 文件_
 
 ---
 

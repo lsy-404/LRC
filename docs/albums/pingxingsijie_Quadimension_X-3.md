@@ -33,7 +33,7 @@ tag:
 
 # 平行四界Quadimension X-3
 
-<img src="./pingxingsijie_Quadimension_X.jpg" alt="平行四界Quadimension X-3 封面" class="album-cover" />
+<img src="./pingxingsijie_Quadimension_X-3.jpg" alt="平行四界Quadimension X-3 封面" class="album-cover" />
 
 **发行日期:** 2022-04-03
 

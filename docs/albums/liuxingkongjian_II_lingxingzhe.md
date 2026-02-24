@@ -1,11 +1,11 @@
 ---
-title: 流星空间站Ⅱ聆星者
+title: 流星空间II聆星者
 date: 2025-05-02
 order: -20250502
 category:
     - 流星空间站创作组
 tag:
-  - 流星空间站Ⅱ聆星者
+  - 流星空间II聆星者
   - 流星空间站创作组
   - 星尘infinity
   - 永夜Minus
@@ -26,9 +26,9 @@ tag:
   - 文件
 ---
 
-# 流星空间站Ⅱ聆星者
+# 流星空间II聆星者
 
-<img src="./liuxingkongjianzhanlingxingzhe.jpg" alt="流星空间站Ⅱ聆星者 封面" class="album-cover" />
+<img src="./liuxingkongjian_II_lingxingzhe.jpg" alt="流星空间II聆星者 封面" class="album-cover" />
 
 **发行日期:** 2025-05-02
 
@@ -58,4 +58,4 @@ tag:
 
 ## 下载
 
-下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99%E2%85%A1%E8%81%86%E6%98%9F%E8%80%85.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4II%E8%81%86%E6%98%9F%E8%80%85.zip)

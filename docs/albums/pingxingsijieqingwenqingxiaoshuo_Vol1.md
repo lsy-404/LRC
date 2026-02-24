@@ -24,7 +24,7 @@ tag:
 
 # 平行四界×轻文轻小说 Vol.1
 
-<img src="./pingxingsijieqingwenqingxiaoshuo_Vol.png" alt="平行四界×轻文轻小说 Vol.1 封面" class="album-cover" />
+<img src="./pingxingsijieqingwenqingxiaoshuo_Vol1.png" alt="平行四界×轻文轻小说 Vol.1 封面" class="album-cover" />
 
 **发行日期:** 2016-07-24
 
