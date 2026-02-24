@@ -10,7 +10,15 @@ export default defineUserConfig({
   shouldPrefetch: false,
   theme, // 使用主题
   bundler: viteBundler({
-    // ... Vite 特定的配置 ...
+    viteOptions: {
+      css: {
+        preprocessorOptions: {
+          scss: {
+            silenceDeprecations: ["if-function"],
+          },
+        },
+      },
+    },
   }),
   head: [
     [
