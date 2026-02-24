@@ -44,6 +44,7 @@
 - [繁星于雨云之上](https://github.com/wuyilingwei/LRC#%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A)
 - [织肉匠](https://github.com/wuyilingwei/LRC#%E7%BB%87%E8%82%89%E5%8C%A0)
 - [终梦Journeyed on Everdream](https://github.com/wuyilingwei/LRC#%E7%BB%88%E6%A2%A6journeyed-on-everdream)
+- [茜色诗集](https://github.com/wuyilingwei/LRC#%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86)
 - [藏雪SnowGrave](https://github.com/wuyilingwei/LRC#%E8%97%8F%E9%9B%AAsnowgrave)
 - [负片](https://github.com/wuyilingwei/LRC#%E8%B4%9F%E7%89%87)
 <!-- ALBUM_LIST_END -->
@@ -824,6 +825,29 @@ _暂无 LRC 文件_
 | [6 倘若明天降临.lrc](res/%E7%BB%88%E6%A2%A6Journeyed%20on%20Everdream/6%20%E5%80%98%E8%8B%A5%E6%98%8E%E5%A4%A9%E9%99%8D%E4%B8%B4.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%88%E6%A2%A6Journeyed%20on%20Everdream/6%20%E5%80%98%E8%8B%A5%E6%98%8E%E5%A4%A9%E9%99%8D%E4%B8%B4.lrc) |
 | [7 启程.lrc](res/%E7%BB%88%E6%A2%A6Journeyed%20on%20Everdream/7%20%E5%90%AF%E7%A8%8B.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%88%E6%A2%A6Journeyed%20on%20Everdream/7%20%E5%90%AF%E7%A8%8B.lrc) |
 | [8 可我又为何还在这儿哭泣呢.lrc](res/%E7%BB%88%E6%A2%A6Journeyed%20on%20Everdream/8%20%E5%8F%AF%E6%88%91%E5%8F%88%E4%B8%BA%E4%BD%95%E8%BF%98%E5%9C%A8%E8%BF%99%E5%84%BF%E5%93%AD%E6%B3%A3%E5%91%A2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%88%E6%A2%A6Journeyed%20on%20Everdream/8%20%E5%8F%AF%E6%88%91%E5%8F%88%E4%B8%BA%E4%BD%95%E8%BF%98%E5%9C%A8%E8%BF%99%E5%84%BF%E5%93%AD%E6%B3%A3%E5%91%A2.lrc) |
+
+</details>
+
+---
+
+### 茜色诗集
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (9 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [乡情曲（翻唱）.lrc](res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E4%B9%A1%E6%83%85%E6%9B%B2%EF%BC%88%E7%BF%BB%E5%94%B1%EF%BC%89.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E4%B9%A1%E6%83%85%E6%9B%B2%EF%BC%88%E7%BF%BB%E5%94%B1%EF%BC%89.lrc) |
+| [埋葬.lrc](res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E5%9F%8B%E8%91%AC.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E5%9F%8B%E8%91%AC.lrc) |
+| [夏日已所剩无几.lrc](res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E5%A4%8F%E6%97%A5%E5%B7%B2%E6%89%80%E5%89%A9%E6%97%A0%E5%87%A0.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E5%A4%8F%E6%97%A5%E5%B7%B2%E6%89%80%E5%89%A9%E6%97%A0%E5%87%A0.lrc) |
+| [小丑的品格.lrc](res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E5%B0%8F%E4%B8%91%E7%9A%84%E5%93%81%E6%A0%BC.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E5%B0%8F%E4%B8%91%E7%9A%84%E5%93%81%E6%A0%BC.lrc) |
+| [岁月成碑（翻唱）.lrc](res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E5%B2%81%E6%9C%88%E6%88%90%E7%A2%91%EF%BC%88%E7%BF%BB%E5%94%B1%EF%BC%89.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E5%B2%81%E6%9C%88%E6%88%90%E7%A2%91%EF%BC%88%E7%BF%BB%E5%94%B1%EF%BC%89.lrc) |
+| [序曲.lrc](res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E5%BA%8F%E6%9B%B2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E5%BA%8F%E6%9B%B2.lrc) |
+| [泼墨漓江.lrc](res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E6%B3%BC%E5%A2%A8%E6%BC%93%E6%B1%9F.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E6%B3%BC%E5%A2%A8%E6%BC%93%E6%B1%9F.lrc) |
+| [男孩们的旅行.lrc](res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E7%94%B7%E5%AD%A9%E4%BB%AC%E7%9A%84%E6%97%85%E8%A1%8C.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E7%94%B7%E5%AD%A9%E4%BB%AC%E7%9A%84%E6%97%85%E8%A1%8C.lrc) |
+| [超远距连接.lrc](res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E8%B6%85%E8%BF%9C%E8%B7%9D%E8%BF%9E%E6%8E%A5.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86/%E8%B6%85%E8%BF%9C%E8%B7%9D%E8%BF%9E%E6%8E%A5.lrc) |
 
 </details>
 

@@ -52,6 +52,7 @@ tagline: 虚拟歌姬专辑的信息导航与歌词共享资源库
 | <img src="/albums/星愿StarWish.jpg" alt="星愿StarWish 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/星愿StarWish.html">星愿StarWish</a></h3>出品：五维介质Official<br>发行日期：2016-03-04<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E6%84%BFStarWish.zip) |
 | | <h3><a class="route-link" href="/albums/九光年宇宙.html">九光年宇宙</a></h3>出品：不适用<br>发行日期：不适用<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99.zip) |
 | <img src="/albums/单曲.jpg" alt="单曲 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/单曲.html">单曲</a></h3>出品：不适用<br>发行日期：不适用<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8D%95%E6%9B%B2.zip) |
+| | <h3><a class="route-link" href="/albums/茜色诗集.html">茜色诗集</a></h3>出品：不适用<br>发行日期：不适用<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86.zip) |
 
 </div>
 
