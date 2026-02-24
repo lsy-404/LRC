@@ -17,6 +17,7 @@
 - [Starlit Whisper](https://github.com/wuyilingwei/LRC#starlit-whisper)
 - [『FM40.4』](https://github.com/wuyilingwei/LRC#fm404)
 - [丛林法则Jungle Rules](https://github.com/wuyilingwei/LRC#%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99jungle-rules)
+- [九光年宇宙](https://github.com/wuyilingwei/LRC#%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99)
 - [亚特兰蒂斯Atlantis](https://github.com/wuyilingwei/LRC#%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFatlantis)
 - [加冕日CORONATION DAY](https://github.com/wuyilingwei/LRC#%E5%8A%A0%E5%86%95%E6%97%A5coronation-day)
 - [单曲](https://github.com/wuyilingwei/LRC#%E5%8D%95%E6%9B%B2)
@@ -196,6 +197,12 @@
 | [诗岸、哈密瓜 - 光明之森.lrc](res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E8%AF%97%E5%B2%B8%E3%80%81%E5%93%88%E5%AF%86%E7%93%9C%20-%20%E5%85%89%E6%98%8E%E4%B9%8B%E6%A3%AE.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/%E8%AF%97%E5%B2%B8%E3%80%81%E5%93%88%E5%AF%86%E7%93%9C%20-%20%E5%85%89%E6%98%8E%E4%B9%8B%E6%A3%AE.lrc) |
 
 </details>
+
+---
+
+### 九光年宇宙
+
+_暂无 LRC 文件_
 
 ---
 
