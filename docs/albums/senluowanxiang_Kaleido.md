@@ -30,7 +30,7 @@ tag:
 
 # 森罗万象Kaleido
 
-<img src="./森罗万象Kaleido.jpg" alt="森罗万象Kaleido 封面" class="album-cover" />
+<img src="./senluowanxiang_Kaleido.jpg" alt="森罗万象Kaleido 封面" class="album-cover" />
 
 **发行日期:** 2019-10-05
 

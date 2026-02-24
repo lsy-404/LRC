@@ -25,7 +25,7 @@ tag:
 
 # 织肉匠
 
-<img src="./织肉匠.jpg" alt="织肉匠 封面" class="album-cover" />
+<img src="./zhiroujiang.jpg" alt="织肉匠 封面" class="album-cover" />
 
 **发行日期:** 2025-12-05
 

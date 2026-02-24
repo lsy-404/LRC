@@ -34,7 +34,7 @@ tag:
 
 # 生息Leave in Breath
 
-<img src="./生息Leave_in_Breath.jpg" alt="生息Leave in Breath 封面" class="album-cover" />
+<img src="./shengxi_Leave_in_Breath.jpg" alt="生息Leave in Breath 封面" class="album-cover" />
 
 **发行日期:** 2025-03-22
 

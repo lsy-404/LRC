@@ -34,7 +34,7 @@ tag:
 
 # 秘宝旅人II Polaris
 
-<img src="./秘宝旅人II_Polaris.jpg" alt="秘宝旅人II Polaris 封面" class="album-cover" />
+<img src="./mibaolvren_II_Polaris.jpg" alt="秘宝旅人II Polaris 封面" class="album-cover" />
 
 **发行日期:** 2025-07-04
 

@@ -37,7 +37,7 @@ tag:
 
 # 平行四界LIVE TOUR OFFICIAL ALBUM
 
-<img src="./平行四界LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界LIVE TOUR OFFICIAL ALBUM 封面" class="album-cover" />
+<img src="./pingxingsijie_LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界LIVE TOUR OFFICIAL ALBUM 封面" class="album-cover" />
 
 **发行日期:** 2017-08-12
 

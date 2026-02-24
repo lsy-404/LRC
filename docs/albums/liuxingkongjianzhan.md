@@ -23,7 +23,7 @@ tag:
 
 # 流星空间站
 
-<img src="./流星空间站.jpg" alt="流星空间站 封面" class="album-cover" />
+<img src="./liuxingkongjianzhan.jpg" alt="流星空间站 封面" class="album-cover" />
 
 **发行日期:** 2022-12-31
 

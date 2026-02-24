@@ -35,7 +35,7 @@ tag:
 
 # 平行四界Quadimension Finale
 
-<img src="./平行四界Quadimension_Finale.png" alt="平行四界Quadimension Finale 封面" class="album-cover" />
+<img src="./pingxingsijie_Quadimension_Finale.png" alt="平行四界Quadimension Finale 封面" class="album-cover" />
 
 **发行日期:** 2023-05-24
 

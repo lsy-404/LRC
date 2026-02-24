@@ -26,7 +26,7 @@ tag:
 
 # 藏雪SnowGrave
 
-<img src="./藏雪SnowGrave.jpg" alt="藏雪SnowGrave 封面" class="album-cover" />
+<img src="./cangxue_SnowGrave.jpg" alt="藏雪SnowGrave 封面" class="album-cover" />
 
 **发行日期:** 2024-01-12
 

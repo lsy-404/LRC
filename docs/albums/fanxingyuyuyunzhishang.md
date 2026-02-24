@@ -33,7 +33,7 @@ tag:
 
 # 繁星于雨云之上
 
-<img src="./繁星于雨云之上.jpg" alt="繁星于雨云之上 封面" class="album-cover" />
+<img src="./fanxingyuyuyunzhishang.jpg" alt="繁星于雨云之上 封面" class="album-cover" />
 
 **发行日期:** 2025-05-01
 

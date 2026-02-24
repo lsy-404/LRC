@@ -33,7 +33,7 @@ tag:
 
 # 丛林法则Jungle Rules
 
-<img src="./丛林法则Jungle_Rules.jpg" alt="丛林法则Jungle Rules 封面" class="album-cover" />
+<img src="./conglinfaze_Jungle_Rules.jpg" alt="丛林法则Jungle Rules 封面" class="album-cover" />
 
 **发行日期:** 2020-02-28
 

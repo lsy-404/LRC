@@ -24,7 +24,7 @@ tag:
 
 # 茜色诗集
 
-<img src="./茜色诗集.jpg" alt="茜色诗集 封面" class="album-cover" />
+<img src="./qianseshiji.jpg" alt="茜色诗集 封面" class="album-cover" />
 
 **发行日期:** 2016-12-04
 

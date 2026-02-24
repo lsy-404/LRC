@@ -30,7 +30,7 @@ tag:
 
 # 星愿StarWish
 
-<img src="./星愿StarWish.jpg" alt="星愿StarWish 封面" class="album-cover" />
+<img src="./xingyuan_StarWish.jpg" alt="星愿StarWish 封面" class="album-cover" />
 
 **发行日期:** 2016-03-04
 

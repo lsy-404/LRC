@@ -34,7 +34,7 @@ tag:
 
 # 平行四界REBIRTH
 
-<img src="./平行四界REBIRTH.jpg" alt="平行四界REBIRTH 封面" class="album-cover" />
+<img src="./pingxingsijie_REBIRTH.jpg" alt="平行四界REBIRTH 封面" class="album-cover" />
 
 **发行日期:** 2025-08-12
 

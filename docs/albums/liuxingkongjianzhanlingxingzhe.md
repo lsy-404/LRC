@@ -28,7 +28,7 @@ tag:
 
 # 流星空间站Ⅱ聆星者
 
-<img src="./流星空间站Ⅱ聆星者.jpg" alt="流星空间站Ⅱ聆星者 封面" class="album-cover" />
+<img src="./liuxingkongjianzhanlingxingzhe.jpg" alt="流星空间站Ⅱ聆星者 封面" class="album-cover" />
 
 **发行日期:** 2025-05-02
 

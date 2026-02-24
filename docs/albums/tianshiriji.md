@@ -18,7 +18,7 @@ tag:
 
 # 甜食日记
 
-<img src="./甜食日记.jpg" alt="甜食日记 封面" class="album-cover" />
+<img src="./tianshiriji.jpg" alt="甜食日记 封面" class="album-cover" />
 
 **发行日期:** 2021-08-07
 

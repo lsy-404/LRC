@@ -37,7 +37,7 @@ tag:
 
 # 海纳百川Storybook
 
-<img src="./海纳百川Storybook.jpg" alt="海纳百川Storybook 封面" class="album-cover" />
+<img src="./hainabaichuan_Storybook.jpg" alt="海纳百川Storybook 封面" class="album-cover" />
 
 **发行日期:** 2020-11-06
 

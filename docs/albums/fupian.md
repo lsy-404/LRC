@@ -18,7 +18,7 @@ tag:
 
 # 负片
 
-<img src="./负片.jpg" alt="负片 封面" class="album-cover" />
+<img src="./fupian.jpg" alt="负片 封面" class="album-cover" />
 
 **发行日期:** 2022-08-12
 

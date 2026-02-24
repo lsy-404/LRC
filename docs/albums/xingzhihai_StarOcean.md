@@ -31,7 +31,7 @@ tag:
 
 # 星之海StarOcean
 
-<img src="./星之海StarOcean.jpg" alt="星之海StarOcean 封面" class="album-cover" />
+<img src="./xingzhihai_StarOcean.jpg" alt="星之海StarOcean 封面" class="album-cover" />
 
 **发行日期:** 2018-08-11
 

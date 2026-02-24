@@ -13,7 +13,7 @@ tag:
 
 # 单曲
 
-<img src="./单曲.jpg" alt="单曲 封面" class="album-cover" />
+<img src="./danqu.jpg" alt="单曲 封面" class="album-cover" />
 
 
 ## 曲目列表

@@ -16,7 +16,7 @@ tag:
 
 # 加冕日CORONATION DAY
 
-<img src="./加冕日CORONATION_DAY.jpg" alt="加冕日CORONATION DAY 封面" class="album-cover" />
+<img src="./jiamianri_CORONATION_DAY.jpg" alt="加冕日CORONATION DAY 封面" class="album-cover" />
 
 **发行日期:** 2023-04-19
 
