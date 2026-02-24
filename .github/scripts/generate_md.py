@@ -21,7 +21,7 @@ DOCS_DIR = ROOT_DIR / str(PROJECT.get("docs_dir", "docs"))
 ALBUMS_DIR = ROOT_DIR / str(PROJECT.get("albums_dir", "docs/albums"))
 COVER_EXTENSIONS = [str(item) for item in COMMON.get("cover_ext", [".jpg", ".png", ".jpeg", ".webp", ".bmp"])]
 HAN_RE = re.compile(r"[\u4e00-\u9fff]")
-NON_ASCII_ARTIFACT_RE = re.compile(r"[^A-Za-z_\-\n]+")
+NON_ASCII_ARTIFACT_RE = re.compile(r"[^A-Za-z0-9_\-\n]+")
 
 
 def sanitize_artifact_name(raw_name: str) -> str:
