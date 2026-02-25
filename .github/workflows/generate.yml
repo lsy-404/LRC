@@ -40,6 +40,11 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Install Python dependencies
+        if: steps.check_commit.outputs.skip == 'false'
+        run: |
+          pip install -r .github/scripts/requirements.txt
+
       - name: Detect changed album folders
         if: steps.check_commit.outputs.skip == 'false'
         id: detect_changes
