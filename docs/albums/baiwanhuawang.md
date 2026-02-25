@@ -10,7 +10,7 @@ tag:
   - 星尘
   - 绿无
   - MeLo
-  - \"瑞安Ryan
+  - 瑞安Ryan
   - 歌词
   - lrc
   - 下载
@@ -41,7 +41,7 @@ tag:
 
 **编曲:** MeLo
 
-**调校:** MeLo、\"瑞安Ryan
+**调校:** MeLo、瑞安Ryan
 
 **曲绘:** HTNK、今加、Sainker、零届0rz、千凉子、匙、Athgil、万代、Leiq雷、鲨鱼卡sayuki、枫叶、靡盬菌
 
