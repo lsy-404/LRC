@@ -45,43 +45,55 @@ jobs:
         run: |
           pip install -r .github/scripts/requirements.txt
 
-      - name: Detect changed album folders
+      - name: Detect albums needing rebuild
         if: steps.check_commit.outputs.skip == 'false'
         id: detect_changes
         run: |
           # Check if this is a manual trigger (workflow_dispatch)
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "Manual trigger detected - rebuilding all albums"
-            CHANGED_ALBUMS=$(find res -maxdepth 1 -mindepth 1 -type d | sed 's|^res/||' | sort)
+            ALBUMS_TO_BUILD=$(find res -maxdepth 1 -mindepth 1 -type d | sed 's|^res/||' | sort)
             REBUILD_ALL="true"
           else
-            # Get changed files in res/ folder
-            if git rev-parse HEAD~1 >/dev/null 2>&1; then
-              # Get list of changed files in the last commit
-              CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD | grep '^res/' || true)
-            else
-              # First commit, consider all files in res/
-              CHANGED_FILES=$(find res -type f || true)
-            fi
-            
-            echo "Changed files:"
-            echo "$CHANGED_FILES"
-            
-            # Extract unique album directories from res/ folder (any file change in res/)
-            if [ -n "$CHANGED_FILES" ]; then
-              CHANGED_ALBUMS=$(echo "$CHANGED_FILES" | sed 's|^res/||' | sed 's|/[^/]*$||' | sort -u || true)
-            else
-              CHANGED_ALBUMS=""
-            fi
-            
+            echo "Smart incremental build - checking each album's ZIP history"
             REBUILD_ALL="false"
+            ALBUMS_TO_BUILD=""
+            
+            # Check each album directory
+            for album_dir in res/*/; do
+              [ -d "$album_dir" ] || continue
+              album_name=$(basename "$album_dir")
+              zip_file="pack/${album_name}.zip"
+              
+              # Find when the ZIP was last modified in git history
+              last_zip_commit=$(git log -1 --format=%H -- "$zip_file" 2>/dev/null || echo "")
+              
+              if [ -z "$last_zip_commit" ]; then
+                # ZIP doesn't exist or was never committed - need to build
+                echo "✓ $album_name: No ZIP found in history, will build"
+                ALBUMS_TO_BUILD="${ALBUMS_TO_BUILD}${album_name}"$'\n'
+              else
+                # Check if res directory has changes since last ZIP commit
+                changes=$(git diff --name-only "$last_zip_commit" HEAD -- "$album_dir" 2>/dev/null || echo "")
+                
+                if [ -n "$changes" ]; then
+                  echo "✓ $album_name: Has changes since last build"
+                  echo "  Changed files:"
+                  echo "$changes" | sed 's/^/    /'
+                  ALBUMS_TO_BUILD="${ALBUMS_TO_BUILD}${album_name}"$'\n'
+                else
+                  echo "○ $album_name: Up-to-date (no changes since $(git log -1 --format=%h -- "$zip_file"))"
+                fi
+              fi
+            done
           fi
           
-          echo "Changed albums:"
-          echo "$CHANGED_ALBUMS"
+          echo ""
+          echo "Albums to build:"
+          echo "$ALBUMS_TO_BUILD"
           
           # Save to file for next step
-          echo "$CHANGED_ALBUMS" > changed_albums.txt
+          echo "$ALBUMS_TO_BUILD" > changed_albums.txt
           echo "$REBUILD_ALL" > rebuild_all.txt
 
       - name: Create or update album zip files
