@@ -201,6 +201,8 @@
 
 ---
 
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/cover.png" alt="专辑封面" width="120" align="right">
+
 ### 九光年宇宙
 
 _暂无 LRC 文件_

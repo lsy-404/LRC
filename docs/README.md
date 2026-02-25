@@ -17,7 +17,7 @@ tagline: 虚拟歌姬专辑的信息导航与歌词共享资源库
 
 | | |
 |----|-----|
-| | <h3><a class="route-link" href="/albums/jiuguangnianyuzhou.html">九光年宇宙</a></h3>出品：被遗忘者的哀伤<br>发行日期：2026-02-24<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99.zip) |
+| <img src="/albums/jiuguangnianyuzhou.png" alt="九光年宇宙 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/jiuguangnianyuzhou.html">九光年宇宙</a></h3>出品：被遗忘者的哀伤<br>发行日期：2026-02-24<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99.zip) |
 | <img src="/albums/Iris.png" alt="Iris 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/Iris.html">Iris</a></h3>出品：Zeno<br>发行日期：2026-01-31<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Iris.zip) |
 | <img src="/albums/zhongmeng_Journeyed_on_Everdream.jpg" alt="终梦Journeyed on Everdream 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/zhongmeng_Journeyed_on_Everdream.html">终梦Journeyed on Everdream</a></h3>出品：北极圈ArcticLab<br>发行日期：2025-12-24<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%88%E6%A2%A6Journeyed%20on%20Everdream.zip) |
 | <img src="/albums/Starlit_Whisper.png" alt="Starlit Whisper 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/Starlit_Whisper.html">Starlit Whisper</a></h3>出品：胧<br>发行日期：2025-12-05<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Starlit%20Whisper.zip) |

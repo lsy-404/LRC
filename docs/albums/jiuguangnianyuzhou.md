@@ -15,7 +15,7 @@ tag:
 
 # 九光年宇宙
 
-
+<img src="./jiuguangnianyuzhou.png" alt="九光年宇宙 封面" class="album-cover" />
 
 **发行日期:** 2026-02-24
 
