@@ -28,6 +28,8 @@ tag:
 
 **出品:** 被遗忘者的哀伤
 
+**歌词制作:** 武乙凌薇
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1yBfUBoEzh/)
 
 **购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?id=1019714314580) ￥52
