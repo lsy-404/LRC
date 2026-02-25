@@ -653,6 +653,8 @@
 
 ### 流星空间站II聆星者
 
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99II%E8%81%86%E6%98%9F%E8%80%85.zip)**
+
 _暂无 LRC 文件_
 
 ---
