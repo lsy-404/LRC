@@ -252,19 +252,17 @@ jobs:
         run: |
           python .github/scripts/optimize.py
 
-      - name: Setup Node.js
+      - name: Clean albums directory
         if: steps.check_commit.outputs.skip == 'false'
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        if: steps.check_commit.outputs.skip == 'false'
-        run: npm install
+        run: |
+          echo "Cleaning docs/albums directory..."
+          rm -rf docs/albums
+          mkdir -p docs/albums
+          echo "docs/albums cleaned and recreated"
 
       - name: Generate MD files
         if: steps.check_commit.outputs.skip == 'false'
-        run: npm run generate-md
+        run: python .github/scripts/generate_md.py
 
       - name: Commit and push changes
         if: steps.check_commit.outputs.skip == 'false'
