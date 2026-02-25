@@ -40,15 +40,44 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install Python dependencies
+      - name: Detect changed album folders
         if: steps.check_commit.outputs.skip == 'false'
+        id: detect_changes
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install -r .github/scripts/requirements.txt
-
-      - name: Normalize cover filenames
-        if: steps.check_commit.outputs.skip == 'false'
-        run: python .github/scripts/normalize_cover_case.py
+          # Check if this is a manual trigger (workflow_dispatch)
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "Manual trigger detected - rebuilding all albums"
+            CHANGED_ALBUMS=$(find res -maxdepth 1 -mindepth 1 -type d | sed 's|^res/||' | sort)
+            REBUILD_ALL="true"
+          else
+            # Get changed files in res/ folder
+            if git rev-parse HEAD~1 >/dev/null 2>&1; then
+              # Get list of changed files in the last commit
+              CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD | grep '^res/' || true)
+            else
+              # First commit, consider all files in res/
+              CHANGED_FILES=$(find res -type f || true)
+            fi
+            
+            echo "Changed files:"
+            echo "$CHANGED_FILES"
+            
+            # Extract unique album directories from res/ folder (any file change in res/)
+            if [ -n "$CHANGED_FILES" ]; then
+              CHANGED_ALBUMS=$(echo "$CHANGED_FILES" | sed 's|^res/||' | sed 's|/[^/]*$||' | sort -u || true)
+            else
+              CHANGED_ALBUMS=""
+            fi
+            
+            REBUILD_ALL="false"
+          fi
+          
+          echo "Changed albums:"
+          echo "$CHANGED_ALBUMS"
+          
+          # Save to file for next step
+          echo "$CHANGED_ALBUMS" > changed_albums.txt
+          echo "$REBUILD_ALL" > rebuild_all.txt
 
       - name: Create or update album zip files
         if: steps.check_commit.outputs.skip == 'false'
@@ -56,44 +85,143 @@ jobs:
           # Ensure pack directory exists
           mkdir -p pack
           
-          echo "Rebuilding all album ZIP files..."
-          for album in res/*/; do
-            album_name=$(basename "$album")
-            zip_file="pack/${album_name}.zip"
-            
-            # Remove existing zip file
-            if [ -f "$zip_file" ]; then
-              rm "$zip_file"
-              echo "Removed old $zip_file"
-            fi
-            
-            # Create new zip with all .lrc, .txt, meta.toml, and cover files
-            files_to_zip=()
-            if ls "$album"/*.lrc 1> /dev/null 2>&1; then
-              files_to_zip+=(*.lrc)
-            fi
-            # Add .txt files if they exist
-            if ls "$album"/*.txt 1> /dev/null 2>&1; then
-              files_to_zip+=(*.txt)
-            fi
-            # Add meta.toml if it exists
-            if [ -f "$album/meta.toml" ]; then
-              files_to_zip+=(meta.toml)
-            fi
-            # Add cover files if they exist
-            if ls "$album"/cover.* 1> /dev/null 2>&1; then
-              files_to_zip+=(cover.*)
-            fi
-            
-            if [ ${#files_to_zip[@]} -gt 0 ]; then
-              cd "$album"
-              zip -q "../../$zip_file" -- ${files_to_zip[@]}
-              cd ../..
-              echo "Created $zip_file (with $(echo ${files_to_zip[@]} | wc -w) files)"
-            else
-              echo "No files found in $album"
-            fi
-          done
+          # Read rebuild flag
+          REBUILD_ALL=$(cat rebuild_all.txt 2>/dev/null || echo "false")
+          
+          # Read changed albums
+          if [ -f changed_albums.txt ] && [ -s changed_albums.txt ]; then
+            echo "Creating/updating zip files for changed albums..."
+            while IFS= read -r album; do
+              if [ -d "res/$album" ] && [ ! -z "$album" ]; then
+                echo "Processing album: $album"
+                # Remove old zip if exists
+                album_name=$(basename "$album")
+                zip_file="pack/${album_name}.zip"
+                if [ -f "$zip_file" ]; then
+                  rm "$zip_file"
+                  echo "Removed old $zip_file"
+                fi
+                
+                # Create new zip with all required files
+                files_to_zip=()
+                
+                # Add .lrc files
+                if ls "res/$album"/*.lrc 1> /dev/null 2>&1; then
+                  files_to_zip+=(*.lrc)
+                fi
+                
+                # Add .txt files
+                if ls "res/$album"/*.txt 1> /dev/null 2>&1; then
+                  files_to_zip+=(*.txt)
+                fi
+                
+                # Add meta.toml if exists
+                if [ -f "res/$album/meta.toml" ]; then
+                  files_to_zip+=(meta.toml)
+                fi
+                
+                # Add cover files if they exist
+                if ls "res/$album"/cover.* 1> /dev/null 2>&1; then
+                  files_to_zip+=(cover.*)
+                fi
+                
+                if [ ${#files_to_zip[@]} -gt 0 ]; then
+                  cd "res/$album"
+                  zip -q "../../$zip_file" -- ${files_to_zip[@]}
+                  cd ../..
+                  echo "Created $zip_file (with $(echo ${files_to_zip[@]} | wc -w) files)"
+                else
+                  echo "No files found in res/$album"
+                fi
+              fi
+            done < changed_albums.txt
+          else
+            echo "No album changes detected"
+          fi
+          
+          # Also check for albums without zip files and create them
+          # Or rebuild all if manual trigger
+          if [ "$REBUILD_ALL" == "true" ]; then
+            echo "Rebuilding all albums (manual trigger)..."
+            for album in res/*/; do
+              album_name=$(basename "$album")
+              zip_file="pack/${album_name}.zip"
+              # Remove existing zip file during manual rebuild
+              if [ -f "$zip_file" ]; then
+                rm "$zip_file"
+                echo "Removed old $zip_file"
+              fi
+              
+              # Create new zip with all files
+              files_to_zip=()
+              
+              # Add .lrc files
+              if ls "$album"/*.lrc 1> /dev/null 2>&1; then
+                files_to_zip+=(*.lrc)
+              fi
+              
+              # Add .txt files
+              if ls "$album"/*.txt 1> /dev/null 2>&1; then
+                files_to_zip+=(*.txt)
+              fi
+              
+              # Add meta.toml if exists
+              if [ -f "$album/meta.toml" ]; then
+                files_to_zip+=(meta.toml)
+              fi
+              
+              # Add cover files if they exist
+              if ls "$album"/cover.* 1> /dev/null 2>&1; then
+                files_to_zip+=(cover.*)
+              fi
+              
+              if [ ${#files_to_zip[@]} -gt 0 ]; then
+                cd "$album"
+                zip -q "../../$zip_file" -- ${files_to_zip[@]}
+                cd ../..
+                echo "Created $zip_file (with $(echo ${files_to_zip[@]} | wc -w) files)"
+              fi
+            done
+          else
+            echo "Checking for albums without zip files..."
+            for album in res/*/; do
+              album_name=$(basename "$album")
+              zip_file="pack/${album_name}.zip"
+              if [ ! -f "$zip_file" ] && [ -d "$album" ]; then
+                echo "Creating missing zip for: $album_name"
+                
+                # Create new zip with all files
+                files_to_zip=()
+                
+                # Add .lrc files
+                if ls "$album"/*.lrc 1> /dev/null 2>&1; then
+                  files_to_zip+=(*.lrc)
+                fi
+                
+                # Add .txt files
+                if ls "$album"/*.txt 1> /dev/null 2>&1; then
+                  files_to_zip+=(*.txt)
+                fi
+                
+                # Add meta.toml if exists
+                if [ -f "$album/meta.toml" ]; then
+                  files_to_zip+=(meta.toml)
+                fi
+                
+                # Add cover files if they exist
+                if ls "$album"/cover.* 1> /dev/null 2>&1; then
+                  files_to_zip+=(cover.*)
+                fi
+                
+                if [ ${#files_to_zip[@]} -gt 0 ]; then
+                  cd "$album"
+                  zip -q "../../$zip_file" -- ${files_to_zip[@]}
+                  cd ../..
+                  echo "Created $zip_file (with $(echo ${files_to_zip[@]} | wc -w) files)"
+                fi
+              fi
+            done
+          fi
 
           # Clean up orphan zip files in pack/ that no longer have corresponding album directories
           echo "Cleaning orphan zip files in pack/..."
@@ -128,14 +256,6 @@ jobs:
       - name: Install dependencies
         if: steps.check_commit.outputs.skip == 'false'
         run: npm install
-
-      - name: Clean albums directory
-        if: steps.check_commit.outputs.skip == 'false'
-        run: |
-          echo "Cleaning docs/albums directory..."
-          rm -rf docs/albums
-          mkdir -p docs/albums
-          echo "docs/albums cleaned and recreated"
 
       - name: Generate MD files
         if: steps.check_commit.outputs.skip == 'false'
