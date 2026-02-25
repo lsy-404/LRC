@@ -205,7 +205,24 @@
 
 ### 九光年宇宙
 
-_暂无 LRC 文件_
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (9 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [#1 九光年宇宙.lrc](res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%231%20%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%231%20%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99.lrc) |
+| [#2 ERRRRRRROR!!!!!!.lrc](res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%232%20ERRRRRRROR%21%21%21%21%21%21.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%232%20ERRRRRRROR%21%21%21%21%21%21.lrc) |
+| [#3 无风之地.lrc](res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%233%20%E6%97%A0%E9%A3%8E%E4%B9%8B%E5%9C%B0.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%233%20%E6%97%A0%E9%A3%8E%E4%B9%8B%E5%9C%B0.lrc) |
+| [#4 Mystery Stardust.lrc](res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%234%20Mystery%20Stardust.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%234%20Mystery%20Stardust.lrc) |
+| [#5 杳杳神京路.lrc](res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%235%20%E6%9D%B3%E6%9D%B3%E7%A5%9E%E4%BA%AC%E8%B7%AF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%235%20%E6%9D%B3%E6%9D%B3%E7%A5%9E%E4%BA%AC%E8%B7%AF.lrc) |
+| [#6 星液循环.lrc](res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%236%20%E6%98%9F%E6%B6%B2%E5%BE%AA%E7%8E%AF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%236%20%E6%98%9F%E6%B6%B2%E5%BE%AA%E7%8E%AF.lrc) |
+| [#7 碎镜.lrc](res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%237%20%E7%A2%8E%E9%95%9C.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%237%20%E7%A2%8E%E9%95%9C.lrc) |
+| [#8 祝福.lrc](res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%238%20%E7%A5%9D%E7%A6%8F.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%238%20%E7%A5%9D%E7%A6%8F.lrc) |
+| [#9 回声于我.lrc](res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%239%20%E5%9B%9E%E5%A3%B0%E4%BA%8E%E6%88%91.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99/%239%20%E5%9B%9E%E5%A3%B0%E4%BA%8E%E6%88%91.lrc) |
+
+</details>
 
 ---
 
