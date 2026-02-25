@@ -17,6 +17,7 @@ tagline: 虚拟歌姬专辑的信息导航与歌词共享资源库
 
 | | |
 |----|-----|
+| | <h3><a class="route-link" href="/albums/jiuguangnianyuzhou.html">九光年宇宙</a></h3>出品：被遗忘者的哀伤<br>发行日期：2026-02-24<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99.zip) |
 | <img src="/albums/Iris.png" alt="Iris 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/Iris.html">Iris</a></h3>出品：Zeno<br>发行日期：2026-01-31<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Iris.zip) |
 | <img src="/albums/zhongmeng_Journeyed_on_Everdream.jpg" alt="终梦Journeyed on Everdream 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/zhongmeng_Journeyed_on_Everdream.html">终梦Journeyed on Everdream</a></h3>出品：北极圈ArcticLab<br>发行日期：2025-12-24<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%88%E6%A2%A6Journeyed%20on%20Everdream.zip) |
 | <img src="/albums/Starlit_Whisper.png" alt="Starlit Whisper 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/Starlit_Whisper.html">Starlit Whisper</a></h3>出品：胧<br>发行日期：2025-12-05<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Starlit%20Whisper.zip) |
@@ -51,7 +52,6 @@ tagline: 虚拟歌姬专辑的信息导航与歌词共享资源库
 | <img src="/albums/qianseshiji.jpg" alt="茜色诗集 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/qianseshiji.html">茜色诗集</a></h3>出品：泠鸢yousa<br>发行日期：2016-12-04<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86.zip) |
 | <img src="/albums/pingxingsijieqingwenqingxiaoshuo_Vol1.png" alt="平行四界×轻文轻小说 Vol.1 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/pingxingsijieqingwenqingxiaoshuo_Vol1.html">平行四界×轻文轻小说 Vol.1</a></h3>出品：平行四界Quadimension<br>发行日期：2016-07-24<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8C%C3%97%E8%BD%BB%E6%96%87%E8%BD%BB%E5%B0%8F%E8%AF%B4%20Vol.1.zip) |
 | <img src="/albums/xingyuan_StarWish.jpg" alt="星愿StarWish 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/xingyuan_StarWish.html">星愿StarWish</a></h3>出品：五维介质Official<br>发行日期：2016-03-04<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E6%84%BFStarWish.zip) |
-| | <h3><a class="route-link" href="/albums/jiuguangnianyuzhou.html">九光年宇宙</a></h3>出品：不适用<br>发行日期：不适用<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%B9%9D%E5%85%89%E5%B9%B4%E5%AE%87%E5%AE%99.zip) |
 | <img src="/albums/danqu.jpg" alt="单曲 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/danqu.html">单曲</a></h3>出品：不适用<br>发行日期：不适用<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8D%95%E6%9B%B2.zip) |
 
 </div>

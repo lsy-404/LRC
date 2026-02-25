@@ -1,10 +1,12 @@
 ---
 title: 九光年宇宙
-order: -1
+date: 2026-02-24
+order: -20260224
 category:
-    - 未知出品方
+    - 被遗忘者的哀伤
 tag:
   - 九光年宇宙
+  - 被遗忘者的哀伤
   - 歌词
   - lrc
   - 下载
@@ -15,11 +17,15 @@ tag:
 
 
 
-**发布:** [Bilibili](https://space.bilibili.com/12836485/dynamic)
+**发行日期:** 2026-02-24
 
-**购买:** 尚未开售
+**出品:** 被遗忘者的哀伤
 
-**电子:** 尚未开售
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1yBfUBoEzh/)
+
+**购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?id=1019714314580) ￥52
+
+**电子:** 随专辑附赠
 
 ## 曲目列表
 
