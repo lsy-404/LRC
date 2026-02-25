@@ -8,7 +8,7 @@ tag:
   - 星愿StarWish
   - 五维介质Official
   - 星尘
-  - Ddicky
+  - Ddickky
   - 和田野
   - 冰镇甜豆浆
   - 大る古
@@ -46,11 +46,11 @@ tag:
 
 **演唱:** 星尘
 
-**作词:** Ddicky、和田野、冰镇甜豆浆、大る古、小野道、孙若曦、绿邪
+**作词:** Ddickky、和田野、冰镇甜豆浆、大る古、小野道、孙若曦、绿邪
 
 **作曲:** ZOMiG、战场原妖精、Kide、Zoey、MeLo、小野道、天钧、Li Zong
 
-**曲绘:** Nine、罒、零居Orz、TOMATO、Dangmill、swd3e2、唐不叮、Nineo
+**曲绘:** Nine、罒、零届Orz、TOMATO、Dangmill、swd3e2、唐不叮、Nineo
 
 ## 曲目列表
 
