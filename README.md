@@ -33,12 +33,15 @@
 - [平行四界×轻文轻小说 Vol.1](https://github.com/wuyilingwei/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8C%E8%BD%BB%E6%96%87%E8%BD%BB%E5%B0%8F%E8%AF%B4-vol1)
 - [星之海StarOcean](https://github.com/wuyilingwei/LRC#%E6%98%9F%E4%B9%8B%E6%B5%B7starocean)
 - [星愿StarWish](https://github.com/wuyilingwei/LRC#%E6%98%9F%E6%84%BFstarwish)
+- [月初日暮](https://github.com/wuyilingwei/LRC#%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE)
 - [森罗万象Kaleido](https://github.com/wuyilingwei/LRC#%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1kaleido)
+- [止谎剂](https://github.com/wuyilingwei/LRC#%E6%AD%A2%E8%B0%8E%E5%89%82)
 - [流星空间站](https://github.com/wuyilingwei/LRC#%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99)
 - [流星空间站II聆星者](https://github.com/wuyilingwei/LRC#%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99ii%E8%81%86%E6%98%9F%E8%80%85)
 - [海纳百川Storybook](https://github.com/wuyilingwei/LRC#%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9Dstorybook)
 - [甜食日记](https://github.com/wuyilingwei/LRC#%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0)
 - [生息Leave in Breath](https://github.com/wuyilingwei/LRC#%E7%94%9F%E6%81%AFleave-in-breath)
+- [百万花王](https://github.com/wuyilingwei/LRC#%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B)
 - [秘宝旅人I](https://github.com/wuyilingwei/LRC#%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAi)
 - [秘宝旅人II Polaris](https://github.com/wuyilingwei/LRC#%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAii-polaris)
 - [繁星于雨云之上](https://github.com/wuyilingwei/LRC#%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A)
@@ -46,6 +49,7 @@
 - [终梦Journeyed on Everdream](https://github.com/wuyilingwei/LRC#%E7%BB%88%E6%A2%A6journeyed-on-everdream)
 - [茜色诗集](https://github.com/wuyilingwei/LRC#%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86)
 - [藏雪SnowGrave](https://github.com/wuyilingwei/LRC#%E8%97%8F%E9%9B%AAsnowgrave)
+- [蝴蝶旅客](https://github.com/wuyilingwei/LRC#%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2)
 - [负片](https://github.com/wuyilingwei/LRC#%E8%B4%9F%E7%89%87)
 <!-- ALBUM_LIST_END -->
 
@@ -77,7 +81,7 @@
 
 ---
 
-<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/Freesia/cover.webp" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/Freesia/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### Freesia
 
@@ -600,6 +604,29 @@
 
 ---
 
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 月初日暮
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (7 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [1 日出.lrc](res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/1%20%E6%97%A5%E5%87%BA.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/1%20%E6%97%A5%E5%87%BA.lrc) |
+| [2 Mandala.lrc](res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/2%20Mandala.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/2%20Mandala.lrc) |
+| [3 灯火.lrc](res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/3%20%E7%81%AF%E7%81%AB.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/3%20%E7%81%AF%E7%81%AB.lrc) |
+| [4 酣梦流光.lrc](res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/4%20%E9%85%A3%E6%A2%A6%E6%B5%81%E5%85%89.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/4%20%E9%85%A3%E6%A2%A6%E6%B5%81%E5%85%89.lrc) |
+| [5 后知后觉.lrc](res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/5%20%E5%90%8E%E7%9F%A5%E5%90%8E%E8%A7%89.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/5%20%E5%90%8E%E7%9F%A5%E5%90%8E%E8%A7%89.lrc) |
+| [6 酣梦流光 feat.Minus std.lrc](res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/6%20%E9%85%A3%E6%A2%A6%E6%B5%81%E5%85%89%20feat.Minus%20std.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/6%20%E9%85%A3%E6%A2%A6%E6%B5%81%E5%85%89%20feat.Minus%20std.lrc) |
+| [7 后知后觉 feat.星尘V4.lrc](res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/7%20%E5%90%8E%E7%9F%A5%E5%90%8E%E8%A7%89%20feat.%E6%98%9F%E5%B0%98V4.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/7%20%E5%90%8E%E7%9F%A5%E5%90%8E%E8%A7%89%20feat.%E6%98%9F%E5%B0%98V4.lrc) |
+
+</details>
+
+---
+
 <img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 森罗万象Kaleido
@@ -619,6 +646,32 @@
 | [07. Talking to the Rain - 星尘 & 海伊.lrc](res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/07.%20Talking%20to%20the%20Rain%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/07.%20Talking%20to%20the%20Rain%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A.lrc) |
 | [08. 尘埃 - 星尘.lrc](res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/08.%20%E5%B0%98%E5%9F%83%20-%20%E6%98%9F%E5%B0%98.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/08.%20%E5%B0%98%E5%9F%83%20-%20%E6%98%9F%E5%B0%98.lrc) |
 | [09. 斑驳 - 星尘 & 海伊 & 赤羽.lrc](res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/09.%20%E6%96%91%E9%A9%B3%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/09.%20%E6%96%91%E9%A9%B3%20-%20%E6%98%9F%E5%B0%98%20%26%20%E6%B5%B7%E4%BC%8A%20%26%20%E8%B5%A4%E7%BE%BD.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E6%AD%A2%E8%B0%8E%E5%89%82/cover.png" alt="专辑封面" width="120" align="right">
+
+### 止谎剂
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%AD%A2%E8%B0%8E%E5%89%82.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (10 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [01 catcH mE.lrc](res/%E6%AD%A2%E8%B0%8E%E5%89%82/01%20catcH%20mE.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%AD%A2%E8%B0%8E%E5%89%82/01%20catcH%20mE.lrc) |
+| [02 有罪者的罗曼蒂克.lrc](res/%E6%AD%A2%E8%B0%8E%E5%89%82/02%20%E6%9C%89%E7%BD%AA%E8%80%85%E7%9A%84%E7%BD%97%E6%9B%BC%E8%92%82%E5%85%8B.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%AD%A2%E8%B0%8E%E5%89%82/02%20%E6%9C%89%E7%BD%AA%E8%80%85%E7%9A%84%E7%BD%97%E6%9B%BC%E8%92%82%E5%85%8B.lrc) |
+| [03 荒诞戏剧.lrc](res/%E6%AD%A2%E8%B0%8E%E5%89%82/03%20%E8%8D%92%E8%AF%9E%E6%88%8F%E5%89%A7.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%AD%A2%E8%B0%8E%E5%89%82/03%20%E8%8D%92%E8%AF%9E%E6%88%8F%E5%89%A7.lrc) |
+| [04 戒断反应.lrc](res/%E6%AD%A2%E8%B0%8E%E5%89%82/04%20%E6%88%92%E6%96%AD%E5%8F%8D%E5%BA%94.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%AD%A2%E8%B0%8E%E5%89%82/04%20%E6%88%92%E6%96%AD%E5%8F%8D%E5%BA%94.lrc) |
+| [05 对立面.lrc](res/%E6%AD%A2%E8%B0%8E%E5%89%82/05%20%E5%AF%B9%E7%AB%8B%E9%9D%A2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%AD%A2%E8%B0%8E%E5%89%82/05%20%E5%AF%B9%E7%AB%8B%E9%9D%A2.lrc) |
+| [06 糖果.lrc](res/%E6%AD%A2%E8%B0%8E%E5%89%82/06%20%E7%B3%96%E6%9E%9C.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%AD%A2%E8%B0%8E%E5%89%82/06%20%E7%B3%96%E6%9E%9C.lrc) |
+| [07 审判结束之时.lrc](res/%E6%AD%A2%E8%B0%8E%E5%89%82/07%20%E5%AE%A1%E5%88%A4%E7%BB%93%E6%9D%9F%E4%B9%8B%E6%97%B6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%AD%A2%E8%B0%8E%E5%89%82/07%20%E5%AE%A1%E5%88%A4%E7%BB%93%E6%9D%9F%E4%B9%8B%E6%97%B6.lrc) |
+| [08 boys, girls..lrc](res/%E6%AD%A2%E8%B0%8E%E5%89%82/08%20boys%2C%20girls..lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%AD%A2%E8%B0%8E%E5%89%82/08%20boys%2C%20girls..lrc) |
+| [09 catcH mE (Remix).lrc](res/%E6%AD%A2%E8%B0%8E%E5%89%82/09%20catcH%20mE%20%28Remix%29.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%AD%A2%E8%B0%8E%E5%89%82/09%20catcH%20mE%20%28Remix%29.lrc) |
+| [10 荒诞戏剧 (Remix).lrc](res/%E6%AD%A2%E8%B0%8E%E5%89%82/10%20%E8%8D%92%E8%AF%9E%E6%88%8F%E5%89%A7%20%28Remix%29.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%AD%A2%E8%B0%8E%E5%89%82/10%20%E8%8D%92%E8%AF%9E%E6%88%8F%E5%89%A7%20%28Remix%29.lrc) |
 
 </details>
 
@@ -726,6 +779,32 @@ _暂无 LRC 文件_
 | [7 As a Moment(remake).lrc](res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/7%20As%20a%20Moment%28remake%29.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/7%20As%20a%20Moment%28remake%29.lrc) |
 | [8 群星赠予的舞台.lrc](res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/8%20%E7%BE%A4%E6%98%9F%E8%B5%A0%E4%BA%88%E7%9A%84%E8%88%9E%E5%8F%B0.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/8%20%E7%BE%A4%E6%98%9F%E8%B5%A0%E4%BA%88%E7%9A%84%E8%88%9E%E5%8F%B0.lrc) |
 | [9 依存分离.lrc](res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/9%20%E4%BE%9D%E5%AD%98%E5%88%86%E7%A6%BB.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/9%20%E4%BE%9D%E5%AD%98%E5%88%86%E7%A6%BB.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 百万花王
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (10 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [01 我偏独坐第一香-Instrumental-.lrc](res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/01%20%E6%88%91%E5%81%8F%E7%8B%AC%E5%9D%90%E7%AC%AC%E4%B8%80%E9%A6%99-Instrumental-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/01%20%E6%88%91%E5%81%8F%E7%8B%AC%E5%9D%90%E7%AC%AC%E4%B8%80%E9%A6%99-Instrumental-.lrc) |
+| [02 西西里的自由诗.lrc](res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/02%20%E8%A5%BF%E8%A5%BF%E9%87%8C%E7%9A%84%E8%87%AA%E7%94%B1%E8%AF%97.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/02%20%E8%A5%BF%E8%A5%BF%E9%87%8C%E7%9A%84%E8%87%AA%E7%94%B1%E8%AF%97.lrc) |
+| [03 时一现耳三千岁.lrc](res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/03%20%E6%97%B6%E4%B8%80%E7%8E%B0%E8%80%B3%E4%B8%89%E5%8D%83%E5%B2%81.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/03%20%E6%97%B6%E4%B8%80%E7%8E%B0%E8%80%B3%E4%B8%89%E5%8D%83%E5%B2%81.lrc) |
+| [04 优雅的罪恶之源.lrc](res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/04%20%E4%BC%98%E9%9B%85%E7%9A%84%E7%BD%AA%E6%81%B6%E4%B9%8B%E6%BA%90.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/04%20%E4%BC%98%E9%9B%85%E7%9A%84%E7%BD%AA%E6%81%B6%E4%B9%8B%E6%BA%90.lrc) |
+| [05 梨花泽泽远山远.lrc](res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/05%20%E6%A2%A8%E8%8A%B1%E6%B3%BD%E6%B3%BD%E8%BF%9C%E5%B1%B1%E8%BF%9C.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/05%20%E6%A2%A8%E8%8A%B1%E6%B3%BD%E6%B3%BD%E8%BF%9C%E5%B1%B1%E8%BF%9C.lrc) |
+| [06 夜半闻声有归人.lrc](res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/06%20%E5%A4%9C%E5%8D%8A%E9%97%BB%E5%A3%B0%E6%9C%89%E5%BD%92%E4%BA%BA.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/06%20%E5%A4%9C%E5%8D%8A%E9%97%BB%E5%A3%B0%E6%9C%89%E5%BD%92%E4%BA%BA.lrc) |
+| [07 生死一舞的爱语.lrc](res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/07%20%E7%94%9F%E6%AD%BB%E4%B8%80%E8%88%9E%E7%9A%84%E7%88%B1%E8%AF%AD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/07%20%E7%94%9F%E6%AD%BB%E4%B8%80%E8%88%9E%E7%9A%84%E7%88%B1%E8%AF%AD.lrc) |
+| [08 百里芭蕉百里花.lrc](res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/08%20%E7%99%BE%E9%87%8C%E8%8A%AD%E8%95%89%E7%99%BE%E9%87%8C%E8%8A%B1.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/08%20%E7%99%BE%E9%87%8C%E8%8A%AD%E8%95%89%E7%99%BE%E9%87%8C%E8%8A%B1.lrc) |
+| [09 为新生振翅而上.lrc](res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/09%20%E4%B8%BA%E6%96%B0%E7%94%9F%E6%8C%AF%E7%BF%85%E8%80%8C%E4%B8%8A.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/09%20%E4%B8%BA%E6%96%B0%E7%94%9F%E6%8C%AF%E7%BF%85%E8%80%8C%E4%B8%8A.lrc) |
+| [10 沉溺在神的砂海.lrc](res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/10%20%E6%B2%89%E6%BA%BA%E5%9C%A8%E7%A5%9E%E7%9A%84%E7%A0%82%E6%B5%B7.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%99%BE%E4%B8%87%E8%8A%B1%E7%8E%8B/10%20%E6%B2%89%E6%BA%BA%E5%9C%A8%E7%A5%9E%E7%9A%84%E7%A0%82%E6%B5%B7.lrc) |
 
 </details>
 
@@ -892,6 +971,32 @@ _暂无 LRC 文件_
 | [03 - 爱意痉挛.lrc](res/%E8%97%8F%E9%9B%AASnowGrave/03%20-%20%E7%88%B1%E6%84%8F%E7%97%89%E6%8C%9B.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/03%20-%20%E7%88%B1%E6%84%8F%E7%97%89%E6%8C%9B.lrc) |
 | [04 - 潮息.lrc](res/%E8%97%8F%E9%9B%AASnowGrave/04%20-%20%E6%BD%AE%E6%81%AF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/04%20-%20%E6%BD%AE%E6%81%AF.lrc) |
 | [05 - 不孤单的自由夜晚.lrc](res/%E8%97%8F%E9%9B%AASnowGrave/05%20-%20%E4%B8%8D%E5%AD%A4%E5%8D%95%E7%9A%84%E8%87%AA%E7%94%B1%E5%A4%9C%E6%99%9A.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%97%8F%E9%9B%AASnowGrave/05%20-%20%E4%B8%8D%E5%AD%A4%E5%8D%95%E7%9A%84%E8%87%AA%E7%94%B1%E5%A4%9C%E6%99%9A.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 蝴蝶旅客
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (10 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [01 一日都市.lrc](res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/01%20%E4%B8%80%E6%97%A5%E9%83%BD%E5%B8%82.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/01%20%E4%B8%80%E6%97%A5%E9%83%BD%E5%B8%82.lrc) |
+| [02 超远距连接.lrc](res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/02%20%E8%B6%85%E8%BF%9C%E8%B7%9D%E8%BF%9E%E6%8E%A5.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/02%20%E8%B6%85%E8%BF%9C%E8%B7%9D%E8%BF%9E%E6%8E%A5.lrc) |
+| [03 蝴蝶旅客.lrc](res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/03%20%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/03%20%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2.lrc) |
+| [04 自由论.lrc](res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/04%20%E8%87%AA%E7%94%B1%E8%AE%BA.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/04%20%E8%87%AA%E7%94%B1%E8%AE%BA.lrc) |
+| [05 chu~chu~chu~.lrc](res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/05%20chu~chu~chu~.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/05%20chu~chu~chu~.lrc) |
+| [06 妈妈说.lrc](res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/06%20%E5%A6%88%E5%A6%88%E8%AF%B4.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/06%20%E5%A6%88%E5%A6%88%E8%AF%B4.lrc) |
+| [07 Twinkle Star.lrc](res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/07%20Twinkle%20Star.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/07%20Twinkle%20Star.lrc) |
+| [08 魔女日志.lrc](res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/08%20%E9%AD%94%E5%A5%B3%E6%97%A5%E5%BF%97.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/08%20%E9%AD%94%E5%A5%B3%E6%97%A5%E5%BF%97.lrc) |
+| [09 苍白梦书.lrc](res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/09%20%E8%8B%8D%E7%99%BD%E6%A2%A6%E4%B9%A6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/09%20%E8%8B%8D%E7%99%BD%E6%A2%A6%E4%B9%A6.lrc) |
+| [10 你好哈雷.lrc](res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/10%20%E4%BD%A0%E5%A5%BD%E5%93%88%E9%9B%B7.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/10%20%E4%BD%A0%E5%A5%BD%E5%93%88%E9%9B%B7.lrc) |
 
 </details>
 
