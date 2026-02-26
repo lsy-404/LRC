@@ -3,10 +3,10 @@ title: 丛林法则Jungle Rules
 date: 2020-02-28
 order: -20200228
 category:
-    - 五维介质Official
+    - 平行四界Quadimension
 tag:
   - 丛林法则Jungle Rules
-  - 五维介质Official
+  - 平行四界Quadimension
   - 星尘
   - 苍穹
   - 诗岸
@@ -37,7 +37,7 @@ tag:
 
 **发行日期:** 2020-02-28
 
-**出品:** 五维介质Official
+**出品:** 平行四界Quadimension
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV147411N79K/)
 

@@ -3,10 +3,10 @@ title: 星之海StarOcean
 date: 2018-08-11
 order: -20180811
 category:
-    - 五维介质Official
+    - 平行四界Quadimension
 tag:
   - 星之海StarOcean
-  - 五维介质Official
+  - 平行四界Quadimension
   - 星尘
   - 海伊
   - 大♂古
@@ -35,7 +35,7 @@ tag:
 
 **发行日期:** 2018-08-11
 
-**出品:** 五维介质Official
+**出品:** 平行四界Quadimension
 
 **歌词制作:** RQvan
 

@@ -3,10 +3,10 @@ title: 星愿StarWish
 date: 2016-03-04
 order: -20160304
 category:
-    - 五维介质Official
+    - 平行四界Quadimension
 tag:
   - 星愿StarWish
-  - 五维介质Official
+  - 平行四界Quadimension
   - 星尘
   - Ddickky
   - 和田野
@@ -34,7 +34,7 @@ tag:
 
 **发行日期:** 2016-03-04
 
-**出品:** 五维介质Official
+**出品:** 平行四界Quadimension
 
 **歌词制作:** Baka632
 

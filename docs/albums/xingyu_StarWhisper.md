@@ -3,10 +3,10 @@ title: 星语StarWhisper
 date: 2017-01-31
 order: -20170131
 category:
-    - 五维介质Official
+    - 平行四界Quadimension
 tag:
   - 星语StarWhisper
-  - 五维介质Official
+  - 平行四界Quadimension
   - 星尘
   - Ddickky
   - 冥凰
@@ -34,7 +34,7 @@ tag:
 
 **发行日期:** 2017-01-31
 
-**出品:** 五维介质Official
+**出品:** 平行四界Quadimension
 
 **歌词制作:** RQvan
 

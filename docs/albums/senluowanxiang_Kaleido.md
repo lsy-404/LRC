@@ -3,10 +3,10 @@ title: 森罗万象Kaleido
 date: 2019-10-05
 order: -20191005
 category:
-    - 五维介质Official
+    - 平行四界Quadimension
 tag:
   - 森罗万象Kaleido
-  - 五维介质Official
+  - 平行四界Quadimension
   - 星尘
   - 海伊
   - 赤羽
@@ -34,7 +34,7 @@ tag:
 
 **发行日期:** 2019-10-05
 
-**出品:** 五维介质Official
+**出品:** 平行四界Quadimension
 
 **歌词制作:** 武乙凌薇
 

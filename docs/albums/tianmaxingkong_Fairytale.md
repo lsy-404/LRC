@@ -3,10 +3,10 @@ title: 天马行空Fairytale
 date: 2019-07-05
 order: -20190705
 category:
-    - 五维介质Official
+    - 平行四界Quadimension
 tag:
   - 天马行空Fairytale
-  - 五维介质Official
+  - 平行四界Quadimension
   - 星尘
   - 赤羽
   - 诗岸
@@ -41,7 +41,7 @@ tag:
 
 **发行日期:** 2019-07-05
 
-**出品:** 五维介质Official
+**出品:** 平行四界Quadimension
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1k4411c7Ge/)
 

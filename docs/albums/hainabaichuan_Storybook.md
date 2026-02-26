@@ -3,10 +3,10 @@ title: 海纳百川Storybook
 date: 2020-11-06
 order: -20201106
 category:
-    - 五维介质Official
+    - 平行四界Quadimension
 tag:
   - 海纳百川Storybook
-  - 五维介质Official
+  - 平行四界Quadimension
   - 星尘
   - 海伊
   - 诗岸
@@ -41,7 +41,7 @@ tag:
 
 **发行日期:** 2020-11-06
 
-**出品:** 五维介质Official
+**出品:** 平行四界Quadimension
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1ND4y1R7fB/)
 

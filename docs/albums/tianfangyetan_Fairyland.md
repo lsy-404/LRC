@@ -3,10 +3,10 @@ title: 天方夜谭Fairyland
 date: 2019-04-05
 order: -20190405
 category:
-    - 五维介质Official
+    - 平行四界Quadimension
 tag:
   - 天方夜谭Fairyland
-  - 五维介质Official
+  - 平行四界Quadimension
   - 星尘
   - 海伊
   - 苍穹
@@ -33,7 +33,7 @@ tag:
 
 **发行日期:** 2019-04-05
 
-**出品:** 五维介质Official
+**出品:** 平行四界Quadimension
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1bb411g7Zq/)
 

@@ -3,10 +3,10 @@ title: 平行四界Quadimension X-2
 date: 2021-10-29
 order: -20211029
 category:
-    - 五维介质Official
+    - 平行四界Quadimension
 tag:
   - 平行四界Quadimension X-2
-  - 五维介质Official
+  - 平行四界Quadimension
   - 星尘
   - 海伊
   - 诗岸
@@ -37,7 +37,7 @@ tag:
 
 **发行日期:** 2021-10-29
 
-**出品:** 五维介质Official
+**出品:** 平行四界Quadimension
 
 **歌词制作:** 吸尘器
 

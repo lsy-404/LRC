@@ -3,10 +3,10 @@ title: 平行四界Quadimension Finale
 date: 2023-05-24
 order: -20230524
 category:
-    - 五维介质Official
+    - 平行四界Quadimension
 tag:
   - 平行四界Quadimension Finale
-  - 五维介质Official
+  - 平行四界Quadimension
   - 海伊
   - 赤羽
   - 诗岸
@@ -39,7 +39,7 @@ tag:
 
 **发行日期:** 2023-05-24
 
-**出品:** 五维介质Official
+**出品:** 平行四界Quadimension
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1JX4y1h76t/)
 

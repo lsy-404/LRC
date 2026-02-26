@@ -3,10 +3,10 @@ title: 吉光片羽Queendom
 date: 2020-06-12
 order: -20200612
 category:
-    - 五维介质Official
+    - 平行四界Quadimension
 tag:
   - 吉光片羽Queendom
-  - 五维介质Official
+  - 平行四界Quadimension
   - 星尘
   - 苍穹
   - 赤羽
@@ -41,7 +41,7 @@ tag:
 
 **发行日期:** 2020-06-12
 
-**出品:** 五维介质Official
+**出品:** 平行四界Quadimension
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1BA411v7uJ/)
 

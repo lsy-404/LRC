@@ -3,10 +3,10 @@ title: 平行四界Quadimension X-1
 date: 2021-06-04
 order: -20210604
 category:
-    - 五维介质Official
+    - 平行四界Quadimension
 tag:
   - 平行四界Quadimension X-1
-  - 五维介质Official
+  - 平行四界Quadimension
   - 浓缩排骨
   - K_Lacid
   - 大九_LN
@@ -35,7 +35,7 @@ tag:
 
 **发行日期:** 2021-06-04
 
-**出品:** 五维介质Official
+**出品:** 平行四界Quadimension
 
 **歌词制作:** 虎啸ROAR
 

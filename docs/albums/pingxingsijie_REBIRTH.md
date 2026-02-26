@@ -3,10 +3,10 @@ title: 平行四界REBIRTH
 date: 2025-08-12
 order: -20250812
 category:
-    - 五维介质Official
+    - 平行四界Quadimension
 tag:
   - 平行四界REBIRTH
-  - 五维介质Official
+  - 平行四界Quadimension
   - 星尘
   - 赤羽
   - 海伊
@@ -38,7 +38,7 @@ tag:
 
 **发行日期:** 2025-08-12
 
-**出品:** 五维介质Official
+**出品:** 平行四界Quadimension
 
 **歌词制作:** 武乙凌薇
 
