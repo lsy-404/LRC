@@ -30,7 +30,7 @@ tag:
 
 **出品:** 奶牛组
 
-**歌词制作:** 高冷帝佚名
+**歌词制作:** 高冷帝佚名(Polaris_Light)
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1fJ411r7WC/)
 

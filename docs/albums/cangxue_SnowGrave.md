@@ -32,6 +32,8 @@ tag:
 
 **出品:** 北极圈ArcticLab
 
+**歌词制作:** RQvan
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV18a4y117p2/)
 
 **购买:** 通贩不可用
