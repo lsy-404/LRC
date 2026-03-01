@@ -14,6 +14,7 @@
 - [ELOHIM](https://github.com/wuyilingwei/LRC#elohim)
 - [Freesia](https://github.com/wuyilingwei/LRC#freesia)
 - [Iris](https://github.com/wuyilingwei/LRC#iris)
+- [Killer Maids from Outer Space](https://github.com/wuyilingwei/LRC#killer-maids-from-outer-space)
 - [Starlit Whisper](https://github.com/wuyilingwei/LRC#starlit-whisper)
 - [Write You a Song](https://github.com/wuyilingwei/LRC#write-you-a-song)
 - [『FM40.4』](https://github.com/wuyilingwei/LRC#fm404)
@@ -138,6 +139,30 @@
 | [05.魔女之宴.lrc](res/Iris/05.%E9%AD%94%E5%A5%B3%E4%B9%8B%E5%AE%B4.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/05.%E9%AD%94%E5%A5%B3%E4%B9%8B%E5%AE%B4.lrc) |
 | [06.诗人之茧.lrc](res/Iris/06.%E8%AF%97%E4%BA%BA%E4%B9%8B%E8%8C%A7.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/06.%E8%AF%97%E4%BA%BA%E4%B9%8B%E8%8C%A7.lrc) |
 | [Iris.lrc](res/Iris/Iris.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/Iris.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/Killer%20Maids%20from%20Outer%20Space/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### Killer Maids from Outer Space
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Killer%20Maids%20from%20Outer%20Space.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (8 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [01. □□街残酷史.lrc](res/Killer%20Maids%20from%20Outer%20Space/01.%20%E2%96%A1%E2%96%A1%E8%A1%97%E6%AE%8B%E9%85%B7%E5%8F%B2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Killer%20Maids%20from%20Outer%20Space/01.%20%E2%96%A1%E2%96%A1%E8%A1%97%E6%AE%8B%E9%85%B7%E5%8F%B2.lrc) |
+| [02. □□□.lrc](res/Killer%20Maids%20from%20Outer%20Space/02.%20%E2%96%A1%E2%96%A1%E2%96%A1.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Killer%20Maids%20from%20Outer%20Space/02.%20%E2%96%A1%E2%96%A1%E2%96%A1.lrc) |
+| [03. 维多利亚.lrc](res/Killer%20Maids%20from%20Outer%20Space/03.%20%E7%BB%B4%E5%A4%9A%E5%88%A9%E4%BA%9A.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Killer%20Maids%20from%20Outer%20Space/03.%20%E7%BB%B4%E5%A4%9A%E5%88%A9%E4%BA%9A.lrc) |
+| [04. 炎症期.lrc](res/Killer%20Maids%20from%20Outer%20Space/04.%20%E7%82%8E%E7%97%87%E6%9C%9F.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Killer%20Maids%20from%20Outer%20Space/04.%20%E7%82%8E%E7%97%87%E6%9C%9F.lrc) |
+| [05. ΙΩγΣεΟΠφ.lrc](res/Killer%20Maids%20from%20Outer%20Space/05.%20%CE%99%CE%A9%CE%B3%CE%A3%CE%B5%CE%9F%CE%A0%CF%86.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Killer%20Maids%20from%20Outer%20Space/05.%20%CE%99%CE%A9%CE%B3%CE%A3%CE%B5%CE%9F%CE%A0%CF%86.lrc) |
+| [06. 烂尾.lrc](res/Killer%20Maids%20from%20Outer%20Space/06.%20%E7%83%82%E5%B0%BE.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Killer%20Maids%20from%20Outer%20Space/06.%20%E7%83%82%E5%B0%BE.lrc) |
+| [07. I＝IIINESS.lrc](res/Killer%20Maids%20from%20Outer%20Space/07.%20I%EF%BC%9DIIINESS.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Killer%20Maids%20from%20Outer%20Space/07.%20I%EF%BC%9DIIINESS.lrc) |
+| [08. 早春-过失x天际线.lrc](res/Killer%20Maids%20from%20Outer%20Space/08.%20%E6%97%A9%E6%98%A5-%E8%BF%87%E5%A4%B1x%E5%A4%A9%E9%99%85%E7%BA%BF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Killer%20Maids%20from%20Outer%20Space/08.%20%E6%97%A9%E6%98%A5-%E8%BF%87%E5%A4%B1x%E5%A4%A9%E9%99%85%E7%BA%BF.lrc) |
 
 </details>
 
