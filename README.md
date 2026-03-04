@@ -42,6 +42,7 @@
 - [星语StarWhisper](https://github.com/wuyilingwei/LRC#%E6%98%9F%E8%AF%ADstarwhisper)
 - [月光入侵计划](https://github.com/wuyilingwei/LRC#%E6%9C%88%E5%85%89%E5%85%A5%E4%BE%B5%E8%AE%A1%E5%88%92)
 - [月初日暮](https://github.com/wuyilingwei/LRC#%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE)
+- [枫烬](https://github.com/wuyilingwei/LRC#%E6%9E%AB%E7%83%AC)
 - [森罗万象Kaleido](https://github.com/wuyilingwei/LRC#%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1kaleido)
 - [止谎剂](https://github.com/wuyilingwei/LRC#%E6%AD%A2%E8%B0%8E%E5%89%82)
 - [流星空间站](https://github.com/wuyilingwei/LRC#%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99)
@@ -840,6 +841,32 @@
 | [5 后知后觉.lrc](res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/5%20%E5%90%8E%E7%9F%A5%E5%90%8E%E8%A7%89.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/5%20%E5%90%8E%E7%9F%A5%E5%90%8E%E8%A7%89.lrc) |
 | [6 酣梦流光 feat.Minus std.lrc](res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/6%20%E9%85%A3%E6%A2%A6%E6%B5%81%E5%85%89%20feat.Minus%20std.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/6%20%E9%85%A3%E6%A2%A6%E6%B5%81%E5%85%89%20feat.Minus%20std.lrc) |
 | [7 后知后觉 feat.星尘V4.lrc](res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/7%20%E5%90%8E%E7%9F%A5%E5%90%8E%E8%A7%89%20feat.%E6%98%9F%E5%B0%98V4.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/7%20%E5%90%8E%E7%9F%A5%E5%90%8E%E8%A7%89%20feat.%E6%98%9F%E5%B0%98V4.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E6%9E%AB%E7%83%AC/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 枫烬
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%9E%AB%E7%83%AC.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (10 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [1 枫声.lrc](res/%E6%9E%AB%E7%83%AC/1%20%E6%9E%AB%E5%A3%B0.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/1%20%E6%9E%AB%E5%A3%B0.lrc) |
+| [10 灰烬.lrc](res/%E6%9E%AB%E7%83%AC/10%20%E7%81%B0%E7%83%AC.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/10%20%E7%81%B0%E7%83%AC.lrc) |
+| [2 放逐自我.lrc](res/%E6%9E%AB%E7%83%AC/2%20%E6%94%BE%E9%80%90%E8%87%AA%E6%88%91.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/2%20%E6%94%BE%E9%80%90%E8%87%AA%E6%88%91.lrc) |
+| [3 雨落风铃.lrc](res/%E6%9E%AB%E7%83%AC/3%20%E9%9B%A8%E8%90%BD%E9%A3%8E%E9%93%83.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/3%20%E9%9B%A8%E8%90%BD%E9%A3%8E%E9%93%83.lrc) |
+| [4 诗的教诲.lrc](res/%E6%9E%AB%E7%83%AC/4%20%E8%AF%97%E7%9A%84%E6%95%99%E8%AF%B2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/4%20%E8%AF%97%E7%9A%84%E6%95%99%E8%AF%B2.lrc) |
+| [5 记忆里的过去.lrc](res/%E6%9E%AB%E7%83%AC/5%20%E8%AE%B0%E5%BF%86%E9%87%8C%E7%9A%84%E8%BF%87%E5%8E%BB.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/5%20%E8%AE%B0%E5%BF%86%E9%87%8C%E7%9A%84%E8%BF%87%E5%8E%BB.lrc) |
+| [6 花的七种语言.lrc](res/%E6%9E%AB%E7%83%AC/6%20%E8%8A%B1%E7%9A%84%E4%B8%83%E7%A7%8D%E8%AF%AD%E8%A8%80.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/6%20%E8%8A%B1%E7%9A%84%E4%B8%83%E7%A7%8D%E8%AF%AD%E8%A8%80.lrc) |
+| [7 卑微着完美.lrc](res/%E6%9E%AB%E7%83%AC/7%20%E5%8D%91%E5%BE%AE%E7%9D%80%E5%AE%8C%E7%BE%8E.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/7%20%E5%8D%91%E5%BE%AE%E7%9D%80%E5%AE%8C%E7%BE%8E.lrc) |
+| [8 多想多想.lrc](res/%E6%9E%AB%E7%83%AC/8%20%E5%A4%9A%E6%83%B3%E5%A4%9A%E6%83%B3.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/8%20%E5%A4%9A%E6%83%B3%E5%A4%9A%E6%83%B3.lrc) |
+| [9 一半.lrc](res/%E6%9E%AB%E7%83%AC/9%20%E4%B8%80%E5%8D%8A.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/9%20%E4%B8%80%E5%8D%8A.lrc) |
 
 </details>
 
