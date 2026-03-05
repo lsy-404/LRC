@@ -1,6 +1,5 @@
 ---
 title: 夏日应时而至（彩胶版）
-order: -1
 category:
     - 未知出品方
 tag:
