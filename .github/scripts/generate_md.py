@@ -105,6 +105,13 @@ def ensure_dirs() -> None:
 
 def parse_sortable_date(value: str) -> tuple[int, int, int]:
     text = (value or "").strip()
+    
+    # 特殊处理："1970-01-01" 表示"不适用"，应排在无配置之前、有效日期之后
+    # 使用 (1, 1, 1) 确保在 reverse=True 排序时排在 (0, 1, 1) 之前
+    if text == "1970-01-01":
+        return (1, 1, 1)
+    
+    # 空值或"缺少信息"返回最小值，排在最后
     if not text or text == "缺少信息":
         return (0, 1, 1)
 
@@ -260,7 +267,9 @@ tag:
         if is_disabled_value(produce_display):
             produce_display = "不适用"
         
-        year_display = str(info["year"] or "")
+        # 保存原始year值用于排序，year_display用于显示
+        year_raw = str(info["year"] or "")
+        year_display = year_raw
         if is_disabled_value(year_display) or year_display == "1970-01-01":
             year_display = "不适用"
         
@@ -271,11 +280,13 @@ tag:
                 "cover": cover_url,
                 "produce": produce_display,
                 "year": year_display,
+                "year_raw": year_raw,  # 用于排序的原始值
                 "tags": tags,
             }
         )
 
-    album_cards.sort(key=lambda card: parse_sortable_date(str(card["year"])), reverse=True)
+    # 使用原始year值进行排序，而不是显示值
+    album_cards.sort(key=lambda card: parse_sortable_date(str(card["year_raw"])), reverse=True)
 
     cards_text = ["| | |", "|----|-----|"]
     for card in album_cards:
