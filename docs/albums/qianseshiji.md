@@ -30,6 +30,8 @@ tag:
 
 **出品:** 泠鸢yousa
 
+**歌词制作:** [Bilibili](https://www.bilibili.com/video/BV1Ys411r7T4/)\"
+
 **电子:** [Dizzylab](https://www.dizzylab.net/d/akanepoems/) ￥25
 
 **演唱:** 泠鸢yousa
