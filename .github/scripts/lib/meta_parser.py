@@ -24,10 +24,59 @@ def _decode_bytes(raw: bytes) -> str:
     return raw.decode("utf-8", errors="replace")
 
 
+def _unescape_toml_string(s: str) -> str:
+    """解析 TOML 字符串中的转义序列。
+    
+    支持标准 TOML 转义：\\, \", \n, \t, \r, \b, \f
+    """
+    result = []
+    i = 0
+    while i < len(s):
+        if s[i] == '\\' and i + 1 < len(s):
+            next_char = s[i + 1]
+            if next_char == '\\':
+                result.append('\\')
+                i += 2
+            elif next_char == '"':
+                result.append('"')
+                i += 2
+            elif next_char == "'":
+                result.append("'")
+                i += 2
+            elif next_char == 'n':
+                result.append('\n')
+                i += 2
+            elif next_char == 't':
+                result.append('\t')
+                i += 2
+            elif next_char == 'r':
+                result.append('\r')
+                i += 2
+            elif next_char == 'b':
+                result.append('\b')
+                i += 2
+            elif next_char == 'f':
+                result.append('\f')
+                i += 2
+            else:
+                # 未识别的转义序列，保留原样
+                result.append(s[i])
+                i += 1
+        else:
+            result.append(s[i])
+            i += 1
+    return ''.join(result)
+
+
 def _parse_scalar(value: str) -> str:
     text = value.strip()
     if len(text) >= 2 and ((text[0] == '"' and text[-1] == '"') or (text[0] == "'" and text[-1] == "'")):
-        return text[1:-1]
+        inner = text[1:-1]
+        # 对双引号字符串处理转义序列
+        if text[0] == '"':
+            return _unescape_toml_string(inner)
+        # 单引号字符串不处理转义（TOML规范）
+        return inner
     return text
 
 
