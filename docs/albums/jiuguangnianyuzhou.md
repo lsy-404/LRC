@@ -44,7 +44,7 @@ tag:
 
 **出品:** 被遗忘者的哀伤
 
-**歌词制作:** 武乙凌薇&RQvan
+**歌词制作:** 武乙凌薇、RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1yBfUBoEzh/)
 

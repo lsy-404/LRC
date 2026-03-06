@@ -244,7 +244,7 @@ def main() -> None:
         md_content = f"""---
 title: {album}
 {date_line}{order_line}category:
-    - {category_value}
+  - {category_value}
 tag:
 {''.join(f'  - {tag}\n' for tag in tags)}---
 
