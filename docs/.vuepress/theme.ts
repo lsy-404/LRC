@@ -54,9 +54,17 @@ export default hopeTheme({
   // 禁用页面目录
   toc: false,
 
-  footer: `V宇宙词站<br>Powered by <a href="https://v2.vuepress.vuejs.org/" target="_blank"><b>Vuepress</b></a> v2`,
+  footer: `V宇宙词站
+  <br>
+    <a href="https://v2.vuepress.vuejs.org/" target="_blank">
+      <img src="https://img.shields.io/badge/Powered%20by-Vuepress%20v2-3eaf7c?style=flat-square&logo=vuedotjs" alt="Powered by Vuepress v2">
+    </a>
+  <br>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+      <img src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-ef9421?style=flat-square&logo=creativecommons&logoColor=white" alt="CC BY-NC-SA 4.0">
+    </a>`,
 
-  copyright: "Copyright © 2026-Now All rights reserved.",
+  copyright: "Copyright © 2026-Now V宇宙词站及贡献者。<br>本站内容遵循 <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans' target='_blank'><b>CC BY-NC-SA 4.0</b></a> 授权<br>商业使用请参阅 <a href=\"/about.html#使用协议\"><b>认定解释与豁免条款</b></a>",
 
   displayFooter: true,
 

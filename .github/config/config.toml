@@ -163,3 +163,31 @@ by = "lyric_maker"
 [optimize]
 exclude_dirs = [".git", ".github", "scripts", "node_modules", ".vscode"]
 extensions = [".lrc"]
+
+[dev.report]
+# 元数据完整性报告配置
+output_path = "dev/meta.md"
+skip_albums = []
+
+# 专辑数据表字段（用于统计缺失项）
+data_table_fields = ["vocal", "lyricist", "composer", "arranger", "tuning", "illustrator", "mixer"]
+
+# 核心字段（缺失任一项视为错误）
+[dev.report.core_fields]
+year = "缺少发行日期"
+produce = "缺少出品信息"
+release = "缺少发布链接"
+purchase_or_electronic = "购买/电子至少需要一个"
+
+# 警告级别字段（缺失视为警告）
+[dev.report.warning_fields]
+lyric_maker = "缺少歌词制作者"
+
+# 级别判断阈值
+[dev.report.thresholds]
+# 错误级别：数据表缺失项 >= 此值时在错误中显示统计
+error_data_threshold = 3
+# 警告级别：数据表缺失项 >= 此值时视为警告
+warning_data_threshold = 5
+# 提示级别：数据表缺失项 >= 此值时视为提示
+hint_data_threshold = 3

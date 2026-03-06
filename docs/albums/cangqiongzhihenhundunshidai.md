@@ -1,6 +1,5 @@
 ---
 title: 苍穹之痕：混沌时代
-order: -1
 category:
     - 未知出品方
 tag:

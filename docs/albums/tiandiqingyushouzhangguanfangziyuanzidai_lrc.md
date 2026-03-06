@@ -1,6 +1,5 @@
 ---
 title: 天地晴雨手账（官方资源自带lrc）
-order: -1
 category:
     - 未知出品方
 tag:

@@ -1,6 +1,5 @@
 ---
 title: metaphorical girl Re
-order: -1
 category:
     - 未知出品方
 tag:

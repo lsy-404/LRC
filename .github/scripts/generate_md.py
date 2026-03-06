@@ -105,6 +105,13 @@ def ensure_dirs() -> None:
 
 def parse_sortable_date(value: str) -> tuple[int, int, int]:
     text = (value or "").strip()
+    
+    # 特殊处理："1970-01-01" 表示"不适用"，应排在无配置之前、有效日期之后
+    # 使用 (1, 1, 1) 确保在 reverse=True 排序时排在 (0, 1, 1) 之前
+    if text == "1970-01-01":
+        return (1, 1, 1)
+    
+    # 空值或"缺少信息"返回最小值，排在最后
     if not text or text == "缺少信息":
         return (0, 1, 1)
 
@@ -215,12 +222,19 @@ def main() -> None:
             for song in songs
         )
 
-        date_tuple = parse_sortable_date(str(info.get("year") or ""))
-        if date_tuple[0] != 0:
-            order_val = -(date_tuple[0] * 10000 + date_tuple[1] * 100 + date_tuple[2])
+        # 生成 order 排序字段
+        # 规则：
+        # 1. 如果日期为 "1970-01-01"（表示"不适用"），order = -19700101
+        # 2. 如果日期有效，使用负的日期数值（年*10000 + 月*100 + 日）
+        # 3. 如果日期为空或无效，不生成 order 字段（让这些专辑排在"不适用"之后）
+        order_line = ""
+        if year_value == "1970-01-01":
+            order_line = "order: -19700101\n"
         else:
-            order_val = -1
-        order_line = f"order: {order_val}\n"
+            date_tuple = parse_sortable_date(year_value)
+            if date_tuple[0] != 0:
+                order_val = -(date_tuple[0] * 10000 + date_tuple[1] * 100 + date_tuple[2])
+                order_line = f"order: {order_val}\n"
 
         md_content = f"""---
 title: {album}
@@ -253,7 +267,9 @@ tag:
         if is_disabled_value(produce_display):
             produce_display = "不适用"
         
-        year_display = str(info["year"] or "")
+        # 保存原始year值用于排序，year_display用于显示
+        year_raw = str(info["year"] or "")
+        year_display = year_raw
         if is_disabled_value(year_display) or year_display == "1970-01-01":
             year_display = "不适用"
         
@@ -264,11 +280,13 @@ tag:
                 "cover": cover_url,
                 "produce": produce_display,
                 "year": year_display,
+                "year_raw": year_raw,  # 用于排序的原始值
                 "tags": tags,
             }
         )
 
-    album_cards.sort(key=lambda card: parse_sortable_date(str(card["year"])), reverse=True)
+    # 使用原始year值进行排序，而不是显示值
+    album_cards.sort(key=lambda card: parse_sortable_date(str(card["year_raw"])), reverse=True)
 
     cards_text = ["| | |", "|----|-----|"]
     for card in album_cards:
@@ -293,7 +311,7 @@ tagline: 虚拟歌姬专辑的信息导航与歌词共享资源库
 
 本站收录并整理虚拟歌姬专辑的信息及LRC歌词文件，方便爱好者购买专辑、查找专辑、在线浏览和下载使用。
 
-所有歌词资源遵循 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议并附加本站《商业使用补充条款》进行授权。
+所有歌词资源遵循 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议进行授权。
 
 ## 专辑列表
 
