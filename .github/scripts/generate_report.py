@@ -122,7 +122,6 @@ def check_album_integrity(album_dir: Path, album_name: str, info: dict[str, Any]
         missing_names = [field_names.get(f, f) for f in missing_fields]
         warning_issues.append(f"专辑数据表缺失 {missing_count} 项：{', '.join(missing_names)}")
     
-        missing_names = [name for _, name in info_missing_fields]
     if warning_issues:
         return {
             "level": "warning",
