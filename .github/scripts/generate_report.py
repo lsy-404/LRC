@@ -57,21 +57,6 @@ def check_album_integrity(album_dir: Path, album_name: str, info: dict[str, Any]
     """
     issues = []
     
-    # 专辑信息缺失统计（使用 is_missing_value，"不适用"不算缺失）
-    info_fields = {
-        "year": "发行日期",
-        "produce": "出品",
-        "lyric_maker": "歌词制作",
-        "release": "发布",
-        "purchase": "购买",
-        "electronic": "电子"
-    }
-    info_missing_fields = [
-        (field, name) for field, name in info_fields.items()
-        if is_missing_value(info.get(field))
-    ]
-    info_missing_count = len(info_missing_fields)
-    
     # 检查核心字段（使用 is_missing_value，"不适用"不算缺失）
     year_missing = is_missing_value(info.get("year"))
     produce_missing = is_missing_value(info.get("produce"))
@@ -95,14 +80,6 @@ def check_album_integrity(album_dir: Path, album_name: str, info: dict[str, Any]
         error_issues.append("缺少合法的封面文件")
     
     if error_issues:
-        # 如果是错误级别，也显示专辑信息缺失统计
-        if info_missing_count >= 5:
-            missing_names = [name for _, name in info_missing_fields]
-            error_issues.append(f"[统计] 专辑信息缺失 {info_missing_count} 项：{', '.join(missing_names)}")
-        elif info_missing_count >= 3:
-            missing_names = [name for _, name in info_missing_fields]
-            error_issues.append(f"[统计] 专辑信息缺失 {info_missing_count} 项：{', '.join(missing_names)}")
-        
         return {
             "level": "error",
             "issues": error_issues
@@ -145,27 +122,32 @@ def check_album_integrity(album_dir: Path, album_name: str, info: dict[str, Any]
         missing_names = [field_names.get(f, f) for f in missing_fields]
         warning_issues.append(f"专辑数据表缺失 {missing_count} 项：{', '.join(missing_names)}")
     
-    # 专辑信息缺失5个 -> 警告
-    if info_missing_count >= 5:
         missing_names = [name for _, name in info_missing_fields]
-        warning_issues.append(f"专辑信息缺失 {info_missing_count} 项：{', '.join(missing_names)}")
-    elif info_missing_count >= 3:
-        # 如果已有其他警告，也显示3-4项缺失的统计
-        if warning_issues:
-            missing_names = [name for _, name in info_missing_fields]
-            warning_issues.append(f"[统计] 专辑信息缺失 {info_missing_count} 项：{', '.join(missing_names)}")
-    
     if warning_issues:
         return {
             "level": "warning",
             "issues": warning_issues
         }
     
-    # 提示级别：专辑信息缺失3个或4个
+    # 提示级别：专辑数据表缺失3个或4个
     hint_issues = []
-    if info_missing_count >= 3:
-        missing_names = [name for _, name in info_missing_fields]
-        hint_issues.append(f"专辑信息缺失 {info_missing_count} 项：{', '.join(missing_names)}")
+    if missing_count >= 3:
+        missing_fields = [
+            field for field in data_fields 
+            if is_missing_value(info.get(field)) or 
+               (isinstance(info.get(field), list) and len(info.get(field)) == 0)
+        ]
+        field_names = {
+            "vocal": "演唱",
+            "lyricist": "作词",
+            "composer": "作曲",
+            "arranger": "编曲",
+            "tuning": "调校",
+            "illustrator": "曲绘",
+            "mixer": "混音"
+        }
+        missing_names = [field_names.get(f, f) for f in missing_fields]
+        hint_issues.append(f"专辑数据表缺失 {missing_count} 项：{', '.join(missing_names)}")
     
     if hint_issues:
         return {
