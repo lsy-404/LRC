@@ -43,6 +43,8 @@ tag:
 
 **出品:** 平行四界Quadimension
 
+**歌词制作:** 虎啸ROAR
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1ND4y1R7fB/)
 
 **购买:** [淘宝 平行四界Quadimension](http://t.cn/A6GtIEhX) ￥75/￥110/￥150/￥200
@@ -65,15 +67,15 @@ tag:
 
 ## 曲目列表
 
-- [星尘、Kide - 零和Zero-sun](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%98%9F%E5%B0%98%E3%80%81Kide%20-%20%E9%9B%B6%E5%92%8CZero-sun.lrc)
-- [星尘、海伊、papaw泡泡 - 一剪人间客](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%98%9F%E5%B0%98%E3%80%81%E6%B5%B7%E4%BC%8A%E3%80%81papaw%E6%B3%A1%E6%B3%A1%20-%20%E4%B8%80%E5%89%AA%E4%BA%BA%E9%97%B4%E5%AE%A2.lrc)
-- [星尘、海伊、诗岸、Evaliaa - 蜜药](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%98%9F%E5%B0%98%E3%80%81%E6%B5%B7%E4%BC%8A%E3%80%81%E8%AF%97%E5%B2%B8%E3%80%81Evaliaa%20-%20%E8%9C%9C%E8%8D%AF.lrc)
-- [星尘、诗岸、星辉P - 墨恋仙](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%98%9F%E5%B0%98%E3%80%81%E8%AF%97%E5%B2%B8%E3%80%81%E6%98%9F%E8%BE%89P%20-%20%E5%A2%A8%E6%81%8B%E4%BB%99.lrc)
-- [海伊、公兔 - 海底](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%B5%B7%E4%BC%8A%E3%80%81%E5%85%AC%E5%85%94%20-%20%E6%B5%B7%E5%BA%95.lrc)
-- [海伊、磁带君 - Stranded Siren - 搁浅的塞壬](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%B5%B7%E4%BC%8A%E3%80%81%E7%A3%81%E5%B8%A6%E5%90%9B%20-%20Stranded%20Siren%20-%20%E6%90%81%E6%B5%85%E7%9A%84%E5%A1%9E%E5%A3%AC.lrc)
-- [海伊、诗岸、MeLo - 百里芭蕉百里花](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E6%B5%B7%E4%BC%8A%E3%80%81%E8%AF%97%E5%B2%B8%E3%80%81MeLo%20-%20%E7%99%BE%E9%87%8C%E8%8A%AD%E8%95%89%E7%99%BE%E9%87%8C%E8%8A%B1.lrc)
-- [诗岸、PoKeR - cola palapa](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E8%AF%97%E5%B2%B8%E3%80%81PoKeR%20-%20cola%20palapa.lrc)
-- [诗岸、Zeno - 最后的守护](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/%E8%AF%97%E5%B2%B8%E3%80%81Zeno%20-%20%E6%9C%80%E5%90%8E%E7%9A%84%E5%AE%88%E6%8A%A4.lrc)
+- [01.蜜药](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/01.%E8%9C%9C%E8%8D%AF.lrc)
+- [02.cola palapa](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/02.cola%20palapa.lrc)
+- [03.strand siren - 搁浅的塞壬](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/03.strand%20siren%20-%20%E6%90%81%E6%B5%85%E7%9A%84%E5%A1%9E%E5%A3%AC.lrc)
+- [04.墨恋仙](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/04.%E5%A2%A8%E6%81%8B%E4%BB%99.lrc)
+- [05.一剪人间客](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/05.%E4%B8%80%E5%89%AA%E4%BA%BA%E9%97%B4%E5%AE%A2.lrc)
+- [06.海底](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/06.%E6%B5%B7%E5%BA%95.lrc)
+- [07.百里芭蕉百里花](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/07.%E7%99%BE%E9%87%8C%E8%8A%AD%E8%95%89%E7%99%BE%E9%87%8C%E8%8A%B1.lrc)
+- [08.零和Zero-Sum](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/08.%E9%9B%B6%E5%92%8CZero-Sum.lrc)
+- [09.最后的守护](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/09.%E6%9C%80%E5%90%8E%E7%9A%84%E5%AE%88%E6%8A%A4.lrc)
 
 ## 下载
 

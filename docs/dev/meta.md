@@ -11,10 +11,10 @@ icon: material-symbols:assessment
 - **总计**：80 个专辑
 - **已检查**：80 个
 - **跳过**：0 个
-- **完整**：43 个
+- **完整**：48 个
 - **提示**：1 个
-- **警告**：11 个
-- **错误**：25 个
+- **警告**：7 个
+- **错误**：24 个
 
 ## ❌ 错误：核心元数据缺失
 
@@ -163,7 +163,7 @@ icon: material-symbols:assessment
 - 购买/电子至少需要一个
 - 缺少合法的封面文件
 
-### 天地晴雨手账（官方资源自带lrc）
+### 天地晴雨手账
 
 - 缺少发行日期
 - 缺少出品信息
@@ -179,10 +179,6 @@ icon: material-symbols:assessment
 - 缺少发布链接
 - 购买/电子至少需要一个
 - 缺少合法的封面文件
-
-### 溯洄
-
-- 缺少发布链接
 
 ### 甘泽谣
 
@@ -226,27 +222,11 @@ icon: material-symbols:assessment
 
 以下专辑缺少重要元数据：
 
-### 丛林法则Jungle Rules
-
-- 缺少歌词制作者
-
 ### 为羽轻歌
 
 - 缺少歌词制作者
 
 ### 亚特兰蒂斯Atlantis
-
-- 缺少歌词制作者
-
-### 吉光片羽Queendom
-
-- 缺少歌词制作者
-
-### 天方夜谭Fairyland
-
-- 缺少歌词制作者
-
-### 天马行空Fairytale
 
 - 缺少歌词制作者
 
@@ -262,7 +242,7 @@ icon: material-symbols:assessment
 
 - 缺少歌词制作者
 
-### 海纳百川Storybook
+### 溯洄
 
 - 缺少歌词制作者
 
@@ -289,11 +269,15 @@ icon: material-symbols:assessment
 - Write You a Song
 - 『FM40.4』
 - 与你相连的雪之羁绊
+- 丛林法则Jungle Rules
 - 九光年宇宙
 - 像素荒原
 - 加冕日CORONATION DAY
 - 单曲
+- 吉光片羽Queendom
 - 塌陷于38°C的蓝
+- 天方夜谭Fairyland
+- 天马行空Fairytale
 - 平行四界LIVE TOUR OFFICIAL ALBUM
 - 平行四界Quadimension Finale
 - 平行四界Quadimension X-1
@@ -310,6 +294,7 @@ icon: material-symbols:assessment
 - 止谎剂
 - 流星空间站
 - 流星空间站II聆星者
+- 海纳百川Storybook
 - 深潜之宙
 - 深空余音
 - 甜食日记

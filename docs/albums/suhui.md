@@ -38,6 +38,8 @@ tag:
 
 **出品:** 忘川风华录
 
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1N4411w7jL/)
+
 **购买:** 通贩不可用
 
 **电子:** 电子版不可用
