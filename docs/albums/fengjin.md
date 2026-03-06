@@ -3,10 +3,9 @@ title: 枫烬
 date: 2020-11-20
 order: -20201120
 category:
-    - 寒 Sir
+  - 未知出品方
 tag:
   - 枫烬
-  - 寒 Sir
   - 苍穹
   - 赤羽
   - 海伊
@@ -42,8 +41,6 @@ tag:
 <img src="./fengjin.jpg" alt="枫烬 封面" class="album-cover" />
 
 **发行日期:** 2020-11-20
-
-**出品:** 寒 Sir
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Qt4y1e79S/)
 

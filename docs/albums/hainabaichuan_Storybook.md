@@ -3,10 +3,9 @@ title: 海纳百川Storybook
 date: 2020-11-06
 order: -20201106
 category:
-    - 平行四界Quadimension
+  - 未知出品方
 tag:
   - 海纳百川Storybook
-  - 平行四界Quadimension
   - 星尘
   - 海伊
   - 诗岸
@@ -40,10 +39,6 @@ tag:
 <img src="./hainabaichuan_Storybook.jpg" alt="海纳百川Storybook 封面" class="album-cover" />
 
 **发行日期:** 2020-11-06
-
-**出品:** 平行四界Quadimension
-
-**歌词制作:** 虎啸ROAR
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1ND4y1R7fB/)
 

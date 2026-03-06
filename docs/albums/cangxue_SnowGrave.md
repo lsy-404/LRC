@@ -3,10 +3,9 @@ title: 藏雪SnowGrave
 date: 2024-01-12
 order: -20240112
 category:
-    - 北极圈ArcticLab
+  - 未知出品方
 tag:
   - 藏雪SnowGrave
-  - 北极圈ArcticLab
   - 星尘
   - 海伊
   - 铃蓝SuzuSnow
@@ -29,10 +28,6 @@ tag:
 <img src="./cangxue_SnowGrave.jpg" alt="藏雪SnowGrave 封面" class="album-cover" />
 
 **发行日期:** 2024-01-12
-
-**出品:** 北极圈ArcticLab
-
-**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV18a4y117p2/)
 

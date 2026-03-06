@@ -1,7 +1,7 @@
 ---
 title: Cotton Candy
 category:
-    - 未知出品方
+  - 未知出品方
 tag:
   - Cotton Candy
   - 墨蓝酱油

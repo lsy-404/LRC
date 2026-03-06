@@ -3,10 +3,9 @@ title: 深潜之宙
 date: 2019-12-14
 order: -20191214
 category:
-    - 奶牛组
+  - 未知出品方
 tag:
   - 深潜之宙
-  - 奶牛组
   - 苍穹
   - 沈病娇
   - Kinoko蘑菇
@@ -23,10 +22,6 @@ tag:
 <img src="./shenqianzhizhou.jpg" alt="深潜之宙 封面" class="album-cover" />
 
 **发行日期:** 2019-12-14
-
-**出品:** 奶牛组
-
-**歌词制作:** 高冷帝佚名(Polaris_Light)
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1vJ411r7Nz/)
 

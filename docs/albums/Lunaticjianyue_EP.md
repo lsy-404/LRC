@@ -1,7 +1,7 @@
 ---
 title: Lunatic（见月EP）
 category:
-    - 未知出品方
+  - 未知出品方
 tag:
   - Lunatic（见月EP）
   - 歌词

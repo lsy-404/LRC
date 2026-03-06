@@ -3,10 +3,9 @@ title: 秘宝旅人I
 date: 2023-11-25
 order: -20231125
 category:
-    - 秘宝旅人
+  - 未知出品方
 tag:
   - 秘宝旅人I
-  - 秘宝旅人
   - 苍穹
   - 星尘Infinity
   - 海伊
@@ -36,10 +35,6 @@ tag:
 <img src="./mibaolvren_I.png" alt="秘宝旅人I 封面" class="album-cover" />
 
 **发行日期:** 2023-11-25
-
-**出品:** 秘宝旅人
-
-**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1ew411P7f3/)
 

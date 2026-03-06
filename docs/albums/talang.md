@@ -3,10 +3,9 @@ title: 踏浪
 date: 2021-07-23
 order: -20210723
 category:
-    - 忘川风华录
+  - 未知出品方
 tag:
   - 踏浪
-  - 忘川风华录
   - 赤羽
   - 海伊
   - 诗岸
@@ -40,8 +39,6 @@ tag:
 <img src="./talang.jpg" alt="踏浪 封面" class="album-cover" />
 
 **发行日期:** 2021-07-23
-
-**出品:** 忘川风华录
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1g64y167FY/)
 

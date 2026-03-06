@@ -3,10 +3,9 @@ title: 像素荒原
 date: 2025-09-10
 order: -20250910
 category:
-    - 我是石榴皮
+  - 未知出品方
 tag:
   - 像素荒原
-  - 我是石榴皮
   - 诗岸
   - 星尘
   - 永夜Minus
@@ -24,10 +23,6 @@ tag:
 <img src="./xiangsuhuangyuan.jpg" alt="像素荒原 封面" class="album-cover" />
 
 **发行日期:** 2025-09-10
-
-**出品:** 我是石榴皮
-
-**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV12Vbxz6EKH/)
 

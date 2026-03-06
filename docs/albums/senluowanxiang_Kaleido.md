@@ -3,10 +3,9 @@ title: 森罗万象Kaleido
 date: 2019-10-05
 order: -20191005
 category:
-    - 平行四界Quadimension
+  - 未知出品方
 tag:
   - 森罗万象Kaleido
-  - 平行四界Quadimension
   - 星尘
   - 海伊
   - 赤羽
@@ -33,10 +32,6 @@ tag:
 <img src="./senluowanxiang_Kaleido.jpg" alt="森罗万象Kaleido 封面" class="album-cover" />
 
 **发行日期:** 2019-10-05
-
-**出品:** 平行四界Quadimension
-
-**歌词制作:** 虎啸ROAR
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV17E411Z7oY/)
 

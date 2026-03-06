@@ -1,7 +1,7 @@
 ---
 title: SEVEN
 category:
-    - 未知出品方
+  - 未知出品方
 tag:
   - SEVEN
   - 歌词

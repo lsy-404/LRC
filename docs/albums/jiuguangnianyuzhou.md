@@ -3,10 +3,9 @@ title: 九光年宇宙
 date: 2026-02-24
 order: -20260224
 category:
-    - 被遗忘者的哀伤
+  - 未知出品方
 tag:
   - 九光年宇宙
-  - 被遗忘者的哀伤
   - 星尘
   - 永夜
   - 赤羽
@@ -20,6 +19,7 @@ tag:
   - 萧家暮雨
   - 1mol梨花茶
   - 北山薇
+  - 被遗忘者的哀伤
   - 星语落枫
   - 苏栗无
   - Aya-亚夜-
@@ -41,10 +41,6 @@ tag:
 <img src="./jiuguangnianyuzhou.png" alt="九光年宇宙 封面" class="album-cover" />
 
 **发行日期:** 2026-02-24
-
-**出品:** 被遗忘者的哀伤
-
-**歌词制作:** 武乙凌薇、RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1yBfUBoEzh/)
 

@@ -3,10 +3,9 @@ title: 百万花王
 date: 2020-08-12
 order: -20200812
 category:
-    - 平行四界Quadimension
+  - 未知出品方
 tag:
   - 百万花王
-  - 平行四界Quadimension
   - 星尘
   - 绿无
   - MeLo
@@ -22,10 +21,6 @@ tag:
 <img src="./baiwanhuawang.jpg" alt="百万花王 封面" class="album-cover" />
 
 **发行日期:** 2020-08-12
-
-**出品:** 平行四界Quadimension
-
-**歌词制作:** 西霜月Lune
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1mV411z7fw/)
 

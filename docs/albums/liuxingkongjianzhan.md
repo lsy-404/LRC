@@ -3,10 +3,9 @@ title: 流星空间站
 date: 2022-12-31
 order: -20221231
 category:
-    - 流星空间站创作组
+  - 未知出品方
 tag:
   - 流星空间站
-  - 流星空间站创作组
   - 星尘
   - 永夜Minus
   - 诗岸
@@ -26,10 +25,6 @@ tag:
 <img src="./liuxingkongjianzhan.jpg" alt="流星空间站 封面" class="album-cover" />
 
 **发行日期:** 2022-12-31
-
-**出品:** 流星空间站创作组
-
-**歌词制作:** 氢化脱氰氰酸
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1xA411S7m4/)
 

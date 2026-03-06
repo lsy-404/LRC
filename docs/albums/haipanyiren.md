@@ -3,10 +3,9 @@ title: 海盼伊人
 date: 2020-04-23
 order: -20200423
 category:
-    - 梗梗
+  - 未知出品方
 tag:
   - 海盼伊人
-  - 梗梗
   - 海伊
   - 赤羽
   - 花筝Anly
@@ -46,8 +45,6 @@ tag:
 <img src="./haipanyiren.jpg" alt="海盼伊人 封面" class="album-cover" />
 
 **发行日期:** 2020-04-23
-
-**出品:** 梗梗
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1xg4y1z7HL/)
 

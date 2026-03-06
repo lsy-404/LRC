@@ -3,15 +3,15 @@ title: 织肉匠
 date: 2025-12-05
 order: -20251205
 category:
-    - 磁带君
+  - 未知出品方
 tag:
   - 织肉匠
-  - 磁带君
   - 牧心
   - 永夜Minus
   - 星尘
   - 海伊
   - 大♂古
+  - 磁带君
   - 瑞安Ryan
   - Creuzer
   - 陌生来访
@@ -28,10 +28,6 @@ tag:
 <img src="./zhiroujiang.jpg" alt="织肉匠 封面" class="album-cover" />
 
 **发行日期:** 2025-12-05
-
-**出品:** 磁带君
-
-**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Yk2xBkEEQ/)
 

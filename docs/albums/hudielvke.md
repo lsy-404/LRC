@@ -3,15 +3,15 @@ title: 蝴蝶旅客
 date: 2017-04-22
 order: -20170422
 category:
-    - 小野道
+  - 未知出品方
 tag:
   - 蝴蝶旅客
-  - 小野道
   - 星尘
   - 和田野
   - 泠鸢yousa
   - 冥凰
   - 赭莓奶
+  - 小野道
   - 歌词
   - lrc
   - 下载
@@ -23,10 +23,6 @@ tag:
 <img src="./hudielvke.jpg" alt="蝴蝶旅客 封面" class="album-cover" />
 
 **发行日期:** 2017-04-22
-
-**出品:** 小野道
-
-**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV13x411U7vS/)
 

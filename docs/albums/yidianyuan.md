@@ -1,7 +1,7 @@
 ---
 title: 伊甸园
 category:
-    - 未知出品方
+  - 未知出品方
 tag:
   - 伊甸园
   - licis

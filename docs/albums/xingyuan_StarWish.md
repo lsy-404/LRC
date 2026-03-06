@@ -3,10 +3,9 @@ title: 星愿StarWish
 date: 2016-03-04
 order: -20160304
 category:
-    - 平行四界Quadimension
+  - 未知出品方
 tag:
   - 星愿StarWish
-  - 平行四界Quadimension
   - 星尘
   - Ddickky
   - 和田野
@@ -33,10 +32,6 @@ tag:
 <img src="./xingyuan_StarWish.jpg" alt="星愿StarWish 封面" class="album-cover" />
 
 **发行日期:** 2016-03-04
-
-**出品:** 平行四界Quadimension
-
-**歌词制作:** Baka632
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1xs411Q78p/)
 

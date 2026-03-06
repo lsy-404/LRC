@@ -3,10 +3,9 @@ title: 溯洄
 date: 2019-07-06
 order: -20190706
 category:
-    - 忘川风华录
+  - 未知出品方
 tag:
   - 溯洄
-  - 忘川风华录
   - 洛天依
   - 乐正绫
   - 星尘
@@ -35,8 +34,6 @@ tag:
 <img src="./suhui.png" alt="溯洄 封面" class="album-cover" />
 
 **发行日期:** 2019-07-06
-
-**出品:** 忘川风华录
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1N4411w7jL/)
 

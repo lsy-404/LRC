@@ -3,10 +3,9 @@ title: 平行四界Quadimension X-1
 date: 2021-06-04
 order: -20210604
 category:
-    - 平行四界Quadimension
+  - 未知出品方
 tag:
   - 平行四界Quadimension X-1
-  - 平行四界Quadimension
   - 浓缩排骨
   - K_Lacid
   - 大九_LN
@@ -34,10 +33,6 @@ tag:
 <img src="./pingxingsijie_Quadimension_X-1.jpg" alt="平行四界Quadimension X-1 封面" class="album-cover" />
 
 **发行日期:** 2021-06-04
-
-**出品:** 平行四界Quadimension
-
-**歌词制作:** 虎啸ROAR
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1954y1374F/)
 

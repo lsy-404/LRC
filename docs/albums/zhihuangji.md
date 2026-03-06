@@ -3,10 +3,9 @@ title: 止谎剂
 date: 2019-12-15
 order: -20191215
 category:
-    - 奶牛组
+  - 未知出品方
 tag:
   - 止谎剂
-  - 奶牛组
   - 星尘
   - 苍穹
   - 诗岸
@@ -27,10 +26,6 @@ tag:
 <img src="./zhihuangji.png" alt="止谎剂 封面" class="album-cover" />
 
 **发行日期:** 2019-12-15
-
-**出品:** 奶牛组
-
-**歌词制作:** 高冷帝佚名(Polaris_Light)
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1fJ411r7WC/)
 

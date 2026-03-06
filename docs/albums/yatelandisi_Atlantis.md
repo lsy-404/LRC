@@ -3,10 +3,9 @@ title: 亚特兰蒂斯Atlantis
 date: 2018-10-30
 order: -20181030
 category:
-    - 平行四界Quadimension
+  - 未知出品方
 tag:
   - 亚特兰蒂斯Atlantis
-  - 平行四界Quadimension
   - 海伊
   - Evalia
   - 蒸馏奶
@@ -34,8 +33,6 @@ tag:
 <img src="./yatelandisi_Atlantis.jpg" alt="亚特兰蒂斯Atlantis 封面" class="album-cover" />
 
 **发行日期:** 2018-10-30
-
-**出品:** 平行四界Quadimension
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1db411A7i8/)
 

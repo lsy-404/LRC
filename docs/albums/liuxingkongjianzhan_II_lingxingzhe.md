@@ -3,10 +3,9 @@ title: 流星空间站II聆星者
 date: 2025-05-02
 order: -20250502
 category:
-    - 流星空间站创作组
+  - 未知出品方
 tag:
   - 流星空间站II聆星者
-  - 流星空间站创作组
   - 星尘infinity
   - 永夜Minus
   - 诗岸
@@ -31,10 +30,6 @@ tag:
 <img src="./liuxingkongjianzhan_II_lingxingzhe.jpg" alt="流星空间站II聆星者 封面" class="album-cover" />
 
 **发行日期:** 2025-05-02
-
-**出品:** 流星空间站创作组
-
-**歌词制作:** 神武竹
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1oaVLzXEzg/)
 

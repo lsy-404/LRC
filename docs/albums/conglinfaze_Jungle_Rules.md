@@ -3,10 +3,9 @@ title: 丛林法则Jungle Rules
 date: 2020-02-28
 order: -20200228
 category:
-    - 平行四界Quadimension
+  - 未知出品方
 tag:
   - 丛林法则Jungle Rules
-  - 平行四界Quadimension
   - 星尘
   - 苍穹
   - 诗岸
@@ -36,10 +35,6 @@ tag:
 <img src="./conglinfaze_Jungle_Rules.jpg" alt="丛林法则Jungle Rules 封面" class="album-cover" />
 
 **发行日期:** 2020-02-28
-
-**出品:** 平行四界Quadimension
-
-**歌词制作:** Lan0xE9
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV147411N79K/)
 

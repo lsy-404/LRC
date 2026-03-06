@@ -3,10 +3,9 @@ title: 繁星于雨云之上
 date: 2025-05-01
 order: -20250501
 category:
-    - 会咬人的白海豹
+  - 未知出品方
 tag:
   - 繁星于雨云之上
-  - 会咬人的白海豹
   - 星尘
   - 永夜
   - 洛天依
@@ -36,10 +35,6 @@ tag:
 <img src="./fanxingyuyuyunzhishang.jpg" alt="繁星于雨云之上 封面" class="album-cover" />
 
 **发行日期:** 2025-05-01
-
-**出品:** 会咬人的白海豹
-
-**歌词制作:** 武乙凌薇
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1uRGizvEtV/)
 

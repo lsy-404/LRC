@@ -3,11 +3,11 @@ title: Iris
 date: 2026-01-31
 order: -20260131
 category:
-    - Zeno
+  - 未知出品方
 tag:
   - Iris
-  - Zeno
   - 星尘
+  - Zeno
   - 歌词
   - lrc
   - 下载
@@ -19,10 +19,6 @@ tag:
 <img src="./Iris.png" alt="Iris 封面" class="album-cover" />
 
 **发行日期:** 2026-01-31
-
-**出品:** Zeno
-
-**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1vz6pBxEqh/)
 

@@ -3,10 +3,9 @@ title: 平行四界LIVE TOUR OFFICIAL ALBUM
 date: 2017-08-12
 order: -20170812
 category:
-    - 平行四界Quadimension
+  - 未知出品方
 tag:
   - 平行四界LIVE TOUR OFFICIAL ALBUM
-  - 平行四界Quadimension
   - 星尘
   - 冥凰
   - Zeno
@@ -40,10 +39,6 @@ tag:
 <img src="./pingxingsijie_LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界LIVE TOUR OFFICIAL ALBUM 封面" class="album-cover" />
 
 **发行日期:** 2017-08-12
-
-**出品:** 平行四界Quadimension
-
-**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV19x411n7z4/)
 

@@ -1,7 +1,7 @@
 ---
 title: metaphorical girl Re
 category:
-    - 未知出品方
+  - 未知出品方
 tag:
   - metaphorical girl Re
   - TOPKINGCREAM

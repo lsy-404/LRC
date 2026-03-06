@@ -3,10 +3,9 @@ title: 星遇
 date: 2024-08-12
 order: -20240812
 category:
-    - 青蓝
+  - 未知出品方
 tag:
   - 星遇
-  - 青蓝
   - 星尘
   - 安筱然
   - 静听
@@ -37,10 +36,6 @@ tag:
 <img src="./xingyu.jpg" alt="星遇 封面" class="album-cover" />
 
 **发行日期:** 2024-08-12
-
-**出品:** 青蓝
-
-**歌词制作:** 神武竹
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1h3YdeUEcU/)
 

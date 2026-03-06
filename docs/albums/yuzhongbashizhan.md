@@ -3,10 +3,9 @@ title: 雨中巴士站
 date: 2018-11-10
 order: -20181110
 category:
-    - 我是石榴皮
+  - 未知出品方
 tag:
   - 雨中巴士站
-  - 我是石榴皮
   - 星尘
   - 46
   - 歌词
@@ -20,10 +19,6 @@ tag:
 <img src="./yuzhongbashizhan.jpg" alt="雨中巴士站 封面" class="album-cover" />
 
 **发行日期:** 2018-11-10
-
-**出品:** 我是石榴皮
-
-**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1it411m7yJ/)
 

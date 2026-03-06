@@ -3,10 +3,9 @@ title: 平行四界Quadimension X-2
 date: 2021-10-29
 order: -20211029
 category:
-    - 平行四界Quadimension
+  - 未知出品方
 tag:
   - 平行四界Quadimension X-2
-  - 平行四界Quadimension
   - 星尘
   - 海伊
   - 诗岸
@@ -36,10 +35,6 @@ tag:
 <img src="./pingxingsijie_Quadimension_X-2.jpg" alt="平行四界Quadimension X-2 封面" class="album-cover" />
 
 **发行日期:** 2021-10-29
-
-**出品:** 平行四界Quadimension
-
-**歌词制作:** 吸尘器
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1RR4y1J7NJ/)
 
