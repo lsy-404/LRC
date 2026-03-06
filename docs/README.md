@@ -9,7 +9,7 @@ tagline: 虚拟歌姬专辑的信息导航与歌词共享资源库
 
 本站收录并整理虚拟歌姬专辑的信息及LRC歌词文件，方便爱好者购买专辑、查找专辑、在线浏览和下载使用。
 
-所有歌词资源遵循 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议并附加本站《商业使用补充条款》进行授权。
+所有歌词资源遵循 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议进行授权。
 
 ## 专辑列表
 
