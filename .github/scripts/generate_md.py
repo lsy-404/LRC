@@ -165,7 +165,7 @@ def main() -> None:
 
         tags = [album]
         if not is_disabled_value(info["produce"]):
-            tags.append(str(info["produce"]))
+            tags.extend(info["produce"])
         # 不将歌词制作者加入tag，只显示在正文中
         for key in ("vocal", "lyricist", "composer", "tuning"):
             values = info.get(key) or []
@@ -176,7 +176,12 @@ def main() -> None:
         # 去重，保留首次出现顺序
         tags = list(dict.fromkeys(tags))
 
-        category_value = str(info.get("produce") or "").strip()
+        # 分类值：取列表第一个元素，或回退到"未知出品方"
+        produce_list = info.get("produce") or []
+        if produce_list and not is_disabled_value(produce_list):
+            category_value = str(produce_list[0]).strip()
+        else:
+            category_value = "未知出品方"
         if is_disabled_value(category_value):
             category_value = "未知出品方"
 
@@ -190,9 +195,9 @@ def main() -> None:
             info_display.append(f"**发行日期:** {year_value}")
         # 其他字段：使用 is_disabled_value 判断
         if not is_disabled_value(info["produce"]):
-            info_display.append(f"**出品:** {info['produce']}")
+            info_display.append(f"**出品:** {'、'.join(info['produce'])}")
         if not is_disabled_value(info.get("lyric_maker")):
-            info_display.append(f"**歌词制作:** {info['lyric_maker']}")
+            info_display.append(f"**歌词制作:** {'、'.join(info['lyric_maker'])}")
         release_val = raw_meta_value(str(info.get("release") or ""))
         if release_val and not is_disabled_value(release_val):
             info_display.append(f"**发布:** {release_val}")
@@ -263,9 +268,11 @@ tag:
         cover_url = f"/albums/{album_file_name}{cover_display_ext}" if has_cover else ""
         
         # 处理首页显示值：将空值、"缺少信息"视为"不适用"
-        produce_display = str(info["produce"] or "")
-        if is_disabled_value(produce_display):
+        produce_list_display = info["produce"] or []
+        if is_disabled_value(produce_list_display):
             produce_display = "不适用"
+        else:
+            produce_display = '、'.join(produce_list_display)
         
         # 保存原始year值用于排序，year_display用于显示
         year_raw = str(info["year"] or "")

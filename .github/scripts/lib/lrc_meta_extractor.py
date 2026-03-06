@@ -77,7 +77,7 @@ _ROW_FIELD_ALIAS: dict[str, str] = {
 }
 
 #: 所有列表型字段
-_LIST_FIELDS = set(_LRC_CONFIG.get("list_fields", _META_CONFIG.get("lrc_fillable", []))) - {"lyric_maker"}
+_LIST_FIELDS = set(_LRC_CONFIG.get("list_fields", _META_CONFIG.get("lrc_fillable", [])))
 
 # ---------------------------------------------------------------------------
 # 编码解码辅助
@@ -130,7 +130,7 @@ def extract_lrc_metadata(file_path: Path) -> dict[str, Any]:
             "title":      str,         # [ti:...] 标签中的标题
             "artist":     str,         # [ar:...] 标签中的艺术家
             "album":      str,         # [al:...] 标签中的专辑名
-            "lyric_maker": str,        # [by:...] 或 [lrc by:...] 标签中的歌词制作者
+            "lyric_maker": list[str],  # [by:...] 或 [lrc by:...] 标签中的歌词制作者
             "song_title": str,         # 正文 《曲名》 形式的标题
             "vocal":      list[str],   # 演唱者
             "composer":   list[str],   # 作曲者
@@ -148,7 +148,7 @@ def extract_lrc_metadata(file_path: Path) -> dict[str, Any]:
         "title": "",
         "artist": "",
         "album": "",
-        "lyric_maker": "",
+        "lyric_maker": [],
         "song_title": "",
         "vocal": [],
         "composer": [],
@@ -203,8 +203,9 @@ def extract_lrc_metadata(file_path: Path) -> dict[str, Any]:
         # 特殊处理 [lrc by：xxx] 格式（包含空格的标签名）
         lrc_by_m = re.match(r'^\[lrc\s+by\s*[：:]\s*(.+?)\]\s*$', content_part, re.IGNORECASE)
         if lrc_by_m:
-            if not meta["lyric_maker"]:
-                meta["lyric_maker"] = lrc_by_m.group(1).strip()
+            maker = lrc_by_m.group(1).strip()
+            if maker and maker not in meta["lyric_maker"]:
+                meta["lyric_maker"].append(maker)
             continue
 
         # 2b. 曲名包裹：《亵渎》 / 【Title】 / 「Title」
@@ -255,7 +256,7 @@ def merge_album_lrc_metadata(lrc_files: list[Path]) -> dict[str, Any]:
         "title": "",
         "artist": "",
         "album": "",
-        "lyric_maker": "",
+        "lyric_maker": [],
         "song_title": "",
         "vocal": [],
         "composer": [],
@@ -276,7 +277,7 @@ def merge_album_lrc_metadata(lrc_files: list[Path]) -> dict[str, Any]:
                     _seen[field].add(person)
                     merged[field].append(person)
         # 字符串字段只采纳首次有效值
-        for field in ("title", "artist", "album", "lyric_maker", "song_title", "album_tag"):
+        for field in ("title", "artist", "album", "song_title", "album_tag"):
             if not merged[field] and song_meta.get(field):
                 merged[field] = song_meta[field]
 

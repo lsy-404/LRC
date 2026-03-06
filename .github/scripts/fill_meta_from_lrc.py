@@ -67,7 +67,7 @@ FIELD_SCHEMA: list[tuple[str, str, str]] = [
     if item.get("internal") and item.get("toml_key")
 ]
 
-# 可从 LRC 提取的字段（包括列表字段和lyric_maker字符串字段）
+# 可从 LRC 提取的字段（所有列表字段）
 _LRC_FILLABLE = set(META_CONFIG.get("lrc_fillable", ["vocal", "lyricist", "composer", "arranger", "tuning", "illustrator", "mixer", "lyric_maker"]))
 
 
@@ -114,8 +114,7 @@ def merge(existing: dict[str, Any], lrc: dict[str, Any]) -> dict[str, Any]:
 
     规则：
     - 列表字段：meta.toml 非空则保留；空则使用 LRC 结果（可能仍为空）
-    - 字符串字段（除lyric_maker外）：始终保留 meta.toml 的值（LRC 无法提供）
-    - lyric_maker字段：meta.toml 非空则保留；空则使用 LRC 结果
+    - 字符串字段：始终保留 meta.toml 的值（LRC 无法提供）
     """
     merged: dict[str, Any] = {}
     for internal, _toml_key, typ in FIELD_SCHEMA:

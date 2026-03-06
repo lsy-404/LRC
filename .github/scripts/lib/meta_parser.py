@@ -139,7 +139,7 @@ def parse_meta_text(content: str) -> dict[str, Any]:
         if not canonical:
             continue
 
-        if canonical in {"vocal", "lyricist", "composer", "arranger", "tuning", "illustrator", "mixer"}:
+        if canonical in {"produce", "lyric_maker", "vocal", "lyricist", "composer", "arranger", "tuning", "illustrator", "mixer"}:
             meta[canonical] = _parse_array(value)
         else:
             parsed = _parse_scalar(value)
