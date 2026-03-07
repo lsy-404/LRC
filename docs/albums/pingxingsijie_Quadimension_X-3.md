@@ -3,9 +3,10 @@ title: 平行四界Quadimension X-3
 date: 2022-04-03
 order: -20220403
 category:
-  - 未知出品方
+  - 平行四界Quadimension
 tag:
   - 平行四界Quadimension X-3
+  - 平行四界Quadimension
   - 绿无
   - 浓缩排骨
   - Ddickky
@@ -35,6 +36,10 @@ tag:
 <img src="./pingxingsijie_Quadimension_X-3.jpg" alt="平行四界Quadimension X-3 封面" class="album-cover" />
 
 **发行日期:** 2022-04-03
+
+**出品:** 平行四界Quadimension
+
+**歌词制作:** 虎啸ROAR
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1E5411D7by/)
 

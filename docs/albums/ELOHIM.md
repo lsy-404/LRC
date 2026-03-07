@@ -3,9 +3,10 @@ title: ELOHIM
 date: 2023-09-23
 order: -20230923
 category:
-  - 未知出品方
+  - 秘宝旅人
 tag:
   - ELOHIM
+  - 秘宝旅人
   - 言和
   - 大九_LN
   - lbg_萝卜根
@@ -27,6 +28,10 @@ tag:
 <img src="./ELOHIM.jpg" alt="ELOHIM 封面" class="album-cover" />
 
 **发行日期:** 2023-09-23
+
+**出品:** 秘宝旅人
+
+**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1w8411i7tE/)
 

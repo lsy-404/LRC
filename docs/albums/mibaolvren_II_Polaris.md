@@ -3,9 +3,10 @@ title: 秘宝旅人II Polaris
 date: 2025-07-04
 order: -20250704
 category:
-  - 未知出品方
+  - 秘宝旅人
 tag:
   - 秘宝旅人II Polaris
+  - 秘宝旅人
   - Minus
   - 小春六花
   - ナースロボ＿タイプＴ
@@ -36,6 +37,10 @@ tag:
 <img src="./mibaolvren_II_Polaris.jpg" alt="秘宝旅人II Polaris 封面" class="album-cover" />
 
 **发行日期:** 2025-07-04
+
+**出品:** 秘宝旅人
+
+**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1vr3jzUEzN/)
 

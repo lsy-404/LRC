@@ -3,9 +3,10 @@ title: 甜食日记
 date: 2021-08-07
 order: -20210807
 category:
-  - 未知出品方
+  - 奶牛组
 tag:
   - 甜食日记
+  - 奶牛组
   - 星尘
   - 大九_LN
   - 甜食品鉴委员会 (FX/erazedfx)
@@ -20,6 +21,10 @@ tag:
 <img src="./tianshiriji.jpg" alt="甜食日记 封面" class="album-cover" />
 
 **发行日期:** 2021-08-07
+
+**出品:** 奶牛组
+
+**歌词制作:** 神武竹
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Hq4y1p7qn/)
 

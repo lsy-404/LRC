@@ -3,9 +3,10 @@ title: 负片
 date: 2022-08-12
 order: -20220812
 category:
-  - 未知出品方
+  - 奶牛组
 tag:
   - 负片
+  - 奶牛组
   - 星尘minus
   - 沈病娇
   - 复响/erazedfx
@@ -20,6 +21,10 @@ tag:
 <img src="./fupian.jpg" alt="负片 封面" class="album-cover" />
 
 **发行日期:** 2022-08-12
+
+**出品:** 奶牛组
+
+**歌词制作:** 神武竹
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1rF411c7ba/)
 

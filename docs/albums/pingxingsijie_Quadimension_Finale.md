@@ -3,9 +3,10 @@ title: 平行四界Quadimension Finale
 date: 2023-05-24
 order: -20230524
 category:
-  - 未知出品方
+  - 平行四界Quadimension
 tag:
   - 平行四界Quadimension Finale
+  - 平行四界Quadimension
   - 海伊
   - 赤羽
   - 诗岸
@@ -37,6 +38,10 @@ tag:
 <img src="./pingxingsijie_Quadimension_Finale.png" alt="平行四界Quadimension Finale 封面" class="album-cover" />
 
 **发行日期:** 2023-05-24
+
+**出品:** 平行四界Quadimension
+
+**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1JX4y1h76t/)
 

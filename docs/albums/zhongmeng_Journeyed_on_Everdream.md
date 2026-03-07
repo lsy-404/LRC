@@ -3,9 +3,10 @@ title: 终梦Journeyed on Everdream
 date: 2025-12-24
 order: -20251224
 category:
-  - 未知出品方
+  - 北极圈ArcticLab
 tag:
   - 终梦Journeyed on Everdream
+  - 北极圈ArcticLab
   - 星尘
   - 铃蓝Suzusnow
   - 歌词
@@ -19,6 +20,10 @@ tag:
 <img src="./zhongmeng_Journeyed_on_Everdream.jpg" alt="终梦Journeyed on Everdream 封面" class="album-cover" />
 
 **发行日期:** 2025-12-24
+
+**出品:** 北极圈ArcticLab
+
+**歌词制作:** 武乙凌薇
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1q3qZBDE9y)
 

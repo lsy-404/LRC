@@ -3,9 +3,10 @@ title: 生息Leave in Breath
 date: 2025-03-22
 order: -20250322
 category:
-  - 未知出品方
+  - 北极圈ArcticLab
 tag:
   - 生息Leave in Breath
+  - 北极圈ArcticLab
   - 海伊
   - 星尘
   - 北山薇
@@ -36,6 +37,10 @@ tag:
 <img src="./shengxi_Leave_in_Breath.jpg" alt="生息Leave in Breath 封面" class="album-cover" />
 
 **发行日期:** 2025-03-22
+
+**出品:** 北极圈ArcticLab
+
+**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1faX1YAE9z/)
 

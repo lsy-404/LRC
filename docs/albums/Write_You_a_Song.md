@@ -3,16 +3,16 @@ title: Write You a Song
 date: 2020-12-18
 order: -20201218
 category:
-  - 未知出品方
+  - 喻川
 tag:
   - Write You a Song
+  - 喻川
   - 乐正龙牙
   - 赤羽
   - 苍穹
   - 海伊
   - Eleanor Forte
   - Minus
-  - 喻川
   - 逐火
   - Vagary
   - 乾坤
@@ -27,6 +27,10 @@ tag:
 <img src="./Write_You_a_Song.jpg" alt="Write You a Song 封面" class="album-cover" />
 
 **发行日期:** 2020-12-18
+
+**出品:** 喻川
+
+**歌词制作:** 虎啸ROAR
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1it4y1k7T/)
 

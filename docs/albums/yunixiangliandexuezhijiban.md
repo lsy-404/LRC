@@ -3,15 +3,15 @@ title: 与你相连的雪之羁绊
 date: 2024-08-07
 order: -20240807
 category:
-  - 未知出品方
+  - 雪人Snowman
 tag:
   - 与你相连的雪之羁绊
+  - 雪人Snowman
   - 星尘
   - Stuart
   - Takumi Sugai
   - 小皮
   - Sui小苏
-  - 雪人Snowman
   - 鲷鱼
   - 璃夜纱Ryosa
   - 辻原一郎
@@ -27,6 +27,10 @@ tag:
 <img src="./yunixiangliandexuezhijiban.jpg" alt="与你相连的雪之羁绊 封面" class="album-cover" />
 
 **发行日期:** 2024-08-07
+
+**出品:** 雪人Snowman
+
+**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1HM4m117DR/)
 

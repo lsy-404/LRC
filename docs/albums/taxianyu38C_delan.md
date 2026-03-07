@@ -3,9 +3,10 @@ title: 塌陷于38°C的蓝
 date: 2020-03-20
 order: -20200320
 category:
-  - 未知出品方
+  - 我是石榴皮
 tag:
   - 塌陷于38°C的蓝
+  - 我是石榴皮
   - 星尘
   - 海伊
   - 诗岸
@@ -21,6 +22,10 @@ tag:
 <img src="./taxianyu38C_delan.jpg" alt="塌陷于38°C的蓝 封面" class="album-cover" />
 
 **发行日期:** 2020-03-20
+
+**出品:** 我是石榴皮
+
+**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV19E411J7BL/)
 

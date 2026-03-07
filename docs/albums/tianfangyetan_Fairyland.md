@@ -3,9 +3,10 @@ title: 天方夜谭Fairyland
 date: 2019-04-05
 order: -20190405
 category:
-  - 未知出品方
+  - 平行四界Quadimension
 tag:
   - 天方夜谭Fairyland
+  - 平行四界Quadimension
   - 星尘
   - 海伊
   - 苍穹
@@ -31,6 +32,10 @@ tag:
 <img src="./tianfangyetan_Fairyland.jpg" alt="天方夜谭Fairyland 封面" class="album-cover" />
 
 **发行日期:** 2019-04-05
+
+**出品:** 平行四界Quadimension
+
+**歌词制作:** Lan0xE9
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1bb411g7Zq/)
 

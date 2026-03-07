@@ -3,9 +3,10 @@ title: 星之海StarOcean
 date: 2018-08-11
 order: -20180811
 category:
-  - 未知出品方
+  - 平行四界Quadimension
 tag:
   - 星之海StarOcean
+  - 平行四界Quadimension
   - 星尘
   - 海伊
   - 大♂古
@@ -33,6 +34,10 @@ tag:
 <img src="./xingzhihai_StarOcean.jpg" alt="星之海StarOcean 封面" class="album-cover" />
 
 **发行日期:** 2018-08-11
+
+**出品:** 平行四界Quadimension
+
+**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1cs411T7F5/)
 

@@ -3,9 +3,10 @@ title: 平行四界REBIRTH
 date: 2025-08-12
 order: -20250812
 category:
-  - 未知出品方
+  - 平行四界Quadimension
 tag:
   - 平行四界REBIRTH
+  - 平行四界Quadimension
   - 星尘
   - 赤羽
   - 海伊
@@ -36,6 +37,10 @@ tag:
 <img src="./pingxingsijie_REBIRTH.jpg" alt="平行四界REBIRTH 封面" class="album-cover" />
 
 **发行日期:** 2025-08-12
+
+**出品:** 平行四界Quadimension
+
+**歌词制作:** 武乙凌薇
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1uKtSz6EgF/)
 

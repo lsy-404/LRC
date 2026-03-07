@@ -3,11 +3,11 @@ title: Freesia
 date: 2017-10-01
 order: -20171001
 category:
-  - 未知出品方
+  - Zeno
 tag:
   - Freesia
-  - 星尘
   - Zeno
+  - 星尘
   - 歌词
   - lrc
   - 下载
@@ -19,6 +19,10 @@ tag:
 <img src="./Freesia.jpg" alt="Freesia 封面" class="album-cover" />
 
 **发行日期:** 2017-10-01
+
+**出品:** Zeno
+
+**歌词制作:** 西霜月Lune
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Xx411g7uY/)
 

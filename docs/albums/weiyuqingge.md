@@ -3,9 +3,10 @@ title: 为羽轻歌
 date: 2020-09-01
 order: -20200901
 category:
-  - 未知出品方
+  - 萱草
 tag:
   - 为羽轻歌
+  - 萱草
   - 赤羽
   - 星尘
   - 心华
@@ -30,6 +31,8 @@ tag:
 <img src="./weiyuqingge.jpg" alt="为羽轻歌 封面" class="album-cover" />
 
 **发行日期:** 2020-09-01
+
+**出品:** 萱草
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1EA411n762/)
 

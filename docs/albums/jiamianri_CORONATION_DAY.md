@@ -3,11 +3,11 @@ title: 加冕日CORONATION DAY
 date: 2023-04-19
 order: -20230419
 category:
-  - 未知出品方
+  - Aya-亚夜-
 tag:
   - 加冕日CORONATION DAY
-  - 赤羽
   - Aya-亚夜-
+  - 赤羽
   - 歌词
   - lrc
   - 下载
@@ -19,6 +19,10 @@ tag:
 <img src="./jiamianri_CORONATION_DAY.jpg" alt="加冕日CORONATION DAY 封面" class="album-cover" />
 
 **发行日期:** 2023-04-19
+
+**出品:** Aya-亚夜-
+
+**歌词制作:** Aya-亚夜-
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1bc411H7xN/)
 
@@ -47,9 +51,9 @@ tag:
 - [Downfall=Reunion - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/Downfall%3DReunion%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
 - [Echo of null - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/Echo%20of%20null%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
 - [I, Non-believer, God Builder - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/I%2C%20Non-believer%2C%20God%20Builder%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
+- [iota - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/iota%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
 - [PROTOCOL 7 (feat.亢毛毛) - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/PROTOCOL%207%20%28feat.%E4%BA%A2%E6%AF%9B%E6%AF%9B%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
 - [UTTER - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/UTTER%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [iota - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/iota%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
 - [余容 - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E4%BD%99%E5%AE%B9%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
 - [坏想 - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E5%9D%8F%E6%83%B3%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
 - [妖刀出鞘 - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E5%A6%96%E5%88%80%E5%87%BA%E9%9E%98%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)

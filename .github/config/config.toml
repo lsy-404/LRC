@@ -75,12 +75,12 @@ type = "str"
 [[meta.field_schema]]
 internal = "produce"
 toml_key = "出品"
-type = "str"
+type = "list"
 
 [[meta.field_schema]]
 internal = "lyric_maker"
 toml_key = "歌词制作"
-type = "str"
+type = "list"
 
 [[meta.field_schema]]
 internal = "release"

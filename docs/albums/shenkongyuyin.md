@@ -3,9 +3,10 @@ title: 深空余音
 date: 2026-01-11
 order: -20260111
 category:
-  - 未知出品方
+  - 不年轻尘
 tag:
   - 深空余音
+  - 不年轻尘
   - 洛天依
   - 诗岸
   - 海伊
@@ -42,6 +43,10 @@ tag:
 <img src="./shenkongyuyin.jpg" alt="深空余音 封面" class="album-cover" />
 
 **发行日期:** 2026-01-11
+
+**出品:** 不年轻尘
+
+**歌词制作:** 官方特典附赠
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1UF6DBdEoJ/)
 

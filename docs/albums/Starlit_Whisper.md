@@ -3,15 +3,15 @@ title: Starlit Whisper
 date: 2025-12-05
 order: -20251205
 category:
-  - 未知出品方
+  - 胧
 tag:
   - Starlit Whisper
+  - 胧
   - 星尘
   - 赤羽
   - 诗岸
   - 海伊
   - 苍穹
-  - 胧
   - Aya-亚夜-
   - 林檎
   - 阿卡娜
@@ -30,6 +30,10 @@ tag:
 <img src="./Starlit_Whisper.png" alt="Starlit Whisper 封面" class="album-cover" />
 
 **发行日期:** 2025-12-05
+
+**出品:** 胧
+
+**歌词制作:** Magicst
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Jm2LBbEzi/)
 

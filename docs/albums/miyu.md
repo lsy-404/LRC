@@ -3,9 +3,10 @@ title: 蜜獄
 date: 2021-12-03
 order: -20211203
 category:
-  - 未知出品方
+  - 奶牛组
 tag:
   - 蜜獄
+  - 奶牛组
   - 星尘
   - 赤羽
   - 海伊
@@ -27,6 +28,10 @@ tag:
 <img src="./miyu.jpg" alt="蜜獄 封面" class="album-cover" />
 
 **发行日期:** 2021-12-03
+
+**出品:** 奶牛组
+
+**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1XU4y1T7yA/)
 

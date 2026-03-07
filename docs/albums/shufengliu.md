@@ -3,9 +3,10 @@ title: 数风流
 date: 2023-11-08
 order: -20231108
 category:
-  - 未知出品方
+  - 忘川风华录
 tag:
   - 数风流
+  - 忘川风华录
   - 苍穹
   - 赤羽
   - 海伊
@@ -52,6 +53,8 @@ tag:
 <img src="./shufengliu.jpg" alt="数风流 封面" class="album-cover" />
 
 **发行日期:** 2023-11-08
+
+**出品:** 忘川风华录
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1c84y1X7KZ/)
 

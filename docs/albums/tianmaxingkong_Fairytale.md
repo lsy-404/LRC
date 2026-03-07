@@ -3,9 +3,10 @@ title: 天马行空Fairytale
 date: 2019-07-05
 order: -20190705
 category:
-  - 未知出品方
+  - 平行四界Quadimension
 tag:
   - 天马行空Fairytale
+  - 平行四界Quadimension
   - 星尘
   - 赤羽
   - 诗岸
@@ -39,6 +40,10 @@ tag:
 <img src="./tianmaxingkong_Fairytale.jpg" alt="天马行空Fairytale 封面" class="album-cover" />
 
 **发行日期:** 2019-07-05
+
+**出品:** 平行四界Quadimension
+
+**歌词制作:** Lan0xE9
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1k4411c7Ge/)
 

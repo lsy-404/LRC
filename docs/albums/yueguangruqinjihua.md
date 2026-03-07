@@ -3,9 +3,10 @@ title: 月光入侵计划
 date: 2020-07-27
 order: -20200727
 category:
-  - 未知出品方
+  - 我是石榴皮
 tag:
   - 月光入侵计划
+  - 我是石榴皮
   - 诗岸
   - 46
   - 冰镇薄荷苏打水&46
@@ -20,6 +21,10 @@ tag:
 <img src="./yueguangruqinjihua.jpg" alt="月光入侵计划 封面" class="album-cover" />
 
 **发行日期:** 2020-07-27
+
+**出品:** 我是石榴皮
+
+**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1BC4y1h7Vg/)
 

@@ -3,9 +3,10 @@ title: 星语StarWhisper
 date: 2017-01-31
 order: -20170131
 category:
-  - 未知出品方
+  - 平行四界Quadimension
 tag:
   - 星语StarWhisper
+  - 平行四界Quadimension
   - 星尘
   - Ddickky
   - 冥凰
@@ -32,6 +33,10 @@ tag:
 <img src="./xingyu_StarWhisper.jpg" alt="星语StarWhisper 封面" class="album-cover" />
 
 **发行日期:** 2017-01-31
+
+**出品:** 平行四界Quadimension
+
+**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1js41187h4/)
 

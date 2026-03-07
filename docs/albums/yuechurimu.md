@@ -3,14 +3,14 @@ title: 月初日暮
 date: 2024-07-18
 order: -20240718
 category:
-  - 未知出品方
+  - 胧
 tag:
   - 月初日暮
+  - 胧
   - 星尘
   - 牧心
   - 赤羽
   - Minus
-  - 胧
   - Aya-亚夜-
   - 浓缩排骨
   - 大九_LN
@@ -28,6 +28,10 @@ tag:
 <img src="./yuechurimu.jpg" alt="月初日暮 封面" class="album-cover" />
 
 **发行日期:** 2024-07-18
+
+**出品:** 胧
+
+**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Yi421e7bR/)
 

@@ -3,9 +3,10 @@ title: 平行四界×轻文轻小说 Vol.1
 date: 2016-07-24
 order: -20160724
 category:
-  - 未知出品方
+  - 平行四界Quadimension
 tag:
   - 平行四界×轻文轻小说 Vol.1
+  - 平行四界Quadimension
   - 星尘
   - 纯白
   - 雨狸
@@ -26,6 +27,10 @@ tag:
 <img src="./pingxingsijieqingwenqingxiaoshuo_Vol1.png" alt="平行四界×轻文轻小说 Vol.1 封面" class="album-cover" />
 
 **发行日期:** 2016-07-24
+
+**出品:** 平行四界Quadimension
+
+**歌词制作:** 神武竹
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Us411v7vG/)
 
