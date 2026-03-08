@@ -231,7 +231,7 @@ def main() -> None:
         # 规则：
         # 1. 如果日期为 "1970-01-01"（表示"不适用"），order = -19700101
         # 2. 如果日期有效，使用负的日期数值（年*10000 + 月*100 + 日）
-        # 3. 如果日期为空或无效，不生成 order 字段（让这些专辑排在"不适用"之后）
+        # 3. 如果日期为空或无效，设置 order = -1（让这些专辑排在最后）
         order_line = ""
         if year_value == "1970-01-01":
             order_line = "order: -19700101\n"
@@ -240,6 +240,9 @@ def main() -> None:
             if date_tuple[0] != 0:
                 order_val = -(date_tuple[0] * 10000 + date_tuple[1] * 100 + date_tuple[2])
                 order_line = f"order: {order_val}\n"
+            else:
+                # 日期无效或缺失，设置为 -1
+                order_line = "order: -1\n"
 
         md_content = f"""---
 title: {album}
