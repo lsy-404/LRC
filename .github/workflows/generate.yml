@@ -254,10 +254,10 @@ jobs:
             echo "No zip files found in pack/ to clean."
           fi
 
-      - name: Fill meta.toml from LRC metadata
+      - name: Generate meta.toml from LRC metadata
         if: steps.check_commit.outputs.skip == 'false'
         run: |
-          python .github/scripts/fill_meta_from_lrc.py
+          python .github/scripts/generate_meta.py
 
       - name: Run Tag and SEO Optimization
         if: steps.check_commit.outputs.skip == 'false'

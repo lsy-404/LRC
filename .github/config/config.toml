@@ -25,6 +25,10 @@ lrc_fillable = ["vocal", "lyricist", "composer", "arranger", "tuning", "illustra
 [meta.defaults]
 year = ""
 produce = ""
+prefix = ""
+zh_name = ""
+en_name = ""
+suffix = ""
 vocal = []
 lyricist = []
 composer = []
@@ -44,6 +48,14 @@ year = "year"
 release_date = "year"
 "出品" = "produce"
 produce = "produce"
+"前缀" = "prefix"
+prefix = "prefix"
+"中文名" = "zh_name"
+zh_name = "zh_name"
+"英文名" = "en_name"
+en_name = "en_name"
+"后缀" = "suffix"
+suffix = "suffix"
 "演唱" = "vocal"
 vocal = "vocal"
 "作词" = "lyricist"
@@ -76,6 +88,26 @@ type = "str"
 internal = "produce"
 toml_key = "出品"
 type = "list"
+
+[[meta.field_schema]]
+internal = "prefix"
+toml_key = "前缀"
+type = "str"
+
+[[meta.field_schema]]
+internal = "zh_name"
+toml_key = "中文名"
+type = "str"
+
+[[meta.field_schema]]
+internal = "en_name"
+toml_key = "英文名"
+type = "str"
+
+[[meta.field_schema]]
+internal = "suffix"
+toml_key = "后缀"
+type = "str"
 
 [[meta.field_schema]]
 internal = "lyric_maker"
@@ -163,6 +195,32 @@ by = "lyric_maker"
 [optimize]
 exclude_dirs = [".git", ".github", "scripts", "node_modules", ".vscode"]
 extensions = [".lrc"]
+
+# LLM配置（用于智能解析专辑名称）
+[llm]
+# 是否启用LLM解析（如果为false，回退到正则算法）
+enabled = true
+
+# API端点（兼容OpenAI格式）
+api_base = "https://api.openai.com/v1"  # 默认值，实际使用时从环境变量读取
+
+# 模型名称
+model = "gpt-4o-mini"
+
+# API密钥（实际使用时从环境变量 LLM_API_KEY 读取）
+# api_key = ""  # 不要在配置文件中存储密钥
+
+# 请求超时（秒）
+timeout = 30
+
+# 重试次数
+max_retries = 2
+
+# 备用配置（如果主配置失败）
+[llm.fallback]
+enabled = false
+api_base = ""
+model = "gpt-3.5-turbo"
 
 [dev.report]
 # 元数据完整性报告配置

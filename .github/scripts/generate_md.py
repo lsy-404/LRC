@@ -100,6 +100,43 @@ def format_tag_for_yaml(tag: str) -> str:
     return text
 
 
+
+def format_album_display_name(prefix: str = "", zh_name: str = "", en_name: str = "", suffix: str = "") -> str:
+    """根据前缀、中英文名和后缀生成显示名称
+    
+    规则：
+    - 前缀 + 中文 + 英文 + 后缀 -> "前缀 中文 英文 后缀"（空格分隔）
+    - 任意组合都按照顺序拼接
+    - 都没有 -> ""
+    """
+    pfx = prefix.strip() if prefix and prefix != "不适用" else ""
+    zh = zh_name.strip() if zh_name and zh_name != "不适用" else ""
+    en = en_name.strip() if en_name and en_name != "不适用" else ""
+    sfx = suffix.strip() if suffix and suffix != "不适用" else ""
+    
+    # 构建主名（中+英）
+    if zh and en:
+        main_name = f"{zh} {en}"
+    elif zh:
+        main_name = zh
+    elif en:
+        main_name = en
+    else:
+        main_name = ""
+    
+    # 添加前缀和后缀
+    parts = []
+    if pfx:
+        parts.append(pfx)
+    if main_name:
+        parts.append(main_name)
+    if sfx:
+        parts.append(sfx)
+    
+    return " ".join(parts) if parts else ""
+
+
+
 def find_cover(album_path: Path) -> tuple[Path | None, str]:
     """查找cover文件，不区分大小写，返回统一小写的扩展名"""
     # 先尝试find_cover_files
@@ -156,6 +193,19 @@ def main() -> None:
 
         info, _ = load_album_meta(album_dir)
 
+        # 获取或推断前缀、中英文名和后缀
+        prefix = str(info.get("prefix") or "").strip()
+        prefix = str(info.get("prefix") or "").strip()
+        zh_name = str(info.get("zh_name") or "").strip()
+        en_name = str(info.get("en_name") or "").strip()
+        suffix = str(info.get("suffix") or "").strip()
+        
+        # 生成显示名称（用于 title 和首页）
+        display_name = format_album_display_name(prefix, zh_name, en_name, suffix)
+        if not display_name:
+            # 回退到文件夹名
+            display_name = album
+
         songs = []
         for lrc_file in lrc_files:
             # 直接使用文件名（去掉 .lrc 后缀）作为歌曲标题
@@ -177,6 +227,15 @@ def main() -> None:
                 cover_display_ext = cover_ext
 
         tags = [album]
+        # 添加前缀、中英文名和后缀到 tag（如果有值且不是占位符）
+        if prefix and prefix not in {"", "不适用", "缺少信息"}:
+            tags.append(prefix)
+        if zh_name and zh_name not in {"", "不适用", "缺少信息"}:
+            tags.append(zh_name)
+        if en_name and en_name not in {"", "不适用", "缺少信息"}:
+            tags.append(en_name)
+        if suffix and suffix not in {"", "不适用", "缺少信息"}:
+            tags.append(suffix)
         if not is_disabled_value(info["produce"]):
             tags.extend(info["produce"])
         # 不将歌词制作者加入tag，只显示在正文中
@@ -258,15 +317,15 @@ def main() -> None:
                 order_line = "order: -1\n"
 
         md_content = f"""---
-title: {album}
+title: {display_name}
 {date_line}{order_line}category:
   - {category_value}
 tag:
 {''.join(f'  - {format_tag_for_yaml(tag)}\n' for tag in tags)}---
 
-# {album}
+# {display_name}
 
-{f'<img src="./{album_file_name}{cover_display_ext}" alt="{album} 封面" class="album-cover" />' if has_cover else ''}
+{f'<img src="./{album_file_name}{cover_display_ext}" alt="{display_name} 封面" class="album-cover" />' if has_cover else ''}
 
 {((chr(10) + chr(10)).join(info_display) + chr(10)) if info_display else ''}
 ## 曲目列表
@@ -298,7 +357,7 @@ tag:
         
         album_cards.append(
             {
-                "name": album,
+                "name": display_name,
                 "file_name": album_file_name,
                 "cover": cover_url,
                 "produce": produce_display,

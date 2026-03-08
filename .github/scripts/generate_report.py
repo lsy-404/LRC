@@ -83,6 +83,17 @@ def check_album_integrity(album_dir: Path, album_name: str, info: dict[str, Any]
     purchase_missing = is_missing_value(info.get("purchase"))
     electronic_missing = is_missing_value(info.get("electronic"))
     
+    # 检查中英文名（"不适用"是合法占位符，不算缺失）
+    zh_name = str(info.get("zh_name") or "").strip()
+    en_name = str(info.get("en_name") or "").strip()
+    zh_missing = not zh_name or zh_name == "缺少信息"
+    en_missing = not en_name or en_name == "缺少信息"
+    # "不适用"视为有效值，不算缺失
+    if zh_name == "不适用":
+        zh_missing = False
+    if en_name == "不适用":
+        en_missing = False
+    
     # 错误级别：核心元数据缺失
     error_issues = []
     if year_missing and "year" in CORE_FIELDS:
@@ -93,6 +104,10 @@ def check_album_integrity(album_dir: Path, album_name: str, info: dict[str, Any]
         error_issues.append(CORE_FIELDS["release"])
     if purchase_missing and electronic_missing and "purchase_or_electronic" in CORE_FIELDS:
         error_issues.append(CORE_FIELDS["purchase_or_electronic"])
+    
+    # 中英文名都缺失 -> 错误
+    if zh_missing and en_missing:
+        error_issues.append("缺少中文名和英文名（至少需要一个）")
     
     # 检查封面文件
     if not has_valid_cover(album_dir):
@@ -122,6 +137,13 @@ def check_album_integrity(album_dir: Path, album_name: str, info: dict[str, Any]
     
     # 警告级别
     warning_issues = []
+    
+    # 中英文名缺失一个 -> 警告
+    if zh_missing or en_missing:
+        if zh_missing:
+            warning_issues.append("缺少中文名")
+        if en_missing:
+            warning_issues.append("缺少英文名")
     
     # 购买/电子有一个缺失
     if purchase_missing or electronic_missing:
