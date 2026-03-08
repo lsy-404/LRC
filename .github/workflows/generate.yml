@@ -256,6 +256,8 @@ jobs:
 
       - name: Generate meta.toml from LRC metadata
         if: steps.check_commit.outputs.skip == 'false'
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
         run: |
           python .github/scripts/generate_meta.py
 
