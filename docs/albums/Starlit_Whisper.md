@@ -51,6 +51,8 @@ tag:
 
 **调校:** Creuzer、血焰玖蝶、跨海星尘、瑞安Ryan
 
+**曲绘:** 喵太社
+
 ## 曲目列表
 
 - [2 Shadow Trace](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Starlit%20Whisper/2%20Shadow%20Trace.lrc)

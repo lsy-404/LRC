@@ -43,7 +43,9 @@ tag:
 
 **调校:** MeLo、瑞安Ryan
 
-**曲绘:** HTNK、今加、Sainker、零届0rz、千凉子、匙、Athgil、万代、Leiq雷、鲨鱼卡sayuki、枫叶、靡盬菌
+**曲绘:** 今加、Sainker、零届0rz、千凉子、匙、Athgil、万代、Leiq雷、鲨鱼卡sayuki、枫叶、靡盬菌、HTNK
+
+**混音:** MeLo
 
 ## 曲目列表
 

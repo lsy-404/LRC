@@ -3,17 +3,16 @@ title: 亚特兰蒂斯Atlantis
 date: 2018-10-30
 order: -20181030
 category:
-  - 平行四界Quadimension
+  - 未知出品方
 tag:
   - 亚特兰蒂斯Atlantis
-  - 平行四界Quadimension
   - 海伊
   - Evalia
   - 蒸馏奶
   - 大九_LN
   - Zeno
   - 浓缩拼拼
-  - 大る古
+  - 大♂古
   - 绿无
   - Ddickky
   - 小野道
@@ -35,8 +34,6 @@ tag:
 
 **发行日期:** 2018-10-30
 
-**出品:** 平行四界Quadimension
-
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1db411A7i8/)
 
 **购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?id=583571530883) ￥75/￥120/￥140
@@ -45,7 +42,7 @@ tag:
 
 **演唱:** 海伊
 
-**作词:** Evalia、蒸馏奶、大九_LN、Zeno、浓缩拼拼、大る古、绿无、Ddickky
+**作词:** Evalia、蒸馏奶、大九_LN、Zeno、浓缩拼拼、大♂古、绿无、Ddickky
 
 **作曲:** Evalia、小野道、星橙、Zeno、做带君、grazedfx、MeLo、Ddickky、天钧
 

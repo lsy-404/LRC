@@ -79,7 +79,7 @@
 - [秘宝旅人I](https://github.com/wuyilingwei/LRC#%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAi)
 - [秘宝旅人II Polaris](https://github.com/wuyilingwei/LRC#%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAii-polaris)
 - [繁星于雨云之上](https://github.com/wuyilingwei/LRC#%E7%B9%81%E6%98%9F%E4%BA%8E%E9%9B%A8%E4%BA%91%E4%B9%8B%E4%B8%8A)
-- [织肉匠](https://github.com/wuyilingwei/LRC#%E7%BB%87%E8%82%89%E5%8C%A0)
+- [织肉匠 - le bricoleur du devenir](https://github.com/wuyilingwei/LRC#%E7%BB%87%E8%82%89%E5%8C%A0-le-bricoleur-du-devenir)
 - [终梦Journeyed on Everdream](https://github.com/wuyilingwei/LRC#%E7%BB%88%E6%A2%A6journeyed-on-everdream)
 - [苍穹之痕：混沌时代](https://github.com/wuyilingwei/LRC#%E8%8B%8D%E7%A9%B9%E4%B9%8B%E7%97%95%E6%B7%B7%E6%B2%8C%E6%97%B6%E4%BB%A3)
 - [茜色诗集](https://github.com/wuyilingwei/LRC#%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86)
@@ -986,14 +986,14 @@ _暂无 LRC 文件_
 
 | 曲目 | 操作 |
 | :- | :-: |
-| [01.蜕鳞之时--海伊&赤羽.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/01.%E8%9C%95%E9%B3%9E%E4%B9%8B%E6%97%B6--%E6%B5%B7%E4%BC%8A%26%E8%B5%A4%E7%BE%BD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/01.%E8%9C%95%E9%B3%9E%E4%B9%8B%E6%97%B6--%E6%B5%B7%E4%BC%8A%26%E8%B5%A4%E7%BE%BD.lrc) |
-| [02.暖洋流--诗岸.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/02.%E6%9A%96%E6%B4%8B%E6%B5%81--%E8%AF%97%E5%B2%B8.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/02.%E6%9A%96%E6%B4%8B%E6%B5%81--%E8%AF%97%E5%B2%B8.lrc) |
-| [03.年至愿今宵 - 苍穹、星尘、赤羽.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/03.%E5%B9%B4%E8%87%B3%E6%84%BF%E4%BB%8A%E5%AE%B5%20-%20%E8%8B%8D%E7%A9%B9%E3%80%81%E6%98%9F%E5%B0%98%E3%80%81%E8%B5%A4%E7%BE%BD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/03.%E5%B9%B4%E8%87%B3%E6%84%BF%E4%BB%8A%E5%AE%B5%20-%20%E8%8B%8D%E7%A9%B9%E3%80%81%E6%98%9F%E5%B0%98%E3%80%81%E8%B5%A4%E7%BE%BD.lrc) |
-| [04.魔女之宴--星尘.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/04.%E9%AD%94%E5%A5%B3%E4%B9%8B%E5%AE%B4--%E6%98%9F%E5%B0%98.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/04.%E9%AD%94%E5%A5%B3%E4%B9%8B%E5%AE%B4--%E6%98%9F%E5%B0%98.lrc) |
-| [05.群星与夜之公主--星尘&永夜.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/05.%E7%BE%A4%E6%98%9F%E4%B8%8E%E5%A4%9C%E4%B9%8B%E5%85%AC%E4%B8%BB--%E6%98%9F%E5%B0%98%26%E6%B0%B8%E5%A4%9C.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/05.%E7%BE%A4%E6%98%9F%E4%B8%8E%E5%A4%9C%E4%B9%8B%E5%85%AC%E4%B8%BB--%E6%98%9F%E5%B0%98%26%E6%B0%B8%E5%A4%9C.lrc) |
-| [06.有深巷--赤羽&苍穹.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/06.%E6%9C%89%E6%B7%B1%E5%B7%B7--%E8%B5%A4%E7%BE%BD%26%E8%8B%8D%E7%A9%B9.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/06.%E6%9C%89%E6%B7%B1%E5%B7%B7--%E8%B5%A4%E7%BE%BD%26%E8%8B%8D%E7%A9%B9.lrc) |
-| [07.纸侍--星尘&永夜.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/07.%E7%BA%B8%E4%BE%8D--%E6%98%9F%E5%B0%98%26%E6%B0%B8%E5%A4%9C.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/07.%E7%BA%B8%E4%BE%8D--%E6%98%9F%E5%B0%98%26%E6%B0%B8%E5%A4%9C.lrc) |
-| [08.站在银河美术馆前的少年-星尘SVAI.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/08.%E7%AB%99%E5%9C%A8%E9%93%B6%E6%B2%B3%E7%BE%8E%E6%9C%AF%E9%A6%86%E5%89%8D%E7%9A%84%E5%B0%91%E5%B9%B4-%E6%98%9F%E5%B0%98SVAI.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/08.%E7%AB%99%E5%9C%A8%E9%93%B6%E6%B2%B3%E7%BE%8E%E6%9C%AF%E9%A6%86%E5%89%8D%E7%9A%84%E5%B0%91%E5%B9%B4-%E6%98%9F%E5%B0%98SVAI.lrc) |
+| [01.蜕鳞之时.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/01.%E8%9C%95%E9%B3%9E%E4%B9%8B%E6%97%B6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/01.%E8%9C%95%E9%B3%9E%E4%B9%8B%E6%97%B6.lrc) |
+| [02.暖洋流.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/02.%E6%9A%96%E6%B4%8B%E6%B5%81.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/02.%E6%9A%96%E6%B4%8B%E6%B5%81.lrc) |
+| [03.年至愿今宵.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/03.%E5%B9%B4%E8%87%B3%E6%84%BF%E4%BB%8A%E5%AE%B5.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/03.%E5%B9%B4%E8%87%B3%E6%84%BF%E4%BB%8A%E5%AE%B5.lrc) |
+| [04.魔女之宴.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/04.%E9%AD%94%E5%A5%B3%E4%B9%8B%E5%AE%B4.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/04.%E9%AD%94%E5%A5%B3%E4%B9%8B%E5%AE%B4.lrc) |
+| [05.群星与夜之公主.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/05.%E7%BE%A4%E6%98%9F%E4%B8%8E%E5%A4%9C%E4%B9%8B%E5%85%AC%E4%B8%BB.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/05.%E7%BE%A4%E6%98%9F%E4%B8%8E%E5%A4%9C%E4%B9%8B%E5%85%AC%E4%B8%BB.lrc) |
+| [06.有深巷.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/06.%E6%9C%89%E6%B7%B1%E5%B7%B7.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/06.%E6%9C%89%E6%B7%B1%E5%B7%B7.lrc) |
+| [07.纸侍.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/07.%E7%BA%B8%E4%BE%8D.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/07.%E7%BA%B8%E4%BE%8D.lrc) |
+| [08.站在银河美术馆前的少年.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/08.%E7%AB%99%E5%9C%A8%E9%93%B6%E6%B2%B3%E7%BE%8E%E6%9C%AF%E9%A6%86%E5%89%8D%E7%9A%84%E5%B0%91%E5%B9%B4.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/08.%E7%AB%99%E5%9C%A8%E9%93%B6%E6%B2%B3%E7%BE%8E%E6%9C%AF%E9%A6%86%E5%89%8D%E7%9A%84%E5%B0%91%E5%B9%B4.lrc) |
 | [09.站在银河美术馆前的少年-星尘VOCALOID.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/09.%E7%AB%99%E5%9C%A8%E9%93%B6%E6%B2%B3%E7%BE%8E%E6%9C%AF%E9%A6%86%E5%89%8D%E7%9A%84%E5%B0%91%E5%B9%B4-%E6%98%9F%E5%B0%98VOCALOID.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/09.%E7%AB%99%E5%9C%A8%E9%93%B6%E6%B2%B3%E7%BE%8E%E6%9C%AF%E9%A6%86%E5%89%8D%E7%9A%84%E5%B0%91%E5%B9%B4-%E6%98%9F%E5%B0%98VOCALOID.lrc) |
 
 </details>
@@ -1011,15 +1011,15 @@ _暂无 LRC 文件_
 
 | 曲目 | 操作 |
 | :- | :-: |
-| [1. 光晕 - 牧心.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/1.%20%E5%85%89%E6%99%95%20-%20%E7%89%A7%E5%BF%83.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/1.%20%E5%85%89%E6%99%95%20-%20%E7%89%A7%E5%BF%83.lrc) |
-| [2. SAD星人 - 诗岸.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/2.%20SAD%E6%98%9F%E4%BA%BA%20-%20%E8%AF%97%E5%B2%B8.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/2.%20SAD%E6%98%9F%E4%BA%BA%20-%20%E8%AF%97%E5%B2%B8.lrc) |
-| [3. 第一反应 - 海伊.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/3.%20%E7%AC%AC%E4%B8%80%E5%8F%8D%E5%BA%94%20-%20%E6%B5%B7%E4%BC%8A.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/3.%20%E7%AC%AC%E4%B8%80%E5%8F%8D%E5%BA%94%20-%20%E6%B5%B7%E4%BC%8A.lrc) |
-| [4. 热伤风 - 星尘,海伊,诗岸.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/4.%20%E7%83%AD%E4%BC%A4%E9%A3%8E%20-%20%E6%98%9F%E5%B0%98%2C%E6%B5%B7%E4%BC%8A%2C%E8%AF%97%E5%B2%B8.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/4.%20%E7%83%AD%E4%BC%A4%E9%A3%8E%20-%20%E6%98%9F%E5%B0%98%2C%E6%B5%B7%E4%BC%8A%2C%E8%AF%97%E5%B2%B8.lrc) |
-| [5. 童铃谣 - 苍穹,赤羽.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/5.%20%E7%AB%A5%E9%93%83%E8%B0%A3%20-%20%E8%8B%8D%E7%A9%B9%2C%E8%B5%A4%E7%BE%BD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/5.%20%E7%AB%A5%E9%93%83%E8%B0%A3%20-%20%E8%8B%8D%E7%A9%B9%2C%E8%B5%A4%E7%BE%BD.lrc) |
-| [6. 黑花鸢尾之歌 - 海伊.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/6.%20%E9%BB%91%E8%8A%B1%E9%B8%A2%E5%B0%BE%E4%B9%8B%E6%AD%8C%20-%20%E6%B5%B7%E4%BC%8A.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/6.%20%E9%BB%91%E8%8A%B1%E9%B8%A2%E5%B0%BE%E4%B9%8B%E6%AD%8C%20-%20%E6%B5%B7%E4%BC%8A.lrc) |
-| [7. 悠久 - 赤羽.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/7.%20%E6%82%A0%E4%B9%85%20-%20%E8%B5%A4%E7%BE%BD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/7.%20%E6%82%A0%E4%B9%85%20-%20%E8%B5%A4%E7%BE%BD.lrc) |
-| [8. 魔女之愿 - Minus.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/8.%20%E9%AD%94%E5%A5%B3%E4%B9%8B%E6%84%BF%20-%20Minus.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/8.%20%E9%AD%94%E5%A5%B3%E4%B9%8B%E6%84%BF%20-%20Minus.lrc) |
-| [9. 种魂川上忽地笑 - 星尘.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/9.%20%E7%A7%8D%E9%AD%82%E5%B7%9D%E4%B8%8A%E5%BF%BD%E5%9C%B0%E7%AC%91%20-%20%E6%98%9F%E5%B0%98.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/9.%20%E7%A7%8D%E9%AD%82%E5%B7%9D%E4%B8%8A%E5%BF%BD%E5%9C%B0%E7%AC%91%20-%20%E6%98%9F%E5%B0%98.lrc) |
+| [1. 光晕.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/1.%20%E5%85%89%E6%99%95.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/1.%20%E5%85%89%E6%99%95.lrc) |
+| [2. SAD星人.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/2.%20SAD%E6%98%9F%E4%BA%BA.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/2.%20SAD%E6%98%9F%E4%BA%BA.lrc) |
+| [3. 第一反应.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/3.%20%E7%AC%AC%E4%B8%80%E5%8F%8D%E5%BA%94.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/3.%20%E7%AC%AC%E4%B8%80%E5%8F%8D%E5%BA%94.lrc) |
+| [4. 热伤风.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/4.%20%E7%83%AD%E4%BC%A4%E9%A3%8E.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/4.%20%E7%83%AD%E4%BC%A4%E9%A3%8E.lrc) |
+| [5. 童铃谣.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/5.%20%E7%AB%A5%E9%93%83%E8%B0%A3.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/5.%20%E7%AB%A5%E9%93%83%E8%B0%A3.lrc) |
+| [6. 黑花鸢尾之歌.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/6.%20%E9%BB%91%E8%8A%B1%E9%B8%A2%E5%B0%BE%E4%B9%8B%E6%AD%8C.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/6.%20%E9%BB%91%E8%8A%B1%E9%B8%A2%E5%B0%BE%E4%B9%8B%E6%AD%8C.lrc) |
+| [7. 悠久.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/7.%20%E6%82%A0%E4%B9%85.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/7.%20%E6%82%A0%E4%B9%85.lrc) |
+| [8. 魔女之愿.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/8.%20%E9%AD%94%E5%A5%B3%E4%B9%8B%E6%84%BF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/8.%20%E9%AD%94%E5%A5%B3%E4%B9%8B%E6%84%BF.lrc) |
+| [9. 种魂川上忽地笑.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/9.%20%E7%A7%8D%E9%AD%82%E5%B7%9D%E4%B8%8A%E5%BF%BD%E5%9C%B0%E7%AC%91.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/9.%20%E7%A7%8D%E9%AD%82%E5%B7%9D%E4%B8%8A%E5%BF%BD%E5%9C%B0%E7%AC%91.lrc) |
 
 </details>
 
@@ -1036,15 +1036,15 @@ _暂无 LRC 文件_
 
 | 曲目 | 操作 |
 | :- | :-: |
-| [01 1.Whispering Snowflakes.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/01%201.Whispering%20Snowflakes.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/01%201.Whispering%20Snowflakes.lrc) |
-| [02 2.SHan山梦游仙境.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/02%202.SHan%E5%B1%B1%E6%A2%A6%E6%B8%B8%E4%BB%99%E5%A2%83.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/02%202.SHan%E5%B1%B1%E6%A2%A6%E6%B8%B8%E4%BB%99%E5%A2%83.lrc) |
-| [03 3.调味家.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/03%203.%E8%B0%83%E5%91%B3%E5%AE%B6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/03%203.%E8%B0%83%E5%91%B3%E5%AE%B6.lrc) |
-| [04 4.清风寻梦.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/04%204.%E6%B8%85%E9%A3%8E%E5%AF%BB%E6%A2%A6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/04%204.%E6%B8%85%E9%A3%8E%E5%AF%BB%E6%A2%A6.lrc) |
-| [05 5.六如亭.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/05%205.%E5%85%AD%E5%A6%82%E4%BA%AD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/05%205.%E5%85%AD%E5%A6%82%E4%BA%AD.lrc) |
-| [06 6.迷航.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/06%206.%E8%BF%B7%E8%88%AA.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/06%206.%E8%BF%B7%E8%88%AA.lrc) |
-| [07 7.星辰StarLight.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/07%207.%E6%98%9F%E8%BE%B0StarLight.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/07%207.%E6%98%9F%E8%BE%B0StarLight.lrc) |
-| [08 8.须臾永恒.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/08%208.%E9%A1%BB%E8%87%BE%E6%B0%B8%E6%81%92.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/08%208.%E9%A1%BB%E8%87%BE%E6%B0%B8%E6%81%92.lrc) |
-| [09 9.光.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/09%209.%E5%85%89.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/09%209.%E5%85%89.lrc) |
+| [1 Whispering Snowflakes.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/1%20Whispering%20Snowflakes.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/1%20Whispering%20Snowflakes.lrc) |
+| [2 SHan山梦游仙境.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/2%20SHan%E5%B1%B1%E6%A2%A6%E6%B8%B8%E4%BB%99%E5%A2%83.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/2%20SHan%E5%B1%B1%E6%A2%A6%E6%B8%B8%E4%BB%99%E5%A2%83.lrc) |
+| [3 调味家.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/3%20%E8%B0%83%E5%91%B3%E5%AE%B6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/3%20%E8%B0%83%E5%91%B3%E5%AE%B6.lrc) |
+| [4 清风寻梦.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/4%20%E6%B8%85%E9%A3%8E%E5%AF%BB%E6%A2%A6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/4%20%E6%B8%85%E9%A3%8E%E5%AF%BB%E6%A2%A6.lrc) |
+| [5 六如亭.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/5%20%E5%85%AD%E5%A6%82%E4%BA%AD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/5%20%E5%85%AD%E5%A6%82%E4%BA%AD.lrc) |
+| [6 迷航.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/6%20%E8%BF%B7%E8%88%AA.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/6%20%E8%BF%B7%E8%88%AA.lrc) |
+| [7 星辰StarLight.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/7%20%E6%98%9F%E8%BE%B0StarLight.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/7%20%E6%98%9F%E8%BE%B0StarLight.lrc) |
+| [8 须臾永恒.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/8%20%E9%A1%BB%E8%87%BE%E6%B0%B8%E6%81%92.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/8%20%E9%A1%BB%E8%87%BE%E6%B0%B8%E6%81%92.lrc) |
+| [9 光.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/9%20%E5%85%89.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-2/9%20%E5%85%89.lrc) |
 
 </details>
 
@@ -1186,14 +1186,14 @@ _暂无 LRC 文件_
 
 | 曲目 | 操作 |
 | :- | :-: |
-| [星尘 - Solar Storm.lrc](res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20Solar%20Storm.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20Solar%20Storm.lrc) |
-| [星尘 - StarLaLaLa.lrc](res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20StarLaLaLa.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20StarLaLaLa.lrc) |
-| [星尘 - Twinkle Star.lrc](res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20Twinkle%20Star.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20Twinkle%20Star.lrc) |
-| [星尘 - 徒劳的爱之美少女.lrc](res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20%E5%BE%92%E5%8A%B3%E7%9A%84%E7%88%B1%E4%B9%8B%E7%BE%8E%E5%B0%91%E5%A5%B3.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20%E5%BE%92%E5%8A%B3%E7%9A%84%E7%88%B1%E4%B9%8B%E7%BE%8E%E5%B0%91%E5%A5%B3.lrc) |
-| [星尘 - 时一现耳三千岁.lrc](res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20%E6%97%B6%E4%B8%80%E7%8E%B0%E8%80%B3%E4%B8%89%E5%8D%83%E5%B2%81.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20%E6%97%B6%E4%B8%80%E7%8E%B0%E8%80%B3%E4%B8%89%E5%8D%83%E5%B2%81.lrc) |
-| [星尘 - 星之伊始.lrc](res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20%E6%98%9F%E4%B9%8B%E4%BC%8A%E5%A7%8B.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20%E6%98%9F%E4%B9%8B%E4%BC%8A%E5%A7%8B.lrc) |
-| [星尘 - 星愿StarWish.lrc](res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20%E6%98%9F%E6%84%BFStarWish.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20%E6%98%9F%E6%84%BFStarWish.lrc) |
-| [星尘 - 观星者.lrc](res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20%E8%A7%82%E6%98%9F%E8%80%85.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/%E6%98%9F%E5%B0%98%20-%20%E8%A7%82%E6%98%9F%E8%80%85.lrc) |
+| [01 StarLaLaLa.lrc](res/%E6%98%9F%E6%84%BFStarWish/01%20StarLaLaLa.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/01%20StarLaLaLa.lrc) |
+| [02 观星者.lrc](res/%E6%98%9F%E6%84%BFStarWish/02%20%E8%A7%82%E6%98%9F%E8%80%85.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/02%20%E8%A7%82%E6%98%9F%E8%80%85.lrc) |
+| [03 Solar Storm.lrc](res/%E6%98%9F%E6%84%BFStarWish/03%20Solar%20Storm.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/03%20Solar%20Storm.lrc) |
+| [04 Twinkle Star.lrc](res/%E6%98%9F%E6%84%BFStarWish/04%20Twinkle%20Star.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/04%20Twinkle%20Star.lrc) |
+| [05 星之伊始.lrc](res/%E6%98%9F%E6%84%BFStarWish/05%20%E6%98%9F%E4%B9%8B%E4%BC%8A%E5%A7%8B.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/05%20%E6%98%9F%E4%B9%8B%E4%BC%8A%E5%A7%8B.lrc) |
+| [06 徒劳的爱之美少女.lrc](res/%E6%98%9F%E6%84%BFStarWish/06%20%E5%BE%92%E5%8A%B3%E7%9A%84%E7%88%B1%E4%B9%8B%E7%BE%8E%E5%B0%91%E5%A5%B3.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/06%20%E5%BE%92%E5%8A%B3%E7%9A%84%E7%88%B1%E4%B9%8B%E7%BE%8E%E5%B0%91%E5%A5%B3.lrc) |
+| [07 时一现耳三千岁.lrc](res/%E6%98%9F%E6%84%BFStarWish/07%20%E6%97%B6%E4%B8%80%E7%8E%B0%E8%80%B3%E4%B8%89%E5%8D%83%E5%B2%81.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/07%20%E6%97%B6%E4%B8%80%E7%8E%B0%E8%80%B3%E4%B8%89%E5%8D%83%E5%B2%81.lrc) |
+| [08 星愿StarWish.lrc](res/%E6%98%9F%E6%84%BFStarWish/08%20%E6%98%9F%E6%84%BFStarWish.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/08%20%E6%98%9F%E6%84%BFStarWish.lrc) |
 
 </details>
 
@@ -1739,25 +1739,25 @@ _暂无 LRC 文件_
 
 ---
 
-<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%BB%87%E8%82%89%E5%8C%A0/cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/cover.jpg" alt="专辑封面" width="120" align="right">
 
-### 织肉匠
+### 织肉匠 - le bricoleur du devenir
 
-**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%87%E8%82%89%E5%8C%A0.zip)**
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir.zip)**
 
 <details>
 <summary>📝 查看详细曲目 (8 首)</summary>
 
 | 曲目 | 操作 |
 | :- | :-: |
-| [1 丝 - Silk.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0/1%20%E4%B8%9D%20-%20Silk.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0/1%20%E4%B8%9D%20-%20Silk.lrc) |
-| [2 猎歌 - Tracking Song.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0/2%20%E7%8C%8E%E6%AD%8C%20-%20Tracking%20Song.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0/2%20%E7%8C%8E%E6%AD%8C%20-%20Tracking%20Song.lrc) |
-| [3 无根水 - Aleatory Deluge.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0/3%20%E6%97%A0%E6%A0%B9%E6%B0%B4%20-%20Aleatory%20Deluge.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0/3%20%E6%97%A0%E6%A0%B9%E6%B0%B4%20-%20Aleatory%20Deluge.lrc) |
-| [4 涡 - Whorl.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0/4%20%E6%B6%A1%20-%20Whorl.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0/4%20%E6%B6%A1%20-%20Whorl.lrc) |
-| [5 珠 - Pearl.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0/5%20%E7%8F%A0%20-%20Pearl.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0/5%20%E7%8F%A0%20-%20Pearl.lrc) |
-| [6 胚芽流 - Germinal Influx.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0/6%20%E8%83%9A%E8%8A%BD%E6%B5%81%20-%20Germinal%20Influx.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0/6%20%E8%83%9A%E8%8A%BD%E6%B5%81%20-%20Germinal%20Influx.lrc) |
-| [7 家谣 - Homeward Tune.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0/7%20%E5%AE%B6%E8%B0%A3%20-%20Homeward%20Tune.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0/7%20%E5%AE%B6%E8%B0%A3%20-%20Homeward%20Tune.lrc) |
-| [8 角 - Horn.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0/8%20%E8%A7%92%20-%20Horn.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0/8%20%E8%A7%92%20-%20Horn.lrc) |
+| [1 丝 - Silk.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/1%20%E4%B8%9D%20-%20Silk.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/1%20%E4%B8%9D%20-%20Silk.lrc) |
+| [2 猎歌 - Tracking Song.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/2%20%E7%8C%8E%E6%AD%8C%20-%20Tracking%20Song.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/2%20%E7%8C%8E%E6%AD%8C%20-%20Tracking%20Song.lrc) |
+| [3 无根水 - Aleatory Deluge.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/3%20%E6%97%A0%E6%A0%B9%E6%B0%B4%20-%20Aleatory%20Deluge.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/3%20%E6%97%A0%E6%A0%B9%E6%B0%B4%20-%20Aleatory%20Deluge.lrc) |
+| [4 涡 - Whorl.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/4%20%E6%B6%A1%20-%20Whorl.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/4%20%E6%B6%A1%20-%20Whorl.lrc) |
+| [5 珠 - Pearl.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/5%20%E7%8F%A0%20-%20Pearl.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/5%20%E7%8F%A0%20-%20Pearl.lrc) |
+| [6 胚芽流 - Germinal Influx.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/6%20%E8%83%9A%E8%8A%BD%E6%B5%81%20-%20Germinal%20Influx.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/6%20%E8%83%9A%E8%8A%BD%E6%B5%81%20-%20Germinal%20Influx.lrc) |
+| [7 家谣 - Homeward Tune.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/7%20%E5%AE%B6%E8%B0%A3%20-%20Homeward%20Tune.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/7%20%E5%AE%B6%E8%B0%A3%20-%20Homeward%20Tune.lrc) |
+| [8 角 - Horn.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/8%20%E8%A7%92%20-%20Horn.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/8%20%E8%A7%92%20-%20Horn.lrc) |
 
 </details>
 

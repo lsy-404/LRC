@@ -7,6 +7,7 @@ category:
 tag:
   - 海盼伊人
   - 梗梗
+  - 夜屠灵
   - 海伊
   - 赤羽
   - 花筝Anly
@@ -19,7 +20,6 @@ tag:
   - 离南
   - 水螅
   - LSun
-  - 夜屠灵
   - 一只冥河随母
   - Teddy-Tian
   - 七简
@@ -47,7 +47,7 @@ tag:
 
 **发行日期:** 2020-04-23
 
-**出品:** 梗梗
+**出品:** 梗梗、夜屠灵
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1xg4y1z7HL/)
 

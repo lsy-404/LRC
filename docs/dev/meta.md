@@ -11,10 +11,10 @@ icon: material-symbols:assessment
 - **总计**：80 个专辑
 - **已检查**：80 个
 - **跳过**：0 个
-- **完整**：48 个
-- **提示**：1 个
-- **警告**：7 个
-- **错误**：24 个
+- **完整**：49 个
+- **提示**：0 个
+- **警告**：6 个
+- **错误**：25 个
 
 ## ❌ 错误：核心元数据缺失
 
@@ -31,7 +31,7 @@ icon: material-symbols:assessment
 
 ### Killer Maids from Outer Space
 
-- 缺少发布链接
+- 缺少出品信息
 
 ### Lunatic（见月EP）
 
@@ -59,6 +59,10 @@ icon: material-symbols:assessment
 - 购买/电子至少需要一个
 - 缺少合法的封面文件
 - [统计] 专辑数据表缺失 4 项：演唱, 调校, 曲绘, 混音
+
+### 亚特兰蒂斯Atlantis
+
+- 缺少出品信息
 
 ### 人間型文學地獄園
 
@@ -199,7 +203,7 @@ icon: material-symbols:assessment
 
 ### 茜色诗集
 
-- 缺少发布链接
+- 缺少出品信息
 
 ### 视星等4.44
 
@@ -226,10 +230,6 @@ icon: material-symbols:assessment
 
 - 缺少歌词制作者
 
-### 亚特兰蒂斯Atlantis
-
-- 缺少歌词制作者
-
 ### 数风流
 
 - 缺少歌词制作者
@@ -249,14 +249,6 @@ icon: material-symbols:assessment
 ### 踏浪
 
 - 缺少歌词制作者
-
-## 💡 提示：部分信息缺失
-
-以下专辑有部分元数据缺失：
-
-### 星愿StarWish
-
-- 专辑数据表缺失 3 项：编曲, 调校, 混音
 
 ## ✅ 元数据完整
 
@@ -286,6 +278,7 @@ icon: material-symbols:assessment
 - 平行四界REBIRTH
 - 平行四界×轻文轻小说 Vol.1
 - 星之海StarOcean
+- 星愿StarWish
 - 星语StarWhisper
 - 星遇
 - 月光入侵计划
@@ -303,7 +296,7 @@ icon: material-symbols:assessment
 - 秘宝旅人I
 - 秘宝旅人II Polaris
 - 繁星于雨云之上
-- 织肉匠
+- 织肉匠 - le bricoleur du devenir
 - 终梦Journeyed on Everdream
 - 藏雪SnowGrave
 - 蜜獄

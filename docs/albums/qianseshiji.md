@@ -3,7 +3,7 @@ title: 茜色诗集
 date: 2016-12-04
 order: -20161204
 category:
-  - 泠鸢yousa
+  - 未知出品方
 tag:
   - 茜色诗集
   - 泠鸢yousa
@@ -28,9 +28,7 @@ tag:
 
 **发行日期:** 2016-12-04
 
-**出品:** 泠鸢yousa
-
-**歌词制作:** [Bilibili](https://www.bilibili.com/video/BV1Ys411r7T4/)
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1Ys411r7T4/)
 
 **电子:** [Dizzylab](https://www.dizzylab.net/d/akanepoems/) ￥25
 
