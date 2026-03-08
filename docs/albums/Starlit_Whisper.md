@@ -33,7 +33,7 @@ tag:
 
 **出品:** 胧
 
-**歌词制作:** Magicst
+**歌词制作:** Magicst、武乙凌薇
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Jm2LBbEzi/)
 
