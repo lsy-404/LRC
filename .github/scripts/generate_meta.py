@@ -100,12 +100,16 @@ def infer_album_names(folder_name: str) -> tuple[str, str, str, str]:
     if LLM_CLIENT:
         result = LLM_CLIENT.parse_album_name(folder_name)
         if result:
-            return (
-                result.get("prefix", ""),
-                result.get("zh_name", ""),
-                result.get("en_name", ""),
-                result.get("suffix", "")
-            )
+            prefix = result.get("prefix", "")
+            zh_name = result.get("zh_name", "")
+            en_name = result.get("en_name", "")
+            suffix = result.get("suffix", "")
+            
+            # 如果中文名和英文名完全相同，说明是纯英文名，清空中文名
+            if zh_name and en_name and zh_name == en_name:
+                zh_name = ""
+            
+            return prefix, zh_name, en_name, suffix
     
     # LLM不可用时，直接将文件夹名作为中文名
     text = folder_name.strip()

@@ -45,6 +45,13 @@ jobs:
         run: |
           pip install -r .github/scripts/requirements.txt
 
+      - name: Generate meta.toml from LRC metadata
+        if: steps.check_commit.outputs.skip == 'false'
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+        run: |
+          python .github/scripts/generate_meta.py
+
       - name: Detect albums needing rebuild
         if: steps.check_commit.outputs.skip == 'false'
         id: detect_changes
@@ -253,13 +260,6 @@ jobs:
           else
             echo "No zip files found in pack/ to clean."
           fi
-
-      - name: Generate meta.toml from LRC metadata
-        if: steps.check_commit.outputs.skip == 'false'
-        env:
-          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
-        run: |
-          python .github/scripts/generate_meta.py
 
       - name: Run Tag and SEO Optimization
         if: steps.check_commit.outputs.skip == 'false'
