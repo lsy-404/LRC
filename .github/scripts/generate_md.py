@@ -87,6 +87,19 @@ def is_disabled_value(value: str | list[str] | None) -> bool:
     return text == "" or text == "不适用" or text == "缺少信息"
 
 
+def format_tag_for_yaml(tag: str) -> str:
+    """格式化 tag 用于 YAML 输出，数字开头的需要加引号"""
+    text = str(tag).strip()
+    if not text:
+        return text
+    # 如果以数字开头，用引号包裹强制解析为字符串
+    if text[0].isdigit():
+        # 转义内部的引号
+        escaped = text.replace('"', '\\"')
+        return f'"{escaped}"'
+    return text
+
+
 def find_cover(album_path: Path) -> tuple[Path | None, str]:
     """查找cover文件，不区分大小写，返回统一小写的扩展名"""
     # 先尝试find_cover_files
@@ -249,7 +262,7 @@ title: {album}
 {date_line}{order_line}category:
   - {category_value}
 tag:
-{''.join(f'  - {tag}\n' for tag in tags)}---
+{''.join(f'  - {format_tag_for_yaml(tag)}\n' for tag in tags)}---
 
 # {album}
 
