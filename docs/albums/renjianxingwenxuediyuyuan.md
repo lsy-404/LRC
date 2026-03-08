@@ -1,5 +1,6 @@
 ---
 title: 人間型文學地獄園
+order: -1
 category:
   - 未知出品方
 tag:

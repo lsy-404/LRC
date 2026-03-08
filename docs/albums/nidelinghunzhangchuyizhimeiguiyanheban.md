@@ -1,5 +1,6 @@
 ---
 title: 你的灵魂长出一枝玫瑰（言和版）
+order: -1
 category:
   - 未知出品方
 tag:

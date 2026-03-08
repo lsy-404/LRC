@@ -1,5 +1,6 @@
 ---
 title: Lunatic（见月EP）
+order: -1
 category:
   - 未知出品方
 tag:

@@ -1,5 +1,6 @@
 ---
 title: 依睐·幻想曲
+order: -1
 category:
   - 未知出品方
 tag:
