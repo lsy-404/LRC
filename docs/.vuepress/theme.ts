@@ -1,6 +1,7 @@
 import { hopeTheme } from "vuepress-theme-hope";
 import { Page } from "vuepress"
 import navbar from "./navbar";
+import sidebar from "./sidebar";
 
 export default hopeTheme({
   hostname: "https://lrc.wuyilingwei.com",
@@ -32,26 +33,7 @@ export default hopeTheme({
   navbar: navbar,
 
   // sidebar
-  sidebar: {
-    "/": [
-      "",
-      {
-        text: "专辑列表",
-        icon: "material-symbols:album",
-        prefix: "albums/",
-        collapsible: true,
-        children: "structure",
-      },
-      {
-        text: "关于本站",
-        icon: "material-symbols:info",
-        prefix: "about/",
-        collapsible: true,
-        children: "structure",
-      },
-      "CONTRIBUTING",
-    ],
-  },
+  sidebar: sidebar,
 
   // 禁用导航链接
   prevLink: false,
@@ -60,8 +42,7 @@ export default hopeTheme({
   // 禁用页面目录
   toc: false,
 
-  footer: `V宇宙词站
-  <br>
+  footer: `
     <a href="https://v2.vuepress.vuejs.org/" target="_blank">
       <img src="https://img.shields.io/badge/Powered%20by-Vuepress%20v2-3eaf7c?style=flat-square&logo=vuedotjs" alt="Powered by Vuepress v2">
     </a>
@@ -70,7 +51,10 @@ export default hopeTheme({
       <img src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-ef9421?style=flat-square&logo=creativecommons&logoColor=white" alt="CC BY-NC-SA 4.0">
     </a>`,
 
-  copyright: "Copyright © 2026-Now V宇宙词站及贡献者。<br><a href=\"/about/statement.html\" target=\"_blank\"> 《网站用户协议》</a>，使用本站即视为同意本协议。",
+  copyright: `
+  Copyright © 2026-Now V宇宙词站及贡献者。
+  <br>
+  <a href=\"/about/statement.html\" target=\"_blank\"> 《网站用户协议》</a>，使用本站即视为同意本协议。`,
 
   displayFooter: true,
 
