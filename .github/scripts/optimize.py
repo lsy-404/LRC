@@ -1,8 +1,10 @@
 ﻿import os
 import urllib.parse
 import re
+from pathlib import Path
 
 from lib.config_loader import load_config
+from lib.meta_parser import load_album_meta
 
 CONFIG = load_config()
 PROJECT = CONFIG.get("project", {})
@@ -28,6 +30,40 @@ def github_slug(text):
     s = re.sub(r"-{2,}", "-", s)
     s = s.strip('-')
     return s
+
+def parse_sortable_date(value: str) -> tuple[int, int, int]:
+    """解析日期字符串为可排序的元组 (年, 月, 日)
+    
+    Args:
+        value: 日期字符串，支持 YYYY, YYYY-MM, YYYY-MM-DD 格式
+        
+    Returns:
+        (year, month, day) 元组，用于排序
+        - "1970-01-01" (表示不适用) 返回 (1, 1, 1)，排在有效日期之后、无配置之前
+        - 空值或无效值返回 (0, 1, 1)，排在最后
+    """
+    text = (value or "").strip()
+    
+    # 特殊处理："1970-01-01" 表示"不适用"
+    if text == "1970-01-01":
+        return (1, 1, 1)
+    
+    # 空值或"缺少信息"返回最小值，排在最后
+    if not text or text == "缺少信息":
+        return (0, 1, 1)
+
+    match = re.fullmatch(r"(\d{4})(?:-(\d{1,2})(?:-(\d{1,2}))?)?", text)
+    if not match:
+        return (0, 1, 1)
+
+    year = int(match.group(1))
+    month = int(match.group(2)) if match.group(2) else 1
+    day = int(match.group(3)) if match.group(3) else 1
+
+    if not (1 <= month <= 12 and 1 <= day <= 31):
+        return (0, 1, 1)
+
+    return (year, month, day)
 
 def find_cover_image(dir_path):
     """Find cover image in the album directory"""
@@ -62,7 +98,18 @@ def main():
     album_list_content = []
     catalog_content = []
     
-    dirs = sorted([d for d in os.listdir(res_dir_path) if os.path.isdir(os.path.join(res_dir_path, d)) and not d.startswith('.')])
+    # 获取所有专辑目录
+    dirs = [d for d in os.listdir(res_dir_path) if os.path.isdir(os.path.join(res_dir_path, d)) and not d.startswith('.')]
+    
+    # 为每个专辑读取发行日期并按时间倒序排序
+    def get_album_sort_key(album_name):
+        album_path = Path(res_dir_path) / album_name
+        info, _ = load_album_meta(album_path)
+        date_value = str(info.get("year", ""))  # 注意：配置中 "发行日期" 映射到 "year"
+        return parse_sortable_date(date_value)
+    
+    # 按日期倒序排序（最新的排在前面）
+    dirs = sorted(dirs, key=get_album_sort_key, reverse=True)
     
     for idx, album_name in enumerate(dirs):
         dir_path = os.path.join(res_dir_path, album_name)
