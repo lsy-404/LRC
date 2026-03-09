@@ -1,11 +1,13 @@
 ---
-title: 森罗万象Kaleido
+title: 森罗万象 Kaleido
 date: 2019-10-05
 order: -20191005
 category:
   - 平行四界Quadimension
 tag:
   - 森罗万象Kaleido
+  - 森罗万象
+  - Kaleido
   - 平行四界Quadimension
   - 星尘
   - 海伊
@@ -28,9 +30,9 @@ tag:
   - 文件
 ---
 
-# 森罗万象Kaleido
+# 森罗万象 Kaleido
 
-<img src="./senluowanxiang_Kaleido.jpg" alt="森罗万象Kaleido 封面" class="album-cover" />
+<img src="./senluowanxiang_Kaleido.jpg" alt="森罗万象 Kaleido 封面" class="album-cover" />
 
 **发行日期:** 2019-10-05
 

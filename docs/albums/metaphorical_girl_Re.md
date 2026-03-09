@@ -5,6 +5,8 @@ category:
   - 未知出品方
 tag:
   - metaphorical girl Re
+  - metaphorical girl
+  - Re
   - TOPKINGCREAM
   - 歌词
   - lrc

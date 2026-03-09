@@ -1,11 +1,13 @@
 ---
-title: 藏雪SnowGrave
+title: 藏雪 SnowGrave
 date: 2024-01-12
 order: -20240112
 category:
   - 北极圈ArcticLab
 tag:
   - 藏雪SnowGrave
+  - 藏雪
+  - SnowGrave
   - 北极圈ArcticLab
   - 星尘
   - 海伊
@@ -24,9 +26,9 @@ tag:
   - 文件
 ---
 
-# 藏雪SnowGrave
+# 藏雪 SnowGrave
 
-<img src="./cangxue_SnowGrave.jpg" alt="藏雪SnowGrave 封面" class="album-cover" />
+<img src="./cangxue_SnowGrave.jpg" alt="藏雪 SnowGrave 封面" class="album-cover" />
 
 **发行日期:** 2024-01-12
 

@@ -1,10 +1,12 @@
 ---
-title: 假说Hypothesis
+title: 假说 Hypothesis
 order: -1
 category:
   - 未知出品方
 tag:
   - 假说Hypothesis
+  - 假说
+  - Hypothesis
   - 大九_LN
   - 大九_ LN
   - 喻川
@@ -15,7 +17,7 @@ tag:
   - 文件
 ---
 
-# 假说Hypothesis
+# 假说 Hypothesis
 
 
 

@@ -1,11 +1,13 @@
 ---
-title: 生息Leave in Breath
+title: 生息 Leave in Breath
 date: 2025-03-22
 order: -20250322
 category:
   - 北极圈ArcticLab
 tag:
   - 生息Leave in Breath
+  - 生息
+  - Leave in Breath
   - 北极圈ArcticLab
   - 海伊
   - 星尘
@@ -32,9 +34,9 @@ tag:
   - 文件
 ---
 
-# 生息Leave in Breath
+# 生息 Leave in Breath
 
-<img src="./shengxi_Leave_in_Breath.jpg" alt="生息Leave in Breath 封面" class="album-cover" />
+<img src="./shengxi_Leave_in_Breath.jpg" alt="生息 Leave in Breath 封面" class="album-cover" />
 
 **发行日期:** 2025-03-22
 

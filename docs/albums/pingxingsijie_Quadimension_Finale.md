@@ -1,11 +1,13 @@
 ---
-title: 平行四界Quadimension Finale
+title: 平行四界 Quadimension Finale
 date: 2023-05-24
 order: -20230524
 category:
   - 平行四界Quadimension
 tag:
   - 平行四界Quadimension Finale
+  - 平行四界
+  - Quadimension Finale
   - 平行四界Quadimension
   - 海伊
   - 赤羽
@@ -33,9 +35,9 @@ tag:
   - 文件
 ---
 
-# 平行四界Quadimension Finale
+# 平行四界 Quadimension Finale
 
-<img src="./pingxingsijie_Quadimension_Finale.png" alt="平行四界Quadimension Finale 封面" class="album-cover" />
+<img src="./pingxingsijie_Quadimension_Finale.png" alt="平行四界 Quadimension Finale 封面" class="album-cover" />
 
 **发行日期:** 2023-05-24
 

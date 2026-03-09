@@ -6,6 +6,8 @@ category:
   - 平行四界Quadimension
 tag:
   - 平行四界×轻文轻小说 Vol.1
+  - 平行四界×轻文轻小说
+  - Vol.1
   - 平行四界Quadimension
   - 星尘
   - 纯白

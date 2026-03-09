@@ -1,11 +1,13 @@
 ---
-title: 星之海StarOcean
+title: 星之海 StarOcean
 date: 2018-08-11
 order: -20180811
 category:
   - 平行四界Quadimension
 tag:
   - 星之海StarOcean
+  - 星之海
+  - StarOcean
   - 平行四界Quadimension
   - 星尘
   - 海伊
@@ -29,9 +31,9 @@ tag:
   - 文件
 ---
 
-# 星之海StarOcean
+# 星之海 StarOcean
 
-<img src="./xingzhihai_StarOcean.jpg" alt="星之海StarOcean 封面" class="album-cover" />
+<img src="./xingzhihai_StarOcean.jpg" alt="星之海 StarOcean 封面" class="album-cover" />
 
 **发行日期:** 2018-08-11
 

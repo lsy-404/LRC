@@ -1,11 +1,13 @@
 ---
-title: 天马行空Fairytale
+title: 天马行空 Fairytale
 date: 2019-07-05
 order: -20190705
 category:
   - 平行四界Quadimension
 tag:
   - 天马行空Fairytale
+  - 天马行空
+  - Fairytale
   - 平行四界Quadimension
   - 星尘
   - 赤羽
@@ -35,9 +37,9 @@ tag:
   - 文件
 ---
 
-# 天马行空Fairytale
+# 天马行空 Fairytale
 
-<img src="./tianmaxingkong_Fairytale.jpg" alt="天马行空Fairytale 封面" class="album-cover" />
+<img src="./tianmaxingkong_Fairytale.jpg" alt="天马行空 Fairytale 封面" class="album-cover" />
 
 **发行日期:** 2019-07-05
 

@@ -1,11 +1,13 @@
 ---
-title: 加冕日CORONATION DAY
+title: 加冕日 CORONATION DAY
 date: 2023-04-19
 order: -20230419
 category:
   - Aya-亚夜-
 tag:
   - 加冕日CORONATION DAY
+  - 加冕日
+  - CORONATION DAY
   - Aya-亚夜-
   - 赤羽
   - 歌词
@@ -14,9 +16,9 @@ tag:
   - 文件
 ---
 
-# 加冕日CORONATION DAY
+# 加冕日 CORONATION DAY
 
-<img src="./jiamianri_CORONATION_DAY.jpg" alt="加冕日CORONATION DAY 封面" class="album-cover" />
+<img src="./jiamianri_CORONATION_DAY.jpg" alt="加冕日 CORONATION DAY 封面" class="album-cover" />
 
 **发行日期:** 2023-04-19
 

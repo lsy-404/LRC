@@ -1,11 +1,14 @@
 ---
-title: 平行四界Quadimension X-1
+title: 平行四界 Quadimension X-1
 date: 2021-06-04
 order: -20210604
 category:
   - 平行四界Quadimension
 tag:
   - 平行四界Quadimension X-1
+  - 平行四界
+  - Quadimension
+  - X-1
   - 平行四界Quadimension
   - 浓缩排骨
   - K_Lacid
@@ -29,9 +32,9 @@ tag:
   - 文件
 ---
 
-# 平行四界Quadimension X-1
+# 平行四界 Quadimension X-1
 
-<img src="./pingxingsijie_Quadimension_X-1.jpg" alt="平行四界Quadimension X-1 封面" class="album-cover" />
+<img src="./pingxingsijie_Quadimension_X-1.jpg" alt="平行四界 Quadimension X-1 封面" class="album-cover" />
 
 **发行日期:** 2021-06-04
 

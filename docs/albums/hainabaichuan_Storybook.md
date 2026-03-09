@@ -1,11 +1,13 @@
 ---
-title: 海纳百川Storybook
+title: 海纳百川 Storybook
 date: 2020-11-06
 order: -20201106
 category:
   - 平行四界Quadimension
 tag:
   - 海纳百川Storybook
+  - 海纳百川
+  - Storybook
   - 平行四界Quadimension
   - 星尘
   - 海伊
@@ -35,9 +37,9 @@ tag:
   - 文件
 ---
 
-# 海纳百川Storybook
+# 海纳百川 Storybook
 
-<img src="./hainabaichuan_Storybook.jpg" alt="海纳百川Storybook 封面" class="album-cover" />
+<img src="./hainabaichuan_Storybook.jpg" alt="海纳百川 Storybook 封面" class="album-cover" />
 
 **发行日期:** 2020-11-06
 

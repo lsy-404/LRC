@@ -1,11 +1,13 @@
 ---
-title: 织肉匠 - le bricoleur du devenir
+title: 织肉匠 le bricoleur du devenir
 date: 2025-12-05
 order: -20251205
 category:
   - 磁带君
 tag:
   - 织肉匠 - le bricoleur du devenir
+  - 织肉匠
+  - le bricoleur du devenir
   - 磁带君
   - 牧心
   - 永夜Minus
@@ -23,9 +25,9 @@ tag:
   - 文件
 ---
 
-# 织肉匠 - le bricoleur du devenir
+# 织肉匠 le bricoleur du devenir
 
-<img src="./zhiroujiang_-_le_bricoleur_du_devenir.jpg" alt="织肉匠 - le bricoleur du devenir 封面" class="album-cover" />
+<img src="./zhiroujiang_-_le_bricoleur_du_devenir.jpg" alt="织肉匠 le bricoleur du devenir 封面" class="album-cover" />
 
 **发行日期:** 2025-12-05
 

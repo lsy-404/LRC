@@ -1,11 +1,14 @@
 ---
-title: 平行四界Quadimension X-3
+title: 平行四界 Quadimension X-3
 date: 2022-04-03
 order: -20220403
 category:
   - 平行四界Quadimension
 tag:
   - 平行四界Quadimension X-3
+  - 平行四界
+  - Quadimension
+  - X-3
   - 平行四界Quadimension
   - 绿无
   - 浓缩排骨
@@ -31,9 +34,9 @@ tag:
   - 文件
 ---
 
-# 平行四界Quadimension X-3
+# 平行四界 Quadimension X-3
 
-<img src="./pingxingsijie_Quadimension_X-3.jpg" alt="平行四界Quadimension X-3 封面" class="album-cover" />
+<img src="./pingxingsijie_Quadimension_X-3.jpg" alt="平行四界 Quadimension X-3 封面" class="album-cover" />
 
 **发行日期:** 2022-04-03
 

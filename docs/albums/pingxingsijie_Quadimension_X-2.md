@@ -1,11 +1,14 @@
 ---
-title: 平行四界Quadimension X-2
+title: 平行四界 Quadimension X-2
 date: 2021-10-29
 order: -20211029
 category:
   - 平行四界Quadimension
 tag:
   - 平行四界Quadimension X-2
+  - 平行四界
+  - Quadimension
+  - X-2
   - 平行四界Quadimension
   - 星尘
   - 海伊
@@ -31,9 +34,9 @@ tag:
   - 文件
 ---
 
-# 平行四界Quadimension X-2
+# 平行四界 Quadimension X-2
 
-<img src="./pingxingsijie_Quadimension_X-2.jpg" alt="平行四界Quadimension X-2 封面" class="album-cover" />
+<img src="./pingxingsijie_Quadimension_X-2.jpg" alt="平行四界 Quadimension X-2 封面" class="album-cover" />
 
 **发行日期:** 2021-10-29
 

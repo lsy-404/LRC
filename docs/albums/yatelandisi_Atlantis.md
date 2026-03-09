@@ -1,11 +1,13 @@
 ---
-title: 亚特兰蒂斯Atlantis
+title: 亚特兰蒂斯 Atlantis
 date: 2018-10-30
 order: -20181030
 category:
   - 未知出品方
 tag:
   - 亚特兰蒂斯Atlantis
+  - 亚特兰蒂斯
+  - Atlantis
   - 海伊
   - Evalia
   - 蒸馏奶
@@ -28,9 +30,9 @@ tag:
   - 文件
 ---
 
-# 亚特兰蒂斯Atlantis
+# 亚特兰蒂斯 Atlantis
 
-<img src="./yatelandisi_Atlantis.jpg" alt="亚特兰蒂斯Atlantis 封面" class="album-cover" />
+<img src="./yatelandisi_Atlantis.jpg" alt="亚特兰蒂斯 Atlantis 封面" class="album-cover" />
 
 **发行日期:** 2018-10-30
 

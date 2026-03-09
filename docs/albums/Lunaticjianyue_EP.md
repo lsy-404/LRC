@@ -1,17 +1,20 @@
 ---
-title: Lunatic（见月EP）
+title: 见月 Lunatic EP
 order: -1
 category:
   - 未知出品方
 tag:
   - Lunatic（见月EP）
+  - 见月
+  - Lunatic
+  - EP
   - 歌词
   - lrc
   - 下载
   - 文件
 ---
 
-# Lunatic（见月EP）
+# 见月 Lunatic EP
 
 
 

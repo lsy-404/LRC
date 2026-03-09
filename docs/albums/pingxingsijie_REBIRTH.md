@@ -1,11 +1,13 @@
 ---
-title: 平行四界REBIRTH
+title: 平行四界 REBIRTH
 date: 2025-08-12
 order: -20250812
 category:
   - 平行四界Quadimension
 tag:
   - 平行四界REBIRTH
+  - 平行四界
+  - REBIRTH
   - 平行四界Quadimension
   - 星尘
   - 赤羽
@@ -32,9 +34,9 @@ tag:
   - 文件
 ---
 
-# 平行四界REBIRTH
+# 平行四界 REBIRTH
 
-<img src="./pingxingsijie_REBIRTH.jpg" alt="平行四界REBIRTH 封面" class="album-cover" />
+<img src="./pingxingsijie_REBIRTH.jpg" alt="平行四界 REBIRTH 封面" class="album-cover" />
 
 **发行日期:** 2025-08-12
 

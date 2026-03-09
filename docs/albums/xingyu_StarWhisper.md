@@ -1,11 +1,13 @@
 ---
-title: 星语StarWhisper
+title: 星语 StarWhisper
 date: 2017-01-31
 order: -20170131
 category:
   - 平行四界Quadimension
 tag:
   - 星语StarWhisper
+  - 星语
+  - StarWhisper
   - 平行四界Quadimension
   - 星尘
   - Ddickky
@@ -28,9 +30,9 @@ tag:
   - 文件
 ---
 
-# 星语StarWhisper
+# 星语 StarWhisper
 
-<img src="./xingyu_StarWhisper.jpg" alt="星语StarWhisper 封面" class="album-cover" />
+<img src="./xingyu_StarWhisper.jpg" alt="星语 StarWhisper 封面" class="album-cover" />
 
 **发行日期:** 2017-01-31
 

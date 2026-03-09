@@ -1,5 +1,5 @@
 ---
-title: 秘宝旅人I
+title: 秘宝旅人 I
 date: 2023-11-25
 order: -20231125
 category:
@@ -7,6 +7,7 @@ category:
 tag:
   - 秘宝旅人I
   - 秘宝旅人
+  - I
   - 苍穹
   - 星尘Infinity
   - 海伊
@@ -31,9 +32,9 @@ tag:
   - 文件
 ---
 
-# 秘宝旅人I
+# 秘宝旅人 I
 
-<img src="./mibaolvren_I.png" alt="秘宝旅人I 封面" class="album-cover" />
+<img src="./mibaolvren_I.png" alt="秘宝旅人 I 封面" class="album-cover" />
 
 **发行日期:** 2023-11-25
 

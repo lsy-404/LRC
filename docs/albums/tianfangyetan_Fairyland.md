@@ -1,11 +1,13 @@
 ---
-title: 天方夜谭Fairyland
+title: 天方夜谭 Fairyland
 date: 2019-04-05
 order: -20190405
 category:
   - 平行四界Quadimension
 tag:
   - 天方夜谭Fairyland
+  - 天方夜谭
+  - Fairyland
   - 平行四界Quadimension
   - 星尘
   - 海伊
@@ -27,9 +29,9 @@ tag:
   - 文件
 ---
 
-# 天方夜谭Fairyland
+# 天方夜谭 Fairyland
 
-<img src="./tianfangyetan_Fairyland.jpg" alt="天方夜谭Fairyland 封面" class="album-cover" />
+<img src="./tianfangyetan_Fairyland.jpg" alt="天方夜谭 Fairyland 封面" class="album-cover" />
 
 **发行日期:** 2019-04-05
 

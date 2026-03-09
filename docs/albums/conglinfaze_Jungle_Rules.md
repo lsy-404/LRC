@@ -1,11 +1,13 @@
 ---
-title: 丛林法则Jungle Rules
+title: 丛林法则 Jungle Rules
 date: 2020-02-28
 order: -20200228
 category:
   - 平行四界Quadimension
 tag:
   - 丛林法则Jungle Rules
+  - 丛林法则
+  - Jungle Rules
   - 平行四界Quadimension
   - 星尘
   - 苍穹
@@ -31,9 +33,9 @@ tag:
   - 文件
 ---
 
-# 丛林法则Jungle Rules
+# 丛林法则 Jungle Rules
 
-<img src="./conglinfaze_Jungle_Rules.jpg" alt="丛林法则Jungle Rules 封面" class="album-cover" />
+<img src="./conglinfaze_Jungle_Rules.jpg" alt="丛林法则 Jungle Rules 封面" class="album-cover" />
 
 **发行日期:** 2020-02-28
 

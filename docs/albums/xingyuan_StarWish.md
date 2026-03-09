@@ -1,11 +1,13 @@
 ---
-title: 星愿StarWish
+title: 星愿 StarWish
 date: 2016-03-04
 order: -20160304
 category:
   - 平行四界Quadimension
 tag:
   - 星愿StarWish
+  - 星愿
+  - StarWish
   - 平行四界Quadimension
   - 星尘
   - 孙若曦
@@ -29,9 +31,9 @@ tag:
   - 文件
 ---
 
-# 星愿StarWish
+# 星愿 StarWish
 
-<img src="./xingyuan_StarWish.jpg" alt="星愿StarWish 封面" class="album-cover" />
+<img src="./xingyuan_StarWish.jpg" alt="星愿 StarWish 封面" class="album-cover" />
 
 **发行日期:** 2016-03-04
 

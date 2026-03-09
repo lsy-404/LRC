@@ -1,11 +1,13 @@
 ---
-title: 吉光片羽Queendom
+title: 吉光片羽 Queendom
 date: 2020-06-12
 order: -20200612
 category:
   - 平行四界Quadimension
 tag:
   - 吉光片羽Queendom
+  - 吉光片羽
+  - Queendom
   - 平行四界Quadimension
   - 星尘
   - 苍穹
@@ -35,9 +37,9 @@ tag:
   - 文件
 ---
 
-# 吉光片羽Queendom
+# 吉光片羽 Queendom
 
-<img src="./jiguangpianyu_Queendom.jpg" alt="吉光片羽Queendom 封面" class="album-cover" />
+<img src="./jiguangpianyu_Queendom.jpg" alt="吉光片羽 Queendom 封面" class="album-cover" />
 
 **发行日期:** 2020-06-12
 

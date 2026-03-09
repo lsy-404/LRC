@@ -1,5 +1,5 @@
 ---
-title: 秘宝旅人II Polaris
+title: 秘宝旅人 Polaris II
 date: 2025-07-04
 order: -20250704
 category:
@@ -7,6 +7,8 @@ category:
 tag:
   - 秘宝旅人II Polaris
   - 秘宝旅人
+  - Polaris
+  - II
   - Minus
   - 小春六花
   - ナースロボ＿タイプＴ
@@ -32,9 +34,9 @@ tag:
   - 文件
 ---
 
-# 秘宝旅人II Polaris
+# 秘宝旅人 Polaris II
 
-<img src="./mibaolvren_II_Polaris.jpg" alt="秘宝旅人II Polaris 封面" class="album-cover" />
+<img src="./mibaolvren_II_Polaris.jpg" alt="秘宝旅人 Polaris II 封面" class="album-cover" />
 
 **发行日期:** 2025-07-04
 
