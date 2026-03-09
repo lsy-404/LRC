@@ -1,5 +1,5 @@
 ---
-title: 单曲
+title: 单曲 单曲
 order: -19700101
 category:
   - 未知出品方
@@ -11,9 +11,9 @@ tag:
   - 文件
 ---
 
-# 单曲
+# 单曲 单曲
 
-<img src="./danqu.jpg" alt="单曲 封面" class="album-cover" />
+<img src="./danqu.jpg" alt="单曲 单曲 封面" class="album-cover" />
 
 
 ## 曲目列表
