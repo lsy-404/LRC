@@ -56,6 +56,8 @@ tag:
 
 **出品:** 忘川风华录
 
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1c84y1X7KZ&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1c84y1X7KZ/)
 
 **购买:** 通贩不可用

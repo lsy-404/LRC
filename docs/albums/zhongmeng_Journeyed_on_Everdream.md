@@ -27,6 +27,8 @@ tag:
 
 **歌词制作:** 武乙凌薇
 
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1q3qZBDE9y&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1q3qZBDE9y)
 
 **购买:** [北极圈 Arcticlab](https://item.taobao.com/item.htm?id=1004976437319) ￥82

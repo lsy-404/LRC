@@ -1,11 +1,12 @@
 ---
-title: 流星空间站聆星者 II
+title: 流星空间站 流星空间站聆星者 II
 date: 2025-05-02
 order: -20250502
 category:
   - 流星空间站创作组
 tag:
   - 流星空间站II聆星者
+  - 流星空间站
   - 流星空间站聆星者
   - II
   - 流星空间站创作组
@@ -28,15 +29,17 @@ tag:
   - 文件
 ---
 
-# 流星空间站聆星者 II
+# 流星空间站 流星空间站聆星者 II
 
-<img src="./liuxingkongjianzhan_II_lingxingzhe.jpg" alt="流星空间站聆星者 II 封面" class="album-cover" />
+<img src="./liuxingkongjianzhan_II_lingxingzhe.jpg" alt="流星空间站 流星空间站聆星者 II 封面" class="album-cover" />
 
 **发行日期:** 2025-05-02
 
 **出品:** 流星空间站创作组
 
 **歌词制作:** 神武竹
+
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1oaVLzXEzg&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1oaVLzXEzg/)
 

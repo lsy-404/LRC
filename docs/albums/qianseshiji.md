@@ -28,6 +28,8 @@ tag:
 
 **发行日期:** 2016-12-04
 
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1Ys411r7T4&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Ys411r7T4/)
 
 **电子:** [Dizzylab](https://www.dizzylab.net/d/akanepoems/) ￥25

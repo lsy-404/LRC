@@ -33,6 +33,8 @@ tag:
 
 **歌词制作:** RQvan
 
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1Yi421e7bR&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Yi421e7bR/)
 
 **购买:** 通贩不可用

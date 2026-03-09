@@ -47,6 +47,8 @@ tag:
 
 **歌词制作:** 初天星_official
 
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1BA411v7uJ&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1BA411v7uJ/)
 
 **购买:** [淘宝 平行四界Quadimension](http://t.cn/A62s4zQQ) ￥75/￥120/￥140/￥190/￥220

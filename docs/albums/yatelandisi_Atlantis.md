@@ -36,6 +36,8 @@ tag:
 
 **发行日期:** 2018-10-30
 
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1db411A7i8&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1db411A7i8/)
 
 **购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?id=583571530883) ￥75/￥120/￥140

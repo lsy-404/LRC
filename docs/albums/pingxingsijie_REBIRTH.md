@@ -44,6 +44,8 @@ tag:
 
 **歌词制作:** 武乙凌薇
 
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1uKtSz6EgF&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1uKtSz6EgF/)
 
 **购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?id=991410246698) ￥108/￥178/￥228

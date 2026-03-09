@@ -40,6 +40,8 @@ tag:
 
 **歌词制作:** 虎啸ROAR
 
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV17E411Z7oY&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV17E411Z7oY/)
 
 **购买:** [淘宝 平行四界Quadimension](http://t.cn/Aimxvvky) ￥75/￥130/￥198

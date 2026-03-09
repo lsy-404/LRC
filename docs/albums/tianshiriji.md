@@ -26,6 +26,8 @@ tag:
 
 **歌词制作:** 神武竹
 
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1Hq4y1p7qn&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Hq4y1p7qn/)
 
 **购买:** 通贩不可用

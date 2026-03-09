@@ -44,6 +44,8 @@ tag:
 
 **歌词制作:** RQvan
 
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1vr3jzUEzN&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1vr3jzUEzN/)
 
 **购买:** [淘宝 鲸鱼家](https://item.taobao.com/item.htm?id=947365547978) ￥98/￥208

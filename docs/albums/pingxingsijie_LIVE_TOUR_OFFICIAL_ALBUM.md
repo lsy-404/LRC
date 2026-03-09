@@ -1,5 +1,5 @@
 ---
-title: 平行四界 LIVE TOUR OFFICIAL ALBUM OFFICIAL ALBUM
+title: 平行四界 LIVE TOUR OFFICIAL ALBUM
 date: 2017-08-12
 order: -20170812
 category:
@@ -8,7 +8,6 @@ tag:
   - 平行四界LIVE TOUR OFFICIAL ALBUM
   - 平行四界
   - LIVE TOUR OFFICIAL ALBUM
-  - OFFICIAL ALBUM
   - 平行四界Quadimension
   - 星尘
   - 冥凰
@@ -38,15 +37,17 @@ tag:
   - 文件
 ---
 
-# 平行四界 LIVE TOUR OFFICIAL ALBUM OFFICIAL ALBUM
+# 平行四界 LIVE TOUR OFFICIAL ALBUM
 
-<img src="./pingxingsijie_LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界 LIVE TOUR OFFICIAL ALBUM OFFICIAL ALBUM 封面" class="album-cover" />
+<img src="./pingxingsijie_LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界 LIVE TOUR OFFICIAL ALBUM 封面" class="album-cover" />
 
 **发行日期:** 2017-08-12
 
 **出品:** 平行四界Quadimension
 
 **歌词制作:** RQvan
+
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV19x411n7z4&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV19x411n7z4/)
 

@@ -35,6 +35,8 @@ tag:
 
 **歌词制作:** Magicst、武乙凌薇
 
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1Jm2LBbEzi&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Jm2LBbEzi/)
 
 **购买:** [淘宝 喵之宝库miota](https://item.taobao.com/item.htm?id=999122563646) ￥80/￥199/￥248
