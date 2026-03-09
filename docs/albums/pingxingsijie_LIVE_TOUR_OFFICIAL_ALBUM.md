@@ -1,5 +1,5 @@
 ---
-title: 平行四界 LIVE TOUR OFFICIAL ALBUM
+title: 平行四界 LIVE TOUR OFFICIAL ALBUM OFFICIAL ALBUM
 date: 2017-08-12
 order: -20170812
 category:
@@ -8,6 +8,7 @@ tag:
   - 平行四界LIVE TOUR OFFICIAL ALBUM
   - 平行四界
   - LIVE TOUR OFFICIAL ALBUM
+  - OFFICIAL ALBUM
   - 平行四界Quadimension
   - 星尘
   - 冥凰
@@ -37,9 +38,9 @@ tag:
   - 文件
 ---
 
-# 平行四界 LIVE TOUR OFFICIAL ALBUM
+# 平行四界 LIVE TOUR OFFICIAL ALBUM OFFICIAL ALBUM
 
-<img src="./pingxingsijie_LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界 LIVE TOUR OFFICIAL ALBUM 封面" class="album-cover" />
+<img src="./pingxingsijie_LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界 LIVE TOUR OFFICIAL ALBUM OFFICIAL ALBUM 封面" class="album-cover" />
 
 **发行日期:** 2017-08-12
 

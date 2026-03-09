@@ -11,9 +11,9 @@ icon: material-symbols:analytics
 - **总计**：80 个专辑
 - **已检查**：80 个
 - **跳过**：0 个
-- **完整**：21 个
+- **完整**：26 个
 - **提示**：0 个
-- **警告**：34 个
+- **警告**：29 个
 - **错误**：25 个
 
 ## ❌ 错误：核心元数据缺失
@@ -226,26 +226,6 @@ icon: material-symbols:analytics
 
 以下专辑缺少重要元数据：
 
-### ELOHIM
-
-- 缺少中文名
-
-### Freesia
-
-- 缺少中文名
-
-### Iris
-
-- 缺少中文名
-
-### Starlit Whisper
-
-- 缺少中文名
-
-### Write You a Song
-
-- 缺少中文名
-
 ### 『FM40.4』
 
 - 缺少中文名
@@ -372,6 +352,11 @@ icon: material-symbols:analytics
 
 以下专辑的元数据完整：
 
+- ELOHIM
+- Freesia
+- Iris
+- Starlit Whisper
+- Write You a Song
 - 丛林法则Jungle Rules
 - 加冕日CORONATION DAY
 - 吉光片羽Queendom
