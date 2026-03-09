@@ -1,12 +1,11 @@
 ---
-title: 流星空间站 流星空间站聆星者 II
+title: 流星空间站聆星者 II
 date: 2025-05-02
 order: -20250502
 category:
   - 流星空间站创作组
 tag:
   - 流星空间站II聆星者
-  - 流星空间站
   - 流星空间站聆星者
   - II
   - 流星空间站创作组
@@ -29,9 +28,9 @@ tag:
   - 文件
 ---
 
-# 流星空间站 流星空间站聆星者 II
+# 流星空间站聆星者 II
 
-<img src="./liuxingkongjianzhan_II_lingxingzhe.jpg" alt="流星空间站 流星空间站聆星者 II 封面" class="album-cover" />
+<img src="./liuxingkongjianzhan_II_lingxingzhe.jpg" alt="流星空间站聆星者 II 封面" class="album-cover" />
 
 **发行日期:** 2025-05-02
 
