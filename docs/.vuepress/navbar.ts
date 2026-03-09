@@ -16,7 +16,7 @@ export default navbar([
     icon: "material-symbols:info",
     prefix: "about/",
     children: [
-      "README",
+      "",
       "statement",
       "copyright",
     ],
