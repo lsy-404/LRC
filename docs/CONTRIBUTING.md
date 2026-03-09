@@ -3,7 +3,7 @@ title: 贡献指南
 icon: material-symbols:person-add
 ---
 
-感谢你的贡献！  
+感谢你的贡献！
 这个项目维护着**虚拟歌姬专辑的导航信息、元数据和歌词数据库**。
 
 仓库地址：[https://github.com/wuyilingwei/LRC](https://github.com/wuyilingwei/LRC)

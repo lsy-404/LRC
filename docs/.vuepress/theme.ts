@@ -42,8 +42,14 @@ export default hopeTheme({
         collapsible: true,
         children: "structure",
       },
+      {
+        text: "关于本站",
+        icon: "material-symbols:info",
+        prefix: "about/",
+        collapsible: true,
+        children: "structure",
+      },
       "CONTRIBUTING",
-      "about",
     ],
   },
 
@@ -64,7 +70,7 @@ export default hopeTheme({
       <img src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-ef9421?style=flat-square&logo=creativecommons&logoColor=white" alt="CC BY-NC-SA 4.0">
     </a>`,
 
-  copyright: "Copyright © 2026-Now V宇宙词站及贡献者。<br>本站内容遵循 <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans' target='_blank'><b>CC BY-NC-SA 4.0</b></a> 授权<br>商业使用请参阅 <a href=\"/about.html#使用协议\"><b>认定解释与豁免条款</b></a>",
+  copyright: "Copyright © 2026-Now V宇宙词站及贡献者。<br><a href=\"/about/statement.html\" target=\"_blank\"> 《网站用户协议》</a>，使用本站即视为同意本协议。",
 
   displayFooter: true,
 
