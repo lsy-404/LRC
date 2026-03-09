@@ -22,6 +22,7 @@ ALBUMS_DIR = ROOT_DIR / str(PROJECT.get("albums_dir", "docs/albums"))
 COVER_EXTENSIONS = [str(item) for item in COMMON.get("cover_ext", [".jpg", ".png", ".jpeg", ".webp", ".bmp"])]
 HAN_RE = re.compile(r"[\u4e00-\u9fff]")
 NON_ASCII_ARTIFACT_RE = re.compile(r"[^A-Za-z0-9_\-\n]+")
+BVID_RE = re.compile(r"\b(BV[0-9A-Za-z]{10})\b", re.IGNORECASE)
 
 
 def sanitize_artifact_name(raw_name: str) -> str:
@@ -75,6 +76,17 @@ def parse_lrc(file_path: Path) -> dict[str, str]:
 
 def raw_meta_value(value: str) -> str:
     return (value or "").strip()
+
+
+def extract_bvid(value: str) -> str:
+    text = (value or "").strip()
+    if not text:
+        return ""
+    match = BVID_RE.search(text)
+    if not match:
+        return ""
+    bvid = match.group(1)
+    return "BV" + bvid[2:]
 
 
 def is_disabled_value(value: str | list[str] | None) -> bool:
@@ -271,7 +283,16 @@ def main() -> None:
         if not is_disabled_value(info.get("lyric_maker")):
             info_display.append(f"**歌词制作:** {'、'.join(info['lyric_maker'])}")
         release_val = raw_meta_value(str(info.get("release") or ""))
+        release_player_iframe = ""
         if release_val and not is_disabled_value(release_val):
+            bvid = extract_bvid(release_val)
+            if bvid:
+                release_player_iframe = (
+                    f'<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid={bvid}&p=1" '
+                    'scrolling="no" border="0" frameborder="no" framespacing="0" '
+                    'allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>'
+                )
+                info_display.append(release_player_iframe)
             info_display.append(f"**发布:** {release_val}")
         purchase_val = raw_meta_value(str(info.get("purchase") or ""))
         if purchase_val and not is_disabled_value(purchase_val):
