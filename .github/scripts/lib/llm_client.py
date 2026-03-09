@@ -5,6 +5,7 @@
 """
 import json
 import os
+import sys
 from typing import Optional
 from urllib import request
 from urllib.error import HTTPError, URLError
@@ -36,23 +37,22 @@ class LLMClient:
         self.timeout = timeout
         self.max_retries = max_retries
     
-    def _make_request(self, messages: list[dict], temperature: float = 0.1) -> Optional[str]:
+    def _make_request(self, messages: list[dict]) -> Optional[str]:
         """发送请求到LLM API
         
         Args:
             messages: 消息列表
-            temperature: 温度参数（0-1）
             
         Returns:
             LLM返回的文本内容，失败返回None
         """
         url = f"{self.api_base}/chat/completions"
         
+        # 结构化数据输出使用最简配置，不设置 temperature 等参数
         payload = {
             "model": self.model,
             "messages": messages,
-            "temperature": temperature,
-            "max_tokens": 200
+            "max_completion_tokens": 2000  # GPT-5 推理模型需要更多 tokens：先推理再输出
         }
         
         headers = {
@@ -68,10 +68,23 @@ class LLMClient:
                 with request.urlopen(req, timeout=self.timeout) as response:
                     result = json.loads(response.read().decode('utf-8'))
                     return result['choices'][0]['message']['content'].strip()
-            except (HTTPError, URLError, KeyError, json.JSONDecodeError) as e:
+            except HTTPError as e:
+                # 读取错误响应体以获取详细信息
+                error_body = ""
+                try:
+                    error_body = e.read().decode('utf-8')
+                except:
+                    pass
                 if attempt < self.max_retries:
                     continue
-                print(f"⚠️  LLM请求失败: {e}")
+                print(f"⚠️  LLM请求失败: HTTP {e.code} {e.reason}", file=sys.stderr, flush=True)
+                if error_body:
+                    print(f"    详细信息: {error_body[:200]}", file=sys.stderr, flush=True)
+                return None
+            except (URLError, KeyError, json.JSONDecodeError) as e:
+                if attempt < self.max_retries:
+                    continue
+                print(f"⚠️  LLM请求失败: {e}", file=sys.stderr, flush=True)
                 return None
         
         return None
