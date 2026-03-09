@@ -1,7 +1,7 @@
 ---
 title: 元数据完整性报告
 index: false
-icon: material-symbols:assessment
+icon: material-symbols:analytics
 ---
 
 # 元数据完整性报告
