@@ -33,6 +33,7 @@ tag:
   - 陌生来访
   - 跨海星尘
   - John_Em
+  - Risho
   - 歌词
   - lrc
   - 下载
@@ -63,9 +64,9 @@ tag:
 
 **编曲:** 清风疾行没有q、Aya-亚夜-、空想纪录、怀归、磷元素P、被遗忘者的哀伤、幻觉、被遗忘者的逝去
 
-**调校:** Creuzer、Aya-亚夜-、血焰玖蝶、AkazuYi、陌生来访、跨海星尘、磷元素P、1mol梨花茶、John_Em
+**调校:** Creuzer、Aya-亚夜-、血焰玖蝶、AkazuYi、陌生来访、跨海星尘、磷元素P、1mol梨花茶、John_Em、Risho
 
-**曲绘:** syknot、字母球捏
+**曲绘:** syknot、字母球捏、虫合蜊-、字母贝斯、ブウユー、孜然cike、migu、余原、MIGUAG、アシタ、、Eid_Shacklebolt、Ar極光、劣人_弗洛、_方白、山下鸭鸭窝、云西西西子、积雨云、白、安拆、Eurekaしお
 
 **混音:** 清风疾行没有q、Aya-亚夜-、-CuTTleFiSh、空想纪录、磷元素P、1mol梨花茶、橘子_JZ_、DJ鱼谷
 
