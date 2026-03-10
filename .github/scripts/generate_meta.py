@@ -41,6 +41,8 @@ from __future__ import annotations
 import argparse
 import io
 import sys
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
@@ -68,6 +70,9 @@ RES_DIR = ROOT_DIR / str(PROJECT.get("res_dir", "res"))
 
 # 初始化LLM客户端
 LLM_CLIENT = create_llm_client_from_config(LLM_CONFIG)
+
+# 线程锁用于输出同步
+_PRINT_LOCK = threading.Lock()
 
 # ──────────────────────────────────────────────────────────────────────────────
 # 字段定义：canonical 内部名称 → (TOML 中文键, 类型)
@@ -215,14 +220,27 @@ def process_album(
     # 从 LRC 提取
     lrc_meta = merge_album_lrc_metadata(lrc_files)
     
-    # 推断专辑名称
-    inferred_prefix, inferred_zh, inferred_en, inferred_suffix = infer_album_names(album_name)
-    names = {
-        "prefix": inferred_prefix,
-        "zh_name": inferred_zh,
-        "en_name": inferred_en,
-        "suffix": inferred_suffix
-    }
+    # 推断专辑名称（仅在必要时调用）
+    # 如果现有meta中已有任意名称字段且不是force_names模式，则跳过LLM调用
+    has_any_name = any(existing_meta.get(field) for field in _NAME_FIELDS)
+    need_infer = force_names or not has_any_name
+    
+    if need_infer:
+        inferred_prefix, inferred_zh, inferred_en, inferred_suffix = infer_album_names(album_name)
+        names = {
+            "prefix": inferred_prefix,
+            "zh_name": inferred_zh,
+            "en_name": inferred_en,
+            "suffix": inferred_suffix
+        }
+    else:
+        # 使用现有值
+        names = {
+            "prefix": existing_meta.get("prefix", ""),
+            "zh_name": existing_meta.get("zh_name", ""),
+            "en_name": existing_meta.get("en_name", ""),
+            "suffix": existing_meta.get("suffix", "")
+        }
 
     # 合并
     merged = merge(existing_meta, lrc_meta, names, force_names)
@@ -241,7 +259,8 @@ def process_album(
 
     if verbose:
         status = "[changed]" if changed else "[unchanged]"
-        print(f"  {status} {album_name}")
+        with _PRINT_LOCK:
+            print(f"  {status} {album_name}")
         
         # 显示名称字段
         for field in ["prefix", "zh_name", "en_name", "suffix"]:
@@ -260,7 +279,8 @@ def process_album(
             
             display_name = {"prefix": "前缀", "zh_name": "中文名", "en_name": "英文名", "suffix": "后缀"}[field]
             if val or verbose:
-                print(f"    {display_name:<6} = {val or '(空)'}{source}")
+                with _PRINT_LOCK:
+                    print(f"    {display_name:<6} = {val or '(空)'}{source}")
         
         # 显示其他字段
         for internal, toml_key, typ in FIELD_SCHEMA:
@@ -281,7 +301,8 @@ def process_album(
                     source = " [来自LRC]"
                 else:
                     source = " [空默认]"
-            print(f"    {toml_key:<6} = {display}{source}")
+            with _PRINT_LOCK:
+                print(f"    {toml_key:<6} = {display}{source}")
 
     if changed and not dry_run:
         target.write_text(new_content, encoding="utf-8")
@@ -301,6 +322,7 @@ def main() -> None:
     parser.add_argument("--dry-run", action="store_true", help="预览但不实际写入")
     parser.add_argument("--force-names", action="store_true", help="强制重新推断名称，覆盖现有值")
     parser.add_argument("--verbose", action="store_true", help="输出每个字段的来源和值")
+    parser.add_argument("--workers", type=int, default=4, metavar="N", help="并发处理的线程数（默认4）")
     args = parser.parse_args()
 
     if not RES_DIR.exists():
@@ -316,18 +338,41 @@ def main() -> None:
         album_dirs = sorted([d for d in RES_DIR.iterdir() if d.is_dir()])
 
     mode = "[DRY-RUN] " if args.dry_run else ""
-    print(f"{mode}开始处理 {len(album_dirs)} 张专辑...\n")
+    print(f"{mode}开始处理 {len(album_dirs)} 张专辑（{args.workers} 线程并发）...\n")
 
     changed_count = 0
-    for album_dir in album_dirs:
-        changed = process_album(album_dir, dry_run=args.dry_run, verbose=args.verbose, force_names=args.force_names)
-        if changed:
-            changed_count += 1
-            if not args.verbose:
-                marker = "[preview]" if args.dry_run else "[updated]"
-                print(f"  {marker} {album_dir.name}")
-        elif not args.verbose:
-            print(f"  [=]       {album_dir.name}")
+    
+    # 使用线程池并发处理
+    with ThreadPoolExecutor(max_workers=args.workers) as executor:
+        # 提交所有任务
+        future_to_album = {
+            executor.submit(
+                process_album,
+                album_dir,
+                dry_run=args.dry_run,
+                verbose=args.verbose,
+                force_names=args.force_names
+            ): album_dir
+            for album_dir in album_dirs
+        }
+        
+        # 收集结果
+        for future in as_completed(future_to_album):
+            album_dir = future_to_album[future]
+            try:
+                changed = future.result()
+                if changed:
+                    changed_count += 1
+                    if not args.verbose:
+                        marker = "[preview]" if args.dry_run else "[updated]"
+                        with _PRINT_LOCK:
+                            print(f"  {marker} {album_dir.name}")
+                elif not args.verbose:
+                    with _PRINT_LOCK:
+                        print(f"  [=]       {album_dir.name}")
+            except Exception as e:
+                with _PRINT_LOCK:
+                    print(f"  [ERROR]   {album_dir.name}: {e}", file=sys.stderr)
 
     print(f"\n完成。共 {len(album_dirs)} 张专辑，{changed_count} 张 meta.toml 已{'预览' if args.dry_run else '更新'}。")
 

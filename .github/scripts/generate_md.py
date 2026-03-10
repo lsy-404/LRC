@@ -285,15 +285,19 @@ def main() -> None:
         release_val = raw_meta_value(str(info.get("release") or ""))
         release_player_iframe = ""
         if release_val and not is_disabled_value(release_val):
+            info_display.append(f"**发布:** {release_val}")
             bvid = extract_bvid(release_val)
             if bvid:
                 release_player_iframe = (
-                    f'<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid={bvid}&p=1" '
+                    f'''
+                    ::: detail 预览
+                    <iframe src="//player.bilibili.com/player.html?isOutside=true&bvid={bvid}&poster=true&autoplay=true&muted=false&danmaku=true" '
                     'scrolling="no" border="0" frameborder="no" framespacing="0" '
-                    'allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>'
+                    'allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+                    :::
+                    '''
                 )
                 info_display.append(release_player_iframe)
-            info_display.append(f"**发布:** {release_val}")
         purchase_val = raw_meta_value(str(info.get("purchase") or ""))
         if purchase_val and not is_disabled_value(purchase_val):
             info_display.append(f"**购买:** {purchase_val}")
