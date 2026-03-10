@@ -45,14 +45,6 @@ tag:
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1g64y167FY/)
 
-
-::: detail 预览
-<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1g64y167FY&poster=true&autoplay=true&muted=false&danmaku=true" '
-'scrolling="no" border="0" frameborder="no" framespacing="0" '
-'allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
-:::
-
-
 **购买:** 通贩不可用
 
 **电子:** 电子版不可用

@@ -29,14 +29,6 @@ tag:
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV19E411J7BL/)
 
-
-::: detail 预览
-<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV19E411J7BL&poster=true&autoplay=true&muted=false&danmaku=true" '
-'scrolling="no" border="0" frameborder="no" framespacing="0" '
-'allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
-:::
-
-
 **购买:** 通贩不可用
 
 **电子:** [Dizzylab](https://www.dizzylab.net/d/CRASHIN38C/) ￥25
