@@ -47,12 +47,12 @@ tag:
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1RR4y1J7NJ/)
 
 
-                    ::: detail 预览
-                    <iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1RR4y1J7NJ&poster=true&autoplay=true&muted=false&danmaku=true" '
-                    'scrolling="no" border="0" frameborder="no" framespacing="0" '
-                    'allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
-                    :::
-                    
+::: detail 预览
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1RR4y1J7NJ&poster=true&autoplay=true&muted=false&danmaku=true" '
+'scrolling="no" border="0" frameborder="no" framespacing="0" '
+'allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+:::
+
 
 **购买:** [淘宝 平行四界Quadimension](http://t.cn/A6MxerwL) ￥75/￥120/￥170/￥210
 

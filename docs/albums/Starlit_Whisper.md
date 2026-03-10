@@ -38,12 +38,12 @@ tag:
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Jm2LBbEzi/)
 
 
-                    ::: detail 预览
-                    <iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1Jm2LBbEzi&poster=true&autoplay=true&muted=false&danmaku=true" '
-                    'scrolling="no" border="0" frameborder="no" framespacing="0" '
-                    'allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
-                    :::
-                    
+::: detail 预览
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1Jm2LBbEzi&poster=true&autoplay=true&muted=false&danmaku=true" '
+'scrolling="no" border="0" frameborder="no" framespacing="0" '
+'allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+:::
+
 
 **购买:** [淘宝 喵之宝库miota](https://item.taobao.com/item.htm?id=999122563646) ￥80/￥199/￥248
 
