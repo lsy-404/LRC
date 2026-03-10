@@ -1,11 +1,17 @@
 ---
 title: 人間型文學地獄園
-order: -1
+date: 2026-02-01
+order: -20260201
 category:
-  - 未知出品方
+  - rat
 tag:
   - 人間型文學地獄園
-  - 雍雁P
+  - rat
+  - 奶皇
+  - サラダ
+  - 雍雁
+  - DIAO
+  - 雍雁 P
   - SaladCup
   - Asian Lo-Fi Inc.
   - 歌词
@@ -18,11 +24,23 @@ tag:
 
 
 
-**作词:** 雍雁P、SaladCup、Asian Lo-Fi Inc.
+**发行日期:** 2026-02-01
 
-**作曲:** 雍雁P、SaladCup、Asian Lo-Fi Inc.
+**出品:** rat、奶皇、サラダ、雍雁、DIAO
 
-**编曲:** 雍雁P、SaladCup、DIAO P
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1rW6nBZEbe/)
+
+**电子:** [dizzylab](https://www.dizzylab.net/d/HELL-01) [网易云音乐](https://music.163.com/#/album?id=360184202)
+
+**作词:** 雍雁 P、SaladCup、Asian Lo-Fi Inc.
+
+**作曲:** 雍雁 P、SaladCup、Asian Lo-Fi Inc.
+
+**编曲:** 雍雁 P、SaladCup、DIAO P
+
+**曲绘:** 循汩 gu
+
+**混音:** DIAO_Official
 
 ## 曲目列表
 

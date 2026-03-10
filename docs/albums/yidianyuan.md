@@ -1,11 +1,17 @@
 ---
 title: 伊甸园
-order: -1
+date: 2023-11-25
+order: -20231125
 category:
-  - 未知出品方
+  - Licis
 tag:
   - 伊甸园
-  - licis
+  - Licis
+  - 言和
+  - 白洛 Hoshino
+  - 鬼面 P
+  - 陌生来访
+  - 想吃素的 BeaR
   - 歌词
   - lrc
   - 下载
@@ -16,11 +22,23 @@ tag:
 
 
 
-**作词:** licis
+**发行日期:** 2023-11-25
 
-**作曲:** licis
+**出品:** Licis
 
-**编曲:** licis
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1j34y1w7Ye/)
+
+**演唱:** 言和
+
+**作词:** Licis
+
+**作曲:** Licis
+
+**编曲:** Licis
+
+**调校:** 白洛 Hoshino、鬼面 P、陌生来访、想吃素的 BeaR
+
+**曲绘:** 鸟
 
 ## 曲目列表
 
