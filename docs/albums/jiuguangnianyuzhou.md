@@ -51,7 +51,7 @@ tag:
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1yBfUBoEzh/)
 
-**购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?id=1019714314580) ￥52
+**购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?id=1019714314580) ￥52 已完售
 
 **电子:** 随专辑附赠
 
@@ -67,7 +67,7 @@ tag:
 
 **曲绘:** syknot、字母球捏
 
-**混音:** 清风疾行没有q、Aya-亚夜-、-CuTTleFiSh、空想纪录、磷元素P、1mol梨花茶、橘子、橘子_JZ_、DJ鱼谷
+**混音:** 清风疾行没有q、Aya-亚夜-、-CuTTleFiSh、空想纪录、磷元素P、1mol梨花茶、橘子_JZ_、DJ鱼谷
 
 ## 曲目列表
 
