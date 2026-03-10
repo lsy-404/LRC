@@ -290,12 +290,12 @@ def main() -> None:
             if bvid:
                 release_player_iframe = (
                     f'''
-                    ::: detail 预览
-                    <iframe src="//player.bilibili.com/player.html?isOutside=true&bvid={bvid}&poster=true&autoplay=true&muted=false&danmaku=true" '
-                    'scrolling="no" border="0" frameborder="no" framespacing="0" '
-                    'allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
-                    :::
-                    '''
+::: detail 预览
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid={bvid}&poster=true&autoplay=true&muted=false&danmaku=true" '
+'scrolling="no" border="0" frameborder="no" framespacing="0" '
+'allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+:::
+'''
                 )
                 info_display.append(release_player_iframe)
         purchase_val = raw_meta_value(str(info.get("purchase") or ""))
