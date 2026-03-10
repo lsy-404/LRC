@@ -1,11 +1,17 @@
 ---
 title: Cotton Candy
-order: -1
+date: 2020-03-13
+order: -20200313
 category:
-  - 未知出品方
+  - 墨蓝酱油
 tag:
   - Cotton Candy
   - 墨蓝酱油
+  - 音街ウナ
+  - 星尘
+  - 洛天依
+  - 乐正绫
+  - 海伊
   - 歌词
   - lrc
   - 下载
@@ -16,9 +22,29 @@ tag:
 
 
 
+**发行日期:** 2020-03-13
+
+**出品:** 墨蓝酱油
+
+**歌词制作:** 武乙凌薇
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1uE411M7ZR/)
+
+**购买:** [淘宝 DarkBlue Records](https://t.cn/A6zwm3bm) ￥150/￥76
+
+**电子:** [网易云音乐](https://music.163.com/) [DizzyLab](https://www.dizzylab.net/)
+
+**演唱:** 音街ウナ、星尘、洛天依、乐正绫、海伊
+
 **作词:** 墨蓝酱油
 
 **作曲:** 墨蓝酱油
+
+**编曲:** 墨蓝酱油
+
+**曲绘:** RiN、深谷、兜兜、苏以墨、瑛砸、发酵末
+
+**混音:** 墨蓝酱油
 
 ## 曲目列表
 
