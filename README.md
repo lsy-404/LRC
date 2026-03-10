@@ -51,6 +51,7 @@
 - [吉光片羽Queendom](https://github.com/wuyilingwei/LRC#%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDqueendom)
 - [海盼伊人](https://github.com/wuyilingwei/LRC#%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA)
 - [塌陷于38°C的蓝](https://github.com/wuyilingwei/LRC#%E5%A1%8C%E9%99%B7%E4%BA%8E38c%E7%9A%84%E8%93%9D)
+- [Cotton Candy](https://github.com/wuyilingwei/LRC#cotton-candy)
 - [丛林法则Jungle Rules](https://github.com/wuyilingwei/LRC#%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99jungle-rules)
 - [『FM40.4』](https://github.com/wuyilingwei/LRC#fm404)
 - [止谎剂](https://github.com/wuyilingwei/LRC#%E6%AD%A2%E8%B0%8E%E5%89%82)
@@ -86,7 +87,6 @@
 - [伊甸园](https://github.com/wuyilingwei/LRC#%E4%BC%8A%E7%94%B8%E5%9B%AD)
 - [海客谈](https://github.com/wuyilingwei/LRC#%E6%B5%B7%E5%AE%A2%E8%B0%88)
 - [假说Hypothesis](https://github.com/wuyilingwei/LRC#%E5%81%87%E8%AF%B4hypothesis)
-- [Cotton Candy](https://github.com/wuyilingwei/LRC#cotton-candy)
 - [甘泽谣](https://github.com/wuyilingwei/LRC#%E7%94%98%E6%B3%BD%E8%B0%A3)
 - [夏浪派对2024](https://github.com/wuyilingwei/LRC#%E5%A4%8F%E6%B5%AA%E6%B4%BE%E5%AF%B92024)
 - [依睐·幻想曲](https://github.com/wuyilingwei/LRC#%E4%BE%9D%E7%9D%90%E5%B9%BB%E6%83%B3%E6%9B%B2)
@@ -1082,6 +1082,29 @@
 
 ---
 
+### Cotton Candy
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Cotton%20Candy.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (9 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [Cotton candy.lrc](res/Cotton%20Candy/Cotton%20candy.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/Cotton%20candy.lrc) |
+| [Galaxy pop feat.饭团团团团桑.lrc](res/Cotton%20Candy/Galaxy%20pop%20feat.%E9%A5%AD%E5%9B%A2%E5%9B%A2%E5%9B%A2%E5%9B%A2%E6%A1%91.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/Galaxy%20pop%20feat.%E9%A5%AD%E5%9B%A2%E5%9B%A2%E5%9B%A2%E5%9B%A2%E6%A1%91.lrc) |
+| [Galaxy pop.lrc](res/Cotton%20Candy/Galaxy%20pop.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/Galaxy%20pop.lrc) |
+| [Nightension feat.饭团团团团桑.lrc](res/Cotton%20Candy/Nightension%20feat.%E9%A5%AD%E5%9B%A2%E5%9B%A2%E5%9B%A2%E5%9B%A2%E6%A1%91.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/Nightension%20feat.%E9%A5%AD%E5%9B%A2%E5%9B%A2%E5%9B%A2%E5%9B%A2%E6%A1%91.lrc) |
+| [Nightension.lrc](res/Cotton%20Candy/Nightension.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/Nightension.lrc) |
+| [Shining days.lrc](res/Cotton%20Candy/Shining%20days.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/Shining%20days.lrc) |
+| [Soda dream.lrc](res/Cotton%20Candy/Soda%20dream.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/Soda%20dream.lrc) |
+| [你给予的初恋魔法.lrc](res/Cotton%20Candy/%E4%BD%A0%E7%BB%99%E4%BA%88%E7%9A%84%E5%88%9D%E6%81%8B%E9%AD%94%E6%B3%95.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/%E4%BD%A0%E7%BB%99%E4%BA%88%E7%9A%84%E5%88%9D%E6%81%8B%E9%AD%94%E6%B3%95.lrc) |
+| [动画女主什么的够了啦.lrc](res/Cotton%20Candy/%E5%8A%A8%E7%94%BB%E5%A5%B3%E4%B8%BB%E4%BB%80%E4%B9%88%E7%9A%84%E5%A4%9F%E4%BA%86%E5%95%A6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/%E5%8A%A8%E7%94%BB%E5%A5%B3%E4%B8%BB%E4%BB%80%E4%B9%88%E7%9A%84%E5%A4%9F%E4%BA%86%E5%95%A6.lrc) |
+
+</details>
+
+---
+
 <img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 丛林法则Jungle Rules
@@ -1889,29 +1912,6 @@ _暂无 LRC 文件_
 | [幻觉 Hallucination.lrc](res/%E5%81%87%E8%AF%B4Hypothesis/%E5%B9%BB%E8%A7%89%20Hallucination.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%81%87%E8%AF%B4Hypothesis/%E5%B9%BB%E8%A7%89%20Hallucination.lrc) |
 | [情感镇痛 Emotion Analgesia.lrc](res/%E5%81%87%E8%AF%B4Hypothesis/%E6%83%85%E6%84%9F%E9%95%87%E7%97%9B%20Emotion%20Analgesia.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%81%87%E8%AF%B4Hypothesis/%E6%83%85%E6%84%9F%E9%95%87%E7%97%9B%20Emotion%20Analgesia.lrc) |
 | [模拟认知 Simulated Cognition.lrc](res/%E5%81%87%E8%AF%B4Hypothesis/%E6%A8%A1%E6%8B%9F%E8%AE%A4%E7%9F%A5%20Simulated%20Cognition.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%81%87%E8%AF%B4Hypothesis/%E6%A8%A1%E6%8B%9F%E8%AE%A4%E7%9F%A5%20Simulated%20Cognition.lrc) |
-
-</details>
-
----
-
-### Cotton Candy
-
-**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Cotton%20Candy.zip)**
-
-<details>
-<summary>📝 查看详细曲目 (9 首)</summary>
-
-| 曲目 | 操作 |
-| :- | :-: |
-| [Cotton candy.lrc](res/Cotton%20Candy/Cotton%20candy.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/Cotton%20candy.lrc) |
-| [Galaxy pop feat.饭团团团团桑.lrc](res/Cotton%20Candy/Galaxy%20pop%20feat.%E9%A5%AD%E5%9B%A2%E5%9B%A2%E5%9B%A2%E5%9B%A2%E6%A1%91.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/Galaxy%20pop%20feat.%E9%A5%AD%E5%9B%A2%E5%9B%A2%E5%9B%A2%E5%9B%A2%E6%A1%91.lrc) |
-| [Galaxy pop.lrc](res/Cotton%20Candy/Galaxy%20pop.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/Galaxy%20pop.lrc) |
-| [Nightension feat.饭团团团团桑.lrc](res/Cotton%20Candy/Nightension%20feat.%E9%A5%AD%E5%9B%A2%E5%9B%A2%E5%9B%A2%E5%9B%A2%E6%A1%91.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/Nightension%20feat.%E9%A5%AD%E5%9B%A2%E5%9B%A2%E5%9B%A2%E5%9B%A2%E6%A1%91.lrc) |
-| [Nightension.lrc](res/Cotton%20Candy/Nightension.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/Nightension.lrc) |
-| [Shining days.lrc](res/Cotton%20Candy/Shining%20days.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/Shining%20days.lrc) |
-| [Soda dream.lrc](res/Cotton%20Candy/Soda%20dream.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/Soda%20dream.lrc) |
-| [你给予的初恋魔法.lrc](res/Cotton%20Candy/%E4%BD%A0%E7%BB%99%E4%BA%88%E7%9A%84%E5%88%9D%E6%81%8B%E9%AD%94%E6%B3%95.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/%E4%BD%A0%E7%BB%99%E4%BA%88%E7%9A%84%E5%88%9D%E6%81%8B%E9%AD%94%E6%B3%95.lrc) |
-| [动画女主什么的够了啦.lrc](res/Cotton%20Candy/%E5%8A%A8%E7%94%BB%E5%A5%B3%E4%B8%BB%E4%BB%80%E4%B9%88%E7%9A%84%E5%A4%9F%E4%BA%86%E5%95%A6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Cotton%20Candy/%E5%8A%A8%E7%94%BB%E5%A5%B3%E4%B8%BB%E4%BB%80%E4%B9%88%E7%9A%84%E5%A4%9F%E4%BA%86%E5%95%A6.lrc) |
 
 </details>
 

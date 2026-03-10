@@ -3,11 +3,11 @@ title: Killer Maids from Outer Space
 date: 2025-02-14
 order: -20250214
 category:
-  - 未知出品方
+  - TOPKINGCREAM
 tag:
   - Killer Maids from Outer Space
-  - 星尘
   - TOPKINGCREAM
+  - 星尘
   - 歌词
   - lrc
   - 下载
@@ -20,7 +20,9 @@ tag:
 
 **发行日期:** 2025-02-14
 
-**发布:** [Bilibili](https://t.bilibili.com/1036751564199428096?share_source=pc_native)
+**出品:** TOPKINGCREAM
+
+**发布:** [Bilibili](https://t.bilibili.com/1036751564199428096)
 
 **购买:** 通贩不可用
 
@@ -34,7 +36,7 @@ tag:
 
 **调校:** TOPKINGCREAM
 
-**曲绘:** 墨心Nagant
+**曲绘:** 墨心 Nagant
 
 **混音:** Yknsm、Somefree_、曲悦
 

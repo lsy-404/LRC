@@ -13,8 +13,8 @@ icon: material-symbols:analytics
 - **跳过**：0 个
 - **完整**：27 个
 - **提示**：0 个
-- **警告**：28 个
-- **错误**：25 个
+- **警告**：29 个
+- **错误**：24 个
 
 ## ❌ 错误：核心元数据缺失
 
@@ -22,16 +22,7 @@ icon: material-symbols:analytics
 
 ### Cotton Candy
 
-- 缺少发行日期
-- 缺少出品信息
-- 缺少发布链接
-- 购买/电子至少需要一个
 - 缺少合法的封面文件
-- [统计] 专辑数据表缺失 5 项：演唱, 编曲, 调校, 曲绘, 混音
-
-### Killer Maids from Outer Space
-
-- 缺少出品信息
 
 ### Lunatic（见月EP）
 
@@ -221,6 +212,12 @@ icon: material-symbols:analytics
 ## ⚠️ 警告：重要信息缺失
 
 以下专辑缺少重要元数据：
+
+### Killer Maids from Outer Space
+
+- 缺少中文名
+- 缺少电子版本信息
+- 缺少歌词制作者
 
 ### 『FM40.4』
 
