@@ -22,9 +22,7 @@ tag:
 
 **出品:** TOPKINGCREAM
 
-**歌词制作:** 武乙凌薇
-
-**发布:** [Bilibili](https://t.bilibili.com/1036751564199428096?share_source=pc_native)
+**发布:** [Bilibili](https://t.bilibili.com/1036751564199428096)
 
 **购买:** 通贩不可用
 
