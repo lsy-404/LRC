@@ -30,8 +30,6 @@ tag:
 
 **出品:** 闹闹丶、陆柒柒_Lv77
 
-**歌词制作:** 武乙凌薇
-
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1LcSjBhEtW/)
 
 **演唱:** 洛天依、乐正绫
