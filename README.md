@@ -81,7 +81,6 @@
 - [信风至北](https://github.com/wuyilingwei/LRC#%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97)
 - [天地晴雨手账](https://github.com/wuyilingwei/LRC#%E5%A4%A9%E5%9C%B0%E6%99%B4%E9%9B%A8%E6%89%8B%E8%B4%A6)
 - [夏日应时而至（彩胶版）](https://github.com/wuyilingwei/LRC#%E5%A4%8F%E6%97%A5%E5%BA%94%E6%97%B6%E8%80%8C%E8%87%B3%E5%BD%A9%E8%83%B6%E7%89%88)
-- [Lunatic（见月 EP）](https://github.com/wuyilingwei/LRC#lunatic%E8%A7%81%E6%9C%88-ep)
 - [视星等4.44](https://github.com/wuyilingwei/LRC#%E8%A7%86%E6%98%9F%E7%AD%89444)
 - [你的灵魂长出一枝玫瑰（言和版）](https://github.com/wuyilingwei/LRC#%E4%BD%A0%E7%9A%84%E7%81%B5%E9%AD%82%E9%95%BF%E5%87%BA%E4%B8%80%E6%9E%9D%E7%8E%AB%E7%91%B0%E8%A8%80%E5%92%8C%E7%89%88)
 - [metaphorical girl Re](https://github.com/wuyilingwei/LRC#metaphorical-girl-re)
@@ -1772,14 +1771,6 @@
 ### 夏日应时而至（彩胶版）
 
 **📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%A4%8F%E6%97%A5%E5%BA%94%E6%97%B6%E8%80%8C%E8%87%B3%EF%BC%88%E5%BD%A9%E8%83%B6%E7%89%88%EF%BC%89.zip)**
-
-_暂无 LRC 文件_
-
----
-
-### Lunatic（见月 EP）
-
-**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Lunatic%EF%BC%88%E8%A7%81%E6%9C%88%20EP%EF%BC%89.zip)**
 
 _暂无 LRC 文件_
 
