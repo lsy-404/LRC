@@ -11,9 +11,9 @@ icon: material-symbols:analytics
 - **总计**：80 个专辑
 - **已检查**：80 个
 - **跳过**：0 个
-- **完整**：26 个
+- **完整**：27 个
 - **提示**：0 个
-- **警告**：29 个
+- **警告**：28 个
 - **错误**：25 个
 
 ## ❌ 错误：核心元数据缺失
@@ -239,10 +239,6 @@ icon: material-symbols:analytics
 - 缺少英文名
 - 缺少歌词制作者
 
-### 九光年宇宙
-
-- 缺少英文名
-
 ### 像素荒原
 
 - 缺少英文名
@@ -358,6 +354,7 @@ icon: material-symbols:analytics
 - Starlit Whisper
 - Write You a Song
 - 丛林法则Jungle Rules
+- 九光年宇宙
 - 加冕日CORONATION DAY
 - 吉光片羽Queendom
 - 天方夜谭Fairyland

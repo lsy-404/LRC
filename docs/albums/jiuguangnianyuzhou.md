@@ -1,11 +1,12 @@
 ---
-title: 九光年宇宙
+title: 九光年宇宙 Stellar Nine
 date: 2026-02-24
 order: -20260224
 category:
   - 被遗忘者的哀伤
 tag:
   - 九光年宇宙
+  - Stellar Nine
   - 被遗忘者的哀伤
   - 星尘
   - 永夜
@@ -36,9 +37,9 @@ tag:
   - 文件
 ---
 
-# 九光年宇宙
+# 九光年宇宙 Stellar Nine
 
-<img src="./jiuguangnianyuzhou.png" alt="九光年宇宙 封面" class="album-cover" />
+<img src="./jiuguangnianyuzhou.png" alt="九光年宇宙 Stellar Nine 封面" class="album-cover" />
 
 **发行日期:** 2026-02-24
 
