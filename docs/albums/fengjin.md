@@ -45,9 +45,15 @@ tag:
 
 **出品:** 寒 Sir、夜屠灵
 
-<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1Qt4y1e79S&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
-
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Qt4y1e79S/)
+
+
+                    ::: detail 预览
+                    <iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1Qt4y1e79S&poster=true&autoplay=true&muted=false&danmaku=true" '
+                    'scrolling="no" border="0" frameborder="no" framespacing="0" '
+                    'allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+                    :::
+                    
 
 **购买:** 通贩不可用
 

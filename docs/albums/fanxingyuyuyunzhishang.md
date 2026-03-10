@@ -41,9 +41,15 @@ tag:
 
 **歌词制作:** 武乙凌薇
 
-<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1uRGizvEtV&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
-
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1uRGizvEtV/)
+
+
+                    ::: detail 预览
+                    <iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1uRGizvEtV&poster=true&autoplay=true&muted=false&danmaku=true" '
+                    'scrolling="no" border="0" frameborder="no" framespacing="0" '
+                    'allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+                    :::
+                    
 
 **购买:** [淘宝 繁花空昼](https://e.tb.cn/h.6O506HSnp05pWOg?tk=zDAyVV6dkut) ￥69
 

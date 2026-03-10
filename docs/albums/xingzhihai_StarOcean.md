@@ -41,9 +41,15 @@ tag:
 
 **歌词制作:** RQvan
 
-<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1cs411T7F5&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
-
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1cs411T7F5/)
+
+
+                    ::: detail 预览
+                    <iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1cs411T7F5&poster=true&autoplay=true&muted=false&danmaku=true" '
+                    'scrolling="no" border="0" frameborder="no" framespacing="0" '
+                    'allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+                    :::
+                    
 
 **购买:** [淘宝 萌宅幻想](https://item.taobao.com/item.htm?id=583711155480) ￥75/￥110
 

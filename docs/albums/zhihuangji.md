@@ -32,9 +32,15 @@ tag:
 
 **歌词制作:** 高冷帝佚名(Polaris_Light)
 
-<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1fJ411r7WC&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
-
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1fJ411r7WC/)
+
+
+                    ::: detail 预览
+                    <iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1fJ411r7WC&poster=true&autoplay=true&muted=false&danmaku=true" '
+                    'scrolling="no" border="0" frameborder="no" framespacing="0" '
+                    'allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
+                    :::
+                    
 
 **购买:** 通贩不可用
 
