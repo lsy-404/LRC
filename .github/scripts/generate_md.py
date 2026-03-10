@@ -287,12 +287,13 @@ def main() -> None:
         if release_val and not is_disabled_value(release_val):
             info_display.append(f"**发布:** {release_val}")
             bvid = extract_bvid(release_val)
+            bvid = False #暂时关闭BV播放器功能
             if bvid:
                 release_player_iframe = (
                     f'''
-::: detail 预览
-<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid={bvid}&poster=true&autoplay=true&muted=false&danmaku=true" '
-'scrolling="no" border="0" frameborder="no" framespacing="0" '
+::: details 预览
+<iframe src="//player.bilibili.com/player.html?isOutside=true&bvid={bvid}&poster=true&autoplay=true&muted=false&danmaku=true"
+'scrolling="no" border="0" frameborder="no" framespacing="0"
 'allowfullscreen="true" style="width:100%;aspect-ratio:16/9;max-width:960px;"></iframe>
 :::
 '''
