@@ -225,6 +225,7 @@ icon: material-symbols:analytics
 
 - 缺少中文名
 - 缺少电子版本信息
+- 缺少歌词制作者
 
 ### 『FM40.4』
 

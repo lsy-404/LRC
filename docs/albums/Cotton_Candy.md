@@ -26,13 +26,11 @@ tag:
 
 **出品:** 墨蓝酱油
 
-**歌词制作:** 武乙凌薇
-
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1uE411M7ZR/)
 
-**购买:** [淘宝 DarkBlue Records](https://t.cn/A6zwm3bm) ￥150/￥76
+**购买:** [淘宝 DarkBlue Records](https://t.cn/A6zwm3bm) 通贩不可用
 
-**电子:** [网易云音乐](https://music.163.com/) [DizzyLab](https://www.dizzylab.net/)
+**电子:** [DizzyLab](hhttps://www.dizzylab.net/d/cottoncandy/) ￥20
 
 **演唱:** 音街ウナ、星尘、洛天依、乐正绫、海伊
 
