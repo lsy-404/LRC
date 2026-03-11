@@ -99,17 +99,18 @@ def is_disabled_value(value: str | list[str] | None) -> bool:
     return text == "" or text == "不适用" or text == "缺少信息"
 
 
+def yaml_quote(value: str) -> str:
+    """将字符串安全地格式化为 YAML 双引号字符串，转义反斜杠和双引号"""
+    escaped = str(value).replace('\\', '\\\\').replace('"', '\\"')
+    return f'"{escaped}"'
+
+
 def format_tag_for_yaml(tag: str) -> str:
-    """格式化 tag 用于 YAML 输出，数字开头的需要加引号"""
+    """格式化 tag 用于 YAML 输出，始终加引号以强制解析为字符串"""
     text = str(tag).strip()
     if not text:
         return text
-    # 如果以数字开头，用引号包裹强制解析为字符串
-    if text[0].isdigit():
-        # 转义内部的引号
-        escaped = text.replace('"', '\\"')
-        return f'"{escaped}"'
-    return text
+    return yaml_quote(text)
 
 
 
@@ -274,8 +275,7 @@ def main() -> None:
         year_value = str(info['year'] or "").strip()
         date_line = ""
         if year_value and year_value != "1970-01-01" and not is_disabled_value(year_value):
-            date_yaml_value = year_value.replace('"', '\\"')
-            date_line = f'date: {date_yaml_value}\n'
+            date_line = f'date: {year_value}\n'
             info_display.append(f"**发行日期:** {year_value}")
         # 其他字段：使用 is_disabled_value 判断
         if not is_disabled_value(info["produce"]):
@@ -343,9 +343,9 @@ def main() -> None:
                 order_line = "order: -1\n"
 
         md_content = f"""---
-title: {display_name}
+title: {yaml_quote(display_name)}
 {date_line}{order_line}category:
-  - {category_value}
+  - {yaml_quote(category_value)}
 tag:
 {''.join(f'  - {format_tag_for_yaml(tag)}\n' for tag in tags)}---
 
