@@ -1,28 +1,28 @@
 ---
-title: 织肉匠 le bricoleur du devenir
+title: "织肉匠 le bricoleur du devenir"
 date: 2025-12-05
 order: -20251205
 category:
-  - 磁带君
+  - "磁带君"
 tag:
-  - 织肉匠 - le bricoleur du devenir
-  - 织肉匠
-  - le bricoleur du devenir
-  - 磁带君
-  - 牧心
-  - 永夜Minus
-  - 星尘
-  - 海伊
-  - 大♂古
-  - 瑞安Ryan
-  - Creuzer
-  - 陌生来访
-  - 一只大水母p
-  - 飙尘_Konoyo
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "织肉匠 - le bricoleur du devenir"
+  - "织肉匠"
+  - "le bricoleur du devenir"
+  - "磁带君"
+  - "牧心"
+  - "永夜Minus"
+  - "星尘"
+  - "海伊"
+  - "大♂古"
+  - "瑞安Ryan"
+  - "Creuzer"
+  - "陌生来访"
+  - "一只大水母p"
+  - "飙尘_Konoyo"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # 织肉匠 le bricoleur du devenir

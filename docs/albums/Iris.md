@@ -1,17 +1,17 @@
 ---
-title: Iris
+title: "Iris"
 date: 2026-01-31
 order: -20260131
 category:
-  - Zeno
+  - "Zeno"
 tag:
-  - Iris
-  - Zeno
-  - 星尘
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "Iris"
+  - "Zeno"
+  - "星尘"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # Iris

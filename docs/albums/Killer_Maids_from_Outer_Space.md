@@ -1,17 +1,17 @@
 ---
-title: Killer Maids from Outer Space
+title: "Killer Maids from Outer Space"
 date: 2025-02-14
 order: -20250214
 category:
-  - TOPKINGCREAM
+  - "TOPKINGCREAM"
 tag:
-  - Killer Maids from Outer Space
-  - TOPKINGCREAM
-  - 星尘
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "Killer Maids from Outer Space"
+  - "TOPKINGCREAM"
+  - "星尘"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # Killer Maids from Outer Space

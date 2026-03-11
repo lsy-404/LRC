@@ -1,37 +1,37 @@
 ---
-title: 生息 Leave in Breath
+title: "生息 Leave in Breath"
 date: 2025-03-22
 order: -20250322
 category:
-  - 北极圈ArcticLab
+  - "北极圈ArcticLab"
 tag:
-  - 生息Leave in Breath
-  - 生息
-  - Leave in Breath
-  - 北极圈ArcticLab
-  - 海伊
-  - 星尘
-  - 北山薇
-  - 麒炩Kindling
-  - 秦欲坠
-  - 丁小爷p
-  - 苍梧_abilrue
-  - 流星落雨若星琉
-  - 铃蓝SuzuSnow
-  - 阿林什么也没做
-  - 雨翼p
-  - 燈林
-  - 云极Yunji
-  - 半糖果泥
-  - 苏尔达
-  - 悬空指针NP
-  - ccffcc骷髅
-  - 某只泽
-  - 楷然AkiRA
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "生息Leave in Breath"
+  - "生息"
+  - "Leave in Breath"
+  - "北极圈ArcticLab"
+  - "海伊"
+  - "星尘"
+  - "北山薇"
+  - "麒炩Kindling"
+  - "秦欲坠"
+  - "丁小爷p"
+  - "苍梧_abilrue"
+  - "流星落雨若星琉"
+  - "铃蓝SuzuSnow"
+  - "阿林什么也没做"
+  - "雨翼p"
+  - "燈林"
+  - "云极Yunji"
+  - "半糖果泥"
+  - "苏尔达"
+  - "悬空指针NP"
+  - "ccffcc骷髅"
+  - "某只泽"
+  - "楷然AkiRA"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # 生息 Leave in Breath

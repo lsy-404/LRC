@@ -1,37 +1,37 @@
 ---
-title: 平行四界 RE: BIRTH
+title: "平行四界 RE: BIRTH"
 date: 2025-08-12
 order: -20250812
 category:
-  - 平行四界Quadimension
+  - "平行四界Quadimension"
 tag:
-  - 平行四界RE：BIRTH
-  - 平行四界
-  - RE: BIRTH
-  - 平行四界Quadimension
-  - 星尘
-  - 赤羽
-  - 海伊
-  - 诗岸
-  - 苍穹
-  - 黑金语
-  - 林擒
-  - 乌梅Pd
-  - Zeno
-  - 浓缩排骨
-  - Aya-亚夜-
-  - 大久
-  - 烂兔子P
-  - 胧
-  - Kide
-  - Bitman
-  - 瑞安Ryan
-  - 跨海星尘
-  - 苍梧 玖蝶
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "平行四界RE：BIRTH"
+  - "平行四界"
+  - "RE: BIRTH"
+  - "平行四界Quadimension"
+  - "星尘"
+  - "赤羽"
+  - "海伊"
+  - "诗岸"
+  - "苍穹"
+  - "黑金语"
+  - "林擒"
+  - "乌梅Pd"
+  - "Zeno"
+  - "浓缩排骨"
+  - "Aya-亚夜-"
+  - "大久"
+  - "烂兔子P"
+  - "胧"
+  - "Kide"
+  - "Bitman"
+  - "瑞安Ryan"
+  - "跨海星尘"
+  - "苍梧 玖蝶"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # 平行四界 RE: BIRTH

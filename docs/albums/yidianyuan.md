@@ -1,21 +1,21 @@
 ---
-title: 伊甸园
+title: "伊甸园"
 date: 2023-11-25
 order: -20231125
 category:
-  - Licis
+  - "Licis"
 tag:
-  - 伊甸园
-  - Licis
-  - 言和
-  - 白洛 Hoshino
-  - 鬼面 P
-  - 陌生来访
-  - 想吃素的 BeaR
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "伊甸园"
+  - "Licis"
+  - "言和"
+  - "白洛 Hoshino"
+  - "鬼面 P"
+  - "陌生来访"
+  - "想吃素的 BeaR"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # 伊甸园

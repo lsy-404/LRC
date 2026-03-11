@@ -1,28 +1,28 @@
 ---
-title: Starlit Whisper
+title: "Starlit Whisper"
 date: 2025-12-05
 order: -20251205
 category:
-  - 胧
+  - "胧"
 tag:
-  - Starlit Whisper
-  - 胧
-  - 星尘
-  - 赤羽
-  - 诗岸
-  - 海伊
-  - 苍穹
-  - Aya-亚夜-
-  - 林檎
-  - 阿卡娜
-  - Creuzer
-  - 血焰玖蝶
-  - 跨海星尘
-  - 瑞安Ryan
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "Starlit Whisper"
+  - "胧"
+  - "星尘"
+  - "赤羽"
+  - "诗岸"
+  - "海伊"
+  - "苍穹"
+  - "Aya-亚夜-"
+  - "林檎"
+  - "阿卡娜"
+  - "Creuzer"
+  - "血焰玖蝶"
+  - "跨海星尘"
+  - "瑞安Ryan"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # Starlit Whisper

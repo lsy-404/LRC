@@ -1,14 +1,14 @@
 ---
-title: SEVEN
+title: "SEVEN"
 order: -1
 category:
-  - 未知出品方
+  - "未知出品方"
 tag:
-  - SEVEN
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "SEVEN"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # SEVEN

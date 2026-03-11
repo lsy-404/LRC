@@ -1,36 +1,36 @@
 ---
-title: 丛林法则 Jungle Rules
+title: "丛林法则 Jungle Rules"
 date: 2020-02-28
 order: -20200228
 category:
-  - 平行四界Quadimension
+  - "平行四界Quadimension"
 tag:
-  - 丛林法则Jungle Rules
-  - 丛林法则
-  - Jungle Rules
-  - 平行四界Quadimension
-  - 星尘
-  - 苍穹
-  - 诗岸
-  - Evalia
-  - 哈密瓜
-  - 绿无
-  - 琉璃菌
-  - Zeno
-  - 赭柚奶
-  - 大九_LN
-  - MeLo
-  - 十音
-  - 小野道
-  - 星辉
-  - 磁带君
-  - 坐标P
-  - 瑞安Ryan
-  - 顾令
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "丛林法则Jungle Rules"
+  - "丛林法则"
+  - "Jungle Rules"
+  - "平行四界Quadimension"
+  - "星尘"
+  - "苍穹"
+  - "诗岸"
+  - "Evalia"
+  - "哈密瓜"
+  - "绿无"
+  - "琉璃菌"
+  - "Zeno"
+  - "赭柚奶"
+  - "大九_LN"
+  - "MeLo"
+  - "十音"
+  - "小野道"
+  - "星辉"
+  - "磁带君"
+  - "坐标P"
+  - "瑞安Ryan"
+  - "顾令"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # 丛林法则 Jungle Rules

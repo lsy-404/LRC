@@ -1,23 +1,23 @@
 ---
-title: 人間型文學地獄園
+title: "人間型文學地獄園"
 date: 2026-02-01
 order: -20260201
 category:
-  - rat
+  - "rat"
 tag:
-  - 人間型文學地獄園
-  - rat
-  - 奶皇
-  - サラダ
-  - 雍雁
-  - DIAO
-  - 雍雁 P
-  - SaladCup
-  - Asian Lo-Fi Inc.
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "人間型文學地獄園"
+  - "rat"
+  - "奶皇"
+  - "サラダ"
+  - "雍雁"
+  - "DIAO"
+  - "雍雁 P"
+  - "SaladCup"
+  - "Asian Lo-Fi Inc."
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # 人間型文學地獄園

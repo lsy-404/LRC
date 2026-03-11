@@ -1,25 +1,25 @@
 ---
-title: Write You a Song
+title: "Write You a Song"
 date: 2020-12-18
 order: -20201218
 category:
-  - 喻川
+  - "喻川"
 tag:
-  - Write You a Song
-  - 喻川
-  - 乐正龙牙
-  - 赤羽
-  - 苍穹
-  - 海伊
-  - Eleanor Forte
-  - Minus
-  - 逐火
-  - Vagary
-  - 乾坤
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "Write You a Song"
+  - "喻川"
+  - "乐正龙牙"
+  - "赤羽"
+  - "苍穹"
+  - "海伊"
+  - "Eleanor Forte"
+  - "Minus"
+  - "逐火"
+  - "Vagary"
+  - "乾坤"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # Write You a Song

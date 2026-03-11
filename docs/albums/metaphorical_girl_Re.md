@@ -1,17 +1,17 @@
 ---
-title: metaphorical girl Re
+title: "metaphorical girl Re"
 order: -1
 category:
-  - 未知出品方
+  - "未知出品方"
 tag:
-  - metaphorical girl Re
-  - metaphorical girl
-  - Re
-  - TOPKINGCREAM
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "metaphorical girl Re"
+  - "metaphorical girl"
+  - "Re"
+  - "TOPKINGCREAM"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # metaphorical girl Re

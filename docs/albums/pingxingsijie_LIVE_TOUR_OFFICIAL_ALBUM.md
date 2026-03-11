@@ -1,40 +1,40 @@
 ---
-title: 平行四界 LIVE TOUR OFFICIAL ALBUM
+title: "平行四界 LIVE TOUR OFFICIAL ALBUM"
 date: 2017-08-12
 order: -20170812
 category:
-  - 平行四界Quadimension
+  - "平行四界Quadimension"
 tag:
-  - 平行四界LIVE TOUR OFFICIAL ALBUM
-  - 平行四界
-  - LIVE TOUR OFFICIAL ALBUM
-  - 平行四界Quadimension
-  - 星尘
-  - 冥凰
-  - Zeno
-  - 陌小幽
-  - Ceekyo
-  - 果汁凉菜
-  - 绿无
-  - Systjcfl
-  - 袖蓝
-  - 意志驼
-  - 紫寒怜梦
-  - 咲逸十八
-  - 便器p
-  - Seven
-  - 筠箬
-  - ST.K4N3
-  - COP
-  - Melo
-  - 小野道
-  - 芹菜猪肉大馄饨
-  - ZOMiG
-  - Ddickky
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "平行四界LIVE TOUR OFFICIAL ALBUM"
+  - "平行四界"
+  - "LIVE TOUR OFFICIAL ALBUM"
+  - "平行四界Quadimension"
+  - "星尘"
+  - "冥凰"
+  - "Zeno"
+  - "陌小幽"
+  - "Ceekyo"
+  - "果汁凉菜"
+  - "绿无"
+  - "Systjcfl"
+  - "袖蓝"
+  - "意志驼"
+  - "紫寒怜梦"
+  - "咲逸十八"
+  - "便器p"
+  - "Seven"
+  - "筠箬"
+  - "ST.K4N3"
+  - "COP"
+  - "Melo"
+  - "小野道"
+  - "芹菜猪肉大馄饨"
+  - "ZOMiG"
+  - "Ddickky"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # 平行四界 LIVE TOUR OFFICIAL ALBUM

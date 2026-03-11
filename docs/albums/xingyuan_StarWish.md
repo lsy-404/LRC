@@ -1,34 +1,34 @@
 ---
-title: 星愿 StarWish
+title: "星愿 StarWish"
 date: 2016-03-04
 order: -20160304
 category:
-  - 平行四界Quadimension
+  - "平行四界Quadimension"
 tag:
-  - 星愿StarWish
-  - 星愿
-  - StarWish
-  - 平行四界Quadimension
-  - 星尘
-  - 孙若曦
-  - 大♂古
-  - 小野道
-  - 冰镇甜豆浆
-  - 和田野
-  - 绿邪
-  - Ddickky
-  - ZOMiG
-  - 战场原妖精
-  - Li Zong
-  - 天钦
-  - Zoey
-  - MeLo
-  - Kide
-  - 动点P
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "星愿StarWish"
+  - "星愿"
+  - "StarWish"
+  - "平行四界Quadimension"
+  - "星尘"
+  - "孙若曦"
+  - "大♂古"
+  - "小野道"
+  - "冰镇甜豆浆"
+  - "和田野"
+  - "绿邪"
+  - "Ddickky"
+  - "ZOMiG"
+  - "战场原妖精"
+  - "Li Zong"
+  - "天钦"
+  - "Zoey"
+  - "MeLo"
+  - "Kide"
+  - "动点P"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # 星愿 StarWish

@@ -1,21 +1,21 @@
 ---
-title: Cotton Candy
+title: "Cotton Candy"
 date: 2020-03-13
 order: -20200313
 category:
-  - 墨蓝酱油
+  - "墨蓝酱油"
 tag:
-  - Cotton Candy
-  - 墨蓝酱油
-  - 音街ウナ
-  - 星尘
-  - 洛天依
-  - 乐正绫
-  - 海伊
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "Cotton Candy"
+  - "墨蓝酱油"
+  - "音街ウナ"
+  - "星尘"
+  - "洛天依"
+  - "乐正绫"
+  - "海伊"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # Cotton Candy

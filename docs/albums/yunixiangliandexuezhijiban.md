@@ -1,25 +1,25 @@
 ---
-title: 与你相连的雪之羁绊
+title: "与你相连的雪之羁绊"
 date: 2024-08-07
 order: -20240807
 category:
-  - 雪人Snowman
+  - "雪人Snowman"
 tag:
-  - 与你相连的雪之羁绊
-  - 雪人Snowman
-  - 星尘
-  - Stuart
-  - Takumi Sugai
-  - 小皮
-  - Sui小苏
-  - 鲷鱼
-  - 璃夜纱Ryosa
-  - 辻原一郎
-  - 某只泽
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "与你相连的雪之羁绊"
+  - "雪人Snowman"
+  - "星尘"
+  - "Stuart"
+  - "Takumi Sugai"
+  - "小皮"
+  - "Sui小苏"
+  - "鲷鱼"
+  - "璃夜纱Ryosa"
+  - "辻原一郎"
+  - "某只泽"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # 与你相连的雪之羁绊

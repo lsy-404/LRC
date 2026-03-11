@@ -1,26 +1,26 @@
 ---
-title: ELOHIM
+title: "ELOHIM"
 date: 2023-09-23
 order: -20230923
 category:
-  - 秘宝旅人
+  - "秘宝旅人"
 tag:
-  - ELOHIM
-  - 秘宝旅人
-  - 言和
-  - 大九_LN
-  - lbg_萝卜根
-  - 辻原一郎
-  - 雪人Snowman_
-  - 星辉p
-  - litterzy
-  - 瑞安Ryan不跑调
-  - 某只泽
-  - 陌生来访
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "ELOHIM"
+  - "秘宝旅人"
+  - "言和"
+  - "大九_LN"
+  - "lbg_萝卜根"
+  - "辻原一郎"
+  - "雪人Snowman_"
+  - "星辉p"
+  - "litterzy"
+  - "瑞安Ryan不跑调"
+  - "某只泽"
+  - "陌生来访"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # ELOHIM

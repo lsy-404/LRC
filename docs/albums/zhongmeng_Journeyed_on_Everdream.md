@@ -1,20 +1,20 @@
 ---
-title: 终梦 Journeyed on Everdream
+title: "终梦 Journeyed on Everdream"
 date: 2025-12-24
 order: -20251224
 category:
-  - 北极圈ArcticLab
+  - "北极圈ArcticLab"
 tag:
-  - 终梦Journeyed on Everdream
-  - 终梦
-  - Journeyed on Everdream
-  - 北极圈ArcticLab
-  - 星尘
-  - 铃蓝Suzusnow
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "终梦Journeyed on Everdream"
+  - "终梦"
+  - "Journeyed on Everdream"
+  - "北极圈ArcticLab"
+  - "星尘"
+  - "铃蓝Suzusnow"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # 终梦 Journeyed on Everdream

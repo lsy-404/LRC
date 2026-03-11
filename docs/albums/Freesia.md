@@ -1,18 +1,18 @@
 ---
-title: Freesia
+title: "Freesia"
 date: 2017-10-01
 order: -20171001
 category:
-  - Zeno
+  - "Zeno"
 tag:
-  - Freesia
-  - Zeno
-  - 匙
-  - 星尘
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "Freesia"
+  - "Zeno"
+  - "匙"
+  - "星尘"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # Freesia

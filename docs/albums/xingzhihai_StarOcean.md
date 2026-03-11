@@ -1,34 +1,34 @@
 ---
-title: 星之海 StarOcean
+title: "星之海 StarOcean"
 date: 2018-08-11
 order: -20180811
 category:
-  - 平行四界Quadimension
+  - "平行四界Quadimension"
 tag:
-  - 星之海StarOcean
-  - 星之海
-  - StarOcean
-  - 平行四界Quadimension
-  - 星尘
-  - 海伊
-  - 大♂古
-  - 浓缩排骨
-  - 袖蓝
-  - Zeno
-  - 赭莓奶
-  - 冥凰
-  - 绿无
-  - Kide
-  - 大馄饨
-  - 小野道
-  - Zoey
-  - 瑞安Ryan
-  - MeLo
-  - Napstina
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "星之海StarOcean"
+  - "星之海"
+  - "StarOcean"
+  - "平行四界Quadimension"
+  - "星尘"
+  - "海伊"
+  - "大♂古"
+  - "浓缩排骨"
+  - "袖蓝"
+  - "Zeno"
+  - "赭莓奶"
+  - "冥凰"
+  - "绿无"
+  - "Kide"
+  - "大馄饨"
+  - "小野道"
+  - "Zoey"
+  - "瑞安Ryan"
+  - "MeLo"
+  - "Napstina"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # 星之海 StarOcean

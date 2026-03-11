@@ -1,33 +1,33 @@
 ---
-title: 星语 StarWhisper
+title: "星语 StarWhisper"
 date: 2017-01-31
 order: -20170131
 category:
-  - 平行四界Quadimension
+  - "平行四界Quadimension"
 tag:
-  - 星语StarWhisper
-  - 星语
-  - StarWhisper
-  - 平行四界Quadimension
-  - 星尘
-  - Ddickky
-  - 冥凰
-  - 和田野
-  - 浓缩排骨
-  - 绿邪
-  - 琉璃菌
-  - Zeno
-  - 战场原妖精
-  - Kide
-  - 桂子油
-  - MeLo
-  - 小野道
-  - 天钦
-  - 动点
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "星语StarWhisper"
+  - "星语"
+  - "StarWhisper"
+  - "平行四界Quadimension"
+  - "星尘"
+  - "Ddickky"
+  - "冥凰"
+  - "和田野"
+  - "浓缩排骨"
+  - "绿邪"
+  - "琉璃菌"
+  - "Zeno"
+  - "战场原妖精"
+  - "Kide"
+  - "桂子油"
+  - "MeLo"
+  - "小野道"
+  - "天钦"
+  - "动点"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # 星语 StarWhisper

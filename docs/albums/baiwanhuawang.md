@@ -1,20 +1,20 @@
 ---
-title: 百万花王
+title: "百万花王"
 date: 2020-08-12
 order: -20200812
 category:
-  - 平行四界Quadimension
+  - "平行四界Quadimension"
 tag:
-  - 百万花王
-  - 平行四界Quadimension
-  - 星尘
-  - 绿无
-  - MeLo
-  - 瑞安Ryan
-  - 歌词
-  - lrc
-  - 下载
-  - 文件
+  - "百万花王"
+  - "平行四界Quadimension"
+  - "星尘"
+  - "绿无"
+  - "MeLo"
+  - "瑞安Ryan"
+  - "歌词"
+  - "lrc"
+  - "下载"
+  - "文件"
 ---
 
 # 百万花王
