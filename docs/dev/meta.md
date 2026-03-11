@@ -13,8 +13,8 @@ icon: material-symbols:analytics
 - **跳过**：0 个
 - **完整**：27 个
 - **提示**：0 个
-- **警告**：29 个
-- **错误**：24 个
+- **警告**：28 个
+- **错误**：25 个
 
 ## ❌ 错误：核心元数据缺失
 
@@ -95,8 +95,6 @@ icon: material-symbols:analytics
 - 缺少发行日期
 - 缺少出品信息
 - 缺少发布链接
-- 购买/电子至少需要一个
-- 缺少合法的封面文件
 
 ### 南北谐响诗
 
@@ -154,6 +152,10 @@ icon: material-symbols:analytics
 - 缺少合法的封面文件
 - [统计] 专辑数据表缺失 3 项：演唱, 编曲, 混音
 
+### 平行四界RE：BIRTH
+
+- 缺少中文名和英文名（至少需要一个）
+
 ### 海客谈
 
 - 缺少发行日期
@@ -204,15 +206,15 @@ icon: material-symbols:analytics
 
 以下专辑缺少重要元数据：
 
+### FM40.4
+
+- 缺少中文名
+
 ### Killer Maids from Outer Space
 
 - 缺少中文名
 - 缺少电子版本信息
 - 缺少歌词制作者
-
-### 『FM40.4』
-
-- 缺少中文名
 
 ### 与你相连的雪之羁绊
 
@@ -262,10 +264,6 @@ icon: material-symbols:analytics
 - 缺少歌词制作者
 
 ### 止谎剂
-
-- 缺少英文名
-
-### 流星空间站
 
 - 缺少英文名
 
@@ -348,11 +346,11 @@ icon: material-symbols:analytics
 - 平行四界Quadimension X-1
 - 平行四界Quadimension X-2
 - 平行四界Quadimension X-3
-- 平行四界REBIRTH
 - 星之海StarOcean
 - 星愿StarWish
 - 星语StarWhisper
 - 森罗万象Kaleido
+- 流星空间站I
 - 海纳百川Storybook
 - 生息Leave in Breath
 - 秘宝旅人II Polaris

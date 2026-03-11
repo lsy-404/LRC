@@ -48,19 +48,19 @@ tag:
 
 ## 曲目列表
 
-- [-WIRED- - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/-WIRED-%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [COCOON - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/COCOON%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [Downfall=Reunion - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/Downfall%3DReunion%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [Echo of null - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/Echo%20of%20null%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [I, Non-believer, God Builder - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/I%2C%20Non-believer%2C%20God%20Builder%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [PROTOCOL 7 (feat.亢毛毛) - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/PROTOCOL%207%20%28feat.%E4%BA%A2%E6%AF%9B%E6%AF%9B%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [UTTER - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/UTTER%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [iota - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/iota%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [余容 - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E4%BD%99%E5%AE%B9%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [坏想 - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E5%9D%8F%E6%83%B3%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [妖刀出鞘 - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E5%A6%96%E5%88%80%E5%87%BA%E9%9E%98%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [永眠 (Ballade ver.) - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E6%B0%B8%E7%9C%A0%20%28Ballade%20ver.%29%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
-- [解体诸因 - Aya-亚夜-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/%E8%A7%A3%E4%BD%93%E8%AF%B8%E5%9B%A0%20-%20Aya-%E4%BA%9A%E5%A4%9C-.lrc)
+- [1 妖刀出鞘](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/1%20%E5%A6%96%E5%88%80%E5%87%BA%E9%9E%98.lrc)
+- [10 UTTER](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/10%20UTTER.lrc)
+- [11 COCOON](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/11%20COCOON.lrc)
+- [12 Echo of null](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/12%20Echo%20of%20null.lrc)
+- [13 永眠 (Ballade ver.)](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/13%20%E6%B0%B8%E7%9C%A0%20%28Ballade%20ver.%29.lrc)
+- [2 iota](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/2%20iota.lrc)
+- [3 坏想](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/3%20%E5%9D%8F%E6%83%B3.lrc)
+- [4 余容](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/4%20%E4%BD%99%E5%AE%B9.lrc)
+- [5 Downfall=Reunion](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/5%20Downfall%3DReunion.lrc)
+- [6 I, Non-believer, God Builder](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/6%20I%2C%20Non-believer%2C%20God%20Builder.lrc)
+- [7 -WIRED-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/7%20-WIRED-.lrc)
+- [8 PROTOCOL 7 (feat.亢毛毛)](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/8%20PROTOCOL%207%20%28feat.%E4%BA%A2%E6%AF%9B%E6%AF%9B%29.lrc)
+- [9 解体诸因](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8A%A0%E5%86%95%E6%97%A5CORONATION%20DAY/9%20%E8%A7%A3%E4%BD%93%E8%AF%B8%E5%9B%A0.lrc)
 
 ## 下载
 

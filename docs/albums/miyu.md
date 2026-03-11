@@ -55,13 +55,13 @@ tag:
 
 ## 曲目列表
 
-- [01 Baphomet](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9C%9C%E7%8D%84/01%20Baphomet.lrc)
-- [02 恋爱兔脑](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9C%9C%E7%8D%84/02%20%E6%81%8B%E7%88%B1%E5%85%94%E8%84%91.lrc)
-- [03 暗室](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9C%9C%E7%8D%84/03%20%E6%9A%97%E5%AE%A4.lrc)
-- [04 掩星之际](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9C%9C%E7%8D%84/04%20%E6%8E%A9%E6%98%9F%E4%B9%8B%E9%99%85.lrc)
-- [05 爱A泽发金飞](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9C%9C%E7%8D%84/05%20%E7%88%B1A%E6%B3%BD%E5%8F%91%E9%87%91%E9%A3%9E.lrc)
-- [06 这也是没办法的](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9C%9C%E7%8D%84/06%20%E8%BF%99%E4%B9%9F%E6%98%AF%E6%B2%A1%E5%8A%9E%E6%B3%95%E7%9A%84.lrc)
-- [07 时花](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9C%9C%E7%8D%84/07%20%E6%97%B6%E8%8A%B1.lrc)
+- [1 Baphomet](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9C%9C%E7%8D%84/1%20Baphomet.lrc)
+- [2 恋爱兔脑](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9C%9C%E7%8D%84/2%20%E6%81%8B%E7%88%B1%E5%85%94%E8%84%91.lrc)
+- [3 暗室](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9C%9C%E7%8D%84/3%20%E6%9A%97%E5%AE%A4.lrc)
+- [4 掩星之际](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9C%9C%E7%8D%84/4%20%E6%8E%A9%E6%98%9F%E4%B9%8B%E9%99%85.lrc)
+- [5 爱A泽发金飞](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9C%9C%E7%8D%84/5%20%E7%88%B1A%E6%B3%BD%E5%8F%91%E9%87%91%E9%A3%9E.lrc)
+- [6 这也是没办法的](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9C%9C%E7%8D%84/6%20%E8%BF%99%E4%B9%9F%E6%98%AF%E6%B2%A1%E5%8A%9E%E6%B3%95%E7%9A%84.lrc)
+- [7 时花](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%9C%9C%E7%8D%84/7%20%E6%97%B6%E8%8A%B1.lrc)
 
 ## 下载
 

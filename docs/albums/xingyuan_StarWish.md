@@ -63,14 +63,14 @@ tag:
 
 ## 曲目列表
 
-- [01 StarLaLaLa](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/01%20StarLaLaLa.lrc)
-- [02 观星者](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/02%20%E8%A7%82%E6%98%9F%E8%80%85.lrc)
-- [03 Solar Storm](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/03%20Solar%20Storm.lrc)
-- [04 Twinkle Star](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/04%20Twinkle%20Star.lrc)
-- [05 星之伊始](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/05%20%E6%98%9F%E4%B9%8B%E4%BC%8A%E5%A7%8B.lrc)
-- [06 徒劳的爱之美少女](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/06%20%E5%BE%92%E5%8A%B3%E7%9A%84%E7%88%B1%E4%B9%8B%E7%BE%8E%E5%B0%91%E5%A5%B3.lrc)
-- [07 时一现耳三千岁](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/07%20%E6%97%B6%E4%B8%80%E7%8E%B0%E8%80%B3%E4%B8%89%E5%8D%83%E5%B2%81.lrc)
-- [08 星愿StarWish](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/08%20%E6%98%9F%E6%84%BFStarWish.lrc)
+- [1 StarLaLaLa](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/1%20StarLaLaLa.lrc)
+- [2 观星者](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/2%20%E8%A7%82%E6%98%9F%E8%80%85.lrc)
+- [3 Solar Storm](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/3%20Solar%20Storm.lrc)
+- [4 Twinkle Star](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/4%20Twinkle%20Star.lrc)
+- [5 星之伊始](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/5%20%E6%98%9F%E4%B9%8B%E4%BC%8A%E5%A7%8B.lrc)
+- [6 徒劳的爱之美少女](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/6%20%E5%BE%92%E5%8A%B3%E7%9A%84%E7%88%B1%E4%B9%8B%E7%BE%8E%E5%B0%91%E5%A5%B3.lrc)
+- [7 时一现耳三千岁](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/7%20%E6%97%B6%E4%B8%80%E7%8E%B0%E8%80%B3%E4%B8%89%E5%8D%83%E5%B2%81.lrc)
+- [8 星愿StarWish](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E6%84%BFStarWish/8%20%E6%98%9F%E6%84%BFStarWish.lrc)
 
 ## 下载
 

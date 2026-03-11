@@ -33,7 +33,7 @@ tag:
 
 **出品:** 胧
 
-**歌词制作:** Magicst、武乙凌薇
+**歌词制作:** RQvan、武乙凌薇
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Jm2LBbEzi/)
 
@@ -55,6 +55,7 @@ tag:
 
 ## 曲目列表
 
+- [1 Chasing the shadow.](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Starlit%20Whisper/1%20Chasing%20the%20shadow..lrc)
 - [2 Shadow Trace](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Starlit%20Whisper/2%20Shadow%20Trace.lrc)
 - [3 热岛之人](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Starlit%20Whisper/3%20%E7%83%AD%E5%B2%9B%E4%B9%8B%E4%BA%BA.lrc)
 - [4 勿忘草](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Starlit%20Whisper/4%20%E5%8B%BF%E5%BF%98%E8%8D%89.lrc)
