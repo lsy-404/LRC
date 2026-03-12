@@ -26,6 +26,8 @@ tag:
 
 **出品:** 墨蓝酱油
 
+**歌词制作:** SST
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1uE411M7ZR/)
 
 **购买:** [淘宝 DarkBlue Records](https://t.cn/A6zwm3bm) 通贩不可用

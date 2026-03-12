@@ -21,6 +21,8 @@ tag:
 
 <img src="./jiashuo_Hypothesis.jpg" alt="假说 Hypothesis 封面" class="album-cover" />
 
+**歌词制作:** SST
+
 **电子:** [Dizzylab](https://www.dizzylab.net/d/hypothesis/)
 
 **作词:** 大九_LN、大九_ LN、喻川、苍梧_abilrue

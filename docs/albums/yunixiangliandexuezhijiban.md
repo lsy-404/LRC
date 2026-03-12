@@ -1,11 +1,12 @@
 ---
-title: "与你相连的雪之羁绊"
+title: "与你相连的雪之羁绊 Home Snow with You"
 date: 2024-08-07
 order: -20240807
 category:
   - "雪人Snowman"
 tag:
   - "与你相连的雪之羁绊"
+  - "Home Snow with You"
   - "雪人Snowman"
   - "星尘"
   - "Stuart"
@@ -22,9 +23,9 @@ tag:
   - "文件"
 ---
 
-# 与你相连的雪之羁绊
+# 与你相连的雪之羁绊 Home Snow with You
 
-<img src="./yunixiangliandexuezhijiban.jpg" alt="与你相连的雪之羁绊 封面" class="album-cover" />
+<img src="./yunixiangliandexuezhijiban.jpg" alt="与你相连的雪之羁绊 Home Snow with You 封面" class="album-cover" />
 
 **发行日期:** 2024-08-07
 

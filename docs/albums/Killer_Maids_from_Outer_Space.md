@@ -22,6 +22,8 @@ tag:
 
 **出品:** TOPKINGCREAM
 
+**歌词制作:** SST
+
 **发布:** [Bilibili](https://t.bilibili.com/1036751564199428096)
 
 **购买:** 通贩不可用

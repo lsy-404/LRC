@@ -18,6 +18,8 @@ tag:
 
 
 
+**歌词制作:** SST
+
 **作词:** licis、Bung Kon
 
 **作曲:** licis、Adam_K、Bung Kon
