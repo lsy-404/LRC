@@ -305,44 +305,7 @@ jobs:
   deploy:
     needs: optimize
     if: needs.optimize.outputs.skipped == 'false'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 1
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: latest
-
-      - name: Cache pnpm dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.local/share/pnpm/store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build VuePress site
-        run: pnpm run docs:build
-
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: pages deploy docs/.vuepress/dist --project-name=lrc --commit-dirty=true
+    uses: ./.github/workflows/deploy.yml
+    secrets:
+      CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+      CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}

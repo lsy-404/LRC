@@ -1,6 +1,14 @@
-name: Deploy to Cloudflare Pages (Manual)
+name: Deploy to Cloudflare Pages
 
 on:
+  # Called by generate.yml as a reusable workflow
+  workflow_call:
+    secrets:
+      CF_API_TOKEN:
+        required: true
+      CF_ACCOUNT_ID:
+        required: true
+  # Also supports manual standalone trigger
   workflow_dispatch:
 
 jobs:
@@ -35,7 +43,7 @@ jobs:
             ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build VuePress site
         run: pnpm run docs:build
