@@ -5,6 +5,7 @@
 """
 import json
 import os
+import re
 import sys
 from typing import Optional
 from urllib import request
@@ -148,6 +149,125 @@ class LLMClient:
         except json.JSONDecodeError:
             print(f"⚠️  LLM返回非JSON格式: {response}")
             return None
+
+
+    def extract_staff_from_desc(
+        self,
+        desc: str,
+        album_name: str,
+        missing_fields: list[str],
+    ) -> Optional[dict]:
+        """从视频简介中提取专辑 STAFF 信息。
+
+        Args:
+            desc:          视频简介原文
+            album_name:    专辑名称（用于上下文提示）
+            missing_fields: 当前缺失的字段列表（internal 名称）
+
+        Returns:
+            dict，键为 internal 字段名，值为字符串列表。
+            只返回确实在简介中找到的字段，找不到的键不出现。
+            失败返回 None。
+
+        示例输出：
+            {"vocal": ["洛天依"], "lyricist": ["雨狸"], "composer": ["DELA_P"],
+             "arranger": ["DELA_P"], "tuning": ["纳兰寻风"],
+             "illustrator": ["Lune"], "mixer": ["胡蝶Dorian"]}
+        """
+        # 字段映射说明（中文标签 → internal 名称）
+        field_guide = {
+            "vocal":       "演唱/主唱/歌手（vocalist）",
+            "lyricist":    "作词/词（lyricist）",
+            "composer":    "作曲/曲（composer）",
+            "arranger":    "编曲/曲/混编（arranger）",
+            "tuning":      "调校/调/调教（tuner）",
+            "illustrator": "曲绘/封面/美术/绘（illustrator）",
+            "mixer":       "混音/混/母带（mixer）",
+        }
+        target_guide = "\n".join(
+            f'  - "{k}": {v}' for k, v in field_guide.items() if k in missing_fields
+        )
+
+        system_prompt = f"""你是一个音乐专辑元数据解析专家，专注于中文虚拟歌手（VOCALOID/UTAU）专辑。
+
+任务：从下面的 Bilibili 视频简介中，提取专辑《{album_name}》的制作人员信息。
+
+需要提取的字段（仅提取简介中明确出现的）：
+{target_guide}
+
+输出规则：
+1. 只返回 JSON，不输出任何其他文字
+2. 每个字段的值是人名数组（字符串列表）
+3. 若一个字段简介中没有提及，则不要包含该键
+4. 人名保留原始写法（含英文名/昵称均保留），但需去掉 @xxx 形式的 Bilibili 用户名后缀（如"温记 @Zill温记"→"温记"）
+5. 同一人担任多个职位，在各自字段中分别列出
+6. 若简介只列出了单曲 STAFF（分曲目列），则合并去重所有曲目的同一字段
+7. 若简介中明确写了"其他staff见视频/见片尾"或类似说明，对应字段不要猜测，直接忽略
+
+【vocal 演唱字段特别规则】：
+- vocal 只能填写虚拟歌姬/合成声库的名称，例如：洛天依、言和、乐正绫、星尘、海伊、赤羽、诗岸、苍穹、心华、Minus/永夜Minus、牧心、默辰、小春六花、ナースロボ＿タイプＴ等
+- 严禁填入真人（人类音乐制作人）的名字，即使简介中将其列于"演唱"字段
+- 严禁填入团体/乐队名称（如"五维介质"、"霾Axis"、"平行四界"等），这类需要知道具体由哪些歌姬演唱
+- 若简介中只写了团体名而未列出具体歌姬成员，则不要包含 vocal 键
+- 专辑名称/团体缩写（如"洛言绫星"代指洛天依+言和+乐正绫+星尘）不应作为一个整体填入，若能明确其成员则拆分，否则忽略
+
+【mixer 混音字段特别规则】：
+- mixer 只填写简介中明确标注为"混音/混"的人员
+- 严禁将"监制"、"制作人"、"母带"、"策划"等职位的人员归入 mixer
+- 调校（tuning）人员不属于混音，不要混淆
+
+输出格式（示例）：
+{{"vocal": ["洛天依"], "lyricist": ["雨狸", "素珏"], "composer": ["DELA_P"], "arranger": ["胡蝶Dorian"], "tuning": ["纳兰寻风"], "illustrator": ["Lune"], "mixer": ["胡蝶Dorian"]}}"""
+
+        user_prompt = f"视频简介：\n\n{desc[:3000]}"
+
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user",   "content": user_prompt},
+        ]
+
+        response = self._make_request(messages)
+        if not response:
+            return None
+
+        # 提取 JSON（LLM 有时会在前后加 markdown 代码块）
+        json_match = re.search(r'\{.*\}', response, re.DOTALL)
+        if not json_match:
+            print(f"⚠️  LLM返回非JSON: {response[:100]}", file=sys.stderr, flush=True)
+            return None
+
+        try:
+            result = json.loads(json_match.group())
+        except json.JSONDecodeError:
+            print(f"⚠️  JSON解析失败: {response[:100]}", file=sys.stderr, flush=True)
+            return None
+
+        if not isinstance(result, dict):
+            return None
+
+        # 清理：确保每个值是字符串列表，过滤空值，去掉 @xxx 后缀
+        _at_suffix = re.compile(r'\s*@\S+$')
+
+        def _clean_name(raw: str) -> str:
+            """去掉 Bilibili @用户名 后缀，如 '温记 @Zill温记' → '温记'"""
+            return _at_suffix.sub("", raw.strip()).strip()
+
+        cleaned: dict[str, list[str]] = {}
+        valid_fields = set(field_guide.keys())
+        for k, v in result.items():
+            if k not in valid_fields:
+                continue
+            if isinstance(v, list):
+                names = [_clean_name(str(x)) for x in v if _clean_name(str(x))]
+            elif isinstance(v, str) and v.strip():
+                names = [_clean_name(v)]
+                names = [n for n in names if n]
+            else:
+                continue
+            if names:
+                cleaned[k] = names
+
+        return cleaned if cleaned else None
 
 
 def create_llm_client_from_config(config: dict) -> Optional[LLMClient]:
