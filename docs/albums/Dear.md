@@ -1,10 +1,15 @@
 ---
 title: "Dear"
-order: -1
+date: 2016-07-04
+order: -20160704
 category:
   - "未知出品方"
 tag:
   - "Dear"
+  - "洛天依"
+  - "言和"
+  - "乐正绫"
+  - "星尘"
   - "雨狸"
   - "玖玲"
   - "Litterzy"
@@ -23,6 +28,12 @@ tag:
 # Dear
 
 
+
+**发行日期:** 2016-07-04
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV19s411v7vS)
+
+**演唱:** 洛天依、言和、乐正绫、星尘
 
 **作词:** 雨狸
 

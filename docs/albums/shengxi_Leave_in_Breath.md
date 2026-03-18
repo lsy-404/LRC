@@ -62,6 +62,8 @@ tag:
 
 **曲绘:** 白石鹿野一号机、⑨的小圆本、十辰HERO、萤川灰
 
+**混音:** 铃蓝SuzuSnow
+
 ## 曲目列表
 
 - [1 关于海的一切](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9F%E6%81%AFLeave%20in%20Breath/1%20%E5%85%B3%E4%BA%8E%E6%B5%B7%E7%9A%84%E4%B8%80%E5%88%87.lrc)

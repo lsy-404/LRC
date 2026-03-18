@@ -32,7 +32,7 @@ tag:
 
 **购买:** [淘宝 DarkBlue Records](https://t.cn/A6zwm3bm) 通贩不可用
 
-**电子:** [DizzyLab](hhttps://www.dizzylab.net/d/cottoncandy/) ￥20
+**电子:** [DizzyLab](https://www.dizzylab.net/d/cottoncandy/) ￥20
 
 **演唱:** 音街ウナ、星尘、洛天依、乐正绫、海伊
 
@@ -41,6 +41,8 @@ tag:
 **作曲:** 墨蓝酱油
 
 **编曲:** 墨蓝酱油
+
+**调校:** 墨蓝酱油
 
 **曲绘:** RiN、深谷、兜兜、苏以墨、瑛砸、发酵末
 

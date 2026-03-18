@@ -1,10 +1,12 @@
 ---
 title: "天地晴雨手账"
-order: -1
+date: 2025-07-23
+order: -20250723
 category:
   - "未知出品方"
 tag:
   - "天地晴雨手账"
+  - "洛天依"
   - "溯回"
   - "Grid格子"
   - "天真圆陆鲨/MiDiCat"
@@ -25,15 +27,25 @@ tag:
 
 
 
+**发行日期:** 2025-07-23
+
 **歌词制作:** MiDiCat
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1xZ8FzBEup)
+
+**演唱:** 洛天依
 
 **作词:** 溯回、Grid格子、天真圆陆鲨/MiDiCat、一只爵士猫、萧家暮雨、清风疾行
 
 **作曲:** MiDiCat、清风疾行、Grid格子
 
+**编曲:** Grid格子、清风疾行、MiDiCat、秋铃Qrin
+
 **调校:** 血焰玖蝶、不朽之言、Grid格子、陌生来访、清风疾行
 
 **曲绘:** Tico、曦子、小鱼、拟态四角咩、曦子/洛儿、一树羊羊streep、晟晞Dawn
+
+**混音:** Grid格子、清风疾行、MiDiCat、DJ鱼谷、凌凌凌凌雪
 
 ## 曲目列表
 

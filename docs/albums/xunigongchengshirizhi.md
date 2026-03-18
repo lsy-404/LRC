@@ -1,6 +1,7 @@
 ---
 title: "虚拟工程师日志"
-order: -1
+date: 2023-05-14
+order: -20230514
 category:
   - "未知出品方"
 tag:
@@ -15,6 +16,9 @@ tag:
 
 
 
+**发行日期:** 2023-05-14
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1Lg4y1V7Et)
 
 ## 曲目列表
 

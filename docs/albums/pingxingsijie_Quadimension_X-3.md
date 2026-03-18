@@ -10,6 +10,12 @@ tag:
   - "Quadimension"
   - "X-3"
   - "平行四界Quadimension"
+  - "星尘"
+  - "海伊"
+  - "诗岸"
+  - "苍穹"
+  - "赤羽"
+  - "Minus"
   - "绿无"
   - "浓缩排骨"
   - "Ddickky"
@@ -49,6 +55,8 @@ tag:
 **购买:** [淘宝 平行四界Quadimension](http://t.cn/A66IQrPC) ￥75/￥155/￥185/￥215
 
 **电子:** 随专辑附赠
+
+**演唱:** 星尘、海伊、诗岸、苍穹、赤羽、Minus
 
 **作词:** 绿无、浓缩排骨、Ddickky、大♂古、Zeno、公兔、St、Evalia
 

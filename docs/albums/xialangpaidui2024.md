@@ -1,6 +1,7 @@
 ---
 title: "夏浪派对 2024"
-order: -1
+date: 2024-07-25
+order: -20240725
 category:
   - "未知出品方"
 tag:
@@ -37,7 +38,11 @@ tag:
 
 
 
+**发行日期:** 2024-07-25
+
 **歌词制作:** SST
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV17E4m1d754)
 
 **演唱:** 洛天依、乐正绫、潋妤
 

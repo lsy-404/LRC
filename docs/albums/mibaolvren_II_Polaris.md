@@ -56,6 +56,8 @@ tag:
 
 **作曲:** 曾怡、星辉p、Takna、雪人Snowman、Yida、辻原一郎、十音Molho
 
+**编曲:** 星辉p、Takna、雪人Snowman、Yida、辻原一郎、十音Molho
+
 **调校:** 某只泽、陌生来访、瑞安Ryan、星辉p
 
 **曲绘:** -Duoer-、河豚刺身、九茶混合物、月见玉子烧、不鱼、慧_Sophie、阿轨轨轨w、毛腿猪兔子

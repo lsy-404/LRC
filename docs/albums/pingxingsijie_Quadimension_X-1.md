@@ -58,6 +58,8 @@ tag:
 
 **曲绘:** 大汉Jax、青梅丨plumw、KyuriTizu、Leiq雷、November、Hanasa、影依望远镜、立旗、某狐仙、枫叶
 
+**混音:** 弹棉花的GG、冬子
+
 ## 曲目列表
 
 - [1 光晕](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/1%20%E5%85%89%E6%99%95.lrc)

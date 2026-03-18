@@ -1,6 +1,7 @@
 ---
 title: "信风至北"
-order: -1
+date: 2024-08-31
+order: -20240831
 category:
   - "未知出品方"
 tag:
@@ -18,7 +19,11 @@ tag:
 
 
 
+**发行日期:** 2024-08-31
+
 **歌词制作:** SST
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1eaHFeqESY)
 
 **作词:** licis、Bung Kon
 

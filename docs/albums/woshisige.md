@@ -1,6 +1,7 @@
 ---
 title: "卧室四格"
-order: -1
+date: 2023-09-19
+order: -20230919
 category:
   - "未知出品方"
 tag:
@@ -15,7 +16,11 @@ tag:
 
 
 
+**发行日期:** 2023-09-19
+
 **歌词制作:** SST
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV11u4y1r7fC)
 
 ## 曲目列表
 
