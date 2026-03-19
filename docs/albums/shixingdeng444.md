@@ -1,11 +1,11 @@
 ---
 title: "视星等4.44"
-order: -1
+date: 2022-11-19
+order: -20221119
 category:
   - "未知出品方"
 tag:
   - "视星等4.44"
-  - "狐狸座Vul"
   - "狐狸座"
   - "雨狸"
   - "素珏"
@@ -29,9 +29,15 @@ tag:
 
 
 
+**发行日期:** 2022-11-19
+
 **歌词制作:** SST
 
-**演唱:** 狐狸座Vul、狐狸座
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1XP4y19745)
+
+**购买:** [淘宝 Alice艾映](https://m.tb.cn/h.Uhb5wTi?tk=PZChdXYWkmr)
+
+**演唱:** 狐狸座
 
 **作词:** 雨狸、素珏
 

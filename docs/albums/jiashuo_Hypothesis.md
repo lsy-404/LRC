@@ -1,6 +1,7 @@
 ---
 title: "假说 Hypothesis"
-order: -1
+date: 2025-12-06
+order: -20251206
 category:
   - "未知出品方"
 tag:
@@ -21,7 +22,11 @@ tag:
 
 <img src="./jiashuo_Hypothesis.jpg" alt="假说 Hypothesis 封面" class="album-cover" />
 
+**发行日期:** 2025-12-06
+
 **歌词制作:** SST
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1KW2XB6EaG)
 
 **电子:** [Dizzylab](https://www.dizzylab.net/d/hypothesis/)
 

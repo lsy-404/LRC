@@ -1,6 +1,7 @@
 ---
 title: "甘泽谣"
-order: -1
+date: 2020-04-24
+order: -20200424
 category:
   - "未知出品方"
 tag:
@@ -20,6 +21,10 @@ tag:
 # 甘泽谣
 
 
+
+**发行日期:** 2020-04-24
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV19Z4y1W7nr)
 
 **演唱:** 小白龙
 

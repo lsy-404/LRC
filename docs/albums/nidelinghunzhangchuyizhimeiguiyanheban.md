@@ -1,6 +1,7 @@
 ---
 title: "你的灵魂长出一枝玫瑰 言和版"
-order: -1
+date: 2025-03-21
+order: -20250321
 category:
   - "未知出品方"
 tag:
@@ -26,7 +27,11 @@ tag:
 
 
 
+**发行日期:** 2025-03-21
+
 **歌词制作:** SST
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1p8XBYHEa7)
 
 **演唱:** 言和
 
@@ -37,6 +42,8 @@ tag:
 **编曲:** CFMing、苗茁、斯大王、西门振、泠泠
 
 **调校:** 纳兰寻风
+
+**曲绘:** SASA、冷冻汤圆、乙烯、小清龙
 
 **混音:** CFMing
 

@@ -1,6 +1,7 @@
 ---
 title: "苍穹之痕：混沌时代"
-order: -1
+date: 2022-01-01
+order: -20220101
 category:
   - "未知出品方"
 tag:
@@ -15,7 +16,13 @@ tag:
 
 
 
+**发行日期:** 2022-01-01
+
 **歌词制作:** SST
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1hi4y1X7bb)
+
+**购买:** [淘宝 踏云社](https://item.taobao.com/item.htm?id=665358816397)
 
 ## 曲目列表
 

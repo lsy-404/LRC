@@ -1,6 +1,7 @@
 ---
 title: "从众效应 Conformity"
-order: -1
+date: 2019-03-29
+order: -20190329
 category:
   - "未知出品方"
 tag:
@@ -17,6 +18,12 @@ tag:
 # 从众效应 Conformity
 
 
+
+**发行日期:** 2019-03-29
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1Ub411x7LD)
+
+**电子:** [Dizzylab](https://www.dizzylab.net/d/Conformity/)
 
 **作词:** 绛舞乱丸
 

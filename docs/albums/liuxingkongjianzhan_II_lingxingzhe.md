@@ -57,6 +57,8 @@ tag:
 
 **曲绘:** 不鱼、莫失迷、白木莱ct、靘QING
 
+**混音:** 某只泽、靘QING、不鱼_P
+
 ## 曲目列表
 
 - [1 寻梦号出发](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99II%E8%81%86%E6%98%9F%E8%80%85/1%20%E5%AF%BB%E6%A2%A6%E5%8F%B7%E5%87%BA%E5%8F%91.lrc)

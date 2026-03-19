@@ -54,6 +54,8 @@ tag:
 
 **作曲:** 雪人Snowman_、Yida、果子Hugo、磨蹭_platix_zhang、星辉p、MooNote
 
+**编曲:** 雪人Snowman_、Yida、果子Hugo、星辉p、磨蹭_platix_zhang、MooNote
+
 **调校:** 瑞安Ryan不跑调、某只泽、陌生来访
 
 **曲绘:** -白以慧-、多尔及利亚、不鱼P、Fanghx_D、宿崎临也、天马九茶、阿裕、---ACR、错先生S是成大喵、河豚、社恐年糕、阿轨轨轨w、毛腿猪兔子
