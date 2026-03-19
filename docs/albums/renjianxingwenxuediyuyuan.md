@@ -22,7 +22,7 @@ tag:
 
 # 人間型文學地獄園
 
-
+<img src="./renjianxingwenxuediyuyuan.jpg" alt="人間型文學地獄園 封面" class="album-cover" />
 
 **发行日期:** 2026-02-01
 
