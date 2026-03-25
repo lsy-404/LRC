@@ -63,9 +63,11 @@ tag:
 - [2 去月球](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99I/2%20%E5%8E%BB%E6%9C%88%E7%90%83.lrc)
 - [3 李宇晴](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99I/3%20%E6%9D%8E%E5%AE%87%E6%99%B4.lrc)
 - [4 木星 木星](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99I/4%20%E6%9C%A8%E6%98%9F%20%E6%9C%A8%E6%98%9F.lrc)
+- [5 漂浮](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99I/5%20%E6%BC%82%E6%B5%AE.lrc)
 - [6 幻得孤地无目的](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99I/6%20%E5%B9%BB%E5%BE%97%E5%AD%A4%E5%9C%B0%E6%97%A0%E7%9B%AE%E7%9A%84.lrc)
 - [7 邮寄星光](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99I/7%20%E9%82%AE%E5%AF%84%E6%98%9F%E5%85%89.lrc)
 - [8 混合烦恼100%](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99I/8%20%E6%B7%B7%E5%90%88%E7%83%A6%E6%81%BC100%25.lrc)
+- [9 深空鲸](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%81%E6%98%9F%E7%A9%BA%E9%97%B4%E7%AB%99I/9%20%E6%B7%B1%E7%A9%BA%E9%B2%B8.lrc)
 
 ## 下载
 
