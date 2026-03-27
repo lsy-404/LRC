@@ -31,6 +31,8 @@ tag:
 
 **发行日期:** 2016-07-04
 
+**歌词制作:** SST
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV19s411v7vS)
 
 **演唱:** 洛天依、言和、乐正绫、星尘

@@ -21,6 +21,8 @@ tag:
 
 **发行日期:** 2019-03-29
 
+**歌词制作:** SST
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Ub411x7LD)
 
 **电子:** [Dizzylab](https://www.dizzylab.net/d/Conformity/)

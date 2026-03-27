@@ -868,6 +868,8 @@
 
 ---
 
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/Cover.jpg" alt="专辑封面" width="120" align="right">
+
 ### 卧室四格
 
 **📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC.zip)**
@@ -877,12 +879,12 @@
 
 | 曲目 | 操作 |
 | :- | :-: |
-| [Ceiling Dancer.lrc](res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/Ceiling%20Dancer.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/Ceiling%20Dancer.lrc) |
-| [七月狭缝.lrc](res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/%E4%B8%83%E6%9C%88%E7%8B%AD%E7%BC%9D.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/%E4%B8%83%E6%9C%88%E7%8B%AD%E7%BC%9D.lrc) |
-| [原点.lrc](res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/%E5%8E%9F%E7%82%B9.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/%E5%8E%9F%E7%82%B9.lrc) |
-| [屋兽.lrc](res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/%E5%B1%8B%E5%85%BD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/%E5%B1%8B%E5%85%BD.lrc) |
-| [虫我.lrc](res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/%E8%99%AB%E6%88%91.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/%E8%99%AB%E6%88%91.lrc) |
-| [那是心际线的边境.lrc](res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/%E9%82%A3%E6%98%AF%E5%BF%83%E9%99%85%E7%BA%BF%E7%9A%84%E8%BE%B9%E5%A2%83.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/%E9%82%A3%E6%98%AF%E5%BF%83%E9%99%85%E7%BA%BF%E7%9A%84%E8%BE%B9%E5%A2%83.lrc) |
+| [1 原点.lrc](res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/1%20%E5%8E%9F%E7%82%B9.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/1%20%E5%8E%9F%E7%82%B9.lrc) |
+| [2 七月狭缝.lrc](res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/2%20%E4%B8%83%E6%9C%88%E7%8B%AD%E7%BC%9D.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/2%20%E4%B8%83%E6%9C%88%E7%8B%AD%E7%BC%9D.lrc) |
+| [3 Ceiling Dancer.lrc](res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/3%20Ceiling%20Dancer.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/3%20Ceiling%20Dancer.lrc) |
+| [4 虫我.lrc](res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/4%20%E8%99%AB%E6%88%91.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/4%20%E8%99%AB%E6%88%91.lrc) |
+| [5 屋兽.lrc](res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/5%20%E5%B1%8B%E5%85%BD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/5%20%E5%B1%8B%E5%85%BD.lrc) |
+| [6 那是心际线的边境.lrc](res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/6%20%E9%82%A3%E6%98%AF%E5%BF%83%E9%99%85%E7%BA%BF%E7%9A%84%E8%BE%B9%E5%A2%83.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC/6%20%E9%82%A3%E6%98%AF%E5%BF%83%E9%99%85%E7%BA%BF%E7%9A%84%E8%BE%B9%E5%A2%83.lrc) |
 
 </details>
 
@@ -934,6 +936,8 @@
 
 ---
 
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/Cover.jpg" alt="专辑封面" width="120" align="right">
+
 ### 虚拟工程师日志
 
 **📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97.zip)**
@@ -943,12 +947,12 @@
 
 | 曲目 | 操作 |
 | :- | :-: |
-| [intro：无知与童心.lrc](res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/intro%EF%BC%9A%E6%97%A0%E7%9F%A5%E4%B8%8E%E7%AB%A5%E5%BF%83.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/intro%EF%BC%9A%E6%97%A0%E7%9F%A5%E4%B8%8E%E7%AB%A5%E5%BF%83.lrc) |
-| [慢步歌.lrc](res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/%E6%85%A2%E6%AD%A5%E6%AD%8C.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/%E6%85%A2%E6%AD%A5%E6%AD%8C.lrc) |
-| [测试实验 编号0001.lrc](res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C%20%E7%BC%96%E5%8F%B70001.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C%20%E7%BC%96%E5%8F%B70001.lrc) |
-| [石室激光器.lrc](res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/%E7%9F%B3%E5%AE%A4%E6%BF%80%E5%85%89%E5%99%A8.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/%E7%9F%B3%E5%AE%A4%E6%BF%80%E5%85%89%E5%99%A8.lrc) |
-| [离子气泡.lrc](res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/%E7%A6%BB%E5%AD%90%E6%B0%94%E6%B3%A1.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/%E7%A6%BB%E5%AD%90%E6%B0%94%E6%B3%A1.lrc) |
-| [虚拟星门夜曲.lrc](res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/%E8%99%9A%E6%8B%9F%E6%98%9F%E9%97%A8%E5%A4%9C%E6%9B%B2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/%E8%99%9A%E6%8B%9F%E6%98%9F%E9%97%A8%E5%A4%9C%E6%9B%B2.lrc) |
+| [1 测试实验 编号0001.lrc](res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/1%20%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C%20%E7%BC%96%E5%8F%B70001.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/1%20%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C%20%E7%BC%96%E5%8F%B70001.lrc) |
+| [2 虚拟星门夜曲.lrc](res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/2%20%E8%99%9A%E6%8B%9F%E6%98%9F%E9%97%A8%E5%A4%9C%E6%9B%B2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/2%20%E8%99%9A%E6%8B%9F%E6%98%9F%E9%97%A8%E5%A4%9C%E6%9B%B2.lrc) |
+| [3 石室激光器.lrc](res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/3%20%E7%9F%B3%E5%AE%A4%E6%BF%80%E5%85%89%E5%99%A8.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/3%20%E7%9F%B3%E5%AE%A4%E6%BF%80%E5%85%89%E5%99%A8.lrc) |
+| [4 离子气泡.lrc](res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/4%20%E7%A6%BB%E5%AD%90%E6%B0%94%E6%B3%A1.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/4%20%E7%A6%BB%E5%AD%90%E6%B0%94%E6%B3%A1.lrc) |
+| [5 intro：无知与童心.lrc](res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/5%20intro%EF%BC%9A%E6%97%A0%E7%9F%A5%E4%B8%8E%E7%AB%A5%E5%BF%83.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/5%20intro%EF%BC%9A%E6%97%A0%E7%9F%A5%E4%B8%8E%E7%AB%A5%E5%BF%83.lrc) |
+| [6 慢步歌.lrc](res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/6%20%E6%85%A2%E6%AD%A5%E6%AD%8C.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E8%99%9A%E6%8B%9F%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%97%A5%E5%BF%97/6%20%E6%85%A2%E6%AD%A5%E6%AD%8C.lrc) |
 
 </details>
 
@@ -2008,6 +2012,8 @@
 
 ---
 
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/Cover.jpg" alt="专辑封面" width="120" align="right">
+
 ### 透明小说
 
 **📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4.zip)**
@@ -2017,14 +2023,14 @@
 
 | 曲目 | 操作 |
 | :- | :-: |
-| [便利店外的巨大水母.lrc](res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/%E4%BE%BF%E5%88%A9%E5%BA%97%E5%A4%96%E7%9A%84%E5%B7%A8%E5%A4%A7%E6%B0%B4%E6%AF%8D.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/%E4%BE%BF%E5%88%A9%E5%BA%97%E5%A4%96%E7%9A%84%E5%B7%A8%E5%A4%A7%E6%B0%B4%E6%AF%8D.lrc) |
-| [春天没有…….lrc](res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/%E6%98%A5%E5%A4%A9%E6%B2%A1%E6%9C%89%E2%80%A6%E2%80%A6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/%E6%98%A5%E5%A4%A9%E6%B2%A1%E6%9C%89%E2%80%A6%E2%80%A6.lrc) |
-| [春天没有落花。.lrc](res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/%E6%98%A5%E5%A4%A9%E6%B2%A1%E6%9C%89%E8%90%BD%E8%8A%B1%E3%80%82.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/%E6%98%A5%E5%A4%A9%E6%B2%A1%E6%9C%89%E8%90%BD%E8%8A%B1%E3%80%82.lrc) |
-| [海产罐头信笺gē.lrc](res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/%E6%B5%B7%E4%BA%A7%E7%BD%90%E5%A4%B4%E4%BF%A1%E7%AC%BAg%C4%93.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/%E6%B5%B7%E4%BA%A7%E7%BD%90%E5%A4%B4%E4%BF%A1%E7%AC%BAg%C4%93.lrc) |
-| [笑话怪兽.lrc](res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/%E7%AC%91%E8%AF%9D%E6%80%AA%E5%85%BD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/%E7%AC%91%E8%AF%9D%E6%80%AA%E5%85%BD.lrc) |
-| [赤道也会下雪.lrc](res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/%E8%B5%A4%E9%81%93%E4%B9%9F%E4%BC%9A%E4%B8%8B%E9%9B%AA.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/%E8%B5%A4%E9%81%93%E4%B9%9F%E4%BC%9A%E4%B8%8B%E9%9B%AA.lrc) |
-| [逃出春天的循环吧.lrc](res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/%E9%80%83%E5%87%BA%E6%98%A5%E5%A4%A9%E7%9A%84%E5%BE%AA%E7%8E%AF%E5%90%A7.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/%E9%80%83%E5%87%BA%E6%98%A5%E5%A4%A9%E7%9A%84%E5%BE%AA%E7%8E%AF%E5%90%A7.lrc) |
-| [雨泣.lrc](res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/%E9%9B%A8%E6%B3%A3.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/%E9%9B%A8%E6%B3%A3.lrc) |
+| [10 春天没有落花。.lrc](res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/10%20%E6%98%A5%E5%A4%A9%E6%B2%A1%E6%9C%89%E8%90%BD%E8%8A%B1%E3%80%82.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/10%20%E6%98%A5%E5%A4%A9%E6%B2%A1%E6%9C%89%E8%90%BD%E8%8A%B1%E3%80%82.lrc) |
+| [11 春天没有…….lrc](res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/11%20%E6%98%A5%E5%A4%A9%E6%B2%A1%E6%9C%89%E2%80%A6%E2%80%A6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/11%20%E6%98%A5%E5%A4%A9%E6%B2%A1%E6%9C%89%E2%80%A6%E2%80%A6.lrc) |
+| [2 笑话怪兽.lrc](res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/2%20%E7%AC%91%E8%AF%9D%E6%80%AA%E5%85%BD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/2%20%E7%AC%91%E8%AF%9D%E6%80%AA%E5%85%BD.lrc) |
+| [4 便利店外的巨大水母.lrc](res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/4%20%E4%BE%BF%E5%88%A9%E5%BA%97%E5%A4%96%E7%9A%84%E5%B7%A8%E5%A4%A7%E6%B0%B4%E6%AF%8D.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/4%20%E4%BE%BF%E5%88%A9%E5%BA%97%E5%A4%96%E7%9A%84%E5%B7%A8%E5%A4%A7%E6%B0%B4%E6%AF%8D.lrc) |
+| [5 逃出春天的循环吧.lrc](res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/5%20%E9%80%83%E5%87%BA%E6%98%A5%E5%A4%A9%E7%9A%84%E5%BE%AA%E7%8E%AF%E5%90%A7.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/5%20%E9%80%83%E5%87%BA%E6%98%A5%E5%A4%A9%E7%9A%84%E5%BE%AA%E7%8E%AF%E5%90%A7.lrc) |
+| [6 雨泣.lrc](res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/6%20%E9%9B%A8%E6%B3%A3.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/6%20%E9%9B%A8%E6%B3%A3.lrc) |
+| [8 海产罐头信笺gē.lrc](res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/8%20%E6%B5%B7%E4%BA%A7%E7%BD%90%E5%A4%B4%E4%BF%A1%E7%AC%BAg%C4%93.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/8%20%E6%B5%B7%E4%BA%A7%E7%BD%90%E5%A4%B4%E4%BF%A1%E7%AC%BAg%C4%93.lrc) |
+| [9 赤道也会下雪.lrc](res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/9%20%E8%B5%A4%E9%81%93%E4%B9%9F%E4%BC%9A%E4%B8%8B%E9%9B%AA.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%80%8F%E6%98%8E%E5%B0%8F%E8%AF%B4/9%20%E8%B5%A4%E9%81%93%E4%B9%9F%E4%BC%9A%E4%B8%8B%E9%9B%AA.lrc) |
 
 </details>
 
@@ -2101,6 +2107,8 @@ _暂无 LRC 文件_
 
 ---
 
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/metaphorical%20girl%20Re/Cover.png" alt="专辑封面" width="120" align="right">
+
 ### metaphorical girl Re
 
 **📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/metaphorical%20girl%20Re.zip)**
@@ -2110,15 +2118,15 @@ _暂无 LRC 文件_
 
 | 曲目 | 操作 |
 | :- | :-: |
-| [伞.lrc](res/metaphorical%20girl%20Re/%E4%BC%9E.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/%E4%BC%9E.lrc) |
-| [关于那些被我丢掉的东西.lrc](res/metaphorical%20girl%20Re/%E5%85%B3%E4%BA%8E%E9%82%A3%E4%BA%9B%E8%A2%AB%E6%88%91%E4%B8%A2%E6%8E%89%E7%9A%84%E4%B8%9C%E8%A5%BF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/%E5%85%B3%E4%BA%8E%E9%82%A3%E4%BA%9B%E8%A2%AB%E6%88%91%E4%B8%A2%E6%8E%89%E7%9A%84%E4%B8%9C%E8%A5%BF.lrc) |
-| [发条玩具乌龟.lrc](res/metaphorical%20girl%20Re/%E5%8F%91%E6%9D%A1%E7%8E%A9%E5%85%B7%E4%B9%8C%E9%BE%9F.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/%E5%8F%91%E6%9D%A1%E7%8E%A9%E5%85%B7%E4%B9%8C%E9%BE%9F.lrc) |
-| [四海五洲.lrc](res/metaphorical%20girl%20Re/%E5%9B%9B%E6%B5%B7%E4%BA%94%E6%B4%B2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/%E5%9B%9B%E6%B5%B7%E4%BA%94%E6%B4%B2.lrc) |
-| [快把皮球踢到百货商场.lrc](res/metaphorical%20girl%20Re/%E5%BF%AB%E6%8A%8A%E7%9A%AE%E7%90%83%E8%B8%A2%E5%88%B0%E7%99%BE%E8%B4%A7%E5%95%86%E5%9C%BA.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/%E5%BF%AB%E6%8A%8A%E7%9A%AE%E7%90%83%E8%B8%A2%E5%88%B0%E7%99%BE%E8%B4%A7%E5%95%86%E5%9C%BA.lrc) |
-| [文艺B抑郁的理由.lrc](res/metaphorical%20girl%20Re/%E6%96%87%E8%89%BAB%E6%8A%91%E9%83%81%E7%9A%84%E7%90%86%E7%94%B1.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/%E6%96%87%E8%89%BAB%E6%8A%91%E9%83%81%E7%9A%84%E7%90%86%E7%94%B1.lrc) |
-| [白色风车.lrc](res/metaphorical%20girl%20Re/%E7%99%BD%E8%89%B2%E9%A3%8E%E8%BD%A6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/%E7%99%BD%E8%89%B2%E9%A3%8E%E8%BD%A6.lrc) |
-| [草坪.lrc](res/metaphorical%20girl%20Re/%E8%8D%89%E5%9D%AA.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/%E8%8D%89%E5%9D%AA.lrc) |
-| [金鱼。坏天气.lrc](res/metaphorical%20girl%20Re/%E9%87%91%E9%B1%BC%E3%80%82%E5%9D%8F%E5%A4%A9%E6%B0%94.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/%E9%87%91%E9%B1%BC%E3%80%82%E5%9D%8F%E5%A4%A9%E6%B0%94.lrc) |
+| [1 文艺B抑郁的理由.lrc](res/metaphorical%20girl%20Re/1%20%E6%96%87%E8%89%BAB%E6%8A%91%E9%83%81%E7%9A%84%E7%90%86%E7%94%B1.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/1%20%E6%96%87%E8%89%BAB%E6%8A%91%E9%83%81%E7%9A%84%E7%90%86%E7%94%B1.lrc) |
+| [2 草坪.lrc](res/metaphorical%20girl%20Re/2%20%E8%8D%89%E5%9D%AA.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/2%20%E8%8D%89%E5%9D%AA.lrc) |
+| [3 金鱼。坏天气.lrc](res/metaphorical%20girl%20Re/3%20%E9%87%91%E9%B1%BC%E3%80%82%E5%9D%8F%E5%A4%A9%E6%B0%94.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/3%20%E9%87%91%E9%B1%BC%E3%80%82%E5%9D%8F%E5%A4%A9%E6%B0%94.lrc) |
+| [4 关于那些被我丢掉的东西.lrc](res/metaphorical%20girl%20Re/4%20%E5%85%B3%E4%BA%8E%E9%82%A3%E4%BA%9B%E8%A2%AB%E6%88%91%E4%B8%A2%E6%8E%89%E7%9A%84%E4%B8%9C%E8%A5%BF.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/4%20%E5%85%B3%E4%BA%8E%E9%82%A3%E4%BA%9B%E8%A2%AB%E6%88%91%E4%B8%A2%E6%8E%89%E7%9A%84%E4%B8%9C%E8%A5%BF.lrc) |
+| [5 伞.lrc](res/metaphorical%20girl%20Re/5%20%E4%BC%9E.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/5%20%E4%BC%9E.lrc) |
+| [6 发条玩具乌龟.lrc](res/metaphorical%20girl%20Re/6%20%E5%8F%91%E6%9D%A1%E7%8E%A9%E5%85%B7%E4%B9%8C%E9%BE%9F.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/6%20%E5%8F%91%E6%9D%A1%E7%8E%A9%E5%85%B7%E4%B9%8C%E9%BE%9F.lrc) |
+| [7 白色风车.lrc](res/metaphorical%20girl%20Re/7%20%E7%99%BD%E8%89%B2%E9%A3%8E%E8%BD%A6.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/7%20%E7%99%BD%E8%89%B2%E9%A3%8E%E8%BD%A6.lrc) |
+| [8 四海五洲.lrc](res/metaphorical%20girl%20Re/8%20%E5%9B%9B%E6%B5%B7%E4%BA%94%E6%B4%B2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/8%20%E5%9B%9B%E6%B5%B7%E4%BA%94%E6%B4%B2.lrc) |
+| [9 快把皮球踢到百货商场.lrc](res/metaphorical%20girl%20Re/9%20%E5%BF%AB%E6%8A%8A%E7%9A%AE%E7%90%83%E8%B8%A2%E5%88%B0%E7%99%BE%E8%B4%A7%E5%95%86%E5%9C%BA.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/metaphorical%20girl%20Re/9%20%E5%BF%AB%E6%8A%8A%E7%9A%AE%E7%90%83%E8%B8%A2%E5%88%B0%E7%99%BE%E8%B4%A7%E5%95%86%E5%9C%BA.lrc) |
 
 </details>
 

@@ -11,10 +11,10 @@ icon: material-symbols:analytics
 - **总计**：84 个专辑
 - **已检查**：84 个
 - **跳过**：0 个
-- **完整**：28 个
+- **完整**：30 个
 - **提示**：0 个
 - **警告**：29 个
-- **错误**：27 个
+- **错误**：25 个
 
 ## ❌ 错误：核心元数据缺失
 
@@ -60,11 +60,8 @@ icon: material-symbols:analytics
 ### metaphorical girl Re
 
 - 缺少发行日期
-- 缺少出品信息
 - 缺少发布链接
 - 购买/电子至少需要一个
-- 缺少合法的封面文件
-- [统计] 专辑数据表缺失 4 项：演唱, 调校, 曲绘, 混音
 
 ### 亚特兰蒂斯Atlantis
 
@@ -103,13 +100,6 @@ icon: material-symbols:analytics
 
 - 购买/电子至少需要一个
 - 缺少合法的封面文件
-
-### 卧室四格
-
-- 缺少出品信息
-- 购买/电子至少需要一个
-- 缺少合法的封面文件
-- [统计] 专辑数据表缺失 7 项：演唱, 作词, 作曲, 编曲, 调校, 曲绘, 混音
 
 ### 在人间
 
@@ -170,13 +160,6 @@ icon: material-symbols:analytics
 
 - 缺少出品信息
 
-### 虚拟工程师日志
-
-- 缺少出品信息
-- 购买/电子至少需要一个
-- 缺少合法的封面文件
-- [统计] 专辑数据表缺失 7 项：演唱, 作词, 作曲, 编曲, 调校, 曲绘, 混音
-
 ### 视星等4.44
 
 - 缺少出品信息
@@ -188,7 +171,6 @@ icon: material-symbols:analytics
 - 缺少出品信息
 - 缺少发布链接
 - 购买/电子至少需要一个
-- 缺少合法的封面文件
 - [统计] 专辑数据表缺失 7 项：演唱, 作词, 作曲, 编曲, 调校, 曲绘, 混音
 
 ## ⚠️ 警告：重要信息缺失
@@ -332,6 +314,7 @@ icon: material-symbols:analytics
 - 丛林法则Jungle Rules
 - 九光年宇宙
 - 加冕日CORONATION DAY
+- 卧室四格
 - 吉光片羽Queendom
 - 天方夜谭Fairyland
 - 天马行空Fairytale
@@ -351,3 +334,4 @@ icon: material-symbols:analytics
 - 织肉匠 - le bricoleur du devenir
 - 终梦Journeyed on Everdream
 - 藏雪SnowGrave
+- 虚拟工程师日志
