@@ -54,7 +54,7 @@ tag:
 - [05 雪之花](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Freesia/05%20%E9%9B%AA%E4%B9%8B%E8%8A%B1.lrc)
 - [06 云之翼](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Freesia/06%20%E4%BA%91%E4%B9%8B%E7%BF%BC.lrc)
 - [07 D!s!llus!on](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Freesia/07%20D%21s%21llus%21on.lrc)
-- [08 D!scoloЯ](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Freesia/08%20D%21scolo%D0%AF.lrc)
+- [08 D!scolor](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Freesia/08%20D%21scolor.lrc)
 - [09 渊之心](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Freesia/09%20%E6%B8%8A%E4%B9%8B%E5%BF%83.lrc)
 - [10 心的葬礼](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Freesia/10%20%E5%BF%83%E7%9A%84%E8%91%AC%E7%A4%BC.lrc)
 - [11 神明废墟](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Freesia/11%20%E7%A5%9E%E6%98%8E%E5%BA%9F%E5%A2%9F.lrc)
