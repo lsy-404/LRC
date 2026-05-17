@@ -20,6 +20,7 @@
 - [织肉匠 - le bricoleur du devenir](https://github.com/wuyilingwei/LRC#%E7%BB%87%E8%82%89%E5%8C%A0-le-bricoleur-du-devenir)
 - [Starlit Whisper](https://github.com/wuyilingwei/LRC#starlit-whisper)
 - [南北谐响诗](https://github.com/wuyilingwei/LRC#%E5%8D%97%E5%8C%97%E8%B0%90%E5%93%8D%E8%AF%97)
+- [页间曲](https://github.com/wuyilingwei/LRC#%E9%A1%B5%E9%97%B4%E6%9B%B2)
 - [像素荒原](https://github.com/wuyilingwei/LRC#%E5%83%8F%E7%B4%A0%E8%8D%92%E5%8E%9F)
 - [平行四界RE：BIRTH](https://github.com/wuyilingwei/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Crebirth)
 - [天地晴雨手账](https://github.com/wuyilingwei/LRC#%E5%A4%A9%E5%9C%B0%E6%99%B4%E9%9B%A8%E6%89%8B%E8%B4%A6)
@@ -315,6 +316,32 @@
 | [女巫往事.lrc](res/%E5%8D%97%E5%8C%97%E8%B0%90%E5%93%8D%E8%AF%97/%E5%A5%B3%E5%B7%AB%E5%BE%80%E4%BA%8B.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%97%E5%8C%97%E8%B0%90%E5%93%8D%E8%AF%97/%E5%A5%B3%E5%B7%AB%E5%BE%80%E4%BA%8B.lrc) |
 | [谐响诗篇.lrc](res/%E5%8D%97%E5%8C%97%E8%B0%90%E5%93%8D%E8%AF%97/%E8%B0%90%E5%93%8D%E8%AF%97%E7%AF%87.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%97%E5%8C%97%E8%B0%90%E5%93%8D%E8%AF%97/%E8%B0%90%E5%93%8D%E8%AF%97%E7%AF%87.lrc) |
 | [醉溺夜色.lrc](res/%E5%8D%97%E5%8C%97%E8%B0%90%E5%93%8D%E8%AF%97/%E9%86%89%E6%BA%BA%E5%A4%9C%E8%89%B2.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%97%E5%8C%97%E8%B0%90%E5%93%8D%E8%AF%97/%E9%86%89%E6%BA%BA%E5%A4%9C%E8%89%B2.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E9%A1%B5%E9%97%B4%E6%9B%B2/Cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 页间曲
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E9%A1%B5%E9%97%B4%E6%9B%B2.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (10 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [1 问.lrc](res/%E9%A1%B5%E9%97%B4%E6%9B%B2/1%20%E9%97%AE.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%A1%B5%E9%97%B4%E6%9B%B2/1%20%E9%97%AE.lrc) |
+| [10 迟来.lrc](res/%E9%A1%B5%E9%97%B4%E6%9B%B2/10%20%E8%BF%9F%E6%9D%A5.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%A1%B5%E9%97%B4%E6%9B%B2/10%20%E8%BF%9F%E6%9D%A5.lrc) |
+| [2 星间吟游歌姬.lrc](res/%E9%A1%B5%E9%97%B4%E6%9B%B2/2%20%E6%98%9F%E9%97%B4%E5%90%9F%E6%B8%B8%E6%AD%8C%E5%A7%AC.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%A1%B5%E9%97%B4%E6%9B%B2/2%20%E6%98%9F%E9%97%B4%E5%90%9F%E6%B8%B8%E6%AD%8C%E5%A7%AC.lrc) |
+| [3 光降落的序章.lrc](res/%E9%A1%B5%E9%97%B4%E6%9B%B2/3%20%E5%85%89%E9%99%8D%E8%90%BD%E7%9A%84%E5%BA%8F%E7%AB%A0.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%A1%B5%E9%97%B4%E6%9B%B2/3%20%E5%85%89%E9%99%8D%E8%90%BD%E7%9A%84%E5%BA%8F%E7%AB%A0.lrc) |
+| [4 守望与羁绊的微光航行.lrc](res/%E9%A1%B5%E9%97%B4%E6%9B%B2/4%20%E5%AE%88%E6%9C%9B%E4%B8%8E%E7%BE%81%E7%BB%8A%E7%9A%84%E5%BE%AE%E5%85%89%E8%88%AA%E8%A1%8C.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%A1%B5%E9%97%B4%E6%9B%B2/4%20%E5%AE%88%E6%9C%9B%E4%B8%8E%E7%BE%81%E7%BB%8A%E7%9A%84%E5%BE%AE%E5%85%89%E8%88%AA%E8%A1%8C.lrc) |
+| [5 恋に落ちた.lrc](res/%E9%A1%B5%E9%97%B4%E6%9B%B2/5%20%E6%81%8B%E3%81%AB%E8%90%BD%E3%81%A1%E3%81%9F.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%A1%B5%E9%97%B4%E6%9B%B2/5%20%E6%81%8B%E3%81%AB%E8%90%BD%E3%81%A1%E3%81%9F.lrc) |
+| [6 恋♭.lrc](res/%E9%A1%B5%E9%97%B4%E6%9B%B2/6%20%E6%81%8B%E2%99%AD.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%A1%B5%E9%97%B4%E6%9B%B2/6%20%E6%81%8B%E2%99%AD.lrc) |
+| [7 蝶说，春也可哀，秋也可爱.lrc](res/%E9%A1%B5%E9%97%B4%E6%9B%B2/7%20%E8%9D%B6%E8%AF%B4%EF%BC%8C%E6%98%A5%E4%B9%9F%E5%8F%AF%E5%93%80%EF%BC%8C%E7%A7%8B%E4%B9%9F%E5%8F%AF%E7%88%B1.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%A1%B5%E9%97%B4%E6%9B%B2/7%20%E8%9D%B6%E8%AF%B4%EF%BC%8C%E6%98%A5%E4%B9%9F%E5%8F%AF%E5%93%80%EF%BC%8C%E7%A7%8B%E4%B9%9F%E5%8F%AF%E7%88%B1.lrc) |
+| [8 淬火.lrc](res/%E9%A1%B5%E9%97%B4%E6%9B%B2/8%20%E6%B7%AC%E7%81%AB.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%A1%B5%E9%97%B4%E6%9B%B2/8%20%E6%B7%AC%E7%81%AB.lrc) |
+| [9 The Coming Wave.lrc](res/%E9%A1%B5%E9%97%B4%E6%9B%B2/9%20The%20Coming%20Wave.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E9%A1%B5%E9%97%B4%E6%9B%B2/9%20The%20Coming%20Wave.lrc) |
 
 </details>
 
