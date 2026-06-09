@@ -1,76 +1,51 @@
 # 📥 upload 投递箱
 
-这是 LRC 歌词库的**自动摄取投递箱**。把歌曲原料 push 到本 `upload` 分支，
-自动化流水线（`.github/workflows/upload_ingest.yml`）会：
+把歌曲原料 push 到本分支，自动化会处理并向 `main` 开一个 draft PR。**人工复核后合并即可。**
 
-1. 立即取走原料并把本分支重置为空（投递箱常空、可并发投递）；
-2. 识别歌词本（图片 OCR / pdf / docx / txt）、用 faster-whisper 给音频出**字级时间轴**，
-   把**准确歌词**强制对齐到时间轴生成 `.lrc`，并从 staff/credits 抽取专辑元数据；
-3. 整理成 `res/<专辑>/` 结构，从 `main` 迁出分支 `upload-<贡献者>-<时间>` **自动开 PR**，
-   走现有审计自动合并；
-4. **原料全程不入任何持久历史**，处理完即销毁（规避版权风险）。
-
-> ⚠️ **仅有仓库写权限的贡献者**能 push 到 `upload`（这就是滥用闸门）。
-> ⚠️ STT 为机器对齐、meta 为自动抽取，PR 产物**请人工复核**后再依赖合并。
+> 仅有仓库写权限的人能 push；处理完原料即销毁，不进库。
 
 ---
 
-## 怎么投递
+## 怎么提交
 
-把以下任意素材放进一个目录，push 到 `upload` 分支：
+1. 把素材（见下表）放进一个目录，可选附 `manifest.toml`；
+2. 直接 push 到 `upload` 分支（覆盖/追加都行）；
+3. 等几分钟，去看自动开出的 `ingest: <专辑>` draft PR，复核无误就标记 ready → 合并。
 
-| 素材 | 后缀 | 处理 |
+## 放什么
+
+| 素材 | 后缀 | 说明 |
 | :-- | :-- | :-- |
-| 逐曲歌词 | `.txt`（每文件一首） | 解析「标题+分曲 staff+正文」直接成轨（**推荐，最准**） |
-| 歌词本 | `.png/.jpg/.webp` | 视觉 OCR（含 credits） |
-| 歌词本 | `.pdf/.docx` | 文本抽取；扫描版 PDF 渲染后 OCR |
-| 专辑 credits | `.txt`（如 `Staff表.txt`） | 抽 staff → meta（不成轨） |
-| 歌曲音频 | `.flac/.wav/.mp3/.m4a/...` | faster-whisper 字级时间戳 → 对齐 |
-| 封面 | 图片，文件名含 `cover/封面/主视图` | 存为 `cover.*` |
-| 投递清单 | `manifest.toml`（见下） | 指定专辑名 + 覆盖 meta |
+| 逐曲歌词 | `.txt`（每文件一首） | **推荐**。格式：首行标题 +（可选 staff 行）+ 空行 + 正文 |
+| 歌词本 | `.png/.jpg/.pdf/.docx` | 自动 OCR / 抽取 |
+| 专辑 credits | `.txt`（如 `Staff表.txt`） | 抽 staff 进 meta |
+| 歌曲音频 | `.flac/.wav/.mp3/...` | 自动出时间轴，对齐到准确歌词生成 `.lrc` |
+| 封面 | 图片，名字含 `cover/封面/主视图` | 存为 `cover.*` |
+| 投递清单 | `manifest.toml` | 指定专辑名 + 覆盖 meta |
 
-**逐曲歌词 txt 格式**（与音频按内容自动匹配，无需同名）：
+**逐曲歌词 txt 示例**
 
 ```
 01 告别如汐
 VOCAL 星尘
-MUSIC 雪域小汪
 LYRICS 雪域小汪
-TUNING 凛空小猫
 
 闹钟轻声起 睡眼朦胧里
 晨光爬上窗棂
-……（正文，每行一句）
+……
 ```
 
-## manifest.toml（可选，建议提供专辑名）
-
-⚠️ 这是**标准 TOML**，键名用 **ASCII**（与 `res/<专辑>/meta.toml` 的中文键不同——那是项目自定义格式，
-不是合法 TOML）。显式给出的字段**覆盖**自动抽取的 meta。
+**manifest.toml 示例**（标准 TOML，键用 ASCII）
 
 ```toml
-album = "永昼花"                  # 目标专辑名（缺省时由 LLM 从歌词本推断，PR 标注待确认）
-
-year        = "2026-01-31"        # 发行日期
-produce     = ["Zeno"]            # 出品
-vocal       = ["星尘", "海伊", "诗岸"]  # 演唱（只填虚拟歌姬/声库）
-lyricist    = []                  # 作词
-composer    = []                  # 作曲
-arranger    = []                  # 编曲
-tuning      = []                  # 调校
-illustrator = ["Aries苑"]         # 曲绘
-mixer       = []                  # 混音
-lyric_maker = []                  # 歌词制作
-release     = "[Bilibili](https://www.bilibili.com/video/...)"  # 发布
-purchase    = ""                  # 购买
-electronic  = ""                  # 电子
+album = "永昼花"
+vocal = ["星尘", "海伊", "诗岸"]
+illustrator = ["Aries苑"]
 ```
 
-> 未提供的字段由流水线从歌词本/Staff 自动抽取，仍为空则留空，等人工在 PR 里补。
-> 值是人名列表/文本即可；键名见上（ASCII 内部名）。
+字段名见 `.github/upload_manifest.example.toml`。不写的字段会自动从歌词本/Staff 抽取。
 
-## 提示
+---
 
-- 优先提供**逐曲歌词 txt**，对齐质量最高；纯靠音频 STT 出字不可靠。
-- 音频建议提供**纯歌曲**（带伴奏的演唱即可）；流水线只取时间不取字。
-- STT 默认 `small` 模型，可由仓库变量 `WHISPER_MODEL`（tiny/base/small/medium/large-v3）调整。
+- 优先放**逐曲歌词 txt**，对齐质量最高。
+- 音频转写默认 `small` 模型，可由仓库变量 `WHISPER_MODEL` 调整。
