@@ -57,13 +57,10 @@ jobs:
           set -euo pipefail
           TMP=$(mktemp -d)
           mkdir -p "$TMP/.github/workflows"
-          # 工作流文件取自 upload 当前状态（payload），保证投递箱自带最新触发器
-          cp "payload/.github/workflows/upload_ingest.yml" "$TMP/.github/workflows/upload_ingest.yml"
-          if [ -f "repo/.github/UPLOAD_README.md" ]; then
-            cp "repo/.github/UPLOAD_README.md" "$TMP/README.md"
-          else
-            printf '# upload 投递箱\n\n请把歌词本/草稿/音频/manifest.toml push 到本分支，自动化会处理并开 PR。\n详见 docs/CONTRIBUTING.md。\n' > "$TMP/README.md"
-          fi
+          # 投递箱只放「触发用的 workflow + 投递说明」，不含脚本（脚本在 main，运行时 checkout）。
+          # 从 main(repo) 复制，使 upload 的 workflow / README 始终与 main 同步。
+          cp "repo/.github/workflows/upload_ingest.yml" "$TMP/.github/workflows/upload_ingest.yml"
+          cp "repo/.github/UPLOAD_README.md" "$TMP/README.md"
           cd "$TMP"
           git init -q
           git checkout -q -b upload
