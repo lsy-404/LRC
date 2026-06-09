@@ -155,14 +155,28 @@ def _fmt_toml_value(value: Any, is_list: bool) -> str:
     return f'"{value}"'
 
 
+_NAME_INTERNALS = {k for k, _ in NAME_FIELDS}
+
+
 def render_meta_toml(meta: dict[str, Any], names: dict[str, str]) -> str:
+    """生成 meta.toml。名称字段(前缀/中文名/英文名/后缀)取自 names；其余取自 meta。
+
+    注意：真实 config.toml 的 field_schema **已包含**名称字段，DEFAULT_CONFIG 没有。
+    若 schema 已含名称字段，就在循环里用 names 值输出（避免与特判重复）；
+    否则在「出品」后补一组（兼容 DEFAULT_CONFIG）。
+    """
     lines: list[str] = []
+    schema_has_names = any(f["internal"] in _NAME_INTERNALS for f in FIELD_SCHEMA)
     emitted_names = False
     for f in FIELD_SCHEMA:
         internal, toml_key = f["internal"], f["toml_key"]
+        if internal in _NAME_INTERNALS:
+            lines.append(f'{toml_key} = "{names.get(internal, "")}"')
+            emitted_names = True
+            continue
         is_list = f["type"] == "list"
         lines.append(f"{toml_key} = {_fmt_toml_value(meta.get(internal, [] if is_list else ''), is_list)}")
-        if internal == "produce" and not emitted_names:
+        if internal == "produce" and not schema_has_names and not emitted_names:
             for key, label in NAME_FIELDS:
                 lines.append(f'{label} = "{names.get(key, "")}"')
             emitted_names = True
