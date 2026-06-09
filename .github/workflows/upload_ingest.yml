@@ -1,0 +1,158 @@
+name: Upload Ingest
+
+# 共享投递箱 upload 分支：贡献者（需仓库写权限）push 原料(歌词本图片/pdf/docx、
+# 文字草稿、歌曲音频、manifest.toml)到 upload。本工作流：
+#   1. 按 push 的 SHA 取走原料
+#   2. 立即把 upload 重置为「仅含本工作流 + 投递说明」（force-push，腾空投递箱）
+#   3. OCR / 文档抽取 / 校对 / faster-whisper STT / LLM 编排 → res/<专辑>/
+#   4. 从 main 迁出分支 upload-<贡献者>-<时间>，开 PR 走现有 lrc_auto_audit 审计
+#   原料全程只在 runner 临时盘，绝不进任何持久分支；upload 旧 commit 被覆盖即销毁。
+
+on:
+  push:
+    branches: [upload]
+
+concurrency:
+  group: upload-ingest
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  ingest:
+    # 防循环：忽略 bot 自己 reset upload 触发的 push（GITHUB_TOKEN 推送本不会递归触发，双保险）
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve context
+        id: ctx
+        run: |
+          echo "sha=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          actor=$(echo "${{ github.actor }}" | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9-' '-' | sed 's/-\+/-/g;s/^-//;s/-$//')
+          echo "actor=${actor:-contributor}" >> "$GITHUB_OUTPUT"
+          echo "ts=$(date -u +%Y%m%d-%H%M%S)" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout upload payload (at pushed SHA)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          path: payload
+
+      - name: Checkout main (scripts + PR base)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          path: repo
+          token: ${{ secrets.PULL_TOKEN }}
+
+      - name: Reset upload dropbox (keep only workflow + README)
+        env:
+          GH_TOKEN_RESET: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          TMP=$(mktemp -d)
+          mkdir -p "$TMP/.github/workflows"
+          # 工作流文件取自 upload 当前状态（payload），保证投递箱自带最新触发器
+          cp "payload/.github/workflows/upload_ingest.yml" "$TMP/.github/workflows/upload_ingest.yml"
+          if [ -f "repo/.github/UPLOAD_README.md" ]; then
+            cp "repo/.github/UPLOAD_README.md" "$TMP/README.md"
+          else
+            printf '# upload 投递箱\n\n请把歌词本/草稿/音频/manifest.toml push 到本分支，自动化会处理并开 PR。\n详见 docs/CONTRIBUTING.md。\n' > "$TMP/README.md"
+          fi
+          cd "$TMP"
+          git init -q
+          git checkout -q -b upload
+          git add -A
+          git -c user.name='github-actions[bot]' \
+              -c user.email='github-actions[bot]@users.noreply.github.com' \
+              commit -q -m "chore(upload): reset dropbox after ingest"
+          # 用 GITHUB_TOKEN 推送：不会递归触发本工作流，且新单提交覆盖旧史 → 原料从 upload 历史消失
+          git push -q --force \
+            "https://x-access-token:${GH_TOKEN_RESET}@github.com/${{ github.repository }}.git" \
+            upload
+          echo "✓ upload 投递箱已重置"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Cache whisper model
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: whisper-${{ env.WHISPER_MODEL || 'small' }}
+          restore-keys: whisper-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r repo/.github/scripts/requirements.txt
+          pip install -r repo/.github/scripts/ingest/requirements.txt
+
+      - name: Run ingest pipeline
+        id: run
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_API_BASE: ${{ secrets.LLM_API_BASE }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+          OCR_MODEL: ${{ secrets.OCR_MODEL }}
+          WHISPER_MODEL: ${{ vars.WHISPER_MODEL || 'small' }}
+          PYTHONPATH: ${{ github.workspace }}/repo/.github/scripts
+        run: |
+          set -euo pipefail
+          python -m ingest.pipeline \
+            --src "${{ github.workspace }}/payload" \
+            --res-dir "${{ github.workspace }}/repo/res" \
+            --work "${{ github.workspace }}/.ingest_work" \
+            --json "${{ github.workspace }}/summary.json"
+          # 是否有产物
+          if git -C repo status --porcelain res | grep -q .; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "⚠️  未产生 res 改动，跳过开 PR"
+          fi
+          album=$(python -c "import json,sys; print(json.load(open('summary.json')).get('album',''))" 2>/dev/null || echo "")
+          echo "album=${album}" >> "$GITHUB_OUTPUT"
+
+      - name: Open PR from upload-<contributor>-<ts>
+        if: steps.run.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.PULL_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          BRANCH="upload-${{ steps.ctx.outputs.actor }}-${{ steps.ctx.outputs.ts }}"
+          cd repo
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$BRANCH"
+          git add res
+          git commit -m "ingest: ${{ steps.run.outputs.album }} (via upload by @${{ github.actor }})"
+          # 用 PULL_TOKEN 推送 → PR 能触发 lrc_auto_audit
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GH_REPO}.git" "$BRANCH"
+          BODY=$(cat <<EOF
+          ### 🤖 自动摄取投稿
+
+          - 投稿者：@${{ github.actor }}
+          - 专辑：\`${{ steps.run.outputs.album }}\`
+          - 来源：upload 投递箱（原料已销毁，仅派生产物入库）
+
+          <details><summary>处理摘要</summary>
+
+          \`\`\`json
+          $(cat ../summary.json)
+          \`\`\`
+          </details>
+
+          > ⚠️ STT 歌词为机器转写，meta 为 LLM 抽取，**请人工复核**后再依赖自动合并。
+          EOF
+          )
+          gh pr create --base main --head "$BRANCH" \
+            --title "ingest: ${{ steps.run.outputs.album }} (@${{ github.actor }})" \
+            --body "$BODY"

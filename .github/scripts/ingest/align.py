@@ -1,0 +1,225 @@
+#!/usr/bin/env python3
+"""ingest/align.py — 把准确歌词强制对齐到 STT 字级时间轴，生成高质量 LRC。
+
+设计（R3 核心升华）：
+- STT（faster-whisper, word_timestamps）只提供**时间轴**，其识别的字可能不准。
+- 准确歌词来自歌词本（txt/pdf/照片 OCR）。
+- 用序列对齐把「准确歌词字流」对到「STT 字流（带时间）」上，
+  让每行准确歌词拿到 STT 对应位置的时间戳 → 行级 LRC（可选字级增强 LRC）。
+
+对齐用标准库 difflib.SequenceMatcher（字符级 LCS），无第三方依赖。
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+import unicodedata
+from dataclasses import dataclass
+from difflib import SequenceMatcher
+from pathlib import Path
+from typing import Optional
+
+
+@dataclass
+class SttChar:
+    ch: str       # 归一化后的单字
+    t: float      # 该字的时间戳（秒）
+
+
+def _is_keepable(ch: str) -> bool:
+    """对齐时保留的字符：CJK 表意文字 + 字母 + 数字。标点/空格忽略。"""
+    if ch.isalnum():
+        return True
+    cat = unicodedata.category(ch)
+    return cat.startswith("L") or cat.startswith("N")
+
+
+def _norm(ch: str) -> str:
+    return ch.lower()
+
+
+def stt_words_to_chars(words: list[dict]) -> list[SttChar]:
+    """把 STT 词级时间戳展开为字级时间轴（词内按时长线性插值）。"""
+    chars: list[SttChar] = []
+    for w in words:
+        text = (w.get("text") or "").strip()
+        start = float(w.get("start", 0.0) or 0.0)
+        end = float(w.get("end", start) or start)
+        kept = [c for c in text if _is_keepable(c)]
+        if not kept:
+            continue
+        span = max(end - start, 0.0)
+        n = len(kept)
+        for i, c in enumerate(kept):
+            t = start + (span * i / n if n > 1 else 0.0)
+            chars.append(SttChar(_norm(c), t))
+    return chars
+
+
+@dataclass
+class RefChar:
+    line_idx: int
+    is_line_start: bool
+
+
+def ref_lines_to_chars(lines: list[str]) -> tuple[str, list[RefChar]]:
+    """把准确歌词行展开为归一化字流 + 每字的(行号,是否行首)元数据。"""
+    norm_chars: list[str] = []
+    meta: list[RefChar] = []
+    for li, line in enumerate(lines):
+        first = True
+        for c in line:
+            if not _is_keepable(c):
+                continue
+            norm_chars.append(_norm(c))
+            meta.append(RefChar(li, first))
+            first = False
+    return "".join(norm_chars), meta
+
+
+def _fmt_ts(seconds: float, ms_digits: int = 2) -> str:
+    if seconds < 0:
+        seconds = 0.0
+    m = int(seconds // 60)
+    s = seconds - m * 60
+    if ms_digits == 3:
+        return f"{m:02d}:{s:06.3f}"
+    return f"{m:02d}:{s:05.2f}"
+
+
+def align(
+    reference_lines: list[str],
+    words: list[dict],
+    *,
+    title: str = "",
+    album: str = "",
+    by: str = "",
+    per_char: bool = False,
+) -> str:
+    """返回对齐后的 LRC 文本。
+
+    reference_lines 应为纯歌词行（不含 staff 头）。
+    words 为 [{start,end,text}, ...]（faster-whisper 词级）。
+    """
+    lines = [ln.rstrip() for ln in reference_lines]
+    ref_str, ref_meta = ref_lines_to_chars(lines)
+    stt_chars = stt_words_to_chars(words)
+    stt_str = "".join(c.ch for c in stt_chars)
+
+    # 每个 ref 字的时间（None=未对齐上）
+    ref_time: list[Optional[float]] = [None] * len(ref_meta)
+    if ref_str and stt_str:
+        sm = SequenceMatcher(None, ref_str, stt_str, autojunk=False)
+        for i, j, n in sm.get_matching_blocks():
+            for k in range(n):
+                ref_time[i + k] = stt_chars[j + k].t
+
+    # 行首时间：取该行第一个有时间的字；整行无 → None 待插值
+    n_lines = len(lines)
+    line_start: list[Optional[float]] = [None] * n_lines
+    line_char_times: dict[int, list[tuple[int, float]]] = {}  # 行 → [(行内偏移, t)]
+    line_local_idx: dict[int, int] = {}
+    for idx, meta in enumerate(ref_meta):
+        li = meta.line_idx
+        local = line_local_idx.get(li, 0)
+        line_local_idx[li] = local + 1
+        t = ref_time[idx]
+        if t is not None:
+            line_char_times.setdefault(li, []).append((local, t))
+            if line_start[li] is None:
+                line_start[li] = t
+
+    # 线性插值补齐缺失行首时间（保持单调不减）
+    known = [(li, t) for li, t in enumerate(line_start) if t is not None]
+    if known:
+        for li in range(n_lines):
+            if line_start[li] is not None:
+                continue
+            prev = max((k for k in known if k[0] < li), default=None)
+            nxt = min((k for k in known if k[0] > li), default=None)
+            if prev and nxt and nxt[0] != prev[0]:
+                frac = (li - prev[0]) / (nxt[0] - prev[0])
+                line_start[li] = prev[1] + (nxt[1] - prev[1]) * frac
+            elif prev:
+                line_start[li] = prev[1] + 0.5 * (li - prev[0])
+            elif nxt:
+                line_start[li] = max(0.0, nxt[1] - 0.5 * (nxt[0] - li))
+    # 单调化
+    last = 0.0
+    for li in range(n_lines):
+        if line_start[li] is None:
+            line_start[li] = last
+        line_start[li] = max(line_start[li], last)
+        last = line_start[li]
+
+    # 输出
+    out: list[str] = []
+    if title:
+        out.append(f"[ti:{title}]")
+    if album:
+        out.append(f"[al:{album}]")
+    out.append(f"[ar:]")
+    out.append(f"[by:{by}]")
+    out.append("")
+    for li, line in enumerate(lines):
+        if not line.strip():
+            continue
+        ts = _fmt_ts(line_start[li] or 0.0)
+        if per_char and li in line_char_times:
+            # 增强 LRC：行首时间 + 行内每字 <时间>
+            times = dict(line_char_times[li])
+            buf = f"[{ts}]"
+            local = 0
+            for c in line:
+                if _is_keepable(c) and local in times:
+                    buf += f"<{_fmt_ts(times[local])}>{c}"
+                    local += 1
+                elif _is_keepable(c):
+                    buf += c
+                    local += 1
+                else:
+                    buf += c
+            out.append(buf)
+        else:
+            out.append(f"[{ts}]{line.strip()}")
+    return "\n".join(out) + "\n"
+
+
+def coverage(reference_lines: list[str], words: list[dict]) -> float:
+    """对齐覆盖率（匹配上的 ref 字 / 总 ref 字），用于评估/选择最佳歌词匹配。"""
+    ref_str, _ = ref_lines_to_chars(reference_lines)
+    stt_str = "".join(c.ch for c in stt_words_to_chars(words))
+    if not ref_str or not stt_str:
+        return 0.0
+    sm = SequenceMatcher(None, ref_str, stt_str, autojunk=False)
+    matched = sum(n for _, _, n in sm.get_matching_blocks())
+    return matched / len(ref_str)
+
+
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(description="准确歌词 × STT 时间轴 → LRC")
+    ap.add_argument("--lyrics", required=True, help="准确歌词文本文件（每行一句，不含 staff 头）")
+    ap.add_argument("--words", required=True, help="STT 词级时间戳 JSON（[{start,end,text}]）")
+    ap.add_argument("--title", default="")
+    ap.add_argument("--album", default="")
+    ap.add_argument("--by", default="")
+    ap.add_argument("--per-char", action="store_true", help="输出字级增强 LRC")
+    ap.add_argument("--out", help="输出文件（默认 stdout）")
+    args = ap.parse_args(argv)
+
+    lines = Path(args.lyrics).read_text(encoding="utf-8", errors="replace").splitlines()
+    words = json.loads(Path(args.words).read_text(encoding="utf-8"))
+    lrc = align(lines, words, title=args.title, album=args.album, by=args.by, per_char=args.per_char)
+    cov = coverage(lines, words)
+    print(f"对齐覆盖率: {cov:.1%}", file=sys.stderr)
+    if args.out:
+        Path(args.out).write_text(lrc, encoding="utf-8")
+        print(f"✓ 写入 {args.out}", file=sys.stderr)
+    else:
+        print(lrc)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
