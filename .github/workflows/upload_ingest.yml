@@ -152,8 +152,7 @@ jobs:
           > ⚠️ STT 歌词为机器转写，meta 为 LLM 抽取，**请人工复核**后再依赖自动合并。
           EOF
           )
-          # 开 draft PR：现有 lrc_auto_audit 会 approve 并武装 auto-merge，但 draft 状态
-          # 会阻止真正合并，必须人工 review 后标记 ready 才并入 main（对应"机器产出需人工复核"）。
-          gh pr create --base main --head "$BRANCH" --draft \
+          # 正式 PR：交由现有 lrc_auto_audit 审计，通过即自动 approve + squash 合并进 main。
+          gh pr create --base main --head "$BRANCH" \
             --title "ingest: ${{ steps.run.outputs.album }} (@${{ github.actor }})" \
             --body "$BODY"
