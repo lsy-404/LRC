@@ -47,7 +47,8 @@ jobs:
           ref: main
           fetch-depth: 0
           path: repo
-          token: ${{ secrets.PULL_TOKEN }}
+          # 用默认 GITHUB_TOKEN：其注入的 http.extraheader 有 contents:write，
+          # 可推分支。（若用 PULL_TOKEN，它的 extraheader 会覆盖 URL token 且无推送权 → 403）
 
       - name: Reset upload dropbox (keep only workflow + README)
         env:
@@ -124,7 +125,6 @@ jobs:
         if: steps.run.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.PULL_TOKEN }}
-          PUSH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -135,9 +135,9 @@ jobs:
           git checkout -b "$BRANCH"
           git add res
           git commit -m "ingest: ${{ steps.run.outputs.album }} (via upload by @${{ github.actor }})"
-          # 分支用 GITHUB_TOKEN 推送（有 contents:write；PULL_TOKEN 是细粒度 PAT 无推送权）。
-          # PR 仍由下方 gh(PULL_TOKEN=PAT) 创建 → 才能触发 lrc_auto_audit。
-          git push "https://x-access-token:${PUSH_TOKEN}@github.com/${GH_REPO}.git" "$BRANCH"
+          # 推 origin：repo 由默认 GITHUB_TOKEN checkout，其 extraheader 有 contents:write。
+          # PR 由下方 gh(GH_TOKEN=PULL_TOKEN=PAT) 创建 → 才能触发 lrc_auto_audit。
+          git push origin "$BRANCH"
           BODY=$(cat <<EOF
           ### 🤖 自动摄取投稿
 
