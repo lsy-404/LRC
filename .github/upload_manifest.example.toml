@@ -1,17 +1,19 @@
-# upload 投递清单示例 — 复制为 manifest.toml 放进投递目录根
-# 所有字段可选；显式给出的会覆盖流水线自动抽取的 meta。字段名同 res/<专辑>/meta.toml。
+# upload 投递清单示例 — 复制为 manifest.toml 放进投递目录根。
+# 注意：这是**标准 TOML**，键名用 ASCII（与 res/<专辑>/meta.toml 的中文键不同——
+# 那是项目自定义格式）。所有字段可选；显式给出的会覆盖流水线自动抽取的 meta。
 
-album = "永昼花"                 # 目标专辑名（强烈建议提供）
+album = "永昼花"                  # 目标专辑名（强烈建议提供）
 
-发行日期 = ""                    # 也可写 year = "2026-01-31"
-出品 = []
-演唱 = ["星尘", "海伊", "诗岸"]   # 只填虚拟歌姬/声库
-作词 = []
-作曲 = []
-编曲 = []
-调校 = []
-曲绘 = ["Aries苑"]
-混音 = []
-发布 = ""                        # 如 "[Bilibili](https://www.bilibili.com/video/...)"
-购买 = ""
-电子 = ""
+year        = ""                  # 发行日期，如 "2026-01-31"
+produce     = []                  # 出品
+vocal       = ["星尘", "海伊", "诗岸"]  # 演唱（只填虚拟歌姬/声库）
+lyricist    = []                  # 作词
+composer    = []                  # 作曲
+arranger    = []                  # 编曲
+tuning      = []                  # 调校
+illustrator = ["Aries苑"]         # 曲绘
+mixer       = []                  # 混音
+lyric_maker = []                  # 歌词制作
+release     = ""                  # 发布，如 "[Bilibili](https://www.bilibili.com/video/...)"
+purchase    = ""                  # 购买
+electronic  = ""                  # 电子

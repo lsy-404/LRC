@@ -65,11 +65,22 @@ ORGANIZE_SYSTEM = """你是音乐专辑歌词整理专家。给你一份专辑�
 3.去掉人名 @用户名 后缀 4.tracks 按歌词本顺序编号。"""
 
 
+# 中文/别名键 → internal（manifest 容错：若用户写了 quoted 中文键也能识别）
+_KEY_ALIAS = dict(_META.get("mapping", {}))
+
+
+def _normalize_manifest(m: dict[str, Any]) -> dict[str, Any]:
+    out: dict[str, Any] = {}
+    for k, v in (m or {}).items():
+        out[_KEY_ALIAS.get(k, k)] = v
+    return out
+
+
 def _read_toml(path: Path) -> dict[str, Any]:
     if not path.is_file() or tomllib is None:
         return {}
     try:
-        return tomllib.loads(path.read_text(encoding="utf-8"))
+        return _normalize_manifest(tomllib.loads(path.read_text(encoding="utf-8")))
     except Exception as e:  # noqa: BLE001
         print(f"⚠️  manifest 解析失败 {path}: {e}", file=sys.stderr)
         return {}
