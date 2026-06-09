@@ -84,8 +84,46 @@ def pick_cover(images: list[Path]) -> Path | None:
     return max(pool, key=lambda p: p.stat().st_size)
 
 
+def find_album_dirs(src: Path) -> list[Path]:
+    """上传根目录下、用作专辑名的顶层文件夹（专辑 = 文件夹名）。"""
+    out = []
+    for p in sorted(src.iterdir()):
+        if not p.is_dir():
+            continue
+        if p.name in IGNORE_DIRS or p.name.startswith("."):
+            continue
+        out.append(p)
+    return out
+
+
 def run(src: Path, res_dir: Path, work: Path, album: str, dry_run: bool) -> dict:
+    """识别专辑（= 上传里的顶层文件夹名）并逐个处理。
+
+    - 上传根下每个文件夹视为一张专辑，文件夹名即专辑名（无需 manifest）。
+    - 若用 --album 显式指定，或根下无文件夹（素材直接在根），则整体当一张专辑。
+    """
     work.mkdir(parents=True, exist_ok=True)
+    if album:
+        jobs = [(album, src)]
+    else:
+        album_dirs = find_album_dirs(src)
+        if album_dirs:
+            jobs = [(d.name, d) for d in album_dirs]
+        else:
+            jobs = [("", src)]  # 素材直接在根、又没给名字 → 专辑名待定
+    print(f"识别到 {len(jobs)} 张专辑：{[a for a, _ in jobs]}", file=sys.stderr)
+
+    albums_out = []
+    for album_name, album_src in jobs:
+        albums_out.append(_process_album(album_name, album_src, res_dir, work, dry_run))
+    ok = any(a.get("result") == "ok" for a in albums_out)
+    done = [a.get("album", "") for a in albums_out if a.get("result") == "ok"]
+    return {"albums": albums_out, "result": "ok" if ok else "empty",
+            "album": "、".join(n for n in done if n),  # 供 workflow 做 PR 标题
+            "written": [w for a in albums_out for w in a.get("written", [])]}
+
+
+def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bool) -> dict:
     buckets = classify(src)
     summary: dict = {k: [p.name for p in v] for k, v in buckets.items()}
     print(f"分流：图片{len(buckets['image'])} 文档{len(buckets['doc'])} 音频{len(buckets['audio'])} "
@@ -140,11 +178,12 @@ def run(src: Path, res_dir: Path, work: Path, album: str, dry_run: bool) -> dict
             print(f"⚠️  STT 模型加载失败: {e}", file=sys.stderr)
 
     if not tracks_explicit and not booklet_text and not audio_words:
-        summary["result"] = "empty"
-        print("⚠️  没有可整理的素材", file=sys.stderr)
+        summary.update({"album": album, "result": "empty"})
+        print(f"⚠️  专辑「{album}」无可整理素材", file=sys.stderr)
         return summary
 
-    # 4) 整理 + 对齐 → res/<专辑>/
+    # 4) 整理 + 对齐 → res/<专辑>/（meta 全自动；专辑名 = 文件夹名 album）
+    #    可选：若投递目录恰含 manifest.toml 则作为 meta 覆盖（非必需，不鼓励）。
     manifest_path = src / "manifest.toml"
     manifest = org_mod._read_toml(manifest_path) if manifest_path.is_file() else {}
     org_res = org_mod.organize(
