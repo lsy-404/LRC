@@ -45,26 +45,29 @@ TUNING 凛空小猫
 
 ## manifest.toml（可选，建议提供专辑名）
 
-```toml
-album = "永昼花"            # 目标专辑名（缺省时由 LLM 从歌词本推断，PR 标注待确认）
+⚠️ 这是**标准 TOML**，键名用 **ASCII**（与 `res/<专辑>/meta.toml` 的中文键不同——那是项目自定义格式，
+不是合法 TOML）。显式给出的字段**覆盖**自动抽取的 meta。
 
-# 以下均可选，显式给出则**覆盖**自动抽取的 meta：
-发行日期 = "2026-01-31"     # 也可用 year=
-出品     = ["Zeno"]
-演唱     = ["星尘", "海伊", "诗岸"]
-作词     = []
-作曲     = []
-编曲     = []
-调校     = []
-曲绘     = ["Aries苑"]
-混音     = []
-发布     = "[Bilibili](https://www.bilibili.com/video/...)"
-购买     = "[淘宝](...)"
-电子     = "随专辑附赠"
+```toml
+album = "永昼花"                  # 目标专辑名（缺省时由 LLM 从歌词本推断，PR 标注待确认）
+
+year        = "2026-01-31"        # 发行日期
+produce     = ["Zeno"]            # 出品
+vocal       = ["星尘", "海伊", "诗岸"]  # 演唱（只填虚拟歌姬/声库）
+lyricist    = []                  # 作词
+composer    = []                  # 作曲
+arranger    = []                  # 编曲
+tuning      = []                  # 调校
+illustrator = ["Aries苑"]         # 曲绘
+mixer       = []                  # 混音
+lyric_maker = []                  # 歌词制作
+release     = "[Bilibili](https://www.bilibili.com/video/...)"  # 发布
+purchase    = ""                  # 购买
+electronic  = ""                  # 电子
 ```
 
-> 字段名同 `res/<专辑>/meta.toml`（中文键）。未提供的字段由流水线从歌词本/Staff 抽取，
-> 仍为空则留空，等人工在 PR 里补。
+> 未提供的字段由流水线从歌词本/Staff 自动抽取，仍为空则留空，等人工在 PR 里补。
+> 值是人名列表/文本即可；键名见上（ASCII 内部名）。
 
 ## 提示
 

@@ -124,6 +124,7 @@ jobs:
         if: steps.run.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.PULL_TOKEN }}
+          PUSH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -134,8 +135,9 @@ jobs:
           git checkout -b "$BRANCH"
           git add res
           git commit -m "ingest: ${{ steps.run.outputs.album }} (via upload by @${{ github.actor }})"
-          # 用 PULL_TOKEN 推送 → PR 能触发 lrc_auto_audit
-          git push "https://x-access-token:${GH_TOKEN}@github.com/${GH_REPO}.git" "$BRANCH"
+          # 分支用 GITHUB_TOKEN 推送（有 contents:write；PULL_TOKEN 是细粒度 PAT 无推送权）。
+          # PR 仍由下方 gh(PULL_TOKEN=PAT) 创建 → 才能触发 lrc_auto_audit。
+          git push "https://x-access-token:${PUSH_TOKEN}@github.com/${GH_REPO}.git" "$BRANCH"
           BODY=$(cat <<EOF
           ### 🤖 自动摄取投稿
 
