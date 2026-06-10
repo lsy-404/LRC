@@ -155,7 +155,7 @@ def find_album_dirs(src: Path) -> list[Path]:
     return out
 
 
-def run(src: Path, res_dir: Path, work: Path, album: str, dry_run: bool) -> dict:
+def run(src: Path, res_dir: Path, work: Path, album: str, dry_run: bool, lyric_maker: str = "") -> dict:
     """识别专辑（= 上传里的顶层文件夹名）并逐个处理。
 
     - 上传根下每个文件夹视为一张专辑，文件夹名即专辑名（无需 manifest）。
@@ -174,7 +174,7 @@ def run(src: Path, res_dir: Path, work: Path, album: str, dry_run: bool) -> dict
 
     albums_out = []
     for album_name, album_src in jobs:
-        albums_out.append(_process_album(album_name, album_src, res_dir, work, dry_run))
+        albums_out.append(_process_album(album_name, album_src, res_dir, work, dry_run, lyric_maker))
     ok = any(a.get("result") == "ok" for a in albums_out)
     done = [a.get("album", "") for a in albums_out if a.get("result") == "ok"]
     is_update = any(a.get("is_update") for a in albums_out if a.get("result") == "ok")
@@ -184,7 +184,7 @@ def run(src: Path, res_dir: Path, work: Path, album: str, dry_run: bool) -> dict
             "written": [w for a in albums_out for w in a.get("written", [])]}
 
 
-def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bool) -> dict:
+def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bool, lyric_maker: str = "") -> dict:
     buckets = classify(src)
     summary: dict = {k: [p.name for p in v] for k, v in buckets.items()}
     print(f"分流：图片{len(buckets['image'])} 文档{len(buckets['doc'])} 音频{len(buckets['audio'])} "
@@ -264,6 +264,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
         tracks_explicit=tracks_explicit, booklet_text=booklet_text, credits_text=credits_text,
         audio_words=audio_words, manifest=manifest, res_dir=res_dir,
         album_override=album, cover_path=cover, existing_meta=existing_meta, dry_run=dry_run,
+        default_lyric_maker=lyric_maker,
     )
     summary.update({"album": org_res["album"], "written": org_res["written"],
                     "track_count": org_res["track_count"], "matched": org_res["matched"],
@@ -284,6 +285,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--work", default=".ingest_work")
     ap.add_argument("--album", default="")
     ap.add_argument("--json", help="把摘要写入该 JSON 文件")
+    ap.add_argument("--lyric-maker", default="", help="歌词制作默认署名（lyric_maker 为空时填入）")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args(argv)
 
@@ -292,7 +294,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"投递目录不存在: {src}", file=sys.stderr)
         return 1
 
-    summary = run(src, Path(args.res_dir), Path(args.work), args.album, args.dry_run)
+    summary = run(src, Path(args.res_dir), Path(args.work), args.album, args.dry_run, args.lyric_maker)
     if args.json:
         Path(args.json).write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=2))

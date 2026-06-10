@@ -274,6 +274,7 @@ def organize(
     cover_path: Path | None = None,
     existing_meta: dict | None = None,
     dry_run: bool = False,
+    default_lyric_maker: str = "",
 ) -> dict[str, Any]:
     audio_words = audio_words or {}
     tracks_explicit = tracks_explicit or []
@@ -310,6 +311,8 @@ def organize(
                 if name not in per_track_staff[k]:
                     per_track_staff[k].append(name)
     meta = merge_meta(manifest, llm_meta, credits_staff, per_track_staff, existing_meta or {})
+    if default_lyric_maker and not meta.get("lyric_maker"):
+        meta["lyric_maker"] = [default_lyric_maker]
 
     # 3) 逐轨生成 LRC（匹配音频 + 对齐）
     used: set = set()

@@ -222,11 +222,13 @@ def score_video(
 
     score = 0.0
 
-    # 宣发词（标题）
+    # 宣发词（标题）— "发售pv" 组合额外加分
     for kw in _PROMO_TITLE_KW:
         if kw in title_l:
             score += 0.30
             break
+    if "发售" in title_l and "pv" in title_l:
+        score += 0.20  # 发售PV 是最符合"专辑发布"语义的视频类型
     for kw in _PROMO_MINOR_KW:
         if kw in title_l:
             score += 0.05
@@ -333,10 +335,13 @@ def get_search_queries(album_dir: Path, meta: dict[str, Any]) -> list[str]:
             result.append(q)
 
     suf = suffix if suffix else ""
-    # 1. 中文名 + 试听（宣发词首位优先）
+    # 1. 中文名 + 发售pv（专辑发售宣传片首位优先）
+    if zh_name:
+        add(f"{zh_name}{suf} 发售pv")
+    # 2. 中文名 + 试听
     if zh_name:
         add(f"{zh_name}{suf} 试听")
-    # 2. 中文名 + 专辑
+    # 3. 中文名 + 专辑
     if zh_name:
         add(f"{zh_name}{suf} 专辑")
     # 3. 文件夹全名

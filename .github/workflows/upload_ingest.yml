@@ -107,7 +107,8 @@ jobs:
             --src "${{ github.workspace }}/payload" \
             --res-dir "${{ github.workspace }}/repo/res" \
             --work "${{ github.workspace }}/.ingest_work" \
-            --json "${{ github.workspace }}/summary.json"
+            --json "${{ github.workspace }}/summary.json" \
+            --lyric-maker "武乙凌薇"
           # 是否有产物
           if git -C repo status --porcelain res | grep -q .; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -119,6 +120,19 @@ jobs:
           echo "album=${album}" >> "$GITHUB_OUTPUT"
           is_update=$(python -c "import json,sys; print('true' if json.load(open('summary.json')).get('is_update') else 'false')" 2>/dev/null || echo "false")
           echo "is_update=${is_update}" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch Bilibili metadata for ingested album
+        if: steps.run.outputs.changed == 'true'
+        env:
+          PYTHONPATH: ${{ github.workspace }}/repo/.github/scripts
+        run: |
+          ALBUM="${{ steps.run.outputs.album }}"
+          if [ -n "$ALBUM" ]; then
+            cd "${{ github.workspace }}/repo"
+            python .github/scripts/fetch_bilibili_meta.py \
+              --album "$ALBUM" --auto --fields release,year,electronic
+          fi
+        continue-on-error: true
 
       - name: Open PR from upload-<contributor>-<ts>
         if: steps.run.outputs.changed == 'true'
