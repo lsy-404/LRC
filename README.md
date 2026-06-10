@@ -27,8 +27,8 @@
 - [终梦Journeyed on Everdream](https://github.com/wuyilingwei/LRC#%E7%BB%88%E6%A2%A6journeyed-on-everdream)
 - [秩序之瑕](https://github.com/wuyilingwei/LRC#%E7%A7%A9%E5%BA%8F%E4%B9%8B%E7%91%95)
 - [假说Hypothesis](https://github.com/wuyilingwei/LRC#%E5%81%87%E8%AF%B4hypothesis)
-- [织肉匠 - le bricoleur du devenir](https://github.com/wuyilingwei/LRC#%E7%BB%87%E8%82%89%E5%8C%A0-le-bricoleur-du-devenir)
 - [Starlit Whisper](https://github.com/wuyilingwei/LRC#starlit-whisper)
+- [织肉匠 - le bricoleur du devenir](https://github.com/wuyilingwei/LRC#%E7%BB%87%E8%82%89%E5%8C%A0-le-bricoleur-du-devenir)
 - [南北谐响诗](https://github.com/wuyilingwei/LRC#%E5%8D%97%E5%8C%97%E8%B0%90%E5%93%8D%E8%AF%97)
 - [页间曲](https://github.com/wuyilingwei/LRC#%E9%A1%B5%E9%97%B4%E6%9B%B2)
 - [星-城](https://github.com/wuyilingwei/LRC#%E6%98%9F-%E5%9F%8E)
@@ -45,8 +45,8 @@
 - [Killer Maids from Outer Space](https://github.com/wuyilingwei/LRC#killer-maids-from-outer-space)
 - [依睐·幻想曲](https://github.com/wuyilingwei/LRC#%E4%BE%9D%E7%9D%90%E5%B9%BB%E6%83%B3%E6%9B%B2)
 - [再见,碳酸海 Deluxe](https://github.com/wuyilingwei/LRC#%E5%86%8D%E8%A7%81%E7%A2%B3%E9%85%B8%E6%B5%B7-deluxe)
-- [天南海北酥](https://github.com/wuyilingwei/LRC#%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5)
 - [信风至北](https://github.com/wuyilingwei/LRC#%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97)
+- [天南海北酥](https://github.com/wuyilingwei/LRC#%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5)
 - [星遇](https://github.com/wuyilingwei/LRC#%E6%98%9F%E9%81%87)
 - [与你相连的雪之羁绊](https://github.com/wuyilingwei/LRC#%E4%B8%8E%E4%BD%A0%E7%9B%B8%E8%BF%9E%E7%9A%84%E9%9B%AA%E4%B9%8B%E7%BE%81%E7%BB%8A)
 - [夏浪派对2024](https://github.com/wuyilingwei/LRC#%E5%A4%8F%E6%B5%AA%E6%B4%BE%E5%AF%B92024)
@@ -495,30 +495,6 @@
 
 ---
 
-<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/cover.jpg" alt="专辑封面" width="120" align="right">
-
-### 织肉匠 - le bricoleur du devenir
-
-**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir.zip)**
-
-<details>
-<summary>📝 查看详细曲目 (8 首)</summary>
-
-| 曲目 | 操作 |
-| :- | :-: |
-| [1 丝 - Silk.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/1%20%E4%B8%9D%20-%20Silk.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/1%20%E4%B8%9D%20-%20Silk.lrc) |
-| [2 猎歌 - Tracking Song.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/2%20%E7%8C%8E%E6%AD%8C%20-%20Tracking%20Song.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/2%20%E7%8C%8E%E6%AD%8C%20-%20Tracking%20Song.lrc) |
-| [3 无根水 - Aleatory Deluge.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/3%20%E6%97%A0%E6%A0%B9%E6%B0%B4%20-%20Aleatory%20Deluge.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/3%20%E6%97%A0%E6%A0%B9%E6%B0%B4%20-%20Aleatory%20Deluge.lrc) |
-| [4 涡 - Whorl.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/4%20%E6%B6%A1%20-%20Whorl.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/4%20%E6%B6%A1%20-%20Whorl.lrc) |
-| [5 珠 - Pearl.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/5%20%E7%8F%A0%20-%20Pearl.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/5%20%E7%8F%A0%20-%20Pearl.lrc) |
-| [6 胚芽流 - Germinal Influx.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/6%20%E8%83%9A%E8%8A%BD%E6%B5%81%20-%20Germinal%20Influx.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/6%20%E8%83%9A%E8%8A%BD%E6%B5%81%20-%20Germinal%20Influx.lrc) |
-| [7 家谣 - Homeward Tune.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/7%20%E5%AE%B6%E8%B0%A3%20-%20Homeward%20Tune.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/7%20%E5%AE%B6%E8%B0%A3%20-%20Homeward%20Tune.lrc) |
-| [8 角 - Horn.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/8%20%E8%A7%92%20-%20Horn.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/8%20%E8%A7%92%20-%20Horn.lrc) |
-
-</details>
-
----
-
 <img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/Starlit%20Whisper/cover.png" alt="专辑封面" width="120" align="right">
 
 ### Starlit Whisper
@@ -538,6 +514,30 @@
 | [6 天使引擎.lrc](res/Starlit%20Whisper/6%20%E5%A4%A9%E4%BD%BF%E5%BC%95%E6%93%8E.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Starlit%20Whisper/6%20%E5%A4%A9%E4%BD%BF%E5%BC%95%E6%93%8E.lrc) |
 | [7 Shadow Trace -Japanese Ver-.lrc](res/Starlit%20Whisper/7%20Shadow%20Trace%20-Japanese%20Ver-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Starlit%20Whisper/7%20Shadow%20Trace%20-Japanese%20Ver-.lrc) |
 | [8 半梦-星尘Ver-.lrc](res/Starlit%20Whisper/8%20%E5%8D%8A%E6%A2%A6-%E6%98%9F%E5%B0%98Ver-.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Starlit%20Whisper/8%20%E5%8D%8A%E6%A2%A6-%E6%98%9F%E5%B0%98Ver-.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 织肉匠 - le bricoleur du devenir
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (8 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [1 丝 - Silk.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/1%20%E4%B8%9D%20-%20Silk.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/1%20%E4%B8%9D%20-%20Silk.lrc) |
+| [2 猎歌 - Tracking Song.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/2%20%E7%8C%8E%E6%AD%8C%20-%20Tracking%20Song.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/2%20%E7%8C%8E%E6%AD%8C%20-%20Tracking%20Song.lrc) |
+| [3 无根水 - Aleatory Deluge.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/3%20%E6%97%A0%E6%A0%B9%E6%B0%B4%20-%20Aleatory%20Deluge.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/3%20%E6%97%A0%E6%A0%B9%E6%B0%B4%20-%20Aleatory%20Deluge.lrc) |
+| [4 涡 - Whorl.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/4%20%E6%B6%A1%20-%20Whorl.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/4%20%E6%B6%A1%20-%20Whorl.lrc) |
+| [5 珠 - Pearl.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/5%20%E7%8F%A0%20-%20Pearl.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/5%20%E7%8F%A0%20-%20Pearl.lrc) |
+| [6 胚芽流 - Germinal Influx.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/6%20%E8%83%9A%E8%8A%BD%E6%B5%81%20-%20Germinal%20Influx.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/6%20%E8%83%9A%E8%8A%BD%E6%B5%81%20-%20Germinal%20Influx.lrc) |
+| [7 家谣 - Homeward Tune.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/7%20%E5%AE%B6%E8%B0%A3%20-%20Homeward%20Tune.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/7%20%E5%AE%B6%E8%B0%A3%20-%20Homeward%20Tune.lrc) |
+| [8 角 - Horn.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/8%20%E8%A7%92%20-%20Horn.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/8%20%E8%A7%92%20-%20Horn.lrc) |
 
 </details>
 
@@ -930,6 +930,24 @@ _暂无 LRC 文件_
 
 ---
 
+### 信风至北
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (4 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [信风至北.lrc](res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97.lrc) |
+| [挚爱.lrc](res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E6%8C%9A%E7%88%B1.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E6%8C%9A%E7%88%B1.lrc) |
+| [遥远的续想.lrc](res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E9%81%A5%E8%BF%9C%E7%9A%84%E7%BB%AD%E6%83%B3.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E9%81%A5%E8%BF%9C%E7%9A%84%E7%BB%AD%E6%83%B3.lrc) |
+| [长情.lrc](res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E9%95%BF%E6%83%85.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E9%95%BF%E6%83%85.lrc) |
+
+</details>
+
+---
+
 <img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 天南海北酥
@@ -954,24 +972,6 @@ _暂无 LRC 文件_
 | [红尘寄雪.lrc](res/%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5/%E7%BA%A2%E5%B0%98%E5%AF%84%E9%9B%AA.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5/%E7%BA%A2%E5%B0%98%E5%AF%84%E9%9B%AA.lrc) |
 | [魔法烹调大作战.lrc](res/%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5/%E9%AD%94%E6%B3%95%E7%83%B9%E8%B0%83%E5%A4%A7%E4%BD%9C%E6%88%98.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5/%E9%AD%94%E6%B3%95%E7%83%B9%E8%B0%83%E5%A4%A7%E4%BD%9C%E6%88%98.lrc) |
 | [黄楼月.lrc](res/%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5/%E9%BB%84%E6%A5%BC%E6%9C%88.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5/%E9%BB%84%E6%A5%BC%E6%9C%88.lrc) |
-
-</details>
-
----
-
-### 信风至北
-
-**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97.zip)**
-
-<details>
-<summary>📝 查看详细曲目 (4 首)</summary>
-
-| 曲目 | 操作 |
-| :- | :-: |
-| [信风至北.lrc](res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97.lrc) |
-| [挚爱.lrc](res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E6%8C%9A%E7%88%B1.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E6%8C%9A%E7%88%B1.lrc) |
-| [遥远的续想.lrc](res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E9%81%A5%E8%BF%9C%E7%9A%84%E7%BB%AD%E6%83%B3.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E9%81%A5%E8%BF%9C%E7%9A%84%E7%BB%AD%E6%83%B3.lrc) |
-| [长情.lrc](res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E9%95%BF%E6%83%85.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E9%95%BF%E6%83%85.lrc) |
 
 </details>
 
@@ -1954,7 +1954,7 @@ _暂无 LRC 文件_
 
 ---
 
-<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/Cover.png" alt="专辑封面" width="120" align="right">
 
 ### 丛林法则Jungle Rules
 
