@@ -120,6 +120,12 @@ jobs:
           is_update=$(python -c "import json,sys; print('true' if json.load(open('summary.json')).get('is_update') else 'false')" 2>/dev/null || echo "false")
           echo "is_update=${is_update}" >> "$GITHUB_OUTPUT"
 
+      - name: Fetch album release dates from Bilibili
+        if: steps.run.outputs.changed == 'true'
+        run: |
+          python repo/.github/scripts/fetch_bilibili_meta.py --auto --fields release,year,electronic
+        continue-on-error: true
+
       - name: Open PR from upload-<contributor>-<ts>
         if: steps.run.outputs.changed == 'true'
         env:
