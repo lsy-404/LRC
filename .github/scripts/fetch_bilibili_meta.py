@@ -229,6 +229,10 @@ def score_video(
             break
     if "发售" in title_l and "pv" in title_l:
         score += 0.20  # 发售PV 是最符合"专辑发布"语义的视频类型
+    if "全专" in title_l:
+        score += 0.20  # 全专试听/全专PV → 明确指向完整专辑，而非单曲
+    if re.search(r'tr\.?\s*\d+', title_l):
+        score -= 0.15  # 单曲轨道编号（Tr.12 等），非专辑PV
     for kw in _PROMO_MINOR_KW:
         if kw in title_l:
             score += 0.05
