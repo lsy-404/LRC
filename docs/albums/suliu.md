@@ -43,7 +43,9 @@ tag:
 
 **发行日期:** 2026-05-30
 
-**发布:** [Bilibili](https://www.bilibili.com/video/BV1v1VM6DE9Q)
+**歌词制作:** 武乙凌薇
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV18g6wBREDk)
 
 **演唱:** 星尘、海伊、诗岸
 
