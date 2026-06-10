@@ -54,6 +54,12 @@ jobs:
         run: |
           python .github/scripts/generate_meta.py
 
+      - name: Fetch album release dates from Bilibili
+        if: steps.check_commit.outputs.skip == 'false'
+        run: |
+          python .github/scripts/fetch_bilibili_meta.py --auto --fields release,year,electronic
+        continue-on-error: true
+
       - name: Detect albums needing rebuild
         if: steps.check_commit.outputs.skip == 'false'
         id: detect_changes
