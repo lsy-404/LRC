@@ -1,6 +1,7 @@
 ---
 title: "NO FOR"
-order: -1
+date: 2022-02-05
+order: -20220205
 category:
   - "未知出品方"
 tag:
@@ -17,7 +18,11 @@ tag:
 
 
 
+**发行日期:** 2022-02-05
+
 **歌词制作:** SST
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1oS4y1k7Hs)
 
 **作词:** sya、Sya
 

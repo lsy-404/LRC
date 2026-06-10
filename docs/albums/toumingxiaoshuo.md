@@ -1,6 +1,7 @@
 ---
 title: "透明小说"
-order: -1
+date: 2023-03-28
+order: -20230328
 category:
   - "未知出品方"
 tag:
@@ -15,6 +16,9 @@ tag:
 
 <img src="./toumingxiaoshuo.jpg" alt="透明小说 封面" class="album-cover" />
 
+**发行日期:** 2023-03-28
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1Tm4y1r7sM)
 
 ## 曲目列表
 

@@ -1,6 +1,7 @@
 ---
 title: "metaphorical girl Re"
-order: -1
+date: 2026-04-29
+order: -20260429
 category:
   - "TOPKINGCREAM"
 tag:
@@ -18,9 +19,13 @@ tag:
 
 <img src="./metaphorical_girl_Re.png" alt="metaphorical girl Re 封面" class="album-cover" />
 
+**发行日期:** 2026-04-29
+
 **出品:** TOPKINGCREAM
 
 **歌词制作:** SST
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1Hn9xBVEtZ)
 
 **作词:** TOPKINGCREAM
 

@@ -1,6 +1,7 @@
 ---
 title: "再见，碳酸海 Deluxe"
-order: -1
+date: 2024-10-02
+order: -20241002
 category:
   - "未知出品方"
 tag:
@@ -25,6 +26,12 @@ tag:
 # 再见，碳酸海 Deluxe
 
 <img src="./zaijiantansuanhai_Deluxe.jpg" alt="再见，碳酸海 Deluxe 封面" class="album-cover" />
+
+**发行日期:** 2024-10-02
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV12x4TepELv)
+
+**电子:** https://www.dizzylab.net/d/ST-007/
 
 **演唱:** 洛天依、乐正绫、洛天依/乐正绫
 

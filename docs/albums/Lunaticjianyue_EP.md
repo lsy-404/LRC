@@ -1,6 +1,7 @@
 ---
 title: "见月 Lunatic EP"
-order: -1
+date: 2021-06-21
+order: -20210621
 category:
   - "未知出品方"
 tag:
@@ -18,7 +19,11 @@ tag:
 
 
 
+**发行日期:** 2021-06-21
+
 **歌词制作:** SST
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV17X4y1A7nH)
 
 ## 曲目列表
 

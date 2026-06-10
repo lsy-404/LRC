@@ -1,6 +1,7 @@
 ---
 title: "FIND ZERO"
-order: -1
+date: 2020-08-07
+order: -20200807
 category:
   - "未知出品方"
 tag:
@@ -20,6 +21,10 @@ tag:
 # FIND ZERO
 
 <img src="./FIND_ZERO.jpg" alt="FIND ZERO 封面" class="album-cover" />
+
+**发行日期:** 2020-08-07
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1mi4y1u7Wb)
 
 **作词:** 大九_LN、戴项圈的立花、白鸟shiro
 

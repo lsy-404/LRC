@@ -1,6 +1,7 @@
 ---
 title: "星-城"
-order: -1
+date: 2025-09-11
+order: -20250911
 category:
   - "未知出品方"
 tag:
@@ -17,6 +18,10 @@ tag:
 # 星-城
 
 <img src="./xing-cheng.jpg" alt="星-城 封面" class="album-cover" />
+
+**发行日期:** 2025-09-11
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1JHH9zWEUC)
 
 **演唱:** 星尘
 

@@ -1,6 +1,7 @@
 ---
 title: "维·爱 L'amouЯ"
-order: -1
+date: 2026-05-29
+order: -20260529
 category:
   - "未知出品方"
 tag:
@@ -17,6 +18,9 @@ tag:
 
 <img src="./weiai_Lamou.jpg" alt="维·爱 L'amouЯ 封面" class="album-cover" />
 
+**发行日期:** 2026-05-29
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1VTVb6MEDC)
 
 ## 曲目列表
 

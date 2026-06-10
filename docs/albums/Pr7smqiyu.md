@@ -1,6 +1,7 @@
 ---
 title: "绮遇 Pr7sm"
-order: -1
+date: 2026-05-23
+order: -20260523
 category:
   - "未知出品方"
 tag:
@@ -40,6 +41,10 @@ tag:
 # 绮遇 Pr7sm
 
 <img src="./Pr7smqiyu.jpg" alt="绮遇 Pr7sm 封面" class="album-cover" />
+
+**发行日期:** 2026-05-23
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1sFGh6oET1)
 
 **作词:** Kindling、萧暮雨、浮青雀、苏栗无、两色源、果汁凉菜、大九、踊音、琴南Kodoku
 

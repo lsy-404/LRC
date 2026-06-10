@@ -1,6 +1,7 @@
 ---
 title: "夏日应时而至 彩胶版"
-order: -1
+date: 2025-05-22
+order: -20250522
 category:
   - "未知出品方"
 tag:
@@ -17,7 +18,11 @@ tag:
 
 
 
+**发行日期:** 2025-05-22
+
 **歌词制作:** SST
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1XkJpzDEX7)
 
 ## 曲目列表
 

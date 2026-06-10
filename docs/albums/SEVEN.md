@@ -1,6 +1,7 @@
 ---
 title: "SEVEN"
-order: -1
+date: 2026-06-09
+order: -20260609
 category:
   - "未知出品方"
 tag:
@@ -15,7 +16,11 @@ tag:
 
 
 
+**发行日期:** 2026-06-09
+
 **歌词制作:** SST
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1kkEm69ELv)
 
 ## 曲目列表
 

@@ -1,6 +1,7 @@
 ---
 title: "于星海中归于虚无"
-order: -1
+date: 2026-04-26
+order: -20260426
 category:
   - "未知出品方"
 tag:
@@ -19,6 +20,10 @@ tag:
 # 于星海中归于虚无
 
 <img src="./yuxinghaizhongguiyuxuwu.jpg" alt="于星海中归于虚无 封面" class="album-cover" />
+
+**发行日期:** 2026-04-26
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1doofBqE2Q)
 
 **作词:** 雒清辞明
 

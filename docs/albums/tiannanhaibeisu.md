@@ -1,6 +1,7 @@
 ---
 title: "天南海北酥"
-order: -1
+date: 2024-08-31
+order: -20240831
 category:
   - "未知出品方"
 tag:
@@ -26,6 +27,10 @@ tag:
 # 天南海北酥
 
 <img src="./tiannanhaibeisu.jpg" alt="天南海北酥 封面" class="album-cover" />
+
+**发行日期:** 2024-08-31
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV17AnfeBEKM)
 
 **演唱:** 洛天依、乐正绫、洛天依乐正绫
 

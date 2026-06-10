@@ -1,6 +1,7 @@
 ---
 title: "Twilights EP"
-order: -1
+date: 2026-02-23
+order: -20260223
 category:
   - "未知出品方"
 tag:
@@ -25,6 +26,10 @@ tag:
 # Twilights EP
 
 <img src="./Twilights_EP.jpg" alt="Twilights EP 封面" class="album-cover" />
+
+**发行日期:** 2026-02-23
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1zYfBBnEN8)
 
 **演唱:** 牧心、星尘、海伊
 

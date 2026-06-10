@@ -1,6 +1,7 @@
 ---
 title: "溯流"
-order: -1
+date: 2026-05-30
+order: -20260530
 category:
   - "未知出品方"
 tag:
@@ -39,6 +40,10 @@ tag:
 # 溯流
 
 <img src="./suliu.png" alt="溯流 封面" class="album-cover" />
+
+**发行日期:** 2026-05-30
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1v1VM6DE9Q)
 
 **演唱:** 星尘、海伊、诗岸
 

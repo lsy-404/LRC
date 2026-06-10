@@ -1,6 +1,7 @@
 ---
 title: "每种夏天"
-order: -1
+date: 2026-04-21
+order: -20260421
 category:
   - "未知出品方"
 tag:
@@ -20,6 +21,10 @@ tag:
 # 每种夏天
 
 <img src="./meizhongxiatian.png" alt="每种夏天 封面" class="album-cover" />
+
+**发行日期:** 2026-04-21
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1scoPBtEat)
 
 **作词:** 风绕落花愁、溯回、半只金蓝
 

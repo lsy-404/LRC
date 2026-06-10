@@ -1,6 +1,7 @@
 ---
 title: "秩序之瑕"
-order: -1
+date: 2025-12-13
+order: -20251213
 category:
   - "未知出品方"
 tag:
@@ -15,6 +16,11 @@ tag:
 
 <img src="./zhixuzhixia.png" alt="秩序之瑕 封面" class="album-cover" />
 
+**发行日期:** 2025-12-13
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV18LmSBGEbY)
+
+**电子:** https://www.dizzylab.net/d/Blemishes-2024】
 
 ## 曲目列表
 

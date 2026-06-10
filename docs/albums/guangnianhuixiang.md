@@ -1,6 +1,7 @@
 ---
 title: "光年回响"
-order: -1
+date: 2026-03-20
+order: -20260320
 category:
   - "未知出品方"
 tag:
@@ -21,6 +22,10 @@ tag:
 # 光年回响
 
 <img src="./guangnianhuixiang.png" alt="光年回响 封面" class="album-cover" />
+
+**发行日期:** 2026-03-20
+
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1ejAjz4Ena)
 
 **作词:** Kevinz、雒清辞明、CrClr、果汁凉菜、薛钦、空气凝
 
