@@ -106,31 +106,39 @@ def _sanitize_filename(name: str) -> str:
     return out or "untitled"
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# 增补：从现有 res/<专辑>/ 加载 LRC（剥离时间戳），供音频重新对齐
-# ──────────────────────────────────────────────────────────────────────────────
-_LRC_HEADER_RE = re.compile(r"^\[(ti|al|ar|by|offset):", re.I)
-_LRC_TIMESTAMP_RE = re.compile(r"^\[\d{1,2}:\d{2}\.\d{2,3}\]")
+def _words_to_tracks(audio_words: dict[str, list]) -> list[dict]:
+    """STT 词流 → 轨道列表（无歌词文本时的通用兜底）。
 
-
-def _load_existing_tracks(album_dir: Path) -> list[dict]:
-    """从已有专辑目录读取 LRC 文件，剥离时间戳后返回纯歌词轨列表。
-    用于增补模式：上传音频但未提供歌词时，借现有 LRC 重新对齐获得时间轴。
+    按静音间隔（≥ 1.0 s）把 STT 词分组成行，文件名解析出曲序和标题。
+    生成的轨道直接经 build_track_lrc 对齐（覆盖率 ≈ 1.0），产出带时间轴 LRC。
     """
     tracks: list[dict] = []
-    for lrc_path in sorted(album_dir.glob("*.lrc")):
-        m = re.match(r"^(\d+)\s+(.+)$", lrc_path.stem)
-        order = int(m.group(1)) if m else 0
-        title = m.group(2) if m else lrc_path.stem
+    for i, (audio_name, words) in enumerate(sorted(audio_words.items()), 1):
+        if not words:
+            continue
         lines: list[str] = []
-        for raw in lrc_path.read_text(encoding="utf-8", errors="replace").splitlines():
-            if _LRC_HEADER_RE.match(raw):
-                continue
-            text = _LRC_TIMESTAMP_RE.sub("", raw).strip()
+        buf: list[str] = []
+        prev_end = 0.0
+        for w in words:
+            gap = float(w.get("start", 0.0)) - prev_end
+            if buf and gap >= 1.0:
+                line = " ".join(buf).strip()
+                if line:
+                    lines.append(line)
+                buf = []
+            text = (w.get("text") or "").strip()
             if text:
-                lines.append(text)
-        if lines:
-            tracks.append({"order": order, "title": title, "lines": lines, "staff": {}})
+                buf.append(text)
+            prev_end = float(w.get("end", prev_end))
+        if buf:
+            line = " ".join(buf).strip()
+            if line:
+                lines.append(line)
+        stem = Path(audio_name).stem
+        order = _order_from_name(stem)
+        title_m = re.match(r"^\d+[\s._-]+(.*)", stem)
+        title = title_m.group(1).strip() if title_m and title_m.group(1).strip() else stem
+        tracks.append({"order": order or i, "title": title or stem, "lines": lines, "staff": {}})
     return tracks
 
 
@@ -269,34 +277,28 @@ def organize(
 ) -> dict[str, Any]:
     audio_words = audio_words or {}
     tracks_explicit = tracks_explicit or []
-    is_incremental = existing_meta is not None
 
-    # 1) 轨来源：优先逐曲歌词；否则 LLM 分轨（增补且无文本时跳过 LLM，避免生成空轨）
+    # 1) 轨来源：优先逐曲歌词；有歌词本文本则 LLM 分轨；否则跳过 LLM（避免空轨）
     llm_meta: dict = {}
     if tracks_explicit:
         tracks = sorted(tracks_explicit, key=lambda t: t.get("order", 0) or 0)
         album_from_plan = ""
-    elif booklet_text or not is_incremental:
+    elif booklet_text:
         plan = llm_split_booklet(booklet_text, manifest.get("album", ""))
         tracks = plan.get("tracks") or []
         llm_meta = plan.get("meta", {}) or {}
         album_from_plan = plan.get("album", "")
     else:
-        # 增补模式且无新文本：不调 LLM，稍后视情况加载现有 LRC
         tracks = []
         llm_meta = {}
         album_from_plan = ""
 
     album = (album_override or manifest.get("album") or album_from_plan or "untitled").strip()
 
-    # 增补 + 仅提供音频：从现有 LRC 加载歌词，供重新对齐以获取时间轴
-    if not tracks and audio_words and is_incremental:
-        existing_dir = res_dir / album
-        if existing_dir.is_dir():
-            loaded = _load_existing_tracks(existing_dir)
-            if loaded:
-                tracks = sorted(loaded, key=lambda t: t.get("order", 0) or 0)
-                print(f"  ↻ 增补：加载现有 {len(tracks)} 首 LRC 以对齐新音频", file=sys.stderr)
+    # 无歌词文本时：STT 词流直接分行生成轨道（增补/新建均适用，覆盖旧 LRC）
+    if not tracks and audio_words:
+        tracks = _words_to_tracks(audio_words)
+        print(f"  ⟳ 无歌词文本，由 STT 词流生成 {len(tracks)} 首轨道草稿", file=sys.stderr)
 
     # 2) meta：manifest > LLM(credits) > 逐曲 staff > 现有 meta（增补时保底）
     credits_staff = lyrics_mod.parse_staff_block(credits_text.splitlines()) if credits_text else {}
@@ -339,13 +341,15 @@ def organize(
     if leftover:
         print(f"  ⚠️  {len(leftover)} 个音频未匹配任何轨: {leftover}", file=sys.stderr)
 
-    # 4) meta.toml — 增补时保留已有专辑名字段
+    # 4) meta.toml — 名称字段不在 FIELD_SCHEMA，merge_meta 不处理，手动按优先级计算
+    #    manifest > existing_meta > album 字符串推断
+    _man = manifest or {}
     _ex = existing_meta or {}
     names = {
-        "prefix":  _ex.get("prefix",  ""),
-        "zh_name": _ex.get("zh_name", "") or (album if _has_cjk(album) else ""),
-        "en_name": _ex.get("en_name", "") or ("" if _has_cjk(album) else album),
-        "suffix":  _ex.get("suffix",  ""),
+        "prefix":  str(_man.get("prefix") or _ex.get("prefix") or ""),
+        "zh_name": str(_man.get("zh_name") or _ex.get("zh_name") or "") or (album if _has_cjk(album) else ""),
+        "en_name": str(_man.get("en_name") or _ex.get("en_name") or "") or ("" if _has_cjk(album) else album),
+        "suffix":  str(_man.get("suffix") or _ex.get("suffix") or ""),
     }
     _emit(album_rel / "meta.toml", render_meta_toml(meta, names))
 
