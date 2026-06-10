@@ -75,12 +75,71 @@ def classify(src: Path) -> dict[str, list[Path]]:
     return buckets
 
 
+def _jpeg_dimensions(data: bytes) -> tuple[int, int]:
+    """Parse JPEG SOF marker to extract (width, height). Returns (0, 0) on failure."""
+    i = 2  # skip SOI
+    while i + 4 < len(data):
+        if data[i] != 0xFF:
+            break
+        marker = data[i + 1]
+        if marker in (0xC0, 0xC1, 0xC2, 0xC3, 0xC9, 0xCA, 0xCB):
+            if i + 9 <= len(data):
+                h = int.from_bytes(data[i + 5:i + 7], "big")
+                w = int.from_bytes(data[i + 7:i + 9], "big")
+                return w, h
+        length = int.from_bytes(data[i + 2:i + 4], "big")
+        i += 2 + length
+    return 0, 0
+
+
+def _image_is_square(path: Path) -> bool:
+    """Return True if the image has equal width and height (pure stdlib, no deps)."""
+    try:
+        data = path.read_bytes()
+        ext = path.suffix.lower()
+        if ext in {".jpg", ".jpeg"}:
+            w, h = _jpeg_dimensions(data)
+        elif ext == ".png":
+            if len(data) >= 24 and data[1:4] == b"PNG":
+                w = int.from_bytes(data[16:20], "big")
+                h = int.from_bytes(data[20:24], "big")
+            else:
+                return False
+        elif ext == ".webp":
+            if len(data) < 30 or data[:4] != b"RIFF" or data[8:12] != b"WEBP":
+                return False
+            chunk = data[12:16]
+            if chunk == b"VP8 " and len(data) >= 30:
+                w = int.from_bytes(data[26:28], "little") & 0x3FFF
+                h = int.from_bytes(data[28:30], "little") & 0x3FFF
+            elif chunk == b"VP8L" and len(data) >= 25:
+                bits = int.from_bytes(data[21:25], "little")
+                w = (bits & 0x3FFF) + 1
+                h = ((bits >> 14) & 0x3FFF) + 1
+            else:
+                return False
+        elif ext == ".bmp":
+            if len(data) >= 26 and data[:2] == b"BM":
+                w = int.from_bytes(data[18:22], "little")
+                h = abs(int.from_bytes(data[22:26], "little", signed=True))
+            else:
+                return False
+        else:
+            return False
+        return w > 0 and h > 0 and w == h
+    except Exception:
+        return False
+
+
 def pick_cover(images: list[Path]) -> Path | None:
     if not images:
         return None
     named = [p for p in images if COVER_HINT.search(p.name)]
     pool = named or images
-    # 取体积最大者（封面通常分辨率最高）
+    # Prefer square images (album covers are almost always square); fall back to largest
+    squares = [p for p in pool if _image_is_square(p)]
+    if squares:
+        return max(squares, key=lambda p: p.stat().st_size)
     return max(pool, key=lambda p: p.stat().st_size)
 
 
@@ -118,8 +177,10 @@ def run(src: Path, res_dir: Path, work: Path, album: str, dry_run: bool) -> dict
         albums_out.append(_process_album(album_name, album_src, res_dir, work, dry_run))
     ok = any(a.get("result") == "ok" for a in albums_out)
     done = [a.get("album", "") for a in albums_out if a.get("result") == "ok"]
+    is_update = any(a.get("is_update") for a in albums_out if a.get("result") == "ok")
     return {"albums": albums_out, "result": "ok" if ok else "empty",
             "album": "、".join(n for n in done if n),  # 供 workflow 做 PR 标题
+            "is_update": is_update,
             "written": [w for a in albums_out for w in a.get("written", [])]}
 
 
@@ -177,24 +238,37 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
         except Exception as e:  # noqa: BLE001
             print(f"⚠️  STT 模型加载失败: {e}", file=sys.stderr)
 
-    if not tracks_explicit and not booklet_text and not audio_words:
-        summary.update({"album": album, "result": "empty"})
-        print(f"⚠️  专辑「{album}」无可整理素材", file=sys.stderr)
-        return summary
-
     # 4) 整理 + 对齐 → res/<专辑>/（meta 全自动；专辑名 = 文件夹名 album）
     #    可选：若投递目录恰含 manifest.toml 则作为 meta 覆盖（非必需，不鼓励）。
     manifest_path = src / "manifest.toml"
     manifest = org_mod._read_toml(manifest_path) if manifest_path.is_file() else {}
+
+    # 增补检测：若目标专辑已存在于 res_dir，进入增补模式
+    existing_meta: dict | None = None
+    if album:
+        existing_dir = res_dir / album
+        if existing_dir.is_dir():
+            meta_path = existing_dir / "meta.toml"
+            existing_meta = org_mod._read_toml(meta_path) if meta_path.is_file() else {}
+            print(f"  🔄 检测到已有专辑「{album}」，进入增补模式", file=sys.stderr)
+
+    # 增补模式允许 manifest/cover-only 提交；新建模式需要实质内容
+    has_content = (tracks_explicit or booklet_text or audio_words
+                   or (existing_meta is not None and (manifest or cover)))
+    if not has_content:
+        summary.update({"album": album, "result": "empty"})
+        print(f"⚠️  专辑「{album}」无可整理素材", file=sys.stderr)
+        return summary
+
     org_res = org_mod.organize(
         tracks_explicit=tracks_explicit, booklet_text=booklet_text, credits_text=credits_text,
         audio_words=audio_words, manifest=manifest, res_dir=res_dir,
-        album_override=album, cover_path=cover, dry_run=dry_run,
+        album_override=album, cover_path=cover, existing_meta=existing_meta, dry_run=dry_run,
     )
     summary.update({"album": org_res["album"], "written": org_res["written"],
                     "track_count": org_res["track_count"], "matched": org_res["matched"],
                     "avg_coverage": org_res["avg_coverage"], "cover": cover.name if cover else None,
-                    "result": "ok"})
+                    "is_update": existing_meta is not None, "result": "ok"})
     return summary
 
 

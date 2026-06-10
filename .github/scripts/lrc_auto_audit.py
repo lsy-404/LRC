@@ -180,11 +180,58 @@ def _get_git_changed_files(base_sha: str, head_sha: str) -> tuple[list[str], lis
 
 
 def is_meaningful_text(content: str) -> bool:
-    allowed_pattern = re.compile(r"[\u4e00-\u9fff\u0020-\u007f\s\[\]\(\)\:\.\,\-'\"\?！，。：]")
+    # CJK ideographs (Chinese/Japanese kanji), hiragana, katakana, CJK punctuation,
+    # full-width forms, Korean hangul, ASCII, common punctuation
+    allowed_pattern = re.compile(
+        r"[\u4e00-\u9fff"   # CJK unified ideographs (covers Japanese kanji)
+        r"\u3040-\u309f"    # Hiragana
+        r"\u30a0-\u30ff"    # Katakana
+        r"\u3000-\u303f"    # CJK symbols and punctuation
+        r"\uff00-\uffef"    # Halfwidth and fullwidth forms
+        r"\uac00-\ud7af"    # Korean Hangul syllables
+        r"\u0020-\u007f\s\[\]\(\)\:\.\,\-'\"\?！，。：]"
+    )
     if not content:
         return False
     matches = allowed_pattern.findall(content)
     return (len(matches) / len(content)) > 0.8
+
+
+def _image_has_appended_data(data: bytes, ext: str) -> bool:
+    """Detect data appended after the image payload (e.g. hidden zip polyglot)."""
+    ext = ext.lower()
+    if ext in {".jpg", ".jpeg"}:
+        eoi = data.rfind(b"\xff\xd9")
+        return eoi != -1 and len(data) - (eoi + 2) > 64
+    if ext == ".png":
+        # IEND chunk is always exactly 12 bytes: 4-len + 4-type + 4-crc
+        iend = data.rfind(b"\x00\x00\x00\x00IEND\xae\x42\x60\x82")
+        return iend != -1 and len(data) - (iend + 12) > 0
+    if ext == ".webp":
+        if len(data) < 12 or data[:4] != b"RIFF" or data[8:12] != b"WEBP":
+            return False
+        declared = int.from_bytes(data[4:8], "little")
+        return len(data) > declared + 8 + 16
+    if ext == ".bmp":
+        if len(data) < 6 or data[:2] != b"BM":
+            return False
+        declared = int.from_bytes(data[2:6], "little")
+        return len(data) > declared + 16
+    return False
+
+
+def _image_has_qr_code(file_path: str) -> bool:
+    """Return True if any scannable barcode/QR code is detected in the image."""
+    try:
+        import zxingcpp
+        from PIL import Image
+        with Image.open(file_path) as img:
+            img_rgb = img.convert("RGB")
+        return len(zxingcpp.read_barcodes(img_rgb)) > 0
+    except ImportError:
+        return False
+    except Exception:
+        return False
 
 
 URL_PATTERN = re.compile(
@@ -305,7 +352,17 @@ def main() -> int:
             if name_part != cover_name:
                 error_msgs.append(f"❌ 图片必须命名为 cover (如 cover.jpg): {file}")
             if file_size > cover_max_size:
-                error_msgs.append(f"❌ 封面图片过大 (>5MB): {file}")
+                error_msgs.append(f"❌ 封面图片过大 (>{int(PULL_CONFIG.get('cover_max_mb', 20))}MB): {file}")
+            else:
+                try:
+                    with open(file, "rb") as f:
+                        img_data = f.read()
+                    if _image_has_appended_data(img_data, ext):
+                        error_msgs.append(f"❌ 封面图片含附加数据(疑似夹带zip等): {file}")
+                    if _image_has_qr_code(file):
+                        error_msgs.append(f"❌ 封面图片含可扫描二维码/条码: {file}")
+                except OSError:
+                    pass
 
         elif ext == ".toml":
             if filename != meta_name:

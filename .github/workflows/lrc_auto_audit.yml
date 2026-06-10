@@ -73,6 +73,9 @@ jobs:
         env:
           BASE_SHA: ${{ steps.pr.outputs.base_sha }}
 
+      - name: Install audit dependencies
+        run: pip install --quiet Pillow zxingcpp
+
       - name: Security and Content Audit
         id: python-audit
         run: python3 .ci-base/.github/scripts/lrc_auto_audit.py

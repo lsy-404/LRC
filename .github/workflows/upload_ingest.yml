@@ -117,6 +117,8 @@ jobs:
           fi
           album=$(python -c "import json,sys; print(json.load(open('summary.json')).get('album',''))" 2>/dev/null || echo "")
           echo "album=${album}" >> "$GITHUB_OUTPUT"
+          is_update=$(python -c "import json,sys; print('true' if json.load(open('summary.json')).get('is_update') else 'false')" 2>/dev/null || echo "false")
+          echo "is_update=${is_update}" >> "$GITHUB_OUTPUT"
 
       - name: Open PR from upload-<contributor>-<ts>
         if: steps.run.outputs.changed == 'true'
@@ -126,20 +128,31 @@ jobs:
         run: |
           set -euo pipefail
           BRANCH="upload-${{ steps.ctx.outputs.actor }}-${{ steps.ctx.outputs.ts }}"
+          IS_UPDATE="${{ steps.run.outputs.is_update }}"
+          if [ "$IS_UPDATE" = "true" ]; then
+            PR_VERB="update"
+            PR_ICON="🔄"
+            PR_DESC="增补已有专辑数据（LRC / 封面 / meta）"
+          else
+            PR_VERB="ingest"
+            PR_ICON="🤖"
+            PR_DESC="新专辑摄取投稿"
+          fi
           cd repo
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           git checkout -b "$BRANCH"
           git add res
-          git commit -m "ingest: ${{ steps.run.outputs.album }} (via upload by @${{ github.actor }})"
+          git commit -m "${PR_VERB}: ${{ steps.run.outputs.album }} (via upload by @${{ github.actor }})"
           # 推 origin：repo 由默认 GITHUB_TOKEN checkout，其 extraheader 有 contents:write。
           # PR 由下方 gh(GH_TOKEN=PULL_TOKEN=PAT) 创建 → 才能触发 lrc_auto_audit。
           git push origin "$BRANCH"
           BODY=$(cat <<EOF
-          ### 🤖 自动摄取投稿
+          ### ${PR_ICON} 自动摄取 — ${PR_DESC}
 
           - 投稿者：@${{ github.actor }}
           - 专辑：\`${{ steps.run.outputs.album }}\`
+          - 模式：$([ "$IS_UPDATE" = "true" ] && echo "**增补**（已有专辑，仅覆盖本次上传的文件）" || echo "**新建**")
           - 来源：upload 投递箱（原料已销毁，仅派生产物入库）
 
           <details><summary>处理摘要</summary>
@@ -154,5 +167,5 @@ jobs:
           )
           # 正式 PR：交由现有 lrc_auto_audit 审计，通过即自动 approve + squash 合并进 main。
           gh pr create --base main --head "$BRANCH" \
-            --title "ingest: ${{ steps.run.outputs.album }} (@${{ github.actor }})" \
+            --title "${PR_VERB}: ${{ steps.run.outputs.album }} (@${{ github.actor }})" \
             --body "$BODY"

@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -103,6 +104,34 @@ def _sanitize_filename(name: str) -> str:
     bad = '<>:"/\\|?*'
     out = "".join("_" if c in bad else c for c in name).strip()
     return out or "untitled"
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# 增补：从现有 res/<专辑>/ 加载 LRC（剥离时间戳），供音频重新对齐
+# ──────────────────────────────────────────────────────────────────────────────
+_LRC_HEADER_RE = re.compile(r"^\[(ti|al|ar|by|offset):", re.I)
+_LRC_TIMESTAMP_RE = re.compile(r"^\[\d{1,2}:\d{2}\.\d{2,3}\]")
+
+
+def _load_existing_tracks(album_dir: Path) -> list[dict]:
+    """从已有专辑目录读取 LRC 文件，剥离时间戳后返回纯歌词轨列表。
+    用于增补模式：上传音频但未提供歌词时，借现有 LRC 重新对齐获得时间轴。
+    """
+    tracks: list[dict] = []
+    for lrc_path in sorted(album_dir.glob("*.lrc")):
+        m = re.match(r"^(\d+)\s+(.+)$", lrc_path.stem)
+        order = int(m.group(1)) if m else 0
+        title = m.group(2) if m else lrc_path.stem
+        lines: list[str] = []
+        for raw in lrc_path.read_text(encoding="utf-8", errors="replace").splitlines():
+            if _LRC_HEADER_RE.match(raw):
+                continue
+            text = _LRC_TIMESTAMP_RE.sub("", raw).strip()
+            if text:
+                lines.append(text)
+        if lines:
+            tracks.append({"order": order, "title": title, "lines": lines, "staff": {}})
+    return tracks
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -235,25 +264,41 @@ def organize(
     res_dir: Path,
     album_override: str = "",
     cover_path: Path | None = None,
+    existing_meta: dict | None = None,
     dry_run: bool = False,
 ) -> dict[str, Any]:
     audio_words = audio_words or {}
     tracks_explicit = tracks_explicit or []
+    is_incremental = existing_meta is not None
 
-    # 1) 轨来源：优先逐曲歌词；否则 LLM 分轨
+    # 1) 轨来源：优先逐曲歌词；否则 LLM 分轨（增补且无文本时跳过 LLM，避免生成空轨）
     llm_meta: dict = {}
     if tracks_explicit:
         tracks = sorted(tracks_explicit, key=lambda t: t.get("order", 0) or 0)
         album_from_plan = ""
-    else:
+    elif booklet_text or not is_incremental:
         plan = llm_split_booklet(booklet_text, manifest.get("album", ""))
         tracks = plan.get("tracks") or []
         llm_meta = plan.get("meta", {}) or {}
         album_from_plan = plan.get("album", "")
+    else:
+        # 增补模式且无新文本：不调 LLM，稍后视情况加载现有 LRC
+        tracks = []
+        llm_meta = {}
+        album_from_plan = ""
 
     album = (album_override or manifest.get("album") or album_from_plan or "untitled").strip()
 
-    # 2) meta：manifest > LLM(credits 抽取) > 逐曲 staff 合并
+    # 增补 + 仅提供音频：从现有 LRC 加载歌词，供重新对齐以获取时间轴
+    if not tracks and audio_words and is_incremental:
+        existing_dir = res_dir / album
+        if existing_dir.is_dir():
+            loaded = _load_existing_tracks(existing_dir)
+            if loaded:
+                tracks = sorted(loaded, key=lambda t: t.get("order", 0) or 0)
+                print(f"  ↻ 增补：加载现有 {len(tracks)} 首 LRC 以对齐新音频", file=sys.stderr)
+
+    # 2) meta：manifest > LLM(credits) > 逐曲 staff > 现有 meta（增补时保底）
     credits_staff = lyrics_mod.parse_staff_block(credits_text.splitlines()) if credits_text else {}
     per_track_staff: dict[str, list] = {}
     for t in tracks_explicit:
@@ -262,7 +307,7 @@ def organize(
             for name in v:
                 if name not in per_track_staff[k]:
                     per_track_staff[k].append(name)
-    meta = merge_meta(manifest, llm_meta, credits_staff, per_track_staff)
+    meta = merge_meta(manifest, llm_meta, credits_staff, per_track_staff, existing_meta or {})
 
     # 3) 逐轨生成 LRC（匹配音频 + 对齐）
     used: set = set()
@@ -294,9 +339,14 @@ def organize(
     if leftover:
         print(f"  ⚠️  {len(leftover)} 个音频未匹配任何轨: {leftover}", file=sys.stderr)
 
-    # 4) meta.toml
-    names = {"prefix": "", "zh_name": album if _has_cjk(album) else "",
-             "en_name": "" if _has_cjk(album) else album, "suffix": ""}
+    # 4) meta.toml — 增补时保留已有专辑名字段
+    _ex = existing_meta or {}
+    names = {
+        "prefix":  _ex.get("prefix",  ""),
+        "zh_name": _ex.get("zh_name", "") or (album if _has_cjk(album) else ""),
+        "en_name": _ex.get("en_name", "") or ("" if _has_cjk(album) else album),
+        "suffix":  _ex.get("suffix",  ""),
+    }
     _emit(album_rel / "meta.toml", render_meta_toml(meta, names))
 
     # 5) cover

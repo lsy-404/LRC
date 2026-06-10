@@ -78,6 +78,54 @@ def ref_lines_to_chars(lines: list[str]) -> tuple[str, list[RefChar]]:
     return "".join(norm_chars), meta
 
 
+def _has_kana(s: str) -> bool:
+    """Return True if the string contains Japanese hiragana or katakana."""
+    return any("぀" <= c <= "ゟ" or "゠" <= c <= "ヿ" for c in s)
+
+
+def _detect_bilingual_pairs(lines: list[str]) -> dict[int, int]:
+    """Detect alternating bilingual lines (e.g. Japanese original + Chinese translation).
+
+    Returns {translation_line_idx: original_line_idx}.
+    Activates only when ≥3 pairs and ≥60% of consecutive non-empty pairs alternate kana/no-kana
+    in a consistent order (kana always first, or always second).
+    """
+    nonempty = [(i, ln) for i, ln in enumerate(lines) if ln.strip()]
+    if len(nonempty) < 4:
+        return {}
+
+    total_possible = len(nonempty) // 2
+    pair_count = 0
+    kana_first_count = 0
+    for k in range(0, len(nonempty) - 1, 2):
+        h1 = _has_kana(nonempty[k][1])
+        h2 = _has_kana(nonempty[k + 1][1])
+        if h1 != h2:
+            pair_count += 1
+            if h1:
+                kana_first_count += 1
+
+    if pair_count < 3 or pair_count < total_possible * 0.6:
+        return {}
+
+    ratio = kana_first_count / pair_count
+    kana_first = ratio >= 0.7
+    kana_second = ratio <= 0.3
+    if not kana_first and not kana_second:
+        return {}  # inconsistent order — not a clean bilingual song
+
+    result: dict[int, int] = {}
+    for k in range(0, len(nonempty) - 1, 2):
+        i1, l1 = nonempty[k]
+        i2, l2 = nonempty[k + 1]
+        if _has_kana(l1) != _has_kana(l2):
+            if _has_kana(l1):
+                result[i2] = i1  # i2 is translation of Japanese i1
+            else:
+                result[i1] = i2  # i1 is translation of Japanese i2
+    return result
+
+
 def _fmt_ts(seconds: float, ms_digits: int = 2) -> str:
     if seconds < 0:
         seconds = 0.0
@@ -153,6 +201,12 @@ def align(
         line_start[li] = max(line_start[li], last)
         last = line_start[li]
 
+    # 双语：翻译行继承原文行时间戳（两行共享同一 [ts]，LRC 播放器同时显示双语）
+    translation_pairs = _detect_bilingual_pairs(lines)
+    for trans_idx, orig_idx in translation_pairs.items():
+        if orig_idx < n_lines and trans_idx < n_lines:
+            line_start[trans_idx] = line_start[orig_idx]
+
     # 输出
     out: list[str] = []
     if title:
@@ -187,8 +241,13 @@ def align(
 
 
 def coverage(reference_lines: list[str], words: list[dict]) -> float:
-    """对齐覆盖率（匹配上的 ref 字 / 总 ref 字），用于评估/选择最佳歌词匹配。"""
-    ref_str, _ = ref_lines_to_chars(reference_lines)
+    """对齐覆盖率（匹配上的 ref 字 / 总 ref 字），用于评估/选择最佳歌词匹配。
+
+    双语歌词中，翻译行（无 kana）不计入覆盖率，避免虚低导致音频匹配失误。
+    """
+    translation_pairs = _detect_bilingual_pairs(reference_lines)
+    orig_lines = [l for i, l in enumerate(reference_lines) if i not in translation_pairs]
+    ref_str, _ = ref_lines_to_chars(orig_lines if orig_lines else reference_lines)
     stt_str = "".join(c.ch for c in stt_words_to_chars(words))
     if not ref_str or not stt_str:
         return 0.0
