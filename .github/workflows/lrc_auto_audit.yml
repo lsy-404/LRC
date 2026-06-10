@@ -74,7 +74,7 @@ jobs:
           BASE_SHA: ${{ steps.pr.outputs.base_sha }}
 
       - name: Install audit dependencies
-        run: pip install --quiet Pillow zxingcpp
+        run: pip install --quiet Pillow zxing-cpp
 
       - name: Security and Content Audit
         id: python-audit
