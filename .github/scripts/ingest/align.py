@@ -163,7 +163,7 @@ def align(
             for k in range(n):
                 ref_time[i + k] = stt_chars[j + k].t
 
-    # 行首时间：取该行第一个有时间的字；整行无 → None 待插值
+    # 收集每行已对齐字的(行内偏移, 时间)，并统计每行可对齐字数
     n_lines = len(lines)
     line_start: list[Optional[float]] = [None] * n_lines
     line_char_times: dict[int, list[tuple[int, float]]] = {}  # 行 → [(行内偏移, t)]
@@ -175,24 +175,45 @@ def align(
         t = ref_time[idx]
         if t is not None:
             line_char_times.setdefault(li, []).append((local, t))
-            if line_start[li] is None:
-                line_start[li] = t
 
-    # 线性插值补齐缺失行首时间（保持单调不减）
-    known = [(li, t) for li, t in enumerate(line_start) if t is not None]
+    # 全曲演唱字速率（秒/字）：各行已对齐首尾字速率的中位数，钳制在合理区间
+    rates = []
+    for pairs in line_char_times.values():
+        (o1, t1), (o2, t2) = pairs[0], pairs[-1]
+        if o2 > o1 and t2 > t1:
+            rates.append((t2 - t1) / (o2 - o1))
+    rate = sorted(rates)[len(rates) // 2] if rates else 0.35
+    rate = min(max(rate, 0.15), 0.8)
+
+    # 行首时间：行首字若未对齐（STT 漏识别行首会让行首偏晚），从首个对齐字按字速率回推，
+    # 但不早于上一行最后一个对齐字之后一个字位
+    prev_anchor = 0.0
+    for li in range(n_lines):
+        pairs = line_char_times.get(li)
+        if not pairs:
+            continue
+        o0, t0 = pairs[0]
+        line_start[li] = max(t0 - o0 * rate, prev_anchor + rate) if o0 > 0 else t0
+        prev_anchor = pairs[-1][1]
+
+    # 整行未对齐：按各行字数加权插值/外推
+    # （固定 0.5s/行远小于真实行时长，会把开头未识别的行挤到很晚）
+    chars = [line_local_idx.get(li, 0) for li in range(n_lines)]
+    known = [li for li, t in enumerate(line_start) if t is not None]
     if known:
         for li in range(n_lines):
             if line_start[li] is not None:
                 continue
-            prev = max((k for k in known if k[0] < li), default=None)
-            nxt = min((k for k in known if k[0] > li), default=None)
-            if prev and nxt and nxt[0] != prev[0]:
-                frac = (li - prev[0]) / (nxt[0] - prev[0])
-                line_start[li] = prev[1] + (nxt[1] - prev[1]) * frac
-            elif prev:
-                line_start[li] = prev[1] + 0.5 * (li - prev[0])
-            elif nxt:
-                line_start[li] = max(0.0, nxt[1] - 0.5 * (nxt[0] - li))
+            prev = max((k for k in known if k < li), default=None)
+            nxt = min((k for k in known if k > li), default=None)
+            if prev is not None and nxt is not None:
+                span_chars = sum(chars[l] for l in range(prev, nxt)) or (nxt - prev)
+                done_chars = sum(chars[l] for l in range(prev, li)) or (li - prev)
+                line_start[li] = line_start[prev] + (line_start[nxt] - line_start[prev]) * done_chars / span_chars
+            elif prev is not None:
+                line_start[li] = line_start[prev] + sum(chars[l] for l in range(prev, li)) * rate
+            elif nxt is not None:
+                line_start[li] = max(0.0, line_start[nxt] - sum(chars[l] for l in range(li, nxt)) * rate)
     # 单调化
     last = 0.0
     for li in range(n_lines):
