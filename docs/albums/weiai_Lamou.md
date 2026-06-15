@@ -8,6 +8,12 @@ tag:
   - "维·爱L'amouЯ"
   - "维·爱"
   - "L'amouЯ"
+  - "海伊"
+  - "赤羽"
+  - "诗岸"
+  - "星尘"
+  - "苍穹"
+  - "BruceMercer2016"
   - "歌词"
   - "lrc"
   - "下载"
@@ -20,7 +26,11 @@ tag:
 
 **发行日期:** 2026-05-29
 
+**歌词制作:** jiangchenyu0、神武竹
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1VTVb6MEDC)
+
+**演唱:** 海伊、赤羽、诗岸、星尘、苍穹、BruceMercer2016
 
 ## 曲目列表
 

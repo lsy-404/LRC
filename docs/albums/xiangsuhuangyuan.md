@@ -1,11 +1,12 @@
 ---
-title: "像素荒原"
+title: "像素荒原 PixelWasteland"
 date: 2025-09-10
 order: -20250910
 category:
   - "我是石榴皮"
 tag:
   - "像素荒原"
+  - "PixelWasteland"
   - "我是石榴皮"
   - "诗岸"
   - "星尘"
@@ -19,9 +20,9 @@ tag:
   - "文件"
 ---
 
-# 像素荒原
+# 像素荒原 PixelWasteland
 
-<img src="./xiangsuhuangyuan.jpg" alt="像素荒原 封面" class="album-cover" />
+<img src="./xiangsuhuangyuan.jpg" alt="像素荒原 PixelWasteland 封面" class="album-cover" />
 
 **发行日期:** 2025-09-10
 
@@ -44,6 +45,8 @@ tag:
 **编曲:** 46
 
 **调校:** 46、阿凛子君
+
+**曲绘:** 我是石榴皮
 
 **混音:** 46
 

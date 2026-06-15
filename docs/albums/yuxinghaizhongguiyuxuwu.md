@@ -3,9 +3,11 @@ title: "于星海中归于虚无"
 date: 2026-04-26
 order: -20260426
 category:
-  - "未知出品方"
+  - "罗绮星雨"
 tag:
   - "于星海中归于虚无"
+  - "罗绮星雨"
+  - "星尘"
   - "雒清辞明"
   - "ZClear"
   - "MOCKER44 CTY2p"
@@ -23,13 +25,19 @@ tag:
 
 **发行日期:** 2026-04-26
 
+**出品:** 罗绮星雨
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1doofBqE2Q)
+
+**演唱:** 星尘
 
 **作词:** 雒清辞明
 
 **作曲:** ZClear、MOCKER44 CTY2p、花水r
 
 **调校:** Risho
+
+**曲绘:** Kosaka
 
 ## 曲目列表
 

@@ -33,6 +33,8 @@ tag:
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1xZ8FzBEup)
 
+**购买:** 漫展摊位限定
+
 **演唱:** 洛天依
 
 **作词:** 溯回、Grid格子、天真圆陆鲨/MiDiCat、一只爵士猫、萧家暮雨、清风疾行

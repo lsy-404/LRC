@@ -1,26 +1,52 @@
 ---
-title: "秩序之瑕"
+title: "秩序之瑕 Blemishes of the Cosmos"
 date: 2025-12-13
 order: -20251213
 category:
-  - "未知出品方"
+  - "蝴蝶效应_BFx"
 tag:
   - "秩序之瑕"
+  - "Blemishes of the Cosmos"
+  - "蝴蝶效应_BFx"
+  - "星尘Infinity"
+  - "Yuma"
+  - "Mai"
+  - "诗岸"
+  - "Azure霁岚"
+  - "兔子_P"
   - "歌词"
   - "lrc"
   - "下载"
   - "文件"
 ---
 
-# 秩序之瑕
+# 秩序之瑕 Blemishes of the Cosmos
 
-<img src="./zhixuzhixia.png" alt="秩序之瑕 封面" class="album-cover" />
+<img src="./zhixuzhixia.png" alt="秩序之瑕 Blemishes of the Cosmos 封面" class="album-cover" />
 
 **发行日期:** 2025-12-13
+
+**出品:** 蝴蝶效应_BFx
+
+**歌词制作:** Azure霁岚
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV18LmSBGEbY)
 
 **电子:** https://www.dizzylab.net/d/Blemishes-2024】
+
+**演唱:** 星尘Infinity、Yuma、Mai、诗岸
+
+**作词:** Azure霁岚、兔子_P
+
+**作曲:** Azure霁岚
+
+**编曲:** Azure霁岚
+
+**调校:** Azure霁岚
+
+**曲绘:** 枫临糖
+
+**混音:** Azure霁岚
 
 ## 曲目列表
 

@@ -1,11 +1,12 @@
 ---
-title: "甜食日记"
+title: "甜食日记 Dessert Diary"
 date: 2021-08-07
 order: -20210807
 category:
   - "奶牛组"
 tag:
   - "甜食日记"
+  - "Dessert Diary"
   - "奶牛组"
   - "星尘"
   - "大九_LN"
@@ -16,9 +17,9 @@ tag:
   - "文件"
 ---
 
-# 甜食日记
+# 甜食日记 Dessert Diary
 
-<img src="./tianshiriji.jpg" alt="甜食日记 封面" class="album-cover" />
+<img src="./tianshiriji.jpg" alt="甜食日记 Dessert Diary 封面" class="album-cover" />
 
 **发行日期:** 2021-08-07
 

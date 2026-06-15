@@ -63,6 +63,8 @@ tag:
 
 **曲绘:** Hanasa、原子dan、Leiq雷、lnoriac、立旗、November、匙
 
+**混音:** Zeno
+
 ## 曲目列表
 
 - [1 蜕鳞之时](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20Finale/1%20%E8%9C%95%E9%B3%9E%E4%B9%8B%E6%97%B6.lrc)

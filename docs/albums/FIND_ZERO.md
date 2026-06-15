@@ -3,9 +3,17 @@ title: "FIND ZERO"
 date: 2020-08-07
 order: -20200807
 category:
-  - "未知出品方"
+  - "糖果工坊CandyFactory"
 tag:
   - "FIND ZERO"
+  - "糖果工坊CandyFactory"
+  - "赤塚優一"
+  - "初音ミク"
+  - "赤羽"
+  - "星尘"
+  - "海伊"
+  - "诗岸"
+  - "苍穹"
   - "大九_LN"
   - "戴项圈的立花"
   - "白鸟shiro"
@@ -24,7 +32,13 @@ tag:
 
 **发行日期:** 2020-08-07
 
+**出品:** 糖果工坊CandyFactory
+
+**歌词制作:** 神武竹、jiangchenyu0
+
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1mi4y1u7Wb)
+
+**演唱:** 赤塚優一、初音ミク、赤羽、星尘、海伊、诗岸、苍穹
 
 **作词:** 大九_LN、戴项圈的立花、白鸟shiro
 

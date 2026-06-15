@@ -31,6 +31,8 @@ tag:
   - "芹菜猪肉大馄饨"
   - "ZOMiG"
   - "Ddickky"
+  - "Ace"
+  - "绛舞乱丸"
   - "歌词"
   - "lrc"
   - "下载"
@@ -60,6 +62,8 @@ tag:
 **作曲:** ST.K4N3、Ceekyo、COP、Melo、小野道、芹菜猪肉大馄饨、ZOMiG、便器p、Zeno、Ddickky
 
 **编曲:** ST.K4N3、Ceekyo、COP、Melo、小野道、芹菜猪肉大馄饨、ZOMiG、战场原妖精、便器p、Zeno、余果
+
+**调校:** Ace、绛舞乱丸
 
 **曲绘:** TOMATO、莱勒
 

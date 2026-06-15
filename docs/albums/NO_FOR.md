@@ -3,9 +3,11 @@ title: "NO FOR"
 date: 2022-02-05
 order: -20220205
 category:
-  - "未知出品方"
+  - "超正常中心"
 tag:
   - "NO FOR"
+  - "超正常中心"
+  - "洛天依"
   - "sya"
   - "Sya"
   - "歌词"
@@ -20,15 +22,23 @@ tag:
 
 **发行日期:** 2022-02-05
 
+**出品:** 超正常中心
+
 **歌词制作:** SST
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1oS4y1k7Hs)
+
+**演唱:** 洛天依
 
 **作词:** sya、Sya
 
 **作曲:** sya、Sya
 
 **编曲:** sya、Sya
+
+**调校:** Sya
+
+**曲绘:** Sya
 
 **混音:** JUSF周存
 

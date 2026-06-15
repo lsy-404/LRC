@@ -1,11 +1,12 @@
 ---
-title: "茜色诗集"
+title: "茜色诗集 Akane Poems"
 date: 2016-12-04
 order: -20161204
 category:
-  - "未知出品方"
+  - "泠鸢yousa"
 tag:
   - "茜色诗集"
+  - "Akane Poems"
   - "泠鸢yousa"
   - "king"
   - "曦行；谢阿风"
@@ -22,11 +23,13 @@ tag:
   - "文件"
 ---
 
-# 茜色诗集
+# 茜色诗集 Akane Poems
 
-<img src="./qianseshiji.jpg" alt="茜色诗集 封面" class="album-cover" />
+<img src="./qianseshiji.jpg" alt="茜色诗集 Akane Poems 封面" class="album-cover" />
 
 **发行日期:** 2016-12-04
+
+**出品:** 泠鸢yousa
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Ys411r7T4/)
 

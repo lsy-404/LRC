@@ -3,9 +3,12 @@ title: "信风至北"
 date: 2024-08-31
 order: -20240831
 category:
-  - "未知出品方"
+  - "起开"
 tag:
   - "信风至北"
+  - "起开"
+  - "乐正龙牙"
+  - "言和"
   - "licis"
   - "Bung Kon"
   - "Adam_K"
@@ -21,9 +24,13 @@ tag:
 
 **发行日期:** 2024-08-31
 
+**出品:** 起开
+
 **歌词制作:** SST
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1eaHFeqESY)
+
+**演唱:** 乐正龙牙、言和
 
 **作词:** licis、Bung Kon
 

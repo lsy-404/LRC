@@ -9,6 +9,7 @@ tag:
   - "metaphorical girl"
   - "Re"
   - "TOPKINGCREAM"
+  - "星尘Infinity"
   - "歌词"
   - "lrc"
   - "下载"
@@ -26,6 +27,8 @@ tag:
 **歌词制作:** SST
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Hn9xBVEtZ)
+
+**演唱:** 星尘Infinity
 
 **作词:** TOPKINGCREAM
 

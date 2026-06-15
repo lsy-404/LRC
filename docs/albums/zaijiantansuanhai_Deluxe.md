@@ -3,11 +3,12 @@ title: "再见，碳酸海 Deluxe"
 date: 2024-10-02
 order: -20241002
 category:
-  - "未知出品方"
+  - "Sodatune"
 tag:
   - "再见,碳酸海 Deluxe"
   - "再见，碳酸海"
   - "Deluxe"
+  - "Sodatune"
   - "洛天依"
   - "乐正绫"
   - "洛天依/乐正绫"
@@ -28,6 +29,10 @@ tag:
 <img src="./zaijiantansuanhai_Deluxe.jpg" alt="再见，碳酸海 Deluxe 封面" class="album-cover" />
 
 **发行日期:** 2024-10-02
+
+**出品:** Sodatune
+
+**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV12x4TepELv)
 

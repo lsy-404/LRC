@@ -8,6 +8,10 @@ tag:
   - "从众效应Conformity"
   - "从众效应"
   - "Conformity"
+  - "洛天依"
+  - "乐正绫"
+  - "乐正龙牙"
+  - "墨清弦"
   - "绛舞乱丸"
   - "歌词"
   - "lrc"
@@ -26,6 +30,8 @@ tag:
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1Ub411x7LD)
 
 **电子:** [Dizzylab](https://www.dizzylab.net/d/Conformity/)
+
+**演唱:** 洛天依、乐正绫、乐正龙牙、墨清弦
 
 **作词:** 绛舞乱丸
 
