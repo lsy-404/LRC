@@ -79,18 +79,6 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Cache whisperx/pyannote models
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cache/huggingface
-            ~/.cache/torch
-          key: whisperx-${{ vars.WHISPER_MODEL || 'small' }}-${{ vars.WHISPER_VAD || 'pyannote' }}
-          restore-keys: |
-            whisperx-${{ vars.WHISPER_MODEL || 'small' }}-
-            whisperx-
-            whisper-
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
