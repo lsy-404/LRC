@@ -1,6 +1,10 @@
 # ingest 摄取管道依赖（独立于 .github/scripts/requirements.txt，仅 upload_ingest 工作流安装）
-# 音频转写（本地 STT）
+# 音频转写：WhisperX（whisper + pyannote VAD + wav2vec2 词级强制对齐）
+whisperx>=3.1.0
+# faster-whisper 是 WhisperX 的底层 ASR 引擎；显式锁定确保兼容
 faster-whisper>=1.0.0
+# pyannote VAD（gated 模型，要求 HF_TOKEN 与 pyannote/segmentation-3.0 ToS 已同意）
+pyannote.audio>=3.1.0
 # PDF 抽取 + 扫描页渲染
 PyMuPDF>=1.24.0
 # DOCX 抽取

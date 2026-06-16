@@ -228,10 +228,10 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     audio_words: dict[str, list] = {}
     if buckets["audio"]:
         try:
-            model = stt_mod._load_model()
+            pipeline = stt_mod._load_pipeline()
             for a in buckets["audio"]:
                 try:
-                    words, _ = stt_mod.transcribe_words(a, model=model)
+                    words, _ = stt_mod.transcribe_words(a, pipeline=pipeline)
                     audio_words[a.name] = words
                 except Exception as e:  # noqa: BLE001
                     print(f"⚠️  STT 失败 {a.name}: {e}", file=sys.stderr)

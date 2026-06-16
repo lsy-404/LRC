@@ -79,12 +79,17 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Cache whisper model
+      - name: Cache whisperx/pyannote models
         uses: actions/cache@v4
         with:
-          path: ~/.cache/huggingface
-          key: whisper-${{ env.WHISPER_MODEL || 'small' }}
-          restore-keys: whisper-
+          path: |
+            ~/.cache/huggingface
+            ~/.cache/torch
+          key: whisperx-${{ vars.WHISPER_MODEL || 'small' }}-${{ vars.WHISPER_VAD || 'pyannote' }}
+          restore-keys: |
+            whisperx-${{ vars.WHISPER_MODEL || 'small' }}-
+            whisperx-
+            whisper-
 
       - name: Install dependencies
         run: |
@@ -100,6 +105,8 @@ jobs:
           LLM_MODEL: ${{ secrets.LLM_MODEL }}
           OCR_MODEL: ${{ secrets.OCR_MODEL }}
           WHISPER_MODEL: ${{ vars.WHISPER_MODEL || 'small' }}
+          WHISPER_VAD: ${{ vars.WHISPER_VAD || 'pyannote' }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
           PYTHONPATH: ${{ github.workspace }}/repo/.github/scripts
         run: |
           set -euo pipefail
