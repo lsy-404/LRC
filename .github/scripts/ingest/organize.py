@@ -106,11 +106,27 @@ def _sanitize_filename(name: str) -> str:
     return out or "untitled"
 
 
+def _join_words(tokens: list[str]) -> str:
+    """词列表 → 行字符串：CJK 字符之间直连，非 CJK 之间加空格。"""
+    if not tokens:
+        return ""
+    out = tokens[0]
+    for t in tokens[1:]:
+        if _has_cjk(out[-1:]) or _has_cjk(t[:1]):
+            out += t
+        else:
+            out += " " + t
+    return out.strip()
+
+
 def _words_to_tracks(audio_words: dict[str, list]) -> list[dict]:
     """STT 词流 → 轨道列表（无歌词文本时的通用兜底）。
 
-    按静音间隔（≥ 1.0 s）把 STT 词分组成行，文件名解析出曲序和标题。
-    生成的轨道直接经 build_track_lrc 对齐（覆盖率 ≈ 1.0），产出带时间轴 LRC。
+    分行策略（优先级从高到低）：
+    1. stt.py 标注的 seg_end（Whisper segment 边界）→ 强制断行
+    2. 静音间隔超阈值（CJK 0.4 s / 其他 1.0 s）
+    3. 行时长超 6 s 或 CJK 字数超 20
+    CJK tokens 直连不加空格。
     """
     tracks: list[dict] = []
     for i, (audio_name, words) in enumerate(sorted(audio_words.items()), 1):
@@ -118,22 +134,40 @@ def _words_to_tracks(audio_words: dict[str, list]) -> list[dict]:
             continue
         lines: list[str] = []
         buf: list[str] = []
+        buf_start = 0.0
         prev_end = 0.0
-        for w in words:
-            gap = float(w.get("start", 0.0)) - prev_end
-            if buf and gap >= 1.0:
-                line = " ".join(buf).strip()
-                if line:
-                    lines.append(line)
-                buf = []
-            text = (w.get("text") or "").strip()
-            if text:
-                buf.append(text)
-            prev_end = float(w.get("end", prev_end))
-        if buf:
-            line = " ".join(buf).strip()
+
+        def _flush() -> None:
+            line = _join_words(buf)
             if line:
                 lines.append(line)
+            buf.clear()
+
+        for w in words:
+            w_start = float(w.get("start", 0.0))
+            w_end = float(w.get("end", w_start))
+            gap = w_start - prev_end
+            text = (w.get("text") or "").strip()
+            is_cjk_word = _has_cjk(text)
+            gap_thresh = 0.4 if is_cjk_word else 1.0
+            duration = w_start - buf_start if buf else 0.0
+            cjk_len = sum(1 for t in buf for c in t if "一" <= c <= "鿿")
+
+            if buf and (gap >= gap_thresh or duration >= 6.0 or cjk_len >= 20):
+                _flush()
+
+            if text:
+                if not buf:
+                    buf_start = w_start
+                buf.append(text)
+            prev_end = w_end
+
+            # seg_end 在当前词加入后断行（保证当前词归入本行）
+            if w.get("seg_end") and buf:
+                _flush()
+
+        _flush()
+
         stem = Path(audio_name).stem
         order = _order_from_name(stem)
         title_m = re.match(r"^\d+[\s._-]+(.*)", stem)
@@ -226,19 +260,31 @@ def render_meta_toml(meta: dict[str, Any], names: dict[str, str]) -> str:
 # ──────────────────────────────────────────────────────────────────────────────
 # 音频 ↔ 轨匹配 + 对齐
 # ──────────────────────────────────────────────────────────────────────────────
-def match_audio_to_track(track_lines: list[str], audio_words: dict[str, list], used: set) -> Optional[str]:
+def match_audio_to_track(
+    track_lines: list[str],
+    audio_words: dict[str, list],
+    used: set,
+    audio_langs: dict[str, str] | None = None,
+) -> Optional[str]:
     """在未使用的音频里选与该轨歌词覆盖率最高者；低于阈值返回 None。"""
     best, best_cov = None, MATCH_THRESHOLD
     for name, words in audio_words.items():
         if name in used:
             continue
-        cov = align_mod.coverage(track_lines, words)
+        lang = (audio_langs or {}).get(name, "")
+        cov = align_mod.coverage(track_lines, words, language=lang)
         if cov >= best_cov:
             best, best_cov = name, cov
     return best
 
 
-def build_track_lrc(track: dict, album: str, audio_words: dict[str, list], used: set) -> tuple[str, float]:
+def build_track_lrc(
+    track: dict,
+    album: str,
+    audio_words: dict[str, list],
+    used: set,
+    audio_langs: dict[str, str] | None = None,
+) -> tuple[str, float]:
     """为一轨生成 LRC：能匹配音频→对齐(timed)，否则无时间轴草稿。返回(lrc, 覆盖率)。"""
     title = str(track.get("title", "")).strip()
     lines = track.get("lines") or [l for l in str(track.get("lyrics", "")).splitlines() if l.strip()]
@@ -246,11 +292,12 @@ def build_track_lrc(track: dict, album: str, audio_words: dict[str, list], used:
     staff = track.get("staff") or {}
     if staff.get("lyricist"):
         by = "/".join(staff["lyricist"])
-    audio = match_audio_to_track(lines, audio_words, used) if audio_words else None
+    audio = match_audio_to_track(lines, audio_words, used, audio_langs) if audio_words else None
     if audio:
         used.add(audio)
-        lrc = align_mod.align(lines, audio_words[audio], title=title, album=album, by=by)
-        cov = align_mod.coverage(lines, audio_words[audio])
+        lang = (audio_langs or {}).get(audio, "")
+        lrc = align_mod.align(lines, audio_words[audio], title=title, album=album, by=by, language=lang)
+        cov = align_mod.coverage(lines, audio_words[audio], language=lang)
         print(f"  ♪ {title} ← {audio} (覆盖率 {cov:.0%})", file=sys.stderr)
         return lrc, cov
     # 无匹配音频：无时间轴草稿
@@ -268,6 +315,7 @@ def organize(
     booklet_text: str,
     credits_text: str,
     audio_words: dict[str, list] | None,
+    audio_langs: dict[str, str] | None = None,
     manifest: dict,
     res_dir: Path,
     album_override: str = "",
@@ -277,6 +325,7 @@ def organize(
     default_lyric_maker: str = "",
 ) -> dict[str, Any]:
     audio_words = audio_words or {}
+    audio_langs = audio_langs or {}
     tracks_explicit = tracks_explicit or []
 
     # 1) 轨来源：优先逐曲歌词；有歌词本文本则 LLM 分轨；否则跳过 LLM（避免空轨）
@@ -335,7 +384,7 @@ def organize(
     for i, t in enumerate(tracks, 1):
         order = t.get("order", i) or i
         title = _sanitize_filename(str(t.get("title", "")).strip() or f"track{order}")
-        lrc, cov = build_track_lrc(t, album, audio_words, used)
+        lrc, cov = build_track_lrc(t, album, audio_words, used, audio_langs)
         covs.append(cov)
         _emit(album_rel / f"{order} {title}.lrc", lrc)
 

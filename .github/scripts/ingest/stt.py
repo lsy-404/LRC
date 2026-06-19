@@ -138,6 +138,7 @@ def transcribe_words(audio: Path, pipeline=None, lang: str | None = None) -> tup
 
     words: list[dict] = []
     for seg in aligned_segs:
+        seg_words: list[dict] = []
         for w in seg.get("words") or []:
             text = (w.get("word") or w.get("text") or "").strip()
             if not text:
@@ -146,11 +147,14 @@ def transcribe_words(audio: Path, pipeline=None, lang: str | None = None) -> tup
             if start is None:
                 continue
             end = w.get("end")
-            words.append({
+            seg_words.append({
                 "start": float(start),
                 "end": float(end if end is not None else start),
                 "text": text,
             })
+        if seg_words:
+            seg_words[-1]["seg_end"] = True  # segment 边界：供 _words_to_tracks 分行用
+        words.extend(seg_words)
     print(
         f"✓ STT(词级) {audio.name}: {len(words)} 词, 语言={language}",
         file=sys.stderr, flush=True,

@@ -8,6 +8,7 @@
   让每行准确歌词拿到 STT 对应位置的时间戳 → 行级 LRC（可选字级增强 LRC）。
 
 对齐用标准库 difflib.SequenceMatcher（字符级 LCS），无第三方依赖。
+中文模式下可选用 pypinyin 把汉字转拼音再做 LCS，消除同音错字漏对齐。
 """
 from __future__ import annotations
 
@@ -19,6 +20,29 @@ from dataclasses import dataclass
 from difflib import SequenceMatcher
 from pathlib import Path
 from typing import Optional
+
+try:
+    from pypinyin import lazy_pinyin, Style as _PinyinStyle  # type: ignore
+    _PYPINYIN_OK = True
+except ImportError:
+    _PYPINYIN_OK = False
+
+
+def _py_key(ch: str) -> str:
+    """CJK 汉字 → 无调拼音字符串（如 '风'→'feng'）；非 CJK 原样小写返回。
+    用作 SequenceMatcher 比较键，消除同音错字漏对齐。
+    """
+    if _PYPINYIN_OK and ("一" <= ch <= "鿿" or "㐀" <= ch <= "䶿"):
+        py = lazy_pinyin(ch, style=_PinyinStyle.NORMAL)
+        return py[0] if py else ch.lower()
+    return ch.lower()
+
+
+def _cmp_seqs(char_list: list[str], use_pinyin: bool) -> list[str]:
+    """把字符列表转为比较序列（可以是拼音 token 列表，也可以原字）。"""
+    if use_pinyin:
+        return [_py_key(c) for c in char_list]
+    return list(char_list)
 
 
 @dataclass
@@ -144,12 +168,16 @@ def align(
     album: str = "",
     by: str = "",
     per_char: bool = False,
+    language: str = "",
 ) -> str:
     """返回对齐后的 LRC 文本。
 
     reference_lines 应为纯歌词行（不含 staff 头）。
     words 为 [{start,end,text}, ...]（faster-whisper 词级）。
+    language: STT 检测的语言代码（如 'zh'/'ja'/'en'）；
+              zh 时若 pypinyin 可用则用拼音 LCS，其余语言用字符级 LCS。
     """
+    use_pinyin = _PYPINYIN_OK and (language or "").startswith("zh")
     lines = [ln.rstrip() for ln in reference_lines]
     ref_str, ref_meta = ref_lines_to_chars(lines)
     stt_chars = stt_words_to_chars(words)
@@ -158,7 +186,9 @@ def align(
     # 每个 ref 字的时间（None=未对齐上）
     ref_time: list[Optional[float]] = [None] * len(ref_meta)
     if ref_str and stt_str:
-        sm = SequenceMatcher(None, ref_str, stt_str, autojunk=False)
+        ref_cmp = _cmp_seqs(list(ref_str), use_pinyin)
+        stt_cmp = _cmp_seqs(list(stt_str), use_pinyin)
+        sm = SequenceMatcher(None, ref_cmp, stt_cmp, autojunk=False)
         for i, j, n in sm.get_matching_blocks():
             for k in range(n):
                 ref_time[i + k] = stt_chars[j + k].t
@@ -261,18 +291,22 @@ def align(
     return "\n".join(out) + "\n"
 
 
-def coverage(reference_lines: list[str], words: list[dict]) -> float:
+def coverage(reference_lines: list[str], words: list[dict], language: str = "") -> float:
     """对齐覆盖率（匹配上的 ref 字 / 总 ref 字），用于评估/选择最佳歌词匹配。
 
     双语歌词中，翻译行（无 kana）不计入覆盖率，避免虚低导致音频匹配失误。
+    language: 同 align()；zh 时用拼音 LCS 提高准确率。
     """
+    use_pinyin = _PYPINYIN_OK and (language or "").startswith("zh")
     translation_pairs = _detect_bilingual_pairs(reference_lines)
     orig_lines = [l for i, l in enumerate(reference_lines) if i not in translation_pairs]
     ref_str, _ = ref_lines_to_chars(orig_lines if orig_lines else reference_lines)
     stt_str = "".join(c.ch for c in stt_words_to_chars(words))
     if not ref_str or not stt_str:
         return 0.0
-    sm = SequenceMatcher(None, ref_str, stt_str, autojunk=False)
+    ref_cmp = _cmp_seqs(list(ref_str), use_pinyin)
+    stt_cmp = _cmp_seqs(list(stt_str), use_pinyin)
+    sm = SequenceMatcher(None, ref_cmp, stt_cmp, autojunk=False)
     matched = sum(n for _, _, n in sm.get_matching_blocks())
     return matched / len(ref_str)
 
@@ -285,13 +319,15 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--album", default="")
     ap.add_argument("--by", default="")
     ap.add_argument("--per-char", action="store_true", help="输出字级增强 LRC")
+    ap.add_argument("--language", default="", help="STT 语言代码（如 zh/ja/en）；zh 时启用拼音 LCS")
     ap.add_argument("--out", help="输出文件（默认 stdout）")
     args = ap.parse_args(argv)
 
     lines = Path(args.lyrics).read_text(encoding="utf-8", errors="replace").splitlines()
     words = json.loads(Path(args.words).read_text(encoding="utf-8"))
-    lrc = align(lines, words, title=args.title, album=args.album, by=args.by, per_char=args.per_char)
-    cov = coverage(lines, words)
+    lrc = align(lines, words, title=args.title, album=args.album, by=args.by,
+                per_char=args.per_char, language=args.language)
+    cov = coverage(lines, words, language=args.language)
     print(f"对齐覆盖率: {cov:.1%}", file=sys.stderr)
     if args.out:
         Path(args.out).write_text(lrc, encoding="utf-8")

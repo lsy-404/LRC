@@ -224,17 +224,51 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     booklet_text = "\n\n".join(booklet_parts)
     credits_text = "\n\n".join(credits_parts) or booklet_text
 
+    # OCR/文档歌词本文字校对（默认开；INGEST_PROOFREAD=0 可关闭）
+    import os as _os
+    if _os.environ.get("INGEST_PROOFREAD", "1") != "0" and booklet_text:
+        print("  ✏️  歌词本校对中...", file=sys.stderr)
+        booklet_text = pf_mod.proofread_safe(booklet_text)
+
     # 3) 音频 → 词级时间戳
     audio_words: dict[str, list] = {}
+    audio_langs: dict[str, str] = {}
     if buckets["audio"]:
         try:
             pipeline = stt_mod._load_pipeline()
             for a in buckets["audio"]:
                 try:
-                    words, _ = stt_mod.transcribe_words(a, pipeline=pipeline)
+                    words, lang = stt_mod.transcribe_words(a, pipeline=pipeline)
                     audio_words[a.name] = words
+                    audio_langs[a.name] = lang
                 except Exception as e:  # noqa: BLE001
                     print(f"⚠️  STT 失败 {a.name}: {e}", file=sys.stderr)
+
+            # 语言重试：检测专辑主语言，对语言离群轨重跑 STT
+            if len(audio_langs) > 1:
+                lang_counts: dict[str, int] = {}
+                for lg in audio_langs.values():
+                    lang_counts[lg] = lang_counts.get(lg, 0) + 1
+                majority_lang = max(lang_counts, key=lambda k: lang_counts[k])
+                retry_audios = [
+                    a for a in buckets["audio"]
+                    if audio_langs.get(a.name) != majority_lang
+                ]
+                if retry_audios:
+                    print(
+                        f"  ↺ 语言重试（主语言={majority_lang}，重试 {len(retry_audios)} 首）："
+                        f" {[a.name for a in retry_audios]}",
+                        file=sys.stderr,
+                    )
+                    for a in retry_audios:
+                        try:
+                            words, lang = stt_mod.transcribe_words(
+                                a, pipeline=pipeline, lang=majority_lang
+                            )
+                            audio_words[a.name] = words
+                            audio_langs[a.name] = lang
+                        except Exception as e:  # noqa: BLE001
+                            print(f"⚠️  STT 重试失败 {a.name}: {e}", file=sys.stderr)
         except Exception as e:  # noqa: BLE001
             print(f"⚠️  STT 模型加载失败: {e}", file=sys.stderr)
 
@@ -262,7 +296,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
 
     org_res = org_mod.organize(
         tracks_explicit=tracks_explicit, booklet_text=booklet_text, credits_text=credits_text,
-        audio_words=audio_words, manifest=manifest, res_dir=res_dir,
+        audio_words=audio_words, audio_langs=audio_langs, manifest=manifest, res_dir=res_dir,
         album_override=album, cover_path=cover, existing_meta=existing_meta, dry_run=dry_run,
         default_lyric_maker=lyric_maker,
     )

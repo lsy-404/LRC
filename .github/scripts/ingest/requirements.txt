@@ -9,4 +9,6 @@ pyannote.audio>=3.1.0
 PyMuPDF>=1.24.0
 # DOCX 抽取
 python-docx>=1.1.0
+# 拼音 LCS 对齐（中文歌覆盖率 38%→71%；非中文语言自动回退字符级 LCS）
+pypinyin>=0.50.0
 # OCR / 校对 / 编排仅用标准库 urllib 调 LLM，无需额外依赖
