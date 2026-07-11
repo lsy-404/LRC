@@ -3,9 +3,9 @@
 
 复用与 lib/llm_client.py 相同的环境变量约定：
     LLM_API_KEY    必填，API 密钥
-    LLM_API_BASE   端点（默认 https://api.openai.com/v1），OpenRouter 用 https://openrouter.ai/api/v1
-    LLM_MODEL      文本任务默认模型（校对/编排）
-    OCR_MODEL      视觉任务模型（OCR），缺省回退到 LLM_MODEL
+    LLM_API_BASE   端点（默认 https://openrouter.ai/api/v1）
+    LLM_MODEL      文本任务默认模型（校对/编排），缺省自动选 OpenRouter 免费模型
+    OCR_MODEL      视觉任务模型（OCR），缺省自动选 OpenRouter 免费视觉模型
 
 仅依赖标准库 urllib，与项目现有脚本保持零额外依赖。
 """
@@ -22,10 +22,14 @@ from typing import Any, Optional
 from urllib import request
 from urllib.error import HTTPError, URLError
 
-DEFAULT_API_BASE = "https://api.openai.com/v1"
-DEFAULT_TEXT_MODEL = "gpt-4o-mini"
+DEFAULT_API_BASE = "https://openrouter.ai/api/v1"
+OPENAI_API_BASE = "https://api.openai.com/v1"
+DEFAULT_TEXT_MODEL = "deepseek/deepseek-chat-v3-0324:free"
 # OpenRouter 免费视觉模型（列表常变，可用 OCR_MODEL 覆盖）
 DEFAULT_VISION_MODEL = "google/gemini-2.0-flash-exp:free"
+OPENAI_TEXT_MODEL = "gpt-4o-mini"
+OPENAI_VISION_MODEL = "gpt-4o-mini"
+_MODEL_CACHE: dict[str, Optional[str]] = {}
 
 
 class LLMError(RuntimeError):
@@ -47,12 +51,107 @@ def api_base() -> str:
     return _env("LLM_API_BASE", DEFAULT_API_BASE).rstrip("/")
 
 
+def _is_openrouter(base: str) -> bool:
+    return "openrouter.ai" in base
+
+
+def _model_id(model: dict[str, Any]) -> str:
+    return str(model.get("id") or "")
+
+
+def _is_free_model(model: dict[str, Any]) -> bool:
+    model_id = _model_id(model)
+    if model_id.endswith(":free"):
+        return True
+    pricing = model.get("pricing")
+    if not isinstance(pricing, dict):
+        return False
+    return all(str(pricing.get(key, "1")) in {"0", "0.0", "0.000000"} for key in ("prompt", "completion"))
+
+
+def _modalities(model: dict[str, Any]) -> set[str]:
+    arch = model.get("architecture")
+    values: list[str] = []
+    if isinstance(arch, dict):
+        raw_input = arch.get("input_modalities")
+        if isinstance(raw_input, list):
+            values.extend(str(v).lower() for v in raw_input)
+        values.append(str(arch.get("modality") or "").lower())
+    values.append(str(model.get("modality") or "").lower())
+    text = " ".join(values)
+    found = {"text"} if "text" in text or not text.strip() else set()
+    if "image" in text or "vision" in text:
+        found.add("image")
+    return found
+
+
+def _free_model_score(model_id: str) -> tuple[int, str]:
+    preferred = ("gemini", "qwen", "deepseek", "mistral", "llama")
+    for index, name in enumerate(preferred):
+        if name in model_id:
+            return (index, model_id)
+    return (len(preferred), model_id)
+
+
+def _fetch_openrouter_models() -> list[dict[str, Any]]:
+    headers = {"Accept": "application/json"}
+    key = _env("LLM_API_KEY")
+    if key:
+        headers["Authorization"] = f"Bearer {key}"
+    req = request.Request(f"{api_base()}/models", headers=headers, method="GET")
+    with request.urlopen(req, timeout=30) as resp:
+        payload = json.loads(resp.read().decode("utf-8"))
+    data = payload.get("data") if isinstance(payload, dict) else None
+    return data if isinstance(data, list) else []
+
+
+def _auto_free_model(kind: str) -> Optional[str]:
+    cache_key = f"{api_base()}:{kind}"
+    if cache_key in _MODEL_CACHE:
+        return _MODEL_CACHE[cache_key]
+    selected: Optional[str] = None
+    try:
+        candidates: list[str] = []
+        for model in _fetch_openrouter_models():
+            model_id = _model_id(model)
+            if not model_id or not _is_free_model(model):
+                continue
+            modalities = _modalities(model)
+            if kind == "vision" and "image" not in modalities:
+                continue
+            candidates.append(model_id)
+        if candidates:
+            selected = sorted(candidates, key=_free_model_score)[0]
+    except Exception as e:
+        print(f"⚠️  OpenRouter 免费模型列表获取失败: {e}", file=sys.stderr, flush=True)
+    _MODEL_CACHE[cache_key] = selected
+    if selected:
+        print(f"✓ 自动选择 OpenRouter 免费{('视觉' if kind == 'vision' else '文本')}模型: {selected}", file=sys.stderr, flush=True)
+    return selected
+
+
 def text_model() -> str:
-    return _env("LLM_MODEL", DEFAULT_TEXT_MODEL)
+    explicit = _env("LLM_MODEL")
+    if explicit:
+        return explicit
+    base = api_base()
+    if _is_openrouter(base):
+        return _auto_free_model("text") or DEFAULT_TEXT_MODEL
+    if base == OPENAI_API_BASE:
+        return OPENAI_TEXT_MODEL
+    return DEFAULT_TEXT_MODEL
 
 
 def vision_model() -> str:
-    return _env("OCR_MODEL") or _env("LLM_MODEL") or DEFAULT_VISION_MODEL
+    explicit = _env("OCR_MODEL") or _env("LLM_MODEL")
+    if explicit:
+        return explicit
+    base = api_base()
+    if _is_openrouter(base):
+        return _auto_free_model("vision") or DEFAULT_VISION_MODEL
+    if base == OPENAI_API_BASE:
+        return OPENAI_VISION_MODEL
+    return DEFAULT_VISION_MODEL
 
 
 def encode_image_data_url(path: str | Path) -> str:
