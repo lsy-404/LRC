@@ -10,8 +10,10 @@
 - cover_path：封面图
 
 输出 res/<专辑>/：
-- <序号> <曲名>.lrc：音频按覆盖率匹配到轨 → align 强制对齐成 timed LRC（逐字增强，
-  行内附 <字时间> 标签）；无匹配音频则写无时间轴草稿
+- <序号> <曲名>.lrc：音频按覆盖率匹配到轨 → align 强制对齐成标准行级 timed LRC；
+  无匹配音频则写无时间轴草稿
+- <序号> <曲名>.klrc：同一次对齐的逐字增强版侧车文件（行内附 <字时间> 标签），
+  仅在匹配到音频时才有；与 .lrc 分文件存放，不影响标准 LRC 播放器/解析器兼容性
 - meta.toml：credits/staff 抽取 + manifest 覆盖
 - cover.<ext>：若提供封面
 """
@@ -285,8 +287,13 @@ def build_track_lrc(
     audio_words: dict[str, list],
     used: set,
     audio_langs: dict[str, str] | None = None,
-) -> tuple[str, float]:
-    """为一轨生成 LRC：能匹配音频→对齐(timed)，否则无时间轴草稿。返回(lrc, 覆盖率)。"""
+) -> tuple[str, float, Optional[str]]:
+    """为一轨生成 LRC：能匹配音频→对齐(timed)，否则无时间轴草稿。
+
+    返回 (lrc, 覆盖率, lrc_words)。lrc 是标准行级 LRC（不含逐字标签，
+    保证任何播放器/解析器兼容）；lrc_words 是同一份对齐结果的逐字增强版
+    （行内 <字时间> 标签），另存 .klrc 侧车文件，不匹配音频时为 None。
+    """
     title = str(track.get("title", "")).strip()
     lines = track.get("lines") or [l for l in str(track.get("lyrics", "")).splitlines() if l.strip()]
     by = ""
@@ -299,15 +306,18 @@ def build_track_lrc(
         lang = (audio_langs or {}).get(audio, "")
         lrc = align_mod.align(
             lines, audio_words[audio], title=title, album=album, by=by, language=lang,
+        )
+        lrc_words = align_mod.align(
+            lines, audio_words[audio], title=title, album=album, by=by, language=lang,
             per_char=True,
         )
         cov = align_mod.coverage(lines, audio_words[audio], language=lang)
         print(f"  ♪ {title} ← {audio} (覆盖率 {cov:.0%})", file=sys.stderr)
-        return lrc, cov
+        return lrc, cov, lrc_words
     # 无匹配音频：无时间轴草稿
     header = f"[ti:{title}]\n[al:{album}]\n[ar:]\n[by:{by}]\n\n"
     print(f"  ○ {title}: 无匹配音频，输出无时间轴草稿", file=sys.stderr)
-    return header + "\n".join(lines) + "\n", 0.0
+    return header + "\n".join(lines) + "\n", 0.0, None
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -388,9 +398,12 @@ def organize(
     for i, t in enumerate(tracks, 1):
         order = t.get("order", i) or i
         title = _sanitize_filename(str(t.get("title", "")).strip() or f"track{order}")
-        lrc, cov = build_track_lrc(t, album, audio_words, used, audio_langs)
+        lrc, cov, lrc_words = build_track_lrc(t, album, audio_words, used, audio_langs)
         covs.append(cov)
         _emit(album_rel / f"{order} {title}.lrc", lrc)
+        if lrc_words:
+            # 逐字增强版另存 .klrc（非 .lrc 后缀），与标准 LRC 分离以保证播放器兼容性
+            _emit(album_rel / f"{order} {title}.klrc", lrc_words)
 
     # 未匹配到轨的音频：单独输出机器转写（不丢）——此处仅记日志，避免误入库
     leftover = [n for n in audio_words if n not in used]

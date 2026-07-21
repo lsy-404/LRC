@@ -60,6 +60,24 @@ def format_display_name(prefix: str, zh_name: str, en_name: str, suffix: str, fa
     return " ".join(parts) if parts else fallback
 
 
+def _merge_word_timings(lyrics: list[dict[str, Any]], klrc_file: Path) -> list[dict[str, Any]]:
+    """把 .klrc 侧车文件（逐字增强 LRC）的 words 合并进标准 .lrc 解析出的行列表。
+
+    .klrc 与对应 .lrc 由同一次 align() 对齐产出，行时间戳逐字节相同，按 time 精确匹配。
+    没有 .klrc（未匹配到音频/旧数据）时原样返回，行上不出现 words 键。
+    """
+    if not klrc_file.is_file():
+        return lyrics
+    words_by_time = {
+        entry["time"]: entry["words"] for entry in load_lrc_lines(klrc_file) if entry.get("words")
+    }
+    for entry in lyrics:
+        words = words_by_time.get(entry["time"])
+        if words:
+            entry["words"] = words
+    return lyrics
+
+
 def build_album_entry(album_dir: Path) -> dict[str, Any]:
     info, _ = load_album_meta(album_dir)
     slug = sanitize_artifact_name(album_dir.name)
@@ -77,7 +95,7 @@ def build_album_entry(album_dir: Path) -> dict[str, Any]:
     songs = [
         {
             "title": lrc_file.stem,
-            "lyrics": load_lrc_lines(lrc_file),
+            "lyrics": _merge_word_timings(load_lrc_lines(lrc_file), lrc_file.with_suffix(".klrc")),
         }
         for lrc_file in lrc_files
     ]
