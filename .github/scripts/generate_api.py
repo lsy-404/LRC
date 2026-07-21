@@ -77,7 +77,6 @@ def build_album_entry(album_dir: Path) -> dict[str, Any]:
     songs = [
         {
             "title": lrc_file.stem,
-            "file": lrc_file.name,
             "lyrics": load_lrc_lines(lrc_file),
         }
         for lrc_file in lrc_files
@@ -118,9 +117,9 @@ def build_album_entry(album_dir: Path) -> dict[str, Any]:
 
 
 def build_list_entry(album: dict[str, Any]) -> dict[str, Any]:
-    """列表条目 = 完整专辑信息，仅将 songs 精简为不含歌词的 {title, file}。"""
+    """列表条目 = 完整专辑信息，仅将 songs 精简为不含歌词的 {title}。"""
     entry = dict(album)
-    entry["songs"] = [{"title": song["title"], "file": song["file"]} for song in album["songs"]]
+    entry["songs"] = [{"title": song["title"]} for song in album["songs"]]
     entry["song_count"] = len(entry["songs"])
     entry["detail_url"] = f"/api/albums/{album['slug']}.json"
     return entry
@@ -139,7 +138,7 @@ def main() -> None:
 
         detail_path = API_DIR / "albums" / f"{album['slug']}.json"
         detail_path.write_text(
-            json.dumps(album, ensure_ascii=False, indent=2) + "\n",
+            json.dumps(album, ensure_ascii=False, separators=(",", ":")),
             encoding="utf-8",
         )
 
@@ -147,7 +146,7 @@ def main() -> None:
 
     albums_index = {"count": len(list_entries), "albums": list_entries}
     (API_DIR / "albums.json").write_text(
-        json.dumps(albums_index, ensure_ascii=False, indent=2) + "\n",
+        json.dumps(albums_index, ensure_ascii=False, separators=(",", ":")),
         encoding="utf-8",
     )
 
