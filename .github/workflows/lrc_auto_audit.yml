@@ -108,12 +108,23 @@ jobs:
           PR_NUMBER: ${{ steps.pr.outputs.number }}
           GH_REPO: ${{ github.repository }}
 
-      - name: Auto Approve and Merge
+      - name: Auto Approve
         if: steps.python-audit.outcome == 'success'
-        run: |
-          gh pr review "$PR_NUMBER" --approve
-          gh pr merge --auto --squash "$PR_NUMBER"
+        run: gh pr review "$PR_NUMBER" --approve
         env:
+          # PULL_TOKEN 和开 PR 用的是同一身份，GitHub 不允许自己批准自己的 PR
+          # （"Can not approve your own pull request"）；换成默认 GITHUB_TOKEN
+          # （github-actions[bot] 身份，跟 PR 作者不是同一账号）来批准。
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+          GH_REPO: ${{ github.repository }}
+
+      - name: Auto Merge
+        if: steps.python-audit.outcome == 'success'
+        run: gh pr merge --auto --squash "$PR_NUMBER"
+        env:
+          # 合并仍用 PULL_TOKEN：用默认 GITHUB_TOKEN 合并不会触发后续 push 到
+          # main 的 workflow（generate.yml 建目录页/静态API），必须用 PAT。
           GH_TOKEN: ${{ secrets.PULL_TOKEN }}
           PR_NUMBER: ${{ steps.pr.outputs.number }}
           GH_REPO: ${{ github.repository }}
