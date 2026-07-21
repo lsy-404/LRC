@@ -5,10 +5,9 @@ import shutil
 import urllib.parse
 from pathlib import Path
 
-from pypinyin import lazy_pinyin
-
 from lib.config_loader import load_config
 from lib.meta_parser import load_album_meta
+from lib.naming import sanitize_artifact_name
 
 CONFIG = load_config()
 PROJECT = CONFIG.get("project", {})
@@ -20,37 +19,7 @@ RES_DIR = ROOT_DIR / str(PROJECT.get("res_dir", "res"))
 DOCS_DIR = ROOT_DIR / str(PROJECT.get("docs_dir", "docs"))
 ALBUMS_DIR = ROOT_DIR / str(PROJECT.get("albums_dir", "docs/albums"))
 COVER_EXTENSIONS = [str(item) for item in COMMON.get("cover_ext", [".jpg", ".png", ".jpeg", ".webp", ".bmp"])]
-HAN_RE = re.compile(r"[\u4e00-\u9fff]")
-NON_ASCII_ARTIFACT_RE = re.compile(r"[^A-Za-z0-9_\-\n]+")
 BVID_RE = re.compile(r"\b(BV[0-9A-Za-z]{10})\b", re.IGNORECASE)
-
-
-def sanitize_artifact_name(raw_name: str) -> str:
-    text = (raw_name or "").strip()
-    if not text:
-        return "album"
-
-    # 中英相邻时先插入分隔符，避免拼音与英文粘连
-    text = re.sub(r"(?<=[\u4e00-\u9fff])(?=[A-Za-z])", "_", text)
-    text = re.sub(r"(?<=[A-Za-z])(?=[\u4e00-\u9fff])", "_", text)
-
-    converted_parts: list[str] = []
-    for ch in text:
-        if HAN_RE.fullmatch(ch):
-            py = "".join(lazy_pinyin(ch, errors="ignore"))
-            if py:
-                converted_parts.append(py)
-        else:
-            converted_parts.append(ch)
-
-    converted = "".join(converted_parts)
-    converted = converted.replace(" ", "_")
-    converted = NON_ASCII_ARTIFACT_RE.sub("", converted)
-    converted = re.sub(r"_+", "_", converted)
-    converted = re.sub(r"-+", "-", converted)
-    converted = converted.strip("_-")
-
-    return converted or "album"
 
 
 def _decode_lrc(raw: bytes) -> str:

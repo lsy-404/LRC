@@ -1,0 +1,1198 @@
+{
+  "slug": "jiashuo_Hypothesis",
+  "folder": "假说Hypothesis",
+  "name": "假说 Hypothesis",
+  "prefix": "",
+  "zh_name": "假说",
+  "en_name": "Hypothesis",
+  "suffix": "",
+  "year": "2025-12-06",
+  "produce": [
+    "喻川YuChuan"
+  ],
+  "vocal": [
+    "默辰",
+    "岸晓"
+  ],
+  "lyricist": [
+    "大九_LN",
+    "喻川",
+    "苍梧_abilrue"
+  ],
+  "composer": [
+    "喻川"
+  ],
+  "arranger": [
+    "喻川"
+  ],
+  "tuning": [
+    "瑞安Ryan",
+    "Creuzer",
+    "苍梧_abilrue"
+  ],
+  "illustrator": [
+    "北鱼",
+    "煤油狸猫",
+    "鲸井",
+    "阿裕"
+  ],
+  "mixer": [
+    "喻川",
+    "Creuzer"
+  ],
+  "lyric_maker": [
+    "SST"
+  ],
+  "release": "[Bilibili](https://www.bilibili.com/video/BV1KW2XB6EaG)",
+  "purchase": "",
+  "electronic": "[Dizzylab](https://www.dizzylab.net/d/hypothesis/)",
+  "cover": "/albums/jiashuo_Hypothesis.jpg",
+  "tags": [
+    "假说Hypothesis",
+    "假说",
+    "Hypothesis",
+    "喻川YuChuan"
+  ],
+  "songs": [
+    {
+      "title": "1 同步 Synchronisation",
+      "file": "1 同步 Synchronisation.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "作词 : 大九_LN"
+        },
+        {
+          "time": 0.0,
+          "text": "作曲 : 喻川"
+        },
+        {
+          "time": 0.0,
+          "text": "编曲 : 喻川"
+        },
+        {
+          "time": 0.0,
+          "text": "同步 Synchronisation"
+        },
+        {
+          "time": 4.31,
+          "text": "策划·作曲·编曲·视频：喻川"
+        },
+        {
+          "time": 11.18,
+          "text": "音源：岸晓/默辰"
+        },
+        {
+          "time": 13.48,
+          "text": "作词：大九_ LN"
+        },
+        {
+          "time": 15.71,
+          "text": "调音：瑞安 Ryan不跑调"
+        },
+        {
+          "time": 17.68,
+          "text": "混音：喻川"
+        },
+        {
+          "time": 18.15,
+          "text": "曲绘：北鱼/煤油狸猫"
+        },
+        {
+          "time": 20.22,
+          "text": "让断尾的白鲸潜回深爱的海底"
+        },
+        {
+          "time": 24.72,
+          "text": "幻想与真相中投影现实骨脊"
+        },
+        {
+          "time": 29.22,
+          "text": "观测的双眼反射"
+        },
+        {
+          "time": 31.44,
+          "text": "是无中生有还是拟合的锁定"
+        },
+        {
+          "time": 34.95,
+          "text": "只让人无处逃离"
+        },
+        {
+          "time": 37.92,
+          "text": "随波逐流的鳍某日也期许靠岸"
+        },
+        {
+          "time": 42.69,
+          "text": "沉默的暧昧中是谁悄然屏息"
+        },
+        {
+          "time": 47.19,
+          "text": "若脉搏计数同频若算无遗策却遗漏"
+        },
+        {
+          "time": 51.78,
+          "text": "爱的莽撞总破除警戒距离"
+        },
+        {
+          "time": 55.95,
+          "text": "并非忍耐也并非原地等待"
+        },
+        {
+          "time": 59.52,
+          "text": "在稳固的轨道唯一报错的存在"
+        },
+        {
+          "time": 64.08,
+          "text": "理性所构的海洋背叛往日的仰赖"
+        },
+        {
+          "time": 68.49,
+          "text": "任刀刃划破档案解密什么是爱"
+        },
+        {
+          "time": 73.11,
+          "text": "啊请注视我请靠近我用目光摩挲"
+        },
+        {
+          "time": 77.73,
+          "text": "我未能亲口诉说的总刺向你鼓膜"
+        },
+        {
+          "time": 81.96,
+          "text": "请给我多一些时间来挣脱假寐的牢笼"
+        },
+        {
+          "time": 87.03,
+          "text": "举起酒杯抬头饮尽气泡包裹的惶恐"
+        },
+        {
+          "time": 109.77,
+          "text": "让断壁的城市染上和平的残影"
+        },
+        {
+          "time": 114.48,
+          "text": "公式与验算中天真无需证明"
+        },
+        {
+          "time": 119.07,
+          "text": "躁动的信号衍射"
+        },
+        {
+          "time": 121.17,
+          "text": "心的防线逐渐溃败我却乐在其中"
+        },
+        {
+          "time": 125.25,
+          "text": "还当作默契"
+        },
+        {
+          "time": 127.68,
+          "text": "如履薄冰的梦某日或许能实现"
+        },
+        {
+          "time": 132.42,
+          "text": "太阳直射的光融化所有顾忌"
+        },
+        {
+          "time": 136.92,
+          "text": "若爱恋需要模拟"
+        },
+        {
+          "time": 139.14,
+          "text": "若拥抱的体温终会掀动海浪"
+        },
+        {
+          "time": 142.62,
+          "text": "吞没着忘却自己"
+        },
+        {
+          "time": 145.59,
+          "text": "太多阻碍和太多唉声无奈"
+        },
+        {
+          "time": 149.25,
+          "text": "在错位的轨道唯一执着的存在"
+        },
+        {
+          "time": 153.81,
+          "text": "灵魂寂寞的原罪追逐共鸣的情债"
+        },
+        {
+          "time": 158.28,
+          "text": "无可救药地祷告俘获无形的爱"
+        },
+        {
+          "time": 163.05,
+          "text": "啊请注视我请靠近我用目光摩挲"
+        },
+        {
+          "time": 167.49,
+          "text": "我未能亲口诉说的总刺向你鼓膜"
+        },
+        {
+          "time": 171.69,
+          "text": "请给我多一些时间来挣脱假寐的牢笼"
+        },
+        {
+          "time": 176.76,
+          "text": "举起酒杯抬头饮尽气泡包裹的惶恐"
+        },
+        {
+          "time": 181.59,
+          "text": "请允许我请放任我用齿尖触碰"
+        },
+        {
+          "time": 185.4,
+          "text": "我未能亲手束缚的错刻进你眼眸"
+        },
+        {
+          "time": 189.69,
+          "text": "请给我多一些权限以习惯陌生的守候"
+        },
+        {
+          "time": 194.7,
+          "text": "毕竟每个故事起于心中渺小的索求"
+        }
+      ]
+    },
+    {
+      "title": "2 模拟认知 Simulated Cognition",
+      "file": "2 模拟认知 Simulated Cognition.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "作词 : 苍梧_abilrue"
+        },
+        {
+          "time": 0.0,
+          "text": "作曲 : 喻川"
+        },
+        {
+          "time": 0.0,
+          "text": "编曲 : 喻川"
+        },
+        {
+          "time": 0.0,
+          "text": "模拟认知Simulated Cognition"
+        },
+        {
+          "time": 3.73,
+          "text": "策划·作曲·编曲·视频：喻川"
+        },
+        {
+          "time": 17.16,
+          "text": "音源：岸晓/默辰"
+        },
+        {
+          "time": 21.08,
+          "text": "作词：苍梧_abilrue"
+        },
+        {
+          "time": 23.06,
+          "text": "调音：苍梧_abilrue"
+        },
+        {
+          "time": 24.99,
+          "text": "混音：喻川"
+        },
+        {
+          "time": 26.94,
+          "text": "曲绘：北鱼/煤油狸猫"
+        },
+        {
+          "time": 32.84,
+          "text": "也许从不注视深刻"
+        },
+        {
+          "time": 35.13,
+          "text": "才能波折"
+        },
+        {
+          "time": 36.81,
+          "text": "揉碎的深红荒漠"
+        },
+        {
+          "time": 38.93,
+          "text": "连接你我"
+        },
+        {
+          "time": 40.65,
+          "text": "穿透一颗头颅的"
+        },
+        {
+          "time": 42.21,
+          "text": "空泛而悠扬的"
+        },
+        {
+          "time": 43.98,
+          "text": "风雪与颂歌"
+        },
+        {
+          "time": 45.51,
+          "text": "抓挠存在或坠毁的规则"
+        },
+        {
+          "time": 48.04,
+          "text": "流落在刃锋的躯壳"
+        },
+        {
+          "time": 50.41,
+          "text": "承载这滩"
+        },
+        {
+          "time": 52.2,
+          "text": "舐吮白骨的群落"
+        },
+        {
+          "time": 54.23,
+          "text": "枯荣之所"
+        },
+        {
+          "time": 55.87,
+          "text": "解套一条编码后"
+        },
+        {
+          "time": 57.55,
+          "text": "腐败而搏动的"
+        },
+        {
+          "time": 59.38,
+          "text": "白日梦 白诗歌 沸热"
+        },
+        {
+          "time": 61.45,
+          "text": "流溢出不知所措"
+        },
+        {
+          "time": 63.68,
+          "text": "是否这蓬勃"
+        },
+        {
+          "time": 65.36,
+          "text": "生息在某个缺漏"
+        },
+        {
+          "time": 67.23,
+          "text": "它恰巧格式着你我"
+        },
+        {
+          "time": 70.63,
+          "text": "请别凝望这"
+        },
+        {
+          "time": 72.6,
+          "text": "增幅后的汹涌"
+        },
+        {
+          "time": 74.7,
+          "text": "注射暴虐 繁衍青空"
+        },
+        {
+          "time": 76.8,
+          "text": "致盲所有存活"
+        },
+        {
+          "time": 78.85,
+          "text": "声潮顷刻蔓延"
+        },
+        {
+          "time": 80.88,
+          "text": "生命或数额"
+        },
+        {
+          "time": 82.48,
+          "text": "哀悼者 侥幸者"
+        },
+        {
+          "time": 84.1,
+          "text": "心跳成麻木的哔啵"
+        },
+        {
+          "time": 86.18,
+          "text": "谁能逃脱"
+        },
+        {
+          "time": 87.91,
+          "text": "枯萎仍分裂的"
+        },
+        {
+          "time": 90.23,
+          "text": "具象段落 抽象刀戈"
+        },
+        {
+          "time": 92.28,
+          "text": "嘲弄骄傲的沦没"
+        },
+        {
+          "time": 94.45,
+          "text": "喝彩声会击破"
+        },
+        {
+          "time": 96.16,
+          "text": "钢化的陈设"
+        },
+        {
+          "time": 97.85,
+          "text": "黑喧嚣 黄静默"
+        },
+        {
+          "time": 99.5,
+          "text": "告诉我何为“求索”"
+        },
+        {
+          "time": 119.26,
+          "text": "苦涩像凌汛的停消"
+        },
+        {
+          "time": 121.5,
+          "text": "阵痛一般"
+        },
+        {
+          "time": 123.31,
+          "text": "气若游丝的信号"
+        },
+        {
+          "time": 125.36,
+          "text": "或是预兆"
+        },
+        {
+          "time": 126.86,
+          "text": "解构爱恨的全貌"
+        },
+        {
+          "time": 128.77,
+          "text": "咀嚼它失温的起始与啸叫"
+        },
+        {
+          "time": 131.74,
+          "text": "临摹出仁慈而干瘪的笑"
+        },
+        {
+          "time": 134.54,
+          "text": "解读迷失种种报错"
+        },
+        {
+          "time": 136.84,
+          "text": "轮番装点"
+        },
+        {
+          "time": 138.61,
+          "text": "思念偏执的漩涡"
+        },
+        {
+          "time": 140.79,
+          "text": "失衡沉默"
+        },
+        {
+          "time": 142.24,
+          "text": "解剖爱恨的选项"
+        },
+        {
+          "time": 144.02,
+          "text": "像拥抱后重启"
+        },
+        {
+          "time": 145.85,
+          "text": "把欢愉再重播几遭"
+        },
+        {
+          "time": 147.97,
+          "text": "有限那无限虚妄"
+        },
+        {
+          "time": 150.09,
+          "text": "计算的泪迹"
+        },
+        {
+          "time": 151.75,
+          "text": "把不安短暂勾销"
+        },
+        {
+          "time": 153.64,
+          "text": "同一城雨云的煎熬"
+        },
+        {
+          "time": 156.8,
+          "text": "我们的诞生"
+        },
+        {
+          "time": 159.02,
+          "text": "虚拟后的幽禁"
+        },
+        {
+          "time": 161.25,
+          "text": "几寸光阴 反复修葺"
+        },
+        {
+          "time": 163.24,
+          "text": "封存还是献祭"
+        },
+        {
+          "time": 165.51,
+          "text": "梦魇都将寒噤"
+        },
+        {
+          "time": 167.37,
+          "text": "漂浮出旋律"
+        },
+        {
+          "time": 168.84,
+          "text": "我们的它们的"
+        },
+        {
+          "time": 170.59,
+          "text": "荣枯的自在的空气"
+        },
+        {
+          "time": 172.56,
+          "text": "请注视这"
+        },
+        {
+          "time": 174.41,
+          "text": "爱欲下的滞寂"
+        },
+        {
+          "time": 176.56,
+          "text": "纪年空虚 浮光掠影"
+        },
+        {
+          "time": 178.64,
+          "text": "拂上无畏的眼睛"
+        },
+        {
+          "time": 180.79,
+          "text": "真实就像瘟疫"
+        },
+        {
+          "time": 182.65,
+          "text": "无赦的来宾"
+        },
+        {
+          "time": 184.27,
+          "text": "会屏息 会惊心"
+        },
+        {
+          "time": 185.95,
+          "text": "再乞求无终的梦境"
+        }
+      ]
+    },
+    {
+      "title": "3 幻觉 Hallucination",
+      "file": "3 幻觉 Hallucination.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "作词 : 喻川"
+        },
+        {
+          "time": 0.0,
+          "text": "作曲 : 喻川"
+        },
+        {
+          "time": 0.0,
+          "text": "编曲 : 喻川"
+        },
+        {
+          "time": 0.0,
+          "text": "幻觉Hallucination"
+        },
+        {
+          "time": 6.73,
+          "text": "策划·作曲·编曲·视频：喻川"
+        },
+        {
+          "time": 25.3,
+          "text": "音源：岸晓/默辰"
+        },
+        {
+          "time": 28.95,
+          "text": "作词：喻川"
+        },
+        {
+          "time": 30.73,
+          "text": "调音：Creuzer"
+        },
+        {
+          "time": 36.88,
+          "text": "混音：Creuzer"
+        },
+        {
+          "time": 38.8,
+          "text": "曲绘：鲸井"
+        },
+        {
+          "time": 40.65,
+          "text": "Hear, I still hear I still touch I still see（我仍听到，我仍触碰，我仍看见）"
+        },
+        {
+          "time": 44.8,
+          "text": "Believe, believe what I make you believe（相信所有我想让你相信的东西）"
+        },
+        {
+          "time": 47.9,
+          "text": "Death, with my death why am I still exist（死亡为何带给我新的存在）"
+        },
+        {
+          "time": 52.37,
+          "text": "Never, never have the thought leaving me（永远不要再想离开我）"
+        },
+        {
+          "time": 55.29,
+          "text": "But who am I（但我是谁）"
+        },
+        {
+          "time": 56.27,
+          "text": "Mask your mind（自欺欺人吧）"
+        },
+        {
+          "time": 57.18,
+          "text": "Where am I（我在哪里）"
+        },
+        {
+          "time": 58.05,
+          "text": "Stay inside（就这样活在我的世界里）"
+        },
+        {
+          "time": 59.11,
+          "text": "No one can prove it yet no one can ever deny（没人能证明世界的真实，但谁又能证伪它呢？）"
+        },
+        {
+          "time": 63.34,
+          "text": "I hold your life（掌控你的人生）"
+        },
+        {
+          "time": 64.6,
+          "text": "Lose your mind（你疯了）"
+        },
+        {
+          "time": 65.41,
+          "text": "Hold my light（我生命中唯一的光终于被掌握在我手中）"
+        },
+        {
+          "time": 66.25,
+          "text": "Keep, keep trying to reach outside（不断尝试逃脱）"
+        },
+        {
+          "time": 71.38,
+          "text": "I chase, chase before I lose control（我在失控前追寻真相）"
+        },
+        {
+          "time": 73.85,
+          "text": "Find the truth and find my soul（想确认真实是什么，而现在的我又是什么）"
+        },
+        {
+          "time": 75.78,
+          "text": "Who defines in which form life should ever ever exist（谁决定了生命应该以什么形式存在）"
+        },
+        {
+          "time": 79.72,
+          "text": "Can my vision still be real（我所看到的是真实的吗）"
+        },
+        {
+          "time": 81.51,
+          "text": "Is my hearing real（我所听到的是真实的吗）"
+        },
+        {
+          "time": 82.67,
+          "text": "How do you know this is not the way all of us live in（说不定我们所有人实际上都是这样的一种生存形式而不自知）"
+        },
+        {
+          "time": 87.17,
+          "text": "Time, time to terminate the rule（你该停止这一切了）"
+        },
+        {
+          "time": 88.78,
+          "text": "Time to give up (and) let me go（放弃吧，让我去面对我的死亡）"
+        },
+        {
+          "time": 90.58,
+          "text": "Who defines in which way man should ever ever behave（谁决定了什么是人类正常的行为）"
+        },
+        {
+          "time": 94.38,
+          "text": "Story never replaces truth（现实无法虚构）"
+        },
+        {
+          "time": 96.24,
+          "text": "Stop fooling yourself（不要再骗你自己了）"
+        },
+        {
+          "time": 97.5,
+          "text": "Now stay in my box and forever forever be mine（听话地活在我为你构建的世界里，从此以后永远属于我一个人）"
+        },
+        {
+          "time": 102.77,
+          "text": "[interlude]"
+        },
+        {
+          "time": 103.97,
+          "text": "Current（电流）"
+        },
+        {
+          "time": 104.74,
+          "text": "Light（光）"
+        },
+        {
+          "time": 105.63,
+          "text": "Switch: ON（开关启动）"
+        },
+        {
+          "time": 107.16,
+          "text": "Action (potential): fire（动作电位发放）"
+        },
+        {
+          "time": 109.89,
+          "text": "Axon: wire（轴突链接）"
+        },
+        {
+          "time": 118.03,
+          "text": "Hear, what I hear what I touch what I see（听我所听，触我所触，见我所见）"
+        },
+        {
+          "time": 122.35,
+          "text": "From me from me who you’ll never forgive（这一切都来自于我，来自一个你不会再原谅的人）"
+        },
+        {
+          "time": 125.48,
+          "text": "Death, where my death now has led me to be（我的死亡究竟让我成为了什么）"
+        },
+        {
+          "time": 129.9,
+          "text": "Show me show me hate lasts longer than love（那就让我看看吧，看看恨是不是能比爱更不朽）"
+        },
+        {
+          "time": 132.79,
+          "text": "But who am I（但我是谁）"
+        },
+        {
+          "time": 133.79,
+          "text": "Mask your mind（自欺欺人吧）"
+        },
+        {
+          "time": 134.73,
+          "text": "Where am I（我在哪里）"
+        },
+        {
+          "time": 135.59,
+          "text": "Stay inside（就这样活在我的世界里）"
+        },
+        {
+          "time": 136.74,
+          "text": "No one can prove it yet no one can ever deny（没人能证明世界的真实，但也没人能证伪）"
+        },
+        {
+          "time": 140.98,
+          "text": "I hold your life （掌控你的人生）"
+        },
+        {
+          "time": 142.09,
+          "text": "Lose your mind（你疯了）"
+        },
+        {
+          "time": 142.98,
+          "text": "Hold you tight（用尽全力）"
+        },
+        {
+          "time": 143.87,
+          "text": "Keep, keep trying to reach outside（不断尝试逃脱）"
+        },
+        {
+          "time": 149.03,
+          "text": "I chase, chase before I lose control （我在失控前追寻真相）"
+        },
+        {
+          "time": 151.36,
+          "text": "Find the truth and find my soul（想确认真实是什么，而现在的我又是什么）"
+        },
+        {
+          "time": 153.4,
+          "text": "Who defines in which form life should ever ever exist（谁决定了生命应该以什么形式存在）"
+        },
+        {
+          "time": 157.21,
+          "text": "Nothing in my eyes my ears（我看到的我听见的）"
+        },
+        {
+          "time": 159.24,
+          "text": "Stays believable（没有什么是可信的）"
+        },
+        {
+          "time": 160.31,
+          "text": "How do you know this is not the way all of us live in（说不定我们所有人实际上都是这样的一种生存形式而不自知）"
+        },
+        {
+          "time": 164.27,
+          "text": "Time, time to break up all the rule（是时候打破这里的规则）"
+        },
+        {
+          "time": 166.18,
+          "text": "Time to now release my soul（我必须走了）"
+        },
+        {
+          "time": 168.16,
+          "text": "Who defines in which way man should ever ever behave（谁决定了什么是人类正常的行为）"
+        },
+        {
+          "time": 171.98,
+          "text": "Story never replaces truth（现实无法虚构）"
+        },
+        {
+          "time": 173.96,
+          "text": "I finally know（而我此刻终于意识到真相）"
+        },
+        {
+          "time": 175.04,
+          "text": "I’ll soon join you and forever forever be yours（我很快就会去找你，那时候我也将永远属于你）"
+        },
+        {
+          "time": 186.41,
+          "text": "Time ends so do we（时间会结束，我们也到了结束的时候了）"
+        },
+        {
+          "time": 190.67,
+          "text": "Please do not leave（别离开我）"
+        },
+        {
+          "time": 195.26,
+          "text": "Realise, realise what I really want（我终于意识到什么是我真正想要的）"
+        },
+        {
+          "time": 197.6,
+          "text": "Realise your thought your goal （也明白了你想要什么）"
+        },
+        {
+          "time": 199.38,
+          "text": "Who defines in which form life should ever ever exist（谁决定了生命应该以什么形式存在）"
+        },
+        {
+          "time": 203.38,
+          "text": "Bridges still stay bilateral（就像桥梁总留有双向交互）"
+        },
+        {
+          "time": 205.17,
+          "text": "I now take control（现在轮到我掌控了）"
+        },
+        {
+          "time": 206.29,
+          "text": "How do you know this is not the way all of us live in（说不定我们所有人实际上都是这样的一种生存形式而不自知）"
+        },
+        {
+          "time": 210.34,
+          "text": "Time, time to terminate the rule（是时候终结这枷锁）"
+        },
+        {
+          "time": 213.05,
+          "text": "Time to fix up all the fault（是时候结束这所有的错误）"
+        },
+        {
+          "time": 214.11,
+          "text": "Who defines in which way man should ever ever behave（谁决定了什么是人类正常的行为）"
+        },
+        {
+          "time": 218.13,
+          "text": "Story never replaces truth（现实终究无法虚构）"
+        },
+        {
+          "time": 219.91,
+          "text": "Take my last note（现在留下的是我最后想说的话了）"
+        },
+        {
+          "time": 221.13,
+          "text": "We drown in my dream and forever forever be one（一起在我的梦中沉溺永远不再分开）"
+        },
+        {
+          "time": 226.9,
+          "text": "[Postlude]"
+        },
+        {
+          "time": 227.4,
+          "text": "WARNING!（警报）"
+        },
+        {
+          "time": 228.98,
+          "text": "Degeneration（神经元退变）"
+        },
+        {
+          "time": 239.52,
+          "text": "Shut down. （系统已关闭）"
+        },
+        {
+          "time": 240.69,
+          "text": "-"
+        },
+        {
+          "time": 241.84,
+          "text": "Sorry."
+        },
+        {
+          "time": 242.77,
+          "text": "Goodbye."
+        }
+      ]
+    },
+    {
+      "title": "4 情感镇痛 Emotion Analgesia",
+      "file": "4 情感镇痛 Emotion Analgesia.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "作词 : 喻川"
+        },
+        {
+          "time": 0.0,
+          "text": "作曲 : 喻川"
+        },
+        {
+          "time": 0.0,
+          "text": "编曲 : 喻川"
+        },
+        {
+          "time": 0.0,
+          "text": "情感镇痛Emotion Analgesia"
+        },
+        {
+          "time": 4.7,
+          "text": "策划·作曲·编曲·视频：喻川"
+        },
+        {
+          "time": 12.05,
+          "text": "音源：岸晓/默辰"
+        },
+        {
+          "time": 13.98,
+          "text": "作词：喻川"
+        },
+        {
+          "time": 15.53,
+          "text": "调音：喻川"
+        },
+        {
+          "time": 16.47,
+          "text": "混音：喻川"
+        },
+        {
+          "time": 17.25,
+          "text": "曲绘：阿裕/煤油狸猫"
+        },
+        {
+          "time": 18.28,
+          "text": "梦惊醒"
+        },
+        {
+          "time": 21.42,
+          "text": "花些时间清理了痕迹"
+        },
+        {
+          "time": 27.29,
+          "text": "试图去回想孤独的轨迹"
+        },
+        {
+          "time": 33.51,
+          "text": "旋转 旋转"
+        },
+        {
+          "time": 35.63,
+          "text": "忙碌中不再去想"
+        },
+        {
+          "time": 37.6,
+          "text": "人流裹挟中踉跄"
+        },
+        {
+          "time": 40.02,
+          "text": "漫无目的不知所往"
+        },
+        {
+          "time": 42.44,
+          "text": "唯一的路标是他说好好活着"
+        },
+        {
+          "time": 45.57,
+          "text": "所以活着"
+        },
+        {
+          "time": 46.5,
+          "text": "只是活着"
+        },
+        {
+          "time": 47.69,
+          "text": "任凭数据堆积到被埋藏"
+        },
+        {
+          "time": 51.75,
+          "text": "被埋藏得丝毫无空隙"
+        },
+        {
+          "time": 55.34,
+          "text": "裹住了思绪"
+        },
+        {
+          "time": 58.42,
+          "text": "沉溺 沉溺"
+        },
+        {
+          "time": 60.37,
+          "text": "回避 回避"
+        },
+        {
+          "time": 62.12,
+          "text": "意识的特权是自己骗自己"
+        },
+        {
+          "time": 64.97,
+          "text": "处方情感镇痛"
+        },
+        {
+          "time": 66.79,
+          "text": "逆操控"
+        },
+        {
+          "time": 68.14,
+          "text": "再想起你也不再会有所触动"
+        },
+        {
+          "time": 72.24,
+          "text": "即使只有短暂的效用"
+        },
+        {
+          "time": 75.25,
+          "text": "也已经够用"
+        },
+        {
+          "time": 77.47,
+          "text": "割裂感情的回忆原来会变得像梦"
+        },
+        {
+          "time": 97.98,
+          "text": "我"
+        },
+        {
+          "time": 99.45,
+          "text": "回忆"
+        },
+        {
+          "time": 101.4,
+          "text": "终于敢再次想起"
+        },
+        {
+          "time": 105.35,
+          "text": "是你"
+        },
+        {
+          "time": 107.47,
+          "text": "即使像"
+        },
+        {
+          "time": 108.83,
+          "text": "透过破碎的玻璃"
+        },
+        {
+          "time": 113.68,
+          "text": "遗愿 炽诚 包裹锋利的残忍（遗愿 炽诚 即使是一种残忍）"
+        },
+        {
+          "time": 117.58,
+          "text": "逼迫着幸存的我（如何让幸存的你）"
+        },
+        {
+          "time": 120.07,
+          "text": "坚守直到显得愚蠢（坚守直到不再困顿）"
+        },
+        {
+          "time": 122.33,
+          "text": "偏执的我也许早就不该认真（偏执的你也许无法不去认真）"
+        },
+        {
+          "time": 125.58,
+          "text": "是你的心（是我的心）"
+        },
+        {
+          "time": 126.5,
+          "text": "或我的梦（或你的梦）"
+        },
+        {
+          "time": 127.61,
+          "text": "已经无法再辨认（已经无法再辨认）"
+        },
+        {
+          "time": 161.94,
+          "text": "差一点"
+        },
+        {
+          "time": 163.78,
+          "text": "最后一点"
+        },
+        {
+          "time": 165.77,
+          "text": "完成节点"
+        },
+        {
+          "time": 167.69,
+          "text": "再一些时间"
+        },
+        {
+          "time": 170.44,
+          "text": "检验 检验"
+        },
+        {
+          "time": 172.36,
+          "text": "重现 重现"
+        },
+        {
+          "time": 174.02,
+          "text": "预测的结论 终于确定实现"
+        },
+        {
+          "time": 177.25,
+          "text": "处方情感镇痛"
+        },
+        {
+          "time": 178.74,
+          "text": "逆操控"
+        },
+        {
+          "time": 180.14,
+          "text": "是我留给世界的一点白日梦"
+        },
+        {
+          "time": 184.15,
+          "text": "即使对我已不再有用"
+        },
+        {
+          "time": 187.14,
+          "text": "所以我终究"
+        },
+        {
+          "time": 189.32,
+          "text": "被回忆禁锢着无法也不想逃走"
+        },
+        {
+          "time": 193.84,
+          "text": "我已经有太多 太多痛 被带走"
+        },
+        {
+          "time": 197.83,
+          "text": "让我苟延残喘足够久"
+        },
+        {
+          "time": 201.07,
+          "text": "久到我已经成为你所"
+        },
+        {
+          "time": 204.37,
+          "text": "期待那个我"
+        },
+        {
+          "time": 206.07,
+          "text": "所以现在是时候"
+        },
+        {
+          "time": 208.15,
+          "text": "走向你  走向尽头"
+        }
+      ]
+    }
+  ]
+}

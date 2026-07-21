@@ -1,0 +1,2160 @@
+{
+  "slug": "yunixiangliandexuezhijiban",
+  "folder": "与你相连的雪之羁绊",
+  "name": "与你相连的雪之羁绊 Home Snow with You",
+  "prefix": "",
+  "zh_name": "与你相连的雪之羁绊",
+  "en_name": "Home Snow with You",
+  "suffix": "",
+  "year": "2024-08-07",
+  "produce": [
+    "雪人Snowman"
+  ],
+  "vocal": [
+    "星尘",
+    "Stuart"
+  ],
+  "lyricist": [
+    "Takumi Sugai",
+    "小皮",
+    "Sui小苏",
+    "Stuart",
+    "雪人Snowman",
+    "鲷鱼",
+    "璃夜纱Ryosa"
+  ],
+  "composer": [
+    "雪人Snowman",
+    "辻原一郎"
+  ],
+  "arranger": [
+    "雪人Snowman"
+  ],
+  "tuning": [
+    "某只泽"
+  ],
+  "illustrator": [
+    "不鱼"
+  ],
+  "mixer": [
+    "雪人Snowman"
+  ],
+  "lyric_maker": [
+    "RQvan"
+  ],
+  "release": "[Bilibili](https://www.bilibili.com/video/BV1HM4m117DR/)",
+  "purchase": "[淘宝 靘鱼研究所](https://item.taobao.com/item.htm?id=830643780140) ￥99",
+  "electronic": "[Dizzylab](https://www.dizzylab.net/d/Snowman002/) ￥20",
+  "cover": "/albums/yunixiangliandexuezhijiban.jpg",
+  "tags": [
+    "与你相连的雪之羁绊",
+    "Home Snow with You",
+    "雪人Snowman"
+  ],
+  "songs": [
+    {
+      "title": "1 鈍色の言葉",
+      "file": "1 鈍色の言葉.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "鈍色の言葉"
+        },
+        {
+          "time": 6.0,
+          "text": "作曲/编曲/混音：雪人Snowman"
+        },
+        {
+          "time": 8.0,
+          "text": "作词：Tokumi Sugai"
+        },
+        {
+          "time": 10.0,
+          "text": "调校：某只泽"
+        },
+        {
+          "time": 12.0,
+          "text": "曲绘：不鱼"
+        },
+        {
+          "time": 14.0,
+          "text": "视频：青色QING"
+        },
+        {
+          "time": 16.0,
+          "text": "演唱：星尘Infinity"
+        },
+        {
+          "time": 27.25,
+          "text": "鈍色の言葉で"
+        },
+        {
+          "time": 27.25,
+          "text": "黯淡色彩的语言"
+        },
+        {
+          "time": 37.08,
+          "text": "染められたテキスタイル"
+        },
+        {
+          "time": 37.08,
+          "text": "染色纺织品"
+        },
+        {
+          "time": 48.39,
+          "text": "明断夢じゃない 現実だから"
+        },
+        {
+          "time": 48.39,
+          "text": "这不是一场清醒梦，而是真实发生的东西"
+        },
+        {
+          "time": 55.54,
+          "text": "呼吸を諦めて ふわり"
+        },
+        {
+          "time": 55.54,
+          "text": "你放弃呼吸，蓬松起来"
+        },
+        {
+          "time": 64.32,
+          "text": "眠ったら最後 くだらない明日が来る"
+        },
+        {
+          "time": 64.32,
+          "text": "当你睡着时，你会有一个糟糕的明天"
+        },
+        {
+          "time": 71.34,
+          "text": "本日、私はもう閉店です"
+        },
+        {
+          "time": 71.34,
+          "text": "今天，我已经打烊了"
+        },
+        {
+          "time": 77.87,
+          "text": "現実逃避行の背定で夜引き延はして"
+        },
+        {
+          "time": 77.87,
+          "text": "在逃避现实的肯定中度过漫漫长夜"
+        },
+        {
+          "time": 84.64,
+          "text": "デス（ス）クロール 依存 金縛りさ"
+        },
+        {
+          "time": 84.64,
+          "text": "死亡爬行，依赖，金黄色的束缚"
+        },
+        {
+          "time": 90.4,
+          "text": "鳴呼"
+        },
+        {
+          "time": 120.22,
+          "text": "安心を切り崩した 慢心と焦心の夜"
+        },
+        {
+          "time": 120.22,
+          "text": "我消减了我的安全感，在自负与浮躁的夜晚"
+        },
+        {
+          "time": 125.07,
+          "text": "ゆるやかに死んでいく私に"
+        },
+        {
+          "time": 125.07,
+          "text": "我慢慢死去"
+        },
+        {
+          "time": 127.59,
+          "text": "明日を迎える意味なんてないでしよら"
+        },
+        {
+          "time": 127.59,
+          "text": "明天没有意义，不是吗？"
+        },
+        {
+          "time": 130.8,
+          "text": "甘ったるさを紛らわした 罪悪感と懺悔"
+        },
+        {
+          "time": 130.8,
+          "text": "我把甜蜜淹没在内疚和杆悔中"
+        },
+        {
+          "time": 136.25,
+          "text": "それらを洗い流す 通り雨の後の匂いをどうか"
+        },
+        {
+          "time": 136.25,
+          "text": "请让逝去的雨后余香冲淡它们"
+        },
+        {
+          "time": 162.44,
+          "text": "透明だった頃 大切にした"
+        },
+        {
+          "time": 162.44,
+          "text": "当我透明时，我珍惜它"
+        },
+        {
+          "time": 169.38,
+          "text": "呪いをたいらげて 今は"
+        },
+        {
+          "time": 169.38,
+          "text": "如今，我却吃下了诅咒"
+        },
+        {
+          "time": 178.19,
+          "text": "自他公認の怠惰の中で"
+        },
+        {
+          "time": 178.19,
+          "text": "在自诩的懒惰中"
+        },
+        {
+          "time": 183.91,
+          "text": "じんわりと沈む心臓よりも"
+        },
+        {
+          "time": 183.91,
+          "text": "比沉浮的心更深"
+        },
+        {
+          "time": 188.84,
+          "text": "深いところ 奥？外？"
+        },
+        {
+          "time": 188.84,
+          "text": "深处？外面？"
+        },
+        {
+          "time": 191.81,
+          "text": "が苦しくて仕方がなくて"
+        },
+        {
+          "time": 191.81,
+          "text": "我无能为力，我无能为力"
+        },
+        {
+          "time": 196.19,
+          "text": "モラトリアム"
+        },
+        {
+          "time": 196.19,
+          "text": "我无能为力"
+        },
+        {
+          "time": 198.5,
+          "text": "妄想 宇宙（そら）まで飛べないや"
+        },
+        {
+          "time": 198.5,
+          "text": "暂停，妄想，我无法飞上太空"
+        },
+        {
+          "time": 228.32,
+          "text": "擦り切れた思考 その奥 抜け出して"
+        },
+        {
+          "time": 228.32,
+          "text": "思绪万千，走出深渊"
+        },
+        {
+          "time": 235.15,
+          "text": "鈍色の言葉をさらう"
+        },
+        {
+          "time": 235.15,
+          "text": "我无法飞向外太空"
+        },
+        {
+          "time": 241.68,
+          "text": "幻想でもいいから、大丈夫と言い聞かせて"
+        },
+        {
+          "time": 241.68,
+          "text": "即使是幻觉，我也告诉自己没关系"
+        },
+        {
+          "time": 248.39,
+          "text": "横たわる絶望を抱きしめたら 朝"
+        },
+        {
+          "time": 248.39,
+          "text": "当我拥抱前方的绝望，就是清晨"
+        }
+      ]
+    },
+    {
+      "title": "2 Mirage In Retrospect",
+      "file": "2 Mirage In Retrospect.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "Mirage In Retrospect"
+        },
+        {
+          "time": 6.0,
+          "text": "作曲/编曲/混音：雪人Snowman"
+        },
+        {
+          "time": 8.0,
+          "text": "作词：小皮"
+        },
+        {
+          "time": 10.0,
+          "text": "调校：某只泽"
+        },
+        {
+          "time": 12.0,
+          "text": "曲绘：不鱼"
+        },
+        {
+          "time": 14.0,
+          "text": "视频：青色QING"
+        },
+        {
+          "time": 16.0,
+          "text": "Saxophone：Manuel Trabucco"
+        },
+        {
+          "time": 18.0,
+          "text": "演唱：星尘Infinity"
+        },
+        {
+          "time": 25.38,
+          "text": "Reflection of light,"
+        },
+        {
+          "time": 25.38,
+          "text": "光的倒影、"
+        },
+        {
+          "time": 28.0,
+          "text": "Reflection of you in my mind."
+        },
+        {
+          "time": 28.0,
+          "text": "你在我心中的倒影"
+        },
+        {
+          "time": 30.84,
+          "text": "Missing a fraction"
+        },
+        {
+          "time": 30.84,
+          "text": "错过一小部分"
+        },
+        {
+          "time": 33.5,
+          "text": "A Silent distraction"
+        },
+        {
+          "time": 33.5,
+          "text": "无声的分心"
+        },
+        {
+          "time": 35.6,
+          "text": "Piecing all the fragments to find,"
+        },
+        {
+          "time": 35.6,
+          "text": "拼凑所有碎片寻找、"
+        },
+        {
+          "time": 38.82,
+          "text": "Traces of all things intertwined, rewind."
+        },
+        {
+          "time": 38.82,
+          "text": "万物交织的痕迹，倒带。"
+        },
+        {
+          "time": 43.77,
+          "text": "Would you rewrite the pages of regrets?"
+        },
+        {
+          "time": 43.77,
+          "text": "你会重写那一页页遗憾吗？"
+        },
+        {
+          "time": 50.77,
+          "text": "As true as it seems,"
+        },
+        {
+          "time": 50.77,
+          "text": "看似真实、"
+        },
+        {
+          "time": 53.41,
+          "text": "Do you believe"
+        },
+        {
+          "time": 53.41,
+          "text": "你相信"
+        },
+        {
+          "time": 55.82,
+          "text": "In the author within?"
+        },
+        {
+          "time": 55.82,
+          "text": "内心的作者？"
+        },
+        {
+          "time": 58.48,
+          "text": "Pen on your script,"
+        },
+        {
+          "time": 58.48,
+          "text": "用笔写下你的剧本、"
+        },
+        {
+          "time": 61.56,
+          "text": "Taking the lead"
+        },
+        {
+          "time": 61.56,
+          "text": "引领"
+        },
+        {
+          "time": 63.82,
+          "text": "Next scene, next theme?"
+        },
+        {
+          "time": 63.82,
+          "text": "下一个场景，下一个主题？"
+        },
+        {
+          "time": 72.86,
+          "text": "Would you ever cross the line,"
+        },
+        {
+          "time": 72.86,
+          "text": "你是否会越过界限"
+        },
+        {
+          "time": 75.56,
+          "text": "Turning to a page once left behind?"
+        },
+        {
+          "time": 75.56,
+          "text": "翻开曾经遗落的一页？"
+        },
+        {
+          "time": 78.35,
+          "text": "A story of mirage in retrospect"
+        },
+        {
+          "time": 78.35,
+          "text": "回顾海市蜃楼的故事"
+        },
+        {
+          "time": 83.6,
+          "text": "Whispers of what used to be,"
+        },
+        {
+          "time": 83.6,
+          "text": "曾经的低语"
+        },
+        {
+          "time": 86.39,
+          "text": "Echoes of a distant make-believe,"
+        },
+        {
+          "time": 86.39,
+          "text": "遥远虚幻的回声、"
+        },
+        {
+          "time": 89.28,
+          "text": "Cascading down the stream, way too deep."
+        },
+        {
+          "time": 89.28,
+          "text": "流水潺潺，深不见底。"
+        },
+        {
+          "time": 151.37,
+          "text": "Glimpse of an eye,"
+        },
+        {
+          "time": 151.37,
+          "text": "惊鸿一瞥"
+        },
+        {
+          "time": 154.68,
+          "text": "Glimpse of the past from your sight"
+        },
+        {
+          "time": 154.68,
+          "text": "从你的视线中瞥见过去"
+        },
+        {
+          "time": 157.25,
+          "text": "Breaking the sirens"
+        },
+        {
+          "time": 157.25,
+          "text": "打破警报"
+        },
+        {
+          "time": 159.67,
+          "text": "Mending our silence"
+        },
+        {
+          "time": 159.67,
+          "text": "修补我们的沉默"
+        },
+        {
+          "time": 162.11,
+          "text": "Piecing all the fragments to find,"
+        },
+        {
+          "time": 162.11,
+          "text": "拼凑所有碎片，寻找、"
+        },
+        {
+          "time": 165.02,
+          "text": "Traces of all things intertwined, rewind."
+        },
+        {
+          "time": 165.02,
+          "text": "万物交织的痕迹，倒带。"
+        },
+        {
+          "time": 170.15,
+          "text": "Would you rewrite the pages of regrets?"
+        },
+        {
+          "time": 170.15,
+          "text": "你愿意重写遗憾的篇章吗？"
+        },
+        {
+          "time": 177.69,
+          "text": "As true as it seems,"
+        },
+        {
+          "time": 177.69,
+          "text": "看似真实、"
+        },
+        {
+          "time": 179.86,
+          "text": "Do you believe"
+        },
+        {
+          "time": 179.86,
+          "text": "你相信"
+        },
+        {
+          "time": 181.46,
+          "text": "In the author within?"
+        },
+        {
+          "time": 181.46,
+          "text": "内心的作者？"
+        },
+        {
+          "time": 184.81,
+          "text": "Pen on your script,"
+        },
+        {
+          "time": 184.81,
+          "text": "用笔写下你的剧本、"
+        },
+        {
+          "time": 187.96,
+          "text": "Taking the lead"
+        },
+        {
+          "time": 187.96,
+          "text": "引领"
+        },
+        {
+          "time": 190.21,
+          "text": "Next scene, next theme?"
+        },
+        {
+          "time": 190.21,
+          "text": "下一个场景，下一个主题？"
+        },
+        {
+          "time": 199.07,
+          "text": "Would you ever cross the line,"
+        },
+        {
+          "time": 199.07,
+          "text": "你是否会越过界限"
+        },
+        {
+          "time": 202.0,
+          "text": "Turning to a page once left behind?"
+        },
+        {
+          "time": 202.0,
+          "text": "翻开曾经遗落的一页？"
+        },
+        {
+          "time": 204.66,
+          "text": "A story of mirage in retrospect"
+        },
+        {
+          "time": 204.66,
+          "text": "回顾海市蜃楼的故事"
+        },
+        {
+          "time": 209.81,
+          "text": "Whispers of what used to be,"
+        },
+        {
+          "time": 209.81,
+          "text": "曾经的低语"
+        },
+        {
+          "time": 212.85,
+          "text": "Echoes of a distant make-believe,"
+        },
+        {
+          "time": 212.85,
+          "text": "遥远虚幻的回声、"
+        },
+        {
+          "time": 215.63,
+          "text": "Cascading down the stream, way too deep."
+        },
+        {
+          "time": 215.63,
+          "text": "流水潺潺，深不见底。"
+        },
+        {
+          "time": 226.3,
+          "text": "Would you ever cross the line,"
+        },
+        {
+          "time": 226.3,
+          "text": "你可曾越过界限"
+        },
+        {
+          "time": 228.92,
+          "text": "Turning to a page once left behind?"
+        },
+        {
+          "time": 228.92,
+          "text": "翻开曾经遗落的一页？"
+        },
+        {
+          "time": 231.7,
+          "text": "A story of mirage in retrospect"
+        },
+        {
+          "time": 231.7,
+          "text": "回望海市蜃楼的故事"
+        },
+        {
+          "time": 237.02,
+          "text": "Whispers of what used to be,"
+        },
+        {
+          "time": 237.02,
+          "text": "曾经的低语"
+        },
+        {
+          "time": 239.7,
+          "text": "Echoes of a distant make-believe,"
+        },
+        {
+          "time": 239.7,
+          "text": "遥远虚幻的回声、"
+        },
+        {
+          "time": 242.5,
+          "text": "Cascading down the stream, way too deep."
+        },
+        {
+          "time": 242.5,
+          "text": "流水潺潺，深不见底。"
+        }
+      ]
+    },
+    {
+      "title": "3 阿波罗之夜",
+      "file": "3 阿波罗之夜.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "阿波罗之夜"
+        },
+        {
+          "time": 6.0,
+          "text": "作曲/编曲/混音：雪人Snowman"
+        },
+        {
+          "time": 8.0,
+          "text": "作词：Sui小苏"
+        },
+        {
+          "time": 10.0,
+          "text": "调校：某只泽"
+        },
+        {
+          "time": 12.0,
+          "text": "曲绘：不鱼"
+        },
+        {
+          "time": 14.0,
+          "text": "视频：青色"
+        },
+        {
+          "time": 16.0,
+          "text": "演唱：星尘Infinity"
+        },
+        {
+          "time": 25.46,
+          "text": "他所相信的是"
+        },
+        {
+          "time": 33.18,
+          "text": "理智的规则"
+        },
+        {
+          "time": 40.62,
+          "text": "桂冠诉说着"
+        },
+        {
+          "time": 45.91,
+          "text": "他的灵魂真正渴望的"
+        },
+        {
+          "time": 50.72,
+          "text": "到底是什么"
+        },
+        {
+          "time": 55.53,
+          "text": "失控的火"
+        },
+        {
+          "time": 58.19,
+          "text": "烧成悔恨的长河"
+        },
+        {
+          "time": 61.91,
+          "text": "不是所有灰姑娘"
+        },
+        {
+          "time": 64.9,
+          "text": "都会爱上王子啊"
+        },
+        {
+          "time": 69.73,
+          "text": "他的执看"
+        },
+        {
+          "time": 72.7,
+          "text": "是爱还是掠夺"
+        },
+        {
+          "time": 77.32,
+          "text": "追到最后"
+        },
+        {
+          "time": 79.87,
+          "text": "是成就 还是 折磨"
+        },
+        {
+          "time": 90.48,
+          "text": "「别在这里哭泣"
+        },
+        {
+          "time": 94.37,
+          "text": "悲剧是你一手造成的」"
+        },
+        {
+          "time": 97.77,
+          "text": "命运早已注定"
+        },
+        {
+          "time": 101.52,
+          "text": "丘比特射出的箭"
+        },
+        {
+          "time": 103.38,
+          "text": "和他倒转的琴弦一样残忍"
+        },
+        {
+          "time": 108.77,
+          "text": "所有求而不得的都令人神往"
+        },
+        {
+          "time": 116.24,
+          "text": "他做的选择"
+        },
+        {
+          "time": 161.22,
+          "text": "她想逃离的是"
+        },
+        {
+          "time": 168.46,
+          "text": "一个掌控者"
+        },
+        {
+          "time": 176.09,
+          "text": "枝丫鸣泣着"
+        },
+        {
+          "time": 181.3,
+          "text": "她的内心多么恐惧"
+        },
+        {
+          "time": 185.7,
+          "text": "身体都颤抖着"
+        },
+        {
+          "time": 190.53,
+          "text": "她不需要"
+        },
+        {
+          "time": 193.66,
+          "text": "王子的爱做解药"
+        },
+        {
+          "time": 197.27,
+          "text": "一个人生活也能"
+        },
+        {
+          "time": 200.27,
+          "text": "足够幸福和快乐"
+        },
+        {
+          "time": 205.04,
+          "text": "失去自我"
+        },
+        {
+          "time": 208.05,
+          "text": "不如做树一棵"
+        },
+        {
+          "time": 212.73,
+          "text": "她用沉默"
+        },
+        {
+          "time": 215.22,
+          "text": "来对抗所有结果"
+        },
+        {
+          "time": 225.87,
+          "text": "「你在这里哭泣"
+        },
+        {
+          "time": 229.66,
+          "text": "泪水滋润了这片土地」"
+        },
+        {
+          "time": 233.13,
+          "text": "命运早已注定"
+        },
+        {
+          "time": 236.83,
+          "text": "丘比特射出的箭"
+        },
+        {
+          "time": 238.78,
+          "text": "和他奔跑的侧脸一样残忍"
+        },
+        {
+          "time": 244.32,
+          "text": "所有无能为力的都值得反抗"
+        },
+        {
+          "time": 251.88,
+          "text": "她做的选择"
+        },
+        {
+          "time": 286.74,
+          "text": "林间风起叶落在掌心"
+        },
+        {
+          "time": 292.67,
+          "text": "听见两颗心凉透的声音"
+        },
+        {
+          "time": 297.96,
+          "text": "神的游戏神自己也输得彻底"
+        },
+        {
+          "time": 306.31,
+          "text": "是爱情"
+        },
+        {
+          "time": 311.5,
+          "text": "谁在这里哭泣"
+        },
+        {
+          "time": 315.33,
+          "text": "月光照亮了太多回忆"
+        },
+        {
+          "time": 318.92,
+          "text": "命运早已注定"
+        },
+        {
+          "time": 322.56,
+          "text": "太阳升起之后一切"
+        },
+        {
+          "time": 324.65,
+          "text": "都回到温暖的白昼 挥手"
+        },
+        {
+          "time": 329.97,
+          "text": "忘不掉的不如就装饰在头顶"
+        },
+        {
+          "time": 337.28,
+          "text": "et cetera"
+        }
+      ]
+    },
+    {
+      "title": "4 illusion",
+      "file": "4 illusion.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "illusion"
+        },
+        {
+          "time": 6.0,
+          "text": "作曲/编曲：雪人Snowman"
+        },
+        {
+          "time": 8.0,
+          "text": "作词：Stuart/雪人Snowman"
+        },
+        {
+          "time": 10.0,
+          "text": "演唱：Stuart/星尘Infinity"
+        },
+        {
+          "time": 12.0,
+          "text": "调校：某只泽"
+        },
+        {
+          "time": 14.0,
+          "text": "长笛：Andrew Gould"
+        },
+        {
+          "time": 16.0,
+          "text": "曲绘：不鱼"
+        },
+        {
+          "time": 18.0,
+          "text": "视频：青色QING"
+        },
+        {
+          "time": 20.0,
+          "text": "混音：yjjjjun_"
+        },
+        {
+          "time": 27.17,
+          "text": "So turn the light off 你是否听到人群传来的惊叹"
+        },
+        {
+          "time": 30.4,
+          "text": "在黑暗里一切都成了谜团 所以更找不到答案"
+        },
+        {
+          "time": 34.0,
+          "text": "我只是在这 在这看来往过的画面"
+        },
+        {
+          "time": 36.68,
+          "text": "把看不顺眼的全部都记在了我的账上"
+        },
+        {
+          "time": 39.36,
+          "text": "like a trader 但我交易的不是你的分量"
+        },
+        {
+          "time": 42.31,
+          "text": "这规则变得太快 墨守成规只有退场"
+        },
+        {
+          "time": 45.09,
+          "text": "你看到的舞台一直光鲜 一直有人捧场"
+        },
+        {
+          "time": 47.95,
+          "text": "可谢幕后的名单 得不到看客的褒奖"
+        },
+        {
+          "time": 50.81,
+          "text": "就换了皮囊 让年轻人都过来露个脸"
+        },
+        {
+          "time": 54.02,
+          "text": "比谁的底线更加灵活 比谁更幼稚点"
+        },
+        {
+          "time": 56.98,
+          "text": "比谁能配合节目效果陪他们接着演"
+        },
+        {
+          "time": 59.37,
+          "text": "谁摇头 就上了名单 走夜路盯着点"
+        },
+        {
+          "time": 62.23,
+          "text": "但搬上银幕 多恐怖也变成了消遣"
+        },
+        {
+          "time": 64.88,
+          "text": "消解了愤怒 更别提所谓的相互理解"
+        },
+        {
+          "time": 67.63,
+          "text": "散场的人有好多却和先前不太像了"
+        },
+        {
+          "time": 70.49,
+          "text": "走出了群楼 听见了身后的歌声唱着"
+        },
+        {
+          "time": 73.58,
+          "text": "Can we believe"
+        },
+        {
+          "time": 73.58,
+          "text": "我们能否相信"
+        },
+        {
+          "time": 76.33,
+          "text": "What we have seen"
+        },
+        {
+          "time": 76.33,
+          "text": "我们所看到的"
+        },
+        {
+          "time": 78.48,
+          "text": "Illusion or fantasy"
+        },
+        {
+          "time": 78.48,
+          "text": "幻觉还是幻想"
+        },
+        {
+          "time": 81.28,
+          "text": "I’m losing my mind"
+        },
+        {
+          "time": 81.28,
+          "text": "我失去了理智"
+        },
+        {
+          "time": 84.67,
+          "text": "Old memories"
+        },
+        {
+          "time": 84.67,
+          "text": "往日记忆"
+        },
+        {
+          "time": 87.67,
+          "text": "Change of the beat"
+        },
+        {
+          "time": 87.67,
+          "text": "改变节拍"
+        },
+        {
+          "time": 89.85,
+          "text": "Taking an aspirin"
+        },
+        {
+          "time": 89.85,
+          "text": "服用阿司匹林"
+        },
+        {
+          "time": 92.61,
+          "text": "I’m losing my mind"
+        },
+        {
+          "time": 92.61,
+          "text": "失去了理智"
+        },
+        {
+          "time": 143.95,
+          "text": "无人的电话亭播放童年最爱的歌曲"
+        },
+        {
+          "time": 147.17,
+          "text": "雪花的电视机循环着一部老的电影"
+        },
+        {
+          "time": 149.84,
+          "text": "这场景 似曾相识 但却无从追忆"
+        },
+        {
+          "time": 152.92,
+          "text": "坠入了回忆 看到光晕 so 欢迎光临"
+        },
+        {
+          "time": 155.69,
+          "text": "在这里只有白天 没有灯火通明"
+        },
+        {
+          "time": 158.03,
+          "text": "代替了无数的黑夜 对繁星也不再憧憬"
+        },
+        {
+          "time": 160.93,
+          "text": "捡起了苦难 扔进了搅拌机 化为了齑粉"
+        },
+        {
+          "time": 163.71,
+          "text": "再倒入瓶中 摇晃后 成为了葡萄美酒"
+        },
+        {
+          "time": 166.62,
+          "text": "这感觉 会让人沉醉 即便是幻影但是"
+        },
+        {
+          "time": 169.9,
+          "text": "有几个不心动 能对欲望say no"
+        },
+        {
+          "time": 172.1,
+          "text": "真觉得没有 也没把谁给小看"
+        },
+        {
+          "time": 174.32,
+          "text": "总有人嘴巴硬 但身体更加诚实 不用去遮掩"
+        },
+        {
+          "time": 177.97,
+          "text": "那闭上双眼 先闭上双眼"
+        },
+        {
+          "time": 180.92,
+          "text": "你经历过的苦难不是真的 最多是消遣"
+        },
+        {
+          "time": 183.88,
+          "text": "麻烦就别再问了 这里没有答案"
+        },
+        {
+          "time": 186.35,
+          "text": "就跟她走吧 随着歌声"
+        },
+        {
+          "time": 188.26,
+          "text": "Fortuna"
+        },
+        {
+          "time": 189.49,
+          "text": "Can we believe"
+        },
+        {
+          "time": 189.49,
+          "text": "我们能否相信"
+        },
+        {
+          "time": 192.19,
+          "text": "What we have seen"
+        },
+        {
+          "time": 192.19,
+          "text": "我们所看到的"
+        },
+        {
+          "time": 194.25,
+          "text": "Illusion or fantasy"
+        },
+        {
+          "time": 194.25,
+          "text": "幻觉还是幻想"
+        },
+        {
+          "time": 196.85,
+          "text": "I’m losing my mind"
+        },
+        {
+          "time": 196.85,
+          "text": "我失去了理智"
+        },
+        {
+          "time": 200.63,
+          "text": "Old memories"
+        },
+        {
+          "time": 200.63,
+          "text": "往日记忆"
+        },
+        {
+          "time": 203.39,
+          "text": "Change of the beat"
+        },
+        {
+          "time": 203.39,
+          "text": "改变节拍"
+        },
+        {
+          "time": 205.7,
+          "text": "Taking an aspirin"
+        },
+        {
+          "time": 205.7,
+          "text": "服用阿司匹林"
+        },
+        {
+          "time": 208.4,
+          "text": "I’m losing my mind"
+        },
+        {
+          "time": 208.4,
+          "text": "我失去了理智"
+        },
+        {
+          "time": 211.89,
+          "text": "Can we believe"
+        },
+        {
+          "time": 211.89,
+          "text": "我们能否相信"
+        },
+        {
+          "time": 214.65,
+          "text": "What we have seen"
+        },
+        {
+          "time": 214.65,
+          "text": "我们所看到的"
+        },
+        {
+          "time": 216.91,
+          "text": "Illusion or fantasy"
+        },
+        {
+          "time": 216.91,
+          "text": "幻觉还是幻想"
+        },
+        {
+          "time": 219.58,
+          "text": "I’m losing my mind"
+        },
+        {
+          "time": 219.58,
+          "text": "我失去了理智"
+        },
+        {
+          "time": 223.28,
+          "text": "Old memories"
+        },
+        {
+          "time": 223.28,
+          "text": "往日记忆"
+        },
+        {
+          "time": 226.05,
+          "text": "Change of the beat"
+        },
+        {
+          "time": 226.05,
+          "text": "改变节拍"
+        },
+        {
+          "time": 228.23,
+          "text": "Taking an aspirin"
+        },
+        {
+          "time": 228.23,
+          "text": "服用阿司匹林"
+        },
+        {
+          "time": 230.9,
+          "text": "I’m losing my mind"
+        },
+        {
+          "time": 230.9,
+          "text": "我失去了理智"
+        }
+      ]
+    },
+    {
+      "title": "5 泡影",
+      "file": "5 泡影.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "泡影"
+        },
+        {
+          "time": 2.0,
+          "text": "作曲/编曲/作词/混音：雪人Snowman"
+        },
+        {
+          "time": 3.0,
+          "text": "作曲协力：星辉p"
+        },
+        {
+          "time": 4.0,
+          "text": "调校：某只泽"
+        },
+        {
+          "time": 5.0,
+          "text": "曲绘：不鱼"
+        },
+        {
+          "time": 6.0,
+          "text": "视频：青色QING"
+        },
+        {
+          "time": 7.0,
+          "text": "Trumpet：Mike Cordone"
+        },
+        {
+          "time": 8.0,
+          "text": "演唱：星尘Infinity"
+        },
+        {
+          "time": 10.0,
+          "text": "径直 走向 那夜海"
+        },
+        {
+          "time": 14.19,
+          "text": "用烛火把我们分开"
+        },
+        {
+          "time": 19.0,
+          "text": "啄破 迟滞 的纽带"
+        },
+        {
+          "time": 22.93,
+          "text": "期望着"
+        },
+        {
+          "time": 27.4,
+          "text": "永远 安稳 的睡去"
+        },
+        {
+          "time": 31.27,
+          "text": "影子独占一片天地"
+        },
+        {
+          "time": 36.09,
+          "text": "柯罗 诺斯 的作品"
+        },
+        {
+          "time": 40.16,
+          "text": "在梦里"
+        },
+        {
+          "time": 44.65,
+          "text": "泡影 被现实投射"
+        },
+        {
+          "time": 46.56,
+          "text": "微风 在雾中散去"
+        },
+        {
+          "time": 48.4,
+          "text": "只 留下你 的残影"
+        },
+        {
+          "time": 52.16,
+          "text": "穿过 海岸的边界"
+        },
+        {
+          "time": 54.01,
+          "text": "候鸟 飞过地平线"
+        },
+        {
+          "time": 55.85,
+          "text": "得 不到的"
+        },
+        {
+          "time": 58.38,
+          "text": "在 心中的"
+        },
+        {
+          "time": 62.15,
+          "text": "那 永恒的 肃立的"
+        },
+        {
+          "time": 65.88,
+          "text": "泡沫 播撒 梦的绿野"
+        },
+        {
+          "time": 120.4,
+          "text": "月色 走出 那白昼"
+        },
+        {
+          "time": 124.42,
+          "text": "视线穿过你的轨迹"
+        },
+        {
+          "time": 128.93,
+          "text": "像河水一样呼吸"
+        },
+        {
+          "time": 133.07,
+          "text": "那涟漪"
+        },
+        {
+          "time": 137.52,
+          "text": "永远 安稳 的睡去"
+        },
+        {
+          "time": 141.8,
+          "text": "影子独占一片天地"
+        },
+        {
+          "time": 146.49,
+          "text": "柯罗 诺斯 的作品"
+        },
+        {
+          "time": 150.66,
+          "text": "在梦里"
+        },
+        {
+          "time": 155.36,
+          "text": "鱼鳍形的帆 沿着岸边 靠近"
+        },
+        {
+          "time": 161.75,
+          "text": "鸣叫着"
+        },
+        {
+          "time": 165.33,
+          "text": "灯塔的光 变暗了"
+        },
+        {
+          "time": 170.32,
+          "text": "逾期的相见 像苦涩的 紫云烟"
+        },
+        {
+          "time": 176.4,
+          "text": "忘记呼吸 在微光中的海底"
+        },
+        {
+          "time": 183.03,
+          "text": "你就站在这里 像漫潮 像露水"
+        },
+        {
+          "time": 191.69,
+          "text": "泡影 被现实投射"
+        },
+        {
+          "time": 193.8,
+          "text": "微风 在雾中散去"
+        },
+        {
+          "time": 195.66,
+          "text": "只 留下你 的残影"
+        },
+        {
+          "time": 199.36,
+          "text": "穿过 海岸的边界"
+        },
+        {
+          "time": 201.17,
+          "text": "候鸟 飞过地平线"
+        },
+        {
+          "time": 202.96,
+          "text": "得 不到的"
+        },
+        {
+          "time": 205.54,
+          "text": "在 心中的"
+        },
+        {
+          "time": 209.31,
+          "text": "那 永恒的 肃立的"
+        },
+        {
+          "time": 213.25,
+          "text": "泡沫 播撒 梦的绿野"
+        }
+      ]
+    },
+    {
+      "title": "6 砂之舞",
+      "file": "6 砂之舞.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "砂之舞"
+        },
+        {
+          "time": 6.0,
+          "text": "作曲：辻原一郎"
+        },
+        {
+          "time": 9.0,
+          "text": "编曲/混音：雪人Snowman"
+        },
+        {
+          "time": 12.0,
+          "text": "作词：鲷鱼"
+        },
+        {
+          "time": 15.0,
+          "text": "调校：某只泽"
+        },
+        {
+          "time": 18.0,
+          "text": "曲绘：不鱼"
+        },
+        {
+          "time": 21.0,
+          "text": "视频：青色QING"
+        },
+        {
+          "time": 24.0,
+          "text": "Soprano Saxophone：Ryota Sasaki"
+        },
+        {
+          "time": 27.0,
+          "text": "演唱：星尘Infinity"
+        },
+        {
+          "time": 36.3,
+          "text": "「蘇ろう」"
+        },
+        {
+          "time": 36.3,
+          "text": "“醒来吧”"
+        },
+        {
+          "time": 38.78,
+          "text": "と聞いたところだ"
+        },
+        {
+          "time": 38.78,
+          "text": "听到声音的瞬间"
+        },
+        {
+          "time": 43.17,
+          "text": "目に映る砂色"
+        },
+        {
+          "time": 43.17,
+          "text": "满目沙色便映入了眼帘"
+        },
+        {
+          "time": 49.96,
+          "text": "地に背き落ちてゆく"
+        },
+        {
+          "time": 49.96,
+          "text": "背朝大地不断下落着"
+        },
+        {
+          "time": 57.61,
+          "text": "さぁ、今度も君を探そう"
+        },
+        {
+          "time": 57.61,
+          "text": "开始吧 这次也要去寻找你"
+        },
+        {
+          "time": 65.58,
+          "text": "跡を消せる砂を踏み"
+        },
+        {
+          "time": 65.58,
+          "text": "踏上这片能够将痕迹抹去的沙土"
+        },
+        {
+          "time": 68.88,
+          "text": "ポラリス導く方へ"
+        },
+        {
+          "time": 68.88,
+          "text": "朝着北极星指引的方向前行"
+        },
+        {
+          "time": 72.27,
+          "text": "声が出られない夜に"
+        },
+        {
+          "time": 72.27,
+          "text": "在无法吐露心声的夜晚"
+        },
+        {
+          "time": 75.48,
+          "text": "嗚呼 願いを込めた"
+        },
+        {
+          "time": 75.48,
+          "text": "向它倾注愿望"
+        },
+        {
+          "time": 79.13,
+          "text": "薪 胸に拾い抱き"
+        },
+        {
+          "time": 79.13,
+          "text": "将薪柴拾于怀中"
+        },
+        {
+          "time": 82.64,
+          "text": "燃やせ 盛らせ"
+        },
+        {
+          "time": 82.64,
+          "text": "点燃它 烧旺它"
+        },
+        {
+          "time": 85.16,
+          "text": "道なき道を舞えば"
+        },
+        {
+          "time": 85.16,
+          "text": "在这尚未能成形的道路上起舞"
+        },
+        {
+          "time": 88.1,
+          "text": "見えるかな"
+        },
+        {
+          "time": 88.1,
+          "text": "或许你就能看见吧"
+        },
+        {
+          "time": 140.54,
+          "text": "瞳 太陽に燻らされて"
+        },
+        {
+          "time": 140.54,
+          "text": "瞳孔被太阳熏烤着"
+        },
+        {
+          "time": 144.2,
+          "text": "煙 付き纏われ"
+        },
+        {
+          "time": 144.2,
+          "text": "周遭被烟雾缠绕着"
+        },
+        {
+          "time": 147.33,
+          "text": "何処かの囁 き声を聞く"
+        },
+        {
+          "time": 147.33,
+          "text": "转而听见不知从何传来的低语"
+        },
+        {
+          "time": 150.6,
+          "text": "なぁ 君だろう"
+        },
+        {
+          "time": 150.6,
+          "text": "那是你吗"
+        },
+        {
+          "time": 154.14,
+          "text": "やがて 緑の匂いがする"
+        },
+        {
+          "time": 154.14,
+          "text": "终于 嗅到了绿洲的气息"
+        },
+        {
+          "time": 157.68,
+          "text": "辿り着けて"
+        },
+        {
+          "time": 157.68,
+          "text": "我尚能挣扎着到达那里"
+        },
+        {
+          "time": 158.61,
+          "text": "魂が宿った種たちを磨く"
+        },
+        {
+          "time": 158.61,
+          "text": "打磨那些灵魂曾留宿过的种子"
+        },
+        {
+          "time": 166.99,
+          "text": "付けさせ"
+        },
+        {
+          "time": 166.99,
+          "text": "让其附生于我"
+        },
+        {
+          "time": 177.22,
+          "text": "行く"
+        },
+        {
+          "time": 177.22,
+          "text": "继续前行"
+        }
+      ]
+    },
+    {
+      "title": "7 欧若拉之夜",
+      "file": "7 欧若拉之夜.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "欧若拉之夜"
+        },
+        {
+          "time": 4.0,
+          "text": "作曲/编曲/混音：雪人Snowman"
+        },
+        {
+          "time": 5.0,
+          "text": "Electric guitar：阿毛XD"
+        },
+        {
+          "time": 6.0,
+          "text": "作词：Sui小苏"
+        },
+        {
+          "time": 7.0,
+          "text": "调校：某只泽"
+        },
+        {
+          "time": 8.0,
+          "text": "曲绘：不鱼"
+        },
+        {
+          "time": 9.0,
+          "text": "视频：青色QING"
+        },
+        {
+          "time": 10.0,
+          "text": "演唱：星尘Infinity"
+        },
+        {
+          "time": 17.99,
+          "text": "上了锁的房间"
+        },
+        {
+          "time": 22.4,
+          "text": "放着我们的纪念"
+        },
+        {
+          "time": 26.76,
+          "text": "破晓之际的缠绵"
+        },
+        {
+          "time": 30.0,
+          "text": "时间 静止在这一点"
+        },
+        {
+          "time": 34.31,
+          "text": "行驶在梦的里面"
+        },
+        {
+          "time": 37.47,
+          "text": "照不进的光线"
+        },
+        {
+          "time": 41.06,
+          "text": "看不清你的容颜"
+        },
+        {
+          "time": 45.8,
+          "text": "一点点消失不见"
+        },
+        {
+          "time": 48.84,
+          "text": "预言 印证在这一天"
+        },
+        {
+          "time": 53.23,
+          "text": "心碎在神的面前"
+        },
+        {
+          "time": 55.92,
+          "text": "如果可以 拥有永恒生命"
+        },
+        {
+          "time": 64.63,
+          "text": "是否可以不分离 不痛苦"
+        },
+        {
+          "time": 69.87,
+          "text": "冲破时空的束缚"
+        },
+        {
+          "time": 72.35,
+          "text": "甜蜜漫步"
+        },
+        {
+          "time": 86.65,
+          "text": "那年夏天 你我之间"
+        },
+        {
+          "time": 91.13,
+          "text": "许下的心愿"
+        },
+        {
+          "time": 95.62,
+          "text": "今夕何年 能否再相见"
+        },
+        {
+          "time": 103.41,
+          "text": "沧海桑田 时过境迁"
+        },
+        {
+          "time": 108.04,
+          "text": "我依然想念"
+        },
+        {
+          "time": 112.8,
+          "text": "等你出现 一起到天边"
+        },
+        {
+          "time": 139.27,
+          "text": "直到现在青春不再我 才"
+        },
+        {
+          "time": 147.95,
+          "text": "终于明白爱像一道曙光"
+        },
+        {
+          "time": 153.38,
+          "text": "照亮黑夜之后就让位白昼"
+        },
+        {
+          "time": 178.48,
+          "text": "那年夏天 你我之间"
+        },
+        {
+          "time": 182.98,
+          "text": "祈求的永远"
+        },
+        {
+          "time": 187.55,
+          "text": "彼时少年 若只如初见"
+        },
+        {
+          "time": 195.3,
+          "text": "沧海柔田 时过境迁"
+        },
+        {
+          "time": 200.07,
+          "text": "你已全改变"
+        },
+        {
+          "time": 204.62,
+          "text": "告别之前 再确认一遍"
+        },
+        {
+          "time": 212.43,
+          "text": "镜子里的侧脸"
+        },
+        {
+          "time": 216.02,
+          "text": "经不起谁的考验"
+        },
+        {
+          "time": 221.01,
+          "text": "旧景已不会重现"
+        },
+        {
+          "time": 223.75,
+          "text": "时间 残忍地迈向前"
+        },
+        {
+          "time": 228.14,
+          "text": "潇洒地迈向明天"
+        }
+      ]
+    },
+    {
+      "title": "8 与你相连的雪之羁绊",
+      "file": "8 与你相连的雪之羁绊.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "与你相连的雪之羁绊"
+        },
+        {
+          "time": 6.0,
+          "text": "作曲/编曲/混音：雪人Snowman"
+        },
+        {
+          "time": 8.0,
+          "text": "作词：璃夜纱Ryosa"
+        },
+        {
+          "time": 10.0,
+          "text": "调校：某只泽"
+        },
+        {
+          "time": 12.0,
+          "text": "曲绘：不鱼"
+        },
+        {
+          "time": 14.0,
+          "text": "视频：青色QING"
+        },
+        {
+          "time": 16.0,
+          "text": "演唱：星尘Infinity"
+        },
+        {
+          "time": 49.52,
+          "text": "ヘシうイトを振って熱気にあふれた楽しい夜"
+        },
+        {
+          "time": 49.52,
+          "text": "摇曳着荧光棒 热气沸腾的欢快夜晚"
+        },
+        {
+          "time": 59.48,
+          "text": "何とか寂しい"
+        },
+        {
+          "time": 59.48,
+          "text": "总感觉有点寂寞"
+        },
+        {
+          "time": 62.73,
+          "text": "鏡に映したのはっメとか真実とか"
+        },
+        {
+          "time": 62.73,
+          "text": "镜中所映照着的 究竞是真实还是梦境？"
+        },
+        {
+          "time": 71.49,
+          "text": "分からない"
+        },
+        {
+          "time": 71.49,
+          "text": "我已分不清"
+        },
+        {
+          "time": 75.18,
+          "text": "私を覚えてるが？大切な思いで"
+        },
+        {
+          "time": 75.18,
+          "text": "你还记得我吗？最珍贵的回忆"
+        },
+        {
+          "time": 81.34,
+          "text": "落て堕ちても心を守って"
+        },
+        {
+          "time": 81.34,
+          "text": "坠落着坠落着也想守护那颗“心”"
+        },
+        {
+          "time": 86.34,
+          "text": "あなた微かな求め声 胸に響くの願い"
+        },
+        {
+          "time": 86.34,
+          "text": "你微弱的求救声 依然响彻心扉的愿望"
+        },
+        {
+          "time": 93.17,
+          "text": "その手を離さないで"
+        },
+        {
+          "time": 93.17,
+          "text": "我决不会放开那双手"
+        },
+        {
+          "time": 98.1,
+          "text": "流星に願って どうか"
+        },
+        {
+          "time": 98.1,
+          "text": "向着流星许愿"
+        },
+        {
+          "time": 105.25,
+          "text": "ミンナを救い出して"
+        },
+        {
+          "time": 105.25,
+          "text": "请救出大家吧"
+        },
+        {
+          "time": 110.37,
+          "text": "巡り巡って すれ違っても"
+        },
+        {
+          "time": 110.37,
+          "text": "时光飞逝即使曾经擦肩而过"
+        },
+        {
+          "time": 116.12,
+          "text": "このメロディは消えない宝物"
+        },
+        {
+          "time": 116.12,
+          "text": "这歌声是 永不消失的宝物"
+        },
+        {
+          "time": 122.31,
+          "text": "再び出会う日まで"
+        },
+        {
+          "time": 122.31,
+          "text": "将其珍藏直到再次相遇那天"
+        },
+        {
+          "time": 151.54,
+          "text": "ヘシうイトを振って熱気にあふれた楽しい夜"
+        },
+        {
+          "time": 151.54,
+          "text": "摇曳着荧光棒 热气沸腾的欢快夜晚"
+        },
+        {
+          "time": 158.45,
+          "text": "何とか寂しい"
+        },
+        {
+          "time": 158.45,
+          "text": "总感觉有点寂寞"
+        },
+        {
+          "time": 164.77,
+          "text": "鏡に映したのはっメとか真実とか"
+        },
+        {
+          "time": 164.77,
+          "text": "镜中所映照着的 究竞是真实还是梦境？"
+        },
+        {
+          "time": 173.54,
+          "text": "分からない"
+        },
+        {
+          "time": 173.54,
+          "text": "我已分不清"
+        },
+        {
+          "time": 177.07,
+          "text": "私を覚えてるが？大切な思いで"
+        },
+        {
+          "time": 177.07,
+          "text": "你还记得我吗？最珍贵的回忆"
+        },
+        {
+          "time": 183.13,
+          "text": "落て堕ちても心を守って"
+        },
+        {
+          "time": 183.13,
+          "text": "坠落着坠落着也想守护那颗“心”"
+        },
+        {
+          "time": 183.2,
+          "text": "あなた微かな求め声 胸に響くの願い"
+        },
+        {
+          "time": 183.2,
+          "text": "你微弱的求救声 依然响彻心扉的愿望"
+        },
+        {
+          "time": 195.27,
+          "text": "その手を離さないで"
+        },
+        {
+          "time": 195.27,
+          "text": "我决不会放开那双手"
+        },
+        {
+          "time": 200.11,
+          "text": "流星に願って どうか"
+        },
+        {
+          "time": 200.11,
+          "text": "向着流星许愿"
+        },
+        {
+          "time": 205.98,
+          "text": "ミンナを救い出して"
+        },
+        {
+          "time": 205.98,
+          "text": "请救出大家吧"
+        },
+        {
+          "time": 212.47,
+          "text": "巡り巡って すれ違っても"
+        },
+        {
+          "time": 212.47,
+          "text": "时光飞逝即使曾经擦肩而过"
+        },
+        {
+          "time": 218.11,
+          "text": "このメロディは消えない宝物"
+        },
+        {
+          "time": 218.11,
+          "text": "这歌声是 永不消失的宝物"
+        },
+        {
+          "time": 224.31,
+          "text": "再び出会う日まで"
+        },
+        {
+          "time": 224.31,
+          "text": "将其珍藏直到再次相遇那天"
+        },
+        {
+          "time": 233.14,
+          "text": "流星に願って どうか"
+        },
+        {
+          "time": 233.14,
+          "text": "向着流星许愿"
+        },
+        {
+          "time": 240.23,
+          "text": "ミンナを救い出して"
+        },
+        {
+          "time": 240.23,
+          "text": "请救出大家吧"
+        },
+        {
+          "time": 245.47,
+          "text": "巡り巡って すれ違っても"
+        },
+        {
+          "time": 245.47,
+          "text": "时光飞逝即使曾经擦肩而过"
+        },
+        {
+          "time": 251.05,
+          "text": "このメロディは消えない宝物"
+        },
+        {
+          "time": 251.05,
+          "text": "这歌声是 永不消失的宝物"
+        },
+        {
+          "time": 257.38,
+          "text": "再び出会う日まで"
+        },
+        {
+          "time": 257.38,
+          "text": "将其珍藏直到再次相遇那天"
+        }
+      ]
+    }
+  ]
+}

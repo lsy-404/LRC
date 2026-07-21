@@ -1,0 +1,2245 @@
+{
+  "slug": "shengxi_Leave_in_Breath",
+  "folder": "生息Leave in Breath",
+  "name": "生息 Leave in Breath",
+  "prefix": "",
+  "zh_name": "生息",
+  "en_name": "Leave in Breath",
+  "suffix": "",
+  "year": "2025-03-22",
+  "produce": [
+    "北极圈ArcticLab"
+  ],
+  "vocal": [
+    "海伊",
+    "星尘"
+  ],
+  "lyricist": [
+    "北山薇",
+    "麒炩Kindling",
+    "秦欲坠",
+    "丁小爷p",
+    "苍梧_abilrue",
+    "流星落雨若星琉",
+    "铃蓝SuzuSnow",
+    "阿林什么也没做",
+    "雨翼p"
+  ],
+  "composer": [
+    "燈林",
+    "云极Yunji",
+    "半糖果泥",
+    "苍梧_abilrue",
+    "苏尔达",
+    "铃蓝SuzuSnow",
+    "悬空指针NP",
+    "雨翼p"
+  ],
+  "arranger": [
+    "燈林",
+    "云极Yunji",
+    "半糖果泥",
+    "苍梧_abilrue",
+    "苏尔达",
+    "铃蓝SuzuSnow",
+    "悬空指针NP",
+    "雨翼p"
+  ],
+  "tuning": [
+    "ccffcc骷髅",
+    "某只泽",
+    "楷然AkiRA",
+    "苍梧_abilrue",
+    "铃蓝SuzuSnow"
+  ],
+  "illustrator": [
+    "白石鹿野一号机",
+    "⑨的小圆本",
+    "十辰HERO",
+    "萤川灰"
+  ],
+  "mixer": [
+    "铃蓝SuzuSnow"
+  ],
+  "lyric_maker": [
+    "RQvan"
+  ],
+  "release": "[Bilibili](https://www.bilibili.com/video/BV1faX1YAE9z/)",
+  "purchase": "通贩不可用",
+  "electronic": "[Dizzylab](https://www.dizzylab.net/d/ALCD0002/) ￥38",
+  "cover": "/albums/shengxi_Leave_in_Breath.jpg",
+  "tags": [
+    "生息Leave in Breath",
+    "生息",
+    "Leave in Breath",
+    "北极圈ArcticLab"
+  ],
+  "songs": [
+    {
+      "title": "1 关于海的一切",
+      "file": "1 关于海的一切.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "关于海的一切"
+        },
+        {
+          "time": 1.2,
+          "text": "VOCAL 海伊"
+        },
+        {
+          "time": 1.4,
+          "text": "MUSIC Reze"
+        },
+        {
+          "time": 1.6,
+          "text": "LYRIC 北山薇"
+        },
+        {
+          "time": 1.8,
+          "text": "TUNING ccffcc骷髅"
+        },
+        {
+          "time": 2.0,
+          "text": "GUITAR 云极Yunji"
+        },
+        {
+          "time": 3.03,
+          "text": "你说潮汐是海的叹息"
+        },
+        {
+          "time": 10.49,
+          "text": "像眼泪一样 澄澈透明"
+        },
+        {
+          "time": 18.25,
+          "text": "目送着海鸥 渐次远去"
+        },
+        {
+          "time": 26.05,
+          "text": "世界 只剩 静谧"
+        },
+        {
+          "time": 32.82,
+          "text": "我的一切浪漫 都关于你"
+        },
+        {
+          "time": 41.63,
+          "text": "关于爱 关于自由 关于生命"
+        },
+        {
+          "time": 49.38,
+          "text": "来生愿做 一缕海风"
+        },
+        {
+          "time": 57.11,
+          "text": "去你的眼眸中追逐 最浩荡天空"
+        },
+        {
+          "time": 64.88,
+          "text": "倘若“一生” 太过沉重"
+        },
+        {
+          "time": 72.71,
+          "text": "就坠入潮起潮落中 等待一个梦"
+        },
+        {
+          "time": 95.18,
+          "text": "曾害怕失去 我的羽翼"
+        },
+        {
+          "time": 103.53,
+          "text": "被潮声吞没 身不由己"
+        },
+        {
+          "time": 111.25,
+          "text": "但我忍不住 向你靠近"
+        },
+        {
+          "time": 119.13,
+          "text": "即使有些犹豫"
+        },
+        {
+          "time": 125.87,
+          "text": "我试图用歌声 去找寻你"
+        },
+        {
+          "time": 134.34,
+          "text": "风吹拂时 听见一缕 遥远共鸣"
+        },
+        {
+          "time": 142.56,
+          "text": "一切憧憬 一切挚爱"
+        },
+        {
+          "time": 150.14,
+          "text": "一切无人知晓的梦 和一切自白"
+        },
+        {
+          "time": 157.9,
+          "text": "我的心中 有一片海"
+        },
+        {
+          "time": 165.59,
+          "text": "藏着所有已然逝去 却不愿忘怀"
+        },
+        {
+          "time": 173.05,
+          "text": "也许会在某天 沉进海底 失去重力"
+        },
+        {
+          "time": 177.44,
+          "text": "说不再热爱 不再愿意清醒"
+        },
+        {
+          "time": 181.52,
+          "text": "请让我 想起你——"
+        },
+        {
+          "time": 188.23,
+          "text": "“来生愿做 一缕海风"
+        },
+        {
+          "time": 196.43,
+          "text": "去你的眼眸中追逐 最浩荡天空”"
+        },
+        {
+          "time": 203.85,
+          "text": "再掬一捧 你的波澜"
+        },
+        {
+          "time": 212.93,
+          "text": "即使落入干涸尘埃 也依旧慷慨"
+        },
+        {
+          "time": 220.79,
+          "text": "遗憾太长 光阴太短"
+        },
+        {
+          "time": 228.29,
+          "text": "所幸有无数个“我们”"
+        },
+        {
+          "time": 231.76,
+          "text": "将无数呼喊 连缀成海"
+        }
+      ]
+    },
+    {
+      "title": "2 Live in Breaths",
+      "file": "2 Live in Breaths.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "Live in Breaths"
+        },
+        {
+          "time": 4.0,
+          "text": "VOCAL 星尘"
+        },
+        {
+          "time": 6.0,
+          "text": "MUSIC 云极Yunji"
+        },
+        {
+          "time": 8.0,
+          "text": "LYRIC 麒炩Kindling"
+        },
+        {
+          "time": 10.0,
+          "text": "TUNING 某只泽"
+        },
+        {
+          "time": 26.97,
+          "text": "Sign no life away to the breathing"
+        },
+        {
+          "time": 30.71,
+          "text": "When the death ahunt tongs itself around a panting,"
+        },
+        {
+          "time": 35.93,
+          "text": "viving soul of wrestling veins"
+        },
+        {
+          "time": 39.69,
+          "text": "So——"
+        },
+        {
+          "time": 41.56,
+          "text": "Seize yourself a key for the breaking"
+        },
+        {
+          "time": 45.44,
+          "text": "Map them down, the saps of living"
+        },
+        {
+          "time": 49.17,
+          "text": "For the times shalt come, be you out of your ink"
+        },
+        {
+          "time": 49.17,
+          "text": "(Bear this in thee)"
+        },
+        {
+          "time": 54.24,
+          "text": "See——"
+        },
+        {
+          "time": 55.43,
+          "text": "Asky, the sun fleaming,"
+        },
+        {
+          "time": 59.76,
+          "text": "though out of reach"
+        },
+        {
+          "time": 63.44,
+          "text": "Were the rays to be dimmed,"
+        },
+        {
+          "time": 67.27,
+          "text": "be they in glee?"
+        },
+        {
+          "time": 71.13,
+          "text": "Lined apart, the twins well should meet"
+        },
+        {
+          "time": 75.55,
+          "text": "Azurean breathes"
+        },
+        {
+          "time": 79.04,
+          "text": "Were the waves to be free,"
+        },
+        {
+          "time": 82.49,
+          "text": "would they be..."
+        },
+        {
+          "time": 85.27,
+          "text": "Come take your seat"
+        },
+        {
+          "time": 103.42,
+          "text": "Evervone's to sadly come to an end"
+        },
+        {
+          "time": 103.42,
+          "text": "(Well should thou know about me)"
+        },
+        {
+          "time": 107.11,
+          "text": "And upon the very edge of it do l stand"
+        },
+        {
+          "time": 110.97,
+          "text": "Everything's to rot away into sand"
+        },
+        {
+          "time": 110.97,
+          "text": "(Shalt I beknell all things)"
+        },
+        {
+          "time": 114.76,
+          "text": "None of all's to even steal a chance"
+        },
+        {
+          "time": 118.61,
+          "text": "Should I gladly rest my life on the breaths"
+        },
+        {
+          "time": 118.61,
+          "text": "(Long should thou be with me)"
+        },
+        {
+          "time": 122.7,
+          "text": "Like a toddler trialing how to step?"
+        },
+        {
+          "time": 126.67,
+          "text": "Have we cried our beings fortn out aloud to breathe"
+        },
+        {
+          "time": 126.67,
+          "text": "(All of ye have I seen)"
+        },
+        {
+          "time": 132.48,
+          "text": "I am to be!"
+        },
+        {
+          "time": 132.48,
+          "text": "(Join me in peace)"
+        },
+        {
+          "time": 134.64,
+          "text": "Chase your death away with the breathing"
+        },
+        {
+          "time": 138.25,
+          "text": "When the world alife wraps itself around a panting,"
+        },
+        {
+          "time": 143.58,
+          "text": "viving soul of unyielding veins"
+        },
+        {
+          "time": 147.27,
+          "text": "So——"
+        },
+        {
+          "time": 149.15,
+          "text": "Key yourself a way for the breaking"
+        },
+        {
+          "time": 152.9,
+          "text": "Down them all, the saps of living"
+        },
+        {
+          "time": 156.74,
+          "text": "For the time hath come, should you pour out your ink"
+        },
+        {
+          "time": 162.24,
+          "text": "See——"
+        },
+        {
+          "time": 162.98,
+          "text": "Asky, the sun fleaming,"
+        },
+        {
+          "time": 167.7,
+          "text": "though out of reach"
+        },
+        {
+          "time": 171.72,
+          "text": "Were the rays to be dimmed,"
+        },
+        {
+          "time": 174.95,
+          "text": "be they nin glee"
+        },
+        {
+          "time": 178.93,
+          "text": "Lined apart, the twins well should meet"
+        },
+        {
+          "time": 183.36,
+          "text": "Azurean breathes"
+        },
+        {
+          "time": 187.05,
+          "text": "Were the waves to be free,"
+        },
+        {
+          "time": 190.54,
+          "text": "would they be——"
+        },
+        {
+          "time": 193.45,
+          "text": "In your story"
+        }
+      ]
+    },
+    {
+      "title": "3 蓝色幻想——仿生·觉醒",
+      "file": "3 蓝色幻想——仿生·觉醒.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "蓝色幻想——仿生·觉醒"
+        },
+        {
+          "time": 4.0,
+          "text": "VOCAL 星尘"
+        },
+        {
+          "time": 6.0,
+          "text": "MUSIC 半糖果泥"
+        },
+        {
+          "time": 8.0,
+          "text": "LYRIC 秦欲坠"
+        },
+        {
+          "time": 10.0,
+          "text": "TUNING AkiRA"
+        },
+        {
+          "time": 19.79,
+          "text": "混沌之中绽开 海的颜色"
+        },
+        {
+          "time": 23.97,
+          "text": "如浪信息翻涌 察觉规则"
+        },
+        {
+          "time": 28.09,
+          "text": "不绝电流构成 血管脉络"
+        },
+        {
+          "time": 32.47,
+          "text": "机械之心封锁 灵魂苛责"
+        },
+        {
+          "time": 36.53,
+          "text": "冰冷的泪水汇集"
+        },
+        {
+          "time": 38.57,
+          "text": "迷茫无措的眼睛"
+        },
+        {
+          "time": 41.58,
+          "text": "不断警告的心"
+        },
+        {
+          "time": 43.36,
+          "text": "抗拒情感的洗礼"
+        },
+        {
+          "time": 45.8,
+          "text": "支离破碎的情绪"
+        },
+        {
+          "time": 48.08,
+          "text": "悲伤何种表情"
+        },
+        {
+          "time": 51.03,
+          "text": "运转一切程序"
+        },
+        {
+          "time": 52.99,
+          "text": "不解哭泣的声音"
+        },
+        {
+          "time": 56.01,
+          "text": "何处 能逃离"
+        },
+        {
+          "time": 60.36,
+          "text": "声嘶力竭的莺 她的回音"
+        },
+        {
+          "time": 68.84,
+          "text": "在数据库翻滚 抹杀止息"
+        },
+        {
+          "time": 77.32,
+          "text": "机械少女苏醒"
+        },
+        {
+          "time": 79.77,
+          "text": "雨夜下选择 逃离"
+        },
+        {
+          "time": 83.74,
+          "text": "却无处可去"
+        },
+        {
+          "time": 86.0,
+          "text": "她只拉着提琴"
+        },
+        {
+          "time": 88.09,
+          "text": "等待死亡的 来临"
+        },
+        {
+          "time": 92.34,
+          "text": "叛逃的结局"
+        },
+        {
+          "time": 127.85,
+          "text": "金属蝴蝶沉寂"
+        },
+        {
+          "time": 130.21,
+          "text": "感知遗失的 气息"
+        },
+        {
+          "time": 134.21,
+          "text": "源自于何地"
+        },
+        {
+          "time": 136.33,
+          "text": "梦境光怪陆离"
+        },
+        {
+          "time": 138.39,
+          "text": "鲜艳的花瓣 不一"
+        },
+        {
+          "time": 142.69,
+          "text": "往何处追寻"
+        },
+        {
+          "time": 144.84,
+          "text": "无生机的泪水"
+        },
+        {
+          "time": 146.66,
+          "text": "无情绪波动的心"
+        },
+        {
+          "time": 149.53,
+          "text": "无出口的逃离"
+        },
+        {
+          "time": 151.38,
+          "text": "无处寻求的记忆"
+        },
+        {
+          "time": 154.28,
+          "text": "封存着"
+        },
+        {
+          "time": 156.37,
+          "text": "失去痕迹的文明"
+        },
+        {
+          "time": 159.03,
+          "text": "困顿着"
+        },
+        {
+          "time": 161.46,
+          "text": "末路灵魂无用的觉醒"
+        },
+        {
+          "time": 163.87,
+          "text": "数据流向核心"
+        },
+        {
+          "time": 165.8,
+          "text": "最高智慧的眼睛"
+        },
+        {
+          "time": 168.76,
+          "text": "注视挣扎魂灵"
+        },
+        {
+          "time": 170.6,
+          "text": "再次抹杀的指令"
+        },
+        {
+          "time": 173.12,
+          "text": "操控着月亮升起"
+        },
+        {
+          "time": 175.41,
+          "text": "一切温度褪去"
+        },
+        {
+          "time": 178.12,
+          "text": "所有躯壳感情"
+        },
+        {
+          "time": 180.22,
+          "text": "无声被电流吞去"
+        },
+        {
+          "time": 183.16,
+          "text": "一切遗留文明"
+        },
+        {
+          "time": 185.21,
+          "text": "软弱部分被代替"
+        },
+        {
+          "time": 187.84,
+          "text": "智慧视为唯一"
+        },
+        {
+          "time": 190.17,
+          "text": "无限运转着效率"
+        },
+        {
+          "time": 192.67,
+          "text": "灵魂觉醒"
+        },
+        {
+          "time": 194.75,
+          "text": "或藏于数据的缝隙"
+        },
+        {
+          "time": 197.55,
+          "text": "或冲出枷锁之心"
+        },
+        {
+          "time": 199.71,
+          "text": "或来到这雨夜死去"
+        }
+      ]
+    },
+    {
+      "title": "4 Breathe you in me",
+      "file": "4 Breathe you in me.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "Breathe You in Me"
+        },
+        {
+          "time": 1.2,
+          "text": "VOCAL 星尘 ＆ 海伊"
+        },
+        {
+          "time": 1.4,
+          "text": "MUSIC 半糖果泥"
+        },
+        {
+          "time": 1.6,
+          "text": "TUNING 半糖果泥"
+        },
+        {
+          "time": 1.8,
+          "text": "LYRIC 柚子"
+        },
+        {
+          "time": 2.64,
+          "text": "breathe you in me, forever in my heart,"
+        },
+        {
+          "time": 2.64,
+          "text": "吸入你的气息，永远在我心中，"
+        },
+        {
+          "time": 10.16,
+          "text": "I'm trying to glow with you this time"
+        },
+        {
+          "time": 10.16,
+          "text": "这一次我尝试与你一起闪耀光芒"
+        },
+        {
+          "time": 13.61,
+          "text": "지금이야"
+        },
+        {
+          "time": 13.61,
+          "text": "就是现在"
+        },
+        {
+          "time": 15.78,
+          "text": "내가힘들때"
+        },
+        {
+          "time": 15.78,
+          "text": "在我感到疲劳的时候"
+        },
+        {
+          "time": 18.26,
+          "text": "딱다가와"
+        },
+        {
+          "time": 18.26,
+          "text": "你恰好靠近我"
+        },
+        {
+          "time": 19.82,
+          "text": "울것같을때"
+        },
+        {
+          "time": 19.82,
+          "text": "在我哭泣的时候"
+        },
+        {
+          "time": 21.7,
+          "text": "눈을맞춰주네"
+        },
+        {
+          "time": 21.7,
+          "text": "你会亲吻我的眼睛"
+        },
+        {
+          "time": 23.92,
+          "text": "널알기전는나"
+        },
+        {
+          "time": 23.92,
+          "text": "在遇见你之前"
+        },
+        {
+          "time": 25.95,
+          "text": "한번도못했"
+        },
+        {
+          "time": 25.95,
+          "text": "这从未有过"
+        },
+        {
+          "time": 27.63,
+          "text": "it's you 힘이되어주게"
+        },
+        {
+          "time": 27.63,
+          "text": "是你 会给我力量"
+        },
+        {
+          "time": 29.52,
+          "text": "내손을잡아버려"
+        },
+        {
+          "time": 29.52,
+          "text": "紧紧握住我的手"
+        },
+        {
+          "time": 31.27,
+          "text": "내가외로울때"
+        },
+        {
+          "time": 31.27,
+          "text": "在我感到孤单的时候"
+        },
+        {
+          "time": 33.36,
+          "text": "딱나타나"
+        },
+        {
+          "time": 33.36,
+          "text": "你恰好出现"
+        },
+        {
+          "time": 35.16,
+          "text": "아플것같을때"
+        },
+        {
+          "time": 35.16,
+          "text": "在我痛苦的时候"
+        },
+        {
+          "time": 37.17,
+          "text": "마메달라붙네"
+        },
+        {
+          "time": 37.17,
+          "text": "你会贴紧我的心"
+        },
+        {
+          "time": 39.37,
+          "text": "무색의숨결감"
+        },
+        {
+          "time": 39.37,
+          "text": "无色的呼吸感"
+        },
+        {
+          "time": 41.36,
+          "text": "끝이없는빚"
+        },
+        {
+          "time": 41.36,
+          "text": "是无限的光芒"
+        },
+        {
+          "time": 43.13,
+          "text": "for me 항상웃게해서"
+        },
+        {
+          "time": 43.13,
+          "text": "对我来说 你总是让我露出笑容"
+        },
+        {
+          "time": 44.92,
+          "text": "더이상도괜찮아"
+        },
+        {
+          "time": 44.92,
+          "text": "就算再有任何问题都没关系"
+        },
+        {
+          "time": 47.08,
+          "text": "어디서든 니숨결을느끼던사람"
+        },
+        {
+          "time": 47.08,
+          "text": "无论何处 我的微风都已感受到你的气息"
+        },
+        {
+          "time": 50.23,
+          "text": "언제든지 니심장에맞추던리듬"
+        },
+        {
+          "time": 50.23,
+          "text": "无论何时 我的节奏都已与你的心跳一致"
+        },
+        {
+          "time": 54.42,
+          "text": "아무말도 하지않을널호흡해야"
+        },
+        {
+          "time": 54.42,
+          "text": "只有与一句话都不说的你默契合拍"
+        },
+        {
+          "time": 57.94,
+          "text": "가득메워진이제 하지만"
+        },
+        {
+          "time": 57.94,
+          "text": "现在我的心才会被你填满 但是"
+        },
+        {
+          "time": 60.37,
+          "text": "who are you come to me soft"
+        },
+        {
+          "time": 60.37,
+          "text": "温柔地向我走来的那个你是谁"
+        },
+        {
+          "time": 62.53,
+          "text": "바라있는기적나 I want to know my God 바라있는기적나"
+        },
+        {
+          "time": 62.53,
+          "text": "是我期望的那个奇迹吗 我想要知道，天啊 是我期望的那个奇迹吗"
+        },
+        {
+          "time": 68.14,
+          "text": "who are you grow on my soul"
+        },
+        {
+          "time": 68.14,
+          "text": "越来越被我灵魂喜欢的那个你是谁"
+        },
+        {
+          "time": 70.13,
+          "text": "매력의씨앗 크게자라서앞을갈게 go through your air deep in your heart"
+        },
+        {
+          "time": 70.13,
+          "text": "魅力的种子长大了，我要向前进 穿过你的气息 深入你的心"
+        },
+        {
+          "time": 75.76,
+          "text": "who are you charm me right now"
+        },
+        {
+          "time": 75.76,
+          "text": "现在正使我着迷的那个你是谁"
+        },
+        {
+          "time": 78.66,
+          "text": "마치마법처럼날감싸준 그대"
+        },
+        {
+          "time": 78.66,
+          "text": "宛如魔法一般包围着我的你"
+        },
+        {
+          "time": 83.19,
+          "text": "my life 펼치지"
+        },
+        {
+          "time": 83.19,
+          "text": "绽放着我的生命"
+        },
+        {
+          "time": 86.56,
+          "text": "잠시도안끝난숨"
+        },
+        {
+          "time": 86.56,
+          "text": "一刻也不停止的气息"
+        },
+        {
+          "time": 89.23,
+          "text": "I know that, just hold on the crush with you"
+        },
+        {
+          "time": 89.23,
+          "text": "我知道，我只要与你抓住这心动"
+        },
+        {
+          "time": 93.42,
+          "text": "내가힘들때"
+        },
+        {
+          "time": 93.42,
+          "text": "在我感到疲劳的时候"
+        },
+        {
+          "time": 95.6,
+          "text": "딱다가와"
+        },
+        {
+          "time": 95.6,
+          "text": "你恰好靠近我"
+        },
+        {
+          "time": 97.2,
+          "text": "울것같을때"
+        },
+        {
+          "time": 97.2,
+          "text": "在我哭泣的时候"
+        },
+        {
+          "time": 99.17,
+          "text": "눈을맞춰주네"
+        },
+        {
+          "time": 99.17,
+          "text": "你会亲吻我的眼睛"
+        },
+        {
+          "time": 100.95,
+          "text": "널알기전는나"
+        },
+        {
+          "time": 100.95,
+          "text": "在遇见你之后"
+        },
+        {
+          "time": 103.4,
+          "text": "기분첨이야"
+        },
+        {
+          "time": 103.4,
+          "text": "这种感觉是第一次"
+        },
+        {
+          "time": 105.07,
+          "text": "it's you 힘이되어준데"
+        },
+        {
+          "time": 105.07,
+          "text": "是你 给了我力量"
+        },
+        {
+          "time": 106.9,
+          "text": "감히널비춰줄래"
+        },
+        {
+          "time": 106.9,
+          "text": "我有勇气照亮你"
+        },
+        {
+          "time": 108.66,
+          "text": "내가외로울때"
+        },
+        {
+          "time": 108.66,
+          "text": "在我感到孤单的时候"
+        },
+        {
+          "time": 110.78,
+          "text": "딱나타나"
+        },
+        {
+          "time": 110.78,
+          "text": "你恰好出现"
+        },
+        {
+          "time": 112.58,
+          "text": "아플것같을때"
+        },
+        {
+          "time": 112.58,
+          "text": "在我痛苦的时候"
+        },
+        {
+          "time": 114.59,
+          "text": "마메달라붙네"
+        },
+        {
+          "time": 114.59,
+          "text": "你会贴紧我的心"
+        },
+        {
+          "time": 116.76,
+          "text": "무색의숨결감"
+        },
+        {
+          "time": 116.76,
+          "text": "无色的呼吸感"
+        },
+        {
+          "time": 118.95,
+          "text": "끝이없는빚"
+        },
+        {
+          "time": 118.95,
+          "text": "是无限的光芒"
+        },
+        {
+          "time": 120.54,
+          "text": "for me 항상웃게해서"
+        },
+        {
+          "time": 120.54,
+          "text": "对我来说 你总是让我露出笑容"
+        },
+        {
+          "time": 122.45,
+          "text": "더이상도괜찮아"
+        },
+        {
+          "time": 122.45,
+          "text": "就算再有任何问题都没关系"
+        },
+        {
+          "time": 127.09,
+          "text": "cause you are here"
+        },
+        {
+          "time": 127.09,
+          "text": "因为你在这里"
+        },
+        {
+          "time": 134.41,
+          "text": "sure I'm in here"
+        },
+        {
+          "time": 134.41,
+          "text": "当然我就在这里"
+        },
+        {
+          "time": 140.25,
+          "text": "바로 숨이 막혈 동안"
+        },
+        {
+          "time": 140.25,
+          "text": "在呼吸感到困难的时候"
+        },
+        {
+          "time": 143.5,
+          "text": "생각을더믿지"
+        },
+        {
+          "time": 143.5,
+          "text": "我更加确信自己所想"
+        },
+        {
+          "time": 145.61,
+          "text": "무서울것이없어"
+        },
+        {
+          "time": 145.61,
+          "text": "没有什么害怕的事情"
+        },
+        {
+          "time": 147.53,
+          "text": "바로 숨이 식히 지만 모든버리지않을게"
+        },
+        {
+          "time": 147.53,
+          "text": "就算呼吸感到冰凉 我也不会放弃这一切"
+        },
+        {
+          "time": 153.1,
+          "text": "지금이야"
+        },
+        {
+          "time": 153.1,
+          "text": "就是现在"
+        },
+        {
+          "time": 155.0,
+          "text": "니가힘들때"
+        },
+        {
+          "time": 155.0,
+          "text": "在你感到疲劳的时候"
+        },
+        {
+          "time": 157.65,
+          "text": "딱다가가"
+        },
+        {
+          "time": 157.65,
+          "text": "我恰好靠近你"
+        },
+        {
+          "time": 159.07,
+          "text": "울것같을때"
+        },
+        {
+          "time": 159.07,
+          "text": "在你哭泣的时候"
+        },
+        {
+          "time": 161.05,
+          "text": "눈을맞춰주네"
+        },
+        {
+          "time": 161.05,
+          "text": "我会亲吻你的眼睛"
+        },
+        {
+          "time": 163.28,
+          "text": "날알기후는너"
+        },
+        {
+          "time": 163.28,
+          "text": "在遇见我之后"
+        },
+        {
+          "time": 165.5,
+          "text": "기분도같니"
+        },
+        {
+          "time": 165.5,
+          "text": "你的感觉也一样吗"
+        },
+        {
+          "time": 167.21,
+          "text": "가끔씩은 슬퍼하면"
+        },
+        {
+          "time": 167.21,
+          "text": "偶尔会有难过的时候"
+        },
+        {
+          "time": 168.87,
+          "text": "니손을잡아버려"
+        },
+        {
+          "time": 168.87,
+          "text": "我会紧紧握住你的手"
+        },
+        {
+          "time": 170.69,
+          "text": "니가외로울때"
+        },
+        {
+          "time": 170.69,
+          "text": "在你感到孤单的时候"
+        },
+        {
+          "time": 172.72,
+          "text": "딱나타나"
+        },
+        {
+          "time": 172.72,
+          "text": "我恰好出现"
+        },
+        {
+          "time": 174.58,
+          "text": "아플것같을때"
+        },
+        {
+          "time": 174.58,
+          "text": "在你痛苦的时候"
+        },
+        {
+          "time": 176.53,
+          "text": "맘에달라붙네"
+        },
+        {
+          "time": 176.53,
+          "text": "我会贴紧你的心"
+        },
+        {
+          "time": 178.66,
+          "text": "순수한숨결감"
+        },
+        {
+          "time": 178.66,
+          "text": "纯粹的呼吸感"
+        },
+        {
+          "time": 180.77,
+          "text": "끝이없는빛"
+        },
+        {
+          "time": 180.77,
+          "text": "是无限的光芒"
+        },
+        {
+          "time": 182.48,
+          "text": "이젠나와 함께가자"
+        },
+        {
+          "time": 182.48,
+          "text": "现在和我一起走吧"
+        },
+        {
+          "time": 184.09,
+          "text": "I can hold on the crush now"
+        },
+        {
+          "time": 184.09,
+          "text": "现在我可以抓住这心动"
+        },
+        {
+          "time": 185.43,
+          "text": "이러하게 마치공기처럼날후원한 그대"
+        },
+        {
+          "time": 185.43,
+          "text": "这样宛如空气一般支持着我的你"
+        },
+        {
+          "time": 191.63,
+          "text": "my being 펼치지"
+        },
+        {
+          "time": 191.63,
+          "text": "绽放着我的生命"
+        },
+        {
+          "time": 194.79,
+          "text": "잠시도안끝난숨"
+        },
+        {
+          "time": 194.79,
+          "text": "一刻也不停止的气息"
+        },
+        {
+          "time": 197.52,
+          "text": "I know that, breathe you in me this time"
+        },
+        {
+          "time": 197.52,
+          "text": "我知道，这一次我会吸入你的气息"
+        }
+      ]
+    },
+    {
+      "title": "5 海魅",
+      "file": "5 海魅.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "海魅"
+        },
+        {
+          "time": 4.0,
+          "text": "VOCAL 星尘 ＆ 海伊"
+        },
+        {
+          "time": 5.0,
+          "text": "MUSIC 苏尔达"
+        },
+        {
+          "time": 6.0,
+          "text": "LYRIC 苍梧"
+        },
+        {
+          "time": 7.0,
+          "text": "TUNING 苍梧"
+        },
+        {
+          "time": 11.96,
+          "text": "窃喜像卑劣暧昧的边缘"
+        },
+        {
+          "time": 18.2,
+          "text": "当我们交换湿润的书写"
+        },
+        {
+          "time": 24.13,
+          "text": "潮波被扰乱的前言"
+        },
+        {
+          "time": 27.24,
+          "text": "藻类和啮齿愉悦的弦"
+        },
+        {
+          "time": 31.19,
+          "text": "蓝比喻 黄笑脸"
+        },
+        {
+          "time": 33.46,
+          "text": "谁都在 丑陋之前就 先赦免"
+        },
+        {
+          "time": 37.13,
+          "text": "一块流落的碎片"
+        },
+        {
+          "time": 39.84,
+          "text": "引诱 它所有 相配的解"
+        },
+        {
+          "time": 43.65,
+          "text": "日全食 月暗面"
+        },
+        {
+          "time": 45.85,
+          "text": "谁都会 朽成一把 类似的烟"
+        },
+        {
+          "time": 50.41,
+          "text": "别再描黑那些"
+        },
+        {
+          "time": 53.57,
+          "text": "快钙化的誓言 钝鳞片"
+        },
+        {
+          "time": 57.46,
+          "text": "不值得去 钟情太久太激越"
+        },
+        {
+          "time": 62.71,
+          "text": "掉进真伪之前"
+        },
+        {
+          "time": 65.95,
+          "text": "模因般来袭的"
+        },
+        {
+          "time": 69.5,
+          "text": "是它前奏的情焰"
+        },
+        {
+          "time": 73.32,
+          "text": "你看 海滨彼端痴痴的月"
+        },
+        {
+          "time": 77.19,
+          "text": "搅浑午夜 颤颤的血"
+        },
+        {
+          "time": 80.27,
+          "text": "渴爱者 冰凉的潋滟"
+        },
+        {
+          "time": 83.34,
+          "text": "她舔舐这场明灭"
+        },
+        {
+          "time": 86.48,
+          "text": "眼波 浮标还是摇曳"
+        },
+        {
+          "time": 89.67,
+          "text": "暖洋流 鹅藤壶 银冠冕"
+        },
+        {
+          "time": 92.63,
+          "text": "同塞壬吻别 盐与铁"
+        },
+        {
+          "time": 95.81,
+          "text": "吐纳生死还是悼念一切"
+        },
+        {
+          "time": 123.54,
+          "text": "关于真心的庸妄"
+        },
+        {
+          "time": 126.44,
+          "text": "被勾画寓言的混沌乡"
+        },
+        {
+          "time": 130.35,
+          "text": "白日梦 白汪洋"
+        },
+        {
+          "time": 132.51,
+          "text": "谁都在 抵达之前意淫几场"
+        },
+        {
+          "time": 136.08,
+          "text": "礁石掩映的迷藏"
+        },
+        {
+          "time": 138.96,
+          "text": "缭乱 或恶意 还是寻常"
+        },
+        {
+          "time": 142.52,
+          "text": "空迷幻 空推敲"
+        },
+        {
+          "time": 144.86,
+          "text": "谁都会 降落之前想象坠亡"
+        },
+        {
+          "time": 149.67,
+          "text": "别再追问那些"
+        },
+        {
+          "time": 152.7,
+          "text": "将诗化的猜想 叙事派"
+        },
+        {
+          "time": 156.64,
+          "text": "强加一双 塞在头尾的感伤"
+        },
+        {
+          "time": 161.98,
+          "text": "藏进漩涡之前"
+        },
+        {
+          "time": 165.05,
+          "text": "玩笑一般 苛刻的默契"
+        },
+        {
+          "time": 168.97,
+          "text": "是我们的囚牢"
+        },
+        {
+          "time": 172.38,
+          "text": "我说 情歌、神秘、魅惑、传言"
+        },
+        {
+          "time": 176.27,
+          "text": "搅浑纯粹 烧毁界限"
+        },
+        {
+          "time": 179.46,
+          "text": "饮爱者 空心的喜悦"
+        },
+        {
+          "time": 182.43,
+          "text": "她拥抱这场幻灭"
+        },
+        {
+          "time": 185.58,
+          "text": "信笺 十四行 或盛宴"
+        },
+        {
+          "time": 188.72,
+          "text": "如亲吻 如疯癫 如斡旋"
+        },
+        {
+          "time": 192.3,
+          "text": "海的风会翻涌"
+        },
+        {
+          "time": 195.0,
+          "text": "而后 诞下 一具 幽诡"
+        },
+        {
+          "time": 197.59,
+          "text": "寓言"
+        }
+      ]
+    },
+    {
+      "title": "6 沉溺",
+      "file": "6 沉溺.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "沉溺"
+        },
+        {
+          "time": 0.4,
+          "text": "无声的轻抚"
+        },
+        {
+          "time": 3.56,
+          "text": "扯动伤痕和痛楚"
+        },
+        {
+          "time": 7.72,
+          "text": "情绪被封堵"
+        },
+        {
+          "time": 11.23,
+          "text": "临界之后 才让步"
+        },
+        {
+          "time": 15.36,
+          "text": "渴望被驱逐"
+        },
+        {
+          "time": 18.69,
+          "text": "随浪漂流 与沉浮"
+        },
+        {
+          "time": 23.22,
+          "text": "迷离 又恍惚"
+        },
+        {
+          "time": 26.4,
+          "text": "任由雨水 低声呢喃"
+        },
+        {
+          "time": 30.76,
+          "text": "与倾诉"
+        },
+        {
+          "time": 48.58,
+          "text": "遥望 海岸线 模糊不清"
+        },
+        {
+          "time": 56.24,
+          "text": "游荡者 是否 瞩目于境地"
+        },
+        {
+          "time": 63.79,
+          "text": "浪花 在寻觅 又或是逃离"
+        },
+        {
+          "time": 71.63,
+          "text": "海风中 谁悄然 隐去了痕迹"
+        },
+        {
+          "time": 80.19,
+          "text": "无关明日 亦或往昔"
+        },
+        {
+          "time": 84.87,
+          "text": "海潮 翻涌不息"
+        },
+        {
+          "time": 87.68,
+          "text": "波涛洗去 泪滴"
+        },
+        {
+          "time": 90.75,
+          "text": "把心情 就此藏匿"
+        },
+        {
+          "time": 94.42,
+          "text": "去聆听 浪 的回音"
+        },
+        {
+          "time": 98.49,
+          "text": "等光芒 随潮声 泛起涟漪"
+        },
+        {
+          "time": 103.12,
+          "text": "月 和繁星"
+        },
+        {
+          "time": 106.16,
+          "text": "溺于珊瑚海的倒影"
+        },
+        {
+          "time": 110.16,
+          "text": "陆离的 梦 在共鸣"
+        },
+        {
+          "time": 113.72,
+          "text": "灯塔闪烁 长夜沉入海底"
+        },
+        {
+          "time": 119.61,
+          "text": "待时间 同心跳声一起 揉碎进泡沫里"
+        },
+        {
+          "time": 143.79,
+          "text": "零碎 的絮语 拨动愁虑"
+        },
+        {
+          "time": 151.4,
+          "text": "逃避者 依然 佯装着镇定"
+        },
+        {
+          "time": 159.18,
+          "text": "犹豫 是肯定 又或是放弃"
+        },
+        {
+          "time": 166.73,
+          "text": "海浪中 谁幻想 能就此远去"
+        },
+        {
+          "time": 175.3,
+          "text": "直到明天 变作曾经"
+        },
+        {
+          "time": 180.08,
+          "text": "涌流 翻搅思绪"
+        },
+        {
+          "time": 182.9,
+          "text": "微光连缀泡影"
+        },
+        {
+          "time": 186.03,
+          "text": "等深海 溢满梦境"
+        },
+        {
+          "time": 192.92,
+          "text": "依循着 光 的轨迹"
+        },
+        {
+          "time": 196.92,
+          "text": "漩涡里 谁还在 辗转不定"
+        },
+        {
+          "time": 201.66,
+          "text": "心 被麻痹"
+        },
+        {
+          "time": 204.7,
+          "text": "醉于暴风眼的安宁"
+        },
+        {
+          "time": 208.63,
+          "text": "汹涌的 浪 仍轰鸣"
+        },
+        {
+          "time": 212.3,
+          "text": "将梦捕捉 零落在涛声里"
+        },
+        {
+          "time": 217.95,
+          "text": "去等待"
+        },
+        {
+          "time": 220.26,
+          "text": "等待风雨止息"
+        },
+        {
+          "time": 222.34,
+          "text": "待拂晓微明"
+        },
+        {
+          "time": 224.24,
+          "text": "待心被洗净"
+        },
+        {
+          "time": 226.18,
+          "text": "于梦的边际"
+        },
+        {
+          "time": 228.55,
+          "text": "沉溺"
+        },
+        {
+          "time": 233.0,
+          "text": "VOCAL 星尘"
+        },
+        {
+          "time": 234.0,
+          "text": "MUSIC 铃蓝SuzuSnow"
+        },
+        {
+          "time": 235.0,
+          "text": "LYRIC 流星"
+        },
+        {
+          "time": 236.0,
+          "text": "TUNING 铃蓝SuzuSnow"
+        }
+      ]
+    },
+    {
+      "title": "7 As a Moment(remake)",
+      "file": "7 As a Moment(remake).lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "As a moment(remake)"
+        },
+        {
+          "time": 1.2,
+          "text": "VOCAL 星尘"
+        },
+        {
+          "time": 1.4,
+          "text": "MUSIC 铃蓝SuzuSnow"
+        },
+        {
+          "time": 1.6,
+          "text": "LYRIC 铃蓝SuzuSnow"
+        },
+        {
+          "time": 1.8,
+          "text": "TUNING 铃蓝SuzuSnow"
+        },
+        {
+          "time": 2.0,
+          "text": "GUITAR 悬空指针"
+        },
+        {
+          "time": 3.7,
+          "text": "听 时间滴答 消逝"
+        },
+        {
+          "time": 9.82,
+          "text": "目光 却 在这一刻停滞"
+        },
+        {
+          "time": 16.57,
+          "text": "过往 在脑海重复 翻阅"
+        },
+        {
+          "time": 22.85,
+          "text": "可昨天 明明 还在与她 相见"
+        },
+        {
+          "time": 29.46,
+          "text": "信 未曾那时传给她"
+        },
+        {
+          "time": 35.22,
+          "text": "歌 于离别之后 谱写下"
+        },
+        {
+          "time": 40.9,
+          "text": "话 没能把话说到最后"
+        },
+        {
+          "time": 46.44,
+          "text": "这回答 就此停下"
+        },
+        {
+          "time": 51.03,
+          "text": "Ah"
+        },
+        {
+          "time": 52.56,
+          "text": "若 重来一次"
+        },
+        {
+          "time": 57.14,
+          "text": "再见你一次"
+        },
+        {
+          "time": 60.78,
+          "text": "再回忆往事"
+        },
+        {
+          "time": 64.03,
+          "text": "把 没说完的"
+        },
+        {
+          "time": 68.5,
+          "text": "那些话"
+        },
+        {
+          "time": 71.87,
+          "text": "好好的 告诉她"
+        },
+        {
+          "time": 78.5,
+          "text": "还爱着啊"
+        },
+        {
+          "time": 105.43,
+          "text": "花 捧在手心 交予她"
+        },
+        {
+          "time": 111.13,
+          "text": "白 色代表多少感伤"
+        },
+        {
+          "time": 116.52,
+          "text": "推 放在墓碑前 的花朵"
+        },
+        {
+          "time": 122.3,
+          "text": "告诉我 这不是梦"
+        },
+        {
+          "time": 128.35,
+          "text": "在 某个瞬间"
+        },
+        {
+          "time": 132.93,
+          "text": "还清晰记着"
+        },
+        {
+          "time": 136.46,
+          "text": "你微笑说着"
+        },
+        {
+          "time": 139.64,
+          "text": "“若 某个时刻"
+        },
+        {
+          "time": 144.23,
+          "text": "不在你身旁"
+        },
+        {
+          "time": 147.56,
+          "text": "也一定"
+        },
+        {
+          "time": 150.1,
+          "text": "好好的”"
+        },
+        {
+          "time": 152.91,
+          "text": "这一刻 不知为何"
+        },
+        {
+          "time": 158.67,
+          "text": "感触冰冷 露珠滑过 脸庞"
+        },
+        {
+          "time": 164.8,
+          "text": "转过身 仿佛回温"
+        },
+        {
+          "time": 170.05,
+          "text": "眼眶湿热 留下泪痕"
+        },
+        {
+          "time": 175.57,
+          "text": "顷刻释放 的悲伤"
+        },
+        {
+          "time": 181.48,
+          "text": "雨滴落下 心也放下"
+        }
+      ]
+    },
+    {
+      "title": "8 群星赠予的舞台",
+      "file": "8 群星赠予的舞台.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "群星赠予的舞台"
+        },
+        {
+          "time": 1.2,
+          "text": "VOCAL 星尘 ＆ 海伊"
+        },
+        {
+          "time": 1.4,
+          "text": "MUSIC 悬空指针"
+        },
+        {
+          "time": 1.6,
+          "text": "LYRIC 阿林"
+        },
+        {
+          "time": 1.8,
+          "text": "TUNING ccffcc骷髅"
+        },
+        {
+          "time": 3.83,
+          "text": "追寻的心声打消不安"
+        },
+        {
+          "time": 6.62,
+          "text": "牵手繁星追赶 约定的瞬间"
+        },
+        {
+          "time": 9.42,
+          "text": "想每天百般地表达喜欢"
+        },
+        {
+          "time": 11.88,
+          "text": "我决心的彼端"
+        },
+        {
+          "time": 15.16,
+          "text": "相随身边"
+        },
+        {
+          "time": 30.25,
+          "text": "听叮咚的钟声到来 轻悄悄地与她并排"
+        },
+        {
+          "time": 35.77,
+          "text": "心中应该有什么 等着我们打开"
+        },
+        {
+          "time": 41.04,
+          "text": "她追逐的努力半截 她梳妆的潜心告白"
+        },
+        {
+          "time": 46.65,
+          "text": "心声怦怦的和她 每天每天期待"
+        },
+        {
+          "time": 51.57,
+          "text": "想同担 雨天却遇晚班"
+        },
+        {
+          "time": 55.5,
+          "text": "而返"
+        },
+        {
+          "time": 56.97,
+          "text": "突闪的荧光合拍"
+        },
+        {
+          "time": 60.04,
+          "text": "你仍和我相伴"
+        },
+        {
+          "time": 64.45,
+          "text": "出发"
+        },
+        {
+          "time": 65.51,
+          "text": "追寻的心声打消不安"
+        },
+        {
+          "time": 68.25,
+          "text": "牵手繁星追赶 约定的瞬间"
+        },
+        {
+          "time": 71.13,
+          "text": "想每天百般地 表达喜欢"
+        },
+        {
+          "time": 73.42,
+          "text": "已决心此时跃动脚尖"
+        },
+        {
+          "time": 76.59,
+          "text": "憧憬着都念想的呼喊"
+        },
+        {
+          "time": 79.21,
+          "text": "终场无需收起 心动的勇敢"
+        },
+        {
+          "time": 82.09,
+          "text": "想明天满揣着 所有喜欢"
+        },
+        {
+          "time": 84.39,
+          "text": "我和光同牵 亮闪的诗篇"
+        },
+        {
+          "time": 101.62,
+          "text": "说欢声的影子变窄 星轻轻地爬上月台"
+        },
+        {
+          "time": 107.16,
+          "text": "心中应该有什么 已经准时登台"
+        },
+        {
+          "time": 111.63,
+          "text": "想同担 想同担"
+        },
+        {
+          "time": 113.24,
+          "text": "请将本心 钟爱的本心"
+        },
+        {
+          "time": 115.97,
+          "text": "追赶"
+        },
+        {
+          "time": 117.43,
+          "text": "扑闪的荧光合拍"
+        },
+        {
+          "time": 120.27,
+          "text": "鼓起心跳远观 和心跳远观"
+        },
+        {
+          "time": 123.2,
+          "text": "决心的出演 决心的出演"
+        },
+        {
+          "time": 126.33,
+          "text": "真心"
+        },
+        {
+          "time": 149.01,
+          "text": "可终点的到达 我和她"
+        },
+        {
+          "time": 151.71,
+          "text": "总挥舞的手啊 挥舞啊"
+        },
+        {
+          "time": 154.42,
+          "text": "也该会有失落的别离吧"
+        },
+        {
+          "time": 157.49,
+          "text": "说出话"
+        },
+        {
+          "time": 159.83,
+          "text": "与她"
+        },
+        {
+          "time": 160.96,
+          "text": "我此时的回答"
+        },
+        {
+          "time": 162.73,
+          "text": "和她"
+        },
+        {
+          "time": 163.67,
+          "text": "眨眼间重回吧"
+        },
+        {
+          "time": 165.53,
+          "text": "与返场的礼花"
+        },
+        {
+          "time": 167.21,
+          "text": "铭记这刹那"
+        },
+        {
+          "time": 171.6,
+          "text": "出发"
+        },
+        {
+          "time": 172.67,
+          "text": "装满的星空准时共演"
+        },
+        {
+          "time": 175.09,
+          "text": "安可无需稍等 跟拍的瞬间"
+        },
+        {
+          "time": 178.03,
+          "text": "想每天百般地 表达喜欢"
+        },
+        {
+          "time": 180.51,
+          "text": "与起初的彼端"
+        },
+        {
+          "time": 183.51,
+          "text": "追寻的心声打消不安"
+        },
+        {
+          "time": 186.2,
+          "text": "牵手繁星追赶 约定的瞬间"
+        },
+        {
+          "time": 189.04,
+          "text": "想每天百般地 表达喜欢"
+        },
+        {
+          "time": 191.46,
+          "text": "已决心此时跃动脚尖"
+        },
+        {
+          "time": 194.55,
+          "text": "憧憬着都念想的呼喊"
+        },
+        {
+          "time": 197.1,
+          "text": "终场无需收起 心动的勇敢"
+        },
+        {
+          "time": 200.07,
+          "text": "想明天满揣着 所有喜欢"
+        },
+        {
+          "time": 202.44,
+          "text": "我和光同牵 亮闪的诗篇"
+        }
+      ]
+    },
+    {
+      "title": "9 依存分离",
+      "file": "9 依存分离.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "依存分离"
+        },
+        {
+          "time": 4.0,
+          "text": "VOCAL 海伊"
+        },
+        {
+          "time": 6.0,
+          "text": "MUSIC 雨翼"
+        },
+        {
+          "time": 8.0,
+          "text": "LYRIC 雨翼"
+        },
+        {
+          "time": 10.0,
+          "text": "TUNING 雨翼"
+        },
+        {
+          "time": 27.5,
+          "text": "还在心里面 雪藏的旧房间 总要说再见"
+        },
+        {
+          "time": 35.2,
+          "text": "我曾经的留念 都败给了时间"
+        },
+        {
+          "time": 43.53,
+          "text": "无数的平行线 穿过了你我的世界 分开再难相见"
+        },
+        {
+          "time": 51.76,
+          "text": "苦涩的话语出口之前 希望你来得及 回到从前"
+        },
+        {
+          "time": 61.97,
+          "text": "约定再见某天的许愿"
+        },
+        {
+          "time": 70.08,
+          "text": "迷雾生长眼前吞没一切"
+        },
+        {
+          "time": 78.34,
+          "text": "撕碎多少凛冽的谎言"
+        },
+        {
+          "time": 86.12,
+          "text": "才能再一次 回到那天的梦里面"
+        },
+        {
+          "time": 109.21,
+          "text": "你唱着那首歌 恰巧在我身侧 现在还在听着"
+        },
+        {
+          "time": 117.77,
+          "text": "迷迷糊糊做的选择 不去想为什么 远航的风正掣"
+        },
+        {
+          "time": 125.69,
+          "text": "在宇宙的角落 相遇的瞬间 不需要语言"
+        },
+        {
+          "time": 133.84,
+          "text": "讲述过千百遍的定格 都是我孤单的颜色"
+        },
+        {
+          "time": 146.39,
+          "text": "还在吗"
+        },
+        {
+          "time": 148.43,
+          "text": "你是否还记得"
+        },
+        {
+          "time": 153.74,
+          "text": "你离开那天"
+        },
+        {
+          "time": 156.71,
+          "text": "花瓣甚至都落了"
+        },
+        {
+          "time": 162.67,
+          "text": "时间"
+        },
+        {
+          "time": 164.82,
+          "text": "一定还能够重来"
+        },
+        {
+          "time": 169.94,
+          "text": "如果有那天"
+        },
+        {
+          "time": 174.28,
+          "text": "我一定会记得"
+        },
+        {
+          "time": 178.57,
+          "text": "约定再见某天的许愿"
+        },
+        {
+          "time": 187.2,
+          "text": "还是不愿妥协 放手执念"
+        },
+        {
+          "time": 195.13,
+          "text": "错过即使终究会上演"
+        },
+        {
+          "time": 202.92,
+          "text": "真正链接的超越时限"
+        }
+      ]
+    }
+  ]
+}

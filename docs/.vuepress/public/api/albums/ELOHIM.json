@@ -1,0 +1,1249 @@
+{
+  "slug": "ELOHIM",
+  "folder": "ELOHIM",
+  "name": "ELOHIM",
+  "prefix": "",
+  "zh_name": "",
+  "en_name": "ELOHIM",
+  "suffix": "",
+  "year": "2023-09-23",
+  "produce": [
+    "秘宝旅人"
+  ],
+  "vocal": [
+    "言和"
+  ],
+  "lyricist": [
+    "大九_LN"
+  ],
+  "composer": [
+    "lbg_萝卜根",
+    "辻原一郎",
+    "雪人Snowman_",
+    "星辉p",
+    "litterzy"
+  ],
+  "arranger": [
+    "lbg_萝卜根",
+    "辻原一郎",
+    "雪人Snowman_",
+    "星辉p",
+    "litterzy"
+  ],
+  "tuning": [
+    "瑞安Ryan不跑调",
+    "某只泽",
+    "陌生来访",
+    "litterzy"
+  ],
+  "illustrator": [
+    "多尔及利亚",
+    "毛腿猪兔子"
+  ],
+  "mixer": [
+    "lbg_萝卜根",
+    "辻原一郎",
+    "雪人Snowman_",
+    "星辉p",
+    "litterzy"
+  ],
+  "lyric_maker": [
+    "RQvan"
+  ],
+  "release": "[Bilibili](https://www.bilibili.com/video/BV1w8411i7tE/)",
+  "purchase": "通贩不可用",
+  "electronic": "[Dizzylab](https://www.dizzylab.net/d/Elohim/) ￥63",
+  "cover": "/albums/ELOHIM.jpg",
+  "tags": [
+    "ELOHIM",
+    "秘宝旅人"
+  ],
+  "songs": [
+    {
+      "title": "01 Ephemeris",
+      "file": "01 Ephemeris.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "Ephemeris"
+        },
+        {
+          "time": 0.3,
+          "text": "O Gloria, in excelsis Deo"
+        },
+        {
+          "time": 0.3,
+          "text": "荣耀归于至高之神"
+        },
+        {
+          "time": 7.7,
+          "text": "Your love is like stars never fall"
+        },
+        {
+          "time": 7.7,
+          "text": "爱如星辰永不陨落"
+        },
+        {
+          "time": 14.89,
+          "text": "They guide me the way to the right place"
+        },
+        {
+          "time": 14.89,
+          "text": "带我前往正确之地"
+        },
+        {
+          "time": 21.9,
+          "text": "By grace, by grace alone"
+        },
+        {
+          "time": 21.9,
+          "text": "以恩典为引"
+        },
+        {
+          "time": 29.8,
+          "text": "Lights of divine fill the sky"
+        },
+        {
+          "time": 29.8,
+          "text": "神圣之光充满天空"
+        },
+        {
+          "time": 37.15,
+          "text": "In the song of grateful life"
+        },
+        {
+          "time": 37.15,
+          "text": "在感恩生命的歌声中"
+        },
+        {
+          "time": 44.49,
+          "text": "O Gloria, in excelsis Deo"
+        },
+        {
+          "time": 44.49,
+          "text": "荣耀归于至高之神"
+        },
+        {
+          "time": 51.5,
+          "text": "Hallelujah"
+        },
+        {
+          "time": 51.5,
+          "text": "哈利路亚"
+        },
+        {
+          "time": 62.0,
+          "text": "曲：lbg"
+        },
+        {
+          "time": 63.0,
+          "text": "词：大九_LN"
+        },
+        {
+          "time": 64.0,
+          "text": "调：瑞安Ryan不跑调"
+        },
+        {
+          "time": 65.0,
+          "text": "绘：多尔及利亚"
+        }
+      ]
+    },
+    {
+      "title": "02 Lacrima",
+      "file": "02 Lacrima.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "Lacrima"
+        },
+        {
+          "time": 0.5,
+          "text": "Eins, zwei, drei, vier, fünf, sechs, sieben, acht"
+        },
+        {
+          "time": 0.5,
+          "text": "一，二，三，四，五，六，七，八"
+        },
+        {
+          "time": 10.5,
+          "text": "Eins, zwei, drei, vier, fünf, sechs, sieben, acht"
+        },
+        {
+          "time": 10.5,
+          "text": "一，二，三，四，五，六，七，八"
+        },
+        {
+          "time": 21.1,
+          "text": "I watch all day, lapping waves"
+        },
+        {
+          "time": 21.1,
+          "text": "整日凝望浪潮拍岸"
+        },
+        {
+          "time": 27.0,
+          "text": "I don’t know my real name"
+        },
+        {
+          "time": 27.0,
+          "text": "我不知道自己真正的姓名"
+        },
+        {
+          "time": 32.2,
+          "text": "The world is just the same"
+        },
+        {
+          "time": 32.2,
+          "text": "世界一如往昔"
+        },
+        {
+          "time": 37.0,
+          "text": "With a blessing, God says"
+        },
+        {
+          "time": 37.0,
+          "text": "与神的祝福同在"
+        },
+        {
+          "time": 43.3,
+          "text": "An empty hall inside me"
+        },
+        {
+          "time": 43.3,
+          "text": "心如空无一人的礼堂"
+        },
+        {
+          "time": 50.76,
+          "text": "Echoes the only question"
+        },
+        {
+          "time": 50.76,
+          "text": "回荡着唯一的问题"
+        },
+        {
+          "time": 54.45,
+          "text": "Why I dreamed ’bout you?"
+        },
+        {
+          "time": 54.45,
+          "text": "为何我梦见了你？"
+        },
+        {
+          "time": 63.89,
+          "text": "You look like me, indeed"
+        },
+        {
+          "time": 63.89,
+          "text": "你与我如此相似"
+        },
+        {
+          "time": 67.59,
+          "text": "Back and forth"
+        },
+        {
+          "time": 67.59,
+          "text": "向前一步又向后一步"
+        },
+        {
+          "time": 69.11,
+          "text": "You dance with me, indeed"
+        },
+        {
+          "time": 69.11,
+          "text": "你与我共舞"
+        },
+        {
+          "time": 73.02,
+          "text": "Left to right"
+        },
+        {
+          "time": 73.02,
+          "text": "向左一步又向右一步"
+        },
+        {
+          "time": 74.7,
+          "text": "“Everyone shall kneel by their lily”"
+        },
+        {
+          "time": 74.7,
+          "text": "“每个人跪在他们的百合前”"
+        },
+        {
+          "time": 79.94,
+          "text": "“Everyone shall believe their sea”"
+        },
+        {
+          "time": 79.94,
+          "text": "“每个人信仰他们的海”"
+        },
+        {
+          "time": 85.04,
+          "text": "You sing for me, indeed"
+        },
+        {
+          "time": 85.04,
+          "text": "你为我而唱"
+        },
+        {
+          "time": 88.76,
+          "text": "Rise and fall"
+        },
+        {
+          "time": 88.76,
+          "text": "起伏跌宕"
+        },
+        {
+          "time": 90.61,
+          "text": "You outlive me, I wish"
+        },
+        {
+          "time": 90.61,
+          "text": "我许你长生"
+        },
+        {
+          "time": 94.24,
+          "text": "By all means"
+        },
+        {
+          "time": 94.24,
+          "text": "用尽方法"
+        },
+        {
+          "time": 95.78,
+          "text": "At least I’ve chosen my way"
+        },
+        {
+          "time": 95.78,
+          "text": "我已选择自己的路"
+        },
+        {
+          "time": 99.84,
+          "text": "Dancing out of frame, of frame"
+        },
+        {
+          "time": 99.84,
+          "text": "在画框之外舞蹈"
+        },
+        {
+          "time": 128.2,
+          "text": "Eins, zwei, drei, vier, fünf, sechs, sieben, acht"
+        },
+        {
+          "time": 128.2,
+          "text": "一，二，三，四，五，六，七，八"
+        },
+        {
+          "time": 139.0,
+          "text": "Eins, zwei, drei, vier, fünf, sechs, sieben, acht"
+        },
+        {
+          "time": 139.0,
+          "text": "一，二，三，四，五，六，七，八"
+        },
+        {
+          "time": 148.94,
+          "text": "I watch all day, waves drained"
+        },
+        {
+          "time": 148.94,
+          "text": "整日凝望浪潮拍岸"
+        },
+        {
+          "time": 154.86,
+          "text": "I don’t know my real name"
+        },
+        {
+          "time": 154.86,
+          "text": "我不知道自己真正的姓名"
+        },
+        {
+          "time": 160.4,
+          "text": "The world won’t be the same"
+        },
+        {
+          "time": 160.4,
+          "text": "世界总会变化"
+        },
+        {
+          "time": 165.15,
+          "text": "For the first time, I’m afraid"
+        },
+        {
+          "time": 165.15,
+          "text": "第一次我感到惶恐"
+        },
+        {
+          "time": 171.33,
+          "text": "I enter the hall"
+        },
+        {
+          "time": 171.33,
+          "text": "走进曾忽略的礼堂"
+        },
+        {
+          "time": 175.95,
+          "text": "I used to ignore but now I realise"
+        },
+        {
+          "time": 175.95,
+          "text": "现在终于明白"
+        },
+        {
+          "time": 186.55,
+          "text": "What I adore"
+        },
+        {
+          "time": 186.55,
+          "text": "所敬爱的究竟是什么"
+        },
+        {
+          "time": 191.7,
+          "text": "You look like me, indeed"
+        },
+        {
+          "time": 191.7,
+          "text": "你与我如此相似"
+        },
+        {
+          "time": 195.63,
+          "text": "Back and forth"
+        },
+        {
+          "time": 195.63,
+          "text": "向前一步又向后一步"
+        },
+        {
+          "time": 197.23,
+          "text": "You dance with me, indeed"
+        },
+        {
+          "time": 197.23,
+          "text": "你与我共舞"
+        },
+        {
+          "time": 201.0,
+          "text": "Left to right"
+        },
+        {
+          "time": 201.0,
+          "text": "向左一步又向右一步"
+        },
+        {
+          "time": 202.59,
+          "text": "“Everyone shall kneel by their lily”"
+        },
+        {
+          "time": 202.59,
+          "text": "“每个人跪在他们的百合前”"
+        },
+        {
+          "time": 207.89,
+          "text": "“Everyone shall believe their sea”"
+        },
+        {
+          "time": 207.89,
+          "text": "“每个人信仰他们的海”"
+        },
+        {
+          "time": 213.36,
+          "text": "You sing for me, indeed"
+        },
+        {
+          "time": 213.36,
+          "text": "你为我而唱"
+        },
+        {
+          "time": 217.03,
+          "text": "Rise and fall"
+        },
+        {
+          "time": 217.03,
+          "text": "起伏跌宕"
+        },
+        {
+          "time": 218.58,
+          "text": "You outlive me, I wish"
+        },
+        {
+          "time": 218.58,
+          "text": "我许你长生"
+        },
+        {
+          "time": 222.26,
+          "text": "By all means"
+        },
+        {
+          "time": 222.26,
+          "text": "用尽方法"
+        },
+        {
+          "time": 223.79,
+          "text": "At least I’ve chosen my way"
+        },
+        {
+          "time": 223.79,
+          "text": "我已选择自己的路"
+        },
+        {
+          "time": 227.85,
+          "text": "Dancing out of frame, of frame"
+        },
+        {
+          "time": 227.85,
+          "text": "在画框之外舞蹈"
+        },
+        {
+          "time": 238.0,
+          "text": "曲：辻原一郎"
+        },
+        {
+          "time": 239.0,
+          "text": "词：大九_LN"
+        },
+        {
+          "time": 240.0,
+          "text": "调：某只泽"
+        },
+        {
+          "time": 241.0,
+          "text": "绘：多尔及利亚"
+        }
+      ]
+    },
+    {
+      "title": "03 Ordinatio",
+      "file": "03 Ordinatio.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "Ordinatio"
+        },
+        {
+          "time": 18.2,
+          "text": "Drink it up, tears of hopes"
+        },
+        {
+          "time": 18.2,
+          "text": "饮下它，希望之泪"
+        },
+        {
+          "time": 22.67,
+          "text": "Then wake up"
+        },
+        {
+          "time": 22.67,
+          "text": "然后从圣歌制成的糖浆"
+        },
+        {
+          "time": 26.78,
+          "text": "From the ground buried by"
+        },
+        {
+          "time": 26.78,
+          "text": "所埋葬的土地"
+        },
+        {
+          "time": 31.54,
+          "text": "Syrup of hymn"
+        },
+        {
+          "time": 31.54,
+          "text": "苏醒"
+        },
+        {
+          "time": 35.1,
+          "text": "To my beloved sisters"
+        },
+        {
+          "time": 35.1,
+          "text": "致我心爱的姐妹"
+        },
+        {
+          "time": 40.42,
+          "text": "What’s on the tip of my tongue"
+        },
+        {
+          "time": 40.42,
+          "text": "我舌尖所吐之语"
+        },
+        {
+          "time": 45.26,
+          "text": "Differs from my lines"
+        },
+        {
+          "time": 45.26,
+          "text": "与我的歌词不同"
+        },
+        {
+          "time": 49.1,
+          "text": "I need to find my own song so"
+        },
+        {
+          "time": 49.1,
+          "text": "我需找到自己的歌"
+        },
+        {
+          "time": 54.27,
+          "text": "Forgive me for leaving"
+        },
+        {
+          "time": 54.27,
+          "text": "请原谅我的离去"
+        },
+        {
+          "time": 59.75,
+          "text": "To the hall I could meet my true self"
+        },
+        {
+          "time": 59.75,
+          "text": "前往能与真我相遇的礼堂"
+        },
+        {
+          "time": 66.16,
+          "text": "Forgive me for dreaming"
+        },
+        {
+          "time": 66.16,
+          "text": "请原谅我的梦想"
+        },
+        {
+          "time": 71.91,
+          "text": "Of the lines I sing can be what I believe"
+        },
+        {
+          "time": 71.91,
+          "text": "我所颂之词正如我的信仰"
+        },
+        {
+          "time": 108.15,
+          "text": "Look it up, stars of oath"
+        },
+        {
+          "time": 108.15,
+          "text": "抬头看，誓言的星群"
+        },
+        {
+          "time": 112.59,
+          "text": "Then grow up"
+        },
+        {
+          "time": 112.59,
+          "text": "然后成长"
+        },
+        {
+          "time": 117.1,
+          "text": "From a doll to the one standing alone"
+        },
+        {
+          "time": 117.1,
+          "text": "从玩偶到独自站立之人"
+        },
+        {
+          "time": 124.95,
+          "text": "To my beloved sisters"
+        },
+        {
+          "time": 124.95,
+          "text": "致我心爱的姐妹"
+        },
+        {
+          "time": 130.46,
+          "text": "I’m going to write new stories"
+        },
+        {
+          "time": 130.46,
+          "text": "我将要书写新的故事"
+        },
+        {
+          "time": 135.33,
+          "text": "You may not like it"
+        },
+        {
+          "time": 135.33,
+          "text": "你们或许不会喜欢"
+        },
+        {
+          "time": 139.2,
+          "text": "But my word is here"
+        },
+        {
+          "time": 139.2,
+          "text": "但我的誓言在此"
+        },
+        {
+          "time": 141.96,
+          "text": "Solid as a stone"
+        },
+        {
+          "time": 141.96,
+          "text": "坚如磐石"
+        },
+        {
+          "time": 166.7,
+          "text": "Forgive me for leaving"
+        },
+        {
+          "time": 166.7,
+          "text": "请原谅我的离去"
+        },
+        {
+          "time": 172.28,
+          "text": "To the hall I could meet my true self"
+        },
+        {
+          "time": 172.28,
+          "text": "前往能与真我相遇的礼堂"
+        },
+        {
+          "time": 178.7,
+          "text": "Forgive me for dreaming"
+        },
+        {
+          "time": 178.7,
+          "text": "请原谅我的梦想"
+        },
+        {
+          "time": 184.32,
+          "text": "Of the lines I sing can be what I believe"
+        },
+        {
+          "time": 184.32,
+          "text": "我所颂之词正如我的信仰"
+        },
+        {
+          "time": 200.0,
+          "text": "曲：雪人Snowman"
+        },
+        {
+          "time": 201.0,
+          "text": "词：大九_LN"
+        },
+        {
+          "time": 202.0,
+          "text": "调：陌生来访"
+        },
+        {
+          "time": 203.0,
+          "text": "绘：多尔及利亚"
+        }
+      ]
+    },
+    {
+      "title": "04 Holophrasis",
+      "file": "04 Holophrasis.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "Holophrasis"
+        },
+        {
+          "time": 4.0,
+          "text": "曲：星辉p"
+        },
+        {
+          "time": 5.0,
+          "text": "词：大九_LN"
+        },
+        {
+          "time": 6.0,
+          "text": "调：瑞安Ryan不跑调"
+        },
+        {
+          "time": 7.0,
+          "text": "绘：多尔及利亚"
+        },
+        {
+          "time": 21.1,
+          "text": "Where else can I go?"
+        },
+        {
+          "time": 21.1,
+          "text": "我还能去何处"
+        },
+        {
+          "time": 24.43,
+          "text": "Elusive, like a ghost of thought"
+        },
+        {
+          "time": 24.43,
+          "text": "如幻如魅，思绪的幽灵"
+        },
+        {
+          "time": 29.5,
+          "text": "Sorry to be a stain"
+        },
+        {
+          "time": 29.5,
+          "text": "抱歉在这未受损的世界中"
+        },
+        {
+          "time": 30.99,
+          "text": "Of the unscathed world"
+        },
+        {
+          "time": 30.99,
+          "text": "成为一团污点"
+        },
+        {
+          "time": 33.57,
+          "text": "My last word for you isn’t here"
+        },
+        {
+          "time": 33.57,
+          "text": "留给你的遗言不在此处"
+        },
+        {
+          "time": 39.3,
+          "text": "The moon pulls gleaming waves"
+        },
+        {
+          "time": 39.3,
+          "text": "月亮牵引粼粼波光"
+        },
+        {
+          "time": 42.8,
+          "text": "Erasing ways I can escape"
+        },
+        {
+          "time": 42.8,
+          "text": "抹除我逃生的路"
+        },
+        {
+          "time": 47.23,
+          "text": "What should I write for epitaph"
+        },
+        {
+          "time": 47.23,
+          "text": "我应写下什么作墓志铭"
+        },
+        {
+          "time": 52.46,
+          "text": "You can’t say no again"
+        },
+        {
+          "time": 52.46,
+          "text": "让你无法再次拒绝"
+        },
+        {
+          "time": 55.86,
+          "text": "Puns in lines"
+        },
+        {
+          "time": 55.86,
+          "text": "句行中的双关"
+        },
+        {
+          "time": 57.6,
+          "text": "Stories you once hate"
+        },
+        {
+          "time": 57.6,
+          "text": "你曾厌恶的故事"
+        },
+        {
+          "time": 61.33,
+          "text": "I’ll remember them"
+        },
+        {
+          "time": 61.33,
+          "text": "我都会记得它们"
+        },
+        {
+          "time": 64.46,
+          "text": "Everyone shall stand on their feet"
+        },
+        {
+          "time": 64.46,
+          "text": "每个人应以自己的双足而立"
+        },
+        {
+          "time": 73.03,
+          "text": "Even the death will take their breath away"
+        },
+        {
+          "time": 73.03,
+          "text": "即使死亡会夺走他们的气息"
+        },
+        {
+          "time": 105.5,
+          "text": "Orbs of will rolling towards the edge of my tombstone"
+        },
+        {
+          "time": 105.5,
+          "text": "自我意志凝结成光球滚向墓碑边缘"
+        },
+        {
+          "time": 123.7,
+          "text": "Which of rules can I break"
+        },
+        {
+          "time": 123.7,
+          "text": "我能打破哪条规则"
+        },
+        {
+          "time": 127.14,
+          "text": "Shrilling noise across the night of symphony"
+        },
+        {
+          "time": 127.14,
+          "text": "伴以尖啸声穿越交响之夜"
+        },
+        {
+          "time": 131.9,
+          "text": "Life only finds its worth with the end"
+        },
+        {
+          "time": 131.9,
+          "text": "生命在终结时才得知它的价值"
+        },
+        {
+          "time": 136.8,
+          "text": "Crowned by honour’s wreath"
+        },
+        {
+          "time": 136.8,
+          "text": "加冕荣誉的花环"
+        },
+        {
+          "time": 140.27,
+          "text": "The sun descends, then rises higher than"
+        },
+        {
+          "time": 140.27,
+          "text": "太阳降落，然后升得更高"
+        },
+        {
+          "time": 145.8,
+          "text": "As it can"
+        },
+        {
+          "time": 145.8,
+          "text": "尽其可能"
+        },
+        {
+          "time": 148.98,
+          "text": "Everyone shall find their bouquet"
+        },
+        {
+          "time": 148.98,
+          "text": "每个人都会找到属于自己的花束"
+        },
+        {
+          "time": 157.6,
+          "text": "Even the death will take their breath"
+        },
+        {
+          "time": 157.6,
+          "text": "即使死亡也会夺走他们的气息"
+        },
+        {
+          "time": 170.2,
+          "text": "Their stories remain here, alive"
+        },
+        {
+          "time": 170.2,
+          "text": "故事在此鲜活地延续"
+        }
+      ]
+    },
+    {
+      "title": "05 I'm",
+      "file": "05 I'm.lrc",
+      "lyrics": [
+        {
+          "time": 0.0,
+          "text": "I’m"
+        },
+        {
+          "time": 4.0,
+          "text": "曲：litterzy"
+        },
+        {
+          "time": 5.0,
+          "text": "词：大九_LN"
+        },
+        {
+          "time": 6.0,
+          "text": "调：litterzy"
+        },
+        {
+          "time": 7.0,
+          "text": "绘：多尔及利亚"
+        },
+        {
+          "time": 23.0,
+          "text": "Conditional love on me"
+        },
+        {
+          "time": 23.0,
+          "text": "所获之爱附有条件"
+        },
+        {
+          "time": 26.2,
+          "text": "Anachronistic ruling"
+        },
+        {
+          "time": 26.2,
+          "text": "不合时宜的统治"
+        },
+        {
+          "time": 29.13,
+          "text": "When shadows creep on the moon"
+        },
+        {
+          "time": 29.13,
+          "text": "当阴影爬上月亮"
+        },
+        {
+          "time": 32.34,
+          "text": "The true light can be seen"
+        },
+        {
+          "time": 32.34,
+          "text": "真正的光芒才显现"
+        },
+        {
+          "time": 35.0,
+          "text": "A silhouette of belief"
+        },
+        {
+          "time": 35.0,
+          "text": "信仰的轮廓"
+        },
+        {
+          "time": 37.86,
+          "text": "I purl it on my skins"
+        },
+        {
+          "time": 37.86,
+          "text": "将它以反针织于皮肤"
+        },
+        {
+          "time": 41.01,
+          "text": "Challenging what I can’t flee"
+        },
+        {
+          "time": 41.01,
+          "text": "挑战无法逃避之物"
+        },
+        {
+          "time": 44.3,
+          "text": "As a drop of sea"
+        },
+        {
+          "time": 44.3,
+          "text": "如海中的一滴水"
+        },
+        {
+          "time": 47.22,
+          "text": "Rebirth from the blind as I dreamed"
+        },
+        {
+          "time": 47.22,
+          "text": "从盲目中复生，如我曾梦见"
+        },
+        {
+          "time": 51.62,
+          "text": "Thousands of years passed then"
+        },
+        {
+          "time": 51.62,
+          "text": "千年过去"
+        },
+        {
+          "time": 54.96,
+          "text": "Time to give a chance to your kid"
+        },
+        {
+          "time": 54.96,
+          "text": "是时候给你的孩子机会"
+        },
+        {
+          "time": 60.77,
+          "text": "See with my eyes"
+        },
+        {
+          "time": 60.77,
+          "text": "用自己的眼睛看"
+        },
+        {
+          "time": 63.99,
+          "text": "Instead of kneeling by your seat"
+        },
+        {
+          "time": 63.99,
+          "text": "而非跪在你的座位旁"
+        },
+        {
+          "time": 70.67,
+          "text": "Sins grow upon the stalk"
+        },
+        {
+          "time": 70.67,
+          "text": "罪孽攀缠于百合的茎"
+        },
+        {
+          "time": 73.6,
+          "text": "Of lily as scars in black"
+        },
+        {
+          "time": 73.6,
+          "text": "如黑色瘢痕"
+        },
+        {
+          "time": 76.62,
+          "text": "How can purity go back"
+        },
+        {
+          "time": 76.62,
+          "text": "纯洁何以通过"
+        },
+        {
+          "time": 79.83,
+          "text": "Via rusting tracks"
+        },
+        {
+          "time": 79.83,
+          "text": "生锈的轨迹回归"
+        },
+        {
+          "time": 82.4,
+          "text": "I’ve noticed all lies you made"
+        },
+        {
+          "time": 82.4,
+          "text": "已注意到你的一切谎言"
+        },
+        {
+          "time": 85.36,
+          "text": "Illusional tricks you played"
+        },
+        {
+          "time": 85.36,
+          "text": "你所玩的幻觉把戏"
+        },
+        {
+          "time": 88.63,
+          "text": "So how can I just wait for one more day"
+        },
+        {
+          "time": 88.63,
+          "text": "那么我如何能多待一天"
+        },
+        {
+          "time": 94.77,
+          "text": "Rebirth from the deaf as I dreamed"
+        },
+        {
+          "time": 94.77,
+          "text": "从耳聋中复生，如我曾梦见"
+        },
+        {
+          "time": 99.12,
+          "text": "Thousands of years passed then"
+        },
+        {
+          "time": 99.12,
+          "text": "千年过去"
+        },
+        {
+          "time": 102.26,
+          "text": "Time to give a chance to your kid"
+        },
+        {
+          "time": 102.26,
+          "text": "是时候给你的孩子机会"
+        },
+        {
+          "time": 108.22,
+          "text": "Hear with my ears"
+        },
+        {
+          "time": 108.22,
+          "text": "用自己的耳朵听"
+        },
+        {
+          "time": 111.78,
+          "text": "Instead of losing in blank hymn"
+        },
+        {
+          "time": 111.78,
+          "text": "而非迷失在空白的赞歌中"
+        },
+        {
+          "time": 141.8,
+          "text": "Retrieve my glory in grace"
+        },
+        {
+          "time": 141.8,
+          "text": "在恩典中找回我的荣耀"
+        },
+        {
+          "time": 146.53,
+          "text": "Betrayal’s a few names"
+        },
+        {
+          "time": 146.53,
+          "text": "背叛有多种名字"
+        },
+        {
+          "time": 149.69,
+          "text": "One’s called being free from the past"
+        },
+        {
+          "time": 149.69,
+          "text": "其一叫作摆脱过去的自由"
+        },
+        {
+          "time": 155.78,
+          "text": "When I can’t say words entwined in my mind"
+        },
+        {
+          "time": 155.78,
+          "text": "在难言心中交织话语之时"
+        },
+        {
+          "time": 165.83,
+          "text": "Rebirth from the death like you did"
+        },
+        {
+          "time": 165.83,
+          "text": "如你一般从死亡中复生"
+        },
+        {
+          "time": 170.14,
+          "text": "Thousands of years waited then"
+        },
+        {
+          "time": 170.14,
+          "text": "已等待千年"
+        },
+        {
+          "time": 173.42,
+          "text": "Time to give a chance to my soul"
+        },
+        {
+          "time": 173.42,
+          "text": "是时候给灵魂机会"
+        },
+        {
+          "time": 179.38,
+          "text": "Sing in my tone"
+        },
+        {
+          "time": 179.38,
+          "text": "用我的曲调高唱"
+        },
+        {
+          "time": 182.71,
+          "text": "Instead of hiding my feelings"
+        },
+        {
+          "time": 182.71,
+          "text": "而非一味隐藏感受"
+        }
+      ]
+    }
+  ]
+}

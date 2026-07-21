@@ -280,6 +280,10 @@ jobs:
         if: steps.check_commit.outputs.skip == 'false'
         run: python .github/scripts/generate_md.py
 
+      - name: Generate static API JSON
+        if: steps.check_commit.outputs.skip == 'false'
+        run: python .github/scripts/generate_api.py
+
       - name: Generate metadata integrity report
         if: steps.check_commit.outputs.skip == 'false'
         run: python .github/scripts/generate_report.py

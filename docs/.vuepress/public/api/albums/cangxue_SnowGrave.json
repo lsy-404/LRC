@@ -1,0 +1,1105 @@
+{
+  "slug": "cangxue_SnowGrave",
+  "folder": "藏雪SnowGrave",
+  "name": "藏雪 SnowGrave",
+  "prefix": "",
+  "zh_name": "藏雪",
+  "en_name": "SnowGrave",
+  "suffix": "",
+  "year": "2024-01-12",
+  "produce": [
+    "北极圈ArcticLab"
+  ],
+  "vocal": [
+    "星尘",
+    "海伊"
+  ],
+  "lyricist": [
+    "铃蓝SuzuSnow",
+    "麒炩Kindling",
+    "苍梧_abilrue",
+    "燈林",
+    "阿林什么也没做"
+  ],
+  "composer": [
+    "铃蓝SuzuSnow",
+    "云极Yunji",
+    "苏尔达",
+    "燈林",
+    "悬空指针NP"
+  ],
+  "arranger": [
+    "燈林",
+    "云极Yunji"
+  ],
+  "tuning": [
+    "铃蓝SuzuSnow",
+    "苍梧_abilrue",
+    "燈林",
+    "锝是TC德小猪"
+  ],
+  "illustrator": [
+    "FrostOrange_D冰橙汁",
+    "⑨的小圆本"
+  ],
+  "mixer": [
+    "云极Yunji"
+  ],
+  "lyric_maker": [
+    "RQvan"
+  ],
+  "release": "[Bilibili](https://www.bilibili.com/video/BV18a4y117p2/)",
+  "purchase": "通贩不可用",
+  "electronic": "[Dizzylab](https://www.dizzylab.net/d/ALCD0001/) ￥38",
+  "cover": "/albums/cangxue_SnowGrave.jpg",
+  "tags": [
+    "藏雪SnowGrave",
+    "藏雪",
+    "SnowGrave",
+    "北极圈ArcticLab"
+  ],
+  "songs": [
+    {
+      "title": "1 Lovely Song",
+      "file": "1 Lovely Song.lrc",
+      "lyrics": [
+        {
+          "time": 3.81,
+          "text": "当天际"
+        },
+        {
+          "time": 5.51,
+          "text": "阴翳掩没思绪"
+        },
+        {
+          "time": 8.14,
+          "text": "雨滴穿过心境"
+        },
+        {
+          "time": 10.82,
+          "text": "几束涟漪波动泛起"
+        },
+        {
+          "time": 14.71,
+          "text": "当希冀"
+        },
+        {
+          "time": 16.36,
+          "text": "点燃过去回忆"
+        },
+        {
+          "time": 19.05,
+          "text": "宛如悉数繁星"
+        },
+        {
+          "time": 21.74,
+          "text": "命运或许早已注定"
+        },
+        {
+          "time": 25.43,
+          "text": "梦的延续 是刹那的奇迹"
+        },
+        {
+          "time": 30.69,
+          "text": "伤痕泪滴 才是现实的代替"
+        },
+        {
+          "time": 37.99,
+          "text": "回忆里 我们最终相见"
+        },
+        {
+          "time": 42.27,
+          "text": "在最美的花园"
+        },
+        {
+          "time": 45.07,
+          "text": "与你携手 重演落幕瞬间"
+        },
+        {
+          "time": 50.41,
+          "text": "汇聚所有祈愿"
+        },
+        {
+          "time": 54.37,
+          "text": "去谱写 以无暇的臻言"
+        },
+        {
+          "time": 58.64,
+          "text": "向着-明天 向着璀璨光点"
+        },
+        {
+          "time": 63.97,
+          "text": "跨越深邃终焉 抵达未来终点"
+        },
+        {
+          "time": 69.53,
+          "text": "回头再望却   只身走了多远"
+        },
+        {
+          "time": 76.31,
+          "text": "才发觉 冰冷的手心间 早已空缺"
+        },
+        {
+          "time": 121.98,
+          "text": "很欣悦"
+        },
+        {
+          "time": 123.99,
+          "text": "在正确的时间"
+        },
+        {
+          "time": 126.71,
+          "text": "最适合的场面"
+        },
+        {
+          "time": 129.51,
+          "text": "遇见最纯真无邪的 笑颜"
+        },
+        {
+          "time": 134.89,
+          "text": "收藏所有信笺"
+        },
+        {
+          "time": 138.85,
+          "text": "去书写 最浪漫的章节"
+        },
+        {
+          "time": 143.14,
+          "text": "想拥抱体贴"
+        },
+        {
+          "time": 145.81,
+          "text": "亲吻你的侧脸"
+        },
+        {
+          "time": 148.4,
+          "text": "与你十指相连"
+        },
+        {
+          "time": 151.28,
+          "text": "直到世界完结"
+        },
+        {
+          "time": 154.08,
+          "text": "最后的告别"
+        },
+        {
+          "time": 156.8,
+          "text": "微笑闭上双眼"
+        },
+        {
+          "time": 160.82,
+          "text": "再发觉 你已消失不见"
+        },
+        {
+          "time": 165.31,
+          "text": "多想 再 与你重逢再见"
+        },
+        {
+          "time": 170.62,
+          "text": "在最美的花园"
+        },
+        {
+          "time": 173.38,
+          "text": "诉说一路上伤痛与艰险"
+        },
+        {
+          "time": 178.9,
+          "text": "分享所有喜悦"
+        },
+        {
+          "time": 182.91,
+          "text": "去迎接  未到达的终点"
+        },
+        {
+          "time": 187.18,
+          "text": "往事又浮现  眼泪坠落心间"
+        },
+        {
+          "time": 192.6,
+          "text": "还有多少句话 没能表达"
+        },
+        {
+          "time": 198.07,
+          "text": "时间不停歇 仍继续往前"
+        },
+        {
+          "time": 204.85,
+          "text": "擦擦泪 注目明天"
+        }
+      ]
+    },
+    {
+      "title": "2 In White",
+      "file": "2 In White.lrc",
+      "lyrics": [
+        {
+          "time": 14.14,
+          "text": "I rub away the sleep, wearing on the precious plight"
+        },
+        {
+          "time": 20.84,
+          "text": "I saw you there, dear, with a smile that's beaming, piercing through the night"
+        },
+        {
+          "time": 29.7,
+          "text": "How so bright, like a gem, hooking my eyes"
+        },
+        {
+          "time": 35.15,
+          "text": "As I with no doubt, tread into the dream, once again"
+        },
+        {
+          "time": 40.46,
+          "text": "A place where blossoms blooming, you with me"
+        },
+        {
+          "time": 49.23,
+          "text": "Into my skin your warmth it seeps"
+        },
+        {
+          "time": 52.58,
+          "text": "As if you soothe away the pain and all my dried weeps"
+        },
+        {
+          "time": 60.11,
+          "text": "\"Time to leave\""
+        },
+        {
+          "time": 70.6,
+          "text": "I step into the ride, oh but I, I no more have you by my side"
+        },
+        {
+          "time": 79.46,
+          "text": "The sky, it feels for me, so it cries in white"
+        },
+        {
+          "time": 84.96,
+          "text": "I walk on through the woes, all alone, for nothing but to have you mourned"
+        },
+        {
+          "time": 93.36,
+          "text": "Down on this road will I go"
+        },
+        {
+          "time": 98.67,
+          "text": "When frost it colds, leaving motions froze"
+        },
+        {
+          "time": 105.64,
+          "text": "I with no hesitating break from its hold"
+        },
+        {
+          "time": 112.93,
+          "text": "When leaves they fall, rendering timbers bald"
+        },
+        {
+          "time": 119.95,
+          "text": "Will I not by any means let it rot out my soul"
+        },
+        {
+          "time": 153.76,
+          "text": "A place where blossoms blooming, you with me"
+        },
+        {
+          "time": 162.11,
+          "text": "Into my skin your warmth it seeps"
+        },
+        {
+          "time": 165.54,
+          "text": "As if you soothe away the pain and all my dried weeps"
+        },
+        {
+          "time": 173.08,
+          "text": "\"Time to deed\""
+        },
+        {
+          "time": 183.15,
+          "text": "I step into the ride, oh and I, I'll never have you by my side"
+        },
+        {
+          "time": 192.27,
+          "text": "The sky, it feels for me, so it cries in white"
+        },
+        {
+          "time": 197.83,
+          "text": "I walk on through the woes, all alone, for nothing but to have you mourned"
+        },
+        {
+          "time": 206.26,
+          "text": "Down on this road will I choose to go"
+        },
+        {
+          "time": 211.41,
+          "text": "When all the frost it colds, leaving motions froze"
+        },
+        {
+          "time": 218.9,
+          "text": "I with no hesitating burn from its hold"
+        },
+        {
+          "time": 225.86,
+          "text": "When leaves they fall, rendering timbers bald"
+        },
+        {
+          "time": 232.96,
+          "text": "Will I walk right to where you rest in repose, in calm"
+        }
+      ]
+    },
+    {
+      "title": "3 爱意痉挛",
+      "file": "3 爱意痉挛.lrc",
+      "lyrics": [
+        {
+          "time": 15.1,
+          "text": "想过了"
+        },
+        {
+          "time": 16.04,
+          "text": "荼靡它折磨一些失温的情绪"
+        },
+        {
+          "time": 18.46,
+          "text": "假意邂逅"
+        },
+        {
+          "time": 20.01,
+          "text": "还是勾出胸腔鲜红的歌"
+        },
+        {
+          "time": 22.01,
+          "text": "装作收尾"
+        },
+        {
+          "time": 23.98,
+          "text": "加权三十三封琢磨"
+        },
+        {
+          "time": 25.83,
+          "text": "染疾春歌"
+        },
+        {
+          "time": 27.78,
+          "text": "它知道森森的"
+        },
+        {
+          "time": 29.1,
+          "text": "心病也潮湿了"
+        },
+        {
+          "time": 31.1,
+          "text": "而歌声模糊一切模糊淋漓的"
+        },
+        {
+          "time": 33.33,
+          "text": "模糊血肉"
+        },
+        {
+          "time": 35.13,
+          "text": "而歌声清晰昨天清晰的"
+        },
+        {
+          "time": 37.13,
+          "text": "过曝晴空"
+        },
+        {
+          "time": 39.01,
+          "text": "痴云滴着焚风在问"
+        },
+        {
+          "time": 40.94,
+          "text": "我们呢"
+        },
+        {
+          "time": 43.1,
+          "text": "“因疾而终的甜腻幽默”"
+        },
+        {
+          "time": 45.47,
+          "text": "你看风筝不会说"
+        },
+        {
+          "time": 47.74,
+          "text": "挣脱冰凉渔线后的"
+        },
+        {
+          "time": 49.34,
+          "text": "歪曲痕迹和坠毁"
+        },
+        {
+          "time": 51.48,
+          "text": "通向快乐"
+        },
+        {
+          "time": 53.34,
+          "text": "这支干燥枯了墨的"
+        },
+        {
+          "time": 55.21,
+          "text": "挣扎兜圈迷茫红色"
+        },
+        {
+          "time": 56.9,
+          "text": "不能勾出多油润的"
+        },
+        {
+          "time": 59.25,
+          "text": "但是够了"
+        },
+        {
+          "time": 60.94,
+          "text": "谁爱着 垂涎罂粟的恶"
+        },
+        {
+          "time": 66.24,
+          "text": "反而才 证明"
+        },
+        {
+          "time": 68.39,
+          "text": "它怨着 愿意的"
+        },
+        {
+          "time": 71.95,
+          "text": "堕落的 神色"
+        },
+        {
+          "time": 75.06,
+          "text": "它是我"
+        },
+        {
+          "time": 76.17,
+          "text": "绵延和承托了悬疑的惊心的"
+        },
+        {
+          "time": 78.33,
+          "text": "想象国"
+        },
+        {
+          "time": 80.05,
+          "text": "逃开了然而没能决绝地"
+        },
+        {
+          "time": 82.06,
+          "text": "拒绝 对么"
+        },
+        {
+          "time": 84.03,
+          "text": "善良流到可怜终末"
+        },
+        {
+          "time": 85.87,
+          "text": "也成了 尸首"
+        },
+        {
+          "time": 88.59,
+          "text": "安宁吧 亲爱的"
+        },
+        {
+          "time": 105.99,
+          "text": "静默之中"
+        },
+        {
+          "time": 106.93,
+          "text": "无须担忧 无须承诺"
+        },
+        {
+          "time": 108.82,
+          "text": "无须和微笑交待什么可爱的"
+        },
+        {
+          "time": 110.89,
+          "text": "切了皮肤切了黏膜"
+        },
+        {
+          "time": 112.1,
+          "text": "才安稳"
+        },
+        {
+          "time": 113.24,
+          "text": "静默才能够"
+        },
+        {
+          "time": 114.36,
+          "text": "厘清它 如何编纂"
+        },
+        {
+          "time": 116.2,
+          "text": "嗡鸣和魔咒"
+        },
+        {
+          "time": 117.42,
+          "text": "才能拥着凝练中"
+        },
+        {
+          "time": 118.48,
+          "text": "除了文字除了神经"
+        },
+        {
+          "time": 119.4,
+          "text": "的全部过错"
+        },
+        {
+          "time": 121.04,
+          "text": "而歌声模糊一切模糊淋漓的"
+        },
+        {
+          "time": 123.38,
+          "text": "模糊印记"
+        },
+        {
+          "time": 125.06,
+          "text": "而歌声清晰昨天清晰的"
+        },
+        {
+          "time": 127.09,
+          "text": "过热空气"
+        },
+        {
+          "time": 128.94,
+          "text": "深蓝揉着蝉声在笑"
+        },
+        {
+          "time": 130.73,
+          "text": "我们呢"
+        },
+        {
+          "time": 132.93,
+          "text": "“滑向惊颤的乏味存活”"
+        },
+        {
+          "time": 135.79,
+          "text": "知道风筝不会说"
+        },
+        {
+          "time": 137.65,
+          "text": "挣脱冰凉渔线后的"
+        },
+        {
+          "time": 139.4,
+          "text": "歪曲痕迹和 坠毁"
+        },
+        {
+          "time": 141.35,
+          "text": "何必快乐"
+        },
+        {
+          "time": 143.25,
+          "text": "这支濡湿千滴墨的"
+        },
+        {
+          "time": 145.21,
+          "text": "欢欣浓稠醺然黑色"
+        },
+        {
+          "time": 146.92,
+          "text": "不能洇出多优柔的"
+        },
+        {
+          "time": 149.23,
+          "text": "但不醉了"
+        },
+        {
+          "time": 151.05,
+          "text": "谁恨着 饮干奇异的色"
+        },
+        {
+          "time": 156.02,
+          "text": "反而才 彻底"
+        },
+        {
+          "time": 158.15,
+          "text": "哭泣了 崩溃了"
+        },
+        {
+          "time": 161.87,
+          "text": "需要了 沦落"
+        },
+        {
+          "time": 164.89,
+          "text": "不是我"
+        },
+        {
+          "time": 166.09,
+          "text": "言说和编织了悬疑的惊心的"
+        },
+        {
+          "time": 168.56,
+          "text": "假象国"
+        },
+        {
+          "time": 170.08,
+          "text": "回身了然而没能精致地"
+        },
+        {
+          "time": 172.05,
+          "text": "隐忍 对么"
+        },
+        {
+          "time": 174.09,
+          "text": "阴毒暮春本该中断"
+        },
+        {
+          "time": 175.94,
+          "text": "也终究 过了"
+        },
+        {
+          "time": 178.55,
+          "text": "别原谅 亲爱的"
+        },
+        {
+          "time": 196.05,
+          "text": "血液之中"
+        },
+        {
+          "time": 196.96,
+          "text": "喧哗情书 喧哗约定"
+        },
+        {
+          "time": 198.59,
+          "text": "喧哗着交锋"
+        },
+        {
+          "time": 199.84,
+          "text": "别提什么可悲的"
+        },
+        {
+          "time": 200.91,
+          "text": "关了胸腔关了睫眸"
+        },
+        {
+          "time": 202.21,
+          "text": "才亲吻"
+        },
+        {
+          "time": 203.19,
+          "text": "血液才能够"
+        },
+        {
+          "time": 204.36,
+          "text": "澄清它 如何装作"
+        },
+        {
+          "time": 206.01,
+          "text": "深情和心流"
+        },
+        {
+          "time": 207.29,
+          "text": "才能拥着烂俗中"
+        },
+        {
+          "time": 208.46,
+          "text": "剔除沉默剔除遮羞"
+        },
+        {
+          "time": 209.55,
+          "text": "的结果"
+        }
+      ]
+    },
+    {
+      "title": "4 潮息",
+      "file": "4 潮息.lrc",
+      "lyrics": [
+        {
+          "time": 1.73,
+          "text": "我循着潮汐 留下足迹"
+        },
+        {
+          "time": 6.23,
+          "text": "失去力气"
+        },
+        {
+          "time": 9.15,
+          "text": "漂浮在深空 无声无息"
+        },
+        {
+          "time": 12.18,
+          "text": "将我卷席"
+        },
+        {
+          "time": 15.09,
+          "text": "无声的耳语"
+        },
+        {
+          "time": 16.84,
+          "text": "随浪潮散去"
+        },
+        {
+          "time": 18.62,
+          "text": "陷入低迷"
+        },
+        {
+          "time": 22.48,
+          "text": "沉寂的旨意"
+        },
+        {
+          "time": 24.18,
+          "text": "反复地累积"
+        },
+        {
+          "time": 25.77,
+          "text": "终于 狂风暴雨"
+        },
+        {
+          "time": 29.22,
+          "text": "奏响浪花的舞曲 月光淹没所有的浮冰"
+        },
+        {
+          "time": 36.6,
+          "text": "传达的陌生言语 融入极夜指引鱼群"
+        },
+        {
+          "time": 44.04,
+          "text": "未曾聆听的乐律 让我决堤 让我涌向你"
+        },
+        {
+          "time": 51.43,
+          "text": "我的心 此刻被你唤醒"
+        },
+        {
+          "time": 88.75,
+          "text": "迷失在 这片未知海域"
+        },
+        {
+          "time": 93.01,
+          "text": "试图逃离"
+        },
+        {
+          "time": 95.9,
+          "text": "灯塔在海面留下牢狱"
+        },
+        {
+          "time": 98.96,
+          "text": "摇曳不定"
+        },
+        {
+          "time": 101.87,
+          "text": "孤立的频率"
+        },
+        {
+          "time": 103.65,
+          "text": "期许着回应"
+        },
+        {
+          "time": 105.2,
+          "text": "我漫无目的"
+        },
+        {
+          "time": 109.32,
+          "text": "缓慢地游弋"
+        },
+        {
+          "time": 110.87,
+          "text": "沉重地吐息"
+        },
+        {
+          "time": 112.54,
+          "text": "终于 失去意义"
+        },
+        {
+          "time": 115.93,
+          "text": "当潮水吞噬躯体 化作孕育潮汐的脏器"
+        },
+        {
+          "time": 123.44,
+          "text": "当信徒失去指引 我的消亡产生效应"
+        },
+        {
+          "time": 130.76,
+          "text": "当晨昏不被确信 我的寓意将极星定义"
+        },
+        {
+          "time": 138.21,
+          "text": "我的心  此刻得以 停熄"
+        },
+        {
+          "time": 145.88,
+          "text": "我质疑"
+        },
+        {
+          "time": 146.54,
+          "text": "冰冷"
+        },
+        {
+          "time": 147.3,
+          "text": "锐利"
+        },
+        {
+          "time": 147.99,
+          "text": "无尽"
+        },
+        {
+          "time": 148.59,
+          "text": "孤寂"
+        },
+        {
+          "time": 149.28,
+          "text": "窒息"
+        },
+        {
+          "time": 153.13,
+          "text": "我宽恕"
+        },
+        {
+          "time": 153.86,
+          "text": "傲慢"
+        },
+        {
+          "time": 154.6,
+          "text": "沉溺"
+        },
+        {
+          "time": 155.22,
+          "text": "自艾"
+        },
+        {
+          "time": 155.97,
+          "text": "龃龉"
+        },
+        {
+          "time": 156.65,
+          "text": "痴迷"
+        },
+        {
+          "time": 160.52,
+          "text": "我鄙夷"
+        },
+        {
+          "time": 161.22,
+          "text": "唏嘘"
+        },
+        {
+          "time": 161.97,
+          "text": "贪婪"
+        },
+        {
+          "time": 162.66,
+          "text": "凌厉"
+        },
+        {
+          "time": 163.26,
+          "text": "假意"
+        },
+        {
+          "time": 164.03,
+          "text": "将我繁育"
+        },
+        {
+          "time": 167.87,
+          "text": "我舍弃（我赐予）"
+        },
+        {
+          "time": 168.85,
+          "text": "呼吸"
+        },
+        {
+          "time": 169.36,
+          "text": "领地"
+        },
+        {
+          "time": 170.04,
+          "text": "恣意"
+        },
+        {
+          "time": 170.61,
+          "text": "演绎"
+        },
+        {
+          "time": 171.35,
+          "text": "顽疾"
+        },
+        {
+          "time": 175.1,
+          "text": "奏响浪花的舞曲 月光淹没所有的浮冰"
+        },
+        {
+          "time": 182.45,
+          "text": "传达的陌生言语 融入极夜指引鱼群"
+        },
+        {
+          "time": 189.89,
+          "text": "未曾回应的共鸣 快要决堤 快要窒息"
+        },
+        {
+          "time": 197.16,
+          "text": "我的心 此刻得以停熄"
+        },
+        {
+          "time": 206.34,
+          "text": "听 浪的终曲 我决意 覆没你"
+        },
+        {
+          "time": 213.84,
+          "text": "所有的光被抽离所有方向失去意义"
+        },
+        {
+          "time": 221.22,
+          "text": "无力逃离的鱼群无力存续无力呼吸"
+        },
+        {
+          "time": 228.65,
+          "text": "这一曲 是我与你和鸣"
+        }
+      ]
+    },
+    {
+      "title": "5 不孤单的自由夜晚",
+      "file": "5 不孤单的自由夜晚.lrc",
+      "lyrics": [
+        {
+          "time": 27.34,
+          "text": "震动提示多的不安息"
+        },
+        {
+          "time": 30.98,
+          "text": "指挥号令让事态加急"
+        },
+        {
+          "time": 34.76,
+          "text": "自由国度迎来最强敌"
+        },
+        {
+          "time": 38.48,
+          "text": "麻烦能不能一键关机"
+        },
+        {
+          "time": 42.28,
+          "text": "今晚减脂怎么点外卖"
+        },
+        {
+          "time": 46.35,
+          "text": "双人餐用卷才划得来"
+        },
+        {
+          "time": 50.24,
+          "text": "讨厌这样不得不明白"
+        },
+        {
+          "time": 53.83,
+          "text": "谁能帮助我吃掉无奈"
+        },
+        {
+          "time": 57.47,
+          "text": "多余的期待 全都无关"
+        },
+        {
+          "time": 61.59,
+          "text": "只想明天早晨 闹钟八点半"
+        },
+        {
+          "time": 65.42,
+          "text": "拥有一点 准备时间"
+        },
+        {
+          "time": 69.27,
+          "text": "去闯过所有非难"
+        },
+        {
+          "time": 73.14,
+          "text": "和所有的焦虑 彻底拜拜"
+        },
+        {
+          "time": 77.11,
+          "text": "沉重的理想 别想再贩卖"
+        },
+        {
+          "time": 80.84,
+          "text": "复杂的舞曲 我记不来"
+        },
+        {
+          "time": 84.51,
+          "text": "只对了 一步 也很精彩"
+        },
+        {
+          "time": 88.43,
+          "text": "用独特的幻想 打倒失败"
+        },
+        {
+          "time": 92.26,
+          "text": "想要长大是 坏蛋被淘汰"
+        },
+        {
+          "time": 96.2,
+          "text": "这样耐心的 悄悄等待"
+        },
+        {
+          "time": 100.18,
+          "text": "也会换来 明天到来"
+        },
+        {
+          "time": 102.8,
+          "text": "看见光彩"
+        },
+        {
+          "time": 127.06,
+          "text": "剩余火腿喂了小猫咪"
+        },
+        {
+          "time": 130.89,
+          "text": "街灯聚光下遗忘疏离"
+        },
+        {
+          "time": 134.69,
+          "text": "自由国度慢慢在升级"
+        },
+        {
+          "time": 138.33,
+          "text": "也想再攻下新的预期"
+        },
+        {
+          "time": 141.81,
+          "text": "写下的期待 都很简单"
+        },
+        {
+          "time": 146.16,
+          "text": "比如今年减重 大概三斤半"
+        },
+        {
+          "time": 149.83,
+          "text": "交换一点 奖励时间"
+        },
+        {
+          "time": 153.77,
+          "text": "得到自己的夸赞"
+        },
+        {
+          "time": 157.58,
+          "text": "散漫的向前走 并非懈怠"
+        },
+        {
+          "time": 161.49,
+          "text": "在原谅不公 消散不自在"
+        },
+        {
+          "time": 165.3,
+          "text": "固执的倒转 快速节拍"
+        },
+        {
+          "time": 169.03,
+          "text": "让世界 跟上 平凡姿态"
+        },
+        {
+          "time": 172.89,
+          "text": "将愿望上演在 打倒失败"
+        },
+        {
+          "time": 176.91,
+          "text": "想要长大是 坏蛋被淘汰"
+        },
+        {
+          "time": 180.65,
+          "text": "这样耐心的 悄悄等待"
+        },
+        {
+          "time": 184.36,
+          "text": "也会换来 明天到来"
+        },
+        {
+          "time": 186.94,
+          "text": "看见光彩"
+        }
+      ]
+    }
+  ]
+}
