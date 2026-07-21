@@ -152,6 +152,11 @@ def _split_null_paths(raw: bytes) -> list[str]:
 
 
 def _get_git_changed_files(base_sha: str, head_sha: str) -> tuple[list[str], list[str]]:
+    # 三点 diff：只看 head 相对「它从 base 分叉出去那一点」的改动，不受 base 之后
+    # main 又推进了多少提交影响。两点 diff（base_sha head_sha 两个位置参数）会把
+    # base 和 head 分叉后 base 侧新增的提交也算进「改动」，在 main 持续有新提交、
+    # PR 迟迟没合并时会把 PR 根本没碰过的文件误判成「本次改动」。
+    range_spec = f"{base_sha}...{head_sha}"
     changed_raw = _run_git_bytes([
         "git",
         "-c",
@@ -160,8 +165,7 @@ def _get_git_changed_files(base_sha: str, head_sha: str) -> tuple[list[str], lis
         "--name-only",
         "-z",
         "--diff-filter=ACMR",
-        base_sha,
-        head_sha,
+        range_spec,
     ])
     deleted_raw = _run_git_bytes([
         "git",
@@ -171,8 +175,7 @@ def _get_git_changed_files(base_sha: str, head_sha: str) -> tuple[list[str], lis
         "--name-only",
         "-z",
         "--diff-filter=D",
-        base_sha,
-        head_sha,
+        range_spec,
     ])
     changed = _split_null_paths(changed_raw)
     deleted = _split_null_paths(deleted_raw)
