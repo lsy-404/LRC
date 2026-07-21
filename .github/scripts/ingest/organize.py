@@ -10,7 +10,8 @@
 - cover_path：封面图
 
 输出 res/<专辑>/：
-- <序号> <曲名>.lrc：音频按覆盖率匹配到轨 → align 强制对齐成 timed LRC；无匹配音频则写无时间轴草稿
+- <序号> <曲名>.lrc：音频按覆盖率匹配到轨 → align 强制对齐成 timed LRC（逐字增强，
+  行内附 <字时间> 标签）；无匹配音频则写无时间轴草稿
 - meta.toml：credits/staff 抽取 + manifest 覆盖
 - cover.<ext>：若提供封面
 """
@@ -296,7 +297,10 @@ def build_track_lrc(
     if audio:
         used.add(audio)
         lang = (audio_langs or {}).get(audio, "")
-        lrc = align_mod.align(lines, audio_words[audio], title=title, album=album, by=by, language=lang)
+        lrc = align_mod.align(
+            lines, audio_words[audio], title=title, album=album, by=by, language=lang,
+            per_char=True,
+        )
         cov = align_mod.coverage(lines, audio_words[audio], language=lang)
         print(f"  ♪ {title} ← {audio} (覆盖率 {cov:.0%})", file=sys.stderr)
         return lrc, cov
