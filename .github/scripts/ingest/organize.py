@@ -188,9 +188,9 @@ def llm_split_booklet(source_text: str, album_hint: str) -> dict:
         user = f"【目标专辑】{album_hint}\n\n{user}"
     plan = None
     if user:
-        resp = _llm.chat_safe(
+        resp = _llm.chat_auto_safe(
             [{"role": "system", "content": ORGANIZE_SYSTEM}, {"role": "user", "content": user[:12000]}],
-            model=_llm.text_model(),
+            kind="text",
         )
         if resp:
             plan = _llm.extract_json(resp)

@@ -58,7 +58,7 @@ def ocr_image(path: Path) -> str:
             ],
         },
     ]
-    text = _llm.chat(messages, model=_llm.vision_model())
+    text = _llm.chat_auto(messages, kind="vision")
     return "" if text.strip() == "[NO_TEXT]" else text.strip()
 
 

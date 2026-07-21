@@ -46,7 +46,7 @@ def proofread(text: str) -> str:
         {"role": "system", "content": PROOFREAD_SYSTEM},
         {"role": "user", "content": text},
     ]
-    result = _llm.chat(messages, model=_llm.text_model())
+    result = _llm.chat_auto(messages, kind="text")
     return result.strip()
 
 

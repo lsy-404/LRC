@@ -79,6 +79,11 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip

@@ -105,13 +105,16 @@ def _fetch_openrouter_models() -> list[dict[str, Any]]:
     return data if isinstance(data, list) else []
 
 
-def _auto_free_model(kind: str) -> Optional[str]:
+_CANDIDATES_CACHE: dict[str, list[str]] = {}
+
+
+def _free_model_candidates(kind: str) -> list[str]:
+    """OpenRouter 免费模型候选池，按偏好排序（非仅单个），供调用失败时换模型重试用。"""
     cache_key = f"{api_base()}:{kind}"
-    if cache_key in _MODEL_CACHE:
-        return _MODEL_CACHE[cache_key]
-    selected: Optional[str] = None
+    if cache_key in _CANDIDATES_CACHE:
+        return _CANDIDATES_CACHE[cache_key]
+    candidates: list[str] = []
     try:
-        candidates: list[str] = []
         for model in _fetch_openrouter_models():
             model_id = _model_id(model)
             if not model_id or not _is_free_model(model):
@@ -120,10 +123,19 @@ def _auto_free_model(kind: str) -> Optional[str]:
             if kind == "vision" and "image" not in modalities:
                 continue
             candidates.append(model_id)
-        if candidates:
-            selected = sorted(candidates, key=_free_model_score)[0]
+        candidates.sort(key=_free_model_score)
     except Exception as e:
         print(f"⚠️  OpenRouter 免费模型列表获取失败: {e}", file=sys.stderr, flush=True)
+    _CANDIDATES_CACHE[cache_key] = candidates
+    return candidates
+
+
+def _auto_free_model(kind: str) -> Optional[str]:
+    cache_key = f"{api_base()}:{kind}"
+    if cache_key in _MODEL_CACHE:
+        return _MODEL_CACHE[cache_key]
+    candidates = _free_model_candidates(kind)
+    selected = candidates[0] if candidates else None
     _MODEL_CACHE[cache_key] = selected
     if selected:
         print(f"✓ 自动选择 OpenRouter 免费{('视觉' if kind == 'vision' else '文本')}模型: {selected}", file=sys.stderr, flush=True)
@@ -217,6 +229,53 @@ def chat_safe(messages: list[dict[str, Any]], **kw: Any) -> Optional[str]:
     """chat() 的不抛版本：失败返回 None 并打印告警。"""
     try:
         return chat(messages, **kw)
+    except LLMError as e:
+        print(f"⚠️  {e}", file=sys.stderr, flush=True)
+        return None
+
+
+def chat_auto(
+    messages: list[dict[str, Any]],
+    *,
+    kind: str,
+    max_tokens: int = 4000,
+    timeout: int = 120,
+    max_model_attempts: int = 4,
+) -> str:
+    """跟 chat() 一样，但在「未显式指定模型、走 OpenRouter 自动选免费模型」时，
+    单个候选模型调用失败会自动换下一个候选重试，而不是直接判定整次调用失败。
+
+    OpenRouter 免费模型列表不稳定，个别模型偶发路由/鉴权异常（如某次自动选中的
+    视觉模型对所有请求返回 401 Missing Authentication header）不应让整次
+    OCR/编排全灭——这类问题在候选池里换一个模型通常就能绕过。
+
+    kind: "text" 或 "vision"。显式设置 LLM_MODEL/OCR_MODEL，或端点不是 OpenRouter 时，
+    退化为单模型调用（没有候选池概念可换）。
+    """
+    explicit = _env("OCR_MODEL" if kind == "vision" else "LLM_MODEL")
+    if explicit or not _is_openrouter(api_base()):
+        model = vision_model() if kind == "vision" else text_model()
+        return chat(messages, model=model, max_tokens=max_tokens, timeout=timeout)
+
+    candidates = _free_model_candidates(kind)
+    if not candidates:
+        default = DEFAULT_VISION_MODEL if kind == "vision" else DEFAULT_TEXT_MODEL
+        return chat(messages, model=default, max_tokens=max_tokens, timeout=timeout)
+
+    last_err: Optional[LLMError] = None
+    for model_id in candidates[:max_model_attempts]:
+        try:
+            return chat(messages, model=model_id, max_tokens=max_tokens, timeout=timeout, max_retries=1)
+        except LLMError as e:
+            print(f"⚠️  模型 {model_id} 调用失败，换下一个候选: {e}", file=sys.stderr, flush=True)
+            last_err = e
+    raise last_err or LLMError("所有候选免费模型均调用失败")
+
+
+def chat_auto_safe(messages: list[dict[str, Any]], *, kind: str, **kw: Any) -> Optional[str]:
+    """chat_auto() 的不抛版本：失败返回 None 并打印告警。"""
+    try:
+        return chat_auto(messages, kind=kind, **kw)
     except LLMError as e:
         print(f"⚠️  {e}", file=sys.stderr, flush=True)
         return None
