@@ -111,7 +111,7 @@ jobs:
       - name: Auto Approve and Merge
         if: steps.python-audit.outcome == 'success'
         run: |
-          gh pr approve "$PR_NUMBER"
+          gh pr review "$PR_NUMBER" --approve
           gh pr merge --auto --squash "$PR_NUMBER"
         env:
           GH_TOKEN: ${{ secrets.PULL_TOKEN }}
