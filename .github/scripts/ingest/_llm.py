@@ -199,6 +199,11 @@ def chat(
         "Content-Type": "application/json",
         "Authorization": f"Bearer {api_key()}",
     }
+    if _is_openrouter(api_base()):
+        # OpenRouter 要求/推荐调用方带上来源标识；免费模型的网关在缺这两个头时
+        # 观察到会统一返回 401 Missing Authentication header（与具体模型无关）。
+        headers["HTTP-Referer"] = "https://github.com/wuyilingwei/LRC"
+        headers["X-Title"] = "LRC Ingest Pipeline"
     data = json.dumps(payload).encode("utf-8")
 
     last_err: str = ""
