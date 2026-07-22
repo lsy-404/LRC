@@ -221,7 +221,18 @@ def chat(
         try:
             with request.urlopen(req, timeout=timeout) as resp:
                 result = json.loads(resp.read().decode("utf-8"))
-            return result["choices"][0]["message"]["content"].strip()
+            choice = (result.get("choices") or [{}])[0]
+            content = ((choice.get("message") or {}).get("content") or "").strip()
+            if not content:
+                # 空补全（例如触发了内容审核但没有报错，finish_reason 常见
+                # "content_filter"/"length"）不该当成功返回——调用方（proofread
+                # 的失败回退、booklet 分轨的兜底单轨逻辑）依赖 LLMError 才会
+                # 触发，静默返回空字符串会让上游好不容易识别出的文本被无声吞掉。
+                last_err = f"空补全 finish_reason={choice.get('finish_reason')}"
+                if attempt < max_retries:
+                    time.sleep(2 ** attempt)
+                continue
+            return content
         except HTTPError as e:
             body = ""
             try:
