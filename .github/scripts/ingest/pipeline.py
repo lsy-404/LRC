@@ -29,14 +29,12 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
     from ingest import ocr as ocr_mod  # type: ignore
     from ingest import documents as doc_mod
-    from ingest import proofread as pf_mod
     from ingest import stt as stt_mod
     from ingest import organize as org_mod
     from ingest import lyrics as lyrics_mod
 else:
     from . import ocr as ocr_mod
     from . import documents as doc_mod
-    from . import proofread as pf_mod
     from . import stt as stt_mod
     from . import organize as org_mod
     from . import lyrics as lyrics_mod
@@ -177,11 +175,9 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     booklet_text = "\n\n".join(booklet_parts)
     credits_text = "\n\n".join(credits_parts) or booklet_text
 
-    # OCR/文档歌词本文字校对（默认开；INGEST_PROOFREAD=0 可关闭）
-    import os as _os
-    if _os.environ.get("INGEST_PROOFREAD", "1") != "0" and booklet_text:
-        print("  ✏️  歌词本校对中...", file=sys.stderr)
-        booklet_text = pf_mod.proofread(booklet_text)
+    # 不做专辑级 LLM 校对：校对模型的「只输出歌词正文」人设会把标题/credits/
+    # 碎片行当杂质删掉（实测 24 页混合文本被压缩到 1/4，分轨因此只剩 1 轨），
+    # 而拼音对齐本就容忍字符级 OCR 错字——校对的价值远小于其破坏
 
     # 3) 音频 → 词级时间戳
     audio_words: dict[str, list] = {}
