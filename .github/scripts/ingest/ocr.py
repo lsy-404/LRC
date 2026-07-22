@@ -13,7 +13,9 @@
 from __future__ import annotations
 
 import argparse
+import io
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -24,6 +26,8 @@ else:
     from . import _llm
 
 IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".webp", ".bmp", ".gif", ".tiff"}
+
+_OSD_ROTATE_RE = re.compile(r"Rotate:\s*(\d+)")
 
 OCR_SYSTEM = """你是歌词本图片转录专家。图片通常是专辑歌词本，**既含歌词、也含歌曲源信息**
 （如作词/作曲/编曲/演唱/调校/混音/曲绘等 staff，以及专辑名、发行日期、出品、发布/购买链接）。
@@ -45,9 +49,39 @@ def find_images(directory: Path) -> list[Path]:
     )
 
 
+def _correct_orientation(path: Path) -> tuple[bytes, str]:
+    """用本地 Tesseract OSD 检测图片文字方向并转正，返回 (图片字节, mime)。
+
+    实拍投稿常见整页横拍（图片本身无 EXIF 方向标签，像素数据就是转了 90°/180°/270°），
+    直接把原图丢给视觉模型 OCR 在角度不对时容易读不准甚至幻觉出文字。
+    OSD 检测/旋转全在本地做，不占视觉模型调用额度；检测失败（版面太花哨、无法判断
+    方向等）时静默回退用原图，不阻断摄取流程。
+    """
+    try:
+        import pytesseract
+        from PIL import Image
+
+        with Image.open(path) as img:
+            osd = pytesseract.image_to_osd(img)
+            match = _OSD_ROTATE_RE.search(osd)
+            rotate = int(match.group(1)) if match else 0
+            if rotate == 0:
+                return path.read_bytes(), "image/jpeg"
+            # tesseract 的 Rotate 是需要顺时针转正的角度；PIL.rotate 正角度是逆时针
+            rotated = img.convert("RGB").rotate(-rotate, expand=True)
+            buf = io.BytesIO()
+            rotated.save(buf, format="JPEG", quality=92)
+            print(f"↻ 方向校正 {path.name}: 顺时针转 {rotate}°", file=sys.stderr, flush=True)
+            return buf.getvalue(), "image/jpeg"
+    except Exception as e:  # noqa: BLE001 — 检测失败不应阻断摄取，退回原图
+        print(f"⚠️  方向检测失败，使用原图 {path.name}: {e}", file=sys.stderr, flush=True)
+        return path.read_bytes(), "image/jpeg"
+
+
 def ocr_image(path: Path) -> str:
     """对单张图片做 OCR，返回转录文本（失败抛 _llm.LLMError）。"""
-    data_url = _llm.encode_image_data_url(path)
+    image_bytes, mime = _correct_orientation(path)
+    data_url = _llm.encode_image_bytes_data_url(image_bytes, mime)
     messages = [
         {"role": "system", "content": OCR_SYSTEM},
         {

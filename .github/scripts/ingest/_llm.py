@@ -3,9 +3,11 @@
 
 复用与 lib/llm_client.py 相同的环境变量约定：
     LLM_API_KEY    必填，API 密钥
-    LLM_API_BASE   端点（默认 https://openrouter.ai/api/v1）
-    LLM_MODEL      文本任务默认模型（校对/编排），缺省自动选 OpenRouter 免费模型
-    OCR_MODEL      视觉任务模型（OCR），缺省自动选 OpenRouter 免费视觉模型
+    LLM_API_BASE   端点（默认 https://api.openai.com/v1，与 config.toml [llm]
+                   一致，全项目单一 OpenAI key；显式设成 OpenRouter 端点时
+                   自动改走免费模型候选池逻辑）
+    LLM_MODEL      文本任务默认模型（校对/编排），缺省用 gpt-5-mini
+    OCR_MODEL      视觉任务模型（OCR），缺省用 gpt-5-mini
 
 仅依赖标准库 urllib，与项目现有脚本保持零额外依赖。
 """
@@ -22,13 +24,15 @@ from typing import Any, Optional
 from urllib import request
 from urllib.error import HTTPError, URLError
 
-DEFAULT_API_BASE = "https://openrouter.ai/api/v1"
+OPENROUTER_API_BASE = "https://openrouter.ai/api/v1"
 OPENAI_API_BASE = "https://api.openai.com/v1"
+DEFAULT_API_BASE = OPENAI_API_BASE
+# OpenRouter 免费模型兜底（仅当 LLM_API_BASE 显式指向 OpenRouter 时使用）
 DEFAULT_TEXT_MODEL = "deepseek/deepseek-chat-v3-0324:free"
-# OpenRouter 免费视觉模型（列表常变，可用 OCR_MODEL 覆盖）
 DEFAULT_VISION_MODEL = "google/gemini-2.0-flash-exp:free"
-OPENAI_TEXT_MODEL = "gpt-4o-mini"
-OPENAI_VISION_MODEL = "gpt-4o-mini"
+# 与 .github/config/config.toml 的 [llm] 一致：全项目单一 OpenAI key/模型
+OPENAI_TEXT_MODEL = "gpt-5-mini"
+OPENAI_VISION_MODEL = "gpt-5-mini"
 _MODEL_CACHE: dict[str, Optional[str]] = {}
 
 
@@ -172,7 +176,12 @@ def encode_image_data_url(path: str | Path) -> str:
     mime, _ = mimetypes.guess_type(p.name)
     if mime is None or not mime.startswith("image/"):
         mime = "image/png"
-    b64 = base64.b64encode(p.read_bytes()).decode("ascii")
+    return encode_image_bytes_data_url(p.read_bytes(), mime)
+
+
+def encode_image_bytes_data_url(data: bytes, mime: str = "image/jpeg") -> str:
+    """把已在内存中的图片字节编码成 data:URL（如方向已校正过的图片）。"""
+    b64 = base64.b64encode(data).decode("ascii")
     return f"data:{mime};base64,{b64}"
 
 

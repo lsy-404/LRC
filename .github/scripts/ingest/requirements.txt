@@ -9,4 +9,8 @@ PyMuPDF>=1.24.0
 python-docx>=1.1.0
 # 拼音 LCS 对齐（中文歌覆盖率 38%→71%；非中文语言自动回退字符级 LCS）
 pypinyin>=0.50.0
+# OCR 前本地方向检测（实拍投稿常见整页横拍，无 EXIF 方向标签，直接喂视觉模型
+# 识别质量差甚至幻觉）；需系统装 tesseract-ocr（见 upload_ingest.yml）
+pytesseract>=0.3.10
+Pillow>=10.0.0
 # OCR / 校对 / 编排仅用标准库 urllib 调 LLM，无需额外依赖
