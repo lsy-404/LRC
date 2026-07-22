@@ -50,15 +50,6 @@ def proofread(text: str) -> str:
     return result.strip()
 
 
-def proofread_safe(text: str) -> str:
-    """失败时回退原文（校对是增强项，不应丢内容）。"""
-    try:
-        return proofread(text)
-    except _llm.LLMError as e:
-        print(f"⚠️  校对失败，保留原文: {e}", file=sys.stderr, flush=True)
-        return (text or "").strip()
-
-
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="歌词草稿校对（LLM）")
     ap.add_argument("input", help="草稿文件路径，或 - 表示读 stdin")
@@ -70,7 +61,7 @@ def main(argv: list[str] | None = None) -> int:
     else:
         raw = Path(args.input).read_text(encoding="utf-8", errors="replace")
 
-    result = proofread_safe(raw)
+    result = proofread(raw)
 
     if args.out:
         Path(args.out).write_text(result + "\n", encoding="utf-8")

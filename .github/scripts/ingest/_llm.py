@@ -189,26 +189,29 @@ def chat(
     messages: list[dict[str, Any]],
     *,
     model: Optional[str] = None,
-    max_tokens: int = 32000,
-    timeout: int = 300,
+    max_tokens: Optional[int] = None,
+    timeout: int = 600,
     max_retries: int = 3,
 ) -> str:
     """调用 /chat/completions，返回文本内容。失败抛 LLMError。
 
     messages 支持 OpenAI 多模态格式：content 可为 str，或
     [{"type":"text","text":...}, {"type":"image_url","image_url":{"url":...}}]。
+
+    默认不发送 max_completion_tokens——人为预算上限曾两次把大任务的可见输出
+    挤压成空补全（推理模型的思维链与可见输出共享该预算），不设上限让模型用满
+    原生输出能力，这类截断问题从根上不可能再发生。
     """
     url = f"{api_base()}/chat/completions"
-    payload = {
+    payload: dict[str, Any] = {
         "model": model or text_model(),
         "messages": messages,
-        "max_completion_tokens": max_tokens,
     }
+    if max_tokens:
+        payload["max_completion_tokens"] = max_tokens
     if api_base() == OPENAI_API_BASE:
-        # gpt-5 系列推理模型的思维链与可见输出共用 max_completion_tokens 预算。
-        # 本管线的任务（OCR 转录/校对/分轨）都是机械转换，不需要深度推理——
-        # 不压推理档位时，分轨这类大输出任务观察到把整个预算烧在思维链上，
-        # 一个可见字符都不产出（finish_reason=length 的空补全）。
+        # 本管线的任务（OCR 转录/校对/分轨）都是机械转换，不需要深度推理，
+        # 压低推理档位省时省钱（可用 LLM_REASONING_EFFORT 覆盖）
         payload["reasoning_effort"] = _env("LLM_REASONING_EFFORT", "low")
     headers = {
         "Content-Type": "application/json",
@@ -256,21 +259,12 @@ def chat(
     raise LLMError(f"LLM 请求失败: {last_err}")
 
 
-def chat_safe(messages: list[dict[str, Any]], **kw: Any) -> Optional[str]:
-    """chat() 的不抛版本：失败返回 None 并打印告警。"""
-    try:
-        return chat(messages, **kw)
-    except LLMError as e:
-        print(f"⚠️  {e}", file=sys.stderr, flush=True)
-        return None
-
-
 def chat_auto(
     messages: list[dict[str, Any]],
     *,
     kind: str,
-    max_tokens: int = 32000,
-    timeout: int = 300,
+    max_tokens: Optional[int] = None,
+    timeout: int = 600,
     max_model_attempts: int = 4,
 ) -> str:
     """跟 chat() 一样，但在「未显式指定模型、走 OpenRouter 自动选免费模型」时，
@@ -301,15 +295,6 @@ def chat_auto(
             print(f"⚠️  模型 {model_id} 调用失败，换下一个候选: {e}", file=sys.stderr, flush=True)
             last_err = e
     raise last_err or LLMError("所有候选免费模型均调用失败")
-
-
-def chat_auto_safe(messages: list[dict[str, Any]], *, kind: str, **kw: Any) -> Optional[str]:
-    """chat_auto() 的不抛版本：失败返回 None 并打印告警。"""
-    try:
-        return chat_auto(messages, kind=kind, **kw)
-    except LLMError as e:
-        print(f"⚠️  {e}", file=sys.stderr, flush=True)
-        return None
 
 
 def extract_json(text: str) -> Optional[Any]:
