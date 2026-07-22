@@ -27,11 +27,22 @@ STAFF_LABELS = {
 }
 
 _LEAD_NUM = re.compile(r"^\s*\d+[\.\s、]*")
-_STAFF_LINE = re.compile(r"^\s*([A-Za-z一-鿿]+)\s*(?:[:：]\s*|\s+)(.+)$")
+_STAFF_LINE = re.compile(
+    r"^\s*([A-Za-z一-鿿]+(?:\s*[/／]\s*[A-Za-z一-鿿]+)*)\s*(?:[:：]\s*|\s+)(.+)$")
 
 
 def _is_staff_label(token: str) -> str | None:
     return STAFF_LABELS.get(token.strip().upper()) or STAFF_LABELS.get(token.strip())
+
+
+def _labels_of(token: str) -> list[str] | None:
+    """「作词」→[lyricist]；复合标签「作词/作曲」→[lyricist, composer]（歌词本常见排版，
+    同一人担任多个角色）。任一部分不是已知 staff 标签则整体判非 staff 行，返回 None。"""
+    parts = [p for p in re.split(r"[/／]", token) if p.strip()]
+    fields = [_is_staff_label(p) for p in parts]
+    if fields and all(fields):
+        return [f for f in fields if f]
+    return None
 
 
 def split_names(raw: str) -> list[str]:
@@ -54,17 +65,19 @@ def parse_staff_block(lines: list[str]) -> dict[str, list[str]]:
         if not line:
             i += 1
             continue
-        # 形如 "VOCAL 星尘&海伊"
+        # 形如 "VOCAL 星尘&海伊" / "作词/作曲：奥莉安多"（复合标签拆给每个角色）
         m = _STAFF_LINE.match(line)
-        if m and _is_staff_label(m.group(1)):
-            field = _is_staff_label(m.group(1))
-            staff.setdefault(field, []).extend(split_names(m.group(2)))
+        fields = _labels_of(m.group(1)) if m else None
+        if m and fields:
+            for field in fields:
+                staff.setdefault(field, []).extend(split_names(m.group(2)))
             i += 1
             continue
         # 形如 单独一行 "VOCAL" 下一行是名字
-        field = _is_staff_label(line)
-        if field and i + 1 < len(lines):
-            staff.setdefault(field, []).extend(split_names(lines[i + 1]))
+        fields = _labels_of(line)
+        if fields and i + 1 < len(lines):
+            for field in fields:
+                staff.setdefault(field, []).extend(split_names(lines[i + 1]))
             i += 2
             continue
         i += 1
