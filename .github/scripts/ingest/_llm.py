@@ -230,6 +230,11 @@ def chat(
         try:
             with request.urlopen(req, timeout=timeout) as resp:
                 result = json.loads(resp.read().decode("utf-8"))
+            usage = result.get("usage") or {}
+            if usage:
+                print(f"  · tokens prompt={usage.get('prompt_tokens')} "
+                      f"completion={usage.get('completion_tokens')}",
+                      file=sys.stderr, flush=True)
             choice = (result.get("choices") or [{}])[0]
             content = ((choice.get("message") or {}).get("content") or "").strip()
             if not content:
