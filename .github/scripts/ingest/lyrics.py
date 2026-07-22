@@ -89,6 +89,14 @@ def parse_staff_block(lines: list[str]) -> dict[str, list[str]]:
     return staff
 
 
+def to_simplified(text: str) -> str:
+    """繁→简。站点数据规范为简体；OCR 提示词的简体规则约束不了 whisper 转写
+    （中文输出天然偏繁体），在数据层做确定性转换。仅限中文语境调用——
+    日语文本经此函数会被错误改写，调用方必须先判语言。"""
+    from zhconv import convert
+    return convert(text, "zh-cn")
+
+
 def split_staff_lines(lines: list[str]) -> tuple[dict[str, list[str]], list[str], list[str]]:
     """把行列表分成 (staff字段, 原样staff行, 歌词正文行)。
 

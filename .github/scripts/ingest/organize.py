@@ -376,6 +376,10 @@ def build_track_lrc(
             title = (m.group(1) if m else stem).strip().strip("。.")
             track["title"] = title
         lang = (audio_langs or {}).get(audio, "")
+        if lang.startswith("zh"):
+            # 站点数据规范为简体；whisper 转写与偶发的 OCR 不服从都在此统一转换
+            lines = [lyrics_mod.to_simplified(l) for l in lines]
+            credits = [lyrics_mod.to_simplified(c) for c in credits]
         lrc = align_mod.align(
             lines, audio_words[audio], title=title, album=album, artist=artist, by=by,
             credits=credits, language=lang,
