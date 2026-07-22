@@ -103,10 +103,16 @@ def ocr_image(path: Path) -> str:
 
 
 def run(images: list[Path]) -> dict[str, str]:
-    """返回 {文件名: 转录文本}。任一图片识别失败直接抛 LLMError（快速失败）。"""
+    """返回 {文件名: 转录文本}（按输入顺序）。任一图片失败直接抛 LLMError（快速失败）。
+
+    并发请求：识别是纯网络等待，串行 24 张要 10+ 分钟，6 路并发压到约 2 分钟。
+    """
+    from concurrent.futures import ThreadPoolExecutor
+
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        results = list(pool.map(ocr_image, images))
     out: dict[str, str] = {}
-    for img in images:
-        text = ocr_image(img)
+    for img, text in zip(images, results):
         if text:
             out[img.name] = text
             print(f"✓ OCR {img.name} ({len(text)} 字)", file=sys.stderr, flush=True)

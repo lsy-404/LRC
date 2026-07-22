@@ -116,6 +116,16 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: |
+            repo/.github/scripts/requirements.txt
+            repo/.github/scripts/ingest/requirements.txt
+
+      - name: Cache HuggingFace models (whisper/pyannote/wav2vec2)
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: hf-${{ vars.WHISPER_MODEL || 'small' }}-v1
 
       - name: Install system dependencies
         run: |
