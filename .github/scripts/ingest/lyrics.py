@@ -27,7 +27,7 @@ STAFF_LABELS = {
 }
 
 _LEAD_NUM = re.compile(r"^\s*\d+[\.\s、]*")
-_STAFF_LINE = re.compile(r"^\s*([A-Za-z一-鿿]+)\s*[:：]?\s+(.+)$")
+_STAFF_LINE = re.compile(r"^\s*([A-Za-z一-鿿]+)\s*(?:[:：]\s*|\s+)(.+)$")
 
 
 def _is_staff_label(token: str) -> str | None:
