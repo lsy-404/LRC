@@ -182,7 +182,10 @@ class LLMClient:
             "arranger":    "编曲/曲/混编（arranger）",
             "tuning":      "调校/调/调教（tuner）",
             "illustrator": "曲绘/封面/美术/绘（illustrator）",
-            "mixer":       "混音/混/母带（mixer）",
+            "mixer":       "混音/混（mixer）",
+            "mastering":   "母带（mastering）",
+            "video":       "视频/PV（video）",
+            "planning":    "策划/企划（planning）",
         }
         target_guide = "\n".join(
             f'  - "{k}": {v}' for k, v in field_guide.items() if k in missing_fields

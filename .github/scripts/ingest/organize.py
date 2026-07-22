@@ -56,13 +56,15 @@ NAME_FIELDS = [("prefix", "前缀"), ("zh_name", "中文名"), ("en_name", "英�
 MATCH_THRESHOLD = 0.25
 
 ORGANIZE_SYSTEM = """你是音乐专辑歌词整理专家。给你一份专辑歌词本混合文本（可能含多首歌词及
-作词/作曲/编曲/演唱/调校/混音/曲绘等制作信息和发行/购买/出品等源信息）。整理成结构化 JSON。
+作词/作曲/编曲/演唱/调校/混音/母带/曲绘/视频/策划等制作信息和发行/购买/出品等源信息）。
+整理成结构化 JSON。
 
 输出 JSON（只输出 JSON）：
 {
   "album": "专辑名（能确定则填，否则空）",
   "meta": {"year":"","produce":[],"release":"","purchase":"","electronic":"","lyric_maker":[],
-           "vocal":[],"lyricist":[],"composer":[],"arranger":[],"tuning":[],"illustrator":[],"mixer":[]},
+           "vocal":[],"lyricist":[],"composer":[],"arranger":[],"tuning":[],"illustrator":[],
+           "mixer":[],"mastering":[],"video":[],"planning":[]},
   "tracks": [{"order":1,"title":"曲名","lyrics":"逐行歌词，保留换行，不翻译不补全"}]
 }
 规则：1.只用文本真实信息，未知留空，勿臆造 2.vocal 只填虚拟歌姬/声库，不填真人或团体缩写

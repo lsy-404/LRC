@@ -71,6 +71,12 @@ tuning = "tuning"
 illustrator = "illustrator"
 "混音" = "mixer"
 mixer = "mixer"
+"母带" = "mastering"
+mastering = "mastering"
+"视频" = "video"
+video = "video"
+"策划" = "planning"
+planning = "planning"
 "发布" = "release"
 release = "release"
 "购买" = "purchase"
@@ -163,6 +169,21 @@ type = "list"
 [[meta.field_schema]]
 internal = "mixer"
 toml_key = "混音"
+type = "list"
+
+[[meta.field_schema]]
+internal = "mastering"
+toml_key = "母带"
+type = "list"
+
+[[meta.field_schema]]
+internal = "video"
+toml_key = "视频"
+type = "list"
+
+[[meta.field_schema]]
+internal = "planning"
+toml_key = "策划"
 type = "list"
 
 [lrc]

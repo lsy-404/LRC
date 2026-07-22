@@ -21,6 +21,9 @@ STAFF_LABELS = {
     "ILLUSTRATION": "illustrator", "ILLUST": "illustrator", "曲绘": "illustrator",
     "封面": "illustrator", "美术": "illustrator", "ILLUSTRATOR": "illustrator",
     "MIX": "mixer", "MIXING": "mixer", "混音": "mixer", "MIXER": "mixer",
+    "MASTERING": "mastering", "MASTER": "mastering", "母带": "mastering",
+    "PV": "video", "VIDEO": "video", "MOVIE": "video", "视频": "video",
+    "PLANNING": "planning", "PLAN": "planning", "策划": "planning", "企划": "planning",
 }
 
 _LEAD_NUM = re.compile(r"^\s*\d+[\.\s、]*")

@@ -91,6 +91,12 @@ DEFAULT_CONFIG: dict[str, Any] = {
             "electronic": "electronic",
             "歌词制作": "lyric_maker",
             "lyric_maker": "lyric_maker",
+            "母带": "mastering",
+            "mastering": "mastering",
+            "视频": "video",
+            "video": "video",
+            "策划": "planning",
+            "planning": "planning",
         },
         "field_schema": [
             {"internal": "year", "toml_key": "发行日期", "type": "str"},
@@ -110,6 +116,9 @@ DEFAULT_CONFIG: dict[str, Any] = {
             {"internal": "tuning", "toml_key": "调校", "type": "list"},
             {"internal": "illustrator", "toml_key": "曲绘", "type": "list"},
             {"internal": "mixer", "toml_key": "混音", "type": "list"},
+            {"internal": "mastering", "toml_key": "母带", "type": "list"},
+            {"internal": "video", "toml_key": "视频", "type": "list"},
+            {"internal": "planning", "toml_key": "策划", "type": "list"},
         ],
     },
     "lrc": {
