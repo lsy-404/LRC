@@ -304,6 +304,53 @@ def chat_auto(
     raise last_err or LLMError("所有候选免费模型均调用失败")
 
 
+def search_chat(prompt: str, *, model: Optional[str] = None, timeout: int = 600) -> str:
+    """OpenAI Responses API + web_search 工具：联网检索后返回模型输出文本。
+
+    仅支持 OpenAI 端点（web_search 是 OpenAI 托管工具）。失败抛 LLMError。
+    """
+    if api_base() != OPENAI_API_BASE:
+        raise LLMError("联网搜索仅支持 OpenAI 端点")
+    payload = {
+        "model": model or OPENAI_TEXT_MODEL,
+        "input": prompt,
+        "tools": [{"type": "web_search"}],
+        "reasoning": {"effort": _env("LLM_REASONING_EFFORT", "low")},
+    }
+    req = request.Request(
+        f"{OPENAI_API_BASE}/responses",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json",
+                 "Authorization": f"Bearer {api_key()}"},
+        method="POST",
+    )
+    try:
+        with request.urlopen(req, timeout=timeout) as resp:
+            result = json.loads(resp.read().decode("utf-8"))
+    except HTTPError as e:
+        body = ""
+        try:
+            body = e.read().decode("utf-8")[:300]
+        except Exception:
+            pass
+        raise LLMError(f"web_search 请求失败: HTTP {e.code} {body}")
+    except (URLError, json.JSONDecodeError) as e:
+        raise LLMError(f"web_search 请求失败: {e}")
+    usage = result.get("usage") or {}
+    if usage:
+        print(f"  · tokens prompt={usage.get('input_tokens')} "
+              f"completion={usage.get('output_tokens')} (web_search)",
+              file=sys.stderr, flush=True)
+    texts = [part.get("text", "")
+             for item in (result.get("output") or [])
+             for part in (item.get("content") or [])
+             if part.get("type") == "output_text"]
+    out = "\n".join(t for t in texts if t).strip()
+    if not out:
+        raise LLMError(f"web_search 空输出 status={result.get('status')}")
+    return out
+
+
 def extract_json(text: str) -> Optional[Any]:
     """从 LLM 输出里抽第一个 JSON 对象/数组（容忍 markdown 代码块包裹）。"""
     if not text:

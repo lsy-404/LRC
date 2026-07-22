@@ -32,9 +32,9 @@ if str(_SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(_SCRIPTS_DIR))
 
 if __package__ in (None, ""):
-    from ingest import _llm, align as align_mod, lyrics as lyrics_mod  # type: ignore
+    from ingest import _llm, align as align_mod, lyrics as lyrics_mod, websearch as web_mod  # type: ignore
 else:
-    from . import _llm, align as align_mod, lyrics as lyrics_mod
+    from . import _llm, align as align_mod, lyrics as lyrics_mod, websearch as web_mod
 
 try:
     import tomllib  # py311+
@@ -367,7 +367,19 @@ def organize(
         tracks = _words_to_tracks(audio_words)
         print(f"  ⟳ 无歌词文本，由 STT 词流生成 {len(tracks)} 首轨道草稿", file=sys.stderr)
 
-    # 2) meta：manifest > LLM(credits) > 逐曲 staff > 现有 meta（增补时保底）
+    # 联网检索专辑官方元信息（仅 staff/制作者，歌词始终只来自投稿素材），
+    # 填补歌词本没印全或 OCR 没读全的 credits 字段
+    web_staff: dict[str, list] = {}
+    if tracks and web_mod.available():
+        titles = [s for s in (str(t.get("title", "")).strip() for t in tracks) if s]
+        info = web_mod.search_album_meta(album, str(manifest.get("artist") or ""), titles)
+        if info.get("found"):
+            web_staff = {k: list(v) for k, v in (info.get("staff") or {}).items() if v}
+            print(f"  🔍 专辑元信息检索命中（{info.get('source', '?')}）", file=sys.stderr)
+        else:
+            print("  🔍 未检索到专辑官方元信息", file=sys.stderr)
+
+    # 2) meta：manifest > LLM(credits) > 逐曲 staff > 联网 staff > 现有 meta（增补时保底）
     credits_staff = lyrics_mod.parse_staff_block(credits_text.splitlines()) if credits_text else {}
     per_track_staff: dict[str, list] = {}
     for t in tracks_explicit:
@@ -376,7 +388,9 @@ def organize(
             for name in v:
                 if name not in per_track_staff[k]:
                     per_track_staff[k].append(name)
-    meta = merge_meta(manifest, llm_meta, credits_staff, per_track_staff, existing_meta or {})
+    web_meta = lyrics_mod.parse_staff_block(
+        [f"{k}：{'、'.join(v)}" for k, v in web_staff.items() if v]) if web_staff else {}
+    meta = merge_meta(manifest, llm_meta, credits_staff, per_track_staff, web_meta, existing_meta or {})
     if default_lyric_maker and not meta.get("lyric_maker"):
         meta["lyric_maker"] = [default_lyric_maker]
 
