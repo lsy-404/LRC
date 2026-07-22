@@ -18,5 +18,6 @@ export default sidebar({
       children: "structure",
     },
     "CONTRIBUTING",
+    "upload",
   ],
 },);
