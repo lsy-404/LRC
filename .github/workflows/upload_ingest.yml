@@ -1,30 +1,68 @@
 name: Upload Ingest
 
 # 共享投递箱 upload 分支：贡献者（需仓库写权限）push 原料(歌词本图片/pdf/docx、
-# 文字草稿、歌曲音频、manifest.toml)到 upload。本工作流：
-#   1. 按 push 的 SHA 取走原料
-#   2. 立即把 upload 重置为「仅含本工作流 + 投递说明」（force-push，腾空投递箱）
-#   3. OCR / 文档抽取 / 校对 / faster-whisper STT / LLM 编排 → res/<专辑>/
-#   4. 从 main 迁出分支 upload-<贡献者>-<时间>，开 PR 走现有 lrc_auto_audit 审计
+# 文字草稿、歌曲音频、manifest.toml)到 upload。分两个 job：
+#   capture（不排队，每次 push 立刻跑）：把这次 push 的 SHA 锚定成一个 tag，
+#     使其独立于 upload 分支引用存在——见下方 capture job 内注释，这是为了防止
+#     排队中的后续 push 在轮到自己前，commit 就先被前一个 push 的 dropbox 重置
+#     动作变成悬空引用。
+#   ingest（沿用原有串行排队，一次只处理一个 push）：
+#     1. 从 capture 打的 tag（不是易变的 upload 分支）取走原料
+#     2. 立即把 upload 重置为「仅含本工作流 + 投递说明」（force-push，腾空投递箱）
+#     3. OCR / 文档抽取 / 校对 / faster-whisper STT / LLM 编排 → res/<专辑>/
+#     4. 从 main 迁出分支 upload-<贡献者>-<时间>，开 PR 走现有 lrc_auto_audit 审计
+#     5. 删掉自己那个保护用的 tag
 #   原料全程只在 runner 临时盘，绝不进任何持久分支；upload 旧 commit 被覆盖即销毁。
 
 on:
   push:
     branches: [upload]
 
-concurrency:
-  group: upload-ingest
-  cancel-in-progress: false
-
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
+  # 单独的 job：不进 upload-ingest 并发组，每次 push 立刻跑（不排队）。
+  # 只做一件事——给这次 push 的 SHA 打一个 tag，让它脱离 upload 分支引用独立存在。
+  # 原因：ingest job 是排队串行的（concurrency cancel-in-progress: false）；如果
+  # A、B 前后脚推送，B 的 ingest 要等 A 跑完才开始。但 A 跑完前会执行"重置 upload
+  # 投递箱"（force-push 抹掉分支历史）——这一步一旦发生，B 那次 push 的 commit
+  # 就不再被任何分支引用，B 排队中的 job 还没轮到执行任何自我保护的机会。
+  # 单纯指望 GitHub 还没来得及垃圾回收这个悬空 commit 不是可靠保证，所以必须在
+  # A 的重置有机会发生*之前*就把 B 的 commit 锚定住——这只有一个不排队、立刻跑
+  # 的 job 才能做到。
+  capture:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tag payload SHA (protects it from the dropbox reset race)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          # 幂等：同一 SHA 被推送两次（比如重试用了完全相同的树）时 tag 已存在，
+          # 创建会 422——只要确认 tag 确实存在（不管是谁先建的）就算达到目的，
+          # 不是真的失败；只有"建不了也查不到"才是真失败。
+          if ! gh api "repos/${{ github.repository }}/git/refs" \
+               -f ref="refs/tags/upload-payload-${{ github.sha }}" \
+               -f sha="${{ github.sha }}" 2>/tmp/tag_err; then
+            if gh api "repos/${{ github.repository }}/git/refs/tags/upload-payload-${{ github.sha }}" >/dev/null 2>&1; then
+              echo "tag 已存在（大概率是相同 SHA 的重复推送），视为成功"
+            else
+              cat /tmp/tag_err >&2
+              exit 1
+            fi
+          fi
+
   ingest:
+    needs: capture
     # 防循环：忽略 bot 自己 reset upload 触发的 push（GITHUB_TOKEN 推送本不会递归触发，双保险）
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
+    concurrency:
+      group: upload-ingest
+      cancel-in-progress: false
     steps:
       - name: Resolve context
         id: ctx
@@ -34,10 +72,10 @@ jobs:
           echo "actor=${actor:-contributor}" >> "$GITHUB_OUTPUT"
           echo "ts=$(date -u +%Y%m%d-%H%M%S)" >> "$GITHUB_OUTPUT"
 
-      - name: Checkout upload payload (at pushed SHA)
+      - name: Checkout upload payload (at protected tag, not the mutable branch)
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.sha }}
+          ref: refs/tags/upload-payload-${{ github.sha }}
           fetch-depth: 1
           path: payload
 
@@ -183,3 +221,10 @@ jobs:
           gh pr create --base main --head "$BRANCH" \
             --title "${PR_VERB}: ${{ steps.run.outputs.album }} (@${{ github.actor }})" \
             --body "$BODY"
+
+      - name: Clean up protective payload tag
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api -X DELETE "repos/${{ github.repository }}/git/refs/tags/upload-payload-${{ github.sha }}" || true
