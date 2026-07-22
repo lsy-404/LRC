@@ -179,12 +179,24 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     # 碎片行当杂质删掉（实测 24 页混合文本被压缩到 1/4，分轨因此只剩 1 轨），
     # 而拼音对齐本就容忍字符级 OCR 错字——校对的价值远小于其破坏
 
-    # 3) 音频 → 词级时间戳
+    # 3) 音频轨单：agent 按歌曲本身名称排序/重命名并剔除伴奏（轨单以音频为权威）
+    tracks_plan: list[dict] = []
+    keep: set[str] = set()
+    if buckets["audio"]:
+        tracks_plan = org_mod.llm_order_tracks([p.name for p in buckets["audio"]], album)
+        keep = {t.get("file") for t in tracks_plan}
+        skipped = [p.name for p in buckets["audio"] if p.name not in keep]
+        if skipped:
+            print(f"  ⏭ 轨单剔除 {len(skipped)} 个音轨（伴奏等）: {skipped}", file=sys.stderr)
+
+    # 4) 音频 → 词级时间戳（仅轨单内音轨，伴奏不转写）
     audio_words: dict[str, list] = {}
     audio_langs: dict[str, str] = {}
     if buckets["audio"]:
         pipeline = stt_mod._load_pipeline()
         for a in buckets["audio"]:
+            if keep and a.name not in keep:
+                continue
             words, lang = stt_mod.transcribe_words(a, pipeline=pipeline)
             audio_words[a.name] = words
             audio_langs[a.name] = lang
@@ -197,7 +209,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
             majority_lang = max(lang_counts, key=lambda k: lang_counts[k])
             retry_audios = [
                 a for a in buckets["audio"]
-                if audio_langs.get(a.name) != majority_lang
+                if a.name in audio_langs and audio_langs[a.name] != majority_lang
             ]
             if retry_audios:
                 print(
@@ -212,7 +224,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
                     audio_words[a.name] = words
                     audio_langs[a.name] = lang
 
-    # 4) 整理 + 对齐 → res/<专辑>/（meta 全自动；专辑名 = 文件夹名 album）
+    # 5) 整理 + 对齐 → res/<专辑>/（meta 全自动；专辑名 = 文件夹名 album）
     #    可选：若投递目录恰含 manifest.toml 则作为 meta 覆盖（非必需，不鼓励）。
     manifest_path = src / "manifest.toml"
     manifest = org_mod._read_toml(manifest_path) if manifest_path.is_file() else {}
@@ -236,7 +248,8 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
 
     org_res = org_mod.organize(
         tracks_explicit=tracks_explicit, booklet_text=booklet_text, credits_text=credits_text,
-        audio_words=audio_words, audio_langs=audio_langs, manifest=manifest, res_dir=res_dir,
+        audio_words=audio_words, audio_langs=audio_langs, tracks_plan=tracks_plan,
+        manifest=manifest, res_dir=res_dir,
         album_override=album, cover_path=cover, existing_meta=existing_meta, dry_run=dry_run,
         default_lyric_maker=lyric_maker,
     )

@@ -62,7 +62,7 @@ ORGANIZE_SYSTEM = """你是音乐专辑歌词整理专家。给你一份专辑�
 输出 JSON（只输出 JSON）：
 {
   "album": "专辑名（能确定则填，否则空）",
-  "meta": {"year":"","produce":[],"release":"","purchase":"","electronic":"","lyric_maker":[],
+  "meta": {"year":"","produce":[],"release":"","purchase":"","electronic":"",
            "vocal":[],"lyricist":[],"composer":[],"arranger":[],"tuning":[],"illustrator":[],
            "mixer":[],"mastering":[],"video":[],"planning":[]},
   "tracks": [{"order":1,"title":"曲名","lyrics":"逐行歌词，保留换行，不翻译不补全"}]
@@ -124,8 +124,8 @@ def _join_words(tokens: list[str]) -> str:
     return out.strip()
 
 
-def _words_to_tracks(audio_words: dict[str, list]) -> list[dict]:
-    """STT 词流 → 轨道列表（无歌词文本时的通用兜底）。
+def _words_to_lines(words: list[dict]) -> list[str]:
+    """单曲 STT 词流 → 分行文本。
 
     分行策略（优先级从高到低）：
     1. stt.py 标注的 seg_end（Whisper segment 边界）→ 强制断行
@@ -133,46 +133,51 @@ def _words_to_tracks(audio_words: dict[str, list]) -> list[dict]:
     3. 行时长超 6 s 或 CJK 字数超 20
     CJK tokens 直连不加空格。
     """
+    lines: list[str] = []
+    buf: list[str] = []
+    buf_start = 0.0
+    prev_end = 0.0
+
+    def _flush() -> None:
+        line = _join_words(buf)
+        if line:
+            lines.append(line)
+        buf.clear()
+
+    for w in words:
+        w_start = float(w.get("start", 0.0))
+        w_end = float(w.get("end", w_start))
+        gap = w_start - prev_end
+        text = (w.get("text") or "").strip()
+        is_cjk_word = _has_cjk(text)
+        gap_thresh = 0.4 if is_cjk_word else 1.0
+        duration = w_start - buf_start if buf else 0.0
+        cjk_len = sum(1 for t in buf for c in t if "一" <= c <= "鿿")
+
+        if buf and (gap >= gap_thresh or duration >= 6.0 or cjk_len >= 20):
+            _flush()
+
+        if text:
+            if not buf:
+                buf_start = w_start
+            buf.append(text)
+        prev_end = w_end
+
+        # seg_end 在当前词加入后断行（保证当前词归入本行）
+        if w.get("seg_end") and buf:
+            _flush()
+
+    _flush()
+    return lines
+
+
+def _words_to_tracks(audio_words: dict[str, list]) -> list[dict]:
+    """STT 词流 → 轨道列表（无歌词文本/无轨单时的通用兜底）。"""
     tracks: list[dict] = []
     for i, (audio_name, words) in enumerate(sorted(audio_words.items()), 1):
         if not words:
             continue
-        lines: list[str] = []
-        buf: list[str] = []
-        buf_start = 0.0
-        prev_end = 0.0
-
-        def _flush() -> None:
-            line = _join_words(buf)
-            if line:
-                lines.append(line)
-            buf.clear()
-
-        for w in words:
-            w_start = float(w.get("start", 0.0))
-            w_end = float(w.get("end", w_start))
-            gap = w_start - prev_end
-            text = (w.get("text") or "").strip()
-            is_cjk_word = _has_cjk(text)
-            gap_thresh = 0.4 if is_cjk_word else 1.0
-            duration = w_start - buf_start if buf else 0.0
-            cjk_len = sum(1 for t in buf for c in t if "一" <= c <= "鿿")
-
-            if buf and (gap >= gap_thresh or duration >= 6.0 or cjk_len >= 20):
-                _flush()
-
-            if text:
-                if not buf:
-                    buf_start = w_start
-                buf.append(text)
-            prev_end = w_end
-
-            # seg_end 在当前词加入后断行（保证当前词归入本行）
-            if w.get("seg_end") and buf:
-                _flush()
-
-        _flush()
-
+        lines = _words_to_lines(words)
         stem = Path(audio_name).stem
         order = _order_from_name(stem)
         title_m = re.match(r"^\d+[\s._-]+(.*)", stem)
@@ -184,6 +189,62 @@ def _words_to_tracks(audio_words: dict[str, list]) -> list[dict]:
 # ──────────────────────────────────────────────────────────────────────────────
 # LLM 分轨（仅当没有逐曲歌词时）
 # ──────────────────────────────────────────────────────────────────────────────
+ORDER_SYSTEM = """你是音乐专辑整理助手。给你投稿目录中的音频文件名列表，产出专辑轨单。
+规则：
+1. 剔除伴奏/instrumental 版本（文件名含 INST/instrumental/off vocal/伴奏 等）
+2. 按文件名中的曲序号排序，并重新编号为连续的 1..N
+3. title 取歌曲本身名称：去掉序号前缀与结尾句号/多余空白，保留歌名内的标点
+4. file 必须是原文件名的逐字符原样
+只输出 JSON：{"tracks":[{"order":1,"title":"...","file":"..."}]}"""
+
+
+def llm_order_tracks(audio_names: list[str], album_hint: str = "") -> list[dict]:
+    """音频文件名 → 权威轨单（歌曲本身名称优先）。失败抛 LLMError。"""
+    user = "\n".join(audio_names)
+    if album_hint:
+        user = f"【专辑】{album_hint}\n{user}"
+    resp = _llm.chat_auto(
+        [{"role": "system", "content": ORDER_SYSTEM}, {"role": "user", "content": user}],
+        kind="text",
+    )
+    plan = _llm.extract_json(resp)
+    tracks = plan.get("tracks") if isinstance(plan, dict) else None
+    valid = [t for t in (tracks or []) if t.get("file") in set(audio_names)]
+    if not valid:
+        raise _llm.LLMError("轨单编排返回无有效 tracks")
+    return valid
+
+
+ASSIGN_SYSTEM = """你是音乐专辑歌词整理专家。给你专辑的权威轨单（来自音频文件，顺序与曲名
+以此为准，不得增删改）和歌词本 OCR 混合文本（可能含歌词及作词/作曲/编曲/演唱/调校/混音/
+母带/曲绘/视频/策划等制作信息和发行/购买/出品等源信息）。
+
+任务：把歌词本中属于每一曲的文字原样分配给该曲，并抽出专辑级 meta。
+输出 JSON（只输出 JSON）：
+{
+  "meta": {"year":"","produce":[],"release":"","purchase":"","electronic":"",
+           "vocal":[],"lyricist":[],"composer":[],"arranger":[],"tuning":[],"illustrator":[],
+           "mixer":[],"mastering":[],"video":[],"planning":[]},
+  "assignments": {"1": "该曲歌词及其曲内staff行，保留换行", "2": "..."}
+}
+规则：1.assignments 的键 = 轨单 order 2.只用文本真实内容，找不到某曲的歌词就给空字符串，
+勿臆造勿改写勿翻译 3.vocal 只填虚拟歌姬/声库 4.去掉人名 @用户名 后缀。"""
+
+
+def llm_assign_booklet(booklet_text: str, tracks_plan: list[dict]) -> dict:
+    """歌词本文本按权威轨单分配歌词+抽 meta。失败抛 LLMError。"""
+    track_list = "\n".join(f'{t.get("order")}. {t.get("title", "")}' for t in tracks_plan)
+    user = f"【轨单】\n{track_list}\n\n【歌词本文本】\n{booklet_text.strip()}"
+    resp = _llm.chat_auto(
+        [{"role": "system", "content": ASSIGN_SYSTEM}, {"role": "user", "content": user}],
+        kind="text",
+    )
+    data = _llm.extract_json(resp)
+    if not isinstance(data, dict):
+        raise _llm.LLMError("歌词分配返回无法解析")
+    return data
+
+
 def llm_split_booklet(source_text: str, album_hint: str) -> dict:
     """歌词本文本 → 分轨 plan。失败直接抛 LLMError，不降级不伪造。"""
     user = source_text.strip()
@@ -299,9 +360,15 @@ def build_track_lrc(
     staff = track.get("staff") or {}
     credits = track.get("staff_rows") or []
     artist = "/".join(staff.get("vocal", []))
-    audio = match_audio_to_track(lines, audio_words, used, audio_langs) if audio_words else None
+    # 轨单路径：轨即音频，直连不做模糊匹配；否则按歌词相似度匹配
+    audio = track.get("file") if track.get("file") in (audio_words or {}) else (
+        match_audio_to_track(lines, audio_words, used, audio_langs) if audio_words else None)
     if audio:
         used.add(audio)
+        if not lines:
+            # 歌词本没有该曲文本：用它自身 STT 词流出草稿行（曲名仍来自轨单）
+            lines = _words_to_lines(audio_words[audio])
+            print(f"  ⟳ {title or audio}: 歌词本无此曲文本，STT 草稿", file=sys.stderr)
         if not title:
             # 音频文件名自带曲名（投稿者命名/内嵌tag），比 OCR 读出的标题可靠
             stem = Path(audio).stem
@@ -338,6 +405,7 @@ def organize(
     credits_text: str,
     audio_words: dict[str, list] | None,
     audio_langs: dict[str, str] | None = None,
+    tracks_plan: list[dict] | None = None,
     manifest: dict,
     res_dir: Path,
     album_override: str = "",
@@ -350,10 +418,26 @@ def organize(
     audio_langs = audio_langs or {}
     tracks_explicit = tracks_explicit or []
 
-    # 1) 轨来源：优先逐曲歌词；有歌词本文本则 LLM 分轨；否则跳过 LLM（避免空轨）
+    # 1) 轨来源优先级：逐曲歌词 txt > 音频轨单（音频为中心）> 歌词本分轨（纯文本投稿）
     llm_meta: dict = {}
     if tracks_explicit:
         tracks = sorted(tracks_explicit, key=lambda t: t.get("order", 0) or 0)
+        album_from_plan = ""
+    elif tracks_plan and audio_words:
+        # 音频为中心：轨=音频（曲名/曲序以音频文件为权威），歌词本 OCR 只做
+        # 歌词修正与元信息一补——每曲分配到的原文找不到就留空（届时用该曲
+        # 自身 STT 词流出草稿），不发明不凑数
+        assignments: dict = {}
+        if booklet_text:
+            assign = llm_assign_booklet(booklet_text, tracks_plan)
+            llm_meta = assign.get("meta", {}) or {}
+            assignments = assign.get("assignments", {}) or {}
+        tracks = [{
+            "order": tp.get("order"),
+            "title": str(tp.get("title", "")).strip(),
+            "file": tp.get("file"),
+            "lyrics": str(assignments.get(str(tp.get("order"))) or "").strip(),
+        } for tp in tracks_plan]
         album_from_plan = ""
     elif booklet_text:
         plan = llm_split_booklet(booklet_text, manifest.get("album", ""))
