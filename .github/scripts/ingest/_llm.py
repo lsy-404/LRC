@@ -30,9 +30,11 @@ DEFAULT_API_BASE = OPENAI_API_BASE
 # OpenRouter 免费模型兜底（仅当 LLM_API_BASE 显式指向 OpenRouter 时使用）
 DEFAULT_TEXT_MODEL = "deepseek/deepseek-chat-v3-0324:free"
 DEFAULT_VISION_MODEL = "google/gemini-2.0-flash-exp:free"
-# 与 .github/config/config.toml 的 [llm] 一致：全项目单一 OpenAI key/模型
+# 与 .github/config/config.toml 的 [llm] 一致：全项目单一 OpenAI key
 OPENAI_TEXT_MODEL = "gpt-5-mini"
-OPENAI_VISION_MODEL = "gpt-5-mini"
+# 歌词本实拍常见风格化字体+画面叠印+透页干扰，mini 误读率过高（实测同页
+# 近半数字符错认导致拼音对齐整块失败），视觉任务用满血模型
+OPENAI_VISION_MODEL = "gpt-5"
 _MODEL_CACHE: dict[str, Optional[str]] = {}
 
 
