@@ -92,7 +92,9 @@ def ocr_image(path: Path) -> str:
             "role": "user",
             "content": [
                 {"type": "text", "text": "请转录这张图片中的歌词文字。"},
-                {"type": "image_url", "image_url": {"url": data_url}},
+                # detail=high：实拍歌词本 3072×4096，默认 auto 会压到低分辨率，
+                # 小号/风格化文字读不读得出全凭运气（整专辑轮 24 页大面积漏读的根因）
+                {"type": "image_url", "image_url": {"url": data_url, "detail": "high"}},
             ],
         },
     ]
