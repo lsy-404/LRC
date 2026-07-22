@@ -189,7 +189,7 @@ def chat(
     messages: list[dict[str, Any]],
     *,
     model: Optional[str] = None,
-    max_tokens: int = 16000,
+    max_tokens: int = 32000,
     timeout: int = 300,
     max_retries: int = 3,
 ) -> str:
@@ -204,6 +204,12 @@ def chat(
         "messages": messages,
         "max_completion_tokens": max_tokens,
     }
+    if api_base() == OPENAI_API_BASE:
+        # gpt-5 系列推理模型的思维链与可见输出共用 max_completion_tokens 预算。
+        # 本管线的任务（OCR 转录/校对/分轨）都是机械转换，不需要深度推理——
+        # 不压推理档位时，分轨这类大输出任务观察到把整个预算烧在思维链上，
+        # 一个可见字符都不产出（finish_reason=length 的空补全）。
+        payload["reasoning_effort"] = _env("LLM_REASONING_EFFORT", "low")
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {api_key()}",
@@ -263,7 +269,7 @@ def chat_auto(
     messages: list[dict[str, Any]],
     *,
     kind: str,
-    max_tokens: int = 16000,
+    max_tokens: int = 32000,
     timeout: int = 300,
     max_model_attempts: int = 4,
 ) -> str:
