@@ -44,7 +44,7 @@ else:
 TEXT_EXTS = {".txt"}
 IGNORE_NAMES = {"manifest.toml", "readme.md", "readme.txt", ".gitkeep", ".ds_store"}
 IGNORE_DIRS = {".git", ".github"}
-COVER_HINT = re.compile(r"cover|封面|主视图|jacket|booklet", re.I)
+COVER_HINT = re.compile(r"cover|封面|主视图|jacket", re.I)
 
 
 def _iter_files(src: Path):
@@ -75,72 +75,31 @@ def classify(src: Path) -> dict[str, list[Path]]:
     return buckets
 
 
-def _jpeg_dimensions(data: bytes) -> tuple[int, int]:
-    """Parse JPEG SOF marker to extract (width, height). Returns (0, 0) on failure."""
-    i = 2  # skip SOI
-    while i + 4 < len(data):
-        if data[i] != 0xFF:
-            break
-        marker = data[i + 1]
-        if marker in (0xC0, 0xC1, 0xC2, 0xC3, 0xC9, 0xCA, 0xCB):
-            if i + 9 <= len(data):
-                h = int.from_bytes(data[i + 5:i + 7], "big")
-                w = int.from_bytes(data[i + 7:i + 9], "big")
-                return w, h
-        length = int.from_bytes(data[i + 2:i + 4], "big")
-        i += 2 + length
-    return 0, 0
-
-
-def _image_is_square(path: Path) -> bool:
-    """Return True if the image has equal width and height (pure stdlib, no deps)."""
-    try:
-        data = path.read_bytes()
-        ext = path.suffix.lower()
-        if ext in {".jpg", ".jpeg"}:
-            w, h = _jpeg_dimensions(data)
-        elif ext == ".png":
-            if len(data) >= 24 and data[1:4] == b"PNG":
-                w = int.from_bytes(data[16:20], "big")
-                h = int.from_bytes(data[20:24], "big")
-            else:
-                return False
-        elif ext == ".webp":
-            if len(data) < 30 or data[:4] != b"RIFF" or data[8:12] != b"WEBP":
-                return False
-            chunk = data[12:16]
-            if chunk == b"VP8 " and len(data) >= 30:
-                w = int.from_bytes(data[26:28], "little") & 0x3FFF
-                h = int.from_bytes(data[28:30], "little") & 0x3FFF
-            elif chunk == b"VP8L" and len(data) >= 25:
-                bits = int.from_bytes(data[21:25], "little")
-                w = (bits & 0x3FFF) + 1
-                h = ((bits >> 14) & 0x3FFF) + 1
-            else:
-                return False
-        elif ext == ".bmp":
-            if len(data) >= 26 and data[:2] == b"BM":
-                w = int.from_bytes(data[18:22], "little")
-                h = abs(int.from_bytes(data[22:26], "little", signed=True))
-            else:
-                return False
-        else:
-            return False
-        return w > 0 and h > 0 and w == h
-    except Exception:
-        return False
-
-
 def pick_cover(images: list[Path]) -> Path | None:
-    if not images:
-        return None
+    """只认显式命名的封面文件（cover/封面/主视图/jacket）。
+
+    封面优先级：显式文件 > 音频内嵌 tag > 无——没有就是没有，
+    不拿歌词本照片凑数。
+    """
     named = [p for p in images if COVER_HINT.search(p.name)]
-    pool = named or images
-    # Prefer square images (album covers are almost always square); fall back to largest
-    squares = [p for p in pool if _image_is_square(p)]
-    if squares:
-        return max(squares, key=lambda p: p.stat().st_size)
-    return max(pool, key=lambda p: p.stat().st_size)
+    return max(named, key=lambda p: p.stat().st_size) if named else None
+
+
+def extract_embedded_cover(audios: list[Path], work: Path) -> Path | None:
+    """从音频内嵌 tag 提取封面（FLAC pictures；专辑内通常一致，取第一个带图的）。"""
+    if not audios:
+        return None
+    from mutagen import File as MutagenFile
+    for a in audios:
+        pics = getattr(MutagenFile(str(a)), "pictures", None) or []
+        if pics:
+            data = pics[0].data
+            ext = ".png" if data[:4] == b"\x89PNG" else ".jpg"
+            out = work / f"embedded_cover{ext}"
+            out.write_bytes(data)
+            print(f"  ◉ 封面取自音频内嵌 tag: {a.name}", file=sys.stderr)
+            return out
+    return None
 
 
 def find_album_dirs(src: Path) -> list[Path]:
@@ -207,7 +166,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
 
     # 2) 图片 OCR + 文档抽取 → 歌词本文本（无逐曲歌词时供 LLM 分轨；并供抽 credits）
     booklet_parts: list[str] = []
-    cover = pick_cover(buckets["image"])
+    cover = pick_cover(buckets["image"]) or extract_embedded_cover(buckets["audio"], work)
     ocr_images = [p for p in buckets["image"] if p != cover]  # 封面不做歌词 OCR
     if ocr_images:
         for name, t in ocr_mod.run(ocr_images).items():
