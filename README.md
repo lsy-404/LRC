@@ -34,6 +34,7 @@
 - [星-城](https://github.com/wuyilingwei/LRC#%E6%98%9F-%E5%9F%8E)
 - [像素荒原](https://github.com/wuyilingwei/LRC#%E5%83%8F%E7%B4%A0%E8%8D%92%E5%8E%9F)
 - [平行四界RE：BIRTH](https://github.com/wuyilingwei/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Crebirth)
+- [再次呼唤我的名字吧](https://github.com/wuyilingwei/LRC#%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7)
 - [天地晴雨手账](https://github.com/wuyilingwei/LRC#%E5%A4%A9%E5%9C%B0%E6%99%B4%E9%9B%A8%E6%89%8B%E8%B4%A6)
 - [夏浪派对2025](https://github.com/wuyilingwei/LRC#%E5%A4%8F%E6%B5%AA%E6%B4%BE%E5%AF%B92025)
 - [秘宝旅人II Polaris](https://github.com/wuyilingwei/LRC#%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAii-polaris)
@@ -663,6 +664,23 @@
 | [6 夏日激奏.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CRE%EF%BC%9ABIRTH/6%20%E5%A4%8F%E6%97%A5%E6%BF%80%E5%A5%8F.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CRE%EF%BC%9ABIRTH/6%20%E5%A4%8F%E6%97%A5%E6%BF%80%E5%A5%8F.lrc) |
 | [7 星星的孩子.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CRE%EF%BC%9ABIRTH/7%20%E6%98%9F%E6%98%9F%E7%9A%84%E5%AD%A9%E5%AD%90.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CRE%EF%BC%9ABIRTH/7%20%E6%98%9F%E6%98%9F%E7%9A%84%E5%AD%A9%E5%AD%90.lrc) |
 | [8 Whispering Snowflakes.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CRE%EF%BC%9ABIRTH/8%20Whispering%20Snowflakes.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CRE%EF%BC%9ABIRTH/8%20Whispering%20Snowflakes.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/wuyilingwei/LRC/main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 再次呼唤我的名字吧
+
+**📦 [下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7.zip)**
+
+<details>
+<summary>📝 查看详细曲目 (1 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [1 完美友人.lrc](res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/1%20%E5%AE%8C%E7%BE%8E%E5%8F%8B%E4%BA%BA.lrc) | [📥 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/1%20%E5%AE%8C%E7%BE%8E%E5%8F%8B%E4%BA%BA.lrc) |
 
 </details>
 
