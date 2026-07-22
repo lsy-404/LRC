@@ -96,21 +96,27 @@ def ocr_image(path: Path) -> str:
     return "" if text.strip() == "[NO_TEXT]" else text.strip()
 
 
-def run(images: list[Path]) -> dict[str, str]:
-    """返回 {文件名: 转录文本}，跳过失败项。"""
+def run(images: list[Path]) -> tuple[dict[str, str], list[str]]:
+    """返回 ({文件名: 转录文本}, [失败文件名])。
+
+    单张失败不中断其余图片，但失败名单必须交还调用方——「全部失败」和
+    「全部无文字」对上游是完全不同的事实，不能都表现为空 dict。
+    """
     out: dict[str, str] = {}
+    failed: list[str] = []
     for img in images:
         try:
             text = ocr_image(img)
         except _llm.LLMError as e:
             print(f"⚠️  OCR 失败 {img.name}: {e}", file=sys.stderr, flush=True)
+            failed.append(img.name)
             continue
         if text:
             out[img.name] = text
             print(f"✓ OCR {img.name} ({len(text)} 字)", file=sys.stderr, flush=True)
         else:
             print(f"○ OCR {img.name}: 无文字", file=sys.stderr, flush=True)
-    return out
+    return out, failed
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -129,7 +135,9 @@ def main(argv: list[str] | None = None) -> int:
         print("没有可识别的图片", file=sys.stderr)
         return 0
 
-    result = run(images)
+    result, failed = run(images)
+    if failed:
+        print(f"⚠️  {len(failed)}/{len(images)} 张识别失败: {failed}", file=sys.stderr)
 
     if args.json:
         text_out = json.dumps(result, ensure_ascii=False, indent=2)

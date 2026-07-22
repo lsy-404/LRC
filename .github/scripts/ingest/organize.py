@@ -182,22 +182,30 @@ def _words_to_tracks(audio_words: dict[str, list]) -> list[dict]:
 # ──────────────────────────────────────────────────────────────────────────────
 # LLM 分轨（仅当没有逐曲歌词时）
 # ──────────────────────────────────────────────────────────────────────────────
-def llm_split_booklet(source_text: str, album_hint: str) -> dict:
+class BookletSplitError(RuntimeError):
+    """有歌词本文本但 LLM 分轨失败——上游应响亮失败，而不是降级后伪装成功。"""
+
+
+_SPLIT_INPUT_LIMIT = 48000
+
+
+def llm_split_booklet(source_text: str, album_hint: str) -> dict | None:
+    """歌词本文本 → 分轨 plan。LLM 无有效返回时返回 None，由调用方决定后果。"""
     user = source_text.strip()
     if album_hint:
         user = f"【目标专辑】{album_hint}\n\n{user}"
-    plan = None
-    if user:
-        resp = _llm.chat_auto_safe(
-            [{"role": "system", "content": ORGANIZE_SYSTEM}, {"role": "user", "content": user[:12000]}],
-            kind="text",
-        )
-        if resp:
-            plan = _llm.extract_json(resp)
-    if not isinstance(plan, dict):
-        plan = {"album": album_hint, "meta": {},
-                "tracks": [{"order": 1, "title": album_hint or "untitled", "lyrics": source_text.strip()}]}
-    return plan
+    if not user:
+        return None
+    if len(user) > _SPLIT_INPUT_LIMIT:
+        print(f"⚠️  歌词本文本超长，截断 {len(user)}→{_SPLIT_INPUT_LIMIT} 字送入分轨",
+              file=sys.stderr, flush=True)
+        user = user[:_SPLIT_INPUT_LIMIT]
+    resp = _llm.chat_auto_safe(
+        [{"role": "system", "content": ORGANIZE_SYSTEM}, {"role": "user", "content": user}],
+        kind="text",
+    )
+    plan = _llm.extract_json(resp) if resp else None
+    return plan if isinstance(plan, dict) else None
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -349,7 +357,11 @@ def organize(
         album_from_plan = ""
     elif booklet_text:
         plan = llm_split_booklet(booklet_text, manifest.get("album", ""))
-        tracks = plan.get("tracks") or []
+        tracks = (plan or {}).get("tracks") or []
+        if not tracks:
+            # 歌词本在手却分不了轨：任何降级产物（伪造单轨/丢弃歌词本走纯 STT）
+            # 都会架空歌词本内容，宁可整次摄取失败、保留重试机会
+            raise BookletSplitError("歌词本分轨失败（LLM 无有效返回），中止本次摄取")
         llm_meta = plan.get("meta", {}) or {}
         album_from_plan = plan.get("album", "")
     else:

@@ -189,8 +189,8 @@ def chat(
     messages: list[dict[str, Any]],
     *,
     model: Optional[str] = None,
-    max_tokens: int = 4000,
-    timeout: int = 120,
+    max_tokens: int = 16000,
+    timeout: int = 300,
     max_retries: int = 3,
 ) -> str:
     """调用 /chat/completions，返回文本内容。失败抛 LLMError。
@@ -263,8 +263,8 @@ def chat_auto(
     messages: list[dict[str, Any]],
     *,
     kind: str,
-    max_tokens: int = 4000,
-    timeout: int = 120,
+    max_tokens: int = 16000,
+    timeout: int = 300,
     max_model_attempts: int = 4,
 ) -> str:
     """跟 chat() 一样，但在「未显式指定模型、走 OpenRouter 自动选免费模型」时，

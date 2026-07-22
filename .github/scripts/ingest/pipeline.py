@@ -176,9 +176,12 @@ def run(src: Path, res_dir: Path, work: Path, album: str, dry_run: bool, lyric_m
     for album_name, album_src in jobs:
         albums_out.append(_process_album(album_name, album_src, res_dir, work, dry_run, lyric_maker))
     ok = any(a.get("result") == "ok" for a in albums_out)
+    failed = [a.get("album", "") or "?" for a in albums_out if a.get("result") == "failed"]
     done = [a.get("album", "") for a in albums_out if a.get("result") == "ok"]
     is_update = any(a.get("is_update") for a in albums_out if a.get("result") == "ok")
-    return {"albums": albums_out, "result": "ok" if ok else "empty",
+    return {"albums": albums_out,
+            "result": "ok" if ok else ("failed" if failed else "empty"),
+            "failed_albums": failed,
             "album": "、".join(n for n in done if n),  # 供 workflow 做 PR 标题
             "is_update": is_update,
             "written": [w for a in albums_out for w in a.get("written", [])]}
@@ -209,12 +212,22 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     booklet_parts: list[str] = []
     cover = pick_cover(buckets["image"])
     ocr_images = [p for p in buckets["image"] if p != cover]  # 封面不做歌词 OCR
+    ocr_failed: list[str] = []
     if ocr_images:
         try:
-            for name, t in ocr_mod.run(ocr_images).items():
+            ocr_out, ocr_failed = ocr_mod.run(ocr_images)
+            for name, t in ocr_out.items():
                 booklet_parts.append(f"# === {name} (OCR) ===\n{t}")
         except Exception as e:  # noqa: BLE001
             print(f"⚠️  OCR 阶段异常: {e}", file=sys.stderr)
+            ocr_failed = [p.name for p in ocr_images]
+    # 全灭 ≠ 全部无文字：图片都在却一张都读不出来，是环境/模型故障，
+    # 不能当"没有歌词本"继续降级处理（07-21 假绿教训）
+    if ocr_images and len(ocr_failed) == len(ocr_images):
+        summary.update({"album": album, "result": "failed",
+                        "error": f"OCR 全部失败（{len(ocr_images)} 张）"})
+        print(f"❌ 专辑「{album}」OCR 全部失败，中止", file=sys.stderr)
+        return summary
     if buckets["doc"]:
         try:
             for name, t in doc_mod.run(buckets["doc"]).items():
@@ -272,6 +285,14 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
         except Exception as e:  # noqa: BLE001
             print(f"⚠️  STT 模型加载失败: {e}", file=sys.stderr)
 
+    # 音频都在却一首都转不出来（模型装不上/系统依赖缺失/全部解码失败），
+    # 是环境故障不是素材问题，不能安静地当"无音频"继续（07-11 假绿教训）
+    if buckets["audio"] and not audio_words:
+        summary.update({"album": album, "result": "failed",
+                        "error": f"STT 全部失败（{len(buckets['audio'])} 首）"})
+        print(f"❌ 专辑「{album}」STT 全部失败，中止", file=sys.stderr)
+        return summary
+
     # 4) 整理 + 对齐 → res/<专辑>/（meta 全自动；专辑名 = 文件夹名 album）
     #    可选：若投递目录恰含 manifest.toml 则作为 meta 覆盖（非必需，不鼓励）。
     manifest_path = src / "manifest.toml"
@@ -294,12 +315,17 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
         print(f"⚠️  专辑「{album}」无可整理素材", file=sys.stderr)
         return summary
 
-    org_res = org_mod.organize(
-        tracks_explicit=tracks_explicit, booklet_text=booklet_text, credits_text=credits_text,
-        audio_words=audio_words, audio_langs=audio_langs, manifest=manifest, res_dir=res_dir,
-        album_override=album, cover_path=cover, existing_meta=existing_meta, dry_run=dry_run,
-        default_lyric_maker=lyric_maker,
-    )
+    try:
+        org_res = org_mod.organize(
+            tracks_explicit=tracks_explicit, booklet_text=booklet_text, credits_text=credits_text,
+            audio_words=audio_words, audio_langs=audio_langs, manifest=manifest, res_dir=res_dir,
+            album_override=album, cover_path=cover, existing_meta=existing_meta, dry_run=dry_run,
+            default_lyric_maker=lyric_maker,
+        )
+    except org_mod.BookletSplitError as e:
+        summary.update({"album": album, "result": "failed", "error": str(e)})
+        print(f"❌ 专辑「{album}」{e}", file=sys.stderr)
+        return summary
     summary.update({"album": org_res["album"], "written": org_res["written"],
                     "track_count": org_res["track_count"], "matched": org_res["matched"],
                     "avg_coverage": org_res["avg_coverage"], "cover": cover.name if cover else None,
@@ -332,6 +358,10 @@ def main(argv: list[str] | None = None) -> int:
     if args.json:
         Path(args.json).write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=2))
+    if summary.get("failed_albums"):
+        # 任一专辑处理失败都必须让 CI 红灯——绿灯+空产出的"假绿"已经误导过三次
+        print(f"❌ 摄取失败的专辑: {summary['failed_albums']}", file=sys.stderr)
+        return 1
     return 0 if summary.get("result") in ("ok", "empty") else 1
 
 
