@@ -286,6 +286,7 @@ def build_track_lrc(
     audio_words: dict[str, list],
     used: set,
     audio_langs: dict[str, str] | None = None,
+    by: str = "",
 ) -> tuple[str, float, Optional[str]]:
     """为一轨生成 LRC：能匹配音频→对齐(timed)，否则无时间轴草稿。
 
@@ -295,10 +296,9 @@ def build_track_lrc(
     """
     title = str(track.get("title", "")).strip()
     lines = track.get("lines") or [l for l in str(track.get("lyrics", "")).splitlines() if l.strip()]
-    by = ""
     staff = track.get("staff") or {}
-    if staff.get("lyricist"):
-        by = "/".join(staff["lyricist"])
+    credits = track.get("staff_rows") or []
+    artist = "/".join(staff.get("vocal", []))
     audio = match_audio_to_track(lines, audio_words, used, audio_langs) if audio_words else None
     if audio:
         used.add(audio)
@@ -310,17 +310,20 @@ def build_track_lrc(
             track["title"] = title
         lang = (audio_langs or {}).get(audio, "")
         lrc = align_mod.align(
-            lines, audio_words[audio], title=title, album=album, by=by, language=lang,
+            lines, audio_words[audio], title=title, album=album, artist=artist, by=by,
+            credits=credits, language=lang,
         )
         lrc_words = align_mod.align(
-            lines, audio_words[audio], title=title, album=album, by=by, language=lang,
-            per_char=True,
+            lines, audio_words[audio], title=title, album=album, artist=artist, by=by,
+            credits=credits, language=lang, per_char=True,
         )
         cov = align_mod.coverage(lines, audio_words[audio], language=lang)
         print(f"  ♪ {title} ← {audio} (覆盖率 {cov:.0%})", file=sys.stderr)
         return lrc, cov, lrc_words
     # 无匹配音频：无时间轴草稿
-    header = f"[ti:{title}]\n[al:{album}]\n[ar:]\n[by:{by}]\n\n"
+    header = f"[ti:{title}]\n[al:{album}]\n[ar:{artist}]\n[by:{by}]\n\n"
+    if credits:
+        header += "\n".join(credits) + "\n\n"
     print(f"  ○ {title}: 无匹配音频，输出无时间轴草稿", file=sys.stderr)
     return header + "\n".join(lines) + "\n", 0.0, None
 
@@ -369,6 +372,18 @@ def organize(
         tracks = _words_to_tracks(audio_words)
         print(f"  ⟳ 无歌词文本，由 STT 词流生成 {len(tracks)} 首轨道草稿", file=sys.stderr)
 
+    # 轨道归一化：staff 行从歌词正文剥离（元信息不进时间轴），原样行保留
+    # 用于双模式输出（头部标签 + 正文未计时 credit 行）
+    for t in tracks:
+        raw_lines = t.get("lines") or [l for l in str(t.get("lyrics", "")).splitlines() if l.strip()]
+        t_staff, staff_rows, lyric_lines = lyrics_mod.split_staff_lines(raw_lines)
+        merged = {k: list(v) for k, v in (t.get("staff") or {}).items()}
+        for k, v in t_staff.items():
+            cur = merged.setdefault(k, [])
+            cur.extend(x for x in v if x not in cur)
+        t["lines"], t["staff"], t["staff_rows"] = lyric_lines, merged, staff_rows
+        t.pop("lyrics", None)
+
     # 联网检索专辑官方元信息（仅 staff/制作者，歌词始终只来自投稿素材），
     # 填补歌词本没印全或 OCR 没读全的 credits 字段
     web_staff: dict[str, list] = {}
@@ -384,7 +399,7 @@ def organize(
     # 2) meta：manifest > LLM(credits) > 逐曲 staff > 联网 staff > 现有 meta（增补时保底）
     credits_staff = lyrics_mod.parse_staff_block(credits_text.splitlines()) if credits_text else {}
     per_track_staff: dict[str, list] = {}
-    for t in tracks_explicit:
+    for t in tracks:  # 逐曲 staff：显式歌词 txt 与分轨剥离出的都算
         for k, v in (t.get("staff") or {}).items():
             per_track_staff.setdefault(k, [])
             for name in v:
@@ -416,7 +431,9 @@ def organize(
     covs: list[float] = []
     for i, t in enumerate(tracks, 1):
         order = t.get("order", i) or i
-        lrc, cov, lrc_words = build_track_lrc(t, album, audio_words, used, audio_langs)
+        lrc, cov, lrc_words = build_track_lrc(
+            t, album, audio_words, used, audio_langs,
+            by="/".join(meta.get("lyric_maker") or []))
         covs.append(cov)
         # build_track_lrc 匹配到音频后可能已用音频文件名回填空标题，故在其后取值
         title = _sanitize_filename(str(t.get("title", "")).strip() or f"track{order}")

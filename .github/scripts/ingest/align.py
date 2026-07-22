@@ -166,7 +166,9 @@ def align(
     *,
     title: str = "",
     album: str = "",
+    artist: str = "",
     by: str = "",
+    credits: list[str] | None = None,
     per_char: bool = False,
     language: str = "",
 ) -> str:
@@ -264,9 +266,14 @@ def align(
         out.append(f"[ti:{title}]")
     if album:
         out.append(f"[al:{album}]")
-    out.append(f"[ar:]")
+    out.append(f"[ar:{artist}]")
     out.append(f"[by:{by}]")
     out.append("")
+    # 双模式元信息：头部标签之外，credit 行原样保留在正文（未计时），
+    # 站点解析侧 row_field_alias 认这一形态
+    if credits:
+        out.extend(credits)
+        out.append("")
     for li, line in enumerate(lines):
         if not line.strip():
             continue

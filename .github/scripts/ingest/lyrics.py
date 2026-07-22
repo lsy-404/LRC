@@ -24,6 +24,7 @@ STAFF_LABELS = {
     "MASTERING": "mastering", "MASTER": "mastering", "母带": "mastering",
     "PV": "video", "VIDEO": "video", "MOVIE": "video", "视频": "video",
     "PLANNING": "planning", "PLAN": "planning", "策划": "planning", "企划": "planning",
+    "和声": "vocal", "CHORUS": "vocal", "HARMONY": "vocal",
 }
 
 _LEAD_NUM = re.compile(r"^\s*\d+[\.\s、]*")
@@ -86,6 +87,32 @@ def parse_staff_block(lines: list[str]) -> dict[str, list[str]]:
         seen = set()
         staff[k] = [x for x in v if not (x in seen or seen.add(x))]
     return staff
+
+
+def split_staff_lines(lines: list[str]) -> tuple[dict[str, list[str]], list[str], list[str]]:
+    """把行列表分成 (staff字段, 原样staff行, 歌词正文行)。
+
+    staff 行是元信息，不应进入带时间轴的歌词正文；原样行保留用于
+    双模式输出（头部 [ti:][ar:][by:] 标签 + 正文未计时 credit 行，
+    站点解析侧两种模式都认）。
+    """
+    staff: dict[str, list[str]] = {}
+    staff_rows: list[str] = []
+    lyric_lines: list[str] = []
+    for line in lines:
+        s = line.strip()
+        m = _STAFF_LINE.match(s)
+        fields = _labels_of(m.group(1)) if m else None
+        if m and fields:
+            for f in fields:
+                staff.setdefault(f, []).extend(split_names(m.group(2)))
+            staff_rows.append(s)
+        else:
+            lyric_lines.append(line)
+    for k, v in staff.items():
+        seen = set()
+        staff[k] = [x for x in v if not (x in seen or seen.add(x))]
+    return staff, staff_rows, lyric_lines
 
 
 def is_credits_only(text: str) -> bool:
