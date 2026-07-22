@@ -300,6 +300,12 @@ def build_track_lrc(
     audio = match_audio_to_track(lines, audio_words, used, audio_langs) if audio_words else None
     if audio:
         used.add(audio)
+        if not title:
+            # 音频文件名自带曲名（投稿者命名/内嵌tag），比 OCR 读出的标题可靠
+            stem = Path(audio).stem
+            m = re.match(r"^\d+[\s._-]+(.*)", stem)
+            title = (m.group(1) if m else stem).strip().strip("。.")
+            track["title"] = title
         lang = (audio_langs or {}).get(audio, "")
         lrc = align_mod.align(
             lines, audio_words[audio], title=title, album=album, by=by, language=lang,
@@ -394,9 +400,10 @@ def organize(
     covs: list[float] = []
     for i, t in enumerate(tracks, 1):
         order = t.get("order", i) or i
-        title = _sanitize_filename(str(t.get("title", "")).strip() or f"track{order}")
         lrc, cov, lrc_words = build_track_lrc(t, album, audio_words, used, audio_langs)
         covs.append(cov)
+        # build_track_lrc 匹配到音频后可能已用音频文件名回填空标题，故在其后取值
+        title = _sanitize_filename(str(t.get("title", "")).strip() or f"track{order}")
         _emit(album_rel / f"{order} {title}.lrc", lrc)
         if lrc_words:
             # 逐字增强版另存 .klrc（非 .lrc 后缀），与标准 LRC 分离以保证播放器兼容性
