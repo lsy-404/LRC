@@ -23,6 +23,10 @@ export async function onRequestPost({ request, env }) {
   const album = cleanAlbum(body?.album);
   const draft = body?.draft;
   if (!ref || !album || !draft || typeof draft !== 'object') return json({ error: 'bad request' }, 400);
+  // 可选换封面：{sha(40hex), ext(.xxx)}，blob 已由前端经 /api/upload/blob 建好；
+  // 写入 <base>/cover<ext>，draft.cover_ext 由前端同步。旧 cover 文件残留无害（bundle 临时，Phase B 后整体清理）。
+  const cover = body?.cover;
+  const coverOk = !!cover && /^[0-9a-f]{40}$/.test(cover.sha || '') && /^\.[a-z0-9]{1,5}$/.test(cover.ext || '');
 
   const base = `${ref}/${album}`;
   const mkBlob = (obj) => gh(env, `/repos/${REPO}/git/blobs`, {
@@ -58,15 +62,16 @@ export async function onRequestPost({ request, env }) {
     const statusBlob = await mkBlob(status);
     if (!statusBlob.resp.ok) return json({ error: 'github', step: 'blob-status' }, 502);
 
+    const treeEntries = [
+      { path: `${base}/draft.json`, mode: '100644', type: 'blob', sha: draftBlob.data.sha },
+      { path: `${base}/status.json`, mode: '100644', type: 'blob', sha: statusBlob.data.sha },
+    ];
+    if (coverOk) {
+      treeEntries.push({ path: `${base}/cover${cover.ext}`, mode: '100644', type: 'blob', sha: cover.sha });
+    }
     const tree = await gh(env, `/repos/${REPO}/git/trees`, {
       method: 'POST',
-      body: JSON.stringify({
-        base_tree: headCommit.data.tree.sha,
-        tree: [
-          { path: `${base}/draft.json`, mode: '100644', type: 'blob', sha: draftBlob.data.sha },
-          { path: `${base}/status.json`, mode: '100644', type: 'blob', sha: statusBlob.data.sha },
-        ],
-      }),
+      body: JSON.stringify({ base_tree: headCommit.data.tree.sha, tree: treeEntries }),
     });
     if (!tree.resp.ok) return json({ error: 'github', step: 'tree', message: tree.data.message }, 502);
 

@@ -79,9 +79,16 @@
         </details>
 
         <div class="eb-cover">
-          <span class="eb-dim">封面：{{ e.coverRemoved ? '将移除' : (e.coverExt ? '已选（cover' + e.coverExt + '）' : '无') }}</span>
-          <button v-if="e.coverExt && !e.coverRemoved" class="eb-btn small" @click="e.coverRemoved = true">移除封面</button>
+          <img v-if="e._coverPreview" :src="e._coverPreview" class="eb-cover-thumb" alt="新封面预览">
+          <span class="eb-dim">
+            封面：{{ e.coverRemoved ? '将移除' : (e.coverExt ? (e._coverNew ? '新 ' : '已选 ') + 'cover' + e.coverExt : '无') }}
+          </span>
+          <label class="eb-btn small">
+            更换<input type="file" accept="image/*" hidden @change="pickCover(e, $event)">
+          </label>
+          <button v-if="e.coverExt && !e.coverRemoved" class="eb-btn small" @click="removeCover(e)">移除</button>
           <button v-if="e.coverRemoved" class="eb-btn small" @click="e.coverRemoved = false">撤销移除</button>
+          <span v-if="e._coverBusy" class="eb-dim">上传中…</span>
         </div>
 
         <div class="eb-row">
@@ -202,6 +209,7 @@ function toEdit(album, draft) {
     pages: draft.pages || [],
     coverExt: draft.cover_ext || '',
     coverRemoved: false,
+    _coverNew: null, _coverPreview: '', _coverBusy: false,
     _saving: false, _msg: '', _err: false,
   };
 }
@@ -261,16 +269,58 @@ async function load(silent = false) {
   finally { loading.value = false; }
 }
 
+const readBase64 = (file) => new Promise((res, rej) => {
+  const fr = new FileReader();
+  fr.onload = () => res(fr.result.slice(fr.result.indexOf(',') + 1));
+  fr.onerror = () => rej(fr.error);
+  fr.readAsDataURL(file);
+});
+
+// 换封面：先经 /api/upload/blob 建 GitHub blob（复用上传通道），保存时把 blob sha
+// 交给 /api/ingest/save 写入 <ref>/<album>/cover<ext>；本地即时预览用 objectURL
+async function pickCover(e, ev) {
+  const file = ev.target.files && ev.target.files[0];
+  ev.target.value = '';
+  if (!file) return;
+  e._coverBusy = true; e._msg = ''; e._err = false;
+  try {
+    const b64 = await readBase64(file);
+    const resp = await fetch('/api/upload/blob', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', ...authHeaders() },
+      body: JSON.stringify({ encoding: 'base64', content: b64 }),
+    });
+    const data = await resp.json().catch(() => ({}));
+    if (!resp.ok || !data.sha) { e._err = true; e._msg = '封面上传失败'; return; }
+    const ext = (file.name.match(/\.[a-z0-9]+$/i) || ['.png'])[0].toLowerCase();
+    e._coverNew = { sha: data.sha, ext };
+    e.coverExt = ext;
+    e.coverRemoved = false;
+    if (e._coverPreview) URL.revokeObjectURL(e._coverPreview);
+    e._coverPreview = URL.createObjectURL(file);
+  } catch { e._err = true; e._msg = '封面上传出错'; }
+  finally { e._coverBusy = false; }
+}
+
+function removeCover(e) {
+  e.coverRemoved = true;
+  e._coverNew = null;
+  if (e._coverPreview) { URL.revokeObjectURL(e._coverPreview); e._coverPreview = ''; }
+}
+
 async function save(e) {
   e._saving = true; e._msg = ''; e._err = false;
   try {
     const resp = await fetch('/api/ingest/save', {
       method: 'POST',
       headers: { 'content-type': 'application/json', ...authHeaders() },
-      body: JSON.stringify({ ref: curRef.value, album: e.album, draft: toDraft(e) }),
+      body: JSON.stringify({
+        ref: curRef.value, album: e.album, draft: toDraft(e),
+        cover: e._coverNew || undefined,
+      }),
     });
     const data = await resp.json().catch(() => ({}));
-    if (resp.ok) { e._msg = '已保存'; }
+    if (resp.ok) { e._msg = '已保存'; e._coverNew = null; }
     else { e._err = true; e._msg = '保存失败：' + (data.message || data.error || resp.status); }
   } catch { e._err = true; e._msg = '网络错误'; }
   finally { e._saving = false; }
@@ -297,7 +347,10 @@ onMounted(() => {
   const stored = loadAuth();
   if (stored) { password.value = stored; needPw.value = false; }
 });
-onBeforeUnmount(stopPoll);
+onBeforeUnmount(() => {
+  stopPoll();
+  for (const e of edits.value) if (e._coverPreview) URL.revokeObjectURL(e._coverPreview);
+});
 </script>
 
 <style scoped>
@@ -393,6 +446,14 @@ onBeforeUnmount(stopPoll);
   margin: .3rem 0 0;
 }
 .eb-cover { display: flex; gap: .6rem; align-items: center; margin: .8rem 0; flex-wrap: wrap; }
+.eb-cover-thumb {
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border-color, #ddd);
+}
+.eb-cover label.eb-btn { display: inline-flex; align-items: center; }
 
 .eb-msg { font-size: .85rem; margin: .6rem 0 0; color: var(--eb-accent); }
 .eb-msg.inline { margin: 0; }
