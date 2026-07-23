@@ -8,7 +8,7 @@ from typing import Any
 from lib.config_loader import load_config
 from lib.lrc_lines import load_lrc_lines
 from lib.meta_parser import load_album_meta
-from lib.naming import sanitize_artifact_name
+from lib.naming import natural_sort_key, sanitize_artifact_name
 
 CONFIG = load_config()
 PROJECT = CONFIG.get("project", {})
@@ -91,10 +91,13 @@ def build_album_entry(album_dir: Path) -> dict[str, Any]:
     cover_file, cover_ext = find_cover(album_dir)
     cover_url = f"/albums/{slug}{cover_ext}" if cover_file else None
 
-    lrc_files = sorted(path for path in album_dir.iterdir() if path.suffix.lower() == ".lrc")
+    lrc_files = sorted((path for path in album_dir.iterdir() if path.suffix.lower() == ".lrc"),
+                       key=lambda p: natural_sort_key(p.name))
     songs = [
         {
             "title": lrc_file.stem,
+            # klrc 标记仅在侧车存在时输出（可发现逐字歌词下载能力，维持字节纪律）
+            **({"klrc": True} if lrc_file.with_suffix(".klrc").is_file() else {}),
             "lyrics": _merge_word_timings(load_lrc_lines(lrc_file), lrc_file.with_suffix(".klrc")),
         }
         for lrc_file in lrc_files

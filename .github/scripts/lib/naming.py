@@ -34,3 +34,10 @@ def sanitize_artifact_name(raw_name: str) -> str:
     converted = converted.strip("_-")
 
     return converted or "album"
+
+
+def natural_sort_key(name: str) -> tuple:
+    """曲目文件名自然排序键：按前导序号数值排（11 不再排在 2 之前），无序号的排最后。"""
+    import re
+    m = re.match(r"\s*(\d+)", name)
+    return (int(m.group(1)) if m else 10**9, name)

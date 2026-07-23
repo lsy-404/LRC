@@ -5,6 +5,7 @@ from pathlib import Path
 
 from lib.config_loader import load_config
 from lib.meta_parser import load_album_meta
+from lib.naming import natural_sort_key
 
 CONFIG = load_config()
 PROJECT = CONFIG.get("project", {})
@@ -141,16 +142,17 @@ def main():
         if os.path.exists(zip_path):
             encoded_zip = urllib.parse.quote(f"{PACK_DIR}/{zip_filename}")
             cdn_zip_url = f"https://cdn.jsdelivr.net/gh/{REPO}@main/{encoded_zip}"
-            catalog_content.append(f"**📦 [下载专辑歌词包]({cdn_zip_url})**\n\n")
+            catalog_content.append(f"**[下载专辑歌词包]({cdn_zip_url})**\n\n")
         
-        files = sorted([f for f in os.listdir(dir_path) if os.path.splitext(f)[1] in EXTENSIONS])
+        files = sorted([f for f in os.listdir(dir_path) if os.path.splitext(f)[1] in EXTENSIONS],
+                       key=natural_sort_key)
         
         if not files:
             catalog_content.append("_暂无 LRC 文件_\n\n")
             continue
 
         # Start details/summary for track list
-        catalog_content.append(f"<details>\n<summary>📝 查看详细曲目 ({len(files)} 首)</summary>\n\n")
+        catalog_content.append(f"<details>\n<summary>查看详细曲目 ({len(files)} 首)</summary>\n\n")
 
         # Render a uniform-width table across albums
         catalog_content.append("| 曲目 | 操作 |\n")
@@ -164,7 +166,7 @@ def main():
             encoded_path = urllib.parse.quote(rel_path)
             # Create CDN download link
             cdn_url = f"https://cdn.jsdelivr.net/gh/{REPO}@main/{encoded_path}"
-            catalog_content.append(f"| [{filename}]({encoded_path}) | [📥 下载]({cdn_url}) |\n")
+            catalog_content.append(f"| [{filename}]({encoded_path}) | [下载]({cdn_url}) |\n")
         
         catalog_content.append("\n</details>\n\n")
 

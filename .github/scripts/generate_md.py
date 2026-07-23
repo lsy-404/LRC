@@ -7,7 +7,7 @@ from pathlib import Path
 
 from lib.config_loader import load_config
 from lib.meta_parser import load_album_meta
-from lib.naming import sanitize_artifact_name
+from lib.naming import natural_sort_key, sanitize_artifact_name
 
 CONFIG = load_config()
 PROJECT = CONFIG.get("project", {})
@@ -171,7 +171,8 @@ def main() -> None:
     for album_dir in albums:
         album = album_dir.name
         album_file_name = sanitize_artifact_name(album)
-        lrc_files = sorted([path for path in album_dir.iterdir() if path.suffix.lower() == ".lrc"])
+        lrc_files = sorted([path for path in album_dir.iterdir() if path.suffix.lower() == ".lrc"],
+                           key=lambda p: natural_sort_key(p.name))
 
         info, _ = load_album_meta(album_dir)
 
@@ -289,10 +290,16 @@ def main() -> None:
         if not is_disabled_value(info.get("mixer")):
             info_display.append(f"**混音:** {'、'.join(info['mixer'])}")
 
-        song_lines = "\n".join(
-            f"- [{song['title']}](https://cdn.jsdelivr.net/gh/{REPO}@main/res/{urllib.parse.quote(album)}/{urllib.parse.quote(song['file'])})"
-            for song in songs
-        )
+        def _song_line(song: dict) -> str:
+            line = (f"- [{song['title']}](https://cdn.jsdelivr.net/gh/{REPO}@main/res/"
+                    f"{urllib.parse.quote(album)}/{urllib.parse.quote(song['file'])})")
+            klrc_name = song["file"].rsplit(".", 1)[0] + ".klrc"
+            if (album_dir / klrc_name).exists():
+                line += (f"（[逐字歌词](https://cdn.jsdelivr.net/gh/{REPO}@main/res/"
+                         f"{urllib.parse.quote(album)}/{urllib.parse.quote(klrc_name)})）")
+            return line
+
+        song_lines = "\n".join(_song_line(song) for song in songs)
 
         # 生成 order 排序字段
         # 规则：
