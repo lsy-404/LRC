@@ -58,21 +58,32 @@ def _multipart(fields: dict, file_field: str, filename: str, data: bytes) -> tup
 
 
 def _compress_for_upload(audio: Path) -> tuple[bytes, str]:
-    """转码为 192kbps 立体声 MP3（≤48kHz）再上传。
+    """转码后上传：默认 192kbps 立体声（≤48kHz）；超长音频自动回避压缩。
 
-    保留立体声与较高码率（约 1.4MB/分钟，17 分钟内的曲目都在 API 25MB
-    上限内），百 MB 级 wav/flac 源文件不再受上限约束。ffmpeg 失败直接抛错。
+    192k 立体声约 1.4MB/分钟，约 17 分钟触及 API 25MB 上限——时长超过
+    16 分钟的音频自动降为 96kbps 单声道（约 0.7MB/分钟，容纳约 34 分钟）。
+    百 MB 级 wav/flac 源文件不再受上限约束。ffmpeg/ffprobe 失败直接抛错。
     """
     import os
     import subprocess
     import tempfile
+    probe = subprocess.run(
+        ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+         "-of", "csv=p=0", str(audio)],
+        capture_output=True, text=True, check=True)
+    duration = float(probe.stdout.strip() or 0.0)
+    if duration > 16 * 60:
+        enc = ["-ac", "1", "-b:a", "96k"]
+        print(f"  ▽ {audio.name} 时长 {duration/60:.1f} 分钟，回避压缩 96k 单声道",
+              file=sys.stderr, flush=True)
+    else:
+        enc = ["-b:a", "192k"]
     fd, tmp = tempfile.mkstemp(suffix=".mp3")
     os.close(fd)
     out = Path(tmp)
     try:
         subprocess.run(
-            ["ffmpeg", "-y", "-v", "error", "-i", str(audio),
-             "-ar", "48000", "-b:a", "192k", str(out)],
+            ["ffmpeg", "-y", "-v", "error", "-i", str(audio), "-ar", "48000", *enc, str(out)],
             check=True)
         return out.read_bytes(), audio.stem + ".mp3"
     finally:
