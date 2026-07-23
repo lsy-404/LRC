@@ -28,7 +28,11 @@ jobs:
         run: |
           last_author=$(git log -1 --pretty=format:'%an')
           echo "Last commit author: $last_author"
-          if [[ "$last_author" == "github-actions[bot]" ]]; then
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            # 手动触发是人主动要求的全量重建，不适用防递归守卫
+            echo "Manual dispatch - bypassing bot-commit guard."
+            echo "skip=false" >> $GITHUB_OUTPUT
+          elif [[ "$last_author" == "github-actions[bot]" ]]; then
             echo "Last commit was by github-actions[bot]. Skipping execution."
             echo "skip=true" >> $GITHUB_OUTPUT
           else
