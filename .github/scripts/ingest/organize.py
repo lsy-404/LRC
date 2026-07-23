@@ -54,6 +54,8 @@ NAME_FIELDS = [("prefix", "前缀"), ("zh_name", "中文名"), ("en_name", "英�
 
 # 音频↔轨匹配的最低字符覆盖率，低于此视为不匹配（→ 无时间轴草稿）
 MATCH_THRESHOLD = 0.25
+# 歌词本页↔轨候选的最低覆盖率（仅作 LLM 分配提示，阈值可比正式匹配宽）
+PAGE_MATCH_THRESHOLD = 0.20
 
 ORGANIZE_SYSTEM = """你是音乐专辑歌词整理专家。给你一份专辑歌词本混合文本（可能含多首歌词及
 作词/作曲/编曲/演唱/调校/混音/母带/曲绘/视频/策划等制作信息和发行/购买/出品等源信息）。
@@ -219,6 +221,12 @@ ASSIGN_SYSTEM = """你是音乐专辑歌词整理专家。给你专辑的权威�
 以此为准，不得增删改）和歌词本 OCR 混合文本（可能含歌词及作词/作曲/编曲/演唱/调校/混音/
 母带/曲绘/视频/策划等制作信息和发行/购买/出品等源信息）。
 
+歌词本按页给出，每页以「# === 文件名 (OCR/DOC) ===」开头，页头可能带注解：
+- 【已绑定曲目 N. 曲名】：投稿者人工确认该页属于曲目 N，该页歌词只能分配给曲目 N，
+  禁止分给其他曲目；
+- 【疑似曲目 N. 曲名 (xx%) / ...】：机器按发音相似度给出的候选与置信度，仅供参考，
+  与文本内容明显冲突时以内容为准。
+
 任务：把歌词本中属于每一曲的文字原样分配给该曲，并抽出专辑级 meta。
 输出 JSON（只输出 JSON）：
 {
@@ -229,6 +237,119 @@ ASSIGN_SYSTEM = """你是音乐专辑歌词整理专家。给你专辑的权威�
 }
 规则：1.assignments 的键 = 轨单 order 2.只用文本真实内容，找不到某曲的歌词就给空字符串，
 勿臆造勿改写勿翻译 3.vocal 只填虚拟歌姬/声库 4.去掉人名 @用户名 后缀。"""
+
+
+def _page_lyric_lines(text: str) -> list[str]:
+    """页文本 → 剥离 staff 行后的歌词行（staff 行会稀释页↔轨覆盖率）。"""
+    raw = [l for l in text.splitlines() if l.strip()]
+    _, _, lyric_lines = lyrics_mod.split_staff_lines(raw)
+    return lyric_lines
+
+
+def link_orders_of(photo_links: dict[str, str] | None, tracks_plan: list[dict]) -> dict[str, int]:
+    """manifest 绑定（图片名→音频名）→ {页文件名: 轨 order}，basename 归一。"""
+    by_file = {Path(str(t.get("file"))).name: t.get("order")
+               for t in tracks_plan if t.get("file")}
+    out: dict[str, int] = {}
+    for img, audio in (photo_links or {}).items():
+        order = by_file.get(Path(str(audio)).name)
+        if order:
+            out[Path(str(img)).name] = int(order)
+        else:
+            print(f"  ⚠️  绑定目标不在轨单，忽略: {img} → {audio}", file=sys.stderr)
+    return out
+
+
+def match_pages_to_tracks(
+    pages: list[dict],
+    tracks_plan: list[dict],
+    audio_words: dict[str, list],
+    audio_langs: dict[str, str] | None = None,
+) -> dict[str, list[tuple[int, float]]]:
+    """逐页×逐轨置信度：页歌词行对轨 STT 词流的覆盖率，≥阈值者为候选（降序，至多 3）。"""
+    out: dict[str, list[tuple[int, float]]] = {}
+    for pg in pages:
+        lines = _page_lyric_lines(pg.get("text", ""))
+        if not lines:
+            continue
+        scored: list[tuple[int, float]] = []
+        for t in tracks_plan:
+            words = audio_words.get(t.get("file"))
+            if not words:
+                continue
+            lang = (audio_langs or {}).get(t.get("file"), "")
+            cov = align_mod.coverage(lines, words, language=lang)
+            if cov >= PAGE_MATCH_THRESHOLD:
+                scored.append((int(t.get("order") or 0), cov))
+        scored.sort(key=lambda x: -x[1])
+        if scored:
+            out[pg["name"]] = scored[:3]
+    return out
+
+
+def annotate_booklet(
+    pages: list[dict],
+    tracks_plan: list[dict],
+    link_orders: dict[str, int],
+    candidates: dict[str, list[tuple[int, float]]],
+) -> str:
+    """逐页文本 + 绑定/候选注解 → 供 llm_assign_booklet 的歌词本文本。"""
+    titles = {int(t.get("order") or 0): str(t.get("title", "")).strip() for t in tracks_plan}
+    parts: list[str] = []
+    for pg in pages:
+        name = pg["name"]
+        tag = ""
+        if name in link_orders:
+            o = link_orders[name]
+            tag = f" 【已绑定曲目 {o}. {titles.get(o, '')}】"
+        elif name in candidates:
+            hint = " / ".join(f"{o}. {titles.get(o, '')} ({cov:.0%})" for o, cov in candidates[name])
+            tag = f" 【疑似曲目 {hint}】"
+        parts.append(f"# === {name} ({pg.get('kind', 'OCR')}){tag} ===\n{pg.get('text', '')}")
+    return "\n\n".join(parts)
+
+
+def enforce_page_links(
+    assignments: dict,
+    pages: list[dict],
+    tracks_plan: list[dict],
+    link_orders: dict[str, int],
+    audio_words: dict[str, list],
+    audio_langs: dict[str, str] | None = None,
+) -> dict:
+    """分配结果的确定性安全网（矫正前执行）：
+
+    - 绑定轨：LLM 分配为空或对自身音频覆盖率过低 → 用绑定页原文回填（人工权威，不回退 STT）；
+    - 非绑定轨：分配歌词对自身音频覆盖率低于 MATCH_THRESHOLD → 丢弃，回退该曲 STT 草稿。
+    音频无词流（STT 失败）时无法评判，保持原分配。
+    """
+    page_text = {pg["name"]: pg.get("text", "") for pg in pages}
+    linked_text: dict[int, list[str]] = {}
+    for name in sorted(link_orders):
+        linked_text.setdefault(link_orders[name], []).append(page_text.get(name, ""))
+    out = dict(assignments)
+    for t in tracks_plan:
+        order = int(t.get("order") or 0)
+        key = str(order)
+        text = str(out.get(key) or "").strip()
+        raw_linked = "\n".join(x for x in linked_text.get(order, []) if x.strip()).strip()
+        words = audio_words.get(t.get("file"))
+        lang = (audio_langs or {}).get(t.get("file"), "")
+        cov = None
+        if text and words:
+            lines = _page_lyric_lines(text)
+            cov = align_mod.coverage(lines, words, language=lang) if lines else 0.0
+        if raw_linked:
+            if not text:
+                out[key] = raw_linked
+                print(f"  🔗 曲目 {order}: LLM 未分配，采用绑定页原文", file=sys.stderr)
+            elif cov is not None and cov < MATCH_THRESHOLD:
+                out[key] = raw_linked
+                print(f"  🔗 曲目 {order}: 分配覆盖率 {cov:.0%} 过低，改用绑定页原文", file=sys.stderr)
+        elif text and cov is not None and cov < MATCH_THRESHOLD:
+            out[key] = ""
+            print(f"  ✂ 曲目 {order}: 分配歌词覆盖率 {cov:.0%} 低于阈值，回退 STT 草稿", file=sys.stderr)
+    return out
 
 
 def llm_assign_booklet(booklet_text: str, tracks_plan: list[dict]) -> dict:
@@ -433,6 +554,8 @@ def organize(
     audio_words: dict[str, list] | None,
     audio_langs: dict[str, str] | None = None,
     tracks_plan: list[dict] | None = None,
+    pages: list[dict] | None = None,
+    photo_links: dict[str, str] | None = None,
     source_hint: str = "",
     manifest: dict,
     res_dir: Path,
@@ -454,12 +577,22 @@ def organize(
     elif tracks_plan and audio_words:
         # 音频为中心：轨=音频（曲名/曲序以音频文件为权威），歌词本 OCR 只做
         # 歌词修正与元信息一补——每曲分配到的原文找不到就留空（届时用该曲
-        # 自身 STT 词流出草稿），不发明不凑数
+        # 自身 STT 词流出草稿），不发明不凑数。
+        # 逐页矫正约束：投稿者绑定页硬约束到指定轨；未绑定页先做页↔轨置信度
+        # 匹配作分配提示，分配结果再经覆盖率验证（enforce_page_links）
         assignments: dict = {}
-        if booklet_text:
+        if booklet_text or pages:
+            link_orders: dict[str, int] = {}
+            if pages:
+                link_orders = link_orders_of(photo_links, tracks_plan)
+                candidates = match_pages_to_tracks(pages, tracks_plan, audio_words, audio_langs)
+                booklet_text = annotate_booklet(pages, tracks_plan, link_orders, candidates)
             assign = llm_assign_booklet(booklet_text, tracks_plan)
             llm_meta = assign.get("meta", {}) or {}
             assignments = assign.get("assignments", {}) or {}
+            if pages:
+                assignments = enforce_page_links(
+                    assignments, pages, tracks_plan, link_orders, audio_words, audio_langs)
         tracks = [{
             "order": tp.get("order"),
             "title": str(tp.get("title", "")).strip(),

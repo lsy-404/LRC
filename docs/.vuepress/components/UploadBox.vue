@@ -68,16 +68,32 @@
         <div class="ub-row center">
           <button class="ub-btn" :disabled="busy" @click="fileInput.click()">添加文件</button>
           <button class="ub-btn" :disabled="busy" @click="dirInput.click()">添加文件夹</button>
-          <button v-if="items.length" class="ub-btn ghost" :disabled="busy" @click="items = []">清空</button>
+          <button class="ub-btn" :disabled="busy" @click="camInput.click()">拍照</button>
+          <button v-if="items.length" class="ub-btn ghost" :disabled="busy" @click="clearItems">清空</button>
         </div>
         <input ref="fileInput" type="file" multiple class="ub-hidden" @change="onPickFiles">
         <input ref="dirInput" type="file" webkitdirectory class="ub-hidden" @change="onPickDir">
+        <input
+          ref="camInput"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          capture="environment"
+          class="ub-hidden"
+          @change="onPickCam"
+        >
       </div>
 
       <ul v-if="items.length" class="ub-list">
         <li v-for="it in items" :key="it.uid">
           <div class="ub-line">
-            <span class="ub-badge" :class="kindClass(it)">{{ kindText(it) }}</span>
+            <img
+              v-if="isImg(it)"
+              :src="thumbOf(it)"
+              class="ub-thumbmini"
+              alt=""
+              @click="previewItem = it"
+            >
+            <span v-else class="ub-badge" :class="kindClass(it)">{{ kindText(it) }}</span>
             <input
               v-if="it.editing"
               v-model="it.editVal"
@@ -108,7 +124,7 @@
               v-if="!busy"
               class="ub-x"
               title="移除"
-              @click="items = items.filter((x) => x !== it)"
+              @click="removeItem(it)"
             >×</button>
           </div>
           <div v-if="it.status === 'up'" class="ub-mini"><div :style="{ width: it.pct + '%' }" /></div>
@@ -117,8 +133,52 @@
       <p class="ub-total" :class="{ err: oversize > 0 }">{{ totalText }}</p>
       <p class="ub-dim small">
         支持歌词文本 / 歌词本图片或 PDF / 音频 / Staff 表 / 封面；单文件上限 95MB。
-        点击文件名可重命名路径；右侧下拉修改用途会自动归类到对应目录。上传期间请勿关闭本页。
+        点击文件名可重命名路径；右侧下拉修改用途会自动归类到对应目录。
+        歌词拍照可在下方关联到指定曲目。上传期间请勿关闭本页。
       </p>
+    </section>
+
+    <!-- 02.5 · 歌词拍照 ↔ 曲目关联 -->
+    <section
+      v-if="verified && !finished && photoItems.length && songItems.length"
+      class="ub-card rise"
+    >
+      <p class="ub-label">
+        歌词拍照关联
+        <span class="ub-dim">（把图片拖到对应曲目，或用图片下方的下拉选择；未关联的图片将自动按发音相似度匹配）</span>
+      </p>
+      <div class="ub-photos">
+        <div v-for="p in photoItems" :key="p.uid" class="ub-photo" :class="{ linked: p.linkTo }">
+          <img
+            :src="thumbOf(p)"
+            :alt="p.relPath"
+            draggable="true"
+            @dragstart="dragUid = p.uid"
+            @dragend="dragUid = null"
+            @click="previewItem = p"
+          >
+          <span class="ub-pname" :title="p.relPath">{{ baseName(p.relPath) }}</span>
+          <select v-model="p.linkTo" class="ub-sel wide" :disabled="busy">
+            <option :value="0">未关联</option>
+            <option v-for="s in songItems" :key="s.uid" :value="s.uid">{{ baseName(s.relPath) }}</option>
+          </select>
+        </div>
+      </div>
+      <ol class="ub-tracks">
+        <li
+          v-for="s in songItems"
+          :key="s.uid"
+          :class="{ over: dropUid === s.uid }"
+          @dragover.prevent="dropUid = s.uid"
+          @dragleave="dropUid = null"
+          @drop.prevent="onLinkDrop(s)"
+        >
+          <span class="ub-tname">{{ baseName(s.relPath) }}</span>
+          <span v-for="p in linkedPhotos(s)" :key="p.uid" class="ub-chip">
+            {{ baseName(p.relPath) }}<b title="解除关联" @click="p.linkTo = 0">×</b>
+          </span>
+        </li>
+      </ol>
     </section>
 
     <!-- 03 · 提交 -->
@@ -148,6 +208,11 @@
         <li>审核通过自动入库，原料随即销毁</li>
       </ol>
     </section>
+
+    <!-- 图片放大预览 -->
+    <div v-if="previewItem" class="ub-preview" @click="previewItem = null">
+      <img :src="thumbOf(previewItem)" :alt="previewItem.relPath">
+    </div>
   </div>
 </template>
 
@@ -176,8 +241,49 @@ const linkDizzy = ref('');
 
 const fileInput = ref(null);
 const dirInput = ref(null);
+const camInput = ref(null);
+const previewItem = ref(null);
+const dragUid = ref(null);
+const dropUid = ref(null);
 let password = '';
 let uid = 1;
+let camSeq = 1;
+
+const IMG_RE = /\.(png|jpe?g|webp|gif|bmp|tiff?)$/i;
+const isImg = (it) => IMG_RE.test(it.relPath);
+const baseName = (p) => p.split('/').pop();
+const songItems = computed(() => items.value.filter((i) => i.role === 'song'));
+const photoItems = computed(() => items.value.filter((i) => i.role === 'photo'));
+
+// 缩略图 objectURL 按 uid 缓存，移除条目/清空/卸载时回收
+const thumbs = new Map();
+function thumbOf(it) {
+  if (!thumbs.has(it.uid)) thumbs.set(it.uid, URL.createObjectURL(it.file));
+  return thumbs.get(it.uid);
+}
+function dropThumb(id) {
+  const u = thumbs.get(id);
+  if (u) { URL.revokeObjectURL(u); thumbs.delete(id); }
+}
+function removeItem(it) {
+  dropThumb(it.uid);
+  for (const p of items.value) if (p.linkTo === it.uid) p.linkTo = 0;
+  if (previewItem.value === it) previewItem.value = null;
+  items.value = items.value.filter((x) => x !== it);
+}
+function clearItems() {
+  for (const id of [...thumbs.keys()]) dropThumb(id);
+  previewItem.value = null;
+  items.value = [];
+}
+
+const linkedPhotos = (s) => photoItems.value.filter((p) => p.linkTo === s.uid);
+function onLinkDrop(s) {
+  const p = items.value.find((i) => i.uid === dragUid.value);
+  if (p && p.role === 'photo') p.linkTo = s.uid;
+  dragUid.value = null;
+  dropUid.value = null;
+}
 
 const fmtSize = (n) => n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB'
   : n >= 1024 ? (n / 1024).toFixed(0) + ' KB' : n + ' B';
@@ -300,13 +406,22 @@ function addFiles(picked) {
     have.add(p.relPath);
     items.value.push({
       ...p, size: p.file.size, status: 'wait', pct: 0, sha: null,
-      uid: uid++, role: guessRole(p.relPath), editing: false, editVal: '',
+      uid: uid++, role: guessRole(p.relPath), editing: false, editVal: '', linkTo: 0,
     });
   }
 }
 
 function onPickFiles(e) {
   addFiles([...e.target.files].map((f) => ({ file: f, relPath: f.name })));
+  e.target.value = '';
+}
+
+// 拍照：相机文件名常重复（image.jpg），改用自增名并直接归入歌词本目录
+function onPickCam(e) {
+  addFiles([...e.target.files].map((f) => {
+    const ext = (f.name.match(/\.[A-Za-z0-9]+$/) || ['.jpg'])[0].toLowerCase();
+    return { file: f, relPath: `歌词本/拍照-${camSeq++}${ext}` };
+  }));
   e.target.value = '';
 }
 
@@ -362,12 +477,19 @@ async function onDrop(e) {
 }
 
 // 辅助信息 → manifest.toml（organize.py 原生消费：album + 发布/购买中文键，
-// 值与主项目 meta 相同的 [标签](url) 格式；manifest 在 meta 合并链优先级最高）
+// 值与主项目 meta 相同的 [标签](url) 格式；manifest 在 meta 合并链优先级最高。
+// [链接] 表 = 歌词拍照→音轨绑定，管道按 basename 归一消费）
 function syncManifest(name) {
   const bili = linkBili.value.trim();
   const dizzy = linkDizzy.value.trim();
+  const links = [];
+  for (const p of items.value) {
+    if (p.role !== 'photo' || !p.linkTo) continue;
+    const s = items.value.find((i) => i.uid === p.linkTo && i.role === 'song');
+    if (s) links.push([p.relPath, baseName(s.relPath)]);
+  }
   const prev = items.value.findIndex((i) => i.relPath === 'manifest.toml' && i.auto);
-  if (!bili && !dizzy) {
+  if (!bili && !dizzy && !links.length) {
     if (prev !== -1) items.value.splice(prev, 1);
     return;
   }
@@ -376,11 +498,15 @@ function syncManifest(name) {
   const lines = [`album = "${esc(name)}"`];
   if (bili) lines.push(`发布 = "${esc(wrap('Bilibili', bili))}"`);
   if (dizzy) lines.push(`购买 = "${esc(wrap('dizzylab', dizzy))}"`);
+  if (links.length) {
+    lines.push('', '[链接]');
+    for (const [img, audio] of links) lines.push(`"${esc(img)}" = "${esc(audio)}"`);
+  }
   const file = new File([lines.join('\n') + '\n'], 'manifest.toml', { type: 'application/toml' });
   const entry = {
     file, relPath: 'manifest.toml', size: file.size, status: 'wait', pct: 0,
     sha: null, uid: prev !== -1 ? items.value[prev].uid : uid++,
-    role: 'etc', editing: false, editVal: '', auto: true,
+    role: 'etc', editing: false, editVal: '', linkTo: 0, auto: true,
   };
   if (prev !== -1) items.value.splice(prev, 1, entry);
   else items.value.push(entry);
@@ -472,7 +598,10 @@ async function run() {
 
 const guard = (e) => { if (busy.value) e.preventDefault(); };
 onMounted(() => window.addEventListener('beforeunload', guard));
-onBeforeUnmount(() => window.removeEventListener('beforeunload', guard));
+onBeforeUnmount(() => {
+  window.removeEventListener('beforeunload', guard);
+  for (const id of [...thumbs.keys()]) dropThumb(id);
+});
 </script>
 
 <style scoped>
@@ -648,6 +777,15 @@ onBeforeUnmount(() => window.removeEventListener('beforeunload', guard));
 .k-book { color: #8250df; background: rgba(130, 80, 223, .13); }
 .k-text { color: #bf6a02; background: rgba(191, 106, 2, .13); }
 .k-etc { color: inherit; background: rgba(127, 127, 127, .15); opacity: .8; }
+.ub-thumbmini {
+  flex-shrink: 0;
+  width: 1.9rem;
+  height: 1.5rem;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 1px solid var(--border-color, #ddd);
+  cursor: zoom-in;
+}
 .ub-fname { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
 .ub-fname.dup { color: #f85149; text-decoration: underline wavy; }
 .ub-input.edit { flex: 1; width: auto; padding: .2rem .4rem; font-size: .8rem; }
@@ -663,6 +801,64 @@ onBeforeUnmount(() => window.removeEventListener('beforeunload', guard));
 }
 .ub-aux { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-top: .8rem; }
 @media (max-width: 560px) { .ub-aux { grid-template-columns: 1fr; } }
+
+/* 歌词拍照 ↔ 曲目关联 */
+.ub-photos { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: .6rem; }
+.ub-photo { width: 108px; display: flex; flex-direction: column; gap: .3rem; }
+.ub-photo img {
+  width: 108px;
+  height: 76px;
+  object-fit: cover;
+  border-radius: 7px;
+  border: 2px solid var(--border-color, #ddd);
+  cursor: grab;
+  transition: border-color .2s;
+}
+.ub-photo.linked img { border-color: var(--ub-accent); }
+.ub-pname { font-size: .68rem; opacity: .7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ub-sel.wide { max-width: none; width: 100%; }
+.ub-tracks { list-style: none; margin: .9rem 0 0; padding: 0; font-size: .82rem; }
+.ub-tracks li {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .4rem;
+  padding: .4rem .5rem;
+  border: 1px dashed transparent;
+  border-radius: 7px;
+  transition: border-color .15s, background .15s;
+}
+.ub-tracks li.over {
+  border-color: var(--ub-accent);
+  background: rgba(58, 122, 254, .06);
+  background: color-mix(in srgb, var(--ub-accent) 7%, transparent);
+}
+.ub-tname { font-weight: 600; }
+.ub-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+  font-size: .7rem;
+  padding: .1rem .45rem;
+  border-radius: 99px;
+  color: var(--ub-accent);
+  background: rgba(58, 122, 254, .13);
+  background: color-mix(in srgb, var(--ub-accent) 14%, transparent);
+}
+.ub-chip b { cursor: pointer; font-weight: 700; }
+
+/* 图片放大预览 */
+.ub-preview {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, .75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+.ub-preview img { max-width: 92vw; max-height: 92vh; border-radius: 8px; }
 .ub-fsize { opacity: .55; flex-shrink: 0; font-variant-numeric: tabular-nums; }
 .ub-fstat { flex-shrink: 0; min-width: 3.2em; text-align: right; font-variant-numeric: tabular-nums; }
 .ub-fstat.done { color: #3fb950; }

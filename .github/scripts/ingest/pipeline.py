@@ -10,7 +10,7 @@
     草稿 .txt（含歌词）    → 也按逐曲歌词处理
     音频(.wav/.flac/...)   → faster-whisper 词级时间戳 → audio_words
     封面图（主视图/cover/最大图）→ cover.*
-    manifest.toml          → 专辑名 + meta 覆盖
+    manifest.toml          → 专辑名 + meta 覆盖 + [链接] 歌词拍照→音轨绑定
                                           ↓
                               ingest.organize → res/<专辑>/
 
@@ -132,6 +132,20 @@ def extract_embedded_cover(audios: list[Path], work: Path) -> Path | None:
     return None
 
 
+def extract_photo_links(manifest: dict) -> dict[str, str]:
+    """从 manifest 弹出 [链接]/links 表（歌词拍照→音轨绑定）→ {图片名: 音频名}。
+
+    basename 归一（上传页改路径只动目录段）；弹出以防误入 meta 合并链。
+    """
+    out: dict[str, str] = {}
+    for key in ("links", "链接"):
+        v = manifest.pop(key, None)
+        if isinstance(v, dict):
+            for img, audio in v.items():
+                out[Path(str(img)).name] = Path(str(audio)).name
+    return out
+
+
 def find_album_dirs(src: Path) -> list[Path]:
     """上传根目录下、用作专辑名的顶层文件夹（专辑 = 文件夹名）。"""
     out = []
@@ -194,17 +208,18 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
             tracks_explicit.append(parsed)
             print(f"  歌词轨: {p.name} → {parsed['title']} ({len(parsed['lines'])} 行)", file=sys.stderr)
 
-    # 2) 图片 OCR + 文档抽取 → 歌词本文本（无逐曲歌词时供 LLM 分轨；并供抽 credits）
-    booklet_parts: list[str] = []
+    # 2) 图片 OCR + 文档抽取 → 逐页歌词本文本（保留页出处，供绑定/置信度匹配；
+    #    拼接版供纯文本分轨与抽 credits）
+    pages: list[dict] = []
     cover = pick_cover(buckets["image"]) or extract_embedded_cover(buckets["audio"], work)
     ocr_images = [p for p in buckets["image"] if p != cover]  # 封面不做歌词 OCR
     if ocr_images:
         for name, t in ocr_mod.run(ocr_images).items():
-            booklet_parts.append(f"# === {name} (OCR) ===\n{t}")
+            pages.append({"name": name, "kind": "OCR", "text": t})
     if buckets["doc"]:
         for name, t in doc_mod.run(buckets["doc"]).items():
-            booklet_parts.append(f"# === {name} (DOC) ===\n{t}")
-    booklet_text = "\n\n".join(booklet_parts)
+            pages.append({"name": name, "kind": "DOC", "text": t})
+    booklet_text = "\n\n".join(f"# === {p['name']} ({p['kind']}) ===\n{p['text']}" for p in pages)
     credits_text = "\n\n".join(credits_parts) or booklet_text
 
     # 不做专辑级 LLM 校对：校对模型的「只输出歌词正文」人设会把标题/credits/
@@ -258,6 +273,9 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     #    可选：若投递目录恰含 manifest.toml 则作为 meta 覆盖（非必需，不鼓励）。
     manifest_path = src / "manifest.toml"
     manifest = org_mod._read_toml(manifest_path) if manifest_path.is_file() else {}
+    photo_links = extract_photo_links(manifest)
+    if photo_links:
+        print(f"  🔗 manifest 携带 {len(photo_links)} 条歌词拍照绑定", file=sys.stderr)
     # 音频 tag 权威元信息：优先级仅次于 manifest（manifest 显式键覆盖 tag）
     tag_meta, source_hint = extract_audio_meta(buckets["audio"])
     manifest = {**tag_meta, **manifest}
@@ -282,6 +300,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     org_res = org_mod.organize(
         tracks_explicit=tracks_explicit, booklet_text=booklet_text, credits_text=credits_text,
         audio_words=audio_words, audio_langs=audio_langs, tracks_plan=tracks_plan,
+        pages=pages, photo_links=photo_links,
         manifest=manifest, source_hint=source_hint, res_dir=res_dir,
         album_override=album, cover_path=cover, existing_meta=existing_meta, dry_run=dry_run,
         default_lyric_maker=lyric_maker,
