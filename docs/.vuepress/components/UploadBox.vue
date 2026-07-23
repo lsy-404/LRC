@@ -14,7 +14,7 @@
     </ol>
 
     <!-- 01 · 验证 -->
-    <section v-if="!verified" class="ub-card">
+    <section v-if="!verified && !restoring" class="ub-card">
       <p class="ub-lead">凭邀请密码解锁投递箱。</p>
       <div class="ub-row">
         <input
@@ -23,14 +23,15 @@
           class="ub-input grow"
           placeholder="邀请密码"
           autocomplete="off"
-          @keyup.enter="verify"
+          @keyup.enter="verify()"
         >
-        <button class="ub-btn primary" :disabled="verifying || !pwInput" @click="verify">
+        <button class="ub-btn primary" :disabled="verifying || !pwInput" @click="verify()">
           {{ verifying ? '验证中…' : '验证' }}
         </button>
       </div>
       <p v-if="gateMsg" class="ub-msg" :class="{ err: gateErr }">{{ gateMsg }}</p>
     </section>
+    <p v-else-if="restoring" class="ub-verified">正在恢复登录状态…</p>
     <p v-else-if="!finished" class="ub-verified">✓ 密码已验证</p>
 
     <!-- 02 · 选择 -->
@@ -84,7 +85,7 @@
       </div>
 
       <ul v-if="items.length" class="ub-list">
-        <li v-for="it in items" :key="it.uid">
+        <li v-for="it in sortedItems" :key="it.uid">
           <div class="ub-line">
             <img
               v-if="isImg(it)"
@@ -133,7 +134,8 @@
       <p class="ub-total" :class="{ err: oversize > 0 }">{{ totalText }}</p>
       <p class="ub-dim small">
         支持歌词文本 / 歌词本图片或 PDF / 音频 / Staff 表 / 封面；单文件上限 95MB。
-        点击文件名可重命名路径；右侧下拉修改用途会自动归类到对应目录。
+        点击文件名可重命名路径；右侧下拉修改用途会自动归类到对应目录；
+        列表按文件名开头编号自动排序。点击图片可放大预览并翻转方向。
         歌词拍照可在下方关联到指定曲目。上传期间请勿关闭本页。
       </p>
     </section>
@@ -211,6 +213,10 @@
 
     <!-- 图片放大预览 -->
     <div v-if="previewItem" class="ub-preview" @click="previewItem = null">
+      <div class="ub-preview-tools" @click.stop>
+        <button :disabled="rotating || busy" @click="rotateItem(previewItem, -90)">⟲ 左转</button>
+        <button :disabled="rotating || busy" @click="rotateItem(previewItem, 90)">⟳ 右转</button>
+      </div>
       <img :src="thumbOf(previewItem)" :alt="previewItem.relPath">
     </div>
   </div>
@@ -224,6 +230,7 @@ const MAX_FILE = 95 * 1024 * 1024;
 const pwInput = ref('');
 const verified = ref(false);
 const verifying = ref(false);
+const restoring = ref(false);
 const gateMsg = ref('');
 const gateErr = ref(false);
 
@@ -252,18 +259,77 @@ let camSeq = 1;
 const IMG_RE = /\.(png|jpe?g|webp|gif|bmp|tiff?)$/i;
 const isImg = (it) => IMG_RE.test(it.relPath);
 const baseName = (p) => p.split('/').pop();
-const songItems = computed(() => items.value.filter((i) => i.role === 'song'));
-const photoItems = computed(() => items.value.filter((i) => i.role === 'photo'));
 
-// 缩略图 objectURL 按 uid 缓存，移除条目/清空/卸载时回收
+// 编号排序：取文件名开头的数字（与 organize.py 的 _order_from_name 同约定）；
+// 无编号排最后，稳定排序保留同号/无号项的相对顺序
+const trackNumberOf = (relPath) => {
+  const m = baseName(relPath).match(/^\s*(\d+)/);
+  return m ? parseInt(m[1], 10) : Infinity;
+};
+const sortedItems = computed(() =>
+  [...items.value].sort((a, b) => trackNumberOf(a.relPath) - trackNumberOf(b.relPath)));
+const songItems = computed(() => sortedItems.value.filter((i) => i.role === 'song'));
+const photoItems = computed(() => sortedItems.value.filter((i) => i.role === 'photo'));
+
+// 缩略图 objectURL 按 uid 缓存（{file, url}，file 变了则重建，如旋转后）；
+// 移除条目/清空/卸载时回收
 const thumbs = new Map();
 function thumbOf(it) {
-  if (!thumbs.has(it.uid)) thumbs.set(it.uid, URL.createObjectURL(it.file));
-  return thumbs.get(it.uid);
+  const cached = thumbs.get(it.uid);
+  if (cached && cached.file === it.file) return cached.url;
+  if (cached) URL.revokeObjectURL(cached.url);
+  const url = URL.createObjectURL(it.file);
+  thumbs.set(it.uid, { file: it.file, url });
+  return url;
 }
 function dropThumb(id) {
-  const u = thumbs.get(id);
-  if (u) { URL.revokeObjectURL(u); thumbs.delete(id); }
+  const cached = thumbs.get(id);
+  if (cached) { URL.revokeObjectURL(cached.url); thumbs.delete(id); }
+}
+
+// 翻转：canvas 重新编码，每次都从未旋转的原始文件重算（避免多次旋转累积
+// JPEG 重压缩损失）；转回 0° 时直接复用原始字节，零损失。旋转后的文件即
+// 为实际上传内容，OCR/摄取管道拿到的就是校正后的方向
+const rotating = ref(false);
+function rotateImageFile(file, deg) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      const swap = deg % 180 !== 0;
+      const canvas = document.createElement('canvas');
+      canvas.width = swap ? img.naturalHeight : img.naturalWidth;
+      canvas.height = swap ? img.naturalWidth : img.naturalHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.rotate((deg * Math.PI) / 180);
+      ctx.drawImage(img, -img.naturalWidth / 2, -img.naturalHeight / 2);
+      URL.revokeObjectURL(url);
+      const type = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+      canvas.toBlob((blob) => {
+        if (!blob) { reject(new Error('rotate failed')); return; }
+        resolve(new File([blob], file.name, { type }));
+      }, type, 0.92);
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('image load failed')); };
+    img.src = url;
+  });
+}
+async function rotateItem(it, delta) {
+  if (!it || !isImg(it) || busy.value || rotating.value) return;
+  rotating.value = true;
+  try {
+    const next = ((it.rotation || 0) + delta + 360) % 360;
+    const src = it.origFile || it.file;
+    it.file = next === 0 ? src : await rotateImageFile(src, next);
+    it.rotation = next;
+    it.size = it.file.size;
+  } catch {
+    submitErr.value = true;
+    submitMsg.value = '图片旋转失败';
+  } finally {
+    rotating.value = false;
+  }
 }
 function removeItem(it) {
   dropThumb(it.uid);
@@ -376,23 +442,55 @@ const statText = (it) => it.size > MAX_FILE ? '过大'
 const statClass = (it) => it.size > MAX_FILE || it.status === 'fail' ? 'fail'
   : it.status === 'done' ? 'done' : '';
 
-async function verify() {
-  if (verified.value || verifying.value) return;
+// 记住密码 30 天：仅存本地，静默重试失败（密码已轮换等）就清掉退回正常输入，
+// 不会把用户卡住
+const AUTH_KEY = 'lrc-upload-auth';
+const AUTH_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+
+function loadStoredAuth() {
+  try {
+    const raw = localStorage.getItem(AUTH_KEY);
+    if (!raw) return '';
+    const { password: pw, exp } = JSON.parse(raw);
+    if (typeof pw !== 'string' || !pw || !(exp > Date.now())) {
+      localStorage.removeItem(AUTH_KEY);
+      return '';
+    }
+    return pw;
+  } catch {
+    return '';
+  }
+}
+function saveAuth(pw) {
+  try {
+    localStorage.setItem(AUTH_KEY, JSON.stringify({ password: pw, exp: Date.now() + AUTH_TTL_MS }));
+  } catch { /* 隐私模式等 localStorage 不可写，静默跳过，不影响本次会话 */ }
+}
+function clearStoredAuth() {
+  try { localStorage.removeItem(AUTH_KEY); } catch { /* noop */ }
+}
+
+async function verify(candidate, silent = false) {
+  const pw = candidate ?? pwInput.value;
+  if (verified.value || verifying.value || !pw) return;
   verifying.value = true;
-  gateErr.value = false;
-  gateMsg.value = '';
+  if (!silent) { gateErr.value = false; gateMsg.value = ''; }
   try {
     const r = await fetch('/api/upload/verify', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ password: pwInput.value }),
+      body: JSON.stringify({ password: pw }),
     });
-    if (!r.ok) { gateErr.value = true; gateMsg.value = '密码错误'; return; }
-    password = pwInput.value;
+    if (!r.ok) {
+      clearStoredAuth();
+      if (!silent) { gateErr.value = true; gateMsg.value = '密码错误'; }
+      return;
+    }
+    password = pw;
     verified.value = true;
+    saveAuth(pw);
   } catch {
-    gateErr.value = true;
-    gateMsg.value = '网络错误，请重试';
+    if (!silent) { gateErr.value = true; gateMsg.value = '网络错误，请重试'; }
   } finally {
     verifying.value = false;
   }
@@ -407,6 +505,7 @@ function addFiles(picked) {
     items.value.push({
       ...p, size: p.file.size, status: 'wait', pct: 0, sha: null,
       uid: uid++, role: guessRole(p.relPath), editing: false, editVal: '', linkTo: 0,
+      origFile: p.file, rotation: 0,
     });
   }
 }
@@ -597,7 +696,15 @@ async function run() {
 }
 
 const guard = (e) => { if (busy.value) e.preventDefault(); };
-onMounted(() => window.addEventListener('beforeunload', guard));
+onMounted(async () => {
+  window.addEventListener('beforeunload', guard);
+  const stored = loadStoredAuth();
+  if (stored) {
+    restoring.value = true;
+    await verify(stored, true);
+    restoring.value = false;
+  }
+});
 onBeforeUnmount(() => {
   window.removeEventListener('beforeunload', guard);
   for (const id of [...thumbs.keys()]) dropThumb(id);
@@ -859,6 +966,26 @@ onBeforeUnmount(() => {
   cursor: zoom-out;
 }
 .ub-preview img { max-width: 92vw; max-height: 92vh; border-radius: 8px; }
+.ub-preview-tools {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  display: flex;
+  gap: .5rem;
+  cursor: default;
+}
+.ub-preview-tools button {
+  padding: .4rem .9rem;
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 7px;
+  background: rgba(0, 0, 0, .35);
+  color: #fff;
+  font-size: .82rem;
+  cursor: pointer;
+  transition: background .15s;
+}
+.ub-preview-tools button:hover:not(:disabled) { background: rgba(255, 255, 255, .18); }
+.ub-preview-tools button:disabled { opacity: .4; cursor: not-allowed; }
 .ub-fsize { opacity: .55; flex-shrink: 0; font-variant-numeric: tabular-nums; }
 .ub-fstat { flex-shrink: 0; min-width: 3.2em; text-align: right; font-variant-numeric: tabular-nums; }
 .ub-fstat.done { color: #3fb950; }
