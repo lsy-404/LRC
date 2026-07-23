@@ -226,22 +226,29 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     # 碎片行当杂质删掉（实测 24 页混合文本被压缩到 1/4，分轨因此只剩 1 轨），
     # 而拼音对齐本就容忍字符级 OCR 错字——校对的价值远小于其破坏
 
-    # 3) 音频轨单：agent 按歌曲本身名称排序/重命名并剔除伴奏（轨单以音频为权威）
+    # 3) 音频轨单：agent 按歌曲本身名称排序/重命名，非曲目音频剔除；伴奏/无人声轨
+    #    保留在轨单里（标记 inst=True，文件名强制原样保留），只是不送去转写
+    #    （轨单以音频为权威）
     tracks_plan: list[dict] = []
     keep: set[str] = set()
+    inst_files: set[str] = set()
     if buckets["audio"]:
         tracks_plan = org_mod.llm_order_tracks([p.name for p in buckets["audio"]], album)
         keep = {t.get("file") for t in tracks_plan}
+        inst_files = {t.get("file") for t in tracks_plan if t.get("inst")}
         skipped = [p.name for p in buckets["audio"] if p.name not in keep]
         if skipped:
-            print(f"  ⏭ 轨单剔除 {len(skipped)} 个音轨（伴奏等）: {skipped}", file=sys.stderr)
+            print(f"  ⏭ 轨单剔除 {len(skipped)} 个音轨（未识别为曲目）: {skipped}", file=sys.stderr)
+        if inst_files:
+            print(f"  ○ 轨单保留但不转写 {len(inst_files)} 个伴奏/无人声轨: {sorted(inst_files)}",
+                  file=sys.stderr)
 
-    # 4) 音频 → 词级时间戳（云端 whisper-1 并发；仅轨单内音轨，伴奏不转写）
+    # 4) 音频 → 词级时间戳（云端 whisper-1 并发；伴奏/无人声轨没有人声可转写，跳过）
     audio_words: dict[str, list] = {}
     audio_langs: dict[str, str] = {}
     if buckets["audio"]:
         from concurrent.futures import ThreadPoolExecutor
-        kept = [a for a in buckets["audio"] if not keep or a.name in keep]
+        kept = [a for a in buckets["audio"] if (not keep or a.name in keep) and a.name not in inst_files]
         with ThreadPoolExecutor(max_workers=4) as pool:
             results = list(pool.map(stt_mod.transcribe_words, kept))
         for a, (words, lang) in zip(kept, results):

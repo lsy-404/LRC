@@ -213,11 +213,32 @@
 
     <!-- 图片放大预览 -->
     <div v-if="previewItem" class="ub-preview" @click="previewItem = null">
+      <button
+        v-if="previewList.length > 1"
+        class="ub-preview-nav prev"
+        title="上一张"
+        @click.stop="previewStep(-1)"
+      >‹</button>
       <div class="ub-preview-tools" @click.stop>
+        <select
+          v-if="previewItem.role === 'photo' && songItems.length"
+          v-model="previewItem.linkTo"
+          class="ub-sel"
+          :disabled="busy"
+        >
+          <option :value="0">未关联曲目</option>
+          <option v-for="s in songItems" :key="s.uid" :value="s.uid">{{ baseName(s.relPath) }}</option>
+        </select>
         <button :disabled="rotating || busy" @click="rotateItem(previewItem, -90)">⟲ 左转</button>
         <button :disabled="rotating || busy" @click="rotateItem(previewItem, 90)">⟳ 右转</button>
       </div>
       <img :src="thumbOf(previewItem)" :alt="previewItem.relPath">
+      <button
+        v-if="previewList.length > 1"
+        class="ub-preview-nav next"
+        title="下一张"
+        @click.stop="previewStep(1)"
+      >›</button>
     </div>
   </div>
 </template>
@@ -270,6 +291,15 @@ const sortedItems = computed(() =>
   [...items.value].sort((a, b) => trackNumberOf(a.relPath) - trackNumberOf(b.relPath)));
 const songItems = computed(() => sortedItems.value.filter((i) => i.role === 'song'));
 const photoItems = computed(() => sortedItems.value.filter((i) => i.role === 'photo'));
+
+// 预览翻页：在当前排序后的图片集合里循环切换，与预览是从列表还是关联面板打开无关
+const previewList = computed(() => sortedItems.value.filter(isImg));
+function previewStep(delta) {
+  const list = previewList.value;
+  if (!list.length || !previewItem.value) return;
+  const idx = list.findIndex((i) => i.uid === previewItem.value.uid);
+  previewItem.value = list[(idx === -1 ? 0 : idx + delta + list.length) % list.length];
+}
 
 // 缩略图 objectURL 按 uid 缓存（{file, url}，file 变了则重建，如旋转后）；
 // 移除条目/清空/卸载时回收
@@ -378,6 +408,15 @@ function guessRole(p) {
   }
   return 'etc';
 }
+
+// 疑似伴奏/无人声轨：曲名里的 inst/ins/off vocal/伴奏/无人声（分隔符包裹，避免
+// 误伤 "Inspire" 这类词内含 ins 的正常曲名）。命中不阻止提交，只在提交前问一句
+// ——投稿者常把伴奏也扔进音频文件夹，混进曲单会被当正曲对齐入库
+const INST_RE = /(?:^|[\s._()[\]-])(?:inst(?:rumental)?|ins|off[\s_-]?vocal)(?:[\s._()[\]-]|$)/i;
+const isLikelyInst = (relPath) => {
+  const stem = baseName(relPath).replace(/\.[^.]+$/, '');
+  return INST_RE.test(stem) || /伴奏|无人声/.test(stem);
+};
 
 // 改用途 → 重写路径（封面统一改名 cover.<ext>，其余归入约定目录）
 const ROLE_DIR = { song: '音频', photo: '歌词本', text: '歌词' };
@@ -644,6 +683,13 @@ async function run() {
   if (!name) { submitErr.value = true; submitMsg.value = '请填写专辑名称'; return; }
   if (name.includes('/') || name.includes('\\')) {
     submitErr.value = true; submitMsg.value = '专辑名称不能包含斜杠'; return;
+  }
+  const instSuspects = items.value.filter((i) =>
+    i.role === 'song' && !i.instConfirmed && isLikelyInst(i.relPath));
+  if (instSuspects.length) {
+    const list = instSuspects.map((i) => baseName(i.relPath)).join('、');
+    if (!window.confirm(`以下音频疑似伴奏/无人声轨，不像是完整原曲：\n${list}\n\n确定按原曲一并上传吗？`)) return;
+    instSuspects.forEach((i) => { i.instConfirmed = true; });
   }
   syncManifest(name);
   busy.value = true;
@@ -986,6 +1032,41 @@ onBeforeUnmount(() => {
 }
 .ub-preview-tools button:hover:not(:disabled) { background: rgba(255, 255, 255, .18); }
 .ub-preview-tools button:disabled { opacity: .4; cursor: not-allowed; }
+.ub-preview-tools select {
+  padding: .4rem .6rem;
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 7px;
+  background: rgba(0, 0, 0, .35);
+  color: #fff;
+  font-size: .82rem;
+  max-width: 11em;
+}
+.ub-preview-tools select:disabled { opacity: .4; cursor: not-allowed; }
+
+/* 预览翻页 */
+.ub-preview-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, .35);
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .15s;
+}
+.ub-preview-nav:hover { background: rgba(255, 255, 255, .18); }
+.ub-preview-nav.prev { left: 1rem; }
+.ub-preview-nav.next { right: 1rem; }
+@media (max-width: 560px) {
+  .ub-preview-nav { width: 2.2rem; height: 2.2rem; font-size: 1.3rem; }
+  .ub-preview-nav.prev { left: .4rem; }
+  .ub-preview-nav.next { right: .4rem; }
+}
 .ub-fsize { opacity: .55; flex-shrink: 0; font-variant-numeric: tabular-nums; }
 .ub-fstat { flex-shrink: 0; min-width: 3.2em; text-align: right; font-variant-numeric: tabular-nums; }
 .ub-fstat.done { color: #3fb950; }

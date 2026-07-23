@@ -113,6 +113,24 @@ def _sanitize_filename(name: str) -> str:
     return out or "untitled"
 
 
+# 伴奏/无人声轨识别：分隔符包裹匹配，避免误伤 "Inspire"/"Instant" 这类词内含 ins
+# 的正常曲名（与上传页 UploadBox.vue 的 INST_RE 同一套启发式，前后端保持一致）
+_INST_RE = re.compile(r"(?:^|[\s._()\[\]-])(?:inst(?:rumental)?|ins|off[\s_-]?vocal)(?:[\s._()\[\]-]|$)", re.I)
+_INST_CJK_RE = re.compile(r"伴奏|无人声")
+
+
+def _is_inst_filename(name: str) -> bool:
+    stem = Path(name).stem
+    return bool(_INST_RE.search(stem) or _INST_CJK_RE.search(stem))
+
+
+def _strip_inst_markers(title: str) -> str:
+    """去掉 inst/伴奏 等标记及紧邻分隔符，得到用于同名曲目匹配的基础曲名。"""
+    s = _INST_RE.sub(" ", title)
+    s = _INST_CJK_RE.sub(" ", s)
+    return re.sub(r"[\s._()\[\]-]+", " ", s).strip()
+
+
 def _join_words(tokens: list[str]) -> str:
     """词列表 → 行字符串：CJK 字符之间直连，非 CJK 之间加空格。"""
     if not tokens:
@@ -193,15 +211,21 @@ def _words_to_tracks(audio_words: dict[str, list]) -> list[dict]:
 # ──────────────────────────────────────────────────────────────────────────────
 ORDER_SYSTEM = """你是音乐专辑整理助手。给你投稿目录中的音频文件名列表，产出专辑轨单。
 规则：
-1. 剔除伴奏/instrumental 版本（文件名含 INST/instrumental/off vocal/伴奏 等）
+1. 伴奏/instrumental/无人声版本（文件名含 INST/instrumental/off vocal/伴奏/无人声 等）
+   不剔除，正常保留在轨单里，并在该曲对象加 "inst": true；其余曲目不加此字段
 2. 按文件名中的曲序号排序，并重新编号为连续的 1..N
-3. title 取歌曲本身名称：去掉序号前缀与结尾句号/多余空白，保留歌名内的标点
+3. title 取歌曲本身名称：去掉序号前缀与结尾句号/多余空白，保留歌名内的标点；
+   "inst": true 的曲目保留文件名里的 INST/伴奏 等标记原样，不要清理掉
 4. file 必须是原文件名的逐字符原样
-只输出 JSON：{"tracks":[{"order":1,"title":"...","file":"..."}]}"""
+只输出 JSON：{"tracks":[{"order":1,"title":"...","file":"...","inst":false}]}"""
 
 
 def llm_order_tracks(audio_names: list[str], album_hint: str = "") -> list[dict]:
-    """音频文件名 → 权威轨单（歌曲本身名称优先）。失败抛 LLMError。"""
+    """音频文件名 → 权威轨单（歌曲本身名称优先）。失败抛 LLMError。
+
+    伴奏/无人声轨的 inst 标记与 title 由文件名正则强制兜底（不依赖 LLM 是否听话），
+    保证「保留文件名」这条规则始终成立。
+    """
     user = "\n".join(audio_names)
     if album_hint:
         user = f"【专辑】{album_hint}\n{user}"
@@ -214,6 +238,14 @@ def llm_order_tracks(audio_names: list[str], album_hint: str = "") -> list[dict]
     valid = [t for t in (tracks or []) if t.get("file") in set(audio_names)]
     if not valid:
         raise _llm.LLMError("轨单编排返回无有效 tracks")
+    for t in valid:
+        file_name = str(t.get("file") or "")
+        if not _is_inst_filename(file_name):
+            continue
+        t["inst"] = True
+        stem = Path(file_name).stem
+        m = re.match(r"^\d+[\s._-]+(.*)", stem)
+        t["title"] = (m.group(1) if m else stem).strip().strip("。.")
     return valid
 
 
@@ -504,6 +536,34 @@ def build_track_lrc(
     # 经 split_staff_lines 进入 staff/meta，不再原样透传）
     credits = _credit_rows(staff, album_meta)
     artist = "/".join(staff.get("vocal") or (album_meta or {}).get("vocal") or [])
+    if track.get("inst"):
+        # 伴奏/无人声轨：没有人声可自行转写对齐（不模糊匹配到别的音频）。有同名
+        # 正曲则借正曲的音频词流对同一份歌词重新 align——输入（歌词+词流）与正曲
+        # 完全相同，结果时间轴也完全一致，即"cv 正曲"；没有同名正曲则给一句
+        # 「纯音乐，请欣赏」占位，不留死气沉沉的空文件也不臆造歌词
+        pair_file = track.get("_pair_file")
+        pair_words = (audio_words or {}).get(pair_file) if pair_file else None
+        if pair_words and lines:
+            pair_lang = (audio_langs or {}).get(pair_file, "")
+            if pair_lang.startswith("zh"):
+                lines = [lyrics_mod.to_simplified(l) for l in lines]
+                credits = [lyrics_mod.to_simplified(c) for c in credits]
+            lrc = align_mod.align(
+                lines, pair_words, title=title, album=album, artist=artist, by=by,
+                credits=credits, language=pair_lang,
+            )
+            lrc_words = align_mod.align(
+                lines, pair_words, title=title, album=album, artist=artist, by=by,
+                credits=credits, language=pair_lang, per_char=True,
+            )
+            cov = align_mod.coverage(lines, pair_words, language=pair_lang)
+            print(f"  ♫ {title}: 伴奏/无人声轨，时间轴完全 cv 同名正曲", file=sys.stderr)
+            return lrc, cov, lrc_words
+        header = f"[ti:{title}]\n[al:{album}]\n[ar:{artist}]\n[by:{by}]\n\n"
+        if credits:
+            header += "\n".join(credits) + "\n\n"
+        print(f"  ○ {title}: 伴奏/无人声轨，无同名曲目可复用，写纯音乐占位行", file=sys.stderr)
+        return header + "[00:01.00]纯音乐，请欣赏\n", 0.0, None
     # 轨单路径：轨即音频，直连不做模糊匹配；否则按歌词相似度匹配
     audio = track.get("file") if track.get("file") in (audio_words or {}) else (
         match_audio_to_track(lines, audio_words, used, audio_langs) if audio_words else None)
@@ -598,6 +658,7 @@ def organize(
             "title": str(tp.get("title", "")).strip(),
             "file": tp.get("file"),
             "lyrics": str(assignments.get(str(tp.get("order"))) or "").strip(),
+            "inst": bool(tp.get("inst")),
         } for tp in tracks_plan]
         album_from_plan = ""
     elif booklet_text:
@@ -628,6 +689,24 @@ def organize(
             cur.extend(x for x in v if x not in cur)
         t["lines"], t["staff"], t["staff_rows"] = lyric_lines, merged, staff_rows
         t.pop("lyrics", None)
+
+    # 伴奏/无人声轨复用同名正曲：歌词与时间轴完全 cv 正曲（借正曲的音频词流重新
+    # align，输入相同→结果与正曲一致）；同名正曲不存在则 build_track_lrc 落到
+    # 「纯音乐，请欣赏」占位
+    _by_base_title: dict[str, dict] = {}
+    for t in tracks:
+        if t.get("inst"):
+            continue
+        base = _strip_inst_markers(str(t.get("title", "")).strip())
+        if base and base not in _by_base_title:
+            _by_base_title[base] = t
+    for t in tracks:
+        if not t.get("inst"):
+            continue
+        pair = _by_base_title.get(_strip_inst_markers(str(t.get("title", "")).strip()))
+        if pair:
+            t["lines"] = list(pair.get("lines") or [])
+            t["_pair_file"] = pair.get("file")
 
     # 联网检索专辑官方元信息（staff/购买/发布页，歌词始终只来自投稿素材），
     # 填补歌词本没印全或 OCR 没读全的字段；音频 tag 的来源线索导向正确平台
