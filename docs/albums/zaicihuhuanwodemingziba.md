@@ -7,19 +7,12 @@ category:
 tag:
   - "再次呼唤我的名字吧"
   - "乐正绫"
-  - "洛天依"
   - "GUMI"
-  - "言和"
-  - "徵羽摩柯"
-  - "墨清弦"
-  - "乐正龙牙"
   - "奥莉安夕"
   - "奥莉安多"
-  - "奥莉莎"
-  - "千寒米诺"
+  - "千莱米诺"
   - "卡莱米诺"
-  - "月音"
-  - "卡莱米"
+  - "月言辞"
   - "歌词"
   - "lrc"
   - "下载"
@@ -34,36 +27,40 @@ tag:
 
 **歌词制作:** 武乙凌薇
 
-**发布:** [Bilibili](https://www.bilibili.com/video/BV1CBATznEKh)
+**发布:** [Bilibili](https://www.bilibili.com/video/BV1Hh81z9EsV)
 
-**演唱:** 乐正绫、洛天依、GUMI、言和、徵羽摩柯、墨清弦、乐正龙牙
+**演唱:** 乐正绫、GUMI
 
-**作词:** 奥莉安夕、奥莉安多、奥莉莎
+**作词:** 奥莉安夕、奥莉安多
 
-**作曲:** 奥莉安夕、奥莉安多、奥莉莎
+**作曲:** 奥莉安夕、奥莉安多
 
-**调校:** 千寒米诺、卡莱米诺、月音、卡莱米
+**调校:** 千莱米诺、卡莱米诺、月言辞
 
-**曲绘:** 蒋叶、扇桑、水水母母、brsr、水木、ECHO
+**曲绘:** 蒸叶、丑桑、brs、洛布brs、落叶brs、水水母梦
 
-**混音:** 千寒米诺、卡莱米诺、卡莱米
+**混音:** 千莱米诺、卡莱米诺、月言辞
 
 ## 曲目列表
 
 - [1 请不要带我走](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/1%20%E8%AF%B7%E4%B8%8D%E8%A6%81%E5%B8%A6%E6%88%91%E8%B5%B0.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/1%20%E8%AF%B7%E4%B8%8D%E8%A6%81%E5%B8%A6%E6%88%91%E8%B5%B0.klrc)）
 - [2 人生和只身一人的旅程](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/2%20%E4%BA%BA%E7%94%9F%E5%92%8C%E5%8F%AA%E8%BA%AB%E4%B8%80%E4%BA%BA%E7%9A%84%E6%97%85%E7%A8%8B.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/2%20%E4%BA%BA%E7%94%9F%E5%92%8C%E5%8F%AA%E8%BA%AB%E4%B8%80%E4%BA%BA%E7%9A%84%E6%97%85%E7%A8%8B.klrc)）
+- [2 请不要带我走INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/2%20%E8%AF%B7%E4%B8%8D%E8%A6%81%E5%B8%A6%E6%88%91%E8%B5%B0INST.lrc)
 - [2 请不要带我走。INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/2%20%E8%AF%B7%E4%B8%8D%E8%A6%81%E5%B8%A6%E6%88%91%E8%B5%B0%E3%80%82INST.lrc)
 - [3 人生和只身一人的旅程](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/3%20%E4%BA%BA%E7%94%9F%E5%92%8C%E5%8F%AA%E8%BA%AB%E4%B8%80%E4%BA%BA%E7%9A%84%E6%97%85%E7%A8%8B.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/3%20%E4%BA%BA%E7%94%9F%E5%92%8C%E5%8F%AA%E8%BA%AB%E4%B8%80%E4%BA%BA%E7%9A%84%E6%97%85%E7%A8%8B.klrc)）
 - [3 我生于死去之日](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/3%20%E6%88%91%E7%94%9F%E4%BA%8E%E6%AD%BB%E5%8E%BB%E4%B9%8B%E6%97%A5.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/3%20%E6%88%91%E7%94%9F%E4%BA%8E%E6%AD%BB%E5%8E%BB%E4%B9%8B%E6%97%A5.klrc)）
+- [4 人生和只身一人的旅程INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/4%20%E4%BA%BA%E7%94%9F%E5%92%8C%E5%8F%AA%E8%BA%AB%E4%B8%80%E4%BA%BA%E7%9A%84%E6%97%85%E7%A8%8BINST.lrc)
 - [4 人生和只身一人的旅程。INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/4%20%E4%BA%BA%E7%94%9F%E5%92%8C%E5%8F%AA%E8%BA%AB%E4%B8%80%E4%BA%BA%E7%9A%84%E6%97%85%E7%A8%8B%E3%80%82INST.lrc)
 - [4 灾厄之时](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/4%20%E7%81%BE%E5%8E%84%E4%B9%8B%E6%97%B6.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/4%20%E7%81%BE%E5%8E%84%E4%B9%8B%E6%97%B6.klrc)）
 - [5 我生于死去之日](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/5%20%E6%88%91%E7%94%9F%E4%BA%8E%E6%AD%BB%E5%8E%BB%E4%B9%8B%E6%97%A5.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/5%20%E6%88%91%E7%94%9F%E4%BA%8E%E6%AD%BB%E5%8E%BB%E4%B9%8B%E6%97%A5.klrc)）
 - [5 我？爱？你？](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/5%20%E6%88%91%EF%BC%9F%E7%88%B1%EF%BC%9F%E4%BD%A0%EF%BC%9F.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/5%20%E6%88%91%EF%BC%9F%E7%88%B1%EF%BC%9F%E4%BD%A0%EF%BC%9F.klrc)）
 - [6 底色theory](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/6%20%E5%BA%95%E8%89%B2theory.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/6%20%E5%BA%95%E8%89%B2theory.klrc)）
+- [6 我生于死去之日INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/6%20%E6%88%91%E7%94%9F%E4%BA%8E%E6%AD%BB%E5%8E%BB%E4%B9%8B%E6%97%A5INST.lrc)
 - [6 我生于死去之日。INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/6%20%E6%88%91%E7%94%9F%E4%BA%8E%E6%AD%BB%E5%8E%BB%E4%B9%8B%E6%97%A5%E3%80%82INST.lrc)
 - [7 心愁，就愿](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/7%20%E5%BF%83%E6%84%81%EF%BC%8C%E5%B0%B1%E6%84%BF.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/7%20%E5%BF%83%E6%84%81%EF%BC%8C%E5%B0%B1%E6%84%BF.klrc)）
 - [7 灾厄之时](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/7%20%E7%81%BE%E5%8E%84%E4%B9%8B%E6%97%B6.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/7%20%E7%81%BE%E5%8E%84%E4%B9%8B%E6%97%B6.klrc)）
 - [8 完？美？友！人！](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/8%20%E5%AE%8C%EF%BC%9F%E7%BE%8E%EF%BC%9F%E5%8F%8B%EF%BC%81%E4%BA%BA%EF%BC%81.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/8%20%E5%AE%8C%EF%BC%9F%E7%BE%8E%EF%BC%9F%E5%8F%8B%EF%BC%81%E4%BA%BA%EF%BC%81.klrc)）
+- [8 灾厄之时INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/8%20%E7%81%BE%E5%8E%84%E4%B9%8B%E6%97%B6INST.lrc)
 - [8 灾厄之时。INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/8%20%E7%81%BE%E5%8E%84%E4%B9%8B%E6%97%B6%E3%80%82INST.lrc)
 - [9 再次呼唤我的名字吧](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/9%20%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/9%20%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7.klrc)）
 - [9 我？爱？你？](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/9%20%E6%88%91%EF%BC%9F%E7%88%B1%EF%BC%9F%E4%BD%A0%EF%BC%9F.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/9%20%E6%88%91%EF%BC%9F%E7%88%B1%EF%BC%9F%E4%BD%A0%EF%BC%9F.klrc)）
@@ -71,19 +68,25 @@ tag:
 - [10 顽疾](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/10%20%E9%A1%BD%E7%96%BE.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/10%20%E9%A1%BD%E7%96%BE.klrc)）
 - [11 底色theory](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/11%20%E5%BA%95%E8%89%B2theory.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/11%20%E5%BA%95%E8%89%B2theory.klrc)）
 - [11 暂无标题](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/11%20%E6%9A%82%E6%97%A0%E6%A0%87%E9%A2%98.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/11%20%E6%9A%82%E6%97%A0%E6%A0%87%E9%A2%98.klrc)）
+- [12 底色theoryINST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/12%20%E5%BA%95%E8%89%B2theoryINST.lrc)
 - [12 底色theory。INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/12%20%E5%BA%95%E8%89%B2theory%E3%80%82INST.lrc)
 - [12 明日未曾止息](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/12%20%E6%98%8E%E6%97%A5%E6%9C%AA%E6%9B%BE%E6%AD%A2%E6%81%AF.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/12%20%E6%98%8E%E6%97%A5%E6%9C%AA%E6%9B%BE%E6%AD%A2%E6%81%AF.klrc)）
 - [13 心愁，就愿](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/13%20%E5%BF%83%E6%84%81%EF%BC%8C%E5%B0%B1%E6%84%BF.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/13%20%E5%BF%83%E6%84%81%EF%BC%8C%E5%B0%B1%E6%84%BF.klrc)）
+- [14 心愁，就愿INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/14%20%E5%BF%83%E6%84%81%EF%BC%8C%E5%B0%B1%E6%84%BFINST.lrc)
 - [14 心愁，就愿。INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/14%20%E5%BF%83%E6%84%81%EF%BC%8C%E5%B0%B1%E6%84%BF%E3%80%82INST.lrc)
 - [15 完？美？友！人！](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/15%20%E5%AE%8C%EF%BC%9F%E7%BE%8E%EF%BC%9F%E5%8F%8B%EF%BC%81%E4%BA%BA%EF%BC%81.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/15%20%E5%AE%8C%EF%BC%9F%E7%BE%8E%EF%BC%9F%E5%8F%8B%EF%BC%81%E4%BA%BA%EF%BC%81.klrc)）
 - [16 完？美？友！人！INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/16%20%E5%AE%8C%EF%BC%9F%E7%BE%8E%EF%BC%9F%E5%8F%8B%EF%BC%81%E4%BA%BA%EF%BC%81INST.lrc)
 - [17 再次呼唤我的名字吧](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/17%20%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/17%20%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7.klrc)）
+- [18 再次呼唤我的名字吧INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/18%20%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7INST.lrc)
 - [18 再次呼唤我的名字吧。INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/18%20%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7%E3%80%82INST.lrc)
 - [19 顽疾](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/19%20%E9%A1%BD%E7%96%BE.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/19%20%E9%A1%BD%E7%96%BE.klrc)）
+- [20 顽疾INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/20%20%E9%A1%BD%E7%96%BEINST.lrc)
 - [20 顽疾。INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/20%20%E9%A1%BD%E7%96%BE%E3%80%82INST.lrc)
 - [21 暂无标题](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/21%20%E6%9A%82%E6%97%A0%E6%A0%87%E9%A2%98.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/21%20%E6%9A%82%E6%97%A0%E6%A0%87%E9%A2%98.klrc)）
+- [22 暂无标题INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/22%20%E6%9A%82%E6%97%A0%E6%A0%87%E9%A2%98INST.lrc)
 - [22 暂无标题。INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/22%20%E6%9A%82%E6%97%A0%E6%A0%87%E9%A2%98%E3%80%82INST.lrc)
 - [23 明日未曾止息](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/23%20%E6%98%8E%E6%97%A5%E6%9C%AA%E6%9B%BE%E6%AD%A2%E6%81%AF.lrc)（[逐字歌词](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/23%20%E6%98%8E%E6%97%A5%E6%9C%AA%E6%9B%BE%E6%AD%A2%E6%81%AF.klrc)）
+- [24 明日未曾止息INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/24%20%E6%98%8E%E6%97%A5%E6%9C%AA%E6%9B%BE%E6%AD%A2%E6%81%AFINST.lrc)
 - [24 明日未曾止息。INST](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7/24%20%E6%98%8E%E6%97%A5%E6%9C%AA%E6%9B%BE%E6%AD%A2%E6%81%AF%E3%80%82INST.lrc)
 
 ## 下载
