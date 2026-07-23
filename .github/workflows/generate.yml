@@ -196,7 +196,7 @@ jobs:
               fi
               
               # Add .klrc per-char lyric files
-              if ls "res/$album"/*.klrc 1> /dev/null 2>&1; then
+              if ls "$album"/*.klrc 1> /dev/null 2>&1; then
                 files_to_zip+=(*.klrc)
               fi
               
@@ -239,7 +239,7 @@ jobs:
                 fi
                 
                 # Add .klrc per-char lyric files
-                if ls "res/$album"/*.klrc 1> /dev/null 2>&1; then
+                if ls "$album"/*.klrc 1> /dev/null 2>&1; then
                   files_to_zip+=(*.klrc)
                 fi
                 
