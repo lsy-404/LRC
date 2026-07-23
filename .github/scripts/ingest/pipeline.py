@@ -83,6 +83,38 @@ def pick_cover(images: list[Path]) -> Path | None:
     return max(named, key=lambda p: p.stat().st_size) if named else None
 
 
+def extract_audio_meta(audios: list[Path]) -> tuple[dict, str]:
+    """音频内嵌 tag → 权威元信息 + 来源线索。
+
+    投稿者音频文件的内嵌 tag（date/comments）比联网猜测可靠：date 直接作
+    发行日期；comments（常含 dizzylab/@厂牌 等来源）作为联网检索的线索。
+    返回 (internal 键 meta, 来源线索字符串)。
+    """
+    if not audios:
+        return {}, ""
+    from mutagen import File as MutagenFile
+    meta: dict = {}
+    hint = ""
+    for a in audios:
+        tags = getattr(MutagenFile(str(a)), "tags", None) or {}
+
+        def _get(key: str) -> str:
+            v = tags.get(key)
+            return str(v[0]).strip() if v else ""
+
+        if not meta.get("year") and _get("date"):
+            meta["year"] = _get("date")
+        if not hint and _get("comments"):
+            hint = " ".join(_get("comments").split())
+        if meta.get("year") and hint:
+            break
+    if meta.get("year"):
+        print(f"  ◈ 发行日期取自音频 tag: {meta['year']}", file=sys.stderr)
+    if hint:
+        print(f"  ◈ 来源线索取自音频 tag: {hint}", file=sys.stderr)
+    return meta, hint
+
+
 def extract_embedded_cover(audios: list[Path], work: Path) -> Path | None:
     """从音频内嵌 tag 提取封面（FLAC pictures；专辑内通常一致，取第一个带图的）。"""
     if not audios:
@@ -228,6 +260,9 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     #    可选：若投递目录恰含 manifest.toml 则作为 meta 覆盖（非必需，不鼓励）。
     manifest_path = src / "manifest.toml"
     manifest = org_mod._read_toml(manifest_path) if manifest_path.is_file() else {}
+    # 音频 tag 权威元信息：优先级仅次于 manifest（manifest 显式键覆盖 tag）
+    tag_meta, source_hint = extract_audio_meta(buckets["audio"])
+    manifest = {**tag_meta, **manifest}
 
     # 增补检测：若目标专辑已存在于 res_dir，进入增补模式
     existing_meta: dict | None = None
@@ -249,7 +284,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     org_res = org_mod.organize(
         tracks_explicit=tracks_explicit, booklet_text=booklet_text, credits_text=credits_text,
         audio_words=audio_words, audio_langs=audio_langs, tracks_plan=tracks_plan,
-        manifest=manifest, res_dir=res_dir,
+        manifest=manifest, source_hint=source_hint, res_dir=res_dir,
         album_override=album, cover_path=cover, existing_meta=existing_meta, dry_run=dry_run,
         default_lyric_maker=lyric_maker,
     )

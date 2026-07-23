@@ -410,6 +410,7 @@ def organize(
     audio_words: dict[str, list] | None,
     audio_langs: dict[str, str] | None = None,
     tracks_plan: list[dict] | None = None,
+    source_hint: str = "",
     manifest: dict,
     res_dir: Path,
     album_override: str = "",
@@ -472,14 +473,19 @@ def organize(
         t["lines"], t["staff"], t["staff_rows"] = lyric_lines, merged, staff_rows
         t.pop("lyrics", None)
 
-    # 联网检索专辑官方元信息（仅 staff/制作者，歌词始终只来自投稿素材），
-    # 填补歌词本没印全或 OCR 没读全的 credits 字段
-    web_staff: dict[str, list] = {}
+    # 联网检索专辑官方元信息（staff/购买/发布页，歌词始终只来自投稿素材），
+    # 填补歌词本没印全或 OCR 没读全的字段；音频 tag 的来源线索导向正确平台
+    web_meta: dict = {}
     if tracks and web_mod.available():
         titles = [s for s in (str(t.get("title", "")).strip() for t in tracks) if s]
-        info = web_mod.search_album_meta(album, str(manifest.get("artist") or ""), titles)
+        info = web_mod.search_album_meta(
+            album, str(manifest.get("artist") or ""), titles, source_hint=source_hint)
         if info.get("found"):
-            web_staff = {k: list(v) for k, v in (info.get("staff") or {}).items() if v}
+            raw: dict = dict(info.get("staff") or {})
+            for k in ("购买", "发布"):
+                if str(info.get(k) or "").strip():
+                    raw[k] = str(info[k]).strip()
+            web_meta = {_KEY_ALIAS.get(k, k): v for k, v in raw.items() if v}
             print(f"  🔍 专辑元信息检索命中（{info.get('source', '?')}）", file=sys.stderr)
         else:
             print("  🔍 未检索到专辑官方元信息", file=sys.stderr)
@@ -493,8 +499,6 @@ def organize(
             for name in v:
                 if name not in per_track_staff[k]:
                     per_track_staff[k].append(name)
-    web_meta = lyrics_mod.parse_staff_block(
-        [f"{k}：{'、'.join(v)}" for k, v in web_staff.items() if v]) if web_staff else {}
     meta = merge_meta(manifest, llm_meta, credits_staff, per_track_staff, web_meta, existing_meta or {})
     if default_lyric_maker and not meta.get("lyric_maker"):
         meta["lyric_maker"] = [default_lyric_maker]
