@@ -203,11 +203,16 @@
       <div class="ub-stamp">✓</div>
       <h3>投稿完成</h3>
       <p>{{ doneDetail }}</p>
+      <div v-if="lastRef" class="ub-ref">
+        <span class="ub-ref-label">追踪编号（ref）</span>
+        <code class="ub-ref-code" title="点击复制" @click="copyRef">{{ lastRef }}</code>
+        <span class="ub-ref-hint">已存本机。稍后到「修改」面板凭此编号校正 OCR / 元信息 / 轨单后再入库。</span>
+      </div>
       <ol class="ub-next">
         <li class="ok">原料已进入投递箱（单次原子提交）</li>
-        <li>自动化处理中（OCR / 对齐 / 元信息，约几分钟到几十分钟）</li>
-        <li>自动开出 PR 供审核</li>
-        <li>审核通过自动入库，原料随即销毁</li>
+        <li>自动 OCR / STT / 检索，生成待校正草稿（约几分钟）</li>
+        <li>到「修改」面板校正后确认继续（或 72 小时后自动继续）</li>
+        <li>对齐入库开 PR，审核通过后原料销毁</li>
       </ol>
     </section>
 
@@ -264,6 +269,7 @@ const submitErr = ref(false);
 const showRetry = ref(false);
 const finished = ref(false);
 const doneDetail = ref('');
+const lastRef = ref('');
 const linkBili = ref('');
 const linkDizzy = ref('');
 
@@ -731,6 +737,8 @@ async function run() {
     if (!r.ok || !data.ok) throw new Error(data.message || data.error || String(r.status));
     doneDetail.value =
       `「${name}」共 ${items.value.length} 个文件已推入 upload 投递箱（${String(data.commit).slice(0, 7)}）。`;
+    lastRef.value = String(data.commit || '');
+    if (lastRef.value) cacheRef(name, lastRef.value);
     finished.value = true;
     busy.value = false;
   } catch (err) {
@@ -739,6 +747,20 @@ async function run() {
     submitMsg.value = '提交失败：' + err.message + '（已传文件保留，可直接重试）';
     showRetry.value = true;
   }
+}
+
+// 追踪编号（ref = payload 提交 SHA）缓存：供「修改」面板下拉回查校正
+const REFS_KEY = 'lrc-upload-refs';
+function cacheRef(album, refVal) {
+  try {
+    const list = JSON.parse(localStorage.getItem(REFS_KEY) || '[]');
+    const next = [{ ref: refVal, album, at: Date.now() },
+      ...list.filter((x) => x.ref !== refVal)].slice(0, 20);
+    localStorage.setItem(REFS_KEY, JSON.stringify(next));
+  } catch { /* localStorage 不可用则跳过，不影响投稿 */ }
+}
+async function copyRef() {
+  try { await navigator.clipboard.writeText(lastRef.value); } catch { /* noop */ }
 }
 
 const guard = (e) => { if (busy.value) e.preventDefault(); };
@@ -1148,6 +1170,27 @@ onBeforeUnmount(() => {
 }
 .ub-next li { margin: .35rem 0; }
 .ub-next li.ok { color: var(--ub-accent); }
+
+.ub-ref {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  align-items: center;
+  margin: 1rem auto 0;
+  max-width: 30rem;
+}
+.ub-ref-label { font-size: .75rem; opacity: .6; }
+.ub-ref-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .82rem;
+  word-break: break-all;
+  padding: .3rem .6rem;
+  border-radius: 6px;
+  background: rgba(58, 122, 254, .1);
+  background: color-mix(in srgb, var(--ub-accent) 12%, transparent);
+  cursor: pointer;
+}
+.ub-ref-hint { font-size: .75rem; opacity: .7; }
 
 @media (max-width: 480px) {
   .ub-steps li { font-size: .75rem; gap: .3rem; }
