@@ -272,7 +272,7 @@ def generate_report() -> str:
     # 错误级别
     if error_albums:
         report_lines.extend([
-            "## ❌ 错误：核心元数据缺失",
+            "## 错误：核心元数据缺失",
             "",
             "以下专辑缺少关键元数据（发行日期、出品、发布、购买/电子至少一个、封面文件）：",
             "",
@@ -288,7 +288,7 @@ def generate_report() -> str:
     # 警告级别
     if warning_albums:
         report_lines.extend([
-            "## ⚠️ 警告：重要信息缺失",
+            "## 警告：重要信息缺失",
             "",
             "以下专辑缺少重要元数据：",
             "",
@@ -304,7 +304,7 @@ def generate_report() -> str:
     # 提示级别
     if hint_albums:
         report_lines.extend([
-            "## 💡 提示：部分信息缺失",
+            "## 提示：部分信息缺失",
             "",
             "以下专辑有部分元数据缺失：",
             "",
@@ -320,7 +320,7 @@ def generate_report() -> str:
     # 完整的专辑
     if ok_albums:
         report_lines.extend([
-            "## ✅ 元数据完整",
+            "## 元数据完整",
             "",
             "以下专辑的元数据完整：",
             "",

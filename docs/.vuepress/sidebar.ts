@@ -17,7 +17,14 @@ export default sidebar({
       collapsible: true,
       children: "structure",
     },
-    "CONTRIBUTING",
-    "upload",
+    {
+      text: "参与贡献",
+      icon: "material-symbols:person-add",
+      collapsible: true,
+      children: [
+        { text: "贡献指南", link: "/contribute/" },
+        { text: "工具", link: "/upload/" },
+      ],
+    },
   ],
 },);

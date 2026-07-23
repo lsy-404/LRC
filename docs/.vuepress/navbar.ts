@@ -24,7 +24,10 @@ export default navbar([
   {
     text: "参与贡献",
     icon: "material-symbols:person-add",
-    link: "/CONTRIBUTING",
+    children: [
+      { text: "贡献指南", icon: "material-symbols:menu-book", link: "/contribute/" },
+      { text: "工具", icon: "material-symbols:cloud-upload", link: "/upload/" },
+    ],
   },
   {
     text: "Github",
