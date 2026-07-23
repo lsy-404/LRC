@@ -221,15 +221,15 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
         if skipped:
             print(f"  ⏭ 轨单剔除 {len(skipped)} 个音轨（伴奏等）: {skipped}", file=sys.stderr)
 
-    # 4) 音频 → 词级时间戳（仅轨单内音轨，伴奏不转写）
+    # 4) 音频 → 词级时间戳（云端 whisper-1 并发；仅轨单内音轨，伴奏不转写）
     audio_words: dict[str, list] = {}
     audio_langs: dict[str, str] = {}
     if buckets["audio"]:
-        pipeline = stt_mod._load_pipeline()
-        for a in buckets["audio"]:
-            if keep and a.name not in keep:
-                continue
-            words, lang = stt_mod.transcribe_words(a, pipeline=pipeline)
+        from concurrent.futures import ThreadPoolExecutor
+        kept = [a for a in buckets["audio"] if not keep or a.name in keep]
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            results = list(pool.map(stt_mod.transcribe_words, kept))
+        for a, (words, lang) in zip(kept, results):
             audio_words[a.name] = words
             audio_langs[a.name] = lang
 
@@ -250,9 +250,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
                     file=sys.stderr,
                 )
                 for a in retry_audios:
-                    words, lang = stt_mod.transcribe_words(
-                        a, pipeline=pipeline, lang=majority_lang
-                    )
+                    words, lang = stt_mod.transcribe_words(a, lang=majority_lang)
                     audio_words[a.name] = words
                     audio_langs[a.name] = lang
 

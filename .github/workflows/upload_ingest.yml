@@ -121,11 +121,7 @@ jobs:
             repo/.github/scripts/requirements.txt
             repo/.github/scripts/ingest/requirements.txt
 
-      - name: Cache HuggingFace models (whisper/pyannote/wav2vec2)
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/huggingface
-          key: hf-${{ vars.WHISPER_MODEL || 'small' }}-v1
+# STT 已改为 OpenAI 云端 whisper-1，无本地模型可缓存
 
       - name: Install system dependencies
         run: |
@@ -145,9 +141,6 @@ jobs:
           LLM_API_BASE: ${{ secrets.LLM_API_BASE }}
           LLM_MODEL: ${{ secrets.LLM_MODEL }}
           OCR_MODEL: ${{ secrets.OCR_MODEL }}
-          WHISPER_MODEL: ${{ vars.WHISPER_MODEL || 'small' }}
-          WHISPER_VAD: ${{ vars.WHISPER_VAD || 'pyannote' }}
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
           PYTHONPATH: ${{ github.workspace }}/repo/.github/scripts
         run: |
           set -euo pipefail

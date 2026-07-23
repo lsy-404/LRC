@@ -489,6 +489,11 @@ def organize(
             print(f"  🔍 专辑元信息检索命中（{info.get('source', '?')}）", file=sys.stderr)
         else:
             print("  🔍 未检索到专辑官方元信息", file=sys.stderr)
+    # 封面第三优先级：显式文件/内嵌 tag 都没有时，从检索到的商品页下载
+    if cover_path is None and str(web_meta.get("purchase") or "").strip():
+        import tempfile
+        cover_path = web_mod.download_cover(
+            str(web_meta["purchase"]).strip(), Path(tempfile.mkdtemp()))
 
     # 2) meta：manifest > LLM(credits) > 逐曲 staff > 联网 staff > 现有 meta（增补时保底）
     credits_staff = lyrics_mod.parse_staff_block(credits_text.splitlines()) if credits_text else {}

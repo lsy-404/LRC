@@ -31,6 +31,36 @@ def available() -> bool:
     return _llm.api_base() == _llm.OPENAI_API_BASE and bool(_llm._env("LLM_API_KEY"))
 
 
+def download_cover(page_url: str, dest_dir: Path) -> Path | None:
+    """从商品页（如 dizzylab 专辑页）下载封面：取 og:image。
+
+    封面优先级第三档（显式 cover 文件 > 音频内嵌 tag > 商品页）。
+    下载失败返回 None——封面是增强项，不该让整次摄取失败。
+    """
+    import re
+    from urllib import request as _rq
+    ua = {"User-Agent": "Mozilla/5.0 (LRC ingest cover fetch)"}
+    try:
+        with _rq.urlopen(_rq.Request(page_url, headers=ua), timeout=30) as r:
+            html = r.read().decode("utf-8", "replace")
+        m = (re.search(r'property=["\']og:image["\'][^>]*content=["\']([^"\']+)', html)
+             or re.search(r'content=["\']([^"\']+)["\'][^>]*property=["\']og:image', html))
+        if not m:
+            print(f"  ⚠️ 商品页无 og:image: {page_url}", file=sys.stderr)
+            return None
+        img_url = m.group(1)
+        with _rq.urlopen(_rq.Request(img_url, headers=ua), timeout=60) as r:
+            data = r.read()
+        ext = ".png" if data[:4] == b"\x89PNG" else ".jpg"
+        out = dest_dir / f"web_cover{ext}"
+        out.write_bytes(data)
+        print(f"  ◉ 封面下载自商品页: {img_url}", file=sys.stderr)
+        return out
+    except Exception as e:  # noqa: BLE001
+        print(f"  ⚠️ 商品页封面下载失败: {e}", file=sys.stderr)
+        return None
+
+
 def search_album_meta(album: str, artist: str = "", titles: list[str] | None = None,
                       source_hint: str = "") -> dict:
     """检索专辑官方元信息。返回 {"found": bool, "staff": {...}, "购买": "", "发布": ""}；
