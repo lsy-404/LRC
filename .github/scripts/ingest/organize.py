@@ -341,6 +341,26 @@ def match_audio_to_track(
     return best
 
 
+# 正文 credit 行的规范顺序（站点 row_field_alias 只认单标签行；前 7 个是
+# 站点 list_fields 解析字段，其余为展示性补充）
+_ROW_ORDER = [("vocal", "演唱"), ("lyricist", "作词"), ("composer", "作曲"),
+              ("arranger", "编曲"), ("tuning", "调校"), ("illustrator", "曲绘"),
+              ("mixer", "混音"), ("mastering", "母带"), ("video", "视频"),
+              ("planning", "策划")]
+
+
+def _credit_rows(staff: dict, album_meta: dict | None) -> list[str]:
+    """生成规范单标签 credit 行：轨级 staff 优先，专辑 meta 兜底，空字段不输出。"""
+    rows: list[str] = []
+    for internal, label in _ROW_ORDER:
+        names = [str(n) for n in (staff.get(internal) or []) if str(n).strip()]
+        if not names:
+            names = [str(n) for n in ((album_meta or {}).get(internal) or []) if str(n).strip()]
+        if names:
+            rows.append(f"{label}：{'/'.join(names)}")
+    return rows
+
+
 def build_track_lrc(
     track: dict,
     album: str,
@@ -348,6 +368,7 @@ def build_track_lrc(
     used: set,
     audio_langs: dict[str, str] | None = None,
     by: str = "",
+    album_meta: dict | None = None,
 ) -> tuple[str, float, Optional[str]]:
     """为一轨生成 LRC：能匹配音频→对齐(timed)，否则无时间轴草稿。
 
@@ -358,8 +379,10 @@ def build_track_lrc(
     title = str(track.get("title", "")).strip()
     lines = track.get("lines") or [l for l in str(track.get("lyrics", "")).splitlines() if l.strip()]
     staff = track.get("staff") or {}
-    credits = track.get("staff_rows") or []
-    artist = "/".join(staff.get("vocal", []))
+    # 规范行由合并数据生成（歌词本原样行的复合标签站点解析不了，其信息已
+    # 经 split_staff_lines 进入 staff/meta，不再原样透传）
+    credits = _credit_rows(staff, album_meta)
+    artist = "/".join(staff.get("vocal") or (album_meta or {}).get("vocal") or [])
     # 轨单路径：轨即音频，直连不做模糊匹配；否则按歌词相似度匹配
     audio = track.get("file") if track.get("file") in (audio_words or {}) else (
         match_audio_to_track(lines, audio_words, used, audio_langs) if audio_words else None)
@@ -530,7 +553,7 @@ def organize(
         order = t.get("order", i) or i
         lrc, cov, lrc_words = build_track_lrc(
             t, album, audio_words, used, audio_langs,
-            by="/".join(meta.get("lyric_maker") or []))
+            by="/".join(meta.get("lyric_maker") or []), album_meta=meta)
         covs.append(cov)
         # build_track_lrc 匹配到音频后可能已用音频文件名回填空标题，故在其后取值
         title = _sanitize_filename(str(t.get("title", "")).strip() or f"track{order}")
