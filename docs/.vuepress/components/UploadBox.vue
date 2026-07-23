@@ -45,6 +45,17 @@
         :disabled="busy"
       >
 
+      <div class="ub-aux">
+        <div>
+          <label class="ub-label">发布 PV <span class="ub-dim">（Bilibili 链接，选填）</span></label>
+          <input v-model="linkBili" type="text" class="ub-input" placeholder="https://www.bilibili.com/video/BV…" :disabled="busy">
+        </div>
+        <div>
+          <label class="ub-label">购买 <span class="ub-dim">（dizzylab 链接，选填）</span></label>
+          <input v-model="linkDizzy" type="text" class="ub-input" placeholder="https://www.dizzylab.net/d/…" :disabled="busy">
+        </div>
+      </div>
+
       <div
         class="ub-drop"
         :class="{ over: dragOver }"
@@ -64,10 +75,33 @@
       </div>
 
       <ul v-if="items.length" class="ub-list">
-        <li v-for="it in items" :key="it.relPath">
+        <li v-for="it in items" :key="it.uid">
           <div class="ub-line">
             <span class="ub-badge" :class="kindClass(it)">{{ kindText(it) }}</span>
-            <span class="ub-fname" :title="it.relPath">{{ it.relPath }}</span>
+            <input
+              v-if="it.editing"
+              v-model="it.editVal"
+              class="ub-input edit"
+              autofocus
+              @keyup.enter="commitEdit(it)"
+              @keyup.esc="it.editing = false"
+              @blur="commitEdit(it)"
+            >
+            <span
+              v-else
+              class="ub-fname"
+              :class="{ dup: isDup(it) }"
+              :title="it.relPath + '（点击重命名）'"
+              @click="startEdit(it)"
+            >{{ it.relPath }}</span>
+            <select v-model="it.role" class="ub-sel" :disabled="busy" @change="applyRole(it)">
+              <option value="song">原曲</option>
+              <option value="photo">歌词本·拍照</option>
+              <option value="text">歌词本·文本</option>
+              <option value="staff">Staff表</option>
+              <option value="cover">封面</option>
+              <option value="etc">其他</option>
+            </select>
             <span class="ub-fsize">{{ fmtSize(it.size) }}</span>
             <span class="ub-fstat" :class="statClass(it)">{{ statText(it) }}</span>
             <button
@@ -82,7 +116,8 @@
       </ul>
       <p class="ub-total" :class="{ err: oversize > 0 }">{{ totalText }}</p>
       <p class="ub-dim small">
-        支持歌词文本 / 歌词本图片或 PDF / 音频 / Staff 表 / 封面；单文件上限 95MB。上传期间请勿关闭本页。
+        支持歌词文本 / 歌词本图片或 PDF / 音频 / Staff 表 / 封面；单文件上限 95MB。
+        点击文件名可重命名路径；右侧下拉修改用途会自动归类到对应目录。上传期间请勿关闭本页。
       </p>
     </section>
 
@@ -136,15 +171,19 @@ const submitErr = ref(false);
 const showRetry = ref(false);
 const finished = ref(false);
 const doneDetail = ref('');
+const linkBili = ref('');
+const linkDizzy = ref('');
 
 const fileInput = ref(null);
 const dirInput = ref(null);
 let password = '';
+let uid = 1;
 
 const fmtSize = (n) => n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB'
   : n >= 1024 ? (n / 1024).toFixed(0) + ' KB' : n + ' B';
 
 const KIND = [
+  [/(^|\/)manifest\.toml$/i, '讯', 'k-book'],
   [/\.(flac|wav|mp3|m4a|ogg|aac|opus)$/i, '音', 'k-audio'],
   [/\.(png|jpe?g|webp|gif|bmp|tiff?)$/i, '图', 'k-img'],
   [/\.(pdf|docx?)$/i, '册', 'k-book'],
@@ -153,6 +192,59 @@ const KIND = [
 const kindOf = (it) => KIND.find(([re]) => re.test(it.relPath)) || [null, '件', 'k-etc'];
 const kindText = (it) => kindOf(it)[1];
 const kindClass = (it) => kindOf(it)[2];
+
+// 快速识别：按扩展名/文件名猜用途
+function guessRole(p) {
+  const base = p.split('/').pop().toLowerCase();
+  if (/\.(flac|wav|mp3|m4a|ogg|aac|opus)$/.test(base)) return 'song';
+  if (/\.(png|jpe?g|webp|gif|bmp|tiff?)$/.test(base)) {
+    return /(cover|封面|主视图)/.test(base) ? 'cover' : 'photo';
+  }
+  if (/\.(pdf|docx?)$/.test(base)) return 'photo';
+  if (/\.(txt|lrc|md)$/.test(base)) {
+    return /(staff|制作|名单)/.test(base) ? 'staff' : 'text';
+  }
+  return 'etc';
+}
+
+// 改用途 → 重写路径（封面统一改名 cover.<ext>，其余归入约定目录）
+const ROLE_DIR = { song: '音频', photo: '歌词本', text: '歌词' };
+function applyRole(it) {
+  const base = it.relPath.split('/').pop();
+  if (it.role === 'cover') {
+    const ext = (base.match(/\.[A-Za-z0-9]+$/) || ['.png'])[0];
+    it.relPath = 'cover' + ext.toLowerCase();
+  } else if (ROLE_DIR[it.role]) {
+    it.relPath = ROLE_DIR[it.role] + '/' + base;
+  } else if (it.role === 'staff') {
+    it.relPath = base;
+  }
+}
+
+function startEdit(it) {
+  if (busy.value) return;
+  it.editVal = it.relPath;
+  it.editing = true;
+}
+
+function commitEdit(it) {
+  if (!it.editing) return;
+  it.editing = false;
+  const v = it.editVal.replaceAll('\\', '/').split('/')
+    .map((s) => s.trim()).filter(Boolean).join('/');
+  if (v && v !== it.relPath) {
+    it.relPath = v;
+    it.role = guessRole(v);
+  }
+}
+
+const dupSet = computed(() => {
+  const seen = new Set();
+  const dup = new Set();
+  for (const i of items.value) (seen.has(i.relPath) ? dup : seen).add(i.relPath);
+  return dup;
+});
+const isDup = (it) => dupSet.value.has(it.relPath);
 
 const oversize = computed(() => items.value.filter((i) => i.size > MAX_FILE).length);
 const totalBytes = computed(() => items.value.reduce((s, i) => s + i.size, 0));
@@ -165,9 +257,11 @@ const progressText = computed(() => items.value.length
 const totalText = computed(() => {
   if (!items.value.length) return '尚未选择文件';
   return `共 ${items.value.length} 个文件，${fmtSize(totalBytes.value)}`
-    + (oversize.value ? `；${oversize.value} 个超出单文件上限，无法提交` : '');
+    + (oversize.value ? `；${oversize.value} 个超出单文件上限，无法提交` : '')
+    + (dupSet.value.size ? '；存在重复路径（红色波浪线），请重命名' : '');
 });
-const canSubmit = computed(() => !busy.value && items.value.length > 0 && oversize.value === 0);
+const canSubmit = computed(() =>
+  !busy.value && items.value.length > 0 && oversize.value === 0 && dupSet.value.size === 0);
 
 const statText = (it) => it.size > MAX_FILE ? '过大'
   : it.status === 'done' ? '✓'
@@ -204,7 +298,10 @@ function addFiles(picked) {
   for (const p of picked) {
     if (have.has(p.relPath)) continue;
     have.add(p.relPath);
-    items.value.push({ ...p, size: p.file.size, status: 'wait', pct: 0, sha: null });
+    items.value.push({
+      ...p, size: p.file.size, status: 'wait', pct: 0, sha: null,
+      uid: uid++, role: guessRole(p.relPath), editing: false, editVal: '',
+    });
   }
 }
 
@@ -264,6 +361,31 @@ async function onDrop(e) {
   addFiles(picked);
 }
 
+// 辅助信息 → manifest.toml（organize.py 原生消费：album + 发布/购买中文键，
+// 值与主项目 meta 相同的 [标签](url) 格式；manifest 在 meta 合并链优先级最高）
+function syncManifest(name) {
+  const bili = linkBili.value.trim();
+  const dizzy = linkDizzy.value.trim();
+  const prev = items.value.findIndex((i) => i.relPath === 'manifest.toml' && i.auto);
+  if (!bili && !dizzy) {
+    if (prev !== -1) items.value.splice(prev, 1);
+    return;
+  }
+  const esc = (s) => s.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+  const wrap = (label, v) => /^https?:\/\//.test(v) ? `[${label}](${v})` : v;
+  const lines = [`album = "${esc(name)}"`];
+  if (bili) lines.push(`发布 = "${esc(wrap('Bilibili', bili))}"`);
+  if (dizzy) lines.push(`购买 = "${esc(wrap('dizzylab', dizzy))}"`);
+  const file = new File([lines.join('\n') + '\n'], 'manifest.toml', { type: 'application/toml' });
+  const entry = {
+    file, relPath: 'manifest.toml', size: file.size, status: 'wait', pct: 0,
+    sha: null, uid: prev !== -1 ? items.value[prev].uid : uid++,
+    role: 'etc', editing: false, editVal: '', auto: true,
+  };
+  if (prev !== -1) items.value.splice(prev, 1, entry);
+  else items.value.push(entry);
+}
+
 const readBase64 = (file) => new Promise((res, rej) => {
   const fr = new FileReader();
   fr.onload = () => res(fr.result.slice(fr.result.indexOf(',') + 1));
@@ -298,6 +420,7 @@ async function run() {
   if (name.includes('/') || name.includes('\\')) {
     submitErr.value = true; submitMsg.value = '专辑名称不能包含斜杠'; return;
   }
+  syncManifest(name);
   busy.value = true;
   showRetry.value = false;
   submitMsg.value = '上传中…';
@@ -525,7 +648,21 @@ onBeforeUnmount(() => window.removeEventListener('beforeunload', guard));
 .k-book { color: #8250df; background: rgba(130, 80, 223, .13); }
 .k-text { color: #bf6a02; background: rgba(191, 106, 2, .13); }
 .k-etc { color: inherit; background: rgba(127, 127, 127, .15); opacity: .8; }
-.ub-fname { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ub-fname { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
+.ub-fname.dup { color: #f85149; text-decoration: underline wavy; }
+.ub-input.edit { flex: 1; width: auto; padding: .2rem .4rem; font-size: .8rem; }
+.ub-sel {
+  flex-shrink: 0;
+  max-width: 7.5em;
+  font-size: .75rem;
+  padding: .15rem .25rem;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+}
+.ub-aux { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-top: .8rem; }
+@media (max-width: 560px) { .ub-aux { grid-template-columns: 1fr; } }
 .ub-fsize { opacity: .55; flex-shrink: 0; font-variant-numeric: tabular-nums; }
 .ub-fstat { flex-shrink: 0; min-width: 3.2em; text-align: right; font-variant-numeric: tabular-nums; }
 .ub-fstat.done { color: #3fb950; }
