@@ -4,7 +4,8 @@
 本地 whisperx(small int8, CPU) 已换为云端 whisper-1（large-v2 级识别质量）：
 - 词级时间戳：response_format=verbose_json + timestamp_granularities word+segment
 - 多首可并发，STT 墙钟 13-15 分钟 → 约 2-3 分钟；不再需要 torch/HF 模型下载
-- 计费按音频时长（$0.006/分钟）；单文件上限 25MB（超限直接失败，快速失败）
+- 计费按音频时长（$0.006/分钟）；上传前统一 ffmpeg 转码 16kHz 单声道 MP3，
+  百 MB 级源文件压到 1-2MB，API 的 25MB 上限对任意大小源文件都不构成约束
 
 用法：
     python -m ingest.stt <audio> [--lang zh]
@@ -56,6 +57,28 @@ def _multipart(fields: dict, file_field: str, filename: str, data: bytes) -> tup
     return b"".join(parts), boundary
 
 
+def _compress_for_upload(audio: Path) -> tuple[bytes, str]:
+    """转码为 192kbps 立体声 MP3（≤48kHz）再上传。
+
+    保留立体声与较高码率（约 1.4MB/分钟，17 分钟内的曲目都在 API 25MB
+    上限内），百 MB 级 wav/flac 源文件不再受上限约束。ffmpeg 失败直接抛错。
+    """
+    import os
+    import subprocess
+    import tempfile
+    fd, tmp = tempfile.mkstemp(suffix=".mp3")
+    os.close(fd)
+    out = Path(tmp)
+    try:
+        subprocess.run(
+            ["ffmpeg", "-y", "-v", "error", "-i", str(audio),
+             "-ar", "48000", "-b:a", "192k", str(out)],
+            check=True)
+        return out.read_bytes(), audio.stem + ".mp3"
+    finally:
+        out.unlink(missing_ok=True)
+
+
 def _parse_verbose_json(result: dict, lang: str | None) -> tuple[list[dict], str]:
     """verbose_json → ([{start,end,text,seg_end?}], 语言代码)。纯函数便于测试。"""
     words = [{"start": float(w["start"]), "end": float(w["end"]),
@@ -89,7 +112,8 @@ def transcribe_words(audio: Path, pipeline=None, lang: str | None = None) -> tup
     }
     if lang:
         fields["language"] = lang
-    body, boundary = _multipart(fields, "file", audio.name, audio.read_bytes())
+    data, upload_name = _compress_for_upload(audio)
+    body, boundary = _multipart(fields, "file", upload_name, data)
     req = request.Request(
         f"{_llm.OPENAI_API_BASE}/audio/transcriptions", data=body,
         headers={"Authorization": f"Bearer {_llm.api_key()}",
