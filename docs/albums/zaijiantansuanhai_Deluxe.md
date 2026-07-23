@@ -55,10 +55,6 @@ tag:
 ## 曲目列表
 
 - [1 序](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E8%A7%81%2C%E7%A2%B3%E9%85%B8%E6%B5%B7%20Deluxe/1%20%E5%BA%8F.lrc)
-- [10 夜猫子](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E8%A7%81%2C%E7%A2%B3%E9%85%B8%E6%B5%B7%20Deluxe/10%20%E5%A4%9C%E7%8C%AB%E5%AD%90.lrc)
-- [11 晖烬](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E8%A7%81%2C%E7%A2%B3%E9%85%B8%E6%B5%B7%20Deluxe/11%20%E6%99%96%E7%83%AC.lrc)
-- [12 积雪](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E8%A7%81%2C%E7%A2%B3%E9%85%B8%E6%B5%B7%20Deluxe/12%20%E7%A7%AF%E9%9B%AA.lrc)
-- [13 错姑苏](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E8%A7%81%2C%E7%A2%B3%E9%85%B8%E6%B5%B7%20Deluxe/13%20%E9%94%99%E5%A7%91%E8%8B%8F.lrc)
 - [2 世界第一可爱](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E8%A7%81%2C%E7%A2%B3%E9%85%B8%E6%B5%B7%20Deluxe/2%20%E4%B8%96%E7%95%8C%E7%AC%AC%E4%B8%80%E5%8F%AF%E7%88%B1.lrc)
 - [3 Great Voyage](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E8%A7%81%2C%E7%A2%B3%E9%85%B8%E6%B5%B7%20Deluxe/3%20Great%20Voyage.lrc)
 - [4 Best Wishes](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E8%A7%81%2C%E7%A2%B3%E9%85%B8%E6%B5%B7%20Deluxe/4%20Best%20Wishes.lrc)
@@ -67,6 +63,10 @@ tag:
 - [7 苏州夏夜](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E8%A7%81%2C%E7%A2%B3%E9%85%B8%E6%B5%B7%20Deluxe/7%20%E8%8B%8F%E5%B7%9E%E5%A4%8F%E5%A4%9C.lrc)
 - [8 椒盐噪声](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E8%A7%81%2C%E7%A2%B3%E9%85%B8%E6%B5%B7%20Deluxe/8%20%E6%A4%92%E7%9B%90%E5%99%AA%E5%A3%B0.lrc)
 - [9 扁桃体](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E8%A7%81%2C%E7%A2%B3%E9%85%B8%E6%B5%B7%20Deluxe/9%20%E6%89%81%E6%A1%83%E4%BD%93.lrc)
+- [10 夜猫子](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E8%A7%81%2C%E7%A2%B3%E9%85%B8%E6%B5%B7%20Deluxe/10%20%E5%A4%9C%E7%8C%AB%E5%AD%90.lrc)
+- [11 晖烬](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E8%A7%81%2C%E7%A2%B3%E9%85%B8%E6%B5%B7%20Deluxe/11%20%E6%99%96%E7%83%AC.lrc)
+- [12 积雪](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E8%A7%81%2C%E7%A2%B3%E9%85%B8%E6%B5%B7%20Deluxe/12%20%E7%A7%AF%E9%9B%AA.lrc)
+- [13 错姑苏](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E8%A7%81%2C%E7%A2%B3%E9%85%B8%E6%B5%B7%20Deluxe/13%20%E9%94%99%E5%A7%91%E8%8B%8F.lrc)
 - [Best Wishes](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%86%8D%E8%A7%81%2C%E7%A2%B3%E9%85%B8%E6%B5%B7%20Deluxe/Best%20Wishes.lrc)
 
 ## 下载
