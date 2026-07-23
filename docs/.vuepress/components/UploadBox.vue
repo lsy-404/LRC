@@ -155,23 +155,58 @@
           <span class="ub-pname" :title="p.relPath">{{ baseName(p.relPath) }}</span>
           <select v-model="p.linkTo" class="ub-sel wide" :disabled="busy">
             <option :value="0">未关联</option>
+            <option value="SP">SP · 整专元信息</option>
             <option v-for="s in songItems" :key="s.uid" :value="s.uid">{{ baseName(s.relPath) }}</option>
           </select>
         </div>
       </div>
       <ol class="ub-tracks">
         <li
+          class="sp"
+          :class="{ over: dropUid === 'SP' }"
+          @dragover.prevent="dropUid = 'SP'"
+          @dragleave="dropUid = null"
+          @drop.prevent="assignDragged('SP')"
+        >
+          <span class="ub-tname">SP · 整专元信息 <span class="ub-dim">（封面/制作/发行等，不作歌词）</span></span>
+          <span
+            v-for="p in spPhotos"
+            :key="p.uid"
+            class="ub-chip"
+            :class="{ dropover: reorderUid === p.uid }"
+            draggable="true"
+            title="拖动排序 / 点击预览"
+            @dragstart="dragUid = p.uid"
+            @dragend="dragUid = null"
+            @dragover.prevent.stop="reorderUid = p.uid"
+            @dragleave.stop="reorderUid = null"
+            @drop.prevent.stop="onPhotoDrop(p)"
+            @click="previewItem = p"
+          >{{ baseName(p.relPath) }}<b title="解除关联" @click.stop="p.linkTo = 0">×</b></span>
+        </li>
+        <li
           v-for="s in songItems"
           :key="s.uid"
           :class="{ over: dropUid === s.uid }"
           @dragover.prevent="dropUid = s.uid"
           @dragleave="dropUid = null"
-          @drop.prevent="onLinkDrop(s)"
+          @drop.prevent="assignDragged(s.uid)"
         >
           <span class="ub-tname">{{ baseName(s.relPath) }}</span>
-          <span v-for="p in linkedPhotos(s)" :key="p.uid" class="ub-chip">
-            {{ baseName(p.relPath) }}<b title="解除关联" @click="p.linkTo = 0">×</b>
-          </span>
+          <span
+            v-for="p in linkedPhotos(s)"
+            :key="p.uid"
+            class="ub-chip"
+            :class="{ dropover: reorderUid === p.uid }"
+            draggable="true"
+            title="拖动排序 / 点击预览"
+            @dragstart="dragUid = p.uid"
+            @dragend="dragUid = null"
+            @dragover.prevent.stop="reorderUid = p.uid"
+            @dragleave.stop="reorderUid = null"
+            @drop.prevent.stop="onPhotoDrop(p)"
+            @click="previewItem = p"
+          >{{ baseName(p.relPath) }}<b title="解除关联" @click.stop="p.linkTo = 0">×</b></span>
         </li>
       </ol>
     </section>
@@ -210,7 +245,7 @@
     </section>
 
     <!-- 图片放大预览 -->
-    <div v-if="previewItem" class="ub-preview" @click="previewItem = null">
+    <div v-if="previewItem" class="ub-preview" @click="previewItem = null" @wheel.prevent="onPreviewWheel">
       <button
         v-if="previewList.length > 1"
         class="ub-preview-nav prev"
@@ -323,6 +358,15 @@ function previewStep(delta) {
   previewItem.value = list[(idx === -1 ? 0 : idx + delta + list.length) % list.length];
 }
 
+// 预览器鼠标滚轮切换上下张（120ms 节流，避免一次滚动狂翻）
+let wheelLock = false;
+function onPreviewWheel(e) {
+  if (wheelLock) return;
+  wheelLock = true;
+  previewStep(e.deltaY > 0 ? 1 : -1);
+  setTimeout(() => { wheelLock = false; }, 120);
+}
+
 // 缩略图 objectURL 按 uid 缓存（{file, url}，file 变了则重建，如旋转后）；
 // 移除条目/清空/卸载时回收
 const thumbs = new Map();
@@ -420,9 +464,11 @@ function clearItems() {
 }
 
 const linkedPhotos = (s) => photoItems.value.filter((p) => p.linkTo === s.uid);
-function onLinkDrop(s) {
+const spPhotos = computed(() => photoItems.value.filter((p) => p.linkTo === 'SP'));
+// 把被拖照片分配到目标（to = 曲目 uid，或 'SP' 专辑级元信息）
+function assignDragged(to) {
   const p = items.value.find((i) => i.uid === dragUid.value);
-  if (p && p.role === 'photo') p.linkTo = s.uid;
+  if (p && p.role === 'photo') p.linkTo = to;
   dragUid.value = null;
   dropUid.value = null;
 }
@@ -633,13 +679,15 @@ function syncManifest(name) {
   const bili = linkBili.value.trim();
   const dizzy = linkDizzy.value.trim();
   const links = [];
+  const albumPages = [];
   for (const p of items.value) {
     if (p.role !== 'photo' || !p.linkTo) continue;
+    if (p.linkTo === 'SP') { albumPages.push(baseName(p.relPath)); continue; }
     const s = items.value.find((i) => i.uid === p.linkTo && i.role === 'song');
     if (s) links.push([p.relPath, baseName(s.relPath)]);
   }
   const prev = items.value.findIndex((i) => i.relPath === 'manifest.toml' && i.auto);
-  if (!bili && !dizzy && !links.length) {
+  if (!bili && !dizzy && !links.length && !albumPages.length) {
     if (prev !== -1) items.value.splice(prev, 1);
     return;
   }
@@ -648,6 +696,10 @@ function syncManifest(name) {
   const lines = [`album = "${esc(name)}"`];
   if (bili) lines.push(`发布 = "${esc(wrap('Bilibili', bili))}"`);
   if (dizzy) lines.push(`购买 = "${esc(wrap('dizzylab', dizzy))}"`);
+  // SP 专辑级元信息照片：管道当 credits 抽 meta，不分配歌词
+  if (albumPages.length) {
+    lines.push(`album_pages = [${albumPages.map((n) => `"${esc(n)}"`).join(', ')}]`);
+  }
   if (links.length) {
     lines.push('', '[链接]');
     for (const [img, audio] of links) lines.push(`"${esc(img)}" = "${esc(audio)}"`);
@@ -994,11 +1046,17 @@ onBeforeUnmount(() => {
 @media (max-width: 560px) { .ub-aux { grid-template-columns: 1fr; } }
 
 /* 歌词拍照 ↔ 曲目关联 */
-.ub-photos { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: .6rem; }
-.ub-photo { width: 108px; display: flex; flex-direction: column; gap: .3rem; }
+.ub-photos {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: .7rem;
+  margin-top: .6rem;
+}
+@media (max-width: 560px) { .ub-photos { grid-template-columns: repeat(3, 1fr); } }
+.ub-photo { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
 .ub-photo img {
-  width: 108px;
-  height: 76px;
+  width: 100%;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
   border-radius: 7px;
   border: 2px solid var(--border-color, #ddd);
@@ -1030,6 +1088,7 @@ onBeforeUnmount(() => {
   background: color-mix(in srgb, var(--ub-accent) 7%, transparent);
 }
 .ub-tname { font-weight: 600; }
+.ub-tracks li.sp { border-style: solid; border-color: var(--border-color, #eee); }
 .ub-chip {
   display: inline-flex;
   align-items: center;
@@ -1040,7 +1099,9 @@ onBeforeUnmount(() => {
   color: var(--ub-accent);
   background: rgba(58, 122, 254, .13);
   background: color-mix(in srgb, var(--ub-accent) 14%, transparent);
+  cursor: grab;
 }
+.ub-chip.dropover { outline: 2px dashed var(--ub-accent); outline-offset: 1px; }
 .ub-chip b { cursor: pointer; font-weight: 700; }
 
 /* 图片放大预览 */

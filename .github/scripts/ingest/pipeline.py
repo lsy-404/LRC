@@ -148,6 +148,17 @@ def extract_photo_links(manifest: dict) -> dict[str, str]:
     return out
 
 
+def extract_album_pages(manifest: dict) -> set:
+    """manifest album_pages（SP 分配的专辑级元信息照片名）→ basename 集合。
+
+    这些页作 credits 抽 meta，不进歌词分配/页↔轨匹配（封面/制作/发行 credits 页）。
+    """
+    v = manifest.get("album_pages")
+    if not isinstance(v, list):
+        return set()
+    return {Path(str(x)).name for x in v}
+
+
 def find_album_dirs(src: Path) -> list[Path]:
     """上传根目录下、用作专辑名的顶层文件夹（专辑 = 文件夹名）。"""
     out = []
@@ -237,6 +248,19 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     if buckets["doc"]:
         for name, t in doc_mod.run(buckets["doc"]).items():
             pages.append({"name": name, "kind": "DOC", "text": t})
+
+    # SP 专辑级元信息照片（manifest album_pages）：OCR 文本改作 credits 抽 meta，
+    # 移出 pages 不进歌词分配/页↔轨匹配（封面/制作/发行 credits 页）
+    _mpath = src / "manifest.toml"
+    album_pages = extract_album_pages(org_mod._read_toml(_mpath)) if _mpath.is_file() else set()
+    if album_pages:
+        sp_pages = [pg for pg in pages if pg["name"] in album_pages]
+        if sp_pages:
+            pages = [pg for pg in pages if pg["name"] not in album_pages]
+            credits_parts.extend(pg["text"] for pg in sp_pages if pg["text"].strip())
+            print(f"  ◈ SP 专辑级页 {len(sp_pages)} 张 → credits（不作歌词）: "
+                  f"{[pg['name'] for pg in sp_pages]}", file=sys.stderr)
+
     booklet_text = "\n\n".join(f"# === {p['name']} ({p['kind']}) ===\n{p['text']}" for p in pages)
     credits_text = "\n\n".join(credits_parts) or booklet_text
 
