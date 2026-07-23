@@ -48,10 +48,6 @@
           <button class="ub-btn" :disabled="busy" @click="camInput.click()">拍照</button>
           <button v-if="items.length" class="ub-btn ghost" :disabled="busy" @click="clearItems">清空</button>
         </div>
-        <div v-if="hasImages" class="ub-row center">
-          <button class="ub-btn" :disabled="busy || rotating" @click="rotateAll(-90)">全部左转</button>
-          <button class="ub-btn" :disabled="busy || rotating" @click="rotateAll(90)">全部右转</button>
-        </div>
         <input ref="fileInput" type="file" multiple class="ub-hidden" @change="onPickFiles">
         <input ref="dirInput" type="file" webkitdirectory class="ub-hidden" @change="onPickDir">
         <input
@@ -64,59 +60,64 @@
         >
       </div>
 
-      <ul v-if="items.length" class="ub-list">
-        <li v-for="it in sortedItems" :key="it.uid">
-          <div class="ub-line">
-            <img
-              v-if="isImg(it)"
-              :src="thumbOf(it)"
-              class="ub-thumbmini"
-              alt=""
-              @click="previewItem = it"
-            >
-            <span v-else class="ub-badge" :class="kindClass(it)">{{ kindText(it) }}</span>
-            <input
-              v-if="it.editing"
-              v-model="it.editVal"
-              class="ub-input edit"
-              autofocus
-              @keyup.enter="commitEdit(it)"
-              @keyup.esc="it.editing = false"
-              @blur="commitEdit(it)"
-            >
-            <span
-              v-else
-              class="ub-fname"
-              :class="{ dup: isDup(it) }"
-              :title="it.relPath + '（点击重命名）'"
-              @click="startEdit(it)"
-            >{{ it.relPath }}</span>
-            <select v-model="it.role" class="ub-sel" :disabled="busy" @change="applyRole(it)">
-              <option value="song">原曲</option>
-              <option value="photo">歌词本·拍照</option>
-              <option value="text">歌词本·文本</option>
-              <option value="staff">Staff表</option>
-              <option value="cover">封面</option>
-              <option value="etc">其他</option>
-            </select>
-            <span class="ub-fsize">{{ fmtSize(it.size) }}</span>
-            <span class="ub-fstat" :class="statClass(it)">{{ statText(it) }}</span>
-            <button
-              v-if="!busy"
-              class="ub-x"
-              title="移除"
-              @click="removeItem(it)"
-            >×</button>
-          </div>
-          <div v-if="it.status === 'up'" class="ub-mini"><div :style="{ width: it.pct + '%' }" /></div>
-        </li>
-      </ul>
+      <div v-if="items.length" class="ub-groups">
+        <div v-for="g in groupedItems" :key="g.role" class="ub-group">
+          <p class="ub-group-title">{{ g.label }} <span class="ub-dim">（{{ g.items.length }}）</span></p>
+          <ul class="ub-list">
+            <li v-for="it in g.items" :key="it.uid">
+              <div class="ub-line">
+                <img
+                  v-if="isImg(it)"
+                  :src="thumbOf(it)"
+                  class="ub-thumbmini"
+                  alt=""
+                  @click="previewItem = it"
+                >
+                <span v-else class="ub-badge" :class="kindClass(it)">{{ kindText(it) }}</span>
+                <input
+                  v-if="it.editing"
+                  v-model="it.editVal"
+                  class="ub-input edit"
+                  autofocus
+                  @keyup.enter="commitEdit(it)"
+                  @keyup.esc="it.editing = false"
+                  @blur="commitEdit(it)"
+                >
+                <span
+                  v-else
+                  class="ub-fname"
+                  :class="{ dup: isDup(it) }"
+                  :title="it.relPath + '（点击重命名）'"
+                  @click="startEdit(it)"
+                >{{ it.relPath }}</span>
+                <select v-model="it.role" class="ub-sel" :disabled="busy" @change="applyRole(it)">
+                  <option value="song">原曲</option>
+                  <option value="photo">歌词本·拍照</option>
+                  <option value="text">歌词本·文本</option>
+                  <option value="staff">Staff表</option>
+                  <option value="cover">封面</option>
+                  <option value="etc">其他</option>
+                </select>
+                <span class="ub-fsize">{{ fmtSize(it.size) }}</span>
+                <span class="ub-fstat" :class="statClass(it)">{{ statText(it) }}</span>
+                <button
+                  v-if="!busy"
+                  class="ub-x"
+                  title="移除"
+                  @click="removeItem(it)"
+                >×</button>
+              </div>
+              <div v-if="it.status === 'up'" class="ub-mini"><div :style="{ width: it.pct + '%' }" /></div>
+            </li>
+          </ul>
+        </div>
+      </div>
       <p class="ub-total" :class="{ err: oversize > 0 }">{{ totalText }}</p>
       <p class="ub-dim small">
         支持歌词文本 / 歌词本图片或 PDF / 音频 / Staff 表 / 封面；单文件上限 95MB。
         点击文件名可重命名路径；右侧下拉修改用途会自动归类到对应目录；
-        列表按文件名开头编号自动排序。点击图片可放大预览并翻转方向。
-        歌词拍照可在下方关联到指定曲目。上传期间请勿关闭本页。
+        列表按类型分区，区内按文件名开头编号排序。点击图片可放大预览并翻转方向。
+        歌词拍照可在下方关联到指定曲目、拖拽调整顺序。上传期间请勿关闭本页。
       </p>
     </section>
 
@@ -127,10 +128,22 @@
     >
       <p class="ub-label">
         歌词拍照关联
-        <span class="ub-dim">（把图片拖到对应曲目，或用图片下方的下拉选择；未关联的图片将自动按发音相似度匹配）</span>
+        <span class="ub-dim">（拖到曲目关联；拖到别的照片上调整顺序；未关联的自动按发音相似度匹配）</span>
       </p>
+      <div v-if="hasImages" class="ub-row">
+        <button class="ub-btn" :disabled="busy || rotating" @click="rotateAll(-90)">全部左转</button>
+        <button class="ub-btn" :disabled="busy || rotating" @click="rotateAll(90)">全部右转</button>
+      </div>
       <div class="ub-photos">
-        <div v-for="p in photoItems" :key="p.uid" class="ub-photo" :class="{ linked: p.linkTo }">
+        <div
+          v-for="p in photoItems"
+          :key="p.uid"
+          class="ub-photo"
+          :class="{ linked: p.linkTo, dropover: reorderUid === p.uid }"
+          @dragover.prevent="reorderUid = p.uid"
+          @dragleave="reorderUid = null"
+          @drop.prevent="onPhotoDrop(p)"
+        >
           <img
             :src="thumbOf(p)"
             :alt="p.relPath"
@@ -255,6 +268,7 @@ const camInput = ref(null);
 const previewItem = ref(null);
 const dragUid = ref(null);
 const dropUid = ref(null);
+const reorderUid = ref(null);
 let uid = 1;
 let camSeq = 1;
 
@@ -271,8 +285,34 @@ const trackNumberOf = (relPath) => {
 const sortedItems = computed(() =>
   [...items.value].sort((a, b) => trackNumberOf(a.relPath) - trackNumberOf(b.relPath)));
 const songItems = computed(() => sortedItems.value.filter((i) => i.role === 'song'));
-const photoItems = computed(() => sortedItems.value.filter((i) => i.role === 'photo'));
+// 关联面板照片：手动 porder 优先（拖拽重排后），否则文件名开头编号
+const photoItems = computed(() =>
+  items.value.filter((i) => i.role === 'photo').sort((a, b) => {
+    const ka = a.porder ?? trackNumberOf(a.relPath);
+    const kb = b.porder ?? trackNumberOf(b.relPath);
+    return ka - kb || a.uid - b.uid;
+  }));
 const hasImages = computed(() => items.value.some(isImg));
+
+// 文件列表按类型分区：区序 音频→歌词本图片→歌词→Staff→封面→其他，区内按文件名编号
+const ROLE_ORDER = [
+  ['song', '音频'], ['photo', '歌词本图片'], ['text', '歌词'],
+  ['staff', 'Staff 表'], ['cover', '封面'], ['etc', '其他'],
+];
+const groupedItems = computed(() => {
+  const byRole = {};
+  for (const it of items.value) {
+    if (!byRole[it.role]) byRole[it.role] = [];
+    byRole[it.role].push(it);
+  }
+  return ROLE_ORDER
+    .filter(([role]) => byRole[role] && byRole[role].length)
+    .map(([role, label]) => ({
+      role,
+      label,
+      items: [...byRole[role]].sort((a, b) => trackNumberOf(a.relPath) - trackNumberOf(b.relPath)),
+    }));
+});
 
 // 预览翻页：在当前排序后的图片集合里循环切换，与预览是从列表还是关联面板打开无关
 const previewList = computed(() => sortedItems.value.filter(isImg));
@@ -387,6 +427,22 @@ function onLinkDrop(s) {
   dropUid.value = null;
 }
 
+// 拖照片到另一张照片上 → 重排：把被拖照片插到目标前，给全体照片重设连续 porder
+// （手动顺序覆盖文件名自动排序，仅影响关联面板照片）
+function onPhotoDrop(target) {
+  reorderUid.value = null;
+  const drag = items.value.find((i) => i.uid === dragUid.value);
+  dragUid.value = null;
+  if (!drag || drag.role !== 'photo' || !target || drag.uid === target.uid) return;
+  const order = photoItems.value.map((p) => p.uid);
+  const from = order.indexOf(drag.uid);
+  if (from === -1) return;
+  order.splice(from, 1);
+  order.splice(order.indexOf(target.uid), 0, drag.uid);
+  const byUid = new Map(items.value.map((i) => [i.uid, i]));
+  order.forEach((u, i) => { const it = byUid.get(u); if (it) it.porder = i; });
+}
+
 const fmtSize = (n) => n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB'
   : n >= 1024 ? (n / 1024).toFixed(0) + ' KB' : n + ' B';
 
@@ -487,16 +543,20 @@ const statText = (it) => it.size > MAX_FILE ? '过大'
 const statClass = (it) => it.size > MAX_FILE || it.status === 'fail' ? 'fail'
   : it.status === 'done' ? 'done' : '';
 
+// 系统垃圾文件：任一路径段命中即整条跳过（拖文件夹常带进 .DS_Store / AppleDouble ._* 等）
+const JUNK_RE = /^(\.DS_Store|Thumbs\.db|desktop\.ini|\.Spotlight-V100|\.Trashes|__MACOSX|\._.*)$/i;
+const isJunk = (relPath) => relPath.split('/').some((seg) => JUNK_RE.test(seg));
+
 function addFiles(picked) {
   if (busy.value) return;
   const have = new Set(items.value.map((i) => i.relPath));
   for (const p of picked) {
-    if (have.has(p.relPath)) continue;
+    if (isJunk(p.relPath) || have.has(p.relPath)) continue;
     have.add(p.relPath);
     items.value.push({
       ...p, size: p.file.size, status: 'wait', pct: 0, sha: null,
       uid: uid++, role: guessRole(p.relPath), editing: false, editVal: '', linkTo: 0,
-      origFile: p.file, rotation: 0,
+      origFile: p.file, rotation: 0, porder: null,
     });
   }
 }
@@ -648,14 +708,20 @@ async function run() {
   showRetry.value = false;
   submitMsg.value = '上传中…';
 
-  for (const it of items.value) {
-    if (it.status === 'done') continue;
-    it.status = 'up';
-    it.pct = 0;
-    const sha = await uploadBlob(it);
-    if (sha) { it.status = 'done'; it.sha = sha; }
-    else { it.status = 'fail'; it.pct = 0; }
-  }
+  // 双线程并发上传：投稿多为大音频 blob，2 路并发提升吞吐又不过压 GitHub API
+  const pending = items.value.filter((it) => it.status !== 'done');
+  let next = 0;
+  const worker = async () => {
+    while (next < pending.length) {
+      const it = pending[next++];
+      it.status = 'up';
+      it.pct = 0;
+      const sha = await uploadBlob(it);
+      if (sha) { it.status = 'done'; it.sha = sha; }
+      else { it.status = 'fail'; it.pct = 0; }
+    }
+  };
+  await Promise.all([worker(), worker()]);
 
   const failed = items.value.filter((i) => i.status !== 'done').length;
   if (failed) {
@@ -865,9 +931,19 @@ onBeforeUnmount(() => {
 @keyframes ub-spin { to { transform: rotate(360deg); } }
 
 /* 文件列表 */
+.ub-groups { margin: .9rem 0 0; }
+.ub-group + .ub-group { margin-top: .8rem; }
+.ub-group-title {
+  font-size: .78rem;
+  font-weight: 600;
+  opacity: .75;
+  margin: 0 0 .2rem;
+  padding-bottom: .15rem;
+  border-bottom: 1px solid var(--border-color, #eee);
+}
 .ub-list {
   list-style: none;
-  margin: .9rem 0 0;
+  margin: 0;
   padding: 0;
   font-size: .82rem;
   max-height: 320px;
@@ -930,6 +1006,11 @@ onBeforeUnmount(() => {
   transition: border-color .2s;
 }
 .ub-photo.linked img { border-color: var(--ub-accent); }
+.ub-photo.dropover img {
+  border-color: var(--ub-accent);
+  border-style: dashed;
+  transform: scale(1.03);
+}
 .ub-pname { font-size: .68rem; opacity: .7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ub-sel.wide { max-width: none; width: 100%; }
 .ub-tracks { list-style: none; margin: .9rem 0 0; padding: 0; font-size: .82rem; }
