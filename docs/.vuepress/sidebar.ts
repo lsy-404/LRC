@@ -23,7 +23,7 @@ export default sidebar({
       collapsible: true,
       children: [
         { text: "贡献指南", link: "/contribute/" },
-        { text: "工具", link: "/upload/" },
+        { text: "工作站", link: "/contribute/workstation" },
       ],
     },
   ],

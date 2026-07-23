@@ -1,26 +1,6 @@
 <template>
   <div class="eb">
-    <!-- 密码 -->
-    <section v-if="needPw" class="eb-card">
-      <p class="eb-lead">凭邀请密码解锁修改面板。</p>
-      <div class="eb-row">
-        <input
-          v-model="pwInput"
-          type="password"
-          class="eb-input grow"
-          placeholder="邀请密码"
-          autocomplete="off"
-          @keyup.enter="verify()"
-        >
-        <button class="eb-btn primary" :disabled="verifying || !pwInput" @click="verify()">
-          {{ verifying ? '验证中…' : '验证' }}
-        </button>
-      </div>
-      <p v-if="pwMsg" class="eb-msg err">{{ pwMsg }}</p>
-    </section>
-
-    <template v-else>
-      <!-- ref 选择 -->
+    <!-- ref 选择 -->
       <section class="eb-card">
         <label class="eb-label">追踪编号（ref） <span class="eb-dim">投稿完成时给出的编号，或从最近投稿选择</span></label>
         <div class="eb-row">
@@ -107,16 +87,13 @@
           请先保存各专辑修改再点此。也可不修改直接继续；72 小时无操作会自动继续。
         </p>
       </section>
-    </template>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
-const AUTH_KEY = 'lrc-upload-auth';
 const REFS_KEY = 'lrc-upload-refs';
-const AUTH_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 
 const META_FIELDS = [
   { key: 'vocal', label: '演唱', list: true },
@@ -136,11 +113,8 @@ const META_FIELDS = [
   { key: 'purchase', label: '购买', list: false },
 ];
 
-const password = ref('');
-const needPw = ref(true);
-const pwInput = ref('');
-const verifying = ref(false);
-const pwMsg = ref('');
+// 验证在工作站根层（Workbench）统一完成，密码经 prop 传入
+const props = defineProps({ password: { type: String, default: '' } });
 
 const cachedRefs = ref([]);
 const refInput = ref('');
@@ -154,41 +128,12 @@ const done = ref(false);
 let pollTimer = null;
 
 function authHeaders() {
-  return { authorization: 'Bearer ' + encodeURIComponent(password.value) };
+  return { authorization: 'Bearer ' + encodeURIComponent(props.password) };
 }
 
-function loadAuth() {
-  try {
-    const { password: pw, exp } = JSON.parse(localStorage.getItem(AUTH_KEY) || '{}');
-    return (typeof pw === 'string' && pw && exp > Date.now()) ? pw : '';
-  } catch { return ''; }
-}
-function saveAuth(pw) {
-  try {
-    localStorage.setItem(AUTH_KEY, JSON.stringify({ password: pw, exp: Date.now() + AUTH_TTL_MS }));
-  } catch { /* noop */ }
-}
 function loadCachedRefs() {
   try { cachedRefs.value = JSON.parse(localStorage.getItem(REFS_KEY) || '[]'); }
   catch { cachedRefs.value = []; }
-}
-
-async function verify() {
-  if (!pwInput.value) return;
-  verifying.value = true;
-  pwMsg.value = '';
-  try {
-    const r = await fetch('/api/upload/verify', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ password: pwInput.value }),
-    });
-    if (!r.ok) { pwMsg.value = '密码错误'; return; }
-    password.value = pwInput.value;
-    needPw.value = false;
-    saveAuth(pwInput.value);
-  } catch { pwMsg.value = '网络错误，请重试'; }
-  finally { verifying.value = false; }
 }
 
 // list 字段数组 <-> 字符串；tracks lines 数组 <-> textarea 文本
@@ -247,8 +192,8 @@ async function load(silent = false) {
   try {
     const resp = await fetch(`/api/ingest/state?ref=${encodeURIComponent(r)}`, { headers: authHeaders() });
     if (resp.status === 401) {
-      password.value = ''; needPw.value = true; stopPoll();
-      msgErr.value = true; msg.value = '登录已失效，请重新验证密码'; return;
+      stopPoll();
+      msgErr.value = true; msg.value = '登录已失效，请刷新页面重新验证'; return;
     }
     const data = await resp.json().catch(() => ({}));
     if (!resp.ok) { msgErr.value = true; msg.value = data.error || '加载失败'; return; }
@@ -344,8 +289,6 @@ async function continueIngest() {
 
 onMounted(() => {
   loadCachedRefs();
-  const stored = loadAuth();
-  if (stored) { password.value = stored; needPw.value = false; }
 });
 onBeforeUnmount(() => {
   stopPoll();

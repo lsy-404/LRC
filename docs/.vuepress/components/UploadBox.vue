@@ -2,40 +2,16 @@
   <div class="ub">
     <!-- 轨道号步进器 -->
     <ol class="ub-steps">
-      <li :class="{ on: !verified, ok: verified }">
-        <span class="ub-no">{{ verified ? '✓' : '01' }}</span>验证
-      </li>
-      <li :class="{ on: verified && !finished, ok: finished }">
-        <span class="ub-no">{{ finished ? '✓' : '02' }}</span>选择
+      <li :class="{ on: !finished, ok: finished }">
+        <span class="ub-no">{{ finished ? '✓' : '01' }}</span>选择
       </li>
       <li :class="{ on: busy || showRetry, ok: finished }">
-        <span class="ub-no">{{ finished ? '✓' : '03' }}</span>提交
+        <span class="ub-no">{{ finished ? '✓' : '02' }}</span>提交
       </li>
     </ol>
 
-    <!-- 01 · 验证 -->
-    <section v-if="!verified && !restoring" class="ub-card">
-      <p class="ub-lead">凭邀请密码解锁投递箱。</p>
-      <div class="ub-row">
-        <input
-          v-model="pwInput"
-          type="password"
-          class="ub-input grow"
-          placeholder="邀请密码"
-          autocomplete="off"
-          @keyup.enter="verify()"
-        >
-        <button class="ub-btn primary" :disabled="verifying || !pwInput" @click="verify()">
-          {{ verifying ? '验证中…' : '验证' }}
-        </button>
-      </div>
-      <p v-if="gateMsg" class="ub-msg" :class="{ err: gateErr }">{{ gateMsg }}</p>
-    </section>
-    <p v-else-if="restoring" class="ub-verified">正在恢复登录状态…</p>
-    <p v-else-if="!finished" class="ub-verified">✓ 密码已验证</p>
-
-    <!-- 02 · 选择 -->
-    <section v-if="verified && !finished" class="ub-card rise">
+    <!-- 01 · 选择 -->
+    <section v-if="!finished" class="ub-card rise">
       <label class="ub-label" for="ub-album">专辑名称 <span class="ub-dim">（作为投递文件夹名，也是最终专辑名）</span></label>
       <input
         id="ub-album"
@@ -71,6 +47,10 @@
           <button class="ub-btn" :disabled="busy" @click="dirInput.click()">添加文件夹</button>
           <button class="ub-btn" :disabled="busy" @click="camInput.click()">拍照</button>
           <button v-if="items.length" class="ub-btn ghost" :disabled="busy" @click="clearItems">清空</button>
+        </div>
+        <div v-if="hasImages" class="ub-row center">
+          <button class="ub-btn" :disabled="busy || rotating" @click="rotateAll(-90)">全部左转</button>
+          <button class="ub-btn" :disabled="busy || rotating" @click="rotateAll(90)">全部右转</button>
         </div>
         <input ref="fileInput" type="file" multiple class="ub-hidden" @change="onPickFiles">
         <input ref="dirInput" type="file" webkitdirectory class="ub-hidden" @change="onPickDir">
@@ -142,7 +122,7 @@
 
     <!-- 02.5 · 歌词拍照 ↔ 曲目关联 -->
     <section
-      v-if="verified && !finished && photoItems.length && songItems.length"
+      v-if="!finished && photoItems.length && songItems.length"
       class="ub-card rise"
     >
       <p class="ub-label">
@@ -183,8 +163,8 @@
       </ol>
     </section>
 
-    <!-- 03 · 提交 -->
-    <section v-if="verified && !finished" class="ub-card rise">
+    <!-- 02 · 提交 -->
+    <section v-if="!finished" class="ub-card rise">
       <div class="ub-progress">
         <div class="ub-bar" :class="{ live: busy }"><div :style="{ width: overallPct + '%' }" /></div>
         <span class="ub-ptext">{{ progressText }}</span>
@@ -251,14 +231,10 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 
-const MAX_FILE = 95 * 1024 * 1024;
+// 验证在工作站根层（Workbench）统一完成，密码经 prop 传入
+const props = defineProps({ password: { type: String, default: '' } });
 
-const pwInput = ref('');
-const verified = ref(false);
-const verifying = ref(false);
-const restoring = ref(false);
-const gateMsg = ref('');
-const gateErr = ref(false);
+const MAX_FILE = 95 * 1024 * 1024;
 
 const album = ref('');
 const items = ref([]);
@@ -279,7 +255,6 @@ const camInput = ref(null);
 const previewItem = ref(null);
 const dragUid = ref(null);
 const dropUid = ref(null);
-let password = '';
 let uid = 1;
 let camSeq = 1;
 
@@ -297,6 +272,7 @@ const sortedItems = computed(() =>
   [...items.value].sort((a, b) => trackNumberOf(a.relPath) - trackNumberOf(b.relPath)));
 const songItems = computed(() => sortedItems.value.filter((i) => i.role === 'song'));
 const photoItems = computed(() => sortedItems.value.filter((i) => i.role === 'photo'));
+const hasImages = computed(() => items.value.some(isImg));
 
 // 预览翻页：在当前排序后的图片集合里循环切换，与预览是从列表还是关联面板打开无关
 const previewList = computed(() => sortedItems.value.filter(isImg));
@@ -363,6 +339,30 @@ async function rotateItem(it, delta) {
   } catch {
     submitErr.value = true;
     submitMsg.value = '图片旋转失败';
+  } finally {
+    rotating.value = false;
+  }
+}
+
+// 批量旋转：整叠图片一键转（实拍歌词本常整叠同方向横拍）。每张按绝对角度从
+// origFile 重算（与 rotateItem 同逻辑，多次旋转不累积 JPEG 重压缩损失）；串行
+// await 避免并发争 rotating 锁
+async function rotateAll(delta) {
+  if (busy.value || rotating.value) return;
+  const imgs = items.value.filter(isImg);
+  if (!imgs.length) return;
+  rotating.value = true;
+  try {
+    for (const it of imgs) {
+      const next = ((it.rotation || 0) + delta + 360) % 360;
+      const src = it.origFile || it.file;
+      it.file = next === 0 ? src : await rotateImageFile(src, next);
+      it.rotation = next;
+      it.size = it.file.size;
+    }
+  } catch {
+    submitErr.value = true;
+    submitMsg.value = '批量旋转失败';
   } finally {
     rotating.value = false;
   }
@@ -486,60 +486,6 @@ const statText = (it) => it.size > MAX_FILE ? '过大'
   : it.status === 'up' ? it.pct + '%' : '待传';
 const statClass = (it) => it.size > MAX_FILE || it.status === 'fail' ? 'fail'
   : it.status === 'done' ? 'done' : '';
-
-// 记住密码 30 天：仅存本地，静默重试失败（密码已轮换等）就清掉退回正常输入，
-// 不会把用户卡住
-const AUTH_KEY = 'lrc-upload-auth';
-const AUTH_TTL_MS = 30 * 24 * 60 * 60 * 1000;
-
-function loadStoredAuth() {
-  try {
-    const raw = localStorage.getItem(AUTH_KEY);
-    if (!raw) return '';
-    const { password: pw, exp } = JSON.parse(raw);
-    if (typeof pw !== 'string' || !pw || !(exp > Date.now())) {
-      localStorage.removeItem(AUTH_KEY);
-      return '';
-    }
-    return pw;
-  } catch {
-    return '';
-  }
-}
-function saveAuth(pw) {
-  try {
-    localStorage.setItem(AUTH_KEY, JSON.stringify({ password: pw, exp: Date.now() + AUTH_TTL_MS }));
-  } catch { /* 隐私模式等 localStorage 不可写，静默跳过，不影响本次会话 */ }
-}
-function clearStoredAuth() {
-  try { localStorage.removeItem(AUTH_KEY); } catch { /* noop */ }
-}
-
-async function verify(candidate, silent = false) {
-  const pw = candidate ?? pwInput.value;
-  if (verified.value || verifying.value || !pw) return;
-  verifying.value = true;
-  if (!silent) { gateErr.value = false; gateMsg.value = ''; }
-  try {
-    const r = await fetch('/api/upload/verify', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ password: pw }),
-    });
-    if (!r.ok) {
-      clearStoredAuth();
-      if (!silent) { gateErr.value = true; gateMsg.value = '密码错误'; }
-      return;
-    }
-    password = pw;
-    verified.value = true;
-    saveAuth(pw);
-  } catch {
-    if (!silent) { gateErr.value = true; gateMsg.value = '网络错误，请重试'; }
-  } finally {
-    verifying.value = false;
-  }
-}
 
 function addFiles(picked) {
   if (busy.value) return;
@@ -668,7 +614,7 @@ const uploadBlob = (it) => new Promise((resolve) => {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/api/upload/blob');
     xhr.setRequestHeader('content-type', 'application/json');
-    xhr.setRequestHeader('authorization', 'Bearer ' + encodeURIComponent(password));
+    xhr.setRequestHeader('authorization', 'Bearer ' + encodeURIComponent(props.password));
     xhr.upload.onprogress = (e) => {
       if (e.lengthComputable) it.pct = Math.round(e.loaded / e.total * 100);
     };
@@ -726,7 +672,7 @@ async function run() {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        'authorization': 'Bearer ' + encodeURIComponent(password),
+        'authorization': 'Bearer ' + encodeURIComponent(props.password),
       },
       body: JSON.stringify({
         album: name,
@@ -764,14 +710,8 @@ async function copyRef() {
 }
 
 const guard = (e) => { if (busy.value) e.preventDefault(); };
-onMounted(async () => {
+onMounted(() => {
   window.addEventListener('beforeunload', guard);
-  const stored = loadStoredAuth();
-  if (stored) {
-    restoring.value = true;
-    await verify(stored, true);
-    restoring.value = false;
-  }
 });
 onBeforeUnmount(() => {
   window.removeEventListener('beforeunload', guard);

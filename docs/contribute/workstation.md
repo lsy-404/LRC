@@ -1,7 +1,7 @@
 ---
-title: 工作台
+title: 工作站
 icon: material-symbols:cloud-upload
-permalink: /upload/
+permalink: /contribute/workstation
 photoSwipe: false
 ---
 

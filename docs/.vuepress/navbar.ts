@@ -26,7 +26,7 @@ export default navbar([
     icon: "material-symbols:person-add",
     children: [
       { text: "贡献指南", icon: "material-symbols:menu-book", link: "/contribute/" },
-      { text: "工具", icon: "material-symbols:cloud-upload", link: "/upload/" },
+      { text: "工作站", icon: "material-symbols:cloud-upload", link: "/contribute/workstation" },
     ],
   },
   {
