@@ -58,10 +58,13 @@ def _multipart(fields: dict, file_field: str, filename: str, data: bytes) -> tup
 
 
 def _compress_for_upload(audio: Path) -> tuple[bytes, str]:
-    """转码后上传：默认 192kbps 立体声（≤48kHz）；超长音频自动回避压缩。
+    """转码后上传：默认 192kbps 立体声（≤48kHz）；按时长自动降级码率。
 
-    192k 立体声约 1.4MB/分钟，约 17 分钟触及 API 25MB 上限——时长超过
-    16 分钟的音频自动降为 96kbps 单声道（约 0.7MB/分钟，容纳约 34 分钟）。
+    各档位由 API 25MB 上限的数学边界推出（MB/分钟 ≈ kbps×0.0075）：
+      ≤16 分钟  192k 立体声（1.44MB/min，17.4 分钟触顶）
+      ≤32 分钟  96k 单声道（0.72MB/min，34.7 分钟触顶）
+      ≤64 分钟  48k 单声道（0.36MB/min，69 分钟触顶——覆盖 1 小时需求）
+      更长      32k 单声道（0.24MB/min，约 104 分钟触顶）
     百 MB 级 wav/flac 源文件不再受上限约束。ffmpeg/ffprobe 失败直接抛错。
     """
     import os
@@ -71,13 +74,18 @@ def _compress_for_upload(audio: Path) -> tuple[bytes, str]:
         ["ffprobe", "-v", "error", "-show_entries", "format=duration",
          "-of", "csv=p=0", str(audio)],
         capture_output=True, text=True, check=True)
-    duration = float(probe.stdout.strip() or 0.0)
-    if duration > 16 * 60:
-        enc = ["-ac", "1", "-b:a", "96k"]
-        print(f"  ▽ {audio.name} 时长 {duration/60:.1f} 分钟，回避压缩 96k 单声道",
-              file=sys.stderr, flush=True)
+    minutes = float(probe.stdout.strip() or 0.0) / 60
+    if minutes <= 16:
+        enc, desc = ["-b:a", "192k"], "192k 立体声"
+    elif minutes <= 32:
+        enc, desc = ["-ac", "1", "-b:a", "96k"], "96k 单声道"
+    elif minutes <= 64:
+        enc, desc = ["-ac", "1", "-b:a", "48k"], "48k 单声道"
     else:
-        enc = ["-b:a", "192k"]
+        enc, desc = ["-ac", "1", "-b:a", "32k"], "32k 单声道"
+    if minutes > 16:
+        print(f"  ▽ {audio.name} 时长 {minutes:.1f} 分钟，自动降级 {desc}",
+              file=sys.stderr, flush=True)
     fd, tmp = tempfile.mkstemp(suffix=".mp3")
     os.close(fd)
     out = Path(tmp)
