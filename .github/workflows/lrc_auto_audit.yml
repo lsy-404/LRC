@@ -119,29 +119,18 @@ jobs:
           PR_NUMBER: ${{ steps.pr.outputs.number }}
           GH_REPO: ${{ github.repository }}
 
-      - name: Auto Merge
+      # Hold（不自动合并）：审计通过只批准 + 提示，等人工复核后手动合并（Squash）。
+      # 起因：曾有未经工作站人工闸门校正的旧流程投稿被自动合并，混入 OCR 乱码元信息。
+      # 新流程里 Phase B 的 PR 虽已经工作站校正，仍在此停一道人工确认再落 main。
+      # 要恢复自动合并：把本步换回 `gh pr merge --auto --squash` 即可。
+      - name: Hold for manual merge
         if: steps.python-audit.outcome == 'success'
         run: |
-          # --auto 走 enablePullRequestAutoMerge GraphQL mutation，PULL_TOKEN 这个
-          # PAT 对它没权限（"Resource not accessible by personal access token"），
-          # 但这一步本来就已经在「audit 通过」的条件分支里、且 Cloudflare Pages
-          # 预览通常并行跑得比 audit 快，多数时候此刻所有必需检查其实都已经过了，
-          # 直接合并即可；仍加几次重试兜底极少数检查还没跑完的情况。
-          if gh pr merge --auto --squash "$PR_NUMBER"; then
-            exit 0
-          fi
-          echo "auto-merge unavailable, falling back to direct merge with retry"
-          for i in 1 2 3 4 5; do
-            if gh pr merge --squash "$PR_NUMBER"; then
-              exit 0
-            fi
-            sleep 15
-          done
-          echo "::error::direct merge retries exhausted"
-          exit 1
+          gh pr comment "$PR_NUMBER" --body "### 自动审计通过 · 已批准，等待人工合并
+
+          已通过安全/内容审计并自动批准，但**不自动合并**：请人工复核内容后手动合并（Squash）。
+          摄取投稿即使经工作站人工闸门校正、由 Phase B 开出，也在此停一道确认再落库。"
         env:
-          # 合并仍用 PULL_TOKEN：用默认 GITHUB_TOKEN 合并不会触发后续 push 到
-          # main 的 workflow（generate.yml 建目录页/静态API），必须用 PAT。
           GH_TOKEN: ${{ secrets.PULL_TOKEN }}
           PR_NUMBER: ${{ steps.pr.outputs.number }}
           GH_REPO: ${{ github.repository }}
