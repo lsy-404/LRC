@@ -1,0 +1,201 @@
+name: Ingest Finalize (Phase B)
+
+# 人工闸门后（或 72h 超时兜底）对齐入库：读 ingest-review/<ref>/ 的（可能被人工闸门
+# 校正过的）派生态草稿 → ingest.pipeline --phase b（organize.finalize 对齐）→ res/<专辑>/
+# → 从 main 迁出分支开 PR 走现有 lrc_auto_audit 审计 → 清理 ingest-review 的 <ref>/。
+# 触发：
+#   repository_dispatch(ingest-continue)：人工在工作台修改面板确认时，由 Pages Function
+#     (/api/ingest/continue) 发起；client_payload.ref = payload SHA。
+#   workflow_dispatch：手动补触发，输入 ref。
+#   （ingest_timeout.yml 对 72h 未处理的 bundle 也发 ingest-continue。）
+# 全程只碰派生态（歌词草稿/词级时间戳/meta/封面），无版权原料。
+
+on:
+  repository_dispatch:
+    types: [ingest-continue]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'payload SHA（对应 ingest-review/<ref>/）'
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    # 串行：多个 finalize 同时 push ingest-review 会非快进冲突，串行规避
+    concurrency:
+      group: ingest-finalize
+      cancel-in-progress: false
+    steps:
+      - name: Resolve ref
+        id: ctx
+        run: |
+          set -euo pipefail
+          REF="${{ github.event.client_payload.ref || github.event.inputs.ref }}"
+          if [ -z "$REF" ]; then echo "缺 ref"; exit 1; fi
+          echo "ref=$REF" >> "$GITHUB_OUTPUT"
+          echo "ts=$(date -u +%Y%m%d-%H%M%S)" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout main (scripts + PR base)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          path: repo
+
+      - name: Checkout ingest-review branch
+        uses: actions/checkout@v4
+        with:
+          ref: ingest-review
+          fetch-depth: 1
+          path: review
+        continue-on-error: true
+
+      - name: Guard — bundle exists for ref
+        id: guard
+        run: |
+          set -euo pipefail
+          REF="${{ steps.ctx.outputs.ref }}"
+          if [ -d "review/$REF" ]; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            echo "⚠️  ingest-review/$REF 不存在（可能已被处理），跳过"
+          fi
+
+      - name: Set up Python
+        if: steps.guard.outputs.found == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: |
+            repo/.github/scripts/requirements.txt
+            repo/.github/scripts/ingest/requirements.txt
+
+      - name: Install system dependencies
+        if: steps.guard.outputs.found == 'true'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg tesseract-ocr
+
+      - name: Install dependencies
+        if: steps.guard.outputs.found == 'true'
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r repo/.github/scripts/requirements.txt
+          pip install -r repo/.github/scripts/ingest/requirements.txt
+
+      - name: Run ingest Phase B (align + write res)
+        id: run
+        if: steps.guard.outputs.found == 'true'
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_API_BASE: ${{ secrets.LLM_API_BASE }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+          OCR_MODEL: ${{ secrets.OCR_MODEL }}
+          PYTHONPATH: ${{ github.workspace }}/repo/.github/scripts
+        run: |
+          set -euo pipefail
+          REF="${{ steps.ctx.outputs.ref }}"
+          python -m ingest.pipeline \
+            --phase b \
+            --bundle-root "${{ github.workspace }}/review/$REF" \
+            --res-dir "${{ github.workspace }}/repo/res" \
+            --json "${{ github.workspace }}/summary.json"
+          if git -C repo status --porcelain res | grep -q .; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "⚠️  Phase B 未产生 res 改动"
+          fi
+          album=$(python -c "import json; print(json.load(open('summary.json')).get('album',''))" 2>/dev/null || echo "")
+          echo "album=${album}" >> "$GITHUB_OUTPUT"
+          is_update=$(python -c "import json; print('true' if json.load(open('summary.json')).get('is_update') else 'false')" 2>/dev/null || echo "false")
+          echo "is_update=${is_update}" >> "$GITHUB_OUTPUT"
+          contributor=$(python -c "import json,glob,sys; ss=glob.glob(sys.argv[1]+'/*/status.json'); print(json.load(open(ss[0])).get('contributor','') if ss else '')" "${{ github.workspace }}/review/$REF" 2>/dev/null || echo "")
+          echo "contributor=${contributor:-web}" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch Bilibili metadata
+        if: steps.run.outputs.changed == 'true'
+        env:
+          PYTHONPATH: ${{ github.workspace }}/repo/.github/scripts
+        run: |
+          ALBUM="${{ steps.run.outputs.album }}"
+          if [ -n "$ALBUM" ]; then
+            cd "${{ github.workspace }}/repo"
+            python .github/scripts/fetch_bilibili_meta.py \
+              --album "$ALBUM" --auto --fields release,year,electronic
+          fi
+        continue-on-error: true
+
+      - name: Open PR from ingest-<contributor>-<ts>
+        if: steps.run.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.PULL_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          REF="${{ steps.ctx.outputs.ref }}"
+          CONTRIB="${{ steps.run.outputs.contributor }}"
+          SLUG=$(echo "$CONTRIB" | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9-' '-' | sed 's/-\+/-/g;s/^-//;s/-$//')
+          BRANCH="ingest-${SLUG:-web}-${{ steps.ctx.outputs.ts }}"
+          IS_UPDATE="${{ steps.run.outputs.is_update }}"
+          if [ "$IS_UPDATE" = "true" ]; then
+            PR_VERB="update"; PR_DESC="增补已有专辑数据（LRC / 封面 / meta）"
+          else
+            PR_VERB="ingest"; PR_DESC="新专辑摄取投稿（经人工闸门校正）"
+          fi
+          cd repo
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$BRANCH"
+          git add res
+          git commit -m "${PR_VERB}: ${{ steps.run.outputs.album }} (via upload by @${CONTRIB})"
+          # 推 origin：repo 由默认 GITHUB_TOKEN checkout（contents:write）。PR 由 PULL_TOKEN
+          # 创建 → 才能触发 lrc_auto_audit。
+          git push origin "$BRANCH"
+          BODY=$(cat <<EOF
+          ### 自动摄取 — ${PR_DESC}
+
+          - 投稿者：@${CONTRIB}
+          - 专辑：\`${{ steps.run.outputs.album }}\`
+          - ref：\`${REF}\`
+          - 模式：$([ "$IS_UPDATE" = "true" ] && echo "**增补**（已有专辑，仅覆盖本次上传的文件）" || echo "**新建**")
+          - 来源：upload 投递箱 → Phase A 草稿 → 人工闸门 → Phase B 对齐（原料已销毁，仅派生产物入库）
+
+          <details><summary>处理摘要</summary>
+
+          \`\`\`json
+          $(cat ../summary.json)
+          \`\`\`
+          </details>
+
+          > STT 歌词为机器转写、meta 为 LLM 抽取，已经人工闸门校正；仍请复核后再依赖自动合并。
+          EOF
+          )
+          gh pr create --base main --head "$BRANCH" \
+            --title "${PR_VERB}: ${{ steps.run.outputs.album }} (@${CONTRIB})" \
+            --body "$BODY"
+
+      - name: Clean up ingest-review/<ref>/
+        if: steps.guard.outputs.found == 'true'
+        env:
+          GH_TOKEN_REVIEW: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          REF="${{ steps.ctx.outputs.ref }}"
+          REMOTE="https://x-access-token:${GH_TOKEN_REVIEW}@github.com/${{ github.repository }}.git"
+          cd review
+          if ! git rm -rq "$REF" 2>/dev/null; then
+            echo "已无 $REF，跳过清理"; exit 0
+          fi
+          git -c user.name='github-actions[bot]' \
+              -c user.email='github-actions[bot]@users.noreply.github.com' \
+              commit -q -m "cleanup: finalize $REF"
+          git push "$REMOTE" ingest-review
+          echo "✓ 已清理 ingest-review/$REF/"

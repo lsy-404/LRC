@@ -1,0 +1,60 @@
+name: Ingest Timeout Sweep
+
+# 兜底：Phase A 产出的 review bundle 若 72h 无人在工作台处理，自动续跑 Phase B。
+# 每 6h 扫 ingest-review 分支下所有 <ref>/<album>/status.json，phase==A_done 且 updated
+# 早于 72h 前者，按 ref 去重后 repository_dispatch(ingest-continue) 触发 ingest_finalize。
+#
+# ★ 必须用 PAT（PULL_TOKEN）发 dispatch：GITHUB_TOKEN 发起的 repository_dispatch 不会
+#   触发其它 workflow（GitHub 防递归），会导致 finalize 永不启动。
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ingest-review branch
+        uses: actions/checkout@v4
+        with:
+          ref: ingest-review
+          fetch-depth: 1
+          path: review
+        continue-on-error: true
+
+      - name: Dispatch finalize for stale bundles (>72h)
+        env:
+          GH_TOKEN: ${{ secrets.PULL_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ ! -d review ]; then echo "无 ingest-review 分支，跳过"; exit 0; fi
+          cd review
+          NOW=$(date -u +%s)
+          TTL=$((72 * 3600))
+          shopt -s nullglob
+          declare -A seen
+          dispatched=0
+          for status in */*/status.json; do
+            ref="${status%%/*}"
+            [ -n "${seen[$ref]:-}" ] && continue
+            phase=$(python3 -c "import json,sys; print(json.load(open(sys.argv[1])).get('phase',''))" "$status" 2>/dev/null || echo "")
+            updated=$(python3 -c "import json,sys; print(json.load(open(sys.argv[1])).get('updated',''))" "$status" 2>/dev/null || echo "")
+            [ "$phase" = "A_done" ] || continue
+            [ -n "$updated" ] || continue
+            up=$(date -u -d "$updated" +%s 2>/dev/null || echo 0)
+            [ "$up" -gt 0 ] || continue
+            age=$((NOW - up))
+            if [ "$age" -ge "$TTL" ]; then
+              echo "↳ 超时 ${age}s ≥ ${TTL}s：dispatch finalize ref=$ref"
+              gh api "repos/${{ github.repository }}/dispatches" \
+                -f event_type=ingest-continue \
+                -F "client_payload[ref]=$ref" && dispatched=$((dispatched + 1))
+              seen[$ref]=1
+            fi
+          done
+          echo "共 dispatch $dispatched 个超时 bundle"

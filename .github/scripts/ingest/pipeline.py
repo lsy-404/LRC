@@ -201,7 +201,8 @@ def run(src: Path, res_dir: Path, work: Path, album: str, dry_run: bool, lyric_m
 
 def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bool,
                    lyric_maker: str = "", *, mode: str = "oneshot",
-                   bundle_root: Path | None = None, timestamp: str = "") -> dict:
+                   bundle_root: Path | None = None, timestamp: str = "",
+                   contributor: str = "") -> dict:
     """mode='oneshot'：素材 → build_draft → finalize → res/（现有行为，无闸门）。
     mode='phase_a'：素材 → build_draft → review.write_bundle 到 bundle_root/<album>/（停在待修改）。
     """
@@ -334,7 +335,8 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     if mode == "phase_a":
         bundle_dir = Path(bundle_root) / _album_slug(draft["album"])
         review_mod.write_bundle(bundle_dir, draft, timestamp=timestamp,
-                                extra={"is_update": existing_meta is not None})
+                                extra={"is_update": existing_meta is not None,
+                                       "contributor": contributor})
         summary.update({"album": draft["album"], "phase": review_mod.STATUS_A_DONE,
                         "bundle": str(bundle_dir), "cover": cover.name if cover else None,
                         "is_update": existing_meta is not None, "result": "ok"})
@@ -350,7 +352,8 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
 
 
 def run_phase_a(src: Path, res_dir: Path, work: Path, album: str, bundle_root: Path,
-                timestamp: str = "", dry_run: bool = False, lyric_maker: str = "") -> dict:
+                timestamp: str = "", dry_run: bool = False, lyric_maker: str = "",
+                contributor: str = "") -> dict:
     """Phase A：逐专辑 OCR/STT/检索/建草稿 → review bundle（停在待人工闸门，不写 res）。"""
     work.mkdir(parents=True, exist_ok=True)
     bundle_root = Path(bundle_root)
@@ -359,7 +362,8 @@ def run_phase_a(src: Path, res_dir: Path, work: Path, album: str, bundle_root: P
     print(f"识别到 {len(jobs)} 张专辑：{[a for a, _ in jobs]}", file=sys.stderr)
     albums_out = [
         _process_album(name, asrc, res_dir, work, dry_run, lyric_maker,
-                       mode="phase_a", bundle_root=bundle_root, timestamp=timestamp)
+                       mode="phase_a", bundle_root=bundle_root, timestamp=timestamp,
+                       contributor=contributor)
         for name, asrc in jobs
     ]
     ok = any(a.get("result") == "ok" for a in albums_out)
@@ -416,6 +420,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--src", help="投递目录（oneshot/a 必填）")
     ap.add_argument("--bundle-root", help="review bundle 根目录（a 写、b 读）")
     ap.add_argument("--timestamp", default="", help="Phase A 写入 status 的时间戳（由 workflow 传 date -u）")
+    ap.add_argument("--contributor", default="", help="Phase A 写入 status 的投稿者（供 Phase B 开 PR 署名）")
     ap.add_argument("--res-dir", default="res")
     ap.add_argument("--work", default=".ingest_work")
     ap.add_argument("--album", default="")
@@ -439,7 +444,8 @@ def main(argv: list[str] | None = None) -> int:
                 print("Phase A 需要 --bundle-root", file=sys.stderr)
                 return 1
             summary = run_phase_a(src, Path(args.res_dir), Path(args.work), args.album,
-                                  Path(args.bundle_root), args.timestamp, args.dry_run, args.lyric_maker)
+                                  Path(args.bundle_root), args.timestamp, args.dry_run,
+                                  args.lyric_maker, args.contributor)
         else:
             summary = run(src, Path(args.res_dir), Path(args.work), args.album,
                           args.dry_run, args.lyric_maker)

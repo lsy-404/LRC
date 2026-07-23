@@ -6,13 +6,17 @@ name: Upload Ingest
 #     使其独立于 upload 分支引用存在——见下方 capture job 内注释，这是为了防止
 #     排队中的后续 push 在轮到自己前，commit 就先被前一个 push 的 dropbox 重置
 #     动作变成悬空引用。
-#   ingest（沿用原有串行排队，一次只处理一个 push）：
+#   ingest = Phase A（沿用原有串行排队，一次只处理一个 push）：
 #     1. 从 capture 打的 tag（不是易变的 upload 分支）取走原料
 #     2. 立即把 upload 重置为「仅含本工作流 + 投递说明」（force-push，腾空投递箱）
-#     3. OCR / 文档抽取 / 校对 / faster-whisper STT / LLM 编排 → res/<专辑>/
-#     4. 从 main 迁出分支 upload-<贡献者>-<时间>，开 PR 走现有 lrc_auto_audit 审计
-#     5. 删掉自己那个保护用的 tag
-#   原料全程只在 runner 临时盘，绝不进任何持久分支；upload 旧 commit 被覆盖即销毁。
+#     3. OCR / 文档抽取 / STT / LLM 编排 → 待对齐草稿（build_draft，不对齐不写 res）
+#     4. 把草稿(draft/stt/cover/status) push 到 ingest-review 分支的 <sha>/ 子目录
+#     5. 删掉自己那个保护用的 tag —— 至此原料全部销毁
+#   ★ 不在此开 PR：停在「待人工闸门」。人工在工作台修改面板凭 ref=<sha> 校正 OCR/
+#     meta/轨单/关联/封面后，触发 ingest_finalize.yml（Phase B）对齐入库开 PR；无人处理
+#     则 ingest_timeout.yml 在 72h 后自动续跑 Phase B。
+#   原料全程只在 runner 临时盘，绝不进任何持久分支；upload 旧 commit 被覆盖即销毁；
+#   ingest-review 分支只存派生态（歌词草稿/词级时间戳/meta/封面），规则允许。
 
 on:
   push:
@@ -134,7 +138,7 @@ jobs:
           pip install -r repo/.github/scripts/requirements.txt
           pip install -r repo/.github/scripts/ingest/requirements.txt
 
-      - name: Run ingest pipeline
+      - name: Run ingest Phase A (build review bundle)
         id: run
         env:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
@@ -144,86 +148,58 @@ jobs:
           PYTHONPATH: ${{ github.workspace }}/repo/.github/scripts
         run: |
           set -euo pipefail
+          TS=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           python -m ingest.pipeline \
+            --phase a \
             --src "${{ github.workspace }}/payload" \
             --res-dir "${{ github.workspace }}/repo/res" \
+            --bundle-root "${{ github.workspace }}/.bundle" \
+            --timestamp "$TS" \
             --work "${{ github.workspace }}/.ingest_work" \
             --json "${{ github.workspace }}/summary.json" \
-            --lyric-maker "武乙凌薇"
-          # 是否有产物
-          if git -C repo status --porcelain res | grep -q .; then
+            --lyric-maker "武乙凌薇" \
+            --contributor "${{ github.actor }}"
+          # 是否产出 bundle
+          if [ -n "$(ls -A "${{ github.workspace }}/.bundle" 2>/dev/null)" ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "⚠️  未产生 res 改动，跳过开 PR"
+            echo "⚠️  Phase A 未产出 bundle"
           fi
           album=$(python -c "import json,sys; print(json.load(open('summary.json')).get('album',''))" 2>/dev/null || echo "")
           echo "album=${album}" >> "$GITHUB_OUTPUT"
-          is_update=$(python -c "import json,sys; print('true' if json.load(open('summary.json')).get('is_update') else 'false')" 2>/dev/null || echo "false")
-          echo "is_update=${is_update}" >> "$GITHUB_OUTPUT"
 
-      - name: Fetch Bilibili metadata for ingested album
+      - name: Push review bundle to ingest-review/<sha>/
         if: steps.run.outputs.changed == 'true'
         env:
-          PYTHONPATH: ${{ github.workspace }}/repo/.github/scripts
-        run: |
-          ALBUM="${{ steps.run.outputs.album }}"
-          if [ -n "$ALBUM" ]; then
-            cd "${{ github.workspace }}/repo"
-            python .github/scripts/fetch_bilibili_meta.py \
-              --album "$ALBUM" --auto --fields release,year,electronic
-          fi
-        continue-on-error: true
-
-      - name: Open PR from upload-<contributor>-<ts>
-        if: steps.run.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.PULL_TOKEN }}
-          GH_REPO: ${{ github.repository }}
+          GH_TOKEN_REVIEW: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          BRANCH="upload-${{ steps.ctx.outputs.actor }}-${{ steps.ctx.outputs.ts }}"
-          IS_UPDATE="${{ steps.run.outputs.is_update }}"
-          if [ "$IS_UPDATE" = "true" ]; then
-            PR_VERB="update"
-            PR_ICON="🔄"
-            PR_DESC="增补已有专辑数据（LRC / 封面 / meta）"
+          SHA="${{ steps.ctx.outputs.sha }}"
+          REMOTE="https://x-access-token:${GH_TOKEN_REVIEW}@github.com/${{ github.repository }}.git"
+          RD=$(mktemp -d)
+          # ingest-review 分支存派生态草稿，<sha>/ 一次投稿；不存在则新建 orphan。
+          # 用 GITHUB_TOKEN 推：不递归触发本工作流（且 ingest-review 无 on:push 工作流）。
+          if git clone --depth 1 --branch ingest-review "$REMOTE" "$RD" 2>/dev/null; then
+            :
           else
-            PR_VERB="ingest"
-            PR_ICON="🤖"
-            PR_DESC="新专辑摄取投稿"
+            git clone --depth 1 "$REMOTE" "$RD"
+            git -C "$RD" checkout --orphan ingest-review
+            git -C "$RD" rm -rf . >/dev/null 2>&1 || true
+            printf '# ingest-review\n\nPhase A 产出的 review bundle 暂存分支。每个 <sha>/ 子目录\n对应一次投稿（可含多张专辑子目录），Phase B 消费后删除。仅派生态，无版权原料。\n' > "$RD/README.md"
+            git -C "$RD" add README.md
+            git -C "$RD" -c user.name='github-actions[bot]' \
+                -c user.email='github-actions[bot]@users.noreply.github.com' \
+                commit -q -m "init ingest-review"
           fi
-          cd repo
-          git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git checkout -b "$BRANCH"
-          git add res
-          git commit -m "${PR_VERB}: ${{ steps.run.outputs.album }} (via upload by @${{ github.actor }})"
-          # 推 origin：repo 由默认 GITHUB_TOKEN checkout，其 extraheader 有 contents:write。
-          # PR 由下方 gh(GH_TOKEN=PULL_TOKEN=PAT) 创建 → 才能触发 lrc_auto_audit。
-          git push origin "$BRANCH"
-          BODY=$(cat <<EOF
-          ### ${PR_ICON} 自动摄取 — ${PR_DESC}
-
-          - 投稿者：@${{ github.actor }}
-          - 专辑：\`${{ steps.run.outputs.album }}\`
-          - 模式：$([ "$IS_UPDATE" = "true" ] && echo "**增补**（已有专辑，仅覆盖本次上传的文件）" || echo "**新建**")
-          - 来源：upload 投递箱（原料已销毁，仅派生产物入库）
-
-          <details><summary>处理摘要</summary>
-
-          \`\`\`json
-          $(cat ../summary.json)
-          \`\`\`
-          </details>
-
-          > ⚠️ STT 歌词为机器转写，meta 为 LLM 抽取，**请人工复核**后再依赖自动合并。
-          EOF
-          )
-          # 正式 PR：交由现有 lrc_auto_audit 审计，通过即自动 approve + squash 合并进 main。
-          gh pr create --base main --head "$BRANCH" \
-            --title "${PR_VERB}: ${{ steps.run.outputs.album }} (@${{ github.actor }})" \
-            --body "$BODY"
+          mkdir -p "$RD/$SHA"
+          cp -r "${{ github.workspace }}/.bundle/." "$RD/$SHA/"
+          git -C "$RD" add "$SHA"
+          git -C "$RD" -c user.name='github-actions[bot]' \
+              -c user.email='github-actions[bot]@users.noreply.github.com' \
+              commit -q -m "phase-a: ${{ steps.run.outputs.album }} ($SHA)"
+          git -C "$RD" push "$REMOTE" ingest-review
+          echo "✓ bundle 推入 ingest-review/$SHA/（待人工闸门 → ingest_finalize / 72h 超时）"
 
       - name: Clean up protective payload tag
         if: always()
