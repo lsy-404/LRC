@@ -606,7 +606,7 @@ def build_track_lrc(
 # ──────────────────────────────────────────────────────────────────────────────
 # 主流程
 # ──────────────────────────────────────────────────────────────────────────────
-def organize(
+def build_draft(
     *,
     tracks_explicit: list[dict] | None,
     booklet_text: str,
@@ -618,13 +618,17 @@ def organize(
     photo_links: dict[str, str] | None = None,
     source_hint: str = "",
     manifest: dict,
-    res_dir: Path,
     album_override: str = "",
     cover_path: Path | None = None,
     existing_meta: dict | None = None,
-    dry_run: bool = False,
     default_lyric_maker: str = "",
 ) -> dict[str, Any]:
+    """Phase A：整理素材为待对齐草稿（不 align、不写盘）。
+
+    产出 draft：album + 待对齐 tracks（含分配歌词/归一化行/伴奏配对）+ 合并 meta
+    + 名称字段 + 封面路径 + STT 词流 + 原始 OCR 页。finalize 吃它做对齐与落盘；
+    中间态可经人工闸门校正后再喂 finalize。
+    """
     audio_words = audio_words or {}
     audio_langs = audio_langs or {}
     tracks_explicit = tracks_explicit or []
@@ -743,6 +747,34 @@ def organize(
     if default_lyric_maker and not meta.get("lyric_maker"):
         meta["lyric_maker"] = [default_lyric_maker]
 
+    # 名称字段不在 FIELD_SCHEMA，merge_meta 不处理，手动按优先级计算：
+    # manifest > existing_meta > album 字符串推断
+    _man = manifest or {}
+    _ex = existing_meta or {}
+    names = {
+        "prefix":  str(_man.get("prefix") or _ex.get("prefix") or ""),
+        "zh_name": str(_man.get("zh_name") or _ex.get("zh_name") or "") or (album if _has_cjk(album) else ""),
+        "en_name": str(_man.get("en_name") or _ex.get("en_name") or "") or ("" if _has_cjk(album) else album),
+        "suffix":  str(_man.get("suffix") or _ex.get("suffix") or ""),
+    }
+    return {
+        "album": album, "tracks": tracks, "meta": meta, "names": names,
+        "audio_words": audio_words, "audio_langs": audio_langs,
+        "cover_path": str(cover_path) if cover_path else None,
+        "pages": pages or [],
+    }
+
+
+def finalize(draft: dict[str, Any], res_dir: Path, dry_run: bool = False) -> dict[str, Any]:
+    """Phase B：吃 build_draft 的草稿（或人工闸门校正后的草稿）→ 对齐 + 写 res/<专辑>/。"""
+    album = str(draft["album"])
+    tracks = draft["tracks"]
+    meta = draft["meta"]
+    names = draft["names"]
+    audio_words = draft.get("audio_words") or {}
+    audio_langs = draft.get("audio_langs") or {}
+    cover_path = Path(draft["cover_path"]) if draft.get("cover_path") else None
+
     # 3) 逐轨生成 LRC（匹配音频 + 对齐）
     used: set = set()
     written: list[str] = []
@@ -779,16 +811,7 @@ def organize(
     if leftover:
         print(f"  ⚠️  {len(leftover)} 个音频未匹配任何轨: {leftover}", file=sys.stderr)
 
-    # 4) meta.toml — 名称字段不在 FIELD_SCHEMA，merge_meta 不处理，手动按优先级计算
-    #    manifest > existing_meta > album 字符串推断
-    _man = manifest or {}
-    _ex = existing_meta or {}
-    names = {
-        "prefix":  str(_man.get("prefix") or _ex.get("prefix") or ""),
-        "zh_name": str(_man.get("zh_name") or _ex.get("zh_name") or "") or (album if _has_cjk(album) else ""),
-        "en_name": str(_man.get("en_name") or _ex.get("en_name") or "") or ("" if _has_cjk(album) else album),
-        "suffix":  str(_man.get("suffix") or _ex.get("suffix") or ""),
-    }
+    # 4) meta.toml — names 已由 build_draft 按优先级算好，直接渲染
     _emit(album_rel / "meta.toml", render_meta_toml(meta, names))
 
     # 5) cover
@@ -800,6 +823,36 @@ def organize(
         "album": album, "written": written, "track_count": len(tracks),
         "matched": len(used), "avg_coverage": round(sum(covs) / len(covs), 3) if covs else 0.0,
     }
+
+
+def organize(
+    *,
+    tracks_explicit: list[dict] | None,
+    booklet_text: str,
+    credits_text: str,
+    audio_words: dict[str, list] | None,
+    audio_langs: dict[str, str] | None = None,
+    tracks_plan: list[dict] | None = None,
+    pages: list[dict] | None = None,
+    photo_links: dict[str, str] | None = None,
+    source_hint: str = "",
+    manifest: dict,
+    res_dir: Path,
+    album_override: str = "",
+    cover_path: Path | None = None,
+    existing_meta: dict | None = None,
+    dry_run: bool = False,
+    default_lyric_maker: str = "",
+) -> dict[str, Any]:
+    """一次性跑完 = build_draft + finalize（向后兼容 CLI 与现有测试；无人工闸门）。"""
+    draft = build_draft(
+        tracks_explicit=tracks_explicit, booklet_text=booklet_text, credits_text=credits_text,
+        audio_words=audio_words, audio_langs=audio_langs, tracks_plan=tracks_plan,
+        pages=pages, photo_links=photo_links, source_hint=source_hint, manifest=manifest,
+        album_override=album_override, cover_path=cover_path, existing_meta=existing_meta,
+        default_lyric_maker=default_lyric_maker,
+    )
+    return finalize(draft, res_dir=res_dir, dry_run=dry_run)
 
 
 def main(argv: list[str] | None = None) -> int:

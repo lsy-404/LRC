@@ -32,12 +32,14 @@ if __package__ in (None, ""):
     from ingest import stt as stt_mod
     from ingest import organize as org_mod
     from ingest import lyrics as lyrics_mod
+    from ingest import review as review_mod
 else:
     from . import ocr as ocr_mod
     from . import documents as doc_mod
     from . import stt as stt_mod
     from . import organize as org_mod
     from . import lyrics as lyrics_mod
+    from . import review as review_mod
 
 TEXT_EXTS = {".txt"}
 IGNORE_NAMES = {"manifest.toml", "readme.md", "readme.txt", ".gitkeep", ".ds_store"}
@@ -158,6 +160,23 @@ def find_album_dirs(src: Path) -> list[Path]:
     return out
 
 
+def _album_slug(album: str) -> str:
+    """专辑名 → bundle 子目录名（清掉路径非法字符；空则 untitled）。"""
+    bad = '<>:"/\\|?*'
+    slug = "".join("_" if c in bad else c for c in (album or "")).strip()
+    return slug or "untitled"
+
+
+def _resolve_jobs(src: Path, album: str) -> list[tuple[str, Path]]:
+    """专辑识别：显式 --album 整体一张；否则顶层文件夹各一张；再否则素材在根、名待定。"""
+    if album:
+        return [(album, src)]
+    album_dirs = find_album_dirs(src)
+    if album_dirs:
+        return [(d.name, d) for d in album_dirs]
+    return [("", src)]
+
+
 def run(src: Path, res_dir: Path, work: Path, album: str, dry_run: bool, lyric_maker: str = "") -> dict:
     """识别专辑（= 上传里的顶层文件夹名）并逐个处理。
 
@@ -165,14 +184,7 @@ def run(src: Path, res_dir: Path, work: Path, album: str, dry_run: bool, lyric_m
     - 若用 --album 显式指定，或根下无文件夹（素材直接在根），则整体当一张专辑。
     """
     work.mkdir(parents=True, exist_ok=True)
-    if album:
-        jobs = [(album, src)]
-    else:
-        album_dirs = find_album_dirs(src)
-        if album_dirs:
-            jobs = [(d.name, d) for d in album_dirs]
-        else:
-            jobs = [("", src)]  # 素材直接在根、又没给名字 → 专辑名待定
+    jobs = _resolve_jobs(src, album)
     print(f"识别到 {len(jobs)} 张专辑：{[a for a, _ in jobs]}", file=sys.stderr)
 
     albums_out = []
@@ -187,7 +199,12 @@ def run(src: Path, res_dir: Path, work: Path, album: str, dry_run: bool, lyric_m
             "written": [w for a in albums_out for w in a.get("written", [])]}
 
 
-def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bool, lyric_maker: str = "") -> dict:
+def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bool,
+                   lyric_maker: str = "", *, mode: str = "oneshot",
+                   bundle_root: Path | None = None, timestamp: str = "") -> dict:
+    """mode='oneshot'：素材 → build_draft → finalize → res/（现有行为，无闸门）。
+    mode='phase_a'：素材 → build_draft → review.write_bundle 到 bundle_root/<album>/（停在待修改）。
+    """
     buckets = classify(src)
     summary: dict = {k: [p.name for p in v] for k, v in buckets.items()}
     print(f"分流：图片{len(buckets['image'])} 文档{len(buckets['doc'])} 音频{len(buckets['audio'])} "
@@ -304,19 +321,87 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
         print(f"⚠️  专辑「{album}」无可整理素材", file=sys.stderr)
         return summary
 
-    org_res = org_mod.organize(
+    draft = org_mod.build_draft(
         tracks_explicit=tracks_explicit, booklet_text=booklet_text, credits_text=credits_text,
         audio_words=audio_words, audio_langs=audio_langs, tracks_plan=tracks_plan,
         pages=pages, photo_links=photo_links,
-        manifest=manifest, source_hint=source_hint, res_dir=res_dir,
-        album_override=album, cover_path=cover, existing_meta=existing_meta, dry_run=dry_run,
+        manifest=manifest, source_hint=source_hint,
+        album_override=album, cover_path=cover, existing_meta=existing_meta,
         default_lyric_maker=lyric_maker,
     )
+
+    # Phase A：把草稿落成 review bundle（停在待人工闸门），不对齐不写 res
+    if mode == "phase_a":
+        bundle_dir = Path(bundle_root) / _album_slug(draft["album"])
+        review_mod.write_bundle(bundle_dir, draft, timestamp=timestamp,
+                                extra={"is_update": existing_meta is not None})
+        summary.update({"album": draft["album"], "phase": review_mod.STATUS_A_DONE,
+                        "bundle": str(bundle_dir), "cover": cover.name if cover else None,
+                        "is_update": existing_meta is not None, "result": "ok"})
+        return summary
+
+    # oneshot：直接对齐落盘
+    org_res = org_mod.finalize(draft, res_dir=res_dir, dry_run=dry_run)
     summary.update({"album": org_res["album"], "written": org_res["written"],
                     "track_count": org_res["track_count"], "matched": org_res["matched"],
                     "avg_coverage": org_res["avg_coverage"], "cover": cover.name if cover else None,
                     "is_update": existing_meta is not None, "result": "ok"})
     return summary
+
+
+def run_phase_a(src: Path, res_dir: Path, work: Path, album: str, bundle_root: Path,
+                timestamp: str = "", dry_run: bool = False, lyric_maker: str = "") -> dict:
+    """Phase A：逐专辑 OCR/STT/检索/建草稿 → review bundle（停在待人工闸门，不写 res）。"""
+    work.mkdir(parents=True, exist_ok=True)
+    bundle_root = Path(bundle_root)
+    bundle_root.mkdir(parents=True, exist_ok=True)
+    jobs = _resolve_jobs(src, album)
+    print(f"识别到 {len(jobs)} 张专辑：{[a for a, _ in jobs]}", file=sys.stderr)
+    albums_out = [
+        _process_album(name, asrc, res_dir, work, dry_run, lyric_maker,
+                       mode="phase_a", bundle_root=bundle_root, timestamp=timestamp)
+        for name, asrc in jobs
+    ]
+    ok = any(a.get("result") == "ok" for a in albums_out)
+    done = [a for a in albums_out if a.get("result") == "ok"]
+    return {"albums": albums_out, "result": "ok" if ok else "empty",
+            "album": "、".join(a.get("album", "") for a in done if a.get("album")),
+            "is_update": any(a.get("is_update") for a in done),
+            "bundles": [a.get("bundle") for a in done if a.get("bundle")]}
+
+
+def _find_bundles(bundle_root: Path) -> list[Path]:
+    """bundle_root 本身或其直接子目录中含 draft.json 者 = 一张待 finalize 的专辑。"""
+    bundle_root = Path(bundle_root)
+    if (bundle_root / "draft.json").is_file():
+        return [bundle_root]
+    if not bundle_root.is_dir():
+        return []
+    return [p for p in sorted(bundle_root.iterdir()) if p.is_dir() and (p / "draft.json").is_file()]
+
+
+def run_phase_b(bundle_root: Path, res_dir: Path, dry_run: bool = False) -> dict:
+    """Phase B：读（可能被人工闸门校正过的）bundle → organize.finalize → res/<专辑>/。"""
+    bundles = _find_bundles(bundle_root)
+    if not bundles:
+        print(f"⚠️  bundle 根下无 draft.json：{bundle_root}", file=sys.stderr)
+        return {"albums": [], "result": "empty", "album": "", "is_update": False, "written": []}
+    albums_out = []
+    for bd in bundles:
+        draft = review_mod.read_bundle(bd)
+        status = review_mod.read_status(bd)
+        org_res = org_mod.finalize(draft, res_dir=res_dir, dry_run=dry_run)
+        albums_out.append({"album": org_res["album"], "written": org_res["written"],
+                           "track_count": org_res["track_count"], "matched": org_res["matched"],
+                           "avg_coverage": org_res["avg_coverage"],
+                           "is_update": bool(status.get("is_update")), "result": "ok"})
+        print(f"✓ Phase B 完成：{org_res['album']}（{org_res['track_count']} 轨）", file=sys.stderr)
+    ok = any(a["result"] == "ok" for a in albums_out)
+    done = [a for a in albums_out if a["result"] == "ok"]
+    return {"albums": albums_out, "result": "ok" if ok else "empty",
+            "album": "、".join(a["album"] for a in done if a["album"]),
+            "is_update": any(a.get("is_update") for a in done),
+            "written": [w for a in albums_out for w in a.get("written", [])]}
 
 
 def _order_from_name(stem: str) -> int:
@@ -326,7 +411,11 @@ def _order_from_name(stem: str) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="upload 摄取管道单入口")
-    ap.add_argument("--src", required=True)
+    ap.add_argument("--phase", choices=["oneshot", "a", "b"], default="oneshot",
+                    help="oneshot=一次性(默认)；a=Phase A 建 review bundle；b=Phase B 读 bundle 落盘")
+    ap.add_argument("--src", help="投递目录（oneshot/a 必填）")
+    ap.add_argument("--bundle-root", help="review bundle 根目录（a 写、b 读）")
+    ap.add_argument("--timestamp", default="", help="Phase A 写入 status 的时间戳（由 workflow 传 date -u）")
     ap.add_argument("--res-dir", default="res")
     ap.add_argument("--work", default=".ingest_work")
     ap.add_argument("--album", default="")
@@ -335,12 +424,26 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args(argv)
 
-    src = Path(args.src)
-    if not src.is_dir():
-        print(f"投递目录不存在: {src}", file=sys.stderr)
-        return 1
+    if args.phase == "b":
+        if not args.bundle_root:
+            print("Phase B 需要 --bundle-root", file=sys.stderr)
+            return 1
+        summary = run_phase_b(Path(args.bundle_root), Path(args.res_dir), args.dry_run)
+    else:
+        if not args.src or not Path(args.src).is_dir():
+            print(f"投递目录不存在: {args.src}", file=sys.stderr)
+            return 1
+        src = Path(args.src)
+        if args.phase == "a":
+            if not args.bundle_root:
+                print("Phase A 需要 --bundle-root", file=sys.stderr)
+                return 1
+            summary = run_phase_a(src, Path(args.res_dir), Path(args.work), args.album,
+                                  Path(args.bundle_root), args.timestamp, args.dry_run, args.lyric_maker)
+        else:
+            summary = run(src, Path(args.res_dir), Path(args.work), args.album,
+                          args.dry_run, args.lyric_maker)
 
-    summary = run(src, Path(args.res_dir), Path(args.work), args.album, args.dry_run, args.lyric_maker)
     if args.json:
         Path(args.json).write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=2))
