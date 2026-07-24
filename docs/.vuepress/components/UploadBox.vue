@@ -22,6 +22,11 @@
         :disabled="busy"
       >
 
+      <p v-if="restoreMsg" class="ub-restore">
+        {{ restoreMsg }}
+        <button class="ub-btn ghost small" @click="forgetDraft">忘掉</button>
+      </p>
+
       <div class="ub-aux">
         <div>
           <label class="ub-label">发布 PV <span class="ub-dim">（Bilibili 链接，选填）</span></label>
@@ -280,8 +285,11 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
 import { addRef } from './refsCache.js';
+import {
+  serializeDraft, writeDraft, clearDraft, readDraft, restoreItem, debounce,
+} from './uploadDraft.js';
 
 // 验证在工作站根层（Workbench）统一完成，密码经 prop 传入
 const props = defineProps({ password: { type: String, default: '' } });
@@ -310,7 +318,8 @@ const dropUid = ref(null);
 const reorderUid = ref(null);
 let uid = 1;
 let camSeq = 1;
-let restoreDraft = null;  // 提交草稿（元数据）：重选文件时按 relPath 恢复用途/绑定/旋转
+let restoreDraft = null;  // 上次编辑状态：重选文件时按 relPath 恢复用途/绑定/旋转/排序
+const restoreMsg = ref('');
 
 const IMG_RE = /\.(png|jpe?g|webp|gif|bmp|tiff?)$/i;
 const isImg = (it) => IMG_RE.test(it.relPath);
@@ -430,6 +439,7 @@ async function rotateItem(it, delta) {
     submitMsg.value = '图片旋转失败';
   } finally {
     rotating.value = false;
+    scheduleSave();
   }
 }
 
@@ -454,6 +464,7 @@ async function rotateAll(delta) {
     submitMsg.value = '批量旋转失败';
   } finally {
     rotating.value = false;
+    scheduleSave();
   }
 }
 function removeItem(it) {
@@ -461,11 +472,13 @@ function removeItem(it) {
   for (const p of items.value) if (p.linkTo === it.uid) p.linkTo = 0;
   if (previewItem.value === it) previewItem.value = null;
   items.value = items.value.filter((x) => x !== it);
+  scheduleSave();
 }
 function clearItems() {
   for (const id of [...thumbs.keys()]) dropThumb(id);
   previewItem.value = null;
   items.value = [];
+  scheduleSave();
 }
 
 const linkedPhotos = (s) => photoItems.value.filter((p) => p.linkTo === s.uid);
@@ -476,6 +489,7 @@ function assignDragged(to) {
   if (p && p.role === 'photo') p.linkTo = to;
   dragUid.value = null;
   dropUid.value = null;
+  scheduleSave();
 }
 
 // 拖照片到另一张照片上 → 重排：把被拖照片插到目标前，给全体照片重设连续 porder
@@ -492,6 +506,7 @@ function onPhotoDrop(target) {
   order.splice(order.indexOf(target.uid), 0, drag.uid);
   const byUid = new Map(items.value.map((i) => [i.uid, i]));
   order.forEach((u, i) => { const it = byUid.get(u); if (it) it.porder = i; });
+  scheduleSave();
 }
 
 const fmtSize = (n) => n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB'
@@ -543,6 +558,7 @@ function applyRole(it) {
   } else if (it.role === 'staff') {
     it.relPath = base;
   }
+  scheduleSave();
 }
 
 function startEdit(it) {
@@ -560,6 +576,7 @@ function commitEdit(it) {
     it.relPath = v;
     it.role = guessRole(v);
   }
+  scheduleSave();
 }
 
 const dupSet = computed(() => {
@@ -602,6 +619,8 @@ function addFiles(picked) {
   if (busy.value) return;
   const have = new Set(items.value.map((i) => i.relPath));
   const toRotate = [];
+  let restored = 0;
+  let reused = 0;
   for (const p of picked) {
     if (isJunk(p.relPath) || have.has(p.relPath)) continue;
     have.add(p.relPath);
@@ -610,16 +629,23 @@ function addFiles(picked) {
       uid: uid++, role: guessRole(p.relPath), editing: false, editVal: '', linkTo: 0,
       origFile: p.file, rotation: 0, porder: null,
     };
-    // 从提交草稿按 relPath 恢复用途/绑定/旋转（提交失败或刷新后重选文件不丢）
+    // 按 relPath 恢复上次的编辑状态；大小一致的已传文件直接复用 sha 免重传
     const d = restoreDraft && restoreDraft.map.get(p.relPath);
     if (d) {
-      it.role = d.role || it.role;
-      it.linkTo = d.linkTo || 0;
-      if (d.rotation) { it.rotation = d.rotation; toRotate.push(it); }
+      const r = restoreItem(it, d);
+      if (r.rotated) toRotate.push(it);
+      restored++;
+      if (r.reusedSha) reused++;
     }
     items.value.push(it);
   }
   for (const it of toRotate) reapplyRotation(it);
+  if (restored) {
+    const parts = [`已恢复 ${restored} 个文件的用途/绑定/旋转`];
+    if (reused) parts.push(`其中 ${reused} 个已传过，无需重传`);
+    restoreMsg.value = parts.join('，');
+  }
+  scheduleSave();
 }
 
 // 重选文件后恢复旋转：从 origFile 按绝对角度重编码（与手动旋转同逻辑，零损失）
@@ -840,32 +866,12 @@ async function run() {
 }
 
 // 提交草稿快照（元数据级）：提交中把每文件的用途/旋转/绑定/已传sha 持久化，
-// 防提交失败或页面刷新丢失。File 本体无法入 localStorage，跨刷新需用户重选文件，
-// 届时按 relPath 匹配恢复「已传的跳过 + 旋转角度 + 绑定」。同会话重试本就不丢。
-const DRAFT_KEY = 'lrc-upload-draft';
+// 编辑过程中随时存，跨刷新不丢。File 本体无法入 localStorage，重选文件时按 relPath
+// 匹配恢复用途/绑定/旋转/排序，大小一致的已传文件复用 sha 免重传。
 function saveDraft() {
-  try {
-    localStorage.setItem(DRAFT_KEY, JSON.stringify({
-      album: album.value,
-      files: items.value.map((i) => ({
-        relPath: i.relPath, role: i.role, rotation: i.rotation || 0,
-        linkTo: i.linkTo || 0, sha: i.sha || null,
-      })),
-    }));
-  } catch { /* localStorage 不可用则跳过 */ }
+  writeDraft(serializeDraft(album.value, items.value));
 }
-function clearDraft() {
-  try { localStorage.removeItem(DRAFT_KEY); } catch { /* noop */ }
-}
-function loadDraftMap() {
-  try {
-    const d = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null');
-    if (!d || !Array.isArray(d.files)) return null;
-    const map = new Map();
-    for (const f of d.files) map.set(f.relPath, f);
-    return { album: d.album || '', map };
-  } catch { return null; }
-}
+const scheduleSave = debounce(saveDraft, 400);
 
 // 追踪编号（ref = payload 提交 SHA）缓存：供「修改」面板下拉回查校正
 function cacheRef(album, refVal) {
@@ -891,11 +897,22 @@ function resetForNext() {
   busy.value = false;
 }
 
+function forgetDraft() {
+  clearDraft();
+  restoreDraft = null;
+  restoreMsg.value = '';
+}
+
 const guard = (e) => { if (busy.value) e.preventDefault(); };
 onMounted(() => {
   window.addEventListener('beforeunload', guard);
-  restoreDraft = loadDraftMap();
+  restoreDraft = readDraft();
+  if (restoreDraft) {
+    if (!album.value && restoreDraft.album) album.value = restoreDraft.album;
+    restoreMsg.value = `上次编辑了「${restoreDraft.album || '未命名'}」的 ${restoreDraft.map.size} 个文件，重新选择这些文件即可接着上传`;
+  }
 });
+watch(album, () => scheduleSave());
 onBeforeUnmount(() => {
   window.removeEventListener('beforeunload', guard);
   for (const id of [...thumbs.keys()]) dropThumb(id);
@@ -1260,6 +1277,19 @@ onBeforeUnmount(() => {
   margin: 0 .1rem .3rem;
 }
 .ub-mini > div { height: 100%; background: var(--ub-accent); transition: width .2s; }
+.ub-restore {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  flex-wrap: wrap;
+  font-size: .82rem;
+  margin: .7rem 0 0;
+  padding: .5rem .7rem;
+  border: 1px solid var(--ub-accent, #3a7afe);
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--ub-accent, #3a7afe) 7%, transparent);
+}
+.ub-btn.small { padding: .2rem .6rem; font-size: .75rem; }
 .ub-total { font-size: .8rem; margin: .6rem 0 0; opacity: .8; }
 .ub-total.err { color: #f85149; opacity: 1; }
 
