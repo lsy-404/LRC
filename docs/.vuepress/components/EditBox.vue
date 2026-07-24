@@ -6,8 +6,11 @@
       <ul class="eb-pending">
         <li v-for="p in pending" :key="p.ref + '/' + p.album" @click="pick(p)">
           <span class="eb-p-album">{{ p.album }}</span>
-          <span class="eb-p-meta">
-            {{ phaseText(p.status) }} · {{ p.ref.slice(0, 7) }}<template v-if="p.contributor"> · @{{ p.contributor }}</template>
+          <span class="eb-p-right">
+            <span class="eb-p-meta">
+              {{ phaseText(p.status) }} · {{ p.ref.slice(0, 7) }}<template v-if="p.contributor"> · @{{ p.contributor }}</template>
+            </span>
+            <button class="eb-btn small danger" :disabled="discarding" @click.stop="discard(p.ref, p.album)">丢弃</button>
           </span>
         </li>
       </ul>
@@ -17,9 +20,9 @@
       <section class="eb-card">
         <label class="eb-label">追踪编号（ref） <span class="eb-dim">上方点选即可；也可手动粘贴编号 / 从最近投稿选择</span></label>
         <div class="eb-row">
-          <select v-if="cachedRefs.length" v-model="refInput" class="eb-input sel">
+          <select v-if="recentRefs.length" v-model="refInput" class="eb-input sel">
             <option value="">— 最近投稿 —</option>
-            <option v-for="c in cachedRefs" :key="c.ref" :value="c.ref">
+            <option v-for="c in recentRefs" :key="c.ref" :value="c.ref">
               {{ c.album }} · {{ c.ref.slice(0, 7) }}
             </option>
           </select>
@@ -88,6 +91,9 @@
           <button class="eb-btn" :disabled="e._saving" @click="save(e)">
             {{ e._saving ? '保存中…' : '保存修改' }}
           </button>
+          <button class="eb-btn danger" :disabled="discarding" @click="discard(curRef, e.album)">
+            {{ discarding ? '丢弃中…' : '丢弃此草稿' }}
+          </button>
           <span v-if="e._msg" class="eb-msg inline" :class="{ err: e._err }">{{ e._msg }}</span>
         </div>
       </section>
@@ -104,9 +110,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-
-const REFS_KEY = 'lrc-upload-refs';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 
 const META_FIELDS = [
   { key: 'vocal', label: '演唱', list: true },
@@ -138,16 +143,18 @@ const msg = ref('');
 const msgErr = ref(false);
 const edits = ref([]);
 const continuing = ref(false);
+const discarding = ref(false);
 const done = ref(false);
 let pollTimer = null;
+
+const recentRefs = computed(() => dedupeRecent(cachedRefs.value, pending.value));
 
 function authHeaders() {
   return { authorization: 'Bearer ' + encodeURIComponent(props.password) };
 }
 
 function loadCachedRefs() {
-  try { cachedRefs.value = JSON.parse(localStorage.getItem(REFS_KEY) || '[]'); }
-  catch { cachedRefs.value = []; }
+  cachedRefs.value = readRefs();
 }
 
 const PHASE_TEXT = { A_done: '待修改', confirmed: '已确认待入库', B_done: '已入库' };
@@ -302,6 +309,37 @@ async function save(e) {
   finally { e._saving = false; }
 }
 
+// 丢弃草稿：服务端删除 review bundle（原料早已销毁，删的是派生态，不可恢复），
+// 同步剔除本地缓存与当前编辑态。404 视为已不存在，同样按丢弃成功处理。
+async function discard(ref, album) {
+  if (!window.confirm(`丢弃「${album}」的草稿？该投稿将不再入库，且无法恢复。`)) return;
+  discarding.value = true;
+  try {
+    const resp = await fetch('/api/ingest/discard', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', ...authHeaders() },
+      body: JSON.stringify({ ref, album }),
+    });
+    const data = await resp.json().catch(() => ({}));
+    if (!resp.ok && resp.status !== 404) {
+      msgErr.value = true;
+      msg.value = '丢弃失败：' + (data.message || data.error || resp.status);
+      return;
+    }
+    pending.value = pending.value.filter((p) => !(p.ref === ref && p.album === album));
+    edits.value = edits.value.filter((e) => !(ref === curRef.value && e.album === album));
+    if (!edits.value.length && ref === curRef.value) {
+      stopPoll();
+      refInput.value = '';
+      curRef.value = '';
+    }
+    if (!pending.value.some((p) => p.ref === ref)) cachedRefs.value = removeRef(ref);
+    msgErr.value = false;
+    msg.value = `已丢弃「${album}」`;
+  } catch { msgErr.value = true; msg.value = '网络错误'; }
+  finally { discarding.value = false; }
+}
+
 async function continueIngest() {
   if (!window.confirm('确认后开始对齐入库（Phase B）并开出 PR。建议先保存所有修改。继续？')) return;
   continuing.value = true;
@@ -381,6 +419,8 @@ onBeforeUnmount(() => {
 .eb-btn.big { padding: .55rem 1.6rem; font-size: .95rem; }
 .eb-btn.small { padding: .25rem .7rem; font-size: .75rem; }
 .eb-btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+.eb-btn.danger { color: #f85149; }
+.eb-btn.danger:hover:not(:disabled) { border-color: #f85149; }
 
 .eb-meta { display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: .6rem; }
 .eb-field { display: flex; flex-direction: column; }
@@ -448,6 +488,7 @@ onBeforeUnmount(() => {
   background: color-mix(in srgb, var(--eb-accent) 6%, transparent);
 }
 .eb-p-album { font-weight: 600; }
+.eb-p-right { display: flex; gap: .6rem; align-items: center; }
 .eb-p-meta { font-size: .75rem; opacity: .65; white-space: nowrap; }
 
 .eb-msg { font-size: .85rem; margin: .6rem 0 0; color: var(--eb-accent); }

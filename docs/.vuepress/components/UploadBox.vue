@@ -281,6 +281,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { addRef } from './refsCache.js';
 
 // 验证在工作站根层（Workbench）统一完成，密码经 prop 传入
 const props = defineProps({ password: { type: String, default: '' } });
@@ -867,14 +868,8 @@ function loadDraftMap() {
 }
 
 // 追踪编号（ref = payload 提交 SHA）缓存：供「修改」面板下拉回查校正
-const REFS_KEY = 'lrc-upload-refs';
 function cacheRef(album, refVal) {
-  try {
-    const list = JSON.parse(localStorage.getItem(REFS_KEY) || '[]');
-    const next = [{ ref: refVal, album, at: Date.now() },
-      ...list.filter((x) => x.ref !== refVal)].slice(0, 20);
-    localStorage.setItem(REFS_KEY, JSON.stringify(next));
-  } catch { /* localStorage 不可用则跳过，不影响投稿 */ }
+  addRef(album, refVal);
 }
 async function copyRef() {
   try { await navigator.clipboard.writeText(lastRef.value); } catch { /* noop */ }
