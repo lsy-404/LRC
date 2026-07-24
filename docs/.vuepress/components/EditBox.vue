@@ -1,8 +1,21 @@
 <template>
   <div class="eb">
-    <!-- ref 选择 -->
+    <!-- 待处理投稿列表（免记 ref，点选即加载）-->
+    <section v-if="pending.length" class="eb-card">
+      <label class="eb-label">待处理投稿 <span class="eb-dim">（点选加载，无需记编号）</span></label>
+      <ul class="eb-pending">
+        <li v-for="p in pending" :key="p.ref + '/' + p.album" @click="pick(p)">
+          <span class="eb-p-album">{{ p.album }}</span>
+          <span class="eb-p-meta">
+            {{ phaseText(p.status) }} · {{ p.ref.slice(0, 7) }}<template v-if="p.contributor"> · @{{ p.contributor }}</template>
+          </span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ref 选择（后备：手动粘贴编号）-->
       <section class="eb-card">
-        <label class="eb-label">追踪编号（ref） <span class="eb-dim">投稿完成时给出的编号，或从最近投稿选择</span></label>
+        <label class="eb-label">追踪编号（ref） <span class="eb-dim">上方点选即可；也可手动粘贴编号 / 从最近投稿选择</span></label>
         <div class="eb-row">
           <select v-if="cachedRefs.length" v-model="refInput" class="eb-input sel">
             <option value="">— 最近投稿 —</option>
@@ -117,6 +130,7 @@ const META_FIELDS = [
 const props = defineProps({ password: { type: String, default: '' } });
 
 const cachedRefs = ref([]);
+const pending = ref([]);
 const refInput = ref('');
 const curRef = ref('');
 const loading = ref(false);
@@ -134,6 +148,23 @@ function authHeaders() {
 function loadCachedRefs() {
   try { cachedRefs.value = JSON.parse(localStorage.getItem(REFS_KEY) || '[]'); }
   catch { cachedRefs.value = []; }
+}
+
+const PHASE_TEXT = { A_done: '待修改', confirmed: '已确认待入库', B_done: '已入库' };
+const phaseText = (s) => PHASE_TEXT[s] || s || '处理中';
+
+// 列出所有 pending 投稿（免记 ref）
+async function loadPending() {
+  try {
+    const resp = await fetch('/api/ingest/list', { headers: authHeaders() });
+    if (!resp.ok) return;
+    const data = await resp.json().catch(() => ({}));
+    pending.value = Array.isArray(data.pending) ? data.pending : [];
+  } catch { /* noop */ }
+}
+function pick(p) {
+  refInput.value = p.ref;
+  load();
 }
 
 // list 字段数组 <-> 字符串；tracks lines 数组 <-> textarea 文本
@@ -289,6 +320,7 @@ async function continueIngest() {
 
 onMounted(() => {
   loadCachedRefs();
+  loadPending();
 });
 onBeforeUnmount(() => {
   stopPoll();
@@ -397,6 +429,26 @@ onBeforeUnmount(() => {
   border: 1px solid var(--border-color, #ddd);
 }
 .eb-cover label.eb-btn { display: inline-flex; align-items: center; }
+
+.eb-pending { list-style: none; margin: .3rem 0 0; padding: 0; }
+.eb-pending li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: .6rem;
+  padding: .5rem .65rem;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 7px;
+  margin-bottom: .4rem;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.eb-pending li:hover {
+  border-color: var(--eb-accent);
+  background: color-mix(in srgb, var(--eb-accent) 6%, transparent);
+}
+.eb-p-album { font-weight: 600; }
+.eb-p-meta { font-size: .75rem; opacity: .65; white-space: nowrap; }
 
 .eb-msg { font-size: .85rem; margin: .6rem 0 0; color: var(--eb-accent); }
 .eb-msg.inline { margin: 0; }

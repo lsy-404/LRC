@@ -242,6 +242,9 @@
         <li>到「修改」面板校正后确认继续（或 72 小时后自动继续）</li>
         <li>对齐入库开 PR，审核通过后原料销毁</li>
       </ol>
+      <div class="ub-row center">
+        <button class="ub-btn primary" @click="resetForNext">返回并提交下一个</button>
+      </div>
     </section>
 
     <!-- 图片放大预览 -->
@@ -306,6 +309,7 @@ const dropUid = ref(null);
 const reorderUid = ref(null);
 let uid = 1;
 let camSeq = 1;
+let restoreDraft = null;  // 提交草稿（元数据）：重选文件时按 relPath 恢复用途/绑定/旋转
 
 const IMG_RE = /\.(png|jpe?g|webp|gif|bmp|tiff?)$/i;
 const isImg = (it) => IMG_RE.test(it.relPath);
@@ -596,15 +600,34 @@ const isJunk = (relPath) => relPath.split('/').some((seg) => JUNK_RE.test(seg));
 function addFiles(picked) {
   if (busy.value) return;
   const have = new Set(items.value.map((i) => i.relPath));
+  const toRotate = [];
   for (const p of picked) {
     if (isJunk(p.relPath) || have.has(p.relPath)) continue;
     have.add(p.relPath);
-    items.value.push({
+    const it = {
       ...p, size: p.file.size, status: 'wait', pct: 0, sha: null,
       uid: uid++, role: guessRole(p.relPath), editing: false, editVal: '', linkTo: 0,
       origFile: p.file, rotation: 0, porder: null,
-    });
+    };
+    // 从提交草稿按 relPath 恢复用途/绑定/旋转（提交失败或刷新后重选文件不丢）
+    const d = restoreDraft && restoreDraft.map.get(p.relPath);
+    if (d) {
+      it.role = d.role || it.role;
+      it.linkTo = d.linkTo || 0;
+      if (d.rotation) { it.rotation = d.rotation; toRotate.push(it); }
+    }
+    items.value.push(it);
   }
+  for (const it of toRotate) reapplyRotation(it);
+}
+
+// 重选文件后恢复旋转：从 origFile 按绝对角度重编码（与手动旋转同逻辑，零损失）
+async function reapplyRotation(it) {
+  if (!it.rotation || !isImg(it)) return;
+  try {
+    it.file = await rotateImageFile(it.origFile || it.file, it.rotation);
+    it.size = it.file.size;
+  } catch { /* noop */ }
 }
 
 function onPickFiles(e) {
@@ -756,6 +779,7 @@ async function run() {
     instSuspects.forEach((i) => { i.instConfirmed = true; });
   }
   syncManifest(name);
+  saveDraft();
   busy.value = true;
   showRetry.value = false;
   submitMsg.value = '上传中…';
@@ -803,6 +827,7 @@ async function run() {
       `「${name}」共 ${items.value.length} 个文件已推入 upload 投递箱（${String(data.commit).slice(0, 7)}）。`;
     lastRef.value = String(data.commit || '');
     if (lastRef.value) cacheRef(name, lastRef.value);
+    clearDraft();
     finished.value = true;
     busy.value = false;
   } catch (err) {
@@ -811,6 +836,34 @@ async function run() {
     submitMsg.value = '提交失败：' + err.message + '（已传文件保留，可直接重试）';
     showRetry.value = true;
   }
+}
+
+// 提交草稿快照（元数据级）：提交中把每文件的用途/旋转/绑定/已传sha 持久化，
+// 防提交失败或页面刷新丢失。File 本体无法入 localStorage，跨刷新需用户重选文件，
+// 届时按 relPath 匹配恢复「已传的跳过 + 旋转角度 + 绑定」。同会话重试本就不丢。
+const DRAFT_KEY = 'lrc-upload-draft';
+function saveDraft() {
+  try {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify({
+      album: album.value,
+      files: items.value.map((i) => ({
+        relPath: i.relPath, role: i.role, rotation: i.rotation || 0,
+        linkTo: i.linkTo || 0, sha: i.sha || null,
+      })),
+    }));
+  } catch { /* localStorage 不可用则跳过 */ }
+}
+function clearDraft() {
+  try { localStorage.removeItem(DRAFT_KEY); } catch { /* noop */ }
+}
+function loadDraftMap() {
+  try {
+    const d = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null');
+    if (!d || !Array.isArray(d.files)) return null;
+    const map = new Map();
+    for (const f of d.files) map.set(f.relPath, f);
+    return { album: d.album || '', map };
+  } catch { return null; }
 }
 
 // 追踪编号（ref = payload 提交 SHA）缓存：供「修改」面板下拉回查校正
@@ -827,9 +880,26 @@ async function copyRef() {
   try { await navigator.clipboard.writeText(lastRef.value); } catch { /* noop */ }
 }
 
+// 返回并提交下一个：清空本次投稿状态，回到选择步继续投下一张（验证由 Workbench 根层保持）
+function resetForNext() {
+  clearDraft();
+  clearItems();
+  album.value = '';
+  linkBili.value = '';
+  linkDizzy.value = '';
+  submitMsg.value = '';
+  submitErr.value = false;
+  showRetry.value = false;
+  doneDetail.value = '';
+  lastRef.value = '';
+  finished.value = false;
+  busy.value = false;
+}
+
 const guard = (e) => { if (busy.value) e.preventDefault(); };
 onMounted(() => {
   window.addEventListener('beforeunload', guard);
+  restoreDraft = loadDraftMap();
 });
 onBeforeUnmount(() => {
   window.removeEventListener('beforeunload', guard);
