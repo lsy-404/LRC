@@ -51,17 +51,64 @@
           </div>
         </div>
 
-        <p class="eb-sub">轨单与歌词 <span class="eb-dim">直接编辑每轨草稿歌词即最终歌词，改完对齐即用</span></p>
-        <div v-for="(t, i) in e.tracks" :key="i" class="eb-track" :class="{ lowconf: isLowConf(t) }">
+        <p class="eb-sub">
+          轨单与成品歌词
+          <span class="eb-dim">下方带时间轴的即最终写盘 LRC；改过的轨会在确认后重新对齐</span>
+        </p>
+        <div
+          v-for="(t, i) in e.tracks"
+          :key="i"
+          class="eb-track"
+          :class="{ lowconf: isLowConf(t), lowcov: showLowCov(t), dirty: isDirty(t) }"
+        >
           <div class="eb-track-head">
             <input v-model.number="t.order" type="number" class="eb-input tiny" title="序号">
             <input v-model="t.title" class="eb-input grow" placeholder="曲名">
-            <span v-if="isLowConf(t)" class="eb-lowconf" title="识别置信度低，请重点核对">
-              低置信 {{ Math.round((t.confidence || 0) * 100) }}%
+            <span v-if="isLowConf(t)" class="eb-tag conf" title="视觉分轨的识别置信度低，请重点核对曲名与归属">
+              识别低置信 {{ pct(t.confidence) }}
+            </span>
+            <span v-if="showLowCov(t)" class="eb-tag cov" title="时间轴对齐覆盖率低，时间戳可能不准">
+              对齐覆盖 {{ pct(t.coverage) }}
+            </span>
+            <span v-if="isDirty(t)" class="eb-tag edit" title="确认后 Phase B 会对该轨重新对齐">
+              已修改 · 待重对齐
             </span>
             <label class="eb-inst"><input v-model="t.inst" type="checkbox"> 伴奏/无人声</label>
           </div>
+
+          <div class="eb-track-bar">
+            <span class="eb-dim">{{ trackState(t) }}</span>
+            <span class="eb-spacer" />
+            <button
+              v-if="t.rows.length"
+              class="eb-btn small"
+              :class="{ on: t._view === 'lrc' }"
+              @click="t._view = 'lrc'"
+            >时间轴</button>
+            <button
+              class="eb-btn small"
+              :class="{ on: t._view === 'text' }"
+              @click="t._view = 'text'"
+            >整段文本</button>
+          </div>
+
+          <div v-if="t._view === 'lrc' && t.rows.length" class="eb-lrc">
+            <p v-if="isDirty(t)" class="eb-note">已改动本轨，下方时间戳仍是改前结果，确认后会按新歌词重新对齐。</p>
+            <p v-else-if="!timeline(t).matched" class="eb-note">歌词行数与时间轴不符，确认后会重新对齐。</p>
+            <div v-if="t.head.length" class="eb-lrc-head">
+              <div v-for="(h, hi) in t.head" :key="hi">{{ h }}</div>
+            </div>
+            <div v-for="(r, li) in timeline(t).rows" :key="li" class="eb-lrc-row">
+              <span class="eb-ts" :class="{ miss: !r.ts }">[{{ r.ts || '--:--.--' }}]</span>
+              <input class="eb-input lrc" :value="r.text" @input="setLine(t, li, $event.target.value)">
+            </div>
+            <details v-if="t.klrc" class="eb-klrc">
+              <summary>逐字增强版（只读）</summary>
+              <pre>{{ t.klrc }}</pre>
+            </details>
+          </div>
           <textarea
+            v-else
             v-model="t.text"
             class="eb-textarea"
             rows="6"
@@ -108,6 +155,10 @@
         <p class="eb-dim small">
           请先保存各专辑修改再点此。也可不修改直接继续；72 小时无操作会自动继续。
         </p>
+        <p class="eb-dim small">
+          <template v-if="dirtyCount">已修改 {{ dirtyCount }} 轨，确认后将重新对齐；其余轨直接沿用上方时间轴入库。</template>
+          <template v-else>未修改任何轨，确认后直接沿用上方时间轴入库。</template>
+        </p>
       </section>
   </div>
 </template>
@@ -115,6 +166,9 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
+import {
+  parseLrc, alignTimestamps, textToLines, linesToText, isTrackEdited, isLowCoverage,
+} from './lrcDraft.js';
 
 const META_FIELDS = [
   { key: 'vocal', label: '演唱', list: true },
@@ -165,6 +219,40 @@ const phaseText = (s) => PHASE_TEXT[s] || s || '处理中';
 
 // 视觉分轨每轨置信度，低于 0.7 高亮提示重点核对
 const isLowConf = (t) => t.confidence != null && t.confidence < 0.7;
+// 时间轴对齐覆盖率，与识别置信度分开提示
+const showLowCov = (t) => isLowCoverage(t.coverage);
+const pct = (v) => Math.round((Number(v) || 0) * 100) + '%';
+
+// 时间轴视图：按当前歌词行贴回时间戳，行数不符则留空并提示
+const tlCache = new WeakMap();
+function timeline(t) {
+  const hit = tlCache.get(t);
+  if (hit && hit.text === t.text) return hit.tl;
+  const lines = t.text.split('\n');
+  const { stamps, matched } = alignTimestamps(t.rows, lines);
+  const tl = { matched, rows: lines.map((text, i) => ({ text, ts: stamps[i] })) };
+  tlCache.set(t, { text: t.text, tl });
+  return tl;
+}
+function setLine(t, i, val) {
+  const lines = t.text.split('\n');
+  lines[i] = val;
+  t.text = lines.join('\n');
+}
+
+const curTrack = (t) => ({
+  order: t.order, title: t.title, inst: t.inst, lines: textToLines(t.text),
+});
+// 本次会话改过，或此前保存已标记过
+const isDirty = (t) => !!(t._orig && t._orig.edited) || isTrackEdited(t._orig, curTrack(t));
+
+function trackState(t) {
+  if (!t.rows.length) return t.inst ? '伴奏轨，未生成时间轴' : '尚未对齐，确认后生成时间轴';
+  return t.audio ? `已对齐 · ${t.audio}` : '已对齐';
+}
+const dirtyCount = computed(() => edits.value.reduce(
+  (n, e) => n + e.tracks.filter(isDirty).length, 0,
+));
 
 // 列出所有 pending 投稿（免记 ref）
 async function loadPending() {
@@ -191,10 +279,15 @@ function toEdit(album, draft) {
     album,
     _draft: draft,
     meta,
-    tracks: (draft.tracks || []).map((t) => ({
-      order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
-      text: (t.lines || []).join('\n'), _orig: t,
-    })),
+    tracks: (draft.tracks || []).map((t) => {
+      const { head, rows } = parseLrc(t.lrc);
+      return {
+        order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
+        coverage: t.coverage, audio: t.audio || '', klrc: t.klrc || '',
+        head, rows, _view: rows.length ? 'lrc' : 'text',
+        text: linesToText(t.lines), _orig: t,
+      };
+    }),
     pages: draft.pages || [],
     coverExt: draft.cover_ext || '',
     coverRemoved: false,
@@ -212,12 +305,14 @@ function toDraft(e) {
       meta[f.key] = e.meta[f.key].trim();
     }
   }
+  // 展开 _orig 以原样透传 lrc/klrc/coverage/audio/aligned 等对齐产物字段
   const tracks = e.tracks.map((t) => ({
     ...t._orig,
     order: Number(t.order) || t._orig.order,
     title: t.title.trim(),
     inst: !!t.inst,
-    lines: t.text.split('\n').filter((s) => s.trim() !== ''),
+    lines: textToLines(t.text),
+    edited: isDirty(t),
   }));
   return { ...e._draft, meta, tracks, cover_ext: e.coverRemoved ? '' : e.coverExt };
 }
@@ -437,15 +532,55 @@ onBeforeUnmount(() => {
   padding: .6rem .7rem;
   margin-bottom: .6rem;
 }
+.eb-track.dirty { background: color-mix(in srgb, var(--eb-accent) 5%, transparent); }
+.eb-track.lowcov { border-color: #a371f7; box-shadow: 0 0 0 2px color-mix(in srgb, #a371f7 22%, transparent); }
 .eb-track.lowconf { border-color: #e3a008; box-shadow: 0 0 0 2px color-mix(in srgb, #e3a008 25%, transparent); }
-.eb-track-head { display: flex; gap: .5rem; align-items: center; margin-bottom: .5rem; }
-.eb-lowconf {
+.eb-track-head { display: flex; gap: .5rem; align-items: center; margin-bottom: .5rem; flex-wrap: wrap; }
+.eb-tag {
   font-size: .72rem;
-  color: #e3a008;
-  border: 1px solid #e3a008;
   border-radius: 99px;
   padding: .05rem .5rem;
   white-space: nowrap;
+  border: 1px solid currentColor;
+}
+.eb-tag.conf { color: #e3a008; }
+.eb-tag.cov { color: #a371f7; }
+.eb-tag.edit { color: var(--eb-accent); }
+
+.eb-track-bar { display: flex; gap: .4rem; align-items: center; margin-bottom: .5rem; font-size: .75rem; }
+.eb-spacer { flex: 1; }
+.eb-btn.on { border-color: var(--eb-accent); color: var(--eb-accent); }
+
+.eb-lrc { font-size: .85rem; }
+.eb-note { margin: 0 0 .5rem; font-size: .75rem; color: var(--eb-accent); }
+.eb-lrc-head {
+  font-size: .75rem;
+  opacity: .6;
+  line-height: 1.6;
+  padding: .3rem .5rem;
+  margin-bottom: .35rem;
+  border-left: 2px solid var(--border-color, #ddd);
+}
+.eb-lrc-row { display: flex; gap: .4rem; align-items: center; margin-bottom: .25rem; }
+.eb-ts {
+  font-family: var(--font-family-mono, monospace);
+  font-size: .75rem;
+  opacity: .6;
+  white-space: nowrap;
+  flex: none;
+}
+.eb-ts.miss { opacity: .35; }
+.eb-input.lrc { padding: .3rem .5rem; font-size: .85rem; }
+.eb-klrc { margin-top: .5rem; font-size: .78rem; }
+.eb-klrc summary { cursor: pointer; opacity: .7; }
+.eb-klrc pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: .75rem;
+  margin: .3rem 0 0;
+  padding: .5rem .65rem;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--eb-accent) 5%, transparent);
 }
 .eb-inst { font-size: .75rem; white-space: nowrap; display: flex; align-items: center; gap: .25rem; opacity: .8; }
 .eb-textarea {

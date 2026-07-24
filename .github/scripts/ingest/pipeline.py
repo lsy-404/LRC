@@ -214,7 +214,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
                    lyric_maker: str = "", *, mode: str = "oneshot",
                    bundle_root: Path | None = None, timestamp: str = "",
                    contributor: str = "") -> dict:
-    """mode='oneshot'：素材 → build_draft → finalize → res/（现有行为，无闸门）。
+    """mode='oneshot'：素材 → build_draft（含对齐）→ finalize → res/（无闸门）。
     mode='phase_a'：素材 → build_draft → review.write_bundle 到 bundle_root/<album>/（停在待修改）。
     """
     buckets = classify(src)
@@ -360,7 +360,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
         default_lyric_maker=lyric_maker,
     )
 
-    # Phase A：把草稿落成 review bundle（停在待人工闸门），不对齐不写 res
+    # Phase A：把成品草稿落成 review bundle（停在待人工闸门），不写 res
     if mode == "phase_a":
         bundle_dir = Path(bundle_root) / _album_slug(draft["album"])
         review_mod.write_bundle(bundle_dir, draft, timestamp=timestamp,
@@ -383,7 +383,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
 def run_phase_a(src: Path, res_dir: Path, work: Path, album: str, bundle_root: Path,
                 timestamp: str = "", dry_run: bool = False, lyric_maker: str = "",
                 contributor: str = "") -> dict:
-    """Phase A：逐专辑 OCR/STT/检索/建草稿 → review bundle（停在待人工闸门，不写 res）。"""
+    """Phase A：逐专辑 OCR/STT/检索/建草稿/对齐 → review bundle（停在待人工闸门，不写 res）。"""
     work.mkdir(parents=True, exist_ok=True)
     bundle_root = Path(bundle_root)
     bundle_root.mkdir(parents=True, exist_ok=True)

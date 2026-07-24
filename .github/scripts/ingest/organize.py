@@ -604,6 +604,9 @@ def build_track_lrc(
     返回 (lrc, 覆盖率, lrc_words)。lrc 是标准行级 LRC（不含逐字标签，
     保证任何播放器/解析器兼容）；lrc_words 是同一份对齐结果的逐字增强版
     （行内 <字时间> 标签），另存 .klrc 侧车文件，不匹配音频时为 None。
+
+    副作用：把匹配到的音频名写回 track["audio"]（未匹配为 ""），空标题由音频
+    文件名回填，歌词本无文本时 STT 草稿行写回 track["lines"]。
     """
     title = str(track.get("title", "")).strip()
     lines = track.get("lines") or [l for l in str(track.get("lyrics", "")).splitlines() if l.strip()]
@@ -633,11 +636,13 @@ def build_track_lrc(
                 credits=credits, language=pair_lang, per_char=True,
             )
             cov = align_mod.coverage(lines, pair_words, language=pair_lang)
+            track["audio"] = pair_file
             print(f"  ♫ {title}: 伴奏/无人声轨，时间轴完全 cv 同名正曲", file=sys.stderr)
             return lrc, cov, lrc_words
         header = f"[ti:{title}]\n[al:{album}]\n[ar:{artist}]\n[by:{by}]\n\n"
         if credits:
             header += "\n".join(credits) + "\n\n"
+        track["audio"] = ""
         print(f"  ○ {title}: 伴奏/无人声轨，无同名曲目可复用，写纯音乐占位行", file=sys.stderr)
         return header + "[00:01.00]纯音乐，请欣赏\n", 0.0, None
     # 轨单路径：轨即音频，直连不做模糊匹配；否则按歌词相似度匹配
@@ -645,9 +650,11 @@ def build_track_lrc(
         match_audio_to_track(lines, audio_words, used, audio_langs) if audio_words else None)
     if audio:
         used.add(audio)
+        track["audio"] = audio
         if not lines:
             # 歌词本没有该曲文本：用它自身 STT 词流出草稿行（曲名仍来自轨单）
             lines = _words_to_lines(audio_words[audio])
+            track["lines"] = list(lines)  # 回写供人工闸门编辑
             print(f"  ⟳ {title or audio}: 歌词本无此曲文本，STT 草稿", file=sys.stderr)
         if not title:
             # 音频文件名自带曲名（投稿者命名/内嵌tag），比 OCR 读出的标题可靠
@@ -675,8 +682,38 @@ def build_track_lrc(
     header = f"[ti:{title}]\n[al:{album}]\n[ar:{artist}]\n[by:{by}]\n\n"
     if credits:
         header += "\n".join(credits) + "\n\n"
+    track["audio"] = ""
     print(f"  ○ {title}: 无匹配音频，输出无时间轴草稿", file=sys.stderr)
     return header + "\n".join(lines) + "\n", 0.0, None
+
+
+def align_tracks(
+    tracks: list[dict],
+    album: str,
+    audio_words: dict[str, list],
+    audio_langs: dict[str, str] | None = None,
+    by: str = "",
+    album_meta: dict | None = None,
+) -> set:
+    """逐轨对齐，把成品字段写进 track；返回被占用的音频名集合。
+
+    成品字段：lrc / klrc / coverage / audio / aligned / edited。
+    """
+    used: set = set()
+    for t in tracks:
+        lrc, cov, lrc_words = build_track_lrc(
+            t, album, audio_words, used, audio_langs, by=by, album_meta=album_meta)
+        t["lrc"] = lrc
+        t["klrc"] = lrc_words
+        t["coverage"] = cov
+        t["aligned"] = True
+        t["edited"] = bool(t.get("edited"))
+    return used
+
+
+def track_needs_align(track: dict) -> bool:
+    """人工改过、或草稿里没有可用的对齐成品 → 该轨需要（重新）对齐。"""
+    return bool(track.get("edited")) or not track.get("aligned") or not track.get("lrc")
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -700,11 +737,11 @@ def build_draft(
     existing_meta: dict | None = None,
     default_lyric_maker: str = "",
 ) -> dict[str, Any]:
-    """Phase A：整理素材为待对齐草稿（不 align、不写盘）。
+    """Phase A：整理素材并对齐为成品草稿（不写盘）。
 
-    产出 draft：album + 待对齐 tracks（含分配歌词/归一化行/伴奏配对）+ 合并 meta
-    + 名称字段 + 封面路径 + STT 词流 + 原始 OCR 页。finalize 吃它做对齐与落盘；
-    中间态可经人工闸门校正后再喂 finalize。
+    产出 draft：album + tracks（含分配歌词/归一化行/伴奏配对 + 对齐成品
+    lrc/klrc/coverage/audio/aligned）+ 合并 meta + 名称字段 + 封面路径 + STT 词流
+    + 原始 OCR 页。人工闸门直接校正成品；finalize 只对改动轨重算，其余直接落盘。
     """
     audio_words = audio_words or {}
     audio_langs = audio_langs or {}
@@ -850,6 +887,11 @@ def build_draft(
         "en_name": str(_man.get("en_name") or _ex.get("en_name") or "") or ("" if _has_cjk(album) else album),
         "suffix":  str(_man.get("suffix") or _ex.get("suffix") or ""),
     }
+
+    # 3) 对齐：草稿即成品，闸门所见即最终写盘内容
+    align_tracks(tracks, album, audio_words, audio_langs,
+                 by="/".join(meta.get("lyric_maker") or []), album_meta=meta)
+
     return {
         "album": album, "tracks": tracks, "meta": meta, "names": names,
         "audio_words": audio_words, "audio_langs": audio_langs,
@@ -859,7 +901,10 @@ def build_draft(
 
 
 def finalize(draft: dict[str, Any], res_dir: Path, dry_run: bool = False) -> dict[str, Any]:
-    """Phase B：吃 build_draft 的草稿（或人工闸门校正后的草稿）→ 对齐 + 写 res/<专辑>/。"""
+    """Phase B：吃 build_draft 的成品草稿（或人工闸门校正后的草稿）→ 写 res/<专辑>/。
+
+    只对人工改过（edited）或缺对齐成品的轨重跑对齐，其余直接落盘草稿里的 lrc/klrc。
+    """
     album = str(draft["album"])
     tracks = draft["tracks"]
     meta = draft["meta"]
@@ -868,8 +913,7 @@ def finalize(draft: dict[str, Any], res_dir: Path, dry_run: bool = False) -> dic
     audio_langs = draft.get("audio_langs") or {}
     cover_path = Path(draft["cover_path"]) if draft.get("cover_path") else None
 
-    # 3) 逐轨生成 LRC（匹配音频 + 对齐）
-    used: set = set()
+    # 3) 逐轨落盘：沿用草稿成品，仅改动轨重算
     written: list[str] = []
     album_rel = Path(album)
 
@@ -885,12 +929,21 @@ def finalize(draft: dict[str, Any], res_dir: Path, dry_run: bool = False) -> dic
         else:
             full.write_text(content, encoding="utf-8")
 
+    # 未重算的轨先回填音频占用，重算轨才不会抢走它们已匹配的音频
+    redo = [track_needs_align(t) for t in tracks]
+    used: set = {t["audio"] for t, r in zip(tracks, redo)
+                 if not r and not t.get("inst") and t.get("audio")}
+
     covs: list[float] = []
-    for i, t in enumerate(tracks, 1):
+    for i, (t, r) in enumerate(zip(tracks, redo), 1):
         order = t.get("order", i) or i
-        lrc, cov, lrc_words = build_track_lrc(
-            t, album, audio_words, used, audio_langs,
-            by="/".join(meta.get("lyric_maker") or []), album_meta=meta)
+        if r:
+            lrc, cov, lrc_words = build_track_lrc(
+                t, album, audio_words, used, audio_langs,
+                by="/".join(meta.get("lyric_maker") or []), album_meta=meta)
+            t["lrc"], t["klrc"], t["coverage"], t["aligned"] = lrc, lrc_words, cov, True
+        else:
+            lrc, cov, lrc_words = t["lrc"], float(t.get("coverage") or 0.0), t.get("klrc")
         covs.append(cov)
         # build_track_lrc 匹配到音频后可能已用音频文件名回填空标题，故在其后取值
         title = _sanitize_filename(str(t.get("title", "")).strip() or f"track{order}")

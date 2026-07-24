@@ -8,6 +8,7 @@ Phase A 用 write_bundle 把 build_draft 的 draft 落成一组文件（供 work
 bundle 布局（<ref>/ 下）：
   status.json  — {phase, album, is_update, created, updated, ...}
   draft.json   — album/tracks/meta/names/pages/cover_ext（人工闸门可编辑对象；不含词流）
+                 tracks 每轨带 Phase A 对齐成品 lrc/klrc/coverage/audio/aligned
   stt.json     — {audio_name: {lang, words}} 词级时间戳（对齐用，面板不加载不编辑）
   cover.<ext>  — 封面二进制（可选）
 
