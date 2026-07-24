@@ -118,6 +118,10 @@ def _sanitize_filename(name: str) -> str:
 _INST_RE = re.compile(r"(?:^|[\s._()\[\]-])(?:inst(?:rumental)?|ins|off[\s_-]?vocal)(?:[\s._()\[\]-]|$)", re.I)
 _INST_CJK_RE = re.compile(r"伴奏|无人声")
 
+# OCR 段落标记（ocr.py 让模型加 [LYRICS]/[CREDITS] 作分区提示）：给 LLM 分配用可留在
+# booklet_text，但绝不能混进最终歌词行——独占一行的标记整行剥掉
+_SECTION_MARKER_RE = re.compile(r"^\s*\[(?:CREDITS|LYRICS|NO_TEXT)\]\s*$", re.I)
+
 
 def _is_inst_filename(name: str) -> bool:
     stem = Path(name).stem
@@ -749,6 +753,7 @@ def build_draft(
     # 用于双模式输出（头部标签 + 正文未计时 credit 行）
     for t in tracks:
         raw_lines = t.get("lines") or [l for l in str(t.get("lyrics", "")).splitlines() if l.strip()]
+        raw_lines = [l for l in raw_lines if not _SECTION_MARKER_RE.match(l)]  # 剥 [CREDITS]/[LYRICS] 段落标记
         t_staff, staff_rows, lyric_lines = lyrics_mod.split_staff_lines(raw_lines)
         merged = {k: list(v) for k, v in (t.get("staff") or {}).items()}
         for k, v in t_staff.items():
