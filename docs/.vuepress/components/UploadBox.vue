@@ -854,7 +854,8 @@ async function run() {
       `「${name}」共 ${items.value.length} 个文件已推入 upload 投递箱（${String(data.commit).slice(0, 7)}）。`;
     lastRef.value = String(data.commit || '');
     if (lastRef.value) cacheRef(name, lastRef.value);
-    clearDraft();
+    // 投稿成功后草稿保留 30 天：期内重投同一专辑可复用已传文件免重传
+    writeDraft(serializeDraft(name, items.value, Date.now(), lastRef.value));
     finished.value = true;
     busy.value = false;
   } catch (err) {
@@ -883,7 +884,6 @@ async function copyRef() {
 
 // 返回并提交下一个：清空本次投稿状态，回到选择步继续投下一张（验证由 Workbench 根层保持）
 function resetForNext() {
-  clearDraft();
   clearItems();
   album.value = '';
   linkBili.value = '';
@@ -897,10 +897,15 @@ function resetForNext() {
   busy.value = false;
 }
 
+// 忘掉上次记录：连同已复用的 sha 一并作废，全部重传。
+// 旧投稿的 blob 可能已被远端回收，复用失效时用这个自救。
 function forgetDraft() {
   clearDraft();
   restoreDraft = null;
   restoreMsg.value = '';
+  for (const it of items.value) {
+    if (it.sha && !it.auto) { it.sha = null; it.status = 'wait'; it.pct = 0; }
+  }
 }
 
 const guard = (e) => { if (busy.value) e.preventDefault(); };
@@ -909,7 +914,10 @@ onMounted(() => {
   restoreDraft = readDraft();
   if (restoreDraft) {
     if (!album.value && restoreDraft.album) album.value = restoreDraft.album;
-    restoreMsg.value = `上次编辑了「${restoreDraft.album || '未命名'}」的 ${restoreDraft.map.size} 个文件，重新选择这些文件即可接着上传`;
+    const who = `「${restoreDraft.album || '未命名'}」的 ${restoreDraft.map.size} 个文件`;
+    restoreMsg.value = restoreDraft.submittedRef
+      ? `上次已投稿 ${who}（编号 ${restoreDraft.submittedRef.slice(0, 7)}）。如需重投，重新选择这些文件即可，已传过的不必再传。`
+      : `上次编辑了 ${who}，重新选择这些文件即可接着上传。`;
   }
 });
 watch(album, () => scheduleSave());

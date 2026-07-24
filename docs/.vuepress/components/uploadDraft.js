@@ -3,12 +3,16 @@
 
 export const DRAFT_KEY = 'lrc-upload-draft';
 
+// 草稿保留 30 天：投稿完成后也留着，期内重投同一专辑可复用已传文件免重传
+export const MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000;
+
 const store = () => (typeof localStorage === 'undefined' ? null : localStorage);
 
-export function serializeDraft(album, items, at = Date.now()) {
+export function serializeDraft(album, items, at = Date.now(), submittedRef = '') {
   return {
     album: album || '',
     at,
+    submittedRef: submittedRef || '',
     // 自动生成的 manifest 不入草稿：它由当前绑定关系重建，用户也不会重选它
     files: (items || []).filter((i) => i && !i.auto).map((i) => ({
       relPath: i.relPath,
@@ -23,23 +27,31 @@ export function serializeDraft(album, items, at = Date.now()) {
   };
 }
 
+// 空列表不覆盖已有草稿：清空文件或投下一张时不应抹掉上次的可复用记录，
+// 真要丢弃走 clearDraft
 export function writeDraft(draft, s = store()) {
-  try { if (s) s.setItem(DRAFT_KEY, JSON.stringify(draft)); }
-  catch { /* localStorage 不可用则跳过，不影响投稿 */ }
+  if (!draft || !draft.files || !draft.files.length) return false;
+  try {
+    if (s) s.setItem(DRAFT_KEY, JSON.stringify(draft));
+    return true;
+  } catch { return false; }
 }
 
 export function clearDraft(s = store()) {
   try { if (s) s.removeItem(DRAFT_KEY); } catch { /* noop */ }
 }
 
-export function readDraft(s = store()) {
+export function readDraft(s = store(), now = Date.now()) {
   try {
     const d = JSON.parse((s && s.getItem(DRAFT_KEY)) || 'null');
     if (!d || !Array.isArray(d.files)) return null;
+    if (d.at && now - d.at > MAX_AGE_MS) { clearDraft(s); return null; }
     const map = new Map();
     for (const f of d.files) if (f && typeof f.relPath === 'string') map.set(f.relPath, f);
     if (!map.size) return null;
-    return { album: d.album || '', at: d.at || 0, map };
+    return {
+      album: d.album || '', at: d.at || 0, submittedRef: d.submittedRef || '', map,
+    };
   } catch { return null; }
 }
 
