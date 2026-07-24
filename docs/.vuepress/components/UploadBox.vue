@@ -620,7 +620,6 @@ function addFiles(picked) {
   const have = new Set(items.value.map((i) => i.relPath));
   const toRotate = [];
   let restored = 0;
-  let reused = 0;
   for (const p of picked) {
     if (isJunk(p.relPath) || have.has(p.relPath)) continue;
     have.add(p.relPath);
@@ -629,22 +628,17 @@ function addFiles(picked) {
       uid: uid++, role: guessRole(p.relPath), editing: false, editVal: '', linkTo: 0,
       origFile: p.file, rotation: 0, porder: null,
     };
-    // 按 relPath 恢复上次的编辑状态；大小一致的已传文件直接复用 sha 免重传
+    // 按 relPath 恢复上次的用途/绑定/旋转/排序，省去重做
     const d = restoreDraft && restoreDraft.map.get(p.relPath);
     if (d) {
       const r = restoreItem(it, d);
       if (r.rotated) toRotate.push(it);
       restored++;
-      if (r.reusedSha) reused++;
     }
     items.value.push(it);
   }
   for (const it of toRotate) reapplyRotation(it);
-  if (restored) {
-    const parts = [`已恢复 ${restored} 个文件的用途/绑定/旋转`];
-    if (reused) parts.push(`其中 ${reused} 个已传过，无需重传`);
-    restoreMsg.value = parts.join('，');
-  }
+  if (restored) restoreMsg.value = `已恢复 ${restored} 个文件的用途/绑定/旋转/顺序`;
   scheduleSave();
 }
 
@@ -897,15 +891,10 @@ function resetForNext() {
   busy.value = false;
 }
 
-// 忘掉上次记录：连同已复用的 sha 一并作废，全部重传。
-// 旧投稿的 blob 可能已被远端回收，复用失效时用这个自救。
 function forgetDraft() {
   clearDraft();
   restoreDraft = null;
   restoreMsg.value = '';
-  for (const it of items.value) {
-    if (it.sha && !it.auto) { it.sha = null; it.status = 'wait'; it.pct = 0; }
-  }
 }
 
 const guard = (e) => { if (busy.value) e.preventDefault(); };
@@ -916,8 +905,8 @@ onMounted(() => {
     if (!album.value && restoreDraft.album) album.value = restoreDraft.album;
     const who = `「${restoreDraft.album || '未命名'}」的 ${restoreDraft.map.size} 个文件`;
     restoreMsg.value = restoreDraft.submittedRef
-      ? `上次已投稿 ${who}（编号 ${restoreDraft.submittedRef.slice(0, 7)}）。如需重投，重新选择这些文件即可，已传过的不必再传。`
-      : `上次编辑了 ${who}，重新选择这些文件即可接着上传。`;
+      ? `上次已投稿 ${who}（编号 ${restoreDraft.submittedRef.slice(0, 7)}）。如需重投，重选这些文件即可，旋转与关联都还记着。`
+      : `上次编辑了 ${who}，重选这些文件即可接着来，旋转与关联都还记着。`;
   }
 });
 watch(album, () => scheduleSave());
