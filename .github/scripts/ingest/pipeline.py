@@ -241,25 +241,30 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     #    拼接版供纯文本分轨与抽 credits）
     pages: list[dict] = []
     cover = pick_cover(buckets["image"]) or extract_embedded_cover(buckets["audio"], work)
-    ocr_images = [p for p in buckets["image"] if p != cover]  # 封面不做歌词 OCR
-    if ocr_images:
-        for name, t in ocr_mod.run(ocr_images).items():
-            pages.append({"name": name, "kind": "OCR", "text": t})
+    ocr_images = [p for p in buckets["image"] if p != cover]  # 封面不做歌词处理
+    # 图片走一步 vision：build_draft 用 luna 直接看图分轨（OCR 和出词合并），不跑会
+    # 「拒绝难图」的独立 OCR。pdf/docx vision 读不了 → 抽文本进 credits 供抽 meta；
+    # 无图（纯文本/文档投稿）时才把文档文本作为分轨用 pages 走旧文本路径。
+    image_paths = ocr_images or None
     if buckets["doc"]:
         for name, t in doc_mod.run(buckets["doc"]).items():
-            pages.append({"name": name, "kind": "DOC", "text": t})
+            if image_paths:
+                if t.strip():
+                    credits_parts.append(t)
+            else:
+                pages.append({"name": name, "kind": "DOC", "text": t})
 
-    # SP 专辑级元信息照片（manifest album_pages）：OCR 文本改作 credits 抽 meta，
-    # 移出 pages 不进歌词分配/页↔轨匹配（封面/制作/发行 credits 页）
-    _mpath = src / "manifest.toml"
-    album_pages = extract_album_pages(org_mod._read_toml(_mpath)) if _mpath.is_file() else set()
-    if album_pages:
-        sp_pages = [pg for pg in pages if pg["name"] in album_pages]
-        if sp_pages:
-            pages = [pg for pg in pages if pg["name"] not in album_pages]
-            credits_parts.extend(pg["text"] for pg in sp_pages if pg["text"].strip())
-            print(f"  ◈ SP 专辑级页 {len(sp_pages)} 张 → credits（不作歌词）: "
-                  f"{[pg['name'] for pg in sp_pages]}", file=sys.stderr)
+    # SP 专辑级元信息页（manifest album_pages）：仅无图的文本页需分流到 credits；
+    # 有图时 vision 直接看到 SP 页并抽 meta，无需分流
+    if pages:
+        _mpath = src / "manifest.toml"
+        album_pages = extract_album_pages(org_mod._read_toml(_mpath)) if _mpath.is_file() else set()
+        if album_pages:
+            sp_pages = [pg for pg in pages if pg["name"] in album_pages]
+            if sp_pages:
+                pages = [pg for pg in pages if pg["name"] not in album_pages]
+                credits_parts.extend(pg["text"] for pg in sp_pages if pg["text"].strip())
+                print(f"  ◈ SP 专辑级页 {len(sp_pages)} 张 → credits", file=sys.stderr)
 
     booklet_text = "\n\n".join(f"# === {p['name']} ({p['kind']}) ===\n{p['text']}" for p in pages)
     credits_text = "\n\n".join(credits_parts) or booklet_text
@@ -349,7 +354,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     draft = org_mod.build_draft(
         tracks_explicit=tracks_explicit, booklet_text=booklet_text, credits_text=credits_text,
         audio_words=audio_words, audio_langs=audio_langs, tracks_plan=tracks_plan,
-        pages=pages, photo_links=photo_links,
+        pages=pages, image_paths=image_paths, photo_links=photo_links,
         manifest=manifest, source_hint=source_hint,
         album_override=album, cover_path=cover, existing_meta=existing_meta,
         default_lyric_maker=lyric_maker,

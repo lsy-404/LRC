@@ -49,10 +49,13 @@
         </div>
 
         <p class="eb-sub">轨单与歌词 <span class="eb-dim">直接编辑每轨草稿歌词即最终歌词，改完对齐即用</span></p>
-        <div v-for="(t, i) in e.tracks" :key="i" class="eb-track">
+        <div v-for="(t, i) in e.tracks" :key="i" class="eb-track" :class="{ lowconf: isLowConf(t) }">
           <div class="eb-track-head">
             <input v-model.number="t.order" type="number" class="eb-input tiny" title="序号">
             <input v-model="t.title" class="eb-input grow" placeholder="曲名">
+            <span v-if="isLowConf(t)" class="eb-lowconf" title="识别置信度低，请重点核对">
+              低置信 {{ Math.round((t.confidence || 0) * 100) }}%
+            </span>
             <label class="eb-inst"><input v-model="t.inst" type="checkbox"> 伴奏/无人声</label>
           </div>
           <textarea
@@ -153,6 +156,9 @@ function loadCachedRefs() {
 const PHASE_TEXT = { A_done: '待修改', confirmed: '已确认待入库', B_done: '已入库' };
 const phaseText = (s) => PHASE_TEXT[s] || s || '处理中';
 
+// 视觉分轨每轨置信度，低于 0.7 高亮提示重点核对
+const isLowConf = (t) => t.confidence != null && t.confidence < 0.7;
+
 // 列出所有 pending 投稿（免记 ref）
 async function loadPending() {
   try {
@@ -179,7 +185,7 @@ function toEdit(album, draft) {
     _draft: draft,
     meta,
     tracks: (draft.tracks || []).map((t) => ({
-      order: t.order, title: t.title || '', inst: !!t.inst,
+      order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
       text: (t.lines || []).join('\n'), _orig: t,
     })),
     pages: draft.pages || [],
@@ -391,7 +397,16 @@ onBeforeUnmount(() => {
   padding: .6rem .7rem;
   margin-bottom: .6rem;
 }
+.eb-track.lowconf { border-color: #e3a008; box-shadow: 0 0 0 2px color-mix(in srgb, #e3a008 25%, transparent); }
 .eb-track-head { display: flex; gap: .5rem; align-items: center; margin-bottom: .5rem; }
+.eb-lowconf {
+  font-size: .72rem;
+  color: #e3a008;
+  border: 1px solid #e3a008;
+  border-radius: 99px;
+  padding: .05rem .5rem;
+  white-space: nowrap;
+}
 .eb-inst { font-size: .75rem; white-space: nowrap; display: flex; align-items: center; gap: .25rem; opacity: .8; }
 .eb-textarea {
   width: 100%;

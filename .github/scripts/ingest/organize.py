@@ -296,6 +296,15 @@ def link_orders_of(photo_links: dict[str, str] | None, tracks_plan: list[dict]) 
     return out
 
 
+def _vision_link_hints(photo_links: dict[str, str] | None, tracks_plan: list[dict]) -> str:
+    """人工绑定（图片→音频）→ 给视觉模型的强提示文本「图片名 → N. 曲名」。"""
+    orders = link_orders_of(photo_links, tracks_plan)
+    if not orders:
+        return ""
+    titles = {int(t.get("order") or 0): str(t.get("title", "")).strip() for t in tracks_plan}
+    return "\n".join(f"{img} → {o}. {titles.get(o, '')}" for img, o in orders.items())
+
+
 def match_pages_to_tracks(
     pages: list[dict],
     tracks_plan: list[dict],
@@ -682,6 +691,7 @@ def build_draft(
     audio_langs: dict[str, str] | None = None,
     tracks_plan: list[dict] | None = None,
     pages: list[dict] | None = None,
+    image_paths: list[Path] | None = None,
     photo_links: dict[str, str] | None = None,
     source_hint: str = "",
     manifest: dict,
@@ -712,7 +722,21 @@ def build_draft(
         # 逐页矫正约束：投稿者绑定页硬约束到指定轨；未绑定页先做页↔轨置信度
         # 匹配作分配提示，分配结果再经覆盖率验证（enforce_page_links）
         assignments: dict = {}
-        if booklet_text or pages:
+        confidence: dict = {}
+        if image_paths:
+            # 一步 vision（OCR 和出词合并）：直接看歌词本图片，按权威轨单分配歌词
+            # + 抽 meta + 每轨置信度 + 每页转录（去掉会「拒绝难图」的独立 OCR 步骤）；
+            # 人工绑定作强提示（非硬锁）
+            link_hints = _vision_link_hints(photo_links, tracks_plan)
+            vis = llm_assign_booklet_vision(image_paths, tracks_plan, link_hints)
+            llm_meta = vis.get("meta", {}) or {}
+            assignments = {str(k): v for k, v in (vis.get("assignments", {}) or {}).items()}
+            confidence = {str(k): v for k, v in (vis.get("confidence", {}) or {}).items()}
+            vis_pages = vis.get("pages")
+            if isinstance(vis_pages, list) and vis_pages:
+                pages = [{"name": str(p.get("name", "")), "kind": "VISION",
+                          "text": str(p.get("text", ""))} for p in vis_pages]
+        elif booklet_text or pages:
             link_orders: dict[str, int] = {}
             if pages:
                 link_orders = link_orders_of(photo_links, tracks_plan)
@@ -730,6 +754,7 @@ def build_draft(
             "file": tp.get("file"),
             "lyrics": str(assignments.get(str(tp.get("order"))) or "").strip(),
             "inst": bool(tp.get("inst")),
+            "confidence": confidence.get(str(tp.get("order"))),
         } for tp in tracks_plan]
         album_from_plan = ""
     elif booklet_text:
