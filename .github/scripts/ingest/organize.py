@@ -414,6 +414,69 @@ def llm_split_booklet(source_text: str, album_hint: str) -> dict:
 
 
 # ──────────────────────────────────────────────────────────────────────────────
+# 视觉分轨（去 OCR 转录）：多模态模型(gpt-5.6-luna)直接吃图片，一步出分配+meta+置信度
+# ──────────────────────────────────────────────────────────────────────────────
+ASSIGN_VISION_SYSTEM = """你是音乐专辑歌词整理专家。给你专辑的**权威轨单**（来自音频文件，顺序与
+曲名以此为准，不得增删改）和**歌词本图片**（按顺序给出，每图前标注文件名；可能含多首歌词及
+作词/作曲/编曲/演唱/调校/混音/母带/曲绘/视频/策划等制作信息与发行/购买/出品等源信息）。
+
+请**直接看图**完成，不要先转录再分配：
+1. 把每一曲的歌词从图片中原样识别并分配给对应曲目——歌词跨页、credits 混在歌词页都要正确
+   处理；你可以自由参照任意页，不受任何单页限制。
+2. 抽取专辑级 meta。
+3. 给出每一曲的**置信度**（0~1，你对该曲歌词识别与归属的把握，低置信交人工重点校对）。
+4. 顺带给出每页的**纯转录文本**（供人工对照参考）。
+
+若用户给了「绑定提示」（某图属于某曲），那是**强提示**、优先参考，但**不是硬约束**——与图片
+实际内容明显冲突时以内容为准。
+
+输出 JSON（只输出 JSON）：
+{
+  "meta": {"year":"","produce":[],"release":"","purchase":"","electronic":"",
+           "vocal":[],"lyricist":[],"composer":[],"arranger":[],"tuning":[],"illustrator":[],
+           "mixer":[],"mastering":[],"video":[],"planning":[]},
+  "assignments": {"1":"该曲逐行歌词，保留换行", "2":"..."},
+  "confidence": {"1":0.95, "2":0.6},
+  "pages": [{"name":"图片文件名","text":"该页纯转录"}]
+}
+规则：1.assignments 键=轨单 order 2.只用图片真实内容，找不到某曲歌词给空字符串，勿臆造勿翻译
+3.vocal 只填虚拟歌姬/声库，不填真人或团体缩写 4.去掉人名 @用户名 后缀
+5.输出统一简体中文（印刷体繁体/异体转对应简体，是字形转换非改写）。"""
+
+_IMG_MIME = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
+             ".webp": "image/webp", ".gif": "image/gif", ".bmp": "image/bmp",
+             ".tiff": "image/tiff", ".tif": "image/tiff"}
+
+
+def llm_assign_booklet_vision(image_paths: list[Path], tracks_plan: list[dict],
+                              link_hints: str = "") -> dict:
+    """多模态直接看歌词本图片，按权威轨单分配歌词 + 抽 meta + 每轨置信度 + 每页转录。
+
+    去独立 OCR 转录：一次性全带整本（图作稳定前缀、detail 一致），模型自主跨页整合；
+    人工绑定作强提示非硬锁。返回 {meta, assignments, confidence, pages}；失败抛 LLMError。
+    """
+    track_list = "\n".join(f'{t.get("order")}. {t.get("title", "")}' for t in tracks_plan)
+    text = f"【权威轨单】\n{track_list}\n"
+    if link_hints:
+        text += f"\n【绑定提示（强提示，非硬约束）】\n{link_hints}\n"
+    text += "\n【歌词本图片（按顺序，每图前标文件名）】"
+    content: list[dict] = [{"type": "text", "text": text}]
+    for p in image_paths:
+        mime = _IMG_MIME.get(p.suffix.lower(), "image/jpeg")
+        data_url = _llm.encode_image_bytes_data_url(p.read_bytes(), mime)
+        content.append({"type": "text", "text": f"# {p.name}"})
+        content.append({"type": "image_url", "image_url": {"url": data_url, "detail": "high"}})
+    resp = _llm.chat_auto(
+        [{"role": "system", "content": ASSIGN_VISION_SYSTEM}, {"role": "user", "content": content}],
+        kind="vision",
+    )
+    data = _llm.extract_json(resp)
+    if not isinstance(data, dict):
+        raise _llm.LLMError("视觉分轨返回无法解析")
+    return data
+
+
+# ──────────────────────────────────────────────────────────────────────────────
 # meta 合并与渲染
 # ──────────────────────────────────────────────────────────────────────────────
 def merge_meta(*sources: dict) -> dict[str, Any]:

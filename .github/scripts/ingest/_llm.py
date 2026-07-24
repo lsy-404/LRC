@@ -32,9 +32,9 @@ DEFAULT_TEXT_MODEL = "deepseek/deepseek-chat-v3-0324:free"
 DEFAULT_VISION_MODEL = "google/gemini-2.0-flash-exp:free"
 # 与 .github/config/config.toml 的 [llm] 一致：全项目单一 OpenAI key
 OPENAI_TEXT_MODEL = "gpt-5-mini"
-# 歌词本实拍常见风格化字体+画面叠印+透页干扰，mini 误读率过高（实测同页
-# 近半数字符错认导致拼音对齐整块失败），视觉任务用满血模型
-OPENAI_VISION_MODEL = "gpt-5"
+# 视觉任务（歌词本直接看图分轨）用 gpt-5.6-luna：多模态、1.05M 上下文可一次全带
+# 整本、structured outputs、最便宜档（$1/$6）。可用 OCR_MODEL 环境变量覆盖。
+OPENAI_VISION_MODEL = "gpt-5.6-luna"
 _MODEL_CACHE: dict[str, Optional[str]] = {}
 
 
