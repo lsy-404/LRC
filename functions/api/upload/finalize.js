@@ -1,6 +1,5 @@
 import {
-  json, passwordOk, bearer, ghHeaders, cleanAlbum, cleanRelPath,
-  buildTreeEntries, SHA_RE, GH_API, REPO, BRANCH,
+  json, passwordOk, bearer, ghHeaders, cleanAlbum, cleanRelPath, GH_API, REPO, BRANCH,
 } from './_lib.js';
 
 async function gh(env, path, init = {}) {
@@ -12,28 +11,38 @@ async function gh(env, path, init = {}) {
   return { resp, data };
 }
 
-// 把已暂存的 blobs 缝成单 commit 推到 upload 分支——唯一产生 push 的时刻。
-// base_tree 取当前 HEAD 树，保证投递箱常驻的 workflow/README 原样保留。
+// 文件本体已直传 R2（web/<session>/<n>），这里只把「取料清单」.r2-payload.json
+// 提交到 upload 分支——唯一产生 push 的时刻，由它触发 upload_ingest 工作流从 R2
+// 取回原料。清单路径固定：后一笔提交的树条目天然覆盖前一笔（若前一笔已被自己的
+// 排队 run 在各自 tag 上消费，互不影响），每次投稿恰好被处理一次。
 export async function onRequestPost({ request, env }) {
   if (!(await passwordOk(bearer(request), env))) return json({ error: 'unauthorized' }, 401);
 
   const body = await request.json().catch(() => null);
   const album = cleanAlbum(body?.album);
+  const session = typeof body?.session === 'string' && /^[0-9a-f]{16,64}$/.test(body.session)
+    ? body.session : null;
   const rawFiles = Array.isArray(body?.files) ? body.files : [];
-  if (!album || !rawFiles.length || rawFiles.length > 500) return json({ error: 'bad request' }, 400);
-
-  const files = [];
-  const seen = new Set();
-  for (const f of rawFiles) {
-    const path = cleanRelPath(f?.path);
-    if (!path || !SHA_RE.test(f?.sha ?? '') || seen.has(path)) {
-      return json({ error: 'invalid file entry', path: f?.path }, 400);
-    }
-    seen.add(path);
-    files.push({ path, sha: f.sha });
+  if (!album || !session || !rawFiles.length || rawFiles.length > 500) {
+    return json({ error: 'bad request' }, 400);
   }
 
-  const message = `upload: ${album} (web, ${files.length} files)`;
+  const files = [];
+  const seenPath = new Set();
+  const seenN = new Set();
+  for (const f of rawFiles) {
+    const path = cleanRelPath(f?.path);
+    const n = Number(f?.n);
+    if (!path || seenPath.has(path) || !Number.isInteger(n) || n < 0 || n >= 500 || seenN.has(n)) {
+      return json({ error: 'invalid file entry', path: f?.path }, 400);
+    }
+    seenPath.add(path);
+    seenN.add(n);
+    files.push({ n, path, size: Number(f?.size) || 0 });
+  }
+
+  const manifest = JSON.stringify({ version: 1, album, session, files }, null, 1);
+  const message = `upload: ${album} (web, ${files.length} files via r2)`;
 
   for (let attempt = 0; attempt < 2; attempt++) {
     const head = await gh(env, `/repos/${REPO}/git/ref/heads/${BRANCH}`);
@@ -43,9 +52,18 @@ export async function onRequestPost({ request, env }) {
     const headCommit = await gh(env, `/repos/${REPO}/git/commits/${headSha}`);
     if (!headCommit.resp.ok) return json({ error: 'github', step: 'head-commit', message: headCommit.data.message }, 502);
 
+    const blob = await gh(env, `/repos/${REPO}/git/blobs`, {
+      method: 'POST',
+      body: JSON.stringify({ encoding: 'utf-8', content: manifest }),
+    });
+    if (!blob.resp.ok) return json({ error: 'github', step: 'blob', message: blob.data.message }, 502);
+
     const tree = await gh(env, `/repos/${REPO}/git/trees`, {
       method: 'POST',
-      body: JSON.stringify({ base_tree: headCommit.data.tree.sha, tree: buildTreeEntries(album, files) }),
+      body: JSON.stringify({
+        base_tree: headCommit.data.tree.sha,
+        tree: [{ path: '.r2-payload.json', mode: '100644', type: 'blob', sha: blob.data.sha }],
+      }),
     });
     if (!tree.resp.ok) return json({ error: 'github', step: 'tree', message: tree.data.message }, 502);
 

@@ -434,6 +434,8 @@ async function rotateItem(it, delta) {
     it.file = next === 0 ? src : await rotateImageFile(src, next);
     it.rotation = next;
     it.size = it.file.size;
+    // 已传文件被旋转 → 内容变了，重试时需重传覆盖
+    if (it.status === 'done') { it.status = 'wait'; it.pct = 0; }
   } catch {
     submitErr.value = true;
     submitMsg.value = '图片旋转失败';
@@ -458,6 +460,7 @@ async function rotateAll(delta) {
       it.file = next === 0 ? src : await rotateImageFile(src, next);
       it.rotation = next;
       it.size = it.file.size;
+      if (it.status === 'done') { it.status = 'wait'; it.pct = 0; }
     }
   } catch {
     submitErr.value = true;
@@ -624,7 +627,7 @@ function addFiles(picked) {
     if (isJunk(p.relPath) || have.has(p.relPath)) continue;
     have.add(p.relPath);
     const it = {
-      ...p, size: p.file.size, status: 'wait', pct: 0, sha: null,
+      ...p, size: p.file.size, status: 'wait', pct: 0, n: null,
       uid: uid++, role: guessRole(p.relPath), editing: false, editVal: '', linkTo: 0,
       origFile: p.file, rotation: 0, porder: null,
     };
@@ -751,38 +754,40 @@ function syncManifest(name) {
   const file = new File([lines.join('\n') + '\n'], 'manifest.toml', { type: 'application/toml' });
   const entry = {
     file, relPath: 'manifest.toml', size: file.size, status: 'wait', pct: 0,
-    sha: null, uid: prev !== -1 ? items.value[prev].uid : uid++,
+    n: prev !== -1 ? items.value[prev].n : null, uid: prev !== -1 ? items.value[prev].uid : uid++,
     role: 'etc', editing: false, editVal: '', linkTo: 0, auto: true,
   };
   if (prev !== -1) items.value.splice(prev, 1, entry);
   else items.value.push(entry);
 }
 
-const readBase64 = (file) => new Promise((res, rej) => {
-  const fr = new FileReader();
-  fr.onload = () => res(fr.result.slice(fr.result.indexOf(',') + 1));
-  fr.onerror = () => rej(fr.error);
-  fr.readAsDataURL(file);
-});
+// R2 直传会话：一次投稿一个 session（重试沿用，已传对象仍有效），条目号 n 在
+// session 内单调分配且一经分配不变——finalize 清单和 R2 key 就靠它对上号
+let session = '';
+let nextN = 0;
+const newSession = () => {
+  const buf = new Uint8Array(16);
+  crypto.getRandomValues(buf);
+  return [...buf].map((b) => b.toString(16).padStart(2, '0')).join('');
+};
 
-const uploadBlob = (it) => new Promise((resolve) => {
-  readBase64(it.file).then((b64) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/api/upload/blob');
-    xhr.setRequestHeader('content-type', 'application/json');
-    xhr.setRequestHeader('authorization', 'Bearer ' + encodeURIComponent(props.password));
-    xhr.upload.onprogress = (e) => {
-      if (e.lengthComputable) it.pct = Math.round(e.loaded / e.total * 100);
-    };
-    xhr.onload = () => {
-      try {
-        const sha = JSON.parse(xhr.responseText).sha;
-        resolve(xhr.status === 200 && sha ? sha : null);
-      } catch { resolve(null); }
-    };
-    xhr.onerror = () => resolve(null);
-    xhr.send('{"encoding":"base64","content":"' + b64 + '"}');
-  }).catch(() => resolve(null));
+// 文件原始二进制直传 R2（不 base64）：旧的 base64→GitHub create-blob 通道实测
+// 在 ~40MiB 处被 GitHub 掐断（502），且 base64 膨胀 4/3 也过不了 Cloudflare
+// 100MB 请求体上限——直传后单文件 95MB 真实可达
+const uploadR2 = (it) => new Promise((resolve) => {
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', `/api/upload/r2?session=${session}&n=${it.n}`);
+  xhr.setRequestHeader('content-type', 'application/octet-stream');
+  xhr.setRequestHeader('authorization', 'Bearer ' + encodeURIComponent(props.password));
+  xhr.upload.onprogress = (e) => {
+    if (e.lengthComputable) it.pct = Math.round(e.loaded / e.total * 100);
+  };
+  xhr.onload = () => {
+    try { resolve(xhr.status === 200 && JSON.parse(xhr.responseText).ok === true); }
+    catch { resolve(false); }
+  };
+  xhr.onerror = () => resolve(false);
+  xhr.send(it.file);
 });
 
 async function run() {
@@ -805,16 +810,17 @@ async function run() {
   showRetry.value = false;
   submitMsg.value = '上传中…';
 
-  // 双线程并发上传：投稿多为大音频 blob，2 路并发提升吞吐又不过压 GitHub API
+  if (!session) session = newSession();
+  // 双线程并发上传：投稿多为大音频，2 路并发提升吞吐又不过压边缘函数
   const pending = items.value.filter((it) => it.status !== 'done');
+  for (const it of pending) if (it.n == null) it.n = nextN++;
   let next = 0;
   const worker = async () => {
     while (next < pending.length) {
       const it = pending[next++];
       it.status = 'up';
       it.pct = 0;
-      const sha = await uploadBlob(it);
-      if (sha) { it.status = 'done'; it.sha = sha; }
+      if (await uploadR2(it)) { it.status = 'done'; }
       else { it.status = 'fail'; it.pct = 0; }
     }
   };
@@ -839,7 +845,8 @@ async function run() {
       },
       body: JSON.stringify({
         album: name,
-        files: items.value.map((i) => ({ path: i.relPath, sha: i.sha })),
+        session,
+        files: items.value.map((i) => ({ n: i.n, path: i.relPath, size: i.size })),
       }),
     });
     const data = await r.json().catch(() => ({}));
@@ -848,7 +855,7 @@ async function run() {
       `「${name}」共 ${items.value.length} 个文件已推入 upload 投递箱（${String(data.commit).slice(0, 7)}）。`;
     lastRef.value = String(data.commit || '');
     if (lastRef.value) cacheRef(name, lastRef.value);
-    // 投稿成功后草稿保留 30 天：期内重投同一专辑可复用已传文件免重传
+    // 投稿成功后草稿保留 30 天：期内重投同一专辑不必重做旋转与绑定
     writeDraft(serializeDraft(name, items.value, Date.now(), lastRef.value));
     finished.value = true;
     busy.value = false;
@@ -860,9 +867,8 @@ async function run() {
   }
 }
 
-// 提交草稿快照（元数据级）：提交中把每文件的用途/旋转/绑定/已传sha 持久化，
-// 编辑过程中随时存，跨刷新不丢。File 本体无法入 localStorage，重选文件时按 relPath
-// 匹配恢复用途/绑定/旋转/排序，大小一致的已传文件复用 sha 免重传。
+// 草稿快照（元数据级）：把每文件的用途/旋转/绑定/排序持久化，编辑过程中随时存，
+// 跨刷新不丢。File 本体无法入 localStorage，重选文件时按 relPath 匹配恢复。
 function saveDraft() {
   writeDraft(serializeDraft(album.value, items.value));
 }
@@ -889,6 +895,8 @@ function resetForNext() {
   lastRef.value = '';
   finished.value = false;
   busy.value = false;
+  session = '';
+  nextN = 0;
 }
 
 function forgetDraft() {
