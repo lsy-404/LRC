@@ -119,7 +119,7 @@
       </div>
       <p class="ub-total" :class="{ err: oversize > 0 }">{{ totalText }}</p>
       <p class="ub-dim small">
-        支持歌词文本 / 歌词本图片或 PDF / 音频 / Staff 表 / 封面；单文件上限 95MB。
+        支持歌词文本或 PDF/DOCX 歌词册 / 歌词本图片 / 音频 / Staff 表 / 封面；单文件上限 95MB。
         点击文件名可重命名路径；右侧下拉修改用途会自动归类到对应目录；
         列表按类型分区，区内按文件名开头编号排序。点击图片可放大预览并翻转方向。
         歌词拍照可在下方关联到指定曲目、拖拽调整顺序。上传期间请勿关闭本页。
@@ -533,7 +533,8 @@ function guessRole(p) {
   if (/\.(png|jpe?g|webp|gif|bmp|tiff?)$/.test(base)) {
     return /(cover|封面|主视图)/.test(base) ? 'cover' : 'photo';
   }
-  if (/\.(pdf|docx?)$/.test(base)) return 'photo';
+  // pdf/docx 是歌词文档（管道走文档抽取，整册消费），不是拍照——不进照片关联面板
+  if (/\.(pdf|docx?)$/.test(base)) return 'text';
   if (/\.(txt|lrc|md)$/.test(base)) {
     return /(staff|制作|名单)/.test(base) ? 'staff' : 'text';
   }
