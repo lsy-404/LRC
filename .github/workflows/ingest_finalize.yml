@@ -202,7 +202,7 @@ jobs:
           jq -n --arg ref "$REF" --arg album "${{ steps.run.outputs.album }}" \
                 --arg at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
                 '{ref: $ref, album: $album, used_at: $at}' > /tmp/r2-used.json
-          curl -fsS -X PUT --retry 2 --retry-delay 2 \
+          curl -fsS -X PUT --retry 2 --retry-delay 2 --max-time 60 \
             -H "authorization: Bearer ${INGEST_TOKEN}" \
             -H 'content-type: application/json' --data @/tmp/r2-used.json \
             "${SITE}/api/upload/payload?session=${session}" \

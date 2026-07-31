@@ -2,3 +2,5 @@ node_modules/
 docs/.vuepress/.temp/
 docs/.vuepress/.cache/
 docs/.vuepress/dist/
+# wrangler 本地模拟存储：不带 --remote 跑 r2 object 命令时原料会落到这里
+.wrangler/

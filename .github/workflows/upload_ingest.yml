@@ -116,7 +116,8 @@ jobs:
             case "/$path" in *"/../"*|*"/.."|"//"*) echo "非法路径: $path"; exit 1;; esac
             dest="payload/${album}/${path}"
             mkdir -p "$(dirname "$dest")"
-            curl -fsS --retry 3 --retry-delay 2 --retry-all-errors \
+            # --max-time 兜住卡死的连接：单文件上限 95MB，900s 足够宽裕
+            curl -fsS --retry 3 --retry-delay 2 --retry-all-errors --max-time 900 \
               -H "authorization: Bearer ${INGEST_TOKEN}" \
               "${SITE}/api/upload/payload?session=${session}&n=${n}" -o "$dest"
             # 清单里的 size 是浏览器上传前的真实字节数，比对可发现截断的流
