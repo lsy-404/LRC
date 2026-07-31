@@ -16,12 +16,23 @@ async function sha256(text) {
 }
 
 // 摘要后比较：等长、恒时
-export async function passwordOk(candidate, env) {
-  if (typeof candidate !== 'string' || !candidate || !env.UPLOAD_PASSWORD) return false;
-  const [a, b] = await Promise.all([sha256(candidate), sha256(env.UPLOAD_PASSWORD)]);
+async function secretOk(candidate, expected) {
+  if (typeof candidate !== 'string' || !candidate || !expected) return false;
+  const [a, b] = await Promise.all([sha256(candidate), sha256(expected)]);
   let diff = 0;
   for (let i = 0; i < a.length; i++) diff |= a[i] ^ b[i];
   return diff === 0;
+}
+
+// 贡献者投稿口令（浏览器侧）
+export function passwordOk(candidate, env) {
+  return secretOk(candidate, env.UPLOAD_PASSWORD);
+}
+
+// CI 取料令牌（GitHub Actions 侧）。与投稿口令分开：权限只到按 session/序号
+// 读原料与打 .used 标记，且两者可各自轮换互不影响。
+export function ingestOk(candidate, env) {
+  return secretOk(candidate, env.INGEST_TOKEN);
 }
 
 // 客户端将密码 encodeURIComponent 后放入 Bearer（HTTP 头不允许非 Latin-1）
@@ -62,6 +73,21 @@ export function cleanAlbum(name) {
   if (hasControlChar(n) || n.includes('/') || n.includes('\\')) return null;
   if (n === '.' || n === '..' || n.startsWith('.git')) return null;
   return n;
+}
+
+// 一次投稿一个 session，桶内按序号编址：对象 key = web/<session>/<n>。
+// 上限与 finalize 接受的清单条数一致，两处共用避免各写各的。
+export const MAX_FILES = 500;
+
+export function cleanSession(s) {
+  return typeof s === 'string' && /^[0-9a-f]{16,64}$/.test(s) ? s : null;
+}
+
+// 0 是合法序号，调用方须用 === null 判断非法
+export function cleanIndex(v) {
+  if (v === null || v === undefined || v === '') return null;
+  const n = Number(v);
+  return Number.isInteger(n) && n >= 0 && n < MAX_FILES ? n : null;
 }
 
 // 专辑内相对路径：拒绝穿越、绝对路径、控制字符

@@ -1,4 +1,4 @@
-import { json, passwordOk, bearer } from './_lib.js';
+import { json, passwordOk, bearer, cleanSession, cleanIndex } from './_lib.js';
 
 // R2 直传：浏览器把文件原始二进制流式写入 R2，绕开旧 base64→GitHub create-blob
 // 通道的两层天花板（create-blob 实测 ~40MiB 解码上限即 502；base64 膨胀 4/3 使
@@ -12,11 +12,9 @@ export async function onRequestPost({ request, env }) {
   if (!env.UPLOAD_BUCKET) return json({ error: 'r2 not configured' }, 503);
 
   const url = new URL(request.url);
-  const session = url.searchParams.get('session') || '';
-  const n = Number(url.searchParams.get('n'));
-  if (!/^[0-9a-f]{16,64}$/.test(session) || !Number.isInteger(n) || n < 0 || n >= 500) {
-    return json({ error: 'bad request' }, 400);
-  }
+  const session = cleanSession(url.searchParams.get('session'));
+  const n = cleanIndex(url.searchParams.get('n'));
+  if (!session || n === null) return json({ error: 'bad request' }, 400);
   const len = Number(request.headers.get('content-length'));
   if (!Number.isInteger(len) || len <= 0 || len > MAX_BYTES) {
     return json({ error: 'bad length' }, 400);

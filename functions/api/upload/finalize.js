@@ -1,5 +1,6 @@
 import {
-  json, passwordOk, bearer, ghHeaders, cleanAlbum, cleanRelPath, GH_API, REPO, BRANCH,
+  json, passwordOk, bearer, ghHeaders, cleanAlbum, cleanRelPath, cleanSession, cleanIndex,
+  MAX_FILES, GH_API, REPO, BRANCH,
 } from './_lib.js';
 
 async function gh(env, path, init = {}) {
@@ -20,10 +21,9 @@ export async function onRequestPost({ request, env }) {
 
   const body = await request.json().catch(() => null);
   const album = cleanAlbum(body?.album);
-  const session = typeof body?.session === 'string' && /^[0-9a-f]{16,64}$/.test(body.session)
-    ? body.session : null;
+  const session = cleanSession(body?.session);
   const rawFiles = Array.isArray(body?.files) ? body.files : [];
-  if (!album || !session || !rawFiles.length || rawFiles.length > 500) {
+  if (!album || !session || !rawFiles.length || rawFiles.length > MAX_FILES) {
     return json({ error: 'bad request' }, 400);
   }
 
@@ -32,8 +32,8 @@ export async function onRequestPost({ request, env }) {
   const seenN = new Set();
   for (const f of rawFiles) {
     const path = cleanRelPath(f?.path);
-    const n = Number(f?.n);
-    if (!path || seenPath.has(path) || !Number.isInteger(n) || n < 0 || n >= 500 || seenN.has(n)) {
+    const n = cleanIndex(f?.n);
+    if (!path || seenPath.has(path) || n === null || seenN.has(n)) {
       return json({ error: 'invalid file entry', path: f?.path }, 400);
     }
     seenPath.add(path);

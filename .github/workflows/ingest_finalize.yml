@@ -166,7 +166,7 @@ jobs:
           - 专辑：\`${{ steps.run.outputs.album }}\`
           - ref：\`${REF}\`
           - 模式：$([ "$IS_UPDATE" = "true" ] && echo "**增补**（已有专辑，仅覆盖本次上传的文件）" || echo "**新建**")
-          - 来源：upload 投递箱 → Phase A 草稿 → 人工闸门 → Phase B 对齐（原料留存 R2 并已标记 .used，仅派生产物入库）
+          - 来源：upload 投递箱 → Phase A 草稿 → 人工闸门 → Phase B 对齐（原料存 R2 并已标记 .used，30 天后自动清理，仅派生产物入库）
 
           <details><summary>处理摘要</summary>
 
@@ -182,33 +182,30 @@ jobs:
             --title "${PR_VERB}: ${{ steps.run.outputs.album }} (@${CONTRIB})" \
             --body "$BODY"
 
-      # R2 原料按方针保留不销毁；到这一步 = 人工矫正完成且 Phase B 已消费 bundle，
-      # 给 web/<session>/ 打 .used 标记（记录 ref/专辑/时间），供后续按标记归档清点。
-      # 标记失败不阻断入库。git 直投的 bundle 无 .r2-session，自然跳过。
+      # 到这一步 = 人工矫正完成且 Phase B 已消费 bundle，给 web/<session>/ 打 .used
+      # 标记（记录 ref/专辑/时间），供按标记归档清点。原料本身由桶上的生命周期规则
+      # 在上传 30 天后统一删除，这里不主动删，留出重跑窗口。标记失败不阻断入库。
+      # git 直投的 bundle 无 .r2-session，自然跳过。
       - name: Mark R2 payload session as used
         if: steps.guard.outputs.found == 'true'
         env:
-          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-          R2_BUCKET: ${{ secrets.R2_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: auto
-          # aws cli v2.23+ 默认给请求附加新式 CRC 完整性校验，R2 需按需计算才兼容
-          AWS_REQUEST_CHECKSUM_CALCULATION: when_required
-          AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
+          INGEST_TOKEN: ${{ secrets.INGEST_TOKEN }}
+          SITE: https://lrc.wuyilingwei.com
         run: |
           set -euo pipefail
           REF="${{ steps.ctx.outputs.ref }}"
           session=$(cat "review/$REF/.r2-session" 2>/dev/null | tr -d '[:space:]' || true)
           [[ "$session" =~ ^[0-9a-f]{16,64}$ ]] || { echo "无 R2 session（git 直投），跳过"; exit 0; }
-          if [ -z "${R2_ACCOUNT_ID:-}" ] || [ -z "${R2_BUCKET:-}" ]; then
-            echo "⚠️  缺 R2 secrets，无法标记 session=$session"; exit 0
+          if [ -z "${INGEST_TOKEN:-}" ]; then
+            echo "⚠️  缺 INGEST_TOKEN，无法标记 session=$session"; exit 0
           fi
           jq -n --arg ref "$REF" --arg album "${{ steps.run.outputs.album }}" \
                 --arg at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
                 '{ref: $ref, album: $album, used_at: $at}' > /tmp/r2-used.json
-          aws s3 cp --endpoint-url "https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com" \
-            --no-progress /tmp/r2-used.json "s3://${R2_BUCKET}/web/${session}/.used" \
+          curl -fsS -X PUT --retry 2 --retry-delay 2 \
+            -H "authorization: Bearer ${INGEST_TOKEN}" \
+            -H 'content-type: application/json' --data @/tmp/r2-used.json \
+            "${SITE}/api/upload/payload?session=${session}" \
             && echo "✓ 已标记 web/${session}/.used" \
             || echo "⚠️  标记失败（不阻断）：web/${session}/.used"
 
