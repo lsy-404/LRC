@@ -21,6 +21,7 @@ export function serializeDraft(album, items, at = Date.now(), submittedRef = '')
       linkTo: i.linkTo || 0,
       porder: i.porder == null ? null : i.porder,
       instConfirmed: !!i.instConfirmed,
+      instMarked: !!i.instMarked,
     })),
   };
 }
@@ -60,6 +61,7 @@ export function restoreItem(item, saved) {
   item.linkTo = saved.linkTo || 0;
   if (saved.porder != null) item.porder = saved.porder;
   if (saved.instConfirmed) item.instConfirmed = true;
+  if (saved.instMarked) item.instMarked = true;
   if (saved.rotation) item.rotation = saved.rotation;
   return { restored: true, rotated: !!saved.rotation };
 }

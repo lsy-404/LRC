@@ -247,10 +247,33 @@ def llm_order_tracks(audio_names: list[str], album_hint: str = "") -> list[dict]
         if not _is_inst_filename(file_name):
             continue
         t["inst"] = True
-        stem = Path(file_name).stem
-        m = re.match(r"^\d+[\s._-]+(.*)", stem)
-        t["title"] = (m.group(1) if m else stem).strip().strip("。.")
+        t["title"] = _title_from_filename(file_name)
     return valid
+
+
+def _title_from_filename(file_name: str) -> str:
+    """文件名 → 保留标记的曲名（去掉开头曲序号，inst/伴奏 等标记原样保留）。"""
+    stem = Path(file_name).stem
+    m = re.match(r"^\d+[\s._-]+(.*)", stem)
+    return (m.group(1) if m else stem).strip().strip("。.")
+
+
+def apply_inst_overrides(tracks: list[dict], inst_marked: set, inst_as_song: set) -> None:
+    """工作站显式标记（manifest 伴奏/原曲 键）覆盖文件名 inst 启发式，原地改。
+
+    伴奏：强制 inst=True（用户在上传弹窗确认了这是伴奏轨）；
+    原曲：摘掉 inst 标记（文件名启发式误伤，按正曲转写对齐）。
+    在 llm_order_tracks 之后调用——优先级：显式标记 > 文件名正则 > LLM。
+    """
+    for t in tracks:
+        name = Path(str(t.get("file") or "")).name
+        if name in inst_marked and not t.get("inst"):
+            t["inst"] = True
+            t["title"] = _title_from_filename(name)
+            print(f"  ○ 显式标记为伴奏: {name}", file=sys.stderr)
+        elif name in inst_as_song and t.get("inst"):
+            t["inst"] = False
+            print(f"  ◉ 显式标记为原曲（推翻文件名启发式）: {name}", file=sys.stderr)
 
 
 ASSIGN_SYSTEM = """你是音乐专辑歌词整理专家。给你专辑的权威轨单（来自音频文件，顺序与曲名

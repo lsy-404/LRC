@@ -119,7 +119,7 @@
       </div>
       <p class="ub-total" :class="{ err: oversize > 0 }">{{ totalText }}</p>
       <p class="ub-dim small">
-        支持歌词文本 / 歌词本图片或 PDF / 音频 / Staff 表 / 封面；单文件上限 95MB。
+        支持歌词文本或 PDF/DOCX 歌词册 / 歌词本图片 / 音频 / Staff 表 / 封面；单文件上限 95MB。
         点击文件名可重命名路径；右侧下拉修改用途会自动归类到对应目录；
         列表按类型分区，区内按文件名开头编号排序。点击图片可放大预览并翻转方向。
         歌词拍照可在下方关联到指定曲目、拖拽调整顺序。上传期间请勿关闭本页。
@@ -533,7 +533,8 @@ function guessRole(p) {
   if (/\.(png|jpe?g|webp|gif|bmp|tiff?)$/.test(base)) {
     return /(cover|封面|主视图)/.test(base) ? 'cover' : 'photo';
   }
-  if (/\.(pdf|docx?)$/.test(base)) return 'photo';
+  // pdf/docx 是歌词文档（管道走文档抽取，整册消费），不是拍照——不进照片关联面板
+  if (/\.(pdf|docx?)$/.test(base)) return 'text';
   if (/\.(txt|lrc|md)$/.test(base)) {
     return /(staff|制作|名单)/.test(base) ? 'staff' : 'text';
   }
@@ -541,8 +542,9 @@ function guessRole(p) {
 }
 
 // 疑似伴奏/无人声轨：曲名里的 inst/ins/off vocal/伴奏/无人声（分隔符包裹，避免
-// 误伤 "Inspire" 这类词内含 ins 的正常曲名）。命中不阻止提交，只在提交前问一句
-// ——投稿者常把伴奏也扔进音频文件夹，混进曲单会被当正曲对齐入库
+// 误伤 "Inspire" 这类词内含 ins 的正常曲名）。命中不阻止提交，只在提交前问一次：
+// 两个选择都继续上传——确定=按原曲（转写对齐），取消=自动标记为伴奏（管道不转写，
+// 复用同名正曲时间轴或写「纯音乐」占位）。选择经 manifest 伴奏/原曲 键传给管道
 const INST_RE = /(?:^|[\s._()[\]-])(?:inst(?:rumental)?|ins|off[\s_-]?vocal)(?:[\s._()[\]-]|$)/i;
 const isLikelyInst = (relPath) => {
   const stem = baseName(relPath).replace(/\.[^.]+$/, '');
@@ -721,12 +723,20 @@ async function onDrop(e) {
 
 // 辅助信息 → manifest.toml（organize.py 原生消费：album + 发布/购买中文键，
 // 值与主项目 meta 相同的 [标签](url) 格式；manifest 在 meta 合并链优先级最高。
-// [链接] 表 = 歌词拍照→音轨绑定，管道按 basename 归一消费）
+// [链接] 表 = 歌词拍照→音轨绑定；伴奏/原曲 = inst 弹窗的选择——均按 basename 消费）
 function syncManifest(name) {
   const bili = linkBili.value.trim();
   const dizzy = linkDizzy.value.trim();
   const links = [];
   const albumPages = [];
+  // inst 弹窗的选择固化进 manifest：标记伴奏 → 管道强制按伴奏处理；
+  // 确认原曲 → 推翻管道侧同一套文件名启发式的强制 inst
+  const instMarked = [];
+  const instAsSong = [];
+  for (const i of items.value) {
+    if (i.role !== 'song' || !i.instConfirmed) continue;
+    (i.instMarked ? instMarked : instAsSong).push(baseName(i.relPath));
+  }
   for (const p of items.value) {
     if (p.role !== 'photo' || !p.linkTo) continue;
     if (p.linkTo === 'SP') { albumPages.push(baseName(p.relPath)); continue; }
@@ -734,21 +744,29 @@ function syncManifest(name) {
     if (s) links.push([p.relPath, baseName(s.relPath)]);
   }
   const prev = items.value.findIndex((i) => i.relPath === 'manifest.toml' && i.auto);
-  if (!bili && !dizzy && !links.length && !albumPages.length) {
+  if (!bili && !dizzy && !links.length && !albumPages.length
+      && !instMarked.length && !instAsSong.length) {
     if (prev !== -1) items.value.splice(prev, 1);
     return;
   }
   const esc = (s) => s.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
   const wrap = (label, v) => /^https?:\/\//.test(v) ? `[${label}](${v})` : v;
   const lines = [`album = "${esc(name)}"`];
-  if (bili) lines.push(`发布 = "${esc(wrap('Bilibili', bili))}"`);
-  if (dizzy) lines.push(`购买 = "${esc(wrap('dizzylab', dizzy))}"`);
+  // 中文键必须加引号：TOML 裸键仅限 ASCII，裸中文键会让 tomllib 整文件解析失败
+  if (bili) lines.push(`"发布" = "${esc(wrap('Bilibili', bili))}"`);
+  if (dizzy) lines.push(`"购买" = "${esc(wrap('dizzylab', dizzy))}"`);
   // SP 专辑级元信息照片：管道当 credits 抽 meta，不分配歌词
   if (albumPages.length) {
     lines.push(`album_pages = [${albumPages.map((n) => `"${esc(n)}"`).join(', ')}]`);
   }
+  if (instMarked.length) {
+    lines.push(`"伴奏" = [${instMarked.map((n) => `"${esc(n)}"`).join(', ')}]`);
+  }
+  if (instAsSong.length) {
+    lines.push(`"原曲" = [${instAsSong.map((n) => `"${esc(n)}"`).join(', ')}]`);
+  }
   if (links.length) {
-    lines.push('', '[链接]');
+    lines.push('', '["链接"]');
     for (const [img, audio] of links) lines.push(`"${esc(img)}" = "${esc(audio)}"`);
   }
   const file = new File([lines.join('\n') + '\n'], 'manifest.toml', { type: 'application/toml' });
@@ -801,8 +819,11 @@ async function run() {
     i.role === 'song' && !i.instConfirmed && isLikelyInst(i.relPath));
   if (instSuspects.length) {
     const list = instSuspects.map((i) => baseName(i.relPath)).join('、');
-    if (!window.confirm(`以下音频疑似伴奏/无人声轨，不像是完整原曲：\n${list}\n\n确定按原曲一并上传吗？`)) return;
-    instSuspects.forEach((i) => { i.instConfirmed = true; });
+    const asSong = window.confirm(
+      `以下音频疑似伴奏/无人声轨：\n${list}\n\n`
+      + '「确定」= 按原曲上传（转写对齐出完整歌词）；\n'
+      + '「取消」= 自动标记为伴奏并继续上传（不转写，复用同名正曲时间轴，无则写「纯音乐」占位）。');
+    instSuspects.forEach((i) => { i.instConfirmed = true; i.instMarked = !asSong; });
   }
   syncManifest(name);
   saveDraft();

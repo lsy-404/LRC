@@ -11,6 +11,7 @@
     音频(.wav/.flac/...)   → faster-whisper 词级时间戳 → audio_words
     封面图（主视图/cover/最大图）→ cover.*
     manifest.toml          → 专辑名 + meta 覆盖 + [链接] 歌词拍照→音轨绑定
+                             + 伴奏/原曲 显式标记（覆盖文件名 inst 启发式）
                                           ↓
                               ingest.organize → res/<专辑>/
 
@@ -148,6 +149,21 @@ def extract_photo_links(manifest: dict) -> dict[str, str]:
     return out
 
 
+def extract_inst_overrides(manifest: dict) -> tuple[set, set]:
+    """弹出 manifest 的 伴奏/原曲 显式标记（工作站 inst 弹窗的选择）→ basename 集合。
+
+    伴奏：强制按伴奏/无人声轨处理（不转写，复用同名正曲时间轴或写纯音乐占位）；
+    原曲：推翻文件名启发式的误伤，按正曲转写对齐。pop 掉避免混进 meta 合并链。
+    """
+    out: list[set] = []
+    for key in ("伴奏", "原曲"):
+        v = manifest.pop(key, None)
+        names = ({Path(str(x)).name for x in v if str(x).strip()}
+                 if isinstance(v, list) else set())
+        out.append(names)
+    return out[0], out[1]
+
+
 def extract_album_pages(manifest: dict) -> set:
     """manifest album_pages（SP 分配的专辑级元信息照片名）→ basename 集合。
 
@@ -237,6 +253,15 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
             tracks_explicit.append(parsed)
             print(f"  歌词轨: {p.name} → {parsed['title']} ({len(parsed['lines'])} 行)", file=sys.stderr)
 
+    # manifest 提前读：伴奏/原曲 显式标记须在轨单编排（第 3 步）生效，SP 页分流
+    # （第 2 步）也用它；meta 覆盖仍在第 5 步与音频 tag 合并
+    manifest_path = src / "manifest.toml"
+    manifest = org_mod._read_toml(manifest_path) if manifest_path.is_file() else {}
+    photo_links = extract_photo_links(manifest)
+    if photo_links:
+        print(f"  🔗 manifest 携带 {len(photo_links)} 条歌词拍照绑定", file=sys.stderr)
+    inst_marked, inst_as_song = extract_inst_overrides(manifest)
+
     # 2) 图片 OCR + 文档抽取 → 逐页歌词本文本（保留页出处，供绑定/置信度匹配；
     #    拼接版供纯文本分轨与抽 credits）
     pages: list[dict] = []
@@ -257,8 +282,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     # SP 专辑级元信息页（manifest album_pages）：仅无图的文本页需分流到 credits；
     # 有图时 vision 直接看到 SP 页并抽 meta，无需分流
     if pages:
-        _mpath = src / "manifest.toml"
-        album_pages = extract_album_pages(org_mod._read_toml(_mpath)) if _mpath.is_file() else set()
+        album_pages = extract_album_pages(manifest)
         if album_pages:
             sp_pages = [pg for pg in pages if pg["name"] in album_pages]
             if sp_pages:
@@ -281,6 +305,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     inst_files: set[str] = set()
     if buckets["audio"]:
         tracks_plan = org_mod.llm_order_tracks([p.name for p in buckets["audio"]], album)
+        org_mod.apply_inst_overrides(tracks_plan, inst_marked, inst_as_song)
         keep = {t.get("file") for t in tracks_plan}
         inst_files = {t.get("file") for t in tracks_plan if t.get("inst")}
         skipped = [p.name for p in buckets["audio"] if p.name not in keep]
@@ -325,11 +350,6 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
 
     # 5) 整理 + 对齐 → res/<专辑>/（meta 全自动；专辑名 = 文件夹名 album）
     #    可选：若投递目录恰含 manifest.toml 则作为 meta 覆盖（非必需，不鼓励）。
-    manifest_path = src / "manifest.toml"
-    manifest = org_mod._read_toml(manifest_path) if manifest_path.is_file() else {}
-    photo_links = extract_photo_links(manifest)
-    if photo_links:
-        print(f"  🔗 manifest 携带 {len(photo_links)} 条歌词拍照绑定", file=sys.stderr)
     # 音频 tag 权威元信息：优先级仅次于 manifest（manifest 显式键覆盖 tag）
     tag_meta, source_hint = extract_audio_meta(buckets["audio"])
     manifest = {**tag_meta, **manifest}
