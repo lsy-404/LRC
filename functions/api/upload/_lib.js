@@ -3,8 +3,6 @@
 export const REPO = 'wuyilingwei/LRC';
 export const BRANCH = 'upload';
 export const GH_API = 'https://api.github.com';
-export const SHA_RE = /^[0-9a-f]{40}$/;
-
 export function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
@@ -75,13 +73,4 @@ export function cleanRelPath(p) {
     if (s === '.' || s === '..' || s.length > 200 || hasControlChar(s)) return null;
   }
   return parts.join('/');
-}
-
-export function buildTreeEntries(album, files) {
-  return files.map((f) => ({
-    path: `${album}/${f.path}`,
-    mode: '100644',
-    type: 'blob',
-    sha: f.sha,
-  }));
 }

@@ -1,7 +1,9 @@
 name: Upload Ingest
 
 # 共享投递箱 upload 分支：贡献者（需仓库写权限）push 原料(歌词本图片/pdf/docx、
-# 文字草稿、歌曲音频、manifest.toml)到 upload。分两个 job：
+# 文字草稿、歌曲音频、manifest.toml)到 upload。网页工作站投稿则把文件本体直传
+# R2（对象 key = web/<session>/<n>），push 里只有一个 .r2-payload.json 取料清单
+# ——ingest job 开头按清单从 R2 取回原料后，两种来源的处理完全一致。分两个 job：
 #   capture（不排队，每次 push 立刻跑）：把这次 push 的 SHA 锚定成一个 tag，
 #     使其独立于 upload 分支引用存在——见下方 capture job 内注释，这是为了防止
 #     排队中的后续 push 在轮到自己前，commit 就先被前一个 push 的 dropbox 重置
@@ -11,12 +13,14 @@ name: Upload Ingest
 #     2. 立即把 upload 重置为「仅含本工作流 + 投递说明」（force-push，腾空投递箱）
 #     3. OCR / 文档抽取 / STT / LLM 编排 → 待对齐草稿（build_draft，不对齐不写 res）
 #     4. 把草稿(draft/stt/cover/status) push 到 ingest-review 分支的 <sha>/ 子目录
-#     5. 删掉自己那个保护用的 tag —— 至此原料全部销毁
+#     5. 删掉自己那个保护用的 tag —— git 直投的原料至此销毁；R2 侧原料按方针
+#        保留，待人工矫正完成、Phase B 入库后由 ingest_finalize 打 .used 标记
 #   ★ 不在此开 PR：停在「待人工闸门」。人工在工作台修改面板凭 ref=<sha> 校正 OCR/
 #     meta/轨单/关联/封面后，触发 ingest_finalize.yml（Phase B）对齐入库开 PR；无人处理
 #     则 ingest_timeout.yml 在 72h 后自动续跑 Phase B。
-#   原料全程只在 runner 临时盘，绝不进任何持久分支；upload 旧 commit 被覆盖即销毁；
-#   ingest-review 分支只存派生态（歌词草稿/词级时间戳/meta/封面），规则允许。
+#   原料绝不进任何持久分支：git 直投的只在 runner 临时盘，upload 旧 commit 被覆盖
+#   即销毁；工作站直传的存 R2（不销毁，入库后标记 .used）。ingest-review 分支只存
+#   派生态（歌词草稿/词级时间戳/meta/封面），规则允许。
 
 on:
   push:
@@ -82,6 +86,47 @@ jobs:
           ref: refs/tags/upload-payload-${{ github.sha }}
           fetch-depth: 1
           path: payload
+
+      # 工作站投稿：文件本体在 R2，提交里只有 .r2-payload.json 取料清单。按清单把
+      # 对象取回 payload/<album>/<相对路径> 重建目录结构，清单即弃——此后管道与
+      # 纯 git 投递完全一致。session/路径在 finalize 已清洗，这里再双保险一遍。
+      - name: Fetch web payload from R2
+        id: r2
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          # aws cli v2.23+ 默认给请求附加新式 CRC 完整性校验，R2 需按需计算才兼容
+          AWS_REQUEST_CHECKSUM_CALCULATION: when_required
+          AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
+        run: |
+          set -euo pipefail
+          M=payload/.r2-payload.json
+          [ -f "$M" ] || { echo "无 R2 清单（纯 git 投递），跳过"; exit 0; }
+          : "${R2_ACCOUNT_ID:?缺 R2_ACCOUNT_ID secret}" "${R2_BUCKET:?缺 R2_BUCKET secret}"
+          : "${AWS_ACCESS_KEY_ID:?缺 R2_ACCESS_KEY_ID secret}"
+          : "${AWS_SECRET_ACCESS_KEY:?缺 R2_SECRET_ACCESS_KEY secret}"
+          EP="https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
+          session=$(jq -r '.session // empty' "$M")
+          album=$(jq -r '.album // empty' "$M")
+          count=$(jq '.files | length' "$M")
+          [[ "$session" =~ ^[0-9a-f]{16,64}$ ]] || { echo "非法 session"; exit 1; }
+          { [ -n "$album" ] && [ "$count" -gt 0 ]; } || { echo "清单缺 album/files"; exit 1; }
+          case "$album" in *[/\\]*|.|..) echo "非法专辑名: $album"; exit 1;; esac
+          jq -r '.files[] | [(.n|tostring), .path] | @tsv' "$M" \
+          | while IFS=$'\t' read -r n path; do
+            [[ "$n" =~ ^[0-9]+$ ]] || { echo "非法条目号: $n"; exit 1; }
+            case "/$path" in *"/../"*|*"/.."|"//"*) echo "非法路径: $path"; exit 1;; esac
+            dest="payload/${album}/${path}"
+            mkdir -p "$(dirname "$dest")"
+            aws s3 cp --endpoint-url "$EP" --no-progress \
+              "s3://${R2_BUCKET}/web/${session}/${n}" "$dest"
+          done
+          rm "$M"
+          echo "session=$session" >> "$GITHUB_OUTPUT"
+          echo "✓ 已从 R2 取回 ${count} 个原料文件 → payload/${album}/"
 
       - name: Checkout main (scripts + PR base)
         uses: actions/checkout@v4
@@ -194,6 +239,11 @@ jobs:
           fi
           mkdir -p "$RD/$SHA"
           cp -r "${{ github.workspace }}/.bundle/." "$RD/$SHA/"
+          # 工作站投稿：把 R2 session 随 bundle 传给 Phase B——原料不销毁，
+          # 人工矫正完成、Phase B 入库后由 ingest_finalize 打 .used 标记
+          if [ -n "${{ steps.r2.outputs.session }}" ]; then
+            echo "${{ steps.r2.outputs.session }}" > "$RD/$SHA/.r2-session"
+          fi
           git -C "$RD" add "$SHA"
           git -C "$RD" -c user.name='github-actions[bot]' \
               -c user.email='github-actions[bot]@users.noreply.github.com' \
