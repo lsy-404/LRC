@@ -353,33 +353,24 @@ async function load(silent = false) {
   finally { loading.value = false; }
 }
 
-const readBase64 = (file) => new Promise((res, rej) => {
-  const fr = new FileReader();
-  fr.onload = () => res(fr.result.slice(fr.result.indexOf(',') + 1));
-  fr.onerror = () => rej(fr.error);
-  fr.readAsDataURL(file);
-});
-
-// 换封面：先经 /api/upload/blob 建 GitHub blob（复用上传通道），保存时把 blob sha
-// 交给 /api/ingest/save 写入 <ref>/<album>/cover<ext>；本地即时预览用 objectURL
+// 换封面：图片原始字节直接写进 bundle 的 cover<ext>，保存草稿时同步 cover_ext；
+// 本地即时预览用 objectURL
 async function pickCover(e, ev) {
   const file = ev.target.files && ev.target.files[0];
   ev.target.value = '';
   if (!file) return;
   e._coverBusy = true; e._msg = ''; e._err = false;
   try {
-    const b64 = await readBase64(file);
-    const resp = await fetch('/api/upload/blob', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json', ...authHeaders() },
-      body: JSON.stringify({ encoding: 'base64', content: b64 }),
+    const ext = (file.name.match(/\.[a-z0-9]+$/i) || ['.png'])[0].toLowerCase();
+    const q = new URLSearchParams({ ref: curRef.value, album: e.album, ext });
+    const resp = await fetch(`/api/ingest/cover?${q}`, {
+      method: 'POST', headers: authHeaders(), body: file,
     });
     const data = await resp.json().catch(() => ({}));
-    if (!resp.ok || !data.sha) { e._err = true; e._msg = '封面上传失败'; return; }
-    const ext = (file.name.match(/\.[a-z0-9]+$/i) || ['.png'])[0].toLowerCase();
-    e._coverNew = { sha: data.sha, ext };
+    if (!resp.ok || !data.ok) { e._err = true; e._msg = '封面上传失败'; return; }
     e.coverExt = ext;
     e.coverRemoved = false;
+    e._coverNew = true;
     if (e._coverPreview) URL.revokeObjectURL(e._coverPreview);
     e._coverPreview = URL.createObjectURL(file);
   } catch { e._err = true; e._msg = '封面上传出错'; }
@@ -388,7 +379,7 @@ async function pickCover(e, ev) {
 
 function removeCover(e) {
   e.coverRemoved = true;
-  e._coverNew = null;
+  e._coverNew = false;
   if (e._coverPreview) { URL.revokeObjectURL(e._coverPreview); e._coverPreview = ''; }
 }
 
@@ -398,13 +389,10 @@ async function save(e) {
     const resp = await fetch('/api/ingest/save', {
       method: 'POST',
       headers: { 'content-type': 'application/json', ...authHeaders() },
-      body: JSON.stringify({
-        ref: curRef.value, album: e.album, draft: toDraft(e),
-        cover: e._coverNew || undefined,
-      }),
+      body: JSON.stringify({ ref: curRef.value, album: e.album, draft: toDraft(e) }),
     });
     const data = await resp.json().catch(() => ({}));
-    if (resp.ok) { e._msg = '已保存'; e._coverNew = null; }
+    if (resp.ok) { e._msg = '已保存'; e._coverNew = false; }
     else { e._err = true; e._msg = '保存失败：' + (data.message || data.error || resp.status); }
   } catch { e._err = true; e._msg = '网络错误'; }
   finally { e._saving = false; }

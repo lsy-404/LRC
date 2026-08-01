@@ -1,45 +1,31 @@
-import {
-  json, passwordOk, bearer, ghHeaders, GH_API, REPO,
-  REVIEW_BRANCH, cleanRef, b64ToText, encodeContentsPath,
-} from './_lib.js';
+import { json, passwordOk, bearer, cleanRef, REVIEW, listPrefix, readJson } from './_lib.js';
 
-// GET /api/ingest/state?ref=<sha> — 供修改面板轮询。
-// 返回 ingest-review/<ref>/ 下每张专辑的 status + draft（可编辑对象；不含词流 stt）。
-// <ref>/ 不存在 → status:'processing'（Phase A 尚未 push，或已被 Phase B 清理）。
+// GET /api/ingest/state?ref= — 供修改面板轮询。
+// 返回该 ref 下每张专辑的 status + draft（可编辑对象；不含词流 stt）。
+// 前缀为空 → status:'processing'（Phase A 还没写完，或已被 Phase B 清理）。
 export async function onRequestGet({ request, env }) {
   if (!(await passwordOk(bearer(request), env))) return json({ error: 'unauthorized' }, 401);
-  const url = new URL(request.url);
-  const ref = cleanRef(url.searchParams.get('ref'));
+  if (!env.UPLOAD_BUCKET) return json({ error: 'r2 not configured' }, 503);
+
+  const ref = cleanRef(new URL(request.url).searchParams.get('ref'));
   if (!ref) return json({ error: 'bad ref' }, 400);
 
-  const gh = (path) => fetch(`${GH_API}${path}`, { headers: ghHeaders(env) });
+  const objects = await listPrefix(env, `${REVIEW}/${ref}/`);
+  if (!objects.length) return json({ ref, status: 'processing', albums: [] });
 
-  const list = await gh(`/repos/${REPO}/contents/${encodeURIComponent(ref)}?ref=${REVIEW_BRANCH}`);
-  if (list.status === 404) return json({ ref, status: 'processing', albums: [] });
-  if (!list.ok) return json({ error: 'github', step: 'list' }, 502);
-
-  const entries = await list.json().catch(() => null);
-  const dirs = Array.isArray(entries) ? entries.filter((e) => e.type === 'dir') : [];
-
-  const readJson = async (relPath) => {
-    const r = await gh(`/repos/${REPO}/contents/${encodeContentsPath(relPath)}?ref=${REVIEW_BRANCH}`);
-    if (!r.ok) return null;
-    const data = await r.json().catch(() => null);
-    if (!data || typeof data.content !== 'string') return null;
-    try {
-      return JSON.parse(b64ToText(data.content));
-    } catch {
-      return null;
-    }
-  };
+  const albumNames = objects
+    .filter((o) => o.key.endsWith('/draft.json'))
+    .map((o) => o.key.split('/')[2])
+    .filter(Boolean);
 
   const albums = [];
-  for (const d of dirs) {
+  for (const album of albumNames) {
+    const base = `${REVIEW}/${ref}/${album}`;
     const [draft, status] = await Promise.all([
-      readJson(`${ref}/${d.name}/draft.json`),
-      readJson(`${ref}/${d.name}/status.json`),
+      readJson(env, `${base}/draft.json`),
+      readJson(env, `${base}/status.json`),
     ]);
-    albums.push({ album: d.name, status: status || {}, draft });
+    albums.push({ album, status: status || {}, draft });
   }
   return json({ ref, status: 'ready', albums });
 }
