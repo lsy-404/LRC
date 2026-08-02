@@ -242,7 +242,7 @@
         <span class="ub-ref-hint">已存本机。稍后到「修改」面板凭此编号校正 OCR / 元信息 / 轨单后再入库。</span>
       </div>
       <ol class="ub-next">
-        <li class="ok">原料已进入投递箱（单次原子提交）</li>
+        <li class="ok">原料已提交，摄取已开始</li>
         <li>自动 OCR / STT / 检索，生成待校正草稿（约几分钟）</li>
         <li>到「修改」面板校正后确认继续（或 72 小时后自动继续）</li>
         <li>对齐入库开 PR，审核通过后原料销毁</li>
@@ -856,7 +856,7 @@ async function run() {
     return;
   }
 
-  submitMsg.value = '正在提交到投递箱…';
+  submitMsg.value = '正在提交…';
   try {
     const r = await fetch('/api/upload/finalize', {
       method: 'POST',
@@ -873,8 +873,8 @@ async function run() {
     const data = await r.json().catch(() => ({}));
     if (!r.ok || !data.ok) throw new Error(data.message || data.error || String(r.status));
     doneDetail.value =
-      `「${name}」共 ${items.value.length} 个文件已推入 upload 投递箱（${String(data.commit).slice(0, 7)}）。`;
-    lastRef.value = String(data.commit || '');
+      `「${name}」共 ${items.value.length} 个文件已提交，摄取已开始（${String(data.ref).slice(0, 8)}）。`;
+    lastRef.value = String(data.ref || '');
     if (lastRef.value) cacheRef(name, lastRef.value);
     // 投稿成功后草稿保留 30 天：期内重投同一专辑不必重做旋转与绑定
     writeDraft(serializeDraft(name, items.value, Date.now(), lastRef.value));
@@ -895,7 +895,7 @@ function saveDraft() {
 }
 const scheduleSave = debounce(saveDraft, 400);
 
-// 追踪编号（ref = payload 提交 SHA）缓存：供「修改」面板下拉回查校正
+// 追踪编号（ref = 上传会话号）缓存：供「修改」面板下拉回查校正
 function cacheRef(album, refVal) {
   addRef(album, refVal);
 }

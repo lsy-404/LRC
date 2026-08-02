@@ -1,31 +1,51 @@
-// ingest review 代理共享工具：复用 upload/_lib 的鉴权与 GitHub 头，附加 review 分支常量。
+// review bundle 存在 R2 的 review/<ref>/<专辑>/ 下（原先是 ingest-review 分支）。
+// 面板的增删改查直接走桶绑定，作业编排才转交给独立 Worker。
 
-export {
-  json, passwordOk, bearer, ghHeaders, GH_API, REPO, cleanAlbum,
-} from '../upload/_lib.js';
+export { json, passwordOk, bearer, callWorker, cleanAlbum } from '../upload/_lib.js';
 
-export const REVIEW_BRANCH = 'ingest-review';
+export const REVIEW = 'review';
 
-// ref = payload 提交 SHA（capture 已 tag 保护）；宽松接受 7~40 位小写十六进制
-const REF_RE = /^[0-9a-f]{7,40}$/;
+// ref = 上传会话号；旧的 40 位提交 SHA 也落在这个区间，缓存里的历史值不会被误拒
+const REF_RE = /^[0-9a-f]{16,64}$/;
 export function cleanRef(r) {
   return typeof r === 'string' && REF_RE.test(r) ? r : null;
 }
 
-// GitHub contents API 的 base64（可能带换行）↔ UTF-8 文本
-// draft.json 含中文，必须走 UTF-8，不能直接 atob（latin1 会乱码）
-export function b64ToText(b64) {
-  const bin = atob(String(b64).replace(/\s/g, ''));
-  return new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0)));
-}
-export function textToB64(text) {
-  const bytes = new TextEncoder().encode(String(text));
-  let bin = '';
-  for (const b of bytes) bin += String.fromCharCode(b);
-  return btoa(bin);
+export async function listPrefix(env, prefix) {
+  const out = [];
+  let cursor;
+  do {
+    const page = await env.UPLOAD_BUCKET.list({ prefix, cursor, limit: 1000 });
+    out.push(...page.objects);
+    cursor = page.truncated ? page.cursor : undefined;
+  } while (cursor);
+  return out;
 }
 
-// contents API 路径分段 encode（专辑名含中文/空格）
-export function encodeContentsPath(path) {
-  return path.split('/').map(encodeURIComponent).join('/');
+export async function readJson(env, key) {
+  const obj = await env.UPLOAD_BUCKET.get(key);
+  if (!obj) return null;
+  try {
+    return JSON.parse(await obj.text());
+  } catch {
+    return null;
+  }
+}
+
+export function writeJson(env, key, value) {
+  return env.UPLOAD_BUCKET.put(key, JSON.stringify(value, null, 2),
+    { httpMetadata: { contentType: 'application/json; charset=utf-8' } });
+}
+
+export async function deletePrefix(env, prefix) {
+  const objects = await listPrefix(env, prefix);
+  const keys = objects.map((o) => o.key);
+  for (let i = 0; i < keys.length; i += 1000) {
+    await env.UPLOAD_BUCKET.delete(keys.slice(i, i + 1000));
+  }
+  return keys.length;
+}
+
+export function nowStamp() {
+  return new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
 }

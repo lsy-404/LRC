@@ -1,26 +1,18 @@
 name: Deploy to Cloudflare Pages
 
 on:
-  # Site-source-only changes (Vue components, theme config, markdown pages) don't
-  # touch res/** or .github/**, so generate.yml's push trigger never fires for them
-  # and nothing deploys. Deploy directly for those. Excludes the two generated
-  # output dirs generate.yml itself commits back, to avoid double-deploying the
-  # same content it already deploys via its downstream workflow_call below.
+  # Site-source-only changes (Vue components, theme config, markdown pages).
+  # The two generated output dirs are excluded: the generate job commits them and
+  # then dispatches this workflow itself, so a path trigger would deploy twice.
   push:
     branches:
       - main
     paths:
       - 'docs/**'
+      - 'functions/**'
       - '!docs/albums/**'
       - '!docs/.vuepress/public/api/**'
-  # Called by generate.yml as a reusable workflow
-  workflow_call:
-    secrets:
-      CF_API_TOKEN:
-        required: true
-      CF_ACCOUNT_ID:
-        required: true
-  # Also supports manual standalone trigger
+  # Dispatched by the ingest worker's generate job, and available for manual runs
   workflow_dispatch:
 
 jobs:

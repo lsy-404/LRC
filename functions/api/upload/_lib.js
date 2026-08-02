@@ -1,8 +1,5 @@
-// upload 代理共享工具：鉴权、路径清洗、GitHub API 头
+// upload 代理共享工具：鉴权、路径清洗、编排 Worker 调用。
 
-export const REPO = 'wuyilingwei/LRC';
-export const BRANCH = 'upload';
-export const GH_API = 'https://api.github.com';
 export function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
@@ -29,12 +26,6 @@ export function passwordOk(candidate, env) {
   return secretOk(candidate, env.UPLOAD_PASSWORD);
 }
 
-// CI 取料令牌（GitHub Actions 侧）。与投稿口令分开：权限只到按 session/序号
-// 读原料与打 .used 标记，且两者可各自轮换互不影响。
-export function ingestOk(candidate, env) {
-  return secretOk(candidate, env.INGEST_TOKEN);
-}
-
 // 客户端将密码 encodeURIComponent 后放入 Bearer（HTTP 头不允许非 Latin-1）
 export function bearer(request) {
   const h = request.headers.get('authorization') || '';
@@ -46,14 +37,25 @@ export function bearer(request) {
   }
 }
 
-export function ghHeaders(env, extra = {}) {
-  return {
-    authorization: `Bearer ${env.GH_TOKEN}`,
-    accept: 'application/vnd.github+json',
-    'user-agent': 'lrc-upload-proxy',
-    'x-github-api-version': '2022-11-28',
-    ...extra,
-  };
+// 摄取编排在独立 Worker（Pages Functions 绑不了容器），凭 INGEST_TOKEN 调用。
+// 地址不是密文，给默认值免得两处环境都要配；需要时用 INGEST_WORKER_URL 覆盖。
+const INGEST_WORKER = 'https://ingest.lrc.wuyilingwei.com';
+
+export async function callWorker(env, path, body) {
+  if (!env.INGEST_TOKEN) {
+    return { ok: false, status: 503, data: { error: 'ingest worker not configured' } };
+  }
+  const base = (env.INGEST_WORKER_URL || INGEST_WORKER).replace(/\/$/, '');
+  const resp = await fetch(`${base}${path}`, {
+    method: 'POST',
+    headers: {
+      authorization: `Bearer ${env.INGEST_TOKEN}`,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(body || {}),
+  });
+  const data = await resp.json().catch(() => ({}));
+  return { ok: resp.ok, status: resp.status, data };
 }
 
 // 控制字符（C0 与 DEL）
@@ -65,7 +67,7 @@ function hasControlChar(s) {
   return false;
 }
 
-// 专辑名即 upload 分支顶层文件夹名
+// 专辑名即投稿里的顶层文件夹名
 export function cleanAlbum(name) {
   if (typeof name !== 'string') return null;
   const n = name.normalize('NFC').trim();
