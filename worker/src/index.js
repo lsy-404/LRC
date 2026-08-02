@@ -11,6 +11,11 @@ function jobStub(env, name) {
   return env.JOB.getByName(name);
 }
 
+// 自检实例名：只放行 diag 前缀的别名，避免任意字符串开出无主的编排实例
+function diagName(v) {
+  return typeof v === 'string' && /^diag[a-z0-9-]{0,24}$/.test(v) ? v : null;
+}
+
 async function callJob(env, name, path, body) {
   const resp = await jobStub(env, name).fetch(`http://job${path}`, {
     method: 'POST',
@@ -129,7 +134,7 @@ export default {
 
     if (url.pathname === '/state') {
       const raw = url.searchParams.get('ref') || '';
-      const name = ['generate', 'diag'].includes(raw) ? raw : cleanRef(raw);
+      const name = raw === 'generate' ? raw : (diagName(raw) || cleanRef(raw));
       if (!name) return json({ error: 'bad ref' }, 400);
       const resp = await jobStub(env, name).fetch('http://job/state');
       return new Response(resp.body, { headers: { 'content-type': 'application/json' } });
@@ -159,9 +164,12 @@ export default {
       case '/generate':
         return json(await callJob(env, 'generate', '/start',
                                   { kind: 'generate', params: { force: !!body.force } }));
-      // 部署后自检：确认容器起得来、外部命令齐、对象存储往返通
-      case '/diag':
-        return json(await callJob(env, 'diag', '/start', { kind: 'diag', params: {} }));
+      // 部署后自检：确认容器起得来、外部命令齐、对象存储往返通。
+      // 可给实例起别名：容器实例休眠前一直用旧镜像，换个名字就能立刻验新版本
+      case '/diag': {
+        const name = diagName(body.name) || 'diag';
+        return json(await callJob(env, name, '/start', { kind: 'diag', params: { ref: name } }));
+      }
       default:
         return json({ error: 'not found' }, 404);
     }

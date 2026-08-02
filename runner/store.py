@@ -21,6 +21,8 @@ def _req(method: str, key: str, *, data=None, query: dict | None = None):
         url += "?" + urllib.parse.urlencode(query)
     req = urllib.request.Request(url, method=method, data=data)
     req.add_header("authorization", f"Bearer {TOKEN}")
+    # 标准库默认 UA 是 Python-urllib/x，会被区域的机器人防护当爬虫拦成 403
+    req.add_header("user-agent", "lrc-ingest-runner")
     if data is not None:
         req.add_header("content-type", "application/octet-stream")
     return urllib.request.urlopen(req, timeout=TIMEOUT)

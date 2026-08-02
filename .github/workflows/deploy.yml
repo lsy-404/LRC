@@ -9,6 +9,7 @@ on:
       - main
     paths:
       - 'docs/**'
+      - 'functions/**'
       - '!docs/albums/**'
       - '!docs/.vuepress/public/api/**'
   # Dispatched by the ingest worker's generate job, and available for manual runs
