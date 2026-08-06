@@ -266,9 +266,23 @@ def diag(params: dict, log) -> dict:
     store.delete_prefix("review/.diag/")
     log(f"对象存储往返：{'一致' if ok else '不一致'}")
 
+    # 仓库令牌够不够用：开 PR 只要 pull，缝树建分支与推生成物要 push
+    repo_perm = {}
+    if gh.TOKEN:
+        try:
+            info = gh.api("GET", f"/repos/{REPO}") or {}
+            repo_perm = info.get("permissions") or {}
+            log(f"仓库权限：{repo_perm}")
+        except RuntimeError as e:
+            repo_perm = {"error": str(e)[:120]}
+            log(f"仓库权限探测失败：{e}")
+
     return {"result": "ok" if ok else "store-mismatch", "versions": versions,
-            "repo": REPO, "lyric_maker_set": bool(LYRIC_MAKER),
-            "gh_token_set": bool(gh.TOKEN), "llm_key_set": bool(os.environ.get("LLM_API_KEY"))}
+            "repo": REPO, "repo_permissions": repo_perm,
+            "lyric_maker_set": bool(LYRIC_MAKER),
+            "gh_token_set": bool(gh.TOKEN), "llm_key_set": bool(os.environ.get("LLM_API_KEY")),
+            "ocr_model": os.environ.get("OCR_MODEL", ""),
+            "llm_base": os.environ.get("LLM_API_BASE", "")}
 
 
 HANDLERS = {"phase_a": phase_a, "phase_b": phase_b, "generate": generate, "diag": diag}
