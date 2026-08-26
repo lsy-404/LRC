@@ -1,5 +1,5 @@
-// review bundle 存在 R2 的 review/<ref>/<专辑>/ 下（原先是 ingest-review 分支）。
-// 面板的增删改查直接走桶绑定，作业编排才转交给独立 Worker。
+// review bundle 存在 R2 的 review/<ref>/<专辑>/ 下。
+// 面板的增删改查与编排均在同一个 Worker 内完成。
 
 export { json, passwordOk, bearer, callWorker, cleanAlbum } from '../upload/_lib.js';
 

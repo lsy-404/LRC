@@ -1,4 +1,5 @@
 import { json, authorized, cleanRef, cleanKey, cleanPrefix } from './lib.js';
+import { handleApi } from './api.js';
 
 export { IngestJob } from './job.js';
 export { PipelineRunner } from './runner.js';
@@ -6,6 +7,8 @@ export { PipelineRunner } from './runner.js';
 // 生成作业自己提交回 main，会再触发一次 webhook——按提交者跳过，避免自激
 const BOT_NAME = 'lrc-ingest[bot]';
 const WATCHED = ['res/', '.github/'];
+const WORKSTATION_API = ['/api/upload/', '/api/ingest/'];
+const INTERNAL_PATHS = new Set(['/store', '/state', '/ingest', '/finalize', '/discard', '/generate', '/diag']);
 
 function jobStub(env, name) {
   return env.JOB.getByName(name);
@@ -113,6 +116,10 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    if (WORKSTATION_API.some((prefix) => url.pathname.startsWith(prefix))) {
+      return handleApi(request, env);
+    }
+
     if (url.pathname === '/hooks/github') {
       const raw = await request.text();
       if (!(await verifySignature(env, raw, request.headers.get('x-hub-signature-256')))) {
@@ -124,6 +131,10 @@ export default {
       if (payload.head_commit?.author?.name === BOT_NAME) return json({ ok: true, skip: 'bot' });
       if (!touchesWatched(payload)) return json({ ok: true, skip: 'paths' });
       return json(await callJob(env, 'generate', '/start', { kind: 'generate', params: {} }));
+    }
+
+    if (!INTERNAL_PATHS.has(url.pathname) && !url.pathname.startsWith('/store/')) {
+      return env.ASSETS.fetch(request);
     }
 
     if (!(await authorized(request, env))) return json({ error: 'unauthorized' }, 401);

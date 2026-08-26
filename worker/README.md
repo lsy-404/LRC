@@ -1,12 +1,14 @@
 # lrc-ingest
 
-摄取与生成的编排 Worker。站点仍在 Pages，但 Pages Functions 绑不了容器，
-所以编排单独成一个 Worker，Pages 侧凭 `INGEST_TOKEN` 调它。
+站点、工作站 API、摄取与生成编排共用的 Worker。VuePress 构建产物以 Workers
+Assets 部署；`/api/upload/*` 与 `/api/ingest/*` 先进入脚本，其余站点文件由资产绑定直出。
 
 ## 部署
 
 ```
-CLOUDFLARE_ACCOUNT_ID=<account> npx wrangler deploy
+pnpm run docs:build
+cd worker
+CLOUDFLARE_ACCOUNT_ID=<account> npx wrangler deploy --containers-rollout=immediate
 ```
 
 会用本机 Docker 构建 `../runner/Dockerfile` 并推到 Cloudflare 镜像仓库。
@@ -20,16 +22,13 @@ npx wrangler secret put <NAME>
 
 | 名称 | 用途 |
 | :-- | :-- |
-| `INGEST_TOKEN` | Pages Functions 与容器访问本 Worker 的令牌，三处必须一致 |
+| `UPLOAD_PASSWORD` | 工作站浏览器请求的投稿口令 |
+| `INGEST_TOKEN` | 容器访问受保护回调（`/store`、`/state` 等）的令牌 |
 | `GH_TOKEN` | PAT，需 contents + pull-requests 写：开 PR、推生成物、触发部署 |
 | `GITHUB_WEBHOOK_SECRET` | 仓库 webhook 的 HMAC 密钥 |
 | `LLM_API_KEY` / `LLM_API_BASE` / `LLM_MODEL` / `OCR_MODEL` | 管道调用模型 |
 | `LYRIC_MAKER` | 歌词制作默认署名，留空则不填 |
 | `WORKER_URL` | 本 Worker 的对外地址，容器回打 `/store` 用 |
-
-## Pages 侧需要的变量
-
-`INGEST_WORKER_URL`（本 Worker 地址）与 `INGEST_TOKEN`，生产与预览环境都要配。
 
 ## 仓库 webhook
 

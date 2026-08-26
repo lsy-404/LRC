@@ -1,0 +1,48 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "lrc-ingest",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-26",
+  "workers_dev": true,
+  "observability": { "enabled": true },
+
+  "routes": [
+    { "pattern": "ingest.lrc.wuyilingwei.com", "custom_domain": true }
+  ],
+
+  "assets": {
+    "directory": "../docs/.vuepress/dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/upload/*", "/api/ingest/*"]
+  },
+
+  "r2_buckets": [
+    { "binding": "UPLOAD_BUCKET", "bucket_name": "lrc-upload" }
+  ],
+
+  "durable_objects": {
+    "bindings": [
+      { "name": "JOB", "class_name": "IngestJob" },
+      { "name": "RUNNER", "class_name": "PipelineRunner" }
+    ]
+  },
+
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["IngestJob", "PipelineRunner"] }
+  ],
+
+  "containers": [
+    {
+      "class_name": "PipelineRunner",
+      "image": "../runner/Dockerfile",
+      "image_build_context": "..",
+      "instance_type": "standard-2",
+      "max_instances": 5
+    }
+  ],
+
+  "vars": {
+    "GH_REPO": "wuyilingwei/LRC",
+    "REVIEW_TIMEOUT_HOURS": "72"
+  }
+}

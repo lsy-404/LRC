@@ -1,4 +1,4 @@
-name: Deploy to Cloudflare Pages
+name: Deploy to Cloudflare Worker
 
 on:
   # Site-source-only changes (Vue components, theme config, markdown pages).
@@ -10,6 +10,8 @@ on:
     paths:
       - 'docs/**'
       - 'functions/**'
+      - 'worker/**'
+      - 'runner/**'
       - '!docs/albums/**'
       - '!docs/.vuepress/public/api/**'
   # Dispatched by the ingest worker's generate job, and available for manual runs
@@ -52,9 +54,10 @@ jobs:
       - name: Build VuePress site
         run: pnpm run docs:build
 
-      - name: Deploy to Cloudflare Pages
+      - name: Deploy Worker with static assets
         uses: cloudflare/wrangler-action@v3.14.1
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: pages deploy docs/.vuepress/dist --project-name=lrc --commit-dirty=true
+          workingDirectory: worker
+          command: deploy --containers-rollout=immediate
