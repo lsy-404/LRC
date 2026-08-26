@@ -1,4 +1,8 @@
-import { json, passwordOk, bearer, cleanRef, REVIEW, listPrefix, readJson } from './_lib.js';
+import {
+  json, passwordOk, bearer, callWorker, cleanRef, REVIEW, listPrefix, readJson,
+} from './_lib.js';
+
+const ACTIVE_STATES = new Set(['queued', 'dispatching', 'running']);
 
 // GET /api/ingest/state?ref= — 供修改面板轮询。
 // 返回该 ref 下每张专辑的 status + draft（可编辑对象；不含词流 stt）。
@@ -10,8 +14,24 @@ export async function onRequestGet({ request, env }) {
   const ref = cleanRef(new URL(request.url).searchParams.get('ref'));
   if (!ref) return json({ error: 'bad ref' }, 400);
 
-  const objects = await listPrefix(env, `${REVIEW}/${ref}/`);
-  if (!objects.length) return json({ ref, status: 'processing', albums: [] });
+  const [objects, worker] = await Promise.all([
+    listPrefix(env, `${REVIEW}/${ref}/`),
+    callWorker(env, `/state?ref=${encodeURIComponent(ref)}`, null, 'GET'),
+  ]);
+  const job = worker.ok && worker.data && worker.data.state !== 'unknown' ? worker.data : null;
+
+  if (job?.state === 'failed') {
+    return json({ ref, status: 'failed', job, albums: [] });
+  }
+  if (ACTIVE_STATES.has(job?.state)) {
+    return json({ ref, status: 'processing', job, albums: [] });
+  }
+  if (!objects.length) {
+    const status = job?.state === 'cancelled' ? 'cancelled'
+      : job?.phase === 'phase_b' && job?.state === 'done' ? 'complete'
+        : 'processing';
+    return json({ ref, status, job, albums: [] });
+  }
 
   const albumNames = objects
     .filter((o) => o.key.endsWith('/draft.json'))
@@ -27,5 +47,5 @@ export async function onRequestGet({ request, env }) {
     ]);
     albums.push({ album, status: status || {}, draft });
   }
-  return json({ ref, status: 'ready', albums });
+  return json({ ref, status: 'ready', job, albums });
 }

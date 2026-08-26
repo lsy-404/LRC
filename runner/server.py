@@ -10,6 +10,7 @@ import json
 import threading
 import traceback
 import uuid
+from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
 
@@ -22,7 +23,12 @@ _jobs: dict[str, dict] = {}
 _lock = threading.Lock()
 
 
+def _now() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
 def _update(job_id: str, **fields) -> None:
+    fields.setdefault("updated_at", _now())
     with _lock:
         _jobs.setdefault(job_id, {}).update(fields)
 
@@ -37,17 +43,26 @@ def _log(job_id: str):
     return emit
 
 
+def _progress(job_id: str, stage: str, value: int | None, message: str) -> None:
+    _update(job_id, stage=stage, progress=value, message=message)
+
+
 def _execute(job_id: str, kind: str, params: dict) -> None:
     log = _log(job_id)
     try:
         handler = jobs.HANDLERS[kind]
-        result = handler(params, log)
-        _update(job_id, state="done", result=result)
+        result = handler(
+            params, log,
+            lambda stage, value, message: _progress(job_id, stage, value, message),
+        )
+        _update(job_id, state="done", result=result, stage="done", progress=100,
+                message="作业完成")
         log(f"作业完成：{result.get('result')}")
     except Exception as exc:
         log(f"作业失败：{exc}")
         log(traceback.format_exc()[-2000:])
-        _update(job_id, state="error", error=str(exc))
+        _update(job_id, state="error", error=str(exc), stage="error", progress=None,
+                message=str(exc))
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -97,7 +112,8 @@ class Handler(BaseHTTPRequestHandler):
         if existing:  # 幂等：Worker 重试同一作业号时不重复跑
             return self._send(202, {"job_id": job_id, "state": existing.get("state")})
 
-        _update(job_id, state="running", log=[], result=None, error=None)
+        _update(job_id, state="running", log=[], result=None, error=None,
+                stage="queued", progress=1, message="作业已接收")
         threading.Thread(target=_execute, args=(job_id, kind, body.get("params") or {}),
                          daemon=True).start()
         return self._send(202, {"job_id": job_id, "state": "running"})

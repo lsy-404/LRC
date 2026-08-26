@@ -71,7 +71,12 @@ def _read_json(path: Path):
     return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else {}
 
 
-def phase_a(params: dict, log) -> dict:
+def _progress(report, stage: str, value: int, message: str) -> None:
+    if report:
+        report(stage, value, message)
+
+
+def phase_a(params: dict, log, report=None) -> dict:
     """原料 → 成品草稿 bundle，停在人工闸门。"""
     ref = params["ref"]
     manifest = store.get_json(f"web/{ref}/manifest.json") or {}
@@ -83,13 +88,17 @@ def phase_a(params: dict, log) -> dict:
 
     work = Path(tempfile.mkdtemp(prefix="phase-a-"))
     try:
+        _progress(report, "downloading", 8, "正在读取投稿清单")
         payload = work / "payload" / album
         total = 0
-        for f in files:
+        for index, f in enumerate(files, start=1):
             total += store.download(f"web/{ref}/{f['n']}", payload / f["path"],
                                     int(f.get("size") or 0))
+            _progress(report, "downloading", 8 + round(17 * index / len(files)),
+                      f"正在读取原料（{index}/{len(files)}）")
         log(f"取料 {len(files)} 个文件 / {total} 字节 → payload/{album}/")
 
+        _progress(report, "cloning", 28, "正在准备处理脚本")
         repo = _clone_scripts(work, log)
         res_dir = repo / "res"
         res_dir.mkdir(parents=True, exist_ok=True)
@@ -99,6 +108,7 @@ def phase_a(params: dict, log) -> dict:
 
         bundle_root = work / "bundle"
         summary_path = work / "summary.json"
+        _progress(report, "processing", 40, "正在识别、转写与对齐")
         cmd = ["python", "-m", "ingest.pipeline", "--phase", "a",
                "--src", str(work / "payload"), "--res-dir", str(res_dir),
                "--bundle-root", str(bundle_root), "--timestamp", _now(),
@@ -113,6 +123,7 @@ def phase_a(params: dict, log) -> dict:
             log("Phase A 未产出 bundle")
             return {"result": "empty", "summary": summary}
 
+        _progress(report, "writing_review", 88, "正在写入审核草稿")
         keys = store.put_tree(bundle_root, f"review/{ref}")
         log(f"草稿 {len(keys)} 个对象 → review/{ref}/")
         return {"result": "ok", "album": summary.get("album", album),
@@ -121,23 +132,26 @@ def phase_a(params: dict, log) -> dict:
         shutil.rmtree(work, ignore_errors=True)
 
 
-def phase_b(params: dict, log) -> dict:
+def phase_b(params: dict, log, report=None) -> dict:
     """（可能被人工校正过的）草稿 → res/<专辑>/ → 开 PR 走审计。"""
     ref = params["ref"]
 
     work = Path(tempfile.mkdtemp(prefix="phase-b-"))
     try:
+        _progress(report, "loading_review", 8, "正在读取审核草稿")
         review = work / "review"
         got = store.get_tree(f"review/{ref}", review)
         if not got:
             log(f"review/{ref}/ 不存在（已被处理或丢弃），跳过")
             return {"result": "empty"}
 
+        _progress(report, "cloning", 20, "正在准备处理脚本")
         repo = _clone_scripts(work, log)
         res_dir = repo / "res"
         res_dir.mkdir(parents=True, exist_ok=True)
 
         summary_path = work / "summary.json"
+        _progress(report, "aligning", 40, "正在对齐并整理歌词")
         run(["python", "-m", "ingest.pipeline", "--phase", "b",
              "--bundle-root", str(review), "--res-dir", str(res_dir),
              "--json", str(summary_path)], log, cwd=repo, env=_pipeline_env(repo))
@@ -157,6 +171,7 @@ def phase_b(params: dict, log) -> dict:
         contributor = status.get("contributor") or "web"
         is_update = bool(summary.get("is_update"))
 
+        _progress(report, "metadata", 70, "正在补充发布信息")
         for name in names:
             try:
                 run(["python", ".github/scripts/fetch_bilibili_meta.py", "--album", name,
@@ -169,6 +184,7 @@ def phase_b(params: dict, log) -> dict:
         ts = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
         slug = "".join(c if c.isalnum() or c == "-" else "-" for c in contributor.lower()).strip("-")
         branch = f"ingest-{slug or 'web'}-{ts}"
+        _progress(report, "opening_pr", 88, "正在创建审核请求")
         pushed = gh.commit_albums(names, res_dir, branch=branch,
                                   message=f"{verb}: {album} (via upload by @{contributor})")
         if not pushed:
@@ -206,27 +222,32 @@ def phase_b(params: dict, log) -> dict:
         shutil.rmtree(work, ignore_errors=True)
 
 
-def generate(params: dict, log) -> dict:
+def generate(params: dict, log, report=None) -> dict:
     """res/ → meta 补全 / 压缩包 / 目录页 / 静态 API / 报告，提交回 main 并触发部署。"""
     force = bool(params.get("force"))
 
     work = Path(tempfile.mkdtemp(prefix="generate-"))
     try:
+        _progress(report, "cloning", 8, "正在准备生成环境")
         repo = _clone_full(work, log)
         env = _pipeline_env(repo)
 
+        _progress(report, "metadata", 25, "正在整理元信息")
         run(["python", ".github/scripts/generate_meta.py"], log, cwd=repo, env=env)
 
+        _progress(report, "packing", 45, "正在重建专辑压缩包")
         result = pack.rebuild(repo / "res", repo / "pack", force=force)
         log(f"压缩包：新建/更新 {len(result['built'])}、清理 {len(result['removed'])}、"
             f"跳过 {result['skipped']}")
 
+        _progress(report, "optimizing", 62, "正在优化站点内容")
         run(["python", ".github/scripts/optimize.py"], log, cwd=repo, env=env)
 
         albums_dir = repo / "docs" / "albums"
         shutil.rmtree(albums_dir, ignore_errors=True)
         albums_dir.mkdir(parents=True, exist_ok=True)
 
+        _progress(report, "building", 76, "正在生成目录与 API")
         for script in ("generate_md.py", "generate_api.py", "generate_report.py"):
             run(["python", f".github/scripts/{script}"], log, cwd=repo, env=env)
 
@@ -236,6 +257,7 @@ def generate(params: dict, log) -> dict:
             log("无生成物变化")
             return {"result": "nochange"}
 
+        _progress(report, "publishing", 92, "正在发布生成结果")
         run(["git", "commit", "-m", "chore: optimize tags, update catalog and generate pages"],
             log, cwd=repo)
         run(["git", "push", "origin", "HEAD:main"], log, cwd=repo, redact=gh.TOKEN)
@@ -247,9 +269,10 @@ def generate(params: dict, log) -> dict:
         shutil.rmtree(work, ignore_errors=True)
 
 
-def diag(params: dict, log) -> dict:
+def diag(params: dict, log, report=None) -> dict:
     """自检：确认镜像里该有的外部命令都在，并打通一次对象存储往返。"""
     versions = {}
+    _progress(report, "diagnosing", 15, "正在检查处理环境")
     for name, cmd in (("python", ["python", "-V"]), ("ffmpeg", ["ffmpeg", "-version"]),
                       ("ffprobe", ["ffprobe", "-version"]), ("git", ["git", "--version"]),
                       ("tesseract", ["tesseract", "--version"])):
@@ -259,6 +282,7 @@ def diag(params: dict, log) -> dict:
         except Exception as e:  # noqa: BLE001
             versions[name] = f"缺失: {e}"
 
+    _progress(report, "diagnosing", 65, "正在验证对象存储")
     probe_key = "review/.diag/probe"
     payload = json.dumps({"at": _now()}).encode("utf-8")
     store.put_bytes(probe_key, payload)
@@ -267,6 +291,7 @@ def diag(params: dict, log) -> dict:
     log(f"对象存储往返：{'一致' if ok else '不一致'}")
 
     # 仓库令牌够不够用：开 PR 只要 pull，缝树建分支与推生成物要 push
+    _progress(report, "diagnosing", 85, "正在检查仓库权限")
     repo_perm = {}
     if gh.TOKEN:
         try:

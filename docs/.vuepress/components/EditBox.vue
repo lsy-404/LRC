@@ -34,9 +34,28 @@
         <p v-if="msg" class="eb-msg" :class="{ err: msgErr }">{{ msg }}</p>
       </section>
 
-      <section v-if="done" class="eb-card done">
+      <section v-if="isProcessing" class="eb-card eb-progress-card" aria-live="polite">
+        <div class="eb-progress-head">
+          <h3>{{ jobStageText(jobInfo) }}</h3>
+          <strong v-if="jobPercent !== null">{{ jobPercent }}%</strong>
+          <span v-else class="eb-dim">处理中</span>
+        </div>
+        <div class="eb-progress-track" :class="{ unknown: jobPercent === null }">
+          <span class="eb-progress-fill" :style="jobPercent === null ? undefined : { width: jobPercent + '%' }" />
+        </div>
+        <p class="eb-dim">{{ jobInfo.message || '正在处理投稿，请保持此页面打开以自动刷新状态。' }}</p>
+        <p v-if="jobInfo.lastError" class="eb-dim">最近一次重试：{{ jobInfo.lastError }}</p>
+      </section>
+
+      <section v-else-if="jobInfo && jobInfo.state === 'failed'" class="eb-card eb-progress-card failed" role="alert">
+        <h3>处理失败</h3>
+        <p>{{ jobInfo.error || jobInfo.message || '处理器未能完成该投稿。' }}</p>
+        <p class="eb-dim">请保留追踪编号，修复后可重新提交同一专辑。</p>
+      </section>
+
+      <section v-if="done && !isProcessing" class="eb-card done">
         <h3>已触发对齐入库</h3>
-        <p>Phase B 正在对齐并整理，稍后会开出 PR 供审核。可关闭本页。</p>
+        <p>{{ jobInfo?.result?.pr ? `Phase B 已完成，已创建 PR #${jobInfo.result.pr}。` : 'Phase B 正在对齐并整理，稍后会开出 PR 供审核。' }}</p>
       </section>
 
       <!-- 逐专辑编辑 -->
@@ -202,6 +221,7 @@ const edits = ref([]);
 const continuing = ref(false);
 const discarding = ref(false);
 const done = ref(false);
+const jobInfo = ref(null);
 let pollTimer = null;
 
 const recentRefs = computed(() => dedupeRecent(cachedRefs.value, pending.value));
@@ -216,6 +236,24 @@ function loadCachedRefs() {
 
 const PHASE_TEXT = { A_done: '待修改', confirmed: '已确认待入库', B_done: '已入库' };
 const phaseText = (s) => PHASE_TEXT[s] || s || '处理中';
+const ACTIVE_JOB_STATES = new Set(['queued', 'dispatching', 'running']);
+const STAGE_TEXT = {
+  queued: '已排队', starting: '正在启动处理器', retrying: '正在重试',
+  downloading: '正在读取原料', cloning: '正在准备处理脚本',
+  processing: '正在识别、转写与对齐', writing_review: '正在写入审核草稿',
+  loading_review: '正在读取审核草稿', aligning: '正在对齐并整理歌词',
+  metadata: '正在补充发布信息', opening_pr: '正在创建审核请求',
+  awaiting_review: '初稿已生成，等待人工审核', done: '处理完成', failed: '处理失败',
+};
+const isProcessing = computed(() => ACTIVE_JOB_STATES.has(jobInfo.value?.state));
+const jobPercent = computed(() => {
+  const n = Number(jobInfo.value?.progress);
+  return Number.isFinite(n) ? Math.max(0, Math.min(100, Math.round(n))) : null;
+});
+function jobStageText(job) {
+  if (!job) return '处理中';
+  return STAGE_TEXT[job.stage] || (job.phase === 'phase_b' ? '正在对齐入库' : '正在处理投稿');
+}
 
 // 视觉分轨每轨置信度，低于 0.7 高亮提示重点核对
 const isLowConf = (t) => t.confidence != null && t.confidence < 0.7;
@@ -337,14 +375,27 @@ async function load(silent = false) {
     const data = await resp.json().catch(() => ({}));
     if (!resp.ok) { msgErr.value = true; msg.value = data.error || '加载失败'; return; }
     curRef.value = r;
-    done.value = false;
+    jobInfo.value = data.job || null;
     if (data.status === 'processing') {
       edits.value = [];
       msgErr.value = false;
-      msg.value = 'Phase A 处理中，页面每 12 秒自动刷新…';
+      msg.value = jobInfo.value?.message || '处理中，页面每 12 秒自动刷新…';
       startPoll();
+    } else if (data.status === 'failed') {
+      stopPoll();
+      edits.value = [];
+      done.value = false;
+      msgErr.value = true;
+      msg.value = jobInfo.value?.error || '处理失败';
+    } else if (data.status === 'complete') {
+      stopPoll();
+      edits.value = [];
+      done.value = true;
+      msgErr.value = false;
+      msg.value = '';
     } else {
       stopPoll();
+      done.value = false;
       edits.value = (data.albums || []).filter((a) => a.draft).map((a) => toEdit(a.album, a.draft));
       msgErr.value = false;
       msg.value = edits.value.length ? '' : '该编号下暂无可编辑草稿（可能已入库或被清理）';
@@ -439,7 +490,13 @@ async function continueIngest() {
       body: JSON.stringify({ ref: curRef.value }),
     });
     const data = await resp.json().catch(() => ({}));
-    if (resp.ok) { done.value = true; stopPoll(); msgErr.value = false; msg.value = ''; }
+    if (resp.ok) {
+      done.value = true;
+      msgErr.value = false;
+      msg.value = '已排队，正在启动 Phase B…';
+      await load(true);
+      startPoll();
+    }
     else { msgErr.value = true; msg.value = '触发失败：' + (data.message || data.error || resp.status); }
   } catch { msgErr.value = true; msg.value = '网络错误'; }
   finally { continuing.value = false; }
@@ -634,4 +691,13 @@ onBeforeUnmount(() => {
 .eb-msg.err { color: #f85149; }
 .eb-card.done { border-color: var(--eb-accent); }
 .eb-card.done h3 { margin: 0 0 .4rem; color: var(--eb-accent); }
+.eb-progress-card { border-color: color-mix(in srgb, var(--eb-accent) 55%, var(--border-color, #ddd)); }
+.eb-progress-card h3 { margin: 0; font-size: 1rem; }
+.eb-progress-card.failed { border-color: #f85149; }
+.eb-progress-card.failed h3 { color: #f85149; }
+.eb-progress-head { display: flex; justify-content: space-between; gap: .8rem; align-items: baseline; }
+.eb-progress-track { height: .48rem; overflow: hidden; border-radius: 999px; background: color-mix(in srgb, var(--eb-accent) 16%, transparent); margin: .75rem 0 .35rem; }
+.eb-progress-fill { display: block; height: 100%; border-radius: inherit; background: var(--eb-accent); transition: width .45s ease; }
+.eb-progress-track.unknown .eb-progress-fill { width: 38%; animation: eb-progress 1.1s ease-in-out infinite alternate; }
+@keyframes eb-progress { from { transform: translateX(-45%); } to { transform: translateX(220%); } }
 </style>

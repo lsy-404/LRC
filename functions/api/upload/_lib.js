@@ -41,18 +41,18 @@ export function bearer(request) {
 // 地址不是密文，给默认值免得两处环境都要配；需要时用 INGEST_WORKER_URL 覆盖。
 const INGEST_WORKER = 'https://ingest.lrc.wuyilingwei.com';
 
-export async function callWorker(env, path, body) {
+export async function callWorker(env, path, body, method = 'POST') {
   if (!env.INGEST_TOKEN) {
     return { ok: false, status: 503, data: { error: 'ingest worker not configured' } };
   }
   const base = (env.INGEST_WORKER_URL || INGEST_WORKER).replace(/\/$/, '');
   const resp = await fetch(`${base}${path}`, {
-    method: 'POST',
+    method,
     headers: {
       authorization: `Bearer ${env.INGEST_TOKEN}`,
       'content-type': 'application/json',
     },
-    body: JSON.stringify(body || {}),
+    body: method === 'GET' ? undefined : JSON.stringify(body || {}),
   });
   const data = await resp.json().catch(() => ({}));
   return { ok: resp.ok, status: resp.status, data };

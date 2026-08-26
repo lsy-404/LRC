@@ -59,26 +59,66 @@ test('start 先持久化并排队，不等待容器冷启动', async () => {
   const body = await response.json();
   assert.deepEqual({ ok: body.ok, queued: body.queued, phase: body.phase },
     { ok: true, queued: true, phase: 'phase_a' });
-  assert.equal(ctx.job.state, 'running');
+  assert.equal(ctx.job.state, 'queued');
   assert.ok(ctx.alarm > Date.now());
   assert.equal(calls.length, 0);
 });
 
-test('首次 alarm 检查容器后重投已持久化作业', async () => {
+test('首次 alarm 直接派发已持久化作业', async () => {
   const IngestJob = await loadJob();
   const ctx = jobContext();
   const calls = [];
-  const job = new IngestJob(ctx, { RUNNER: { getByName: () => ({ fetch: async (url) => {
-    calls.push(url);
-    return url.includes('/status')
-      ? new Response('{}', { status: 404 })
-      : new Response('', { status: 200 });
+  const job = new IngestJob(ctx, { RUNNER: { getByName: () => ({ fetch: async (url, init) => {
+    calls.push({ url, init });
+    return new Response('', { status: 202 });
   } }) } });
   await job.fetch(new Request('https://job/start', {
     method: 'POST', body: JSON.stringify({ kind: 'phase_a', params: { ref: 'b'.repeat(32) } }),
   }));
+  const jobId = ctx.job.jobId;
   await job.alarm();
+  assert.equal(ctx.job.attempts, 0);
+  assert.equal(ctx.job.state, 'running');
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].url, 'http://runner/run');
+  assert.equal(JSON.parse(calls[0].init.body).job_id, jobId);
+});
+
+test('轮询把容器阶段和进度持久化给状态接口', async () => {
+  const IngestJob = await loadJob();
+  const ctx = jobContext();
+  const job = new IngestJob(ctx, { RUNNER: { getByName: () => ({ fetch: async (url) => {
+    if (url.endsWith('/run')) return new Response('', { status: 202 });
+    return new Response(JSON.stringify({
+      state: 'running', stage: 'downloading', progress: 23,
+      message: '正在读取原料（2/9）', updated_at: '2026-08-26T12:00:00Z',
+    }), { status: 200 });
+  } }) } });
+  await job.fetch(new Request('https://job/start', {
+    method: 'POST', body: JSON.stringify({ kind: 'phase_a', params: { ref: 'c'.repeat(32) } }),
+  }));
+  await job.alarm();
+  await job.alarm();
+  assert.equal(ctx.job.state, 'running');
+  assert.equal(ctx.job.stage, 'downloading');
+  assert.equal(ctx.job.progress, 23);
+  assert.equal(ctx.job.message, '正在读取原料（2/9）');
+  assert.equal(ctx.job.updatedAt, '2026-08-26T12:00:00Z');
+});
+
+test('派发失败后保留同一作业并排队重试', async () => {
+  const IngestJob = await loadJob();
+  const ctx = jobContext();
+  const job = new IngestJob(ctx, { RUNNER: { getByName: () => ({ fetch: async () => {
+    throw new Error('container warming');
+  } }) } });
+  await job.fetch(new Request('https://job/start', {
+    method: 'POST', body: JSON.stringify({ kind: 'phase_a', params: { ref: 'd'.repeat(32) } }),
+  }));
+  const jobId = ctx.job.jobId;
+  await job.alarm();
+  assert.equal(ctx.job.state, 'queued');
   assert.equal(ctx.job.attempts, 1);
-  assert.ok(calls[0].includes('/status?job_id='));
-  assert.equal(calls[1], 'http://runner/run');
+  assert.equal(ctx.job.jobId, jobId);
+  assert.equal(ctx.job.stage, 'retrying');
 });
