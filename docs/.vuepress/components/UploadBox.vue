@@ -294,7 +294,8 @@ import {
 // 验证在工作站根层（Workbench）统一完成，密码经 prop 传入
 const props = defineProps({ password: { type: String, default: '' } });
 
-const MAX_FILE = 95 * 1024 * 1024;
+const DIRECT_UPLOAD_LIMIT = 95 * 1024 * 1024;
+const MULTIPART_PART_SIZE = 20 * 1024 * 1024;
 
 const album = ref('');
 const items = ref([]);
@@ -592,7 +593,6 @@ const dupSet = computed(() => {
 });
 const isDup = (it) => dupSet.value.has(it.relPath);
 
-const oversize = computed(() => items.value.filter((i) => i.size > MAX_FILE).length);
 const totalBytes = computed(() => items.value.reduce((s, i) => s + i.size, 0));
 const doneBytes = computed(() => items.value.reduce((s, i) =>
   s + (i.status === 'done' ? i.size : i.status === 'up' ? i.size * i.pct / 100 : 0), 0));
@@ -603,17 +603,16 @@ const progressText = computed(() => items.value.length
 const totalText = computed(() => {
   if (!items.value.length) return '尚未选择文件';
   return `共 ${items.value.length} 个文件，${fmtSize(totalBytes.value)}`
-    + (oversize.value ? `；${oversize.value} 个超出单文件上限，无法提交` : '')
+    + (items.value.some((i) => i.size > DIRECT_UPLOAD_LIMIT) ? '；大文件将自动分片上传' : '')
     + (dupSet.value.size ? '；存在重复路径（红色波浪线），请重命名' : '');
 });
 const canSubmit = computed(() =>
-  !busy.value && items.value.length > 0 && oversize.value === 0 && dupSet.value.size === 0);
+  !busy.value && items.value.length > 0 && dupSet.value.size === 0);
 
-const statText = (it) => it.size > MAX_FILE ? '过大'
-  : it.status === 'done' ? '✓'
+const statText = (it) => it.status === 'done' ? '✓'
   : it.status === 'fail' ? '失败'
   : it.status === 'up' ? it.pct + '%' : '待传';
-const statClass = (it) => it.size > MAX_FILE || it.status === 'fail' ? 'fail'
+const statClass = (it) => it.status === 'fail' ? 'fail'
   : it.status === 'done' ? 'done' : '';
 
 // 系统垃圾文件：任一路径段命中即整条跳过（拖文件夹常带进 .DS_Store / AppleDouble ._* 等）
@@ -789,9 +788,7 @@ const newSession = () => {
   return [...buf].map((b) => b.toString(16).padStart(2, '0')).join('');
 };
 
-// 文件原始二进制直传 R2（不 base64）：旧的 base64→GitHub create-blob 通道实测
-// 在 ~40MiB 处被 GitHub 掐断（502），且 base64 膨胀 4/3 也过不了 Cloudflare
-// 100MB 请求体上限——直传后单文件 95MB 真实可达
+// 小文件原始二进制直传 R2；超过边缘请求上限的文件改走 multipart，原料不经 base64。
 const uploadR2 = (it) => new Promise((resolve) => {
   const xhr = new XMLHttpRequest();
   xhr.open('POST', `/api/upload/r2?session=${session}&n=${it.n}`);
@@ -807,6 +804,63 @@ const uploadR2 = (it) => new Promise((resolve) => {
   xhr.onerror = () => resolve(false);
   xhr.send(it.file);
 });
+
+const uploadHeaders = () => ({
+  'authorization': 'Bearer ' + encodeURIComponent(props.password),
+});
+
+async function multipartResponse(url, init) {
+  const response = await fetch(url, init);
+  const data = await response.json().catch(() => ({}));
+  return response.ok && data.ok ? data : null;
+}
+
+async function uploadMultipart(it) {
+  let state = it.multipart;
+  if (!state) {
+    const created = await multipartResponse(
+      `/api/upload/multipart?action=create&session=${session}&n=${it.n}`,
+      { method: 'POST', headers: uploadHeaders() });
+    if (!created?.uploadId) return false;
+    state = { uploadId: created.uploadId, parts: [] };
+    it.multipart = state;
+  }
+
+  const uploaded = new Map(state.parts.map((part) => [part.partNumber, part]));
+  const partCount = Math.ceil(it.size / MULTIPART_PART_SIZE);
+  for (let partNumber = 1; partNumber <= partCount; partNumber++) {
+    const start = (partNumber - 1) * MULTIPART_PART_SIZE;
+    const end = Math.min(start + MULTIPART_PART_SIZE, it.size);
+    if (!uploaded.has(partNumber)) {
+      const part = await multipartResponse(
+        `/api/upload/multipart?action=part&session=${session}&n=${it.n}`
+          + `&uploadId=${encodeURIComponent(state.uploadId)}&partNumber=${partNumber}`,
+        {
+          method: 'PUT',
+          headers: { ...uploadHeaders(), 'content-type': 'application/octet-stream' },
+          body: it.file.slice(start, end),
+        });
+      if (!part || part.partNumber !== partNumber || !part.etag) return false;
+      uploaded.set(partNumber, { partNumber, etag: part.etag });
+      state.parts = [...uploaded.values()].sort((a, b) => a.partNumber - b.partNumber);
+    }
+    it.pct = Math.round(end / it.size * 100);
+  }
+
+  const completed = await multipartResponse(
+    `/api/upload/multipart?action=complete&session=${session}&n=${it.n}`
+      + `&uploadId=${encodeURIComponent(state.uploadId)}`,
+    {
+      method: 'POST',
+      headers: { ...uploadHeaders(), 'content-type': 'application/json' },
+      body: JSON.stringify({ parts: state.parts }),
+    });
+  if (!completed) return false;
+  it.multipart = null;
+  return true;
+}
+
+const uploadFile = (it) => it.size <= DIRECT_UPLOAD_LIMIT ? uploadR2(it) : uploadMultipart(it);
 
 async function run() {
   const name = album.value.trim();
@@ -841,7 +895,7 @@ async function run() {
       const it = pending[next++];
       it.status = 'up';
       it.pct = 0;
-      if (await uploadR2(it)) { it.status = 'done'; }
+      if (await uploadFile(it)) { it.status = 'done'; }
       else { it.status = 'fail'; it.pct = 0; }
     }
   };

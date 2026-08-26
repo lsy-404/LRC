@@ -69,17 +69,10 @@ export class IngestJob extends DurableObject {
       error: null,
     };
     await this.ctx.storage.put('job', job);
-    // 先挂闹钟再派发：容器冷启动可能超时抛错，闹钟在则由轮询那条路重投一次，
-    // 否则作业会永远停在 running 且没人来推它
+    // 作业先落库并挂闹钟；首次容器触达由 alarm 完成，避免冷启动占住投稿请求。
+    // 容器不可达时 alarm 会把作业重投一次，且作业状态不依赖任一 HTTP 调用存活。
     await this.ctx.storage.setAlarm(Date.now() + POLL_MS);
-    let dispatchError = null;
-    try {
-      await this.#dispatch(job);
-    } catch (e) {
-      dispatchError = String(e);
-      await this.ctx.storage.put('job', { ...job, lastError: dispatchError });
-    }
-    return { ok: !dispatchError, jobId: job.jobId, phase: kind, error: dispatchError };
+    return { ok: true, queued: true, jobId: job.jobId, phase: kind };
   }
 
   #container(job) {
