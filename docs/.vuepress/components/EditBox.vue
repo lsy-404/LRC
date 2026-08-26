@@ -50,7 +50,12 @@
       <section v-else-if="jobInfo && jobInfo.state === 'failed'" class="eb-card eb-progress-card failed" role="alert">
         <h3>处理失败</h3>
         <p>{{ jobInfo.error || jobInfo.message || '处理器未能完成该投稿。' }}</p>
-        <p class="eb-dim">请保留追踪编号，修复后可重新提交同一专辑。</p>
+        <div class="eb-row">
+          <button class="eb-btn" :disabled="retrying" @click="retryPhaseA">
+            {{ retrying ? '重新启动中…' : '重新开始处理' }}
+          </button>
+          <span class="eb-dim">修复后会复用已上传原料，无需重新上传。</span>
+        </div>
       </section>
 
       <section v-if="done && !isProcessing" class="eb-card done">
@@ -222,6 +227,7 @@ const continuing = ref(false);
 const discarding = ref(false);
 const done = ref(false);
 const jobInfo = ref(null);
+const retrying = ref(false);
 let pollTimer = null;
 
 const recentRefs = computed(() => dedupeRecent(cachedRefs.value, pending.value));
@@ -402,6 +408,34 @@ async function load(silent = false) {
     }
   } catch { msgErr.value = true; msg.value = '网络错误'; }
   finally { loading.value = false; }
+}
+
+async function retryPhaseA() {
+  if (!curRef.value) return;
+  retrying.value = true;
+  msgErr.value = false;
+  try {
+    const resp = await fetch('/api/ingest/retry', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', ...authHeaders() },
+      body: JSON.stringify({ ref: curRef.value }),
+    });
+    const data = await resp.json().catch(() => ({}));
+    if (!resp.ok || !data.ok) {
+      msgErr.value = true;
+      msg.value = '重新启动失败：' + (data.message || data.error || resp.status);
+      return;
+    }
+    jobInfo.value = null;
+    msg.value = '已重新排队，正在启动处理器…';
+    await load(true);
+    startPoll();
+  } catch {
+    msgErr.value = true;
+    msg.value = '网络错误';
+  } finally {
+    retrying.value = false;
+  }
 }
 
 // 换封面：图片原始字节直接写进 bundle 的 cover<ext>，保存草稿时同步 cover_ext；

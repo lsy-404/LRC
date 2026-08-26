@@ -6,6 +6,7 @@ import { onRequestGet as stateGet } from '../../functions/api/ingest/state.js';
 import { onRequestPost as savePost } from '../../functions/api/ingest/save.js';
 import { onRequestPost as discardPost } from '../../functions/api/ingest/discard.js';
 import { onRequestPost as coverPost } from '../../functions/api/ingest/cover.js';
+import { onRequestPost as retryPost } from '../../functions/api/ingest/retry.js';
 import { fakeBucket, authedRequest } from './_fakeR2.mjs';
 
 const REF = 'a'.repeat(32);
@@ -103,6 +104,30 @@ test('state 报出后台作业失败而不无限轮询', async () => {
     const data = await resp.json();
     assert.equal(data.status, 'failed');
     assert.equal(data.job.error, '处理器不可用');
+  } finally {
+    globalThis.fetch = orig;
+  }
+});
+
+test('retry 使用已有 ref 重新排队而不读写原料', async () => {
+  const orig = globalThis.fetch;
+  try {
+    const calls = [];
+    globalThis.fetch = async (url, init) => {
+      calls.push({ url, init });
+      return new Response(JSON.stringify({ ok: true, queued: true, phase: 'phase_a' }), { status: 200 });
+    };
+    const bucket = seeded();
+    const resp = await retryPost({
+      request: authedRequest('https://x/retry', { method: 'POST', body: { ref: REF } }),
+      env: envOf(bucket, { INGEST_TOKEN: 'token', INGEST_WORKER_URL: 'https://ingest.test' }),
+    });
+    const data = await resp.json();
+    assert.equal(data.ok, true);
+    assert.equal(calls.length, 1);
+    assert.equal(calls[0].url, 'https://ingest.test/ingest');
+    assert.deepEqual(JSON.parse(calls[0].init.body), { ref: REF });
+    assert.equal(bucket.store.get(`web/${REF}/0`), 'raw-payload');
   } finally {
     globalThis.fetch = orig;
   }
