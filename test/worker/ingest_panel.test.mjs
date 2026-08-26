@@ -69,68 +69,48 @@ test('state 对未产出草稿的 ref 报 processing', async () => {
 });
 
 test('state 透传处理作业阶段与进度', async () => {
-  const orig = globalThis.fetch;
-  try {
-    globalThis.fetch = async (_url, init) => {
-      assert.equal(init.method, 'GET');
-      return new Response(JSON.stringify({
+  const resp = await stateGet({
+    request: authedRequest(`https://x/s?ref=${'c'.repeat(32)}`),
+    env: envOf(seeded(), { INGEST_INTERNAL_CALL: async (_path, _body, method) => {
+      assert.equal(method, 'GET');
+      return { ok: true, status: 200, data: {
         state: 'running', phase: 'phase_a', stage: 'downloading', progress: 23,
         message: '正在读取原料（2/9）',
-      }), { status: 200 });
-    };
-    const resp = await stateGet({
-      request: authedRequest(`https://x/s?ref=${'c'.repeat(32)}`),
-      env: envOf(seeded(), { INGEST_TOKEN: 'token', INGEST_WORKER_URL: 'https://ingest.test' }),
-    });
-    const data = await resp.json();
-    assert.equal(data.status, 'processing');
-    assert.equal(data.job.stage, 'downloading');
-    assert.equal(data.job.progress, 23);
-  } finally {
-    globalThis.fetch = orig;
-  }
+      } };
+    } }),
+  });
+  const data = await resp.json();
+  assert.equal(data.status, 'processing');
+  assert.equal(data.job.stage, 'downloading');
+  assert.equal(data.job.progress, 23);
 });
 
 test('state 报出后台作业失败而不无限轮询', async () => {
-  const orig = globalThis.fetch;
-  try {
-    globalThis.fetch = async () => new Response(JSON.stringify({
+  const resp = await stateGet({
+    request: authedRequest(`https://x/s?ref=${'d'.repeat(32)}`),
+    env: envOf(seeded(), { INGEST_INTERNAL_CALL: async () => ({ ok: true, status: 200, data: {
       state: 'failed', phase: 'phase_a', error: '处理器不可用', stage: 'failed',
-    }), { status: 200 });
-    const resp = await stateGet({
-      request: authedRequest(`https://x/s?ref=${'d'.repeat(32)}`),
-      env: envOf(seeded(), { INGEST_TOKEN: 'token', INGEST_WORKER_URL: 'https://ingest.test' }),
-    });
-    const data = await resp.json();
-    assert.equal(data.status, 'failed');
-    assert.equal(data.job.error, '处理器不可用');
-  } finally {
-    globalThis.fetch = orig;
-  }
+    } }) }),
+  });
+  const data = await resp.json();
+  assert.equal(data.status, 'failed');
+  assert.equal(data.job.error, '处理器不可用');
 });
 
 test('retry 使用已有 ref 重新排队而不读写原料', async () => {
-  const orig = globalThis.fetch;
-  try {
-    const calls = [];
-    globalThis.fetch = async (url, init) => {
-      calls.push({ url, init });
-      return new Response(JSON.stringify({ ok: true, queued: true, phase: 'phase_a' }), { status: 200 });
-    };
-    const bucket = seeded();
-    const resp = await retryPost({
-      request: authedRequest('https://x/retry', { method: 'POST', body: { ref: REF } }),
-      env: envOf(bucket, { INGEST_TOKEN: 'token', INGEST_WORKER_URL: 'https://ingest.test' }),
-    });
-    const data = await resp.json();
-    assert.equal(data.ok, true);
-    assert.equal(calls.length, 1);
-    assert.equal(calls[0].url, 'https://ingest.test/ingest');
-    assert.deepEqual(JSON.parse(calls[0].init.body), { ref: REF });
-    assert.equal(bucket.store.get(`web/${REF}/0`), 'raw-payload');
-  } finally {
-    globalThis.fetch = orig;
-  }
+  const calls = [];
+  const bucket = seeded();
+  const resp = await retryPost({
+    request: authedRequest('https://x/retry', { method: 'POST', body: { ref: REF } }),
+    env: envOf(bucket, { INGEST_INTERNAL_CALL: async (path, body) => {
+      calls.push({ path, body });
+      return { ok: true, status: 200, data: { ok: true, queued: true, phase: 'phase_a' } };
+    } }),
+  });
+  const data = await resp.json();
+  assert.equal(data.ok, true);
+  assert.deepEqual(calls, [{ path: '/ingest', body: { ref: REF } }]);
+  assert.equal(bucket.store.get(`web/${REF}/0`), 'raw-payload');
 });
 
 test('state 拒绝非法 ref', async () => {
@@ -187,42 +167,28 @@ test('cover 拒绝非法后缀', async () => {
 test('discard 删掉整张专辑的 bundle 且不碰原料', async () => {
   const bucket = seeded();
   const calls = [];
-  const orig = globalThis.fetch;
-  globalThis.fetch = async (url, init) => {
-    calls.push({ url, body: JSON.parse(init.body) });
-    return new Response('{"ok":true}', { status: 200 });
-  };
-  try {
-    const env = envOf(bucket, { INGEST_WORKER_URL: 'https://w', INGEST_TOKEN: 't' });
-    const resp = await discardPost({
-      request: authedRequest('https://x/discard', { method: 'POST', body: { ref: REF, album: ALBUM } }),
-      env,
-    });
-    const data = await resp.json();
-    assert.equal(data.removed, 3);
-    assert.equal(bucket.store.has(`web/${REF}/0`), true, '原料由生命周期规则清理，不在此删');
-    // 该 ref 下已无草稿 → 撤掉超时闹钟
-    assert.equal(calls.length, 1);
-    assert.equal(calls[0].url, 'https://w/discard');
-    assert.deepEqual(calls[0].body, { ref: REF });
-  } finally {
-    globalThis.fetch = orig;
-  }
+  const env = envOf(bucket, { INGEST_INTERNAL_CALL: async (path, body) => {
+    calls.push({ path, body });
+    return { ok: true, status: 200, data: { ok: true } };
+  } });
+  const resp = await discardPost({
+    request: authedRequest('https://x/discard', { method: 'POST', body: { ref: REF, album: ALBUM } }),
+    env,
+  });
+  const data = await resp.json();
+  assert.equal(data.removed, 3);
+  assert.equal(bucket.store.has(`web/${REF}/0`), true, '原料由生命周期规则清理，不在此删');
+  // 该 ref 下已无草稿 → 撤掉超时闸门
+  assert.deepEqual(calls, [{ path: '/discard', body: { ref: REF } }]);
 });
 
 test('discard 找不到草稿时报 404 且不叫编排', async () => {
   const calls = [];
-  const orig = globalThis.fetch;
-  globalThis.fetch = async (...a) => { calls.push(a); return new Response('{}'); };
-  try {
-    const env = envOf(seeded(), { INGEST_WORKER_URL: 'https://w', INGEST_TOKEN: 't' });
-    const resp = await discardPost({
-      request: authedRequest('https://x/discard', { method: 'POST', body: { ref: REF, album: '不存在' } }),
-      env,
-    });
-    assert.equal(resp.status, 404);
-    assert.equal(calls.length, 0);
-  } finally {
-    globalThis.fetch = orig;
-  }
+  const env = envOf(seeded(), { INGEST_INTERNAL_CALL: async (...args) => { calls.push(args); } });
+  const resp = await discardPost({
+    request: authedRequest('https://x/discard', { method: 'POST', body: { ref: REF, album: '不存在' } }),
+    env,
+  });
+  assert.equal(resp.status, 404);
+  assert.equal(calls.length, 0);
 });

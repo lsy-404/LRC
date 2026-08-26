@@ -37,25 +37,11 @@ export function bearer(request) {
   }
 }
 
-// 摄取编排在独立 Worker（Pages Functions 绑不了容器），凭 INGEST_TOKEN 调用。
-// 地址不是密文，给默认值免得两处环境都要配；需要时用 INGEST_WORKER_URL 覆盖。
-const INGEST_WORKER = 'https://ingest.lrc.wuyilingwei.com';
-
 export async function callWorker(env, path, body, method = 'POST') {
-  if (!env.INGEST_TOKEN) {
-    return { ok: false, status: 503, data: { error: 'ingest worker not configured' } };
+  if (typeof env.INGEST_INTERNAL_CALL !== 'function') {
+    return { ok: false, status: 503, data: { error: 'ingest is not available in this runtime' } };
   }
-  const base = (env.INGEST_WORKER_URL || INGEST_WORKER).replace(/\/$/, '');
-  const resp = await fetch(`${base}${path}`, {
-    method,
-    headers: {
-      authorization: `Bearer ${env.INGEST_TOKEN}`,
-      'content-type': 'application/json',
-    },
-    body: method === 'GET' ? undefined : JSON.stringify(body || {}),
-  });
-  const data = await resp.json().catch(() => ({}));
-  return { ok: resp.ok, status: resp.status, data };
+  return env.INGEST_INTERNAL_CALL(path, body, method);
 }
 
 // 控制字符（C0 与 DEL）

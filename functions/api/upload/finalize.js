@@ -4,7 +4,7 @@ import {
 } from './_lib.js';
 
 // 文件本体已直传 R2（web/<session>/<n>）。这里落一份取料清单到同一前缀下，
-// 再直接叫醒编排 Worker 跑 Phase A——投稿不再经过任何 git 分支。
+// 再直接叫醒同一 Worker 内的编排跑 Phase A——投稿不再经过任何 git 分支。
 // ref 即 session：后续人工闸门、Phase B、原料清理都用它对账。
 export async function onRequestPost({ request, env }) {
   if (!(await passwordOk(bearer(request), env))) return json({ error: 'unauthorized' }, 401);
