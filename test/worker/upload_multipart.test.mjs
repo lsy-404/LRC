@@ -9,6 +9,16 @@ const REF = 'a'.repeat(32);
 const env = () => ({ UPLOAD_PASSWORD: 'pw', UPLOAD_BUCKET: fakeBucket() });
 const auth = { authorization: 'Bearer pw' };
 
+test('multipart 拒绝未验证的上传请求', async () => {
+  const target = env();
+  const response = await onRequestPost({
+    request: new Request(
+      `https://x/api/upload/multipart?session=${REF}&n=0&action=create`, { method: 'POST' }),
+    env: target,
+  });
+  assert.equal(response.status, 401);
+});
+
 test('multipart 将分片按顺序合并为 R2 原料对象', async () => {
   const target = env();
   const base = `https://x/api/upload/multipart?session=${REF}&n=0`;

@@ -32,7 +32,7 @@ function cleanParts(value) {
 }
 
 async function allowed(request, env) {
-  return passwordOk(bearer(request), env) && !!env.UPLOAD_BUCKET;
+  return (await passwordOk(bearer(request), env)) && !!env.UPLOAD_BUCKET;
 }
 
 export async function onRequestPost({ request, env }) {
