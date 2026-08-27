@@ -110,12 +110,12 @@
             <button
               class="eb-btn small"
               :class="{ on: t._mode === 'edit' }"
-              @click="t._mode = 'edit'"
+              @click="openEdit(t)"
             >编辑歌词</button>
             <button
               class="eb-btn small"
               :class="{ on: t._mode === 'listen' }"
-              @click="t._mode = 'listen'"
+              @click="openListen(t)"
             >听歌校对</button>
             <button v-if="t._mode === 'edit'" class="eb-btn small" @click="simplifyTrack(t)">转为简体</button>
           </div>
@@ -123,30 +123,26 @@
           <div v-if="t._mode === 'listen'" class="eb-listen" aria-label="听歌校对">
             <p class="eb-note">原音只在审核期从受密码保护的原料区读取；不会公开原始文件。</p>
             <div v-if="t.audio" class="eb-preview">
-              <button class="eb-btn small" :disabled="t._audioLoading" @click="loadAudio(t)">
-                {{ t._audioLoading ? '读取原音…' : (t._audioUrl ? '卸载原音' : '加载原音播放') }}
-              </button>
-              <audio
-                v-if="t._audioUrl"
-                controls
-                :src="t._audioUrl"
-                @play="sourcePlay(t, $event)"
-                @pause="sourcePause(t)"
-                @ended="sourcePause(t)"
-                @error="sourceError(t)"
-                @timeupdate="sourceTime(t, $event)"
-              />
+              <span v-if="t._audioLoading" class="eb-dim">正在载入原音…</span>
+              <div v-else-if="t._audioUrl && !t._audioErr" class="eb-player" aria-label="原音播放器">
+                <button class="eb-btn small" @click="toggleSource(t)">{{ t._sourcePlaying ? '暂停' : '播放' }}</button>
+                <input class="eb-player-progress" :value="t._previewMs" type="range" min="0" :max="sourceEnd(t)" @input="seekSource(t, $event)">
+                <span class="eb-player-time">{{ formatMs(t._previewMs) }} / {{ formatMs(t._audioDuration) }}</span>
+                <label>音量 <input v-model.number="t._volume" type="range" min="0" max="1" step="0.05" @input="setVolume(t)"></label>
+                <label>速度 <select v-model.number="t._speed" class="eb-select" @change="setSourceRate(t)"><option :value="0.5">0.5×</option><option :value="1">1×</option><option :value="1.5">1.5×</option><option :value="2">2×</option></select></label>
+              </div>
+              <button v-else class="eb-btn small" @click="retryAudio(t)">重试原音</button>
               <span v-if="t._audioErr" class="eb-msg inline err">{{ t._audioErr }}</span>
             </div>
             <p v-else class="eb-dim small">此轨没有可读取的原音，将使用时间轴模拟。</p>
-            <div v-if="!t._audioUrl || t._audioErr" class="eb-preview eb-simulation">
+            <div v-if="(!t._audioUrl && !t._audioLoading) || t._audioErr" class="eb-preview eb-simulation">
               <span class="eb-dim">时间轴模拟</span>
               <button class="eb-btn small" @click="togglePreview(t)">{{ t._playing ? '暂停模拟' : '播放模拟' }}</button>
               <label>速度 <select v-model.number="t._speed" class="eb-select"><option :value="0.5">0.5×</option><option :value="1">1×</option><option :value="1.5">1.5×</option><option :value="2">2×</option></select></label>
               <input v-model.number="t._previewMs" type="range" min="0" :max="previewEnd(t)" @input="pausePreview(t)">
               <span>{{ formatMs(t._previewMs) }}</span>
             </div>
-            <p v-if="!t._audioUrl || t._audioErr" class="eb-dim small">模拟只按歌词时间戳推进，不会播放音频。</p>
+            <p v-if="(!t._audioUrl && !t._audioLoading) || t._audioErr" class="eb-dim small">模拟只按歌词时间戳推进，不会播放音频。</p>
             <div v-if="t.head.length" class="eb-lrc-head">
               <div v-for="(h, hi) in t.head" :key="hi">{{ h }}</div>
             </div>
@@ -212,6 +208,20 @@
               :placeholder="t.inst ? '伴奏轨：留空则借同名正曲时间轴或写占位' : '逐行歌词'"
             />
           </div>
+          <audio
+            v-if="t._audioUrl"
+            :ref="(node) => bindAudioElement(t, node)"
+            class="eb-hidden-audio"
+            :src="t._audioUrl"
+            preload="metadata"
+            @play="sourcePlay(t, $event)"
+            @pause="sourcePause(t)"
+            @ended="sourcePause(t)"
+            @error="sourceError(t)"
+            @loadedmetadata="sourceReady(t, $event)"
+            @durationchange="sourceReady(t, $event)"
+            @timeupdate="sourceTime(t, $event)"
+          />
         </div>
 
         <details v-if="e.pages.length" class="eb-pages">
@@ -262,7 +272,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
@@ -361,11 +371,12 @@ function togglePreview(t) { if (t._playing) return pausePreview(t); edits.value.
 function releaseAudio(t) {
   if (t._audioElement) { t._audioElement.pause(); t._audioElement.src = ''; }
   if (t._audioUrl) URL.revokeObjectURL(t._audioUrl);
-  t._audioElement = null; t._audioUrl = ''; t._audioLoading = false; t._audioErr = '';
+  t._audioElement = null; t._audioUrl = ''; t._audioLoading = false; t._audioErr = ''; t._audioDuration = 0; t._sourcePlaying = false;
 }
+function bindAudioElement(t, node) { t._audioElement = node || null; }
 async function loadAudio(t) {
   if (!t.audio || t._audioLoading) return;
-  if (t._audioUrl) { releaseAudio(t); return; }
+  if (t._audioUrl) return;
   t._audioLoading = true; t._audioErr = '';
   try {
     const q = new URLSearchParams({ ref: curRef.value, name: t.audio });
@@ -375,16 +386,49 @@ async function loadAudio(t) {
   } catch (error) { t._audioErr = error.message || '原音读取失败'; }
   finally { t._audioLoading = false; }
 }
+async function openListen(t) { t._mode = 'listen'; await loadAudio(t); }
+function openEdit(t) { pauseSource(t); t._mode = 'edit'; }
+async function retryAudio(t) {
+  if (t._audioErr && t._audioUrl) releaseAudio(t);
+  t._audioErr = '';
+  await loadAudio(t);
+}
+function pauseSource(t) { if (t._audioElement) t._audioElement.pause(); t._sourcePlaying = false; }
+function sourceEnd(t) { return Math.max(1, Number(t._audioDuration) || previewEnd(t)); }
+function setVolume(t) { if (t._audioElement) t._audioElement.volume = Number(t._volume); }
+function setSourceRate(t) { if (t._audioElement) t._audioElement.playbackRate = Number(t._speed); }
+function seekSource(t, event) {
+  const ms = Number(event.target.value) || 0;
+  t._previewMs = ms;
+  if (t._audioElement) t._audioElement.currentTime = ms / 1000;
+}
+async function toggleSource(t) {
+  if (!t._audioUrl) return retryAudio(t);
+  await nextTick();
+  const audio = t._audioElement;
+  if (!audio) return;
+  if (!audio.paused) { audio.pause(); return; }
+  audio.volume = Number(t._volume);
+  audio.playbackRate = Number(t._speed);
+  try { await audio.play(); } catch { sourceError(t); }
+}
 function sourcePlay(t, event) {
   edits.value.forEach((other) => { if (other !== t && other._audioElement) other._audioElement.pause(); pausePreview(other); });
   t._audioElement = event.target; t._sourcePlaying = true; pausePreview(t);
 }
 function sourcePause(t) { t._sourcePlaying = false; }
 function sourceError(t) {
+  pauseSource(t);
   t._sourcePlaying = false;
   t._audioErr = '此浏览器无法播放该原始格式；可继续使用时间轴模拟校对。';
 }
 function sourceTime(t, event) { t._previewMs = Math.round(event.target.currentTime * 1000); }
+function sourceReady(t, event) {
+  t._audioElement = event.target;
+  t._audioDuration = Math.round((Number(event.target.duration) || 0) * 1000);
+  event.target.volume = Number(t._volume);
+  event.target.playbackRate = Number(t._speed);
+}
 function simplifyTrack(t) {
   t.title = toSimplified(t.title);
   t.head = t.head.map((line) => toSimplified(line));
@@ -446,8 +490,8 @@ function toEdit(album, draft) {
       return {
         order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
         coverage: t.coverage, audio: t.audio || '', klrc: t.klrc || '',
-        head, rows: editorRows, timingLocked: !!t.timing_locked, _mode: t.audio ? 'listen' : 'edit', _view: rows.length ? 'lrc' : 'text', _playing: false, _speed: 1, _previewMs: 0, _textDirty: false,
-        _audioUrl: '', _audioElement: null, _audioLoading: false, _audioErr: '', _sourcePlaying: false,
+        head, rows: editorRows, timingLocked: !!t.timing_locked, _mode: 'edit', _view: rows.length ? 'lrc' : 'text', _playing: false, _speed: 1, _previewMs: 0, _textDirty: false,
+        _audioUrl: '', _audioElement: null, _audioLoading: false, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _volume: 1,
         text: linesToText(t.lines), _orig: t,
       };
     }),
@@ -773,6 +817,12 @@ onBeforeUnmount(() => {
 .eb-line-editor.active { border-color: var(--eb-accent); background: color-mix(in srgb, var(--eb-accent) 8%, transparent); }
 .eb-preview { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem; margin: 0 0 .6rem; font-size: .75rem; }
 .eb-preview input[type="range"] { flex: 1; min-width: 8rem; }
+.eb-player { display: flex; align-items: center; flex: 1; flex-wrap: wrap; gap: .45rem; }
+.eb-player-progress { flex: 1; min-width: 8rem; }
+.eb-player-time { min-width: 7.5rem; font-family: var(--font-family-mono, monospace); }
+.eb-player label { display: flex; align-items: center; gap: .25rem; white-space: nowrap; }
+.eb-player label input { width: 5rem; }
+.eb-hidden-audio { display: none; }
 .eb-simulation { padding: .45rem .55rem; border: 1px dashed var(--border-color, #ddd); border-radius: 7px; }
 .eb-listen-stage { display: grid; gap: .15rem; max-height: 28rem; overflow: auto; padding: .65rem .75rem; border-radius: 8px; background: color-mix(in srgb, var(--eb-accent) 5%, transparent); }
 .eb-listen-line { margin: 0; padding: .45rem .5rem; border-radius: 6px; line-height: 1.8; transition: background .15s, color .15s; }
