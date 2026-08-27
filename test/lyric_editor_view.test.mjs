@@ -22,7 +22,10 @@ test('紧凑工作区同时提供认证原音播放器和逐字编辑', async ()
   assert.match(source, /@input="seekSource\(t, \$event\)"/);
   assert.match(source, /@click="simplifyTrack\(t\)"/);
   assert.match(source, /@click="addLine\(t, li\)"/);
-  assert.match(source, /@click="addWord\(t, r, wi\)"/);
+  assert.match(source, /class="eb-word-timeline" aria-label="逐字时间轨"/);
+  assert.match(source, /@pointerdown="startTimeDrag\(t, r, wi, \$event\)"/);
+  assert.doesNotMatch(source, /v-model\.number="word\.time"/);
+  assert.doesNotMatch(source, /v-model="word\.text"/);
   assert.match(source, /@click="retryAudio\(t\)">重试原音/);
 });
 
@@ -58,4 +61,16 @@ test('整行编辑保存逐字对象，提供光标拆分与选区移动', async
   assert.match(source, /utf16ToCodePointIndex\(row\.text, event\.target\.selectionStart\)/);
   assert.match(source, /function syncTrackText\(t\)/);
   assert.match(source, /@change="applyWholeText\(t\)"/);
+});
+
+test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
+  const source = await component();
+  assert.match(source, /:value="0\.1">0\.1×/);
+  assert.match(source, /:value="0\.25">0\.25×/);
+  assert.match(source, /contextmenu\.prevent\.stop="openTimelineMenu/);
+  assert.match(source, /closeTimelineMenu/);
+  assert.match(source, /window\.addEventListener\('pointercancel', end\)/);
+  assert.match(source, /clearTimeDrag\(\)/);
+  assert.match(source, /now - lastUi >= 50/);
+  assert.doesNotMatch(source, /flatMap\(\(r\) => \[Number\(r\.time\)/);
 });

@@ -103,6 +103,31 @@ export function moveTimedSelection(rows, index, start, end, createId = () => und
   return list;
 }
 
+export function clampWordTime(words, index, time, minimumGap = 10) {
+  const list = words || []; const before = list[index - 1]; const after = list[index + 1];
+  const low = before ? Number(before.time) + minimumGap : 0;
+  const high = after ? Number(after.time) - minimumGap : Number.POSITIVE_INFINITY;
+  return Math.max(low, Math.min(high, Math.round(Number(time) || 0)));
+}
+
+export function splitTimedToken(row, wordIndex, codePointIndex, createId = () => undefined) {
+  const words = [...(row.words || [])]; const word = words[wordIndex]; const chars = Array.from(word?.text || '');
+  if (!word || codePointIndex <= 0 || codePointIndex >= chars.length) return row;
+  const next = words[wordIndex + 1];
+  const nextTime = next ? Number(next.time) : Number(word.time) + Math.max(100, chars.length * 80);
+  const time = Math.round(Number(word.time) + (nextTime - Number(word.time)) * (codePointIndex / chars.length));
+  words.splice(wordIndex, 1, { ...word, text: chars.slice(0, codePointIndex).join('') }, { _id: createId(), time, text: chars.slice(codePointIndex).join('') });
+  return { ...row, words, text: words.map((item) => item.text).join('') };
+}
+
+export function mergeTimedToken(row, wordIndex) {
+  const words = [...(row.words || [])];
+  if (wordIndex <= 0 || !words[wordIndex]) return row;
+  const previous = words[wordIndex - 1]; const current = words[wordIndex];
+  words.splice(wordIndex - 1, 2, { ...previous, text: previous.text + current.text });
+  return { ...row, words, text: words.map((item) => item.text).join('') };
+}
+
 // 把整行文本变动贴回逐字对象：LCS 保留未改字符的原时间与标识，新增字符在相邻锚点间补时。
 export function reconcileWordCharacters(words, text, createId = () => undefined, rowTime = 0) {
   const old = (words || []).flatMap((word) => Array.from(String(word.text || '')).map((char, index) => ({

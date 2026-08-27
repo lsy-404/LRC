@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
+import { clampWordTime, mergeTimedToken, moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, splitTimedToken, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
 
 test('时间戳支持厘秒和毫秒并稳定往返', () => {
   assert.equal(timestampToMs('01:02.34'), 62340);
@@ -69,4 +69,25 @@ test('选中 emoji 跨句只搬该字符且保留逐字时间标识', () => {
   assert.equal(moved[1].text, '😀c');
   assert.equal(moved[1].words[0]._id, 3);
   assert.equal(moved[1].words[0].time, 200);
+});
+
+test('时间轨拆分多字符 token 与合并保留未改标签', () => {
+  let id = 10;
+  const row = { text: '你好呀', words: [{ _id: 1, time: 100, text: '你好' }, { _id: 2, time: 300, text: '呀' }] };
+  const split = splitTimedToken(row, 0, 1, () => id++);
+  assert.deepEqual(split.words.map((word) => word.text), ['你', '好', '呀']);
+  assert.equal(split.words[0]._id, 1);
+  assert.equal(split.words[2]._id, 2);
+  const merged = mergeTimedToken(split, 1);
+  assert.equal(merged.words[0]._id, 1);
+  assert.equal(merged.words[0].time, 100);
+  assert.equal(merged.text, '你好呀');
+});
+
+test('拖动时间不会越过相邻标签，emoji token 不截断', () => {
+  const words = [{ time: 100, text: '😀' }, { time: 300, text: '好' }];
+  assert.equal(clampWordTime(words, 0, 999, 10), 290);
+  assert.equal(clampWordTime(words, 1, 0, 10), 110);
+  const split = splitTimedToken({ text: '😀好', words: [{ _id: 1, time: 100, text: '😀好' }] }, 0, 1, () => 2);
+  assert.deepEqual(split.words.map((word) => word.text), ['😀', '好']);
 });
