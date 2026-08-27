@@ -162,13 +162,13 @@ export function timedTokenSpanMs(words, index, rowEnd = undefined, defaultGap = 
   return Math.max(1, end - start);
 }
 
-export function timedTokenSpanPx(words, index, rowEnd = undefined, scale = 0.1, minimum = 14, maximum = 1200) {
-  return Math.max(minimum, Math.min(maximum, Math.round(timedTokenSpanMs(words, index, rowEnd) * scale)));
+export function timedTokenSpanPx(words, index, rowEnd = undefined, scale = 0.1) {
+  return Math.max(0, timedTokenSpanMs(words, index, rowEnd) * scale);
 }
 
-export function timedLeadSpanPx(rowTime, firstTime, scale = 0.1, maximum = 1200) {
+export function timedLeadSpanPx(rowTime, firstTime, scale = 0.1) {
   if (!Number.isFinite(Number(firstTime))) return 0;
-  return Math.max(0, Math.min(maximum, Math.round(Math.max(0, Number(firstTime) - Number(rowTime)) * scale)));
+  return Math.max(0, Math.max(0, Number(firstTime) - Number(rowTime)) * scale);
 }
 
 export function splitRowAtTokenBoundary(rows, rowIndex, wordIndex, charIndex, createId = () => undefined) {

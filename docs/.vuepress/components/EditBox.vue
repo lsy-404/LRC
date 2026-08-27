@@ -170,7 +170,7 @@
                 </div>
               </div>
               <div v-if="timelineMenu && timelineMenu.rowId === r._id" class="eb-timeline-menu" role="menu" :style="{ left: `${timelineMenu.x}px`, top: `${timelineMenu.y}px` }" @keydown.esc="closeTimelineMenu">
-                <button v-if="timelineMenu.charIndex || timelineMenu.wordIndex" role="menuitem" class="eb-btn small" :title="timelineMenu.charIndex ? '新增此处的时间标签' : '删除当前标签并合并到前字'" @click.stop="applyTimelineBoundary">{{ timelineMenu.charIndex ? '在此新增时间标签' : '与前字合并标签' }}</button>
+                <button v-if="timelineMenu.charIndex || timelineMenu.wordIndex" role="menuitem" class="eb-btn small" :title="timelineMenu.charIndex ? '新增此处的时间标签' : '删除当前时间标签（并入前字）'" @click.stop="applyTimelineBoundary">{{ timelineMenu.charIndex ? '在此新增时间标签' : '删除当前时间标签（并入前字）' }}</button>
                 <button role="menuitem" class="eb-btn small" :disabled="!timelineMenu.charIndex && !timelineMenu.wordIndex" @click.stop="splitRowAtBoundary">从此处拆成下一句</button>
                 <button v-if="timelineMenu.rowIndex > 0" role="menuitem" class="eb-btn small" @click.stop="mergeRowPrevious">与上一句合并</button>
               </div>
@@ -878,9 +878,9 @@ onBeforeUnmount(() => {
 .eb-input.ms { width: 5.4rem; flex: none; font-family: var(--font-family-mono, monospace); }
 .eb-time { display: flex; align-items: center; gap: .2rem; font-size: .7rem; white-space: nowrap; }
 .eb-word-timeline { overflow-x: auto; padding: .4rem .2rem; contain: layout paint; border-top: 1px solid var(--border-color, #ddd); }
-.eb-time-track { display: flex; min-width: max-content; gap: .1rem; }
-.eb-time-lead { flex: 0 0 auto; border-right: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
-.eb-time-token { display: flex; flex: 0 0 auto; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
+.eb-time-track { display: flex; min-width: max-content; gap: 0; }
+.eb-time-lead { box-sizing: border-box; flex: 0 0 auto; border-right: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
+.eb-time-token { box-sizing: border-box; display: flex; flex: 0 0 auto; min-width: 0; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
 .eb-time-token.active { background: color-mix(in srgb, var(--eb-accent) 12%, transparent); }
 .eb-time-chars { display: flex; min-height: 1.4rem; padding: .12rem .18rem; }
 .eb-time-marker { align-self: flex-start; writing-mode: vertical-rl; padding: .15rem; border: 0; border-radius: 3px; background: transparent; color: var(--eb-accent); cursor: ew-resize; font-size: .62rem; }

@@ -167,8 +167,10 @@ test('时间轨区段持续表示前奏、相邻标签、末标签与长间隔',
   assert.equal(timedLeadSpanPx(100, words[0].time), 20);
   assert.equal(timedTokenSpanMs(words, 0, 1500), 600);
   assert.equal(timedTokenSpanMs(words, 1, 1500), 600);
-  assert.equal(timedTokenSpanPx([{ time: 0, text: '短' }, { time: 100, text: '中' }, { time: 300, text: '长' }], 0), 14);
+  assert.equal(timedLeadSpanPx(0, 15), 1.5);
+  assert.equal(timedTokenSpanPx([{ time: 0, text: '微' }, { time: 1, text: '秒' }], 0), 0.1);
+  assert.equal(timedTokenSpanPx([{ time: 0, text: '短' }, { time: 100, text: '中' }, { time: 300, text: '长' }], 0), 10);
   assert.equal(timedTokenSpanPx([{ time: 0, text: '短' }, { time: 100, text: '中' }, { time: 300, text: '长' }], 1), 20);
-  assert.equal(timedTokenSpanPx([{ time: 0, text: '长' }, { time: 10000, text: '间' }], 0), 1000);
+  assert.equal(timedTokenSpanPx([{ time: 0, text: '长' }, { time: 20000, text: '间' }], 0), 2000);
   assert.equal(timedTokenSpanMs([{ time: 100, text: '密' }, { time: 100, text: '集' }], 0, 700), 600);
 });
