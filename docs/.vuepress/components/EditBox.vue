@@ -113,7 +113,7 @@
               <span v-if="t._audioLoading" class="eb-dim">载入中…</span>
               <div v-else-if="t._audioUrl && !t._audioErr" class="eb-player" aria-label="播放器">
                 <button class="eb-btn small" @click="toggleSource(t)">{{ t._sourcePlaying ? '暂停' : '播放' }}</button>
-                <input :ref="(node) => bindProgressNode(t, node)" class="eb-player-progress" :value="t._previewMs" type="range" min="0" :max="sourceEnd(t)" @input="seekSource(t, $event)">
+                <input :ref="(node) => bindProgressNode(t, node)" class="eb-player-progress" :value="t._previewMs" type="range" min="0" :max="sourceEnd(t)" aria-label="播放进度" @input="seekSource(t, $event)">
                 <span :ref="(node) => bindPlayerTimeNode(t, node)" class="eb-player-time">{{ formatMs(t._previewMs) }} / {{ formatMs(t._audioDuration) }}</span>
                 <label>音量 <input v-model.number="t._volume" type="range" min="0" max="1" step="0.05" @input="setVolume(t)"></label>
                 <label>速度 <select v-model.number="t._speed" class="eb-select" @change="setSourceRate(t)"><option v-for="rate in PLAYBACK_RATES" :key="rate" :value="rate">{{ rate }}×</option></select></label>
@@ -124,7 +124,7 @@
               <div v-if="(!t._audioUrl && !t._audioLoading) || t._audioErr" class="eb-preview eb-simulation">
               <button class="eb-btn small" @click="togglePreview(t)">{{ t._playing ? '暂停' : '播放' }}</button>
               <label>速度 <select v-model.number="t._speed" class="eb-select"><option v-for="rate in PLAYBACK_RATES" :key="rate" :value="rate">{{ rate }}×</option></select></label>
-              <input :ref="(node) => bindProgressNode(t, node)" :value="t._previewMs" type="range" min="0" :max="previewEnd(t)" @input="seekPreview(t, $event)">
+              <input :ref="(node) => bindProgressNode(t, node)" :value="t._previewMs" type="range" min="0" :max="previewEnd(t)" aria-label="播放进度" @input="seekPreview(t, $event)">
               <span :ref="(node) => bindPlayerTimeNode(t, node)">{{ formatMs(t._previewMs) }}</span>
               </div>
               </div>
@@ -150,7 +150,7 @@
                 <input v-model="r.text" class="eb-input lrc" @input="syncRowText(t, r)" @click="recordCursor(r, $event)" @keyup="recordCursor(r, $event)" @select="recordCursor(r, $event)">
                 <button class="eb-btn small" @click="splitFromCursor(t, r, li)">从光标拆分</button><button class="eb-btn small" @click="moveSelectionToNext(t, r, li)">选中移下一句</button><button class="eb-btn small" @click="addLine(t, li)">+ 行</button><button class="eb-btn small danger" @click="removeLine(t, li)">删</button>
               </div>
-              <div class="eb-word-timeline" aria-label="逐字时间轨">
+              <div class="eb-word-timeline" role="region" aria-label="逐字时间轨">
                 <div class="eb-time-track">
                   <span class="eb-time-lead" :style="timelineLeadStyle(r)" aria-hidden="true" />
                   <div v-for="(word, wi) in r.words" :key="word._id" :ref="(node) => bindTokenNode(t, li, wi, node)" class="eb-time-token" :style="timelineTokenStyle(t, r, li, wi)">
@@ -264,6 +264,8 @@ const META_FIELDS = [
 const props = defineProps({ password: { type: String, default: '' } });
 const toSimplified = OpenCC.Converter({ from: 't', to: 'cn' });
 const PLAYBACK_RATES = [0.1, 0.25, 0.5, 1, 1.5, 2];
+const SOURCE_CURSOR_INTERVAL_MS = 40;
+const SOURCE_PROGRESS_INTERVAL_MS = 80;
 
 const cachedRefs = ref([]);
 const pending = ref([]);
@@ -397,13 +399,13 @@ function bindProgressNode(t, node) { t._progressNode = node || null; updatePlayb
 function bindPlayerTimeNode(t, node) { t._playerTimeNode = node || null; updatePlaybackDom(t); }
 function updatePlaybackDom(t) { const ms = playheadMs(t); if (t._progressNode) t._progressNode.value = String(ms); if (t._playerTimeNode) t._playerTimeNode.textContent = t._audioUrl && !t._audioErr ? `${formatMs(ms)} / ${formatMs(t._audioDuration)}` : formatMs(ms); }
 function setPlayhead(t, ms, commit = false) { const next = Math.max(0, Math.round(Number(ms) || 0)); playheads.set(t, next); updateActiveIndices(t, next); updatePlaybackDom(t); if (commit) t._previewMs = next; }
-function cancelSourceFrame(t) { if (t._sourceFrame) { cancelAnimationFrame(t._sourceFrame); t._sourceFrame = null; } }
+function cancelSourceTimer(t) { if (t._sourceTimer) { clearInterval(t._sourceTimer); t._sourceTimer = null; } }
 function allTracks() { return edits.value.flatMap((edit) => edit.tracks); }
 function pausePreview(t) { t._playing = false; if (t._previewTimer) { clearInterval(t._previewTimer); t._previewTimer = null; } setPlayhead(t, playheadMs(t), true); }
 function togglePreview(t) { if (t._playing) return pausePreview(t); for (const other of allTracks()) pausePreview(other); t._playing = true; let last = Date.now(); t._previewTimer = setInterval(() => { const now = Date.now(); const ms = Math.min(previewEnd(t), playheadMs(t) + (now - last) * t._speed); setPlayhead(t, ms); last = now; if (ms >= previewEnd(t)) pausePreview(t); }, 100); }
 function releaseAllTracks() { clearTimeDrag(); for (const track of allTracks()) releaseAudio(track); }
 function releaseAudio(t) {
-  cancelSourceFrame(t); pausePreview(t);
+  cancelSourceTimer(t); pausePreview(t);
   if (t._audioAbort) t._audioAbort.abort();
   if (t._audioElement) { t._audioElement.pause(); t._audioElement.src = ''; }
   if (t._audioUrl) URL.revokeObjectURL(t._audioUrl);
@@ -437,7 +439,7 @@ async function retryAudio(t) {
   t._audioErr = '';
   await loadAudio(t);
 }
-function pauseSource(t) { if (t._audioElement) t._audioElement.pause(); t._sourcePlaying = false; cancelSourceFrame(t); setPlayhead(t, playheadMs(t), true); }
+function pauseSource(t) { if (t._audioElement) t._audioElement.pause(); t._sourcePlaying = false; cancelSourceTimer(t); setPlayhead(t, playheadMs(t), true); }
 function sourceEnd(t) { return Math.max(1, Number(t._audioDuration) || previewEnd(t)); }
 function setVolume(t) { if (t._audioElement) t._audioElement.volume = Number(t._volume); }
 function setSourceRate(t) { if (t._audioElement) t._audioElement.playbackRate = Number(t._speed); }
@@ -458,13 +460,25 @@ async function toggleSource(t) {
   try { await audio.play(); } catch { sourceError(t); }
 }
 function sourcePlay(t, event) {
-  cancelSourceFrame(t);
+  cancelSourceTimer(t);
   for (const other of allTracks()) { if (other !== t && other._audioElement) other._audioElement.pause(); pausePreview(other); }
   t._audioElement = event.target; t._sourcePlaying = true; pausePreview(t);
-  let lastUi = 0; const sync = (now) => { if (!t._sourcePlaying || !t._audioElement) return; const ms = Math.round(t._audioElement.currentTime * 1000); updateActiveIndices(t, ms); if (now - lastUi >= 100) { playheads.set(t, ms); updatePlaybackDom(t); lastUi = now; } t._sourceFrame = requestAnimationFrame(sync); };
-  t._sourceFrame = requestAnimationFrame(sync);
+  let lastProgress = 0;
+  const sync = () => {
+    if (!t._sourcePlaying || !t._audioElement) return;
+    const now = performance.now();
+    const ms = Math.round(t._audioElement.currentTime * 1000);
+    updateActiveIndices(t, ms);
+    if (now - lastProgress >= SOURCE_PROGRESS_INTERVAL_MS) {
+      playheads.set(t, ms);
+      updatePlaybackDom(t);
+      lastProgress = now;
+    }
+  };
+  sync();
+  t._sourceTimer = setInterval(sync, SOURCE_CURSOR_INTERVAL_MS);
 }
-function sourcePause(t) { t._sourcePlaying = false; cancelSourceFrame(t); setPlayhead(t, t._audioElement ? Math.round(t._audioElement.currentTime * 1000) : playheadMs(t), true); }
+function sourcePause(t) { t._sourcePlaying = false; cancelSourceTimer(t); setPlayhead(t, t._audioElement ? Math.round(t._audioElement.currentTime * 1000) : playheadMs(t), true); }
 function sourceError(t) {
   pauseSource(t);
   t._sourcePlaying = false;
@@ -544,7 +558,7 @@ function toEdit(album, draft) {
         _id: newId(), order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
         coverage: t.coverage, audio: t.audio || '', klrc: t.klrc || '',
         head, rows: editorRows, timingLocked: !!t.timing_locked, _view: rows.length ? 'lrc' : 'text', _playing: false, _speed: 1, _previewMs: 0, _textDirty: false,
-        _audioUrl: '', _audioElement: null, _audioLoading: false, _audioAbort: null, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _sourceFrame: null, _previewTimer: null, _volume: 1,
+        _audioUrl: '', _audioElement: null, _audioLoading: false, _audioAbort: null, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _sourceTimer: null, _previewTimer: null, _volume: 1,
         text: linesToText(t.lines), _orig: t,
       };
     }),

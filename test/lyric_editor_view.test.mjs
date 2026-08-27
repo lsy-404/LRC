@@ -25,7 +25,7 @@ test('播放器内联于歌词编辑区，且不保留原音与模拟说明', as
   assert.match(source, /@input="seekSource\(t, \$event\)"/);
   assert.match(source, /@click="simplifyTrack\(t\)"/);
   assert.match(source, /@click="addLine\(t, li\)"/);
-  assert.match(source, /class="eb-word-timeline" aria-label="逐字时间轨"/);
+  assert.match(source, /class="eb-word-timeline" role="region" aria-label="逐字时间轨"/);
   assert.match(source, /class="eb-time-track"/);
   assert.match(source, /timelineTokenStyle\(t, r, li, wi\)/);
   assert.match(source, /expandTimedTokens\(words, newId, 100, Number\(parsedRows\[index \+ 1\]\?\.time\)\)/);
@@ -46,8 +46,10 @@ test('工作站与上传面板不保留解释性副标题', async () => {
 
 test('播放高亮在非响应式 DOM 映射中同步，不触发长歌词父组件重渲染', async () => {
   const source = await component();
-  assert.match(source, /requestAnimationFrame\(sync\)/);
-  assert.match(source, /cancelAnimationFrame\(t\._sourceFrame\)/);
+  assert.match(source, /SOURCE_CURSOR_INTERVAL_MS = 40/);
+  assert.match(source, /t\._sourceTimer = setInterval\(sync, SOURCE_CURSOR_INTERVAL_MS\)/);
+  assert.match(source, /clearInterval\(t\._sourceTimer\)/);
+  assert.doesNotMatch(source, /requestAnimationFrame\(sync\)|_sourceFrame/);
   assert.match(source, /bindLineNode\(t, li, node\)/);
   assert.match(source, /bindTokenNode\(t, li, wi, node\)/);
   assert.match(source, /const playbackViews = new WeakMap\(\)/);
@@ -99,7 +101,8 @@ test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
   assert.match(source, /document\.addEventListener\('visibilitychange'/);
   assert.match(source, /clearTimeDrag\(\)/);
   assert.match(source, /activeIndexAt\(t\.rows, ms\)/);
-  assert.match(source, /now - lastUi >= 100/);
+  assert.match(source, /SOURCE_PROGRESS_INTERVAL_MS = 80/);
+  assert.match(source, /now - lastProgress >= SOURCE_PROGRESS_INTERVAL_MS/);
   assert.match(source, /setInterval\([\s\S]*?\}, 100\)/);
   assert.match(source, /const playheads = new WeakMap\(\)/);
   assert.match(source, /function updatePlaybackDom\(t\)/);
