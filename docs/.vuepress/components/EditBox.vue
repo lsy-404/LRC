@@ -104,7 +104,6 @@
             <span class="eb-dim">{{ trackState(t) }}</span>
             <span class="eb-spacer" />
             <button
-              v-if="t.rows.length"
               class="eb-btn small"
               :class="{ on: t._view === 'lrc' }"
               @click="t._view = 'lrc'"
@@ -116,20 +115,32 @@
             >整段文本</button>
           </div>
 
-          <div v-if="t._view === 'lrc' && t.rows.length" class="eb-lrc">
-            <p v-if="isDirty(t)" class="eb-note">已改动本轨，下方时间戳仍是改前结果，确认后会按新歌词重新对齐。</p>
-            <p v-else-if="!timeline(t).matched" class="eb-note">歌词行数与时间轴不符，确认后会重新对齐。</p>
+          <div v-if="t._view === 'lrc'" class="eb-lrc">
+            <p class="eb-note">时间轴模拟：原始音频已销毁；仅按草稿时间戳推进，不会播放音频。</p>
+            <div class="eb-preview">
+              <button class="eb-btn small" @click="togglePreview(t)">{{ t._playing ? '暂停' : '播放' }}</button>
+              <label>速度 <select v-model.number="t._speed" class="eb-select"><option :value="0.5">0.5×</option><option :value="1">1×</option><option :value="1.5">1.5×</option><option :value="2">2×</option></select></label>
+              <input v-model.number="t._previewMs" type="range" min="0" :max="previewEnd(t)" @input="pausePreview(t)">
+              <span>{{ formatMs(t._previewMs) }}</span>
+            </div>
             <div v-if="t.head.length" class="eb-lrc-head">
               <div v-for="(h, hi) in t.head" :key="hi">{{ h }}</div>
             </div>
-            <div v-for="(r, li) in timeline(t).rows" :key="li" class="eb-lrc-row">
-              <span class="eb-ts" :class="{ miss: !r.ts }">[{{ r.ts || '--:--.--' }}]</span>
-              <input class="eb-input lrc" :value="r.text" @input="setLine(t, li, $event.target.value)">
+            <div v-for="(r, li) in t.rows" :key="r._id" class="eb-line-editor" :class="{ active: isCurrentLine(t, r) }">
+              <div class="eb-lrc-row">
+                <label class="eb-time"><input v-model.number="r.time" type="number" min="0" step="10" class="eb-input ms" @change="normalizeRows(t); lockTiming(t)">毫秒</label>
+                <input v-model="r.text" class="eb-input lrc" @input="syncRowText(t, r)">
+                <button class="eb-btn small" @click="addLine(t, li)">+ 行</button><button class="eb-btn small danger" @click="removeLine(t, li)">删</button>
+              </div>
+              <div class="eb-words">
+                <div v-for="(word, wi) in r.words" :key="word._id" class="eb-word" :class="{ active: isCurrentWord(t, r, word) }">
+                  <input v-model.number="word.time" type="number" min="0" step="10" class="eb-input ms" @change="lockTiming(t); normalizeWords(r)">
+                  <input v-model="word.text" class="eb-input" @input="syncWordText(t, r)">
+                  <button class="eb-btn small" @click="addWord(t, r, wi)">+</button><button class="eb-btn small danger" @click="removeWord(t, r, wi)">−</button>
+                </div>
+              </div>
             </div>
-            <details v-if="t.klrc" class="eb-klrc">
-              <summary>逐字增强版（只读）</summary>
-              <pre>{{ t.klrc }}</pre>
-            </details>
+            <button class="eb-btn small" @click="addLine(t, t.rows.length - 1)">新增歌词行</button>
           </div>
           <textarea
             v-else
@@ -191,7 +202,7 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  parseLrc, alignTimestamps, textToLines, linesToText, isTrackEdited, isLowCoverage,
+  parseLrc, parseKaraokeRows, serializeTimedLyrics, textToLines, linesToText, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 
 const META_FIELDS = [
@@ -229,6 +240,8 @@ const done = ref(false);
 const jobInfo = ref(null);
 const retrying = ref(false);
 let pollTimer = null;
+let previewTimer = null;
+let nextEditorId = 1;
 
 const recentRefs = computed(() => dedupeRecent(cachedRefs.value, pending.value));
 
@@ -267,25 +280,25 @@ const isLowConf = (t) => t.confidence != null && t.confidence < 0.7;
 const showLowCov = (t) => isLowCoverage(t.coverage);
 const pct = (v) => Math.round((Number(v) || 0) * 100) + '%';
 
-// 时间轴视图：按当前歌词行贴回时间戳，行数不符则留空并提示
-const tlCache = new WeakMap();
-function timeline(t) {
-  const hit = tlCache.get(t);
-  if (hit && hit.text === t.text) return hit.tl;
-  const lines = t.text.split('\n');
-  const { stamps, matched } = alignTimestamps(t.rows, lines);
-  const tl = { matched, rows: lines.map((text, i) => ({ text, ts: stamps[i] })) };
-  tlCache.set(t, { text: t.text, tl });
-  return tl;
-}
-function setLine(t, i, val) {
-  const lines = t.text.split('\n');
-  lines[i] = val;
-  t.text = lines.join('\n');
-}
+const newId = () => nextEditorId++;
+function normalizeWords(row) { row.words.sort((a, b) => Number(a.time) - Number(b.time)); }
+function normalizeRows(t) { t.rows.sort((a, b) => Number(a.time) - Number(b.time)); }
+function syncRowText(t, row) { row.words = [{ time: Number(row.time) || 0, text: row.text }]; t._textDirty = true; }
+function syncWordText(t, row) { normalizeWords(row); row.text = row.words.map((word) => word.text).join(''); lockTiming(t); }
+function lockTiming(t) { t.timingLocked = true; }
+function addLine(t, index) { const time = Math.max(0, Number(t.rows[index]?.time || 0) + 1000); t.rows.splice(index + 1, 0, { _id: newId(), time, text: '', words: [{ _id: newId(), time, text: '' }] }); lockTiming(t); }
+function removeLine(t, index) { t.rows.splice(index, 1); lockTiming(t); }
+function addWord(t, row, index) { const time = Math.max(Number(row.time) || 0, Number(row.words[index]?.time || row.time || 0) + 100); row.words.splice(index + 1, 0, { _id: newId(), time, text: '' }); normalizeWords(row); lockTiming(t); }
+function removeWord(t, row, index) { row.words.splice(index, 1); row.text = row.words.map((word) => word.text).join(''); lockTiming(t); }
+function previewEnd(t) { return Math.max(1000, ...t.rows.flatMap((r) => [Number(r.time) || 0, ...(r.words || []).map((w) => Number(w.time) || 0)])) + 1500; }
+function pausePreview(t) { t._playing = false; if (previewTimer) { clearInterval(previewTimer); previewTimer = null; } }
+function togglePreview(t) { if (t._playing) return pausePreview(t); edits.value.forEach(pausePreview); t._playing = true; let last = Date.now(); previewTimer = setInterval(() => { const now = Date.now(); t._previewMs = Math.min(previewEnd(t), t._previewMs + (now - last) * t._speed); last = now; if (t._previewMs >= previewEnd(t)) pausePreview(t); }, 50); }
+const formatMs = (ms) => msToTimestamp(ms);
+function isCurrentLine(t, row) { const next = t.rows[t.rows.indexOf(row) + 1]; return t._previewMs >= row.time && (!next || t._previewMs < next.time); }
+function isCurrentWord(t, row, word) { const next = row.words[row.words.indexOf(word) + 1]; return isCurrentLine(t, row) && t._previewMs >= word.time && (!next || t._previewMs < next.time); }
 
 const curTrack = (t) => ({
-  order: t.order, title: t.title, inst: t.inst, lines: textToLines(t.text),
+  order: t.order, title: t.title, inst: t.inst, lines: t.timingLocked ? t.rows.map((r) => r.text).filter(Boolean) : textToLines(t.text),
 });
 // 本次会话改过，或此前保存已标记过
 const isDirty = (t) => !!(t._orig && t._orig.edited) || isTrackEdited(t._orig, curTrack(t));
@@ -325,10 +338,11 @@ function toEdit(album, draft) {
     meta,
     tracks: (draft.tracks || []).map((t) => {
       const { head, rows } = parseLrc(t.lrc);
+      const editorRows = parseKaraokeRows(t.lrc, t.klrc).map((r) => ({ ...r, _id: newId(), words: r.words.map((w) => ({ ...w, _id: newId() })) }));
       return {
         order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
         coverage: t.coverage, audio: t.audio || '', klrc: t.klrc || '',
-        head, rows, _view: rows.length ? 'lrc' : 'text',
+        head, rows: editorRows, timingLocked: !!t.timing_locked, _view: rows.length ? 'lrc' : 'text', _playing: false, _speed: 1, _previewMs: 0, _textDirty: false,
         text: linesToText(t.lines), _orig: t,
       };
     }),
@@ -350,20 +364,24 @@ function toDraft(e) {
     }
   }
   // 展开 _orig 以原样透传 lrc/klrc/coverage/audio/aligned 等对齐产物字段
-  const tracks = e.tracks.map((t) => ({
+  const tracks = e.tracks.map((t) => {
+    const timing = serializeTimedLyrics(t.head, t.rows);
+    return {
     ...t._orig,
     order: Number(t.order) || t._orig.order,
     title: t.title.trim(),
     inst: !!t.inst,
-    lines: textToLines(t.text),
-    edited: isDirty(t),
-  }));
+    lines: t.timingLocked ? timing.lines : textToLines(t.text),
+    ...(t.timingLocked ? { lrc: timing.lrc, klrc: timing.klrc, timing_locked: true } : {}),
+    edited: t.timingLocked ? false : isDirty(t),
+  }; });
   return { ...e._draft, meta, tracks, cover_ext: e.coverRemoved ? '' : e.coverExt };
 }
 
 function stopPoll() { if (pollTimer) { clearInterval(pollTimer); pollTimer = null; } }
 function startPoll() {
   stopPoll();
+  if (previewTimer) clearInterval(previewTimer);
   pollTimer = setInterval(() => { if (!loading.value) load(true); }, 12000);
 }
 
@@ -641,6 +659,16 @@ onBeforeUnmount(() => {
   border-left: 2px solid var(--border-color, #ddd);
 }
 .eb-lrc-row { display: flex; gap: .4rem; align-items: center; margin-bottom: .25rem; }
+.eb-line-editor { margin-bottom: .65rem; padding: .4rem; border-left: 2px solid transparent; }
+.eb-line-editor.active { border-color: var(--eb-accent); background: color-mix(in srgb, var(--eb-accent) 8%, transparent); }
+.eb-preview { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem; margin: 0 0 .6rem; font-size: .75rem; }
+.eb-preview input[type="range"] { flex: 1; min-width: 8rem; }
+.eb-select { background: transparent; color: inherit; border: 1px solid var(--border-color, #ddd); border-radius: 5px; }
+.eb-input.ms { width: 5.4rem; flex: none; font-family: var(--font-family-mono, monospace); }
+.eb-time { display: flex; align-items: center; gap: .2rem; font-size: .7rem; white-space: nowrap; }
+.eb-words { margin-left: 1.1rem; display: grid; gap: .25rem; }
+.eb-word { display: flex; gap: .35rem; align-items: center; }
+.eb-word.active { background: color-mix(in srgb, var(--eb-accent) 16%, transparent); }
 .eb-ts {
   font-family: var(--font-family-mono, monospace);
   font-size: .75rem;
