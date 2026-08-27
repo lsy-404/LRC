@@ -134,6 +134,14 @@ test('save 覆盖草稿并刷新 status', async () => {
   assert.equal(st.contributor, 'web', 'status 其余字段应保留');
 });
 
+test('save 保留手工时间轴锁定字段', async () => {
+  const bucket = seeded();
+  const draft = { album: ALBUM, tracks: [{ title: '心跳', timing_locked: true, lrc: '[00:01.000]词\n', klrc: '[00:01.000]<00:01.000>词\n' }] };
+  const resp = await savePost({ request: authedRequest('https://x/save', { method: 'POST', body: { ref: REF, album: ALBUM, draft } }), env: envOf(bucket) });
+  assert.equal(resp.status, 200);
+  assert.equal(JSON.parse(bucket.store.get(`review/${REF}/${ALBUM}/draft.json`)).tracks[0].timing_locked, true);
+});
+
 test('save 拒绝缺字段', async () => {
   const resp = await savePost({
     request: authedRequest('https://x/save', { method: 'POST', body: { ref: REF } }),

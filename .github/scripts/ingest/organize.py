@@ -736,6 +736,8 @@ def align_tracks(
 
 def track_needs_align(track: dict) -> bool:
     """人工改过、或草稿里没有可用的对齐成品 → 该轨需要（重新）对齐。"""
+    if track.get("timing_locked") and track.get("lrc"):
+        return False
     return bool(track.get("edited")) or not track.get("aligned") or not track.get("lrc")
 
 
