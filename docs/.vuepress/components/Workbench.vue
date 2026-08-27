@@ -2,7 +2,6 @@
   <div class="wb">
     <!-- 验证（根层）：进工作站先统一验证一次，上传/修改都要求已验证 -->
     <section v-if="!verified && !restoring" class="wb-card">
-      <p class="wb-lead">凭邀请密码进入工作站。</p>
       <div class="wb-row">
         <input
           v-model="pwInput"
@@ -110,7 +109,6 @@ onMounted(async () => {
   padding: 1.1rem 1.3rem;
   margin-bottom: 1rem;
 }
-.wb-lead { margin: 0 0 .75rem; }
 .wb-verified { color: var(--wb-accent); font-size: .85rem; margin: 0 0 1rem; }
 .wb-row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
 .wb-input {

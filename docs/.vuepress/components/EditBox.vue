@@ -2,7 +2,7 @@
   <div class="eb">
     <!-- 待处理投稿列表（免记 ref，点选即加载）-->
     <section v-if="pending.length" class="eb-card">
-      <label class="eb-label">待处理投稿 <span class="eb-dim">（点选加载，无需记编号）</span></label>
+      <label class="eb-label">待处理投稿</label>
       <ul class="eb-pending">
         <li v-for="p in pending" :key="p.ref + '/' + p.album" @click="pick(p)">
           <span class="eb-p-album">{{ p.album }}</span>
@@ -18,7 +18,7 @@
 
     <!-- ref 选择（后备：手动粘贴编号）-->
       <section class="eb-card">
-        <label class="eb-label">追踪编号（ref） <span class="eb-dim">上方点选即可；也可手动粘贴编号 / 从最近投稿选择</span></label>
+        <label class="eb-label">追踪编号（ref）</label>
         <div class="eb-row">
           <select v-if="recentRefs.length" v-model="refInput" class="eb-input sel">
             <option value="">— 最近投稿 —</option>
@@ -54,7 +54,6 @@
           <button class="eb-btn" :disabled="retrying" @click="retryPhaseA">
             {{ retrying ? '重新启动中…' : '重新开始处理' }}
           </button>
-          <span class="eb-dim">修复后会复用已上传原料，无需重新上传。</span>
         </div>
       </section>
 
@@ -67,7 +66,6 @@
       <section v-for="e in edits" :key="e.album" class="eb-card rise">
         <h3 class="eb-album">{{ e.album }}</h3>
 
-        <p class="eb-sub">元信息 <span class="eb-dim">列表字段多个用「、」或换行分隔</span></p>
         <div class="eb-meta">
           <div v-for="f in META_FIELDS" :key="f.key" class="eb-field">
             <label class="eb-flabel">{{ f.label }}</label>
@@ -75,10 +73,6 @@
           </div>
         </div>
 
-        <p class="eb-sub">
-          轨单与成品歌词
-          <span class="eb-dim">下方带时间轴的即最终写盘 LRC；改过的轨会在确认后重新对齐</span>
-        </p>
         <div class="eb-track-select">
           <label :for="`track-${e.album}`">曲目</label>
           <select :id="`track-${e.album}`" v-model.number="e._selectedTrack" class="eb-select" @change="selectTrack(e)">
@@ -113,31 +107,27 @@
           </div>
 
           <div class="eb-workbench" aria-label="歌词校对工作区">
-            <div class="eb-player-panel">
-              <p class="eb-note">原音只在审核期从受密码保护的原料区读取；不会公开原始文件。</p>
+            <div class="eb-editor-panel">
+              <div class="eb-inline-player">
               <div v-if="t.audio" class="eb-preview">
-              <span v-if="t._audioLoading" class="eb-dim">正在载入原音…</span>
-              <div v-else-if="t._audioUrl && !t._audioErr" class="eb-player" aria-label="原音播放器">
+              <span v-if="t._audioLoading" class="eb-dim">载入中…</span>
+              <div v-else-if="t._audioUrl && !t._audioErr" class="eb-player" aria-label="播放器">
                 <button class="eb-btn small" @click="toggleSource(t)">{{ t._sourcePlaying ? '暂停' : '播放' }}</button>
                 <input :ref="(node) => bindProgressNode(t, node)" class="eb-player-progress" :value="t._previewMs" type="range" min="0" :max="sourceEnd(t)" @input="seekSource(t, $event)">
                 <span :ref="(node) => bindPlayerTimeNode(t, node)" class="eb-player-time">{{ formatMs(t._previewMs) }} / {{ formatMs(t._audioDuration) }}</span>
                 <label>音量 <input v-model.number="t._volume" type="range" min="0" max="1" step="0.05" @input="setVolume(t)"></label>
                 <label>速度 <select v-model.number="t._speed" class="eb-select" @change="setSourceRate(t)"><option v-for="rate in PLAYBACK_RATES" :key="rate" :value="rate">{{ rate }}×</option></select></label>
               </div>
-              <button v-else class="eb-btn small" @click="retryAudio(t)">重试原音</button>
+              <button v-else class="eb-btn small" @click="retryAudio(t)">重试</button>
               <span v-if="t._audioErr" class="eb-msg inline err">{{ t._audioErr }}</span>
               </div>
-              <p v-else class="eb-dim small">此轨没有可读取的原音，将使用时间轴模拟。</p>
               <div v-if="(!t._audioUrl && !t._audioLoading) || t._audioErr" class="eb-preview eb-simulation">
-              <span class="eb-dim">时间轴模拟</span>
-              <button class="eb-btn small" @click="togglePreview(t)">{{ t._playing ? '暂停模拟' : '播放模拟' }}</button>
+              <button class="eb-btn small" @click="togglePreview(t)">{{ t._playing ? '暂停' : '播放' }}</button>
               <label>速度 <select v-model.number="t._speed" class="eb-select"><option v-for="rate in PLAYBACK_RATES" :key="rate" :value="rate">{{ rate }}×</option></select></label>
               <input :ref="(node) => bindProgressNode(t, node)" :value="t._previewMs" type="range" min="0" :max="previewEnd(t)" @input="seekPreview(t, $event)">
               <span :ref="(node) => bindPlayerTimeNode(t, node)">{{ formatMs(t._previewMs) }}</span>
               </div>
-              <p v-if="(!t._audioUrl && !t._audioLoading) || t._audioErr" class="eb-dim small">模拟只按歌词时间戳推进，不会播放音频。</p>
-            </div>
-            <div class="eb-editor-panel">
+              </div>
               <div class="eb-edit-switch">
               <button
                 class="eb-btn small"
@@ -240,13 +230,6 @@
         <button class="eb-btn primary big" :disabled="continuing" @click="continueIngest()">
           {{ continuing ? '触发中…' : '确认并继续（对齐入库）' }}
         </button>
-        <p class="eb-dim small">
-          请先保存各专辑修改再点此。也可不修改直接继续；72 小时无操作会自动继续。
-        </p>
-        <p class="eb-dim small">
-          <template v-if="dirtyCount">已修改 {{ dirtyCount }} 轨，确认后将重新对齐；其余轨直接沿用上方时间轴入库。</template>
-          <template v-else>未修改任何轨，确认后直接沿用上方时间轴入库。</template>
-        </p>
       </section>
   </div>
 </template>
@@ -443,7 +426,7 @@ function sourcePause(t) { t._sourcePlaying = false; cancelSourceFrame(t); setPla
 function sourceError(t) {
   pauseSource(t);
   t._sourcePlaying = false;
-  t._audioErr = '此浏览器无法播放该原始格式；可继续使用时间轴模拟校对。';
+  t._audioErr = '此音频格式无法播放。';
 }
 function sourceTime(t, event) { setPlayhead(t, Math.round(event.target.currentTime * 1000)); }
 function sourceReady(t, event) {
@@ -771,9 +754,7 @@ onBeforeUnmount(() => {
 }
 .rise { animation: eb-rise .3s ease both; }
 @keyframes eb-rise { from { opacity: 0; transform: translateY(8px); } }
-.eb-lead { margin: 0 0 .75rem; }
-.eb-label, .eb-sub { display: block; font-size: .85rem; margin: .2rem 0 .5rem; font-weight: 600; }
-.eb-sub { margin-top: 1.1rem; }
+.eb-label { display: block; font-size: .85rem; margin: .2rem 0 .5rem; font-weight: 600; }
 .eb-flabel { display: block; font-size: .78rem; margin-bottom: .25rem; opacity: .8; }
 .eb-dim { opacity: .55; font-weight: 400; }
 .eb-dim.small { font-size: .75rem; display: block; margin-top: .5rem; }
@@ -828,8 +809,7 @@ onBeforeUnmount(() => {
 }
 .eb-track-select { display: flex; align-items: center; gap: .45rem; margin: .45rem 0; font-size: .8rem; }
 .eb-track-select .eb-select { flex: 1; min-width: 0; }
-.eb-workbench { display: grid; grid-template-columns: minmax(15rem, 22rem) minmax(0, 1fr); gap: .75rem; align-items: start; }
-.eb-player-panel { position: sticky; top: .75rem; padding: .65rem; border: 1px solid var(--border-color, #ddd); border-radius: 8px; }
+.eb-workbench { min-width: 0; }
 .eb-editor-panel { min-width: 0; }
 .eb-track.dirty { background: color-mix(in srgb, var(--eb-accent) 5%, transparent); }
 .eb-track.lowcov { border-color: #a371f7; box-shadow: 0 0 0 2px color-mix(in srgb, #a371f7 22%, transparent); }
@@ -853,7 +833,7 @@ onBeforeUnmount(() => {
 
 .eb-lrc { font-size: .85rem; }
 .eb-edit-switch { display: flex; gap: .4rem; margin: 0 0 .65rem; }
-.eb-note { margin: 0 0 .5rem; font-size: .75rem; color: var(--eb-accent); }
+.eb-inline-player { display: flex; min-width: 0; align-items: center; margin: 0 0 .65rem; padding: .45rem .55rem; border: 1px solid var(--border-color, #ddd); border-radius: 7px; }
 .eb-lrc-head {
   font-size: .75rem;
   opacity: .6;
@@ -865,7 +845,7 @@ onBeforeUnmount(() => {
 .eb-lrc-row { display: flex; gap: .4rem; align-items: center; margin-bottom: .25rem; }
 .eb-line-editor { margin-bottom: .65rem; padding: .4rem; border-left: 2px solid transparent; }
 .eb-line-editor.active { border-color: var(--eb-accent); background: color-mix(in srgb, var(--eb-accent) 8%, transparent); }
-.eb-preview { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem; margin: 0 0 .6rem; font-size: .75rem; }
+.eb-preview { display: flex; flex: 1; min-width: 0; align-items: center; flex-wrap: wrap; gap: .45rem; font-size: .75rem; }
 .eb-preview input[type="range"] { flex: 1; min-width: 8rem; }
 .eb-player { display: flex; align-items: center; flex: 1; flex-wrap: wrap; gap: .45rem; }
 .eb-player-progress { flex: 1; min-width: 8rem; }
@@ -873,7 +853,7 @@ onBeforeUnmount(() => {
 .eb-player label { display: flex; align-items: center; gap: .25rem; white-space: nowrap; }
 .eb-player label input { width: 5rem; }
 .eb-hidden-audio { display: none; }
-.eb-simulation { padding: .45rem .55rem; border: 1px dashed var(--border-color, #ddd); border-radius: 7px; }
+.eb-simulation { min-width: 0; }
 .eb-select { background: transparent; color: inherit; border: 1px solid var(--border-color, #ddd); border-radius: 5px; }
 .eb-input.ms { width: 5.4rem; flex: none; font-family: var(--font-family-mono, monospace); }
 .eb-time { display: flex; align-items: center; gap: .2rem; font-size: .7rem; white-space: nowrap; }
@@ -923,7 +903,7 @@ onBeforeUnmount(() => {
   resize: vertical;
 }
 .eb-textarea:focus { outline: none; border-color: var(--eb-accent); }
-@media (max-width: 720px) { .eb-workbench { grid-template-columns: 1fr; gap: .5rem; } .eb-player-panel { position: static; } .eb-track { padding: .5rem; } .eb-player-time { min-width: auto; } }
+@media (max-width: 720px) { .eb-track { padding: .5rem; } .eb-inline-player { align-items: stretch; } .eb-player-time { min-width: auto; } }
 
 .eb-pages { margin: .6rem 0; font-size: .82rem; }
 .eb-pages summary { cursor: pointer; opacity: .75; }

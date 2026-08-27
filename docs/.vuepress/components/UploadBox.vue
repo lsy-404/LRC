@@ -12,7 +12,7 @@
 
     <!-- 01 · 选择 -->
     <section v-if="!finished" class="ub-card rise">
-      <label class="ub-label" for="ub-album">专辑名称 <span class="ub-dim">（作为投递文件夹名，也是最终专辑名）</span></label>
+      <label class="ub-label" for="ub-album">专辑名称</label>
       <input
         id="ub-album"
         v-model="album"
@@ -29,11 +29,11 @@
 
       <div class="ub-aux">
         <div>
-          <label class="ub-label">发布 PV <span class="ub-dim">（Bilibili 链接，选填）</span></label>
+          <label class="ub-label">发布 PV</label>
           <input v-model="linkBili" type="text" class="ub-input" placeholder="https://www.bilibili.com/video/BV…" :disabled="busy">
         </div>
         <div>
-          <label class="ub-label">购买 <span class="ub-dim">（dizzylab 链接，选填）</span></label>
+          <label class="ub-label">购买</label>
           <input v-model="linkDizzy" type="text" class="ub-input" placeholder="https://www.dizzylab.net/d/…" :disabled="busy">
         </div>
       </div>
@@ -46,7 +46,6 @@
         @drop.prevent="onDrop"
       >
         <div class="ub-vinyl" aria-hidden="true"><i /></div>
-        <p>把整张专辑的文件夹或文件拖到这里</p>
         <div class="ub-row center">
           <button class="ub-btn" :disabled="busy" @click="fileInput.click()">添加文件</button>
           <button class="ub-btn" :disabled="busy" @click="dirInput.click()">添加文件夹</button>
@@ -118,12 +117,6 @@
         </div>
       </div>
       <p class="ub-total" :class="{ err: oversize > 0 }">{{ totalText }}</p>
-      <p class="ub-dim small">
-        支持歌词文本或 PDF/DOCX 歌词册 / 歌词本图片 / 音频 / Staff 表 / 封面；95MB 以上音频会自动分片上传。
-        点击文件名可重命名路径；右侧下拉修改用途会自动归类到对应目录；
-        列表按类型分区，区内按文件名开头编号排序。点击图片可放大预览并翻转方向。
-        歌词拍照可在下方关联到指定曲目、拖拽调整顺序。上传期间请勿关闭本页。
-      </p>
     </section>
 
     <!-- 02.5 · 歌词拍照 ↔ 曲目关联 -->
@@ -131,10 +124,7 @@
       v-if="!finished && photoItems.length && songItems.length"
       class="ub-card rise"
     >
-      <p class="ub-label">
-        歌词拍照关联
-        <span class="ub-dim">（拖到曲目关联；拖到别的照片上调整顺序；未关联的自动按发音相似度匹配）</span>
-      </p>
+      <p class="ub-label">歌词拍照关联</p>
       <div v-if="hasImages" class="ub-row">
         <button class="ub-btn" :disabled="busy || rotating" @click="rotateAll(-90)">全部左转</button>
         <button class="ub-btn" :disabled="busy || rotating" @click="rotateAll(90)">全部右转</button>
@@ -173,7 +163,7 @@
           @dragleave="dropUid = null"
           @drop.prevent="assignDragged('SP')"
         >
-          <span class="ub-tname">SP · 整专元信息 <span class="ub-dim">（封面/制作/发行等，不作歌词）</span></span>
+          <span class="ub-tname">SP · 整专元信息</span>
           <span
             v-for="p in spPhotos"
             :key="p.uid"
@@ -235,18 +225,10 @@
     <section v-if="finished" class="ub-card done rise">
       <div class="ub-stamp">✓</div>
       <h3>投稿完成</h3>
-      <p>{{ doneDetail }}</p>
       <div v-if="lastRef" class="ub-ref">
         <span class="ub-ref-label">追踪编号（ref）</span>
         <code class="ub-ref-code" title="点击复制" @click="copyRef">{{ lastRef }}</code>
-        <span class="ub-ref-hint">已存本机。稍后到「修改」面板凭此编号校正 OCR / 元信息 / 轨单后再入库。</span>
       </div>
-      <ol class="ub-next">
-        <li class="ok">原料已提交，摄取已开始</li>
-        <li>自动 OCR / STT / 检索，生成待校正草稿（约几分钟）</li>
-        <li>到「修改」面板校正后确认继续（或 72 小时后自动继续）</li>
-        <li>对齐入库开 PR，审核通过后原料销毁</li>
-      </ol>
       <div class="ub-row center">
         <button class="ub-btn primary" @click="resetForNext">返回并提交下一个</button>
       </div>
@@ -305,7 +287,6 @@ const submitMsg = ref('');
 const submitErr = ref(false);
 const showRetry = ref(false);
 const finished = ref(false);
-const doneDetail = ref('');
 const lastRef = ref('');
 const linkBili = ref('');
 const linkDizzy = ref('');
@@ -926,8 +907,6 @@ async function run() {
     });
     const data = await r.json().catch(() => ({}));
     if (!r.ok || !data.ok) throw new Error(data.message || data.error || String(r.status));
-    doneDetail.value =
-      `「${name}」共 ${items.value.length} 个文件已提交，摄取已开始（${String(data.ref).slice(0, 8)}）。`;
     lastRef.value = String(data.ref || '');
     if (lastRef.value) cacheRef(name, lastRef.value);
     // 投稿成功后草稿保留 30 天：期内重投同一专辑不必重做旋转与绑定
@@ -966,7 +945,6 @@ function resetForNext() {
   submitMsg.value = '';
   submitErr.value = false;
   showRetry.value = false;
-  doneDetail.value = '';
   lastRef.value = '';
   finished.value = false;
   busy.value = false;
@@ -1417,17 +1395,6 @@ onBeforeUnmount(() => {
   animation: ub-pop .4s cubic-bezier(.2, 1.6, .4, 1) both;
 }
 @keyframes ub-pop { from { transform: scale(.3); opacity: 0; } }
-.ub-next {
-  text-align: left;
-  max-width: 26rem;
-  margin: 1.2rem auto 0;
-  padding-left: 1.4rem;
-  font-size: .85rem;
-  opacity: .85;
-}
-.ub-next li { margin: .35rem 0; }
-.ub-next li.ok { color: var(--ub-accent); }
-
 .ub-ref {
   display: flex;
   flex-direction: column;
@@ -1447,7 +1414,6 @@ onBeforeUnmount(() => {
   background: color-mix(in srgb, var(--ub-accent) 12%, transparent);
   cursor: pointer;
 }
-.ub-ref-hint { font-size: .75rem; opacity: .7; }
 
 @media (max-width: 480px) {
   .ub-steps li { font-size: .75rem; gap: .3rem; }

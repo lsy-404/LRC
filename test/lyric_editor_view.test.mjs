@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
 const component = () => readFile(new URL('../docs/.vuepress/components/EditBox.vue', import.meta.url), 'utf8');
+const uploadComponent = () => readFile(new URL('../docs/.vuepress/components/UploadBox.vue', import.meta.url), 'utf8');
+const workbenchComponent = () => readFile(new URL('../docs/.vuepress/components/Workbench.vue', import.meta.url), 'utf8');
 
 test('每张专辑只渲染当前选中轨，并在选择时读取该轨原音', async () => {
   const source = await component();
@@ -14,10 +16,11 @@ test('每张专辑只渲染当前选中轨，并在选择时读取该轨原音',
   assert.doesNotMatch(source, /编辑歌词|听歌校对|eb-listen-stage/);
 });
 
-test('紧凑工作区同时提供认证原音播放器和逐字编辑', async () => {
+test('播放器内联于歌词编辑区，且不保留原音与模拟说明', async () => {
   const source = await component();
   assert.match(source, /class="eb-workbench" aria-label="歌词校对工作区"/);
-  assert.match(source, /class="eb-player" aria-label="原音播放器"/);
+  assert.match(source, /class="eb-editor-panel">\s*<div class="eb-inline-player">/);
+  assert.match(source, /class="eb-player" aria-label="播放器"/);
   assert.match(source, /@click="toggleSource\(t\)"/);
   assert.match(source, /@input="seekSource\(t, \$event\)"/);
   assert.match(source, /@click="simplifyTrack\(t\)"/);
@@ -29,7 +32,16 @@ test('紧凑工作区同时提供认证原音播放器和逐字编辑', async ()
   assert.match(source, /@pointerdown="startTimeDrag\(t, r, wi, \$event\)"/);
   assert.doesNotMatch(source, /v-model\.number="word\.time"/);
   assert.doesNotMatch(source, /v-model="word\.text"/);
-  assert.match(source, /@click="retryAudio\(t\)">重试原音/);
+  assert.match(source, /@click="retryAudio\(t\)">重试/);
+  assert.doesNotMatch(source, /eb-player-panel|grid-template-columns: minmax\(15rem, 22rem\)/);
+  assert.doesNotMatch(source, /原音只在审核期|时间轴模拟|此轨没有可读取的原音|模拟只按歌词时间戳/);
+});
+
+test('工作站与上传面板不保留解释性副标题', async () => {
+  const [editor, upload, workbench] = await Promise.all([component(), uploadComponent(), workbenchComponent()]);
+  assert.doesNotMatch(editor, /上方点选即可|列表字段多个用|最终写盘 LRC|修复后会复用|请先保存各专辑修改/);
+  assert.doesNotMatch(upload, /作为投递文件夹名|支持歌词文本或|拖到曲目关联|已存本机。稍后到|自动 OCR/);
+  assert.doesNotMatch(workbench, /凭邀请密码进入工作站/);
 });
 
 test('播放高亮用索引和 requestAnimationFrame 同步，不在模板重复查找对象', async () => {
