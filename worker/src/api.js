@@ -9,6 +9,7 @@ import { onRequestGet as listIngest } from '../../functions/api/ingest/list.js';
 import { onRequestPost as retryIngest } from '../../functions/api/ingest/retry.js';
 import { onRequestPost as saveIngest } from '../../functions/api/ingest/save.js';
 import { onRequestGet as stateIngest } from '../../functions/api/ingest/state.js';
+import { onRequestGet as audioIngest } from '../../functions/api/ingest/audio.js';
 import { json, cleanRef } from './lib.js';
 
 const ROUTES = new Map([
@@ -20,6 +21,7 @@ const ROUTES = new Map([
   ['POST /api/upload/finalize', finalizeUpload],
   ['GET /api/ingest/list', listIngest],
   ['GET /api/ingest/state', stateIngest],
+  ['GET /api/ingest/audio', audioIngest],
   ['POST /api/ingest/save', saveIngest],
   ['POST /api/ingest/cover', uploadCover],
   ['POST /api/ingest/continue', continueIngest],

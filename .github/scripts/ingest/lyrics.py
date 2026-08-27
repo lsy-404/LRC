@@ -97,6 +97,16 @@ def to_simplified(text: str) -> str:
     return convert(text, "zh-cn")
 
 
+# Whisper 可能用粤语、吴语等变体语言码标记中文。它们与 zh 同样要遵守本站简体规范；
+# 日语等其他 CJK 语言绝不能调用繁简转换。
+_CHINESE_LANGS = {"zh", "yue", "cmn", "wuu", "nan", "hak", "gan", "cdo"}
+
+
+def is_chinese_language(language: str) -> bool:
+    lang = str(language or "").lower().replace("_", "-")
+    return lang in _CHINESE_LANGS or lang.startswith("zh-")
+
+
 def split_staff_lines(lines: list[str]) -> tuple[dict[str, list[str]], list[str], list[str]]:
     """把行列表分成 (staff字段, 原样staff行, 歌词正文行)。
 

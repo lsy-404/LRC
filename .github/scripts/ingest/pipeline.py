@@ -324,6 +324,8 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
         with ThreadPoolExecutor(max_workers=4) as pool:
             results = list(pool.map(stt_mod.transcribe_words, kept))
         for a, (words, lang) in zip(kept, results):
+            if lyrics_mod.is_chinese_language(lang):
+                words = [{**word, "text": lyrics_mod.to_simplified(str(word.get("text", "")))} for word in words]
             audio_words[a.name] = words
             audio_langs[a.name] = lang
 
@@ -345,6 +347,8 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
                 )
                 for a in retry_audios:
                     words, lang = stt_mod.transcribe_words(a, lang=majority_lang)
+                    if lyrics_mod.is_chinese_language(lang):
+                        words = [{**word, "text": lyrics_mod.to_simplified(str(word.get("text", "")))} for word in words]
                     audio_words[a.name] = words
                     audio_langs[a.name] = lang
 
