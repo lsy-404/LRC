@@ -155,6 +155,22 @@ export function activeIndexAt(items, ms) {
   return result;
 }
 
+export function timedTokenSpanMs(words, index, rowEnd = undefined, defaultGap = 500) {
+  const list = words || []; const current = list[index]; if (!current) return 0;
+  const start = Number(current.time) || 0; const next = Number(list[index + 1]?.time);
+  const end = Number.isFinite(next) && next > start ? next : (Number.isFinite(rowEnd) && Number(rowEnd) > start ? Number(rowEnd) : start + Math.max(1, Number(defaultGap) || 500));
+  return Math.max(1, end - start);
+}
+
+export function timedTokenSpanPx(words, index, rowEnd = undefined, scale = 0.1, minimum = 14, maximum = 1200) {
+  return Math.max(minimum, Math.min(maximum, Math.round(timedTokenSpanMs(words, index, rowEnd) * scale)));
+}
+
+export function timedLeadSpanPx(rowTime, firstTime, scale = 0.1, maximum = 1200) {
+  if (!Number.isFinite(Number(firstTime))) return 0;
+  return Math.max(0, Math.min(maximum, Math.round(Math.max(0, Number(firstTime) - Number(rowTime)) * scale)));
+}
+
 export function splitRowAtTokenBoundary(rows, rowIndex, wordIndex, charIndex, createId = () => undefined) {
   const list = [...rows]; const row = list[rowIndex]; if (!row) return list;
   if (wordIndex === 0 && charIndex === 0) return list;

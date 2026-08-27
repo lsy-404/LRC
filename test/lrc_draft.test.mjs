@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
+import { activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadSpanPx, timedTokenSpanMs, timedTokenSpanPx, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
 
 test('时间戳支持厘秒和毫秒并稳定往返', () => {
   assert.equal(timestampToMs('01:02.34'), 62340);
@@ -159,4 +159,16 @@ test('合并歌词行不改动任何 token 的对象身份或时间', () => {
   assert.equal(merged[0].text, '你好呀');
   assert.deepEqual(merged[0].words, [first, second, third]);
   assert.deepEqual(merged[0].words.map((word) => word.time), [100, 200, 300]);
+});
+
+test('时间轨区段持续表示前奏、相邻标签、末标签与长间隔', () => {
+  const words = [{ time: 300, text: '你' }, { time: 900, text: '好' }];
+  assert.equal(timedLeadSpanPx(100, undefined), 0);
+  assert.equal(timedLeadSpanPx(100, words[0].time), 20);
+  assert.equal(timedTokenSpanMs(words, 0, 1500), 600);
+  assert.equal(timedTokenSpanMs(words, 1, 1500), 600);
+  assert.equal(timedTokenSpanPx([{ time: 0, text: '短' }, { time: 100, text: '中' }, { time: 300, text: '长' }], 0), 14);
+  assert.equal(timedTokenSpanPx([{ time: 0, text: '短' }, { time: 100, text: '中' }, { time: 300, text: '长' }], 1), 20);
+  assert.equal(timedTokenSpanPx([{ time: 0, text: '长' }, { time: 10000, text: '间' }], 0), 1000);
+  assert.equal(timedTokenSpanMs([{ time: 100, text: '密' }, { time: 100, text: '集' }], 0, 700), 600);
 });

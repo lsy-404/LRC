@@ -10,7 +10,7 @@ test('每张专辑只渲染当前选中轨，并在选择时读取该轨原音',
   assert.match(source, /v-for="t in selectedTracks\(e\)"/);
   assert.match(source, /async function selectTrack\(e\)[\s\S]*?await loadAudio\(current\)/);
   assert.match(source, /for \(const edit of edits\.value\) await selectTrack\(edit\)/);
-  assert.match(source, /node\.currentTime = \(Number\(t\._previewMs\) \|\| 0\) \/ 1000/);
+  assert.match(source, /node\.currentTime = playheadMs\(t\) \/ 1000/);
   assert.doesNotMatch(source, /编辑歌词|听歌校对|eb-listen-stage/);
 });
 
@@ -23,6 +23,8 @@ test('紧凑工作区同时提供认证原音播放器和逐字编辑', async ()
   assert.match(source, /@click="simplifyTrack\(t\)"/);
   assert.match(source, /@click="addLine\(t, li\)"/);
   assert.match(source, /class="eb-word-timeline" aria-label="逐字时间轨"/);
+  assert.match(source, /class="eb-time-track"/);
+  assert.match(source, /timelineTokenStyle\(t, r, li, wi\)/);
   assert.match(source, /expandTimedTokens\(words, newId, 100, Number\(parsedRows\[index \+ 1\]\?\.time\)\)/);
   assert.match(source, /@pointerdown="startTimeDrag\(t, r, wi, \$event\)"/);
   assert.doesNotMatch(source, /v-model\.number="word\.time"/);
@@ -82,6 +84,16 @@ test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
   assert.match(source, /activeIndexAt\(t\.rows, ms\)/);
   assert.match(source, /now - lastUi >= 100/);
   assert.match(source, /setInterval\([\s\S]*?\}, 100\)/);
+  assert.match(source, /const playheads = new WeakMap\(\)/);
+  assert.match(source, /function updatePlaybackDom\(t\)/);
+  assert.match(source, /tabindex="0"/);
+  assert.match(source, /openTimelineMenuFromKey/);
+  assert.match(source, /window\.addEventListener\('keydown', closeTimelineMenuOnEscape\)/);
+  assert.match(source, /clearTimeDrag\(\);\s*const current = e\.tracks/);
+  const sourceLoop = source.match(/function sourcePlay\(t, event\) \{[\s\S]*?\n}\nfunction sourcePause/)?.[0] || '';
+  const simulationLoop = source.match(/function togglePreview\(t\) \{[\s\S]*?\n}\nfunction releaseAllTracks/)?.[0] || '';
+  assert.doesNotMatch(sourceLoop, /t\._previewMs\s*=/);
+  assert.doesNotMatch(simulationLoop, /t\._previewMs\s*=/);
   assert.doesNotMatch(source, /function normalizeTrackWords|function syncWordText|function addWord|function removeWord/);
   assert.doesNotMatch(source, /flatMap\(\(r\) => \[Number\(r\.time\)/);
 });
