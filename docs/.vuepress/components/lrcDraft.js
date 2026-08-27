@@ -79,6 +79,72 @@ export function alignTimestamps(rows, lines) {
 export const textToLines = (text) => String(text == null ? '' : text).split('\n').filter(nonEmpty);
 export const linesToText = (lines) => (Array.isArray(lines) ? lines : []).join('\n');
 
+// 把整行文本变动贴回逐字对象：LCS 保留未改字符的原时间与标识，新增字符在相邻锚点间补时。
+export function reconcileWordCharacters(words, text, createId = () => undefined, rowTime = 0) {
+  const old = (words || []).flatMap((word) => Array.from(String(word.text || '')).map((char, index) => ({
+    ...word, text: char, _id: index ? createId() : word._id,
+  })));
+  const next = Array.from(String(text || ''));
+  const dp = Array.from({ length: old.length + 1 }, () => Array(next.length + 1).fill(0));
+  for (let i = old.length - 1; i >= 0; i--) for (let j = next.length - 1; j >= 0; j--) {
+    dp[i][j] = old[i].text === next[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+  }
+  const matched = new Map();
+  for (let i = 0, j = 0; i < old.length && j < next.length;) {
+    if (old[i].text === next[j]) { matched.set(j, old[i]); i++; j++; }
+    else if (dp[i + 1][j] >= dp[i][j + 1]) i++;
+    else j++;
+  }
+  return next.map((char, index) => {
+    const found = matched.get(index);
+    if (found) return found;
+    let before = index - 1;
+    while (before >= 0 && !matched.has(before)) before--;
+    let after = index + 1;
+    while (after < next.length && !matched.has(after)) after++;
+    const left = before >= 0 ? Number(matched.get(before).time) : Number(rowTime) || 0;
+    const right = after < next.length ? Number(matched.get(after).time) : left + Math.max(100, (after - before) * 100);
+    const ratio = (index - before) / (after - before || 1);
+    return { _id: createId(), text: char, time: Math.round(left + (right - left) * ratio) };
+  });
+}
+
+export function reconcileTimedRows(rows, text, createId = () => undefined) {
+  const old = Array.isArray(rows) ? rows : [];
+  const next = textToLines(text);
+  const dp = Array.from({ length: old.length + 1 }, () => Array(next.length + 1).fill(0));
+  for (let i = old.length - 1; i >= 0; i--) for (let j = next.length - 1; j >= 0; j--) {
+    dp[i][j] = old[i].text === next[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+  }
+  const anchors = [];
+  for (let i = 0, j = 0; i < old.length && j < next.length;) {
+    if (old[i].text === next[j]) { anchors.push([i, j]); i++; j++; }
+    else if (dp[i + 1][j] >= dp[i][j + 1]) i++;
+    else j++;
+  }
+  const paired = new Map(anchors.map(([i, j]) => [j, i]));
+  let previousOld = -1; let previousNew = -1;
+  for (const [anchorOld, anchorNew] of [...anchors, [old.length, next.length]]) {
+    const count = Math.min(anchorOld - previousOld - 1, anchorNew - previousNew - 1);
+    for (let k = 1; k <= count; k++) paired.set(previousNew + k, previousOld + k);
+    previousOld = anchorOld; previousNew = anchorNew;
+  }
+  return next.map((line, index) => {
+    const oldIndex = paired.get(index);
+    if (oldIndex != null) {
+      const row = old[oldIndex];
+      if (row.text === line) return row;
+      return { ...row, text: line, words: reconcileWordCharacters(row.words, line, createId, row.time) };
+    }
+    const before = [...paired.entries()].filter(([j]) => j < index).pop()?.[1];
+    const after = [...paired.entries()].find(([j]) => j > index)?.[1];
+    const left = before == null ? 0 : Number(old[before].time) || 0;
+    const right = after == null ? left + 1000 : Number(old[after].time) || left + 1000;
+    const time = Math.round(left + (right - left) / (after == null ? 1 : 2));
+    return { _id: createId(), time, text: line, words: reconcileWordCharacters([], line, createId, time) };
+  });
+}
+
 // 人工是否改过该轨（词/标题/序号/伴奏标记），决定 Phase B 是否重跑对齐
 export function isTrackEdited(orig, cur) {
   if (!orig || !cur) return true;

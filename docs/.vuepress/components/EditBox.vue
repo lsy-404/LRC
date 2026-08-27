@@ -79,18 +79,21 @@
           轨单与成品歌词
           <span class="eb-dim">下方带时间轴的即最终写盘 LRC；改过的轨会在确认后重新对齐</span>
         </p>
+        <div class="eb-track-select">
+          <label :for="`track-${e.album}`">曲目</label>
+          <select :id="`track-${e.album}`" v-model.number="e._selectedTrack" class="eb-select" @change="selectTrack(e)">
+            <option v-for="(track, index) in e.tracks" :key="track._id" :value="index">{{ String(track.order).padStart(2, '0') }} · {{ track.title || '未命名曲目' }}</option>
+          </select>
+        </div>
         <div
-          v-for="(t, i) in e.tracks"
-          :key="i"
+          v-for="t in selectedTracks(e)"
+          :key="t._id"
           class="eb-track"
           :class="{ lowconf: isLowConf(t), lowcov: showLowCov(t), dirty: isDirty(t) }"
         >
           <div class="eb-track-head">
-            <template v-if="t._mode === 'edit'">
-              <input v-model.number="t.order" type="number" class="eb-input tiny" title="序号">
-              <input v-model="t.title" class="eb-input grow" placeholder="曲名">
-            </template>
-            <strong v-else class="eb-track-title">{{ String(t.order).padStart(2, '0') }} · {{ t.title || '未命名曲目' }}</strong>
+            <input v-model.number="t.order" type="number" class="eb-input tiny" title="序号">
+            <input v-model="t.title" class="eb-input grow" placeholder="曲名">
             <span v-if="isLowConf(t)" class="eb-tag conf" title="视觉分轨的识别置信度低，请重点核对曲名与归属">
               识别低置信 {{ pct(t.confidence) }}
             </span>
@@ -100,29 +103,19 @@
             <span v-if="isDirty(t)" class="eb-tag edit" title="确认后 Phase B 会对该轨重新对齐">
               已修改 · 待重对齐
             </span>
-            <label v-if="t._mode === 'edit'" class="eb-inst"><input v-model="t.inst" type="checkbox"> 伴奏/无人声</label>
-            <span v-else-if="t.inst" class="eb-dim">伴奏/无人声</span>
+            <label class="eb-inst"><input v-model="t.inst" type="checkbox"> 伴奏/无人声</label>
           </div>
 
           <div class="eb-track-bar">
             <span class="eb-dim">{{ trackState(t) }}</span>
             <span class="eb-spacer" />
-            <button
-              class="eb-btn small"
-              :class="{ on: t._mode === 'edit' }"
-              @click="openEdit(t)"
-            >编辑歌词</button>
-            <button
-              class="eb-btn small"
-              :class="{ on: t._mode === 'listen' }"
-              @click="openListen(t)"
-            >听歌校对</button>
-            <button v-if="t._mode === 'edit'" class="eb-btn small" @click="simplifyTrack(t)">转为简体</button>
+            <button class="eb-btn small" @click="simplifyTrack(t)">转为简体</button>
           </div>
 
-          <div v-if="t._mode === 'listen'" class="eb-listen" aria-label="听歌校对">
-            <p class="eb-note">原音只在审核期从受密码保护的原料区读取；不会公开原始文件。</p>
-            <div v-if="t.audio" class="eb-preview">
+          <div class="eb-workbench" aria-label="歌词校对工作区">
+            <div class="eb-player-panel">
+              <p class="eb-note">原音只在审核期从受密码保护的原料区读取；不会公开原始文件。</p>
+              <div v-if="t.audio" class="eb-preview">
               <span v-if="t._audioLoading" class="eb-dim">正在载入原音…</span>
               <div v-else-if="t._audioUrl && !t._audioErr" class="eb-player" aria-label="原音播放器">
                 <button class="eb-btn small" @click="toggleSource(t)">{{ t._sourcePlaying ? '暂停' : '播放' }}</button>
@@ -133,38 +126,19 @@
               </div>
               <button v-else class="eb-btn small" @click="retryAudio(t)">重试原音</button>
               <span v-if="t._audioErr" class="eb-msg inline err">{{ t._audioErr }}</span>
-            </div>
-            <p v-else class="eb-dim small">此轨没有可读取的原音，将使用时间轴模拟。</p>
-            <div v-if="(!t._audioUrl && !t._audioLoading) || t._audioErr" class="eb-preview eb-simulation">
+              </div>
+              <p v-else class="eb-dim small">此轨没有可读取的原音，将使用时间轴模拟。</p>
+              <div v-if="(!t._audioUrl && !t._audioLoading) || t._audioErr" class="eb-preview eb-simulation">
               <span class="eb-dim">时间轴模拟</span>
               <button class="eb-btn small" @click="togglePreview(t)">{{ t._playing ? '暂停模拟' : '播放模拟' }}</button>
               <label>速度 <select v-model.number="t._speed" class="eb-select"><option :value="0.5">0.5×</option><option :value="1">1×</option><option :value="1.5">1.5×</option><option :value="2">2×</option></select></label>
               <input v-model.number="t._previewMs" type="range" min="0" :max="previewEnd(t)" @input="pausePreview(t)">
               <span>{{ formatMs(t._previewMs) }}</span>
+              </div>
+              <p v-if="(!t._audioUrl && !t._audioLoading) || t._audioErr" class="eb-dim small">模拟只按歌词时间戳推进，不会播放音频。</p>
             </div>
-            <p v-if="(!t._audioUrl && !t._audioLoading) || t._audioErr" class="eb-dim small">模拟只按歌词时间戳推进，不会播放音频。</p>
-            <div v-if="t.head.length" class="eb-lrc-head">
-              <div v-for="(h, hi) in t.head" :key="hi">{{ h }}</div>
-            </div>
-            <div class="eb-listen-stage" aria-live="polite">
-              <p v-if="!t.rows.length" class="eb-dim">暂无逐字时间轴；请进入“编辑歌词”补充歌词。</p>
-              <p
-                v-for="r in t.rows"
-                v-else
-                :key="r._id"
-                class="eb-listen-line"
-                :class="{ active: isCurrentLine(t, r) }"
-              >
-                <span class="eb-ts">{{ formatMs(r.time) }}</span>
-                <span v-if="r.words.length" class="eb-listen-words"><span v-for="word in r.words" :key="word._id" :class="{ active: isCurrentWord(t, r, word) }">{{ word.text }}</span></span>
-                <span v-else>{{ r.text }}</span>
-              </p>
-            </div>
-          </div>
-
-          <div v-else-if="t._view === 'lrc'" class="eb-lrc">
-            <p class="eb-note">在这里编辑行、逐字和时间；要播放原音并观察高亮，请进入“听歌校对”。</p>
-            <div class="eb-edit-switch">
+            <div class="eb-editor-panel">
+              <div class="eb-edit-switch">
               <button
                 class="eb-btn small"
                 :class="{ on: t._view === 'lrc' }"
@@ -175,38 +149,37 @@
                 :class="{ on: t._view === 'text' }"
                 @click="t._view = 'text'"
               >整段文本</button>
-            </div>
-            <div v-if="t.head.length" class="eb-lrc-head">
+              </div>
+              <div v-if="t.head.length" class="eb-lrc-head">
               <div v-for="(h, hi) in t.head" :key="hi">{{ h }}</div>
-            </div>
-            <div v-for="(r, li) in t.rows" :key="r._id" class="eb-line-editor" :class="{ active: isCurrentLine(t, r) }">
+              </div>
+              <div v-if="t._view === 'lrc'">
+              <div v-for="(r, li) in t.rows" :key="r._id" class="eb-line-editor" :class="{ active: li === t._activeLine }">
               <div class="eb-lrc-row">
                 <label class="eb-time"><input v-model.number="r.time" type="number" min="0" step="10" class="eb-input ms" @change="normalizeRows(t); lockTiming(t)">毫秒</label>
-                <input v-model="r.text" class="eb-input lrc" @input="syncRowText(t, r)">
-                <button class="eb-btn small" @click="addLine(t, li)">+ 行</button><button class="eb-btn small danger" @click="removeLine(t, li)">删</button>
+                <input v-model="r.text" class="eb-input lrc" @input="syncRowText(t, r)" @click="recordCursor(r, $event)" @keyup="recordCursor(r, $event)" @select="recordCursor(r, $event)">
+                <button class="eb-btn small" @click="splitFromCursor(t, r, li)">从光标拆分</button><button class="eb-btn small" @click="moveSelectionToNext(t, r, li)">选中移下一句</button><button class="eb-btn small" @click="addLine(t, li)">+ 行</button><button class="eb-btn small danger" @click="removeLine(t, li)">删</button>
               </div>
               <div class="eb-words">
-                <div v-for="(word, wi) in r.words" :key="word._id" class="eb-word" :class="{ active: isCurrentWord(t, r, word) }">
+                <div v-for="(word, wi) in r.words" :key="word._id" class="eb-word" :class="{ active: li === t._activeLine && wi === t._activeWord }">
                   <input v-model.number="word.time" type="number" min="0" step="10" class="eb-input ms" @change="lockTiming(t); normalizeWords(r)">
                   <input v-model="word.text" class="eb-input" @input="syncWordText(t, r)">
                   <button class="eb-btn small" @click="addWord(t, r, wi)">+</button><button class="eb-btn small danger" @click="removeWord(t, r, wi)">−</button>
                 </div>
               </div>
             </div>
-            <button class="eb-btn small" @click="addLine(t, t.rows.length - 1)">新增歌词行</button>
-          </div>
-          <div v-else class="eb-text-edit">
-            <p class="eb-note">这里编辑整段文本；需要逐行时间与逐字调整时切换到“逐行与逐字”。</p>
-            <div class="eb-edit-switch">
-              <button class="eb-btn small" @click="t._view = 'lrc'">逐行与逐字</button>
-              <button class="eb-btn small on">整段文本</button>
-            </div>
-            <textarea
+              <button class="eb-btn small" @click="addLine(t, t.rows.length - 1)">新增歌词行</button>
+              </div>
+              <textarea
+                v-else
               v-model="t.text"
               class="eb-textarea"
               rows="6"
+              @change="applyWholeText(t)"
               :placeholder="t.inst ? '伴奏轨：留空则借同名正曲时间轴或写占位' : '逐行歌词'"
-            />
+              />
+              <button v-if="t._view === 'text'" class="eb-btn small" @click="applyWholeText(t)">应用整段文本并保留时间轴</button>
+            </div>
           </div>
           <audio
             v-if="t._audioUrl"
@@ -276,7 +249,7 @@ import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  parseLrc, parseKaraokeRows, serializeTimedLyrics, textToLines, linesToText, isTrackEdited, isLowCoverage, msToTimestamp,
+  parseLrc, parseKaraokeRows, serializeTimedLyrics, textToLines, linesToText, reconcileTimedRows, reconcileWordCharacters, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 
 const META_FIELDS = [
@@ -316,6 +289,7 @@ const jobInfo = ref(null);
 const retrying = ref(false);
 let pollTimer = null;
 let previewTimer = null;
+let sourceFrame = null;
 let nextEditorId = 1;
 
 const recentRefs = computed(() => dedupeRecent(cachedRefs.value, pending.value));
@@ -358,22 +332,43 @@ const pct = (v) => Math.round((Number(v) || 0) * 100) + '%';
 const newId = () => nextEditorId++;
 function normalizeWords(row) { row.words.sort((a, b) => Number(a.time) - Number(b.time)); }
 function normalizeRows(t) { t.rows.sort((a, b) => Number(a.time) - Number(b.time)); }
-function syncRowText(t, row) { row.words = [{ time: Number(row.time) || 0, text: row.text }]; t._textDirty = true; }
+function syncRowText(t, row) { row.words = reconcileWordCharacters(row.words, row.text, newId, row.time); t._textDirty = true; lockTiming(t); }
 function syncWordText(t, row) { normalizeWords(row); row.text = row.words.map((word) => word.text).join(''); lockTiming(t); }
+function applyWholeText(t) { t.rows = reconcileTimedRows(t.rows, t.text, newId); normalizeRows(t); t.timingLocked = true; updateActiveIndices(t); }
+function recordCursor(row, event) { row._selection = { start: event.target.selectionStart || 0, end: event.target.selectionEnd || 0 }; }
+function splitFromCursor(t, row, index) {
+  const cut = row._selection?.start ?? Array.from(row.text).length;
+  const chars = Array.from(row.text); if (cut <= 0 || cut >= chars.length) return;
+  row.words = reconcileWordCharacters(row.words, row.text, newId, row.time);
+  const rightWords = row.words.splice(cut); const right = chars.splice(cut).join(''); row.text = chars.join('');
+  t.rows.splice(index + 1, 0, { _id: newId(), time: Number(rightWords[0]?.time || row.time + 1000), text: right, words: rightWords }); lockTiming(t);
+}
+function moveSelectionToNext(t, row, index) {
+  const start = row._selection?.start ?? 0; const end = row._selection?.end ?? start;
+  if (end <= start) return;
+  row.words = reconcileWordCharacters(row.words, row.text, newId, row.time);
+  const moved = row.words.splice(start, end - start); row.text = row.words.map((word) => word.text).join('');
+  let next = t.rows[index + 1];
+  if (!next) { next = { _id: newId(), time: Number(moved[0]?.time || row.time + 1000), text: '', words: [] }; t.rows.splice(index + 1, 0, next); }
+  next.words.unshift(...moved); normalizeWords(next); next.text = next.words.map((word) => word.text).join(''); lockTiming(t);
+}
 function lockTiming(t) { t.timingLocked = true; }
 function addLine(t, index) { const time = Math.max(0, Number(t.rows[index]?.time || 0) + 1000); t.rows.splice(index + 1, 0, { _id: newId(), time, text: '', words: [{ _id: newId(), time, text: '' }] }); lockTiming(t); }
 function removeLine(t, index) { t.rows.splice(index, 1); lockTiming(t); }
 function addWord(t, row, index) { const time = Math.max(Number(row.time) || 0, Number(row.words[index]?.time || row.time || 0) + 100); row.words.splice(index + 1, 0, { _id: newId(), time, text: '' }); normalizeWords(row); lockTiming(t); }
 function removeWord(t, row, index) { row.words.splice(index, 1); row.text = row.words.map((word) => word.text).join(''); lockTiming(t); }
 function previewEnd(t) { return Math.max(1000, ...t.rows.flatMap((r) => [Number(r.time) || 0, ...(r.words || []).map((w) => Number(w.time) || 0)])) + 1500; }
+function updateActiveIndices(t) { const ms = t._previewMs; let line = -1; for (let i = 0; i < t.rows.length; i++) if (ms >= t.rows[i].time && (i + 1 === t.rows.length || ms < t.rows[i + 1].time)) { line = i; break; } t._activeLine = line; const words = t.rows[line]?.words || []; let word = -1; for (let i = 0; i < words.length; i++) if (ms >= words[i].time && (i + 1 === words.length || ms < words[i + 1].time)) { word = i; break; } t._activeWord = word; }
+function cancelSourceFrame() { if (sourceFrame) { cancelAnimationFrame(sourceFrame); sourceFrame = null; } }
 function pausePreview(t) { t._playing = false; if (previewTimer) { clearInterval(previewTimer); previewTimer = null; } }
-function togglePreview(t) { if (t._playing) return pausePreview(t); edits.value.forEach(pausePreview); t._playing = true; let last = Date.now(); previewTimer = setInterval(() => { const now = Date.now(); t._previewMs = Math.min(previewEnd(t), t._previewMs + (now - last) * t._speed); last = now; if (t._previewMs >= previewEnd(t)) pausePreview(t); }, 50); }
+function togglePreview(t) { if (t._playing) return pausePreview(t); edits.value.forEach(pausePreview); t._playing = true; let last = Date.now(); previewTimer = setInterval(() => { const now = Date.now(); t._previewMs = Math.min(previewEnd(t), t._previewMs + (now - last) * t._speed); updateActiveIndices(t); last = now; if (t._previewMs >= previewEnd(t)) pausePreview(t); }, 50); }
 function releaseAudio(t) {
+  cancelSourceFrame();
   if (t._audioElement) { t._audioElement.pause(); t._audioElement.src = ''; }
   if (t._audioUrl) URL.revokeObjectURL(t._audioUrl);
   t._audioElement = null; t._audioUrl = ''; t._audioLoading = false; t._audioErr = ''; t._audioDuration = 0; t._sourcePlaying = false;
 }
-function bindAudioElement(t, node) { t._audioElement = node || null; }
+function bindAudioElement(t, node) { if (node) { t._audioElement = node; node.currentTime = (Number(t._previewMs) || 0) / 1000; } else t._audioElement = null; }
 async function loadAudio(t) {
   if (!t.audio || t._audioLoading) return;
   if (t._audioUrl) return;
@@ -386,20 +381,24 @@ async function loadAudio(t) {
   } catch (error) { t._audioErr = error.message || '原音读取失败'; }
   finally { t._audioLoading = false; }
 }
-async function openListen(t) { t._mode = 'listen'; await loadAudio(t); }
-function openEdit(t) { pauseSource(t); t._mode = 'edit'; }
+function selectedTracks(e) { const track = e.tracks[e._selectedTrack]; return track ? [track] : []; }
+async function selectTrack(e) {
+  for (const track of e.tracks) { pauseSource(track); pausePreview(track); }
+  const track = e.tracks[e._selectedTrack];
+  if (track) await loadAudio(track);
+}
 async function retryAudio(t) {
   if (t._audioErr && t._audioUrl) releaseAudio(t);
   t._audioErr = '';
   await loadAudio(t);
 }
-function pauseSource(t) { if (t._audioElement) t._audioElement.pause(); t._sourcePlaying = false; }
+function pauseSource(t) { if (t._audioElement) t._audioElement.pause(); t._sourcePlaying = false; cancelSourceFrame(); }
 function sourceEnd(t) { return Math.max(1, Number(t._audioDuration) || previewEnd(t)); }
 function setVolume(t) { if (t._audioElement) t._audioElement.volume = Number(t._volume); }
 function setSourceRate(t) { if (t._audioElement) t._audioElement.playbackRate = Number(t._speed); }
 function seekSource(t, event) {
   const ms = Number(event.target.value) || 0;
-  t._previewMs = ms;
+  t._previewMs = ms; updateActiveIndices(t);
   if (t._audioElement) t._audioElement.currentTime = ms / 1000;
 }
 async function toggleSource(t) {
@@ -413,19 +412,23 @@ async function toggleSource(t) {
   try { await audio.play(); } catch { sourceError(t); }
 }
 function sourcePlay(t, event) {
+  cancelSourceFrame();
   edits.value.forEach((other) => { if (other !== t && other._audioElement) other._audioElement.pause(); pausePreview(other); });
   t._audioElement = event.target; t._sourcePlaying = true; pausePreview(t);
+  const sync = () => { if (!t._sourcePlaying || !t._audioElement) return; t._previewMs = Math.round(t._audioElement.currentTime * 1000); updateActiveIndices(t); sourceFrame = requestAnimationFrame(sync); };
+  sourceFrame = requestAnimationFrame(sync);
 }
-function sourcePause(t) { t._sourcePlaying = false; }
+function sourcePause(t) { t._sourcePlaying = false; cancelSourceFrame(); }
 function sourceError(t) {
   pauseSource(t);
   t._sourcePlaying = false;
   t._audioErr = '此浏览器无法播放该原始格式；可继续使用时间轴模拟校对。';
 }
-function sourceTime(t, event) { t._previewMs = Math.round(event.target.currentTime * 1000); }
+function sourceTime(t, event) { t._previewMs = Math.round(event.target.currentTime * 1000); updateActiveIndices(t); }
 function sourceReady(t, event) {
   t._audioElement = event.target;
   t._audioDuration = Math.round((Number(event.target.duration) || 0) * 1000);
+  if (Math.abs(event.target.currentTime * 1000 - t._previewMs) > 20) event.target.currentTime = (Number(t._previewMs) || 0) / 1000;
   event.target.volume = Number(t._volume);
   event.target.playbackRate = Number(t._speed);
 }
@@ -442,8 +445,6 @@ function simplifyTrack(t) {
   else t._textDirty = true;
 }
 const formatMs = (ms) => msToTimestamp(ms);
-function isCurrentLine(t, row) { const next = t.rows[t.rows.indexOf(row) + 1]; return t._previewMs >= row.time && (!next || t._previewMs < next.time); }
-function isCurrentWord(t, row, word) { const next = row.words[row.words.indexOf(word) + 1]; return isCurrentLine(t, row) && t._previewMs >= word.time && (!next || t._previewMs < next.time); }
 
 const curTrack = (t) => ({
   order: t.order, title: t.title, inst: t.inst, lines: t.timingLocked ? t.rows.map((r) => r.text).filter(Boolean) : textToLines(t.text),
@@ -484,13 +485,14 @@ function toEdit(album, draft) {
     album,
     _draft: draft,
     meta,
+    _selectedTrack: 0,
     tracks: (draft.tracks || []).map((t) => {
       const { head, rows } = parseLrc(t.lrc);
       const editorRows = parseKaraokeRows(t.lrc, t.klrc).map((r) => ({ ...r, _id: newId(), words: r.words.map((w) => ({ ...w, _id: newId() })) }));
       return {
-        order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
+        _id: newId(), order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
         coverage: t.coverage, audio: t.audio || '', klrc: t.klrc || '',
-        head, rows: editorRows, timingLocked: !!t.timing_locked, _mode: 'edit', _view: rows.length ? 'lrc' : 'text', _playing: false, _speed: 1, _previewMs: 0, _textDirty: false,
+        head, rows: editorRows, timingLocked: !!t.timing_locked, _view: rows.length ? 'lrc' : 'text', _playing: false, _speed: 1, _previewMs: 0, _activeLine: -1, _activeWord: -1, _textDirty: false,
         _audioUrl: '', _audioElement: null, _audioLoading: false, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _volume: 1,
         text: linesToText(t.lines), _orig: t,
       };
@@ -570,6 +572,8 @@ async function load(silent = false) {
       stopPoll();
       done.value = false;
       edits.value = (data.albums || []).filter((a) => a.draft).map((a) => toEdit(a.album, a.draft));
+      await nextTick();
+      for (const edit of edits.value) await selectTrack(edit);
       msgErr.value = false;
       msg.value = edits.value.length ? '' : '该编号下暂无可编辑草稿（可能已入库或被清理）';
     }
@@ -781,6 +785,11 @@ onBeforeUnmount(() => {
   padding: .6rem .7rem;
   margin-bottom: .6rem;
 }
+.eb-track-select { display: flex; align-items: center; gap: .45rem; margin: .45rem 0; font-size: .8rem; }
+.eb-track-select .eb-select { flex: 1; min-width: 0; }
+.eb-workbench { display: grid; grid-template-columns: minmax(15rem, 22rem) minmax(0, 1fr); gap: .75rem; align-items: start; }
+.eb-player-panel { position: sticky; top: .75rem; padding: .65rem; border: 1px solid var(--border-color, #ddd); border-radius: 8px; }
+.eb-editor-panel { min-width: 0; }
 .eb-track.dirty { background: color-mix(in srgb, var(--eb-accent) 5%, transparent); }
 .eb-track.lowcov { border-color: #a371f7; box-shadow: 0 0 0 2px color-mix(in srgb, #a371f7 22%, transparent); }
 .eb-track.lowconf { border-color: #e3a008; box-shadow: 0 0 0 2px color-mix(in srgb, #e3a008 25%, transparent); }
@@ -824,11 +833,6 @@ onBeforeUnmount(() => {
 .eb-player label input { width: 5rem; }
 .eb-hidden-audio { display: none; }
 .eb-simulation { padding: .45rem .55rem; border: 1px dashed var(--border-color, #ddd); border-radius: 7px; }
-.eb-listen-stage { display: grid; gap: .15rem; max-height: 28rem; overflow: auto; padding: .65rem .75rem; border-radius: 8px; background: color-mix(in srgb, var(--eb-accent) 5%, transparent); }
-.eb-listen-line { margin: 0; padding: .45rem .5rem; border-radius: 6px; line-height: 1.8; transition: background .15s, color .15s; }
-.eb-listen-line.active { color: var(--eb-accent); background: color-mix(in srgb, var(--eb-accent) 14%, transparent); font-weight: 600; }
-.eb-listen-words > span { display: inline-block; transition: color .12s, transform .12s; }
-.eb-listen-words > span.active { color: var(--eb-accent); transform: translateY(-1px); text-decoration: underline; }
 .eb-select { background: transparent; color: inherit; border: 1px solid var(--border-color, #ddd); border-radius: 5px; }
 .eb-input.ms { width: 5.4rem; flex: none; font-family: var(--font-family-mono, monospace); }
 .eb-time { display: flex; align-items: center; gap: .2rem; font-size: .7rem; white-space: nowrap; }
@@ -870,6 +874,7 @@ onBeforeUnmount(() => {
   resize: vertical;
 }
 .eb-textarea:focus { outline: none; border-color: var(--eb-accent); }
+@media (max-width: 720px) { .eb-workbench { grid-template-columns: 1fr; gap: .5rem; } .eb-player-panel { position: static; } .eb-track { padding: .5rem; } .eb-player-time { min-width: auto; } .eb-word { flex-wrap: wrap; } }
 
 .eb-pages { margin: .6rem 0; font-size: .82rem; }
 .eb-pages summary { cursor: pointer; opacity: .75; }
