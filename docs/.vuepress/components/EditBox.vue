@@ -144,7 +144,7 @@
               <div v-for="(h, hi) in t.head" :key="hi">{{ h }}</div>
               </div>
               <div v-if="t._view === 'lrc'">
-              <div v-for="(r, li) in t.rows" :key="r._id" class="eb-line-editor" :class="{ active: li === t._activeLine }">
+              <div v-for="(r, li) in t.rows" :key="r._id" :ref="(node) => bindLineNode(t, li, node)" class="eb-line-editor">
               <div class="eb-lrc-row">
                 <label class="eb-time"><input v-model.number="r.time" type="number" min="0" step="10" class="eb-input ms" @change="normalizeRows(t); lockTiming(t)">毫秒</label>
                 <input v-model="r.text" class="eb-input lrc" @input="syncRowText(t, r)" @click="recordCursor(r, $event)" @keyup="recordCursor(r, $event)" @select="recordCursor(r, $event)">
@@ -153,7 +153,7 @@
               <div class="eb-word-timeline" aria-label="逐字时间轨">
                 <div class="eb-time-track">
                   <span class="eb-time-lead" :style="timelineLeadStyle(r)" aria-hidden="true" />
-                  <div v-for="(word, wi) in r.words" :key="word._id" class="eb-time-token" :style="timelineTokenStyle(t, r, li, wi)" :class="{ active: li === t._activeLine && wi === t._activeWord }">
+                  <div v-for="(word, wi) in r.words" :key="word._id" :ref="(node) => bindTokenNode(t, li, wi, node)" class="eb-time-token" :style="timelineTokenStyle(t, r, li, wi)">
                     <span class="eb-time-chars"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" tabindex="0" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, ci, $event)" @keydown="openTimelineMenuFromKey(t, r, wi, ci, $event)">{{ char }}</span></span>
                     <button class="eb-time-marker" :aria-label="`调整 ${word.text} 的时间`" @pointerdown="startTimeDrag(t, r, wi, $event)" @pointermove="moveTimeDrag($event)" @pointerup="finishTimeDrag($event)" @pointercancel="finishTimeDrag($event)" @lostpointercapture="finishTimeDrag($event)" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, 0, $event)" @keydown="nudgeWordTime(t, r, wi, $event)"><span>{{ formatMs(word.time) }}</span></button>
                   </div>
@@ -283,6 +283,7 @@ let pollTimer = null;
 let nextEditorId = 1;
 let dragState = null;
 const playheads = new WeakMap();
+const playbackViews = new WeakMap();
 
 const recentRefs = computed(() => dedupeRecent(cachedRefs.value, pending.value));
 
@@ -349,7 +350,48 @@ function lockTiming(t) { t.timingLocked = true; }
 function addLine(t, index) { const time = Math.max(0, Number(t.rows[index]?.time || 0) + 1000); t.rows.splice(index + 1, 0, { _id: newId(), time, text: '', words: [{ _id: newId(), time, text: '' }] }); syncTrackText(t); lockTiming(t); }
 function removeLine(t, index) { t.rows.splice(index, 1); syncTrackText(t); lockTiming(t); }
 function previewEnd(t) { const row = t.rows[t.rows.length - 1]; const word = row?.words?.[row.words.length - 1]; return Math.max(1000, Number(word?.time || row?.time || 0)) + 1500; }
-function updateActiveIndices(t, ms = t._previewMs) { const line = activeIndexAt(t.rows, ms); const word = activeIndexAt(t.rows[line]?.words || [], ms); if (t._activeLine !== line) t._activeLine = line; if (t._activeWord !== word) t._activeWord = word; }
+function playbackView(t) {
+  let view = playbackViews.get(t);
+  if (!view) { view = { lines: [], tokens: [], activeLine: null, activeToken: null, activeLineIndex: -1, activeWordIndex: -1 }; playbackViews.set(t, view); }
+  return view;
+}
+function bindLineNode(t, index, node) {
+  const view = playbackView(t);
+  view.lines[index] = node || null;
+  if (node && index === view.activeLineIndex) { node.classList.add('active'); view.activeLine = node; }
+}
+function bindTokenNode(t, line, word, node) {
+  const view = playbackView(t);
+  if (!view.tokens[line]) view.tokens[line] = [];
+  view.tokens[line][word] = node || null;
+  if (node && line === view.activeLineIndex && word === view.activeWordIndex) { node.classList.add('active'); view.activeToken = node; }
+}
+function updateActiveIndices(t, ms = playheadMs(t)) {
+  const view = playbackView(t);
+  const line = activeIndexAt(t.rows, ms);
+  const word = activeIndexAt(t.rows[line]?.words || [], ms);
+  const nextLine = line >= 0 ? view.lines[line] : null;
+  const nextToken = word >= 0 ? view.tokens[line]?.[word] : null;
+  if (view.activeLine !== nextLine) {
+    view.activeLine?.classList.remove('active');
+    nextLine?.classList.add('active');
+    view.activeLine = nextLine;
+  }
+  view.activeLineIndex = line;
+  if (view.activeToken !== nextToken) {
+    view.activeToken?.classList.remove('active');
+    nextToken?.classList.add('active');
+    view.activeToken = nextToken;
+  }
+  view.activeWordIndex = word;
+}
+function clearPlaybackView(t) {
+  const view = playbackViews.get(t);
+  if (!view) return;
+  view.activeLine?.classList.remove('active');
+  view.activeToken?.classList.remove('active');
+  playbackViews.delete(t);
+}
 function playheadMs(t) { return playheads.get(t) ?? (Number(t._previewMs) || 0); }
 function bindProgressNode(t, node) { t._progressNode = node || null; updatePlaybackDom(t); }
 function bindPlayerTimeNode(t, node) { t._playerTimeNode = node || null; updatePlaybackDom(t); }
@@ -365,7 +407,7 @@ function releaseAudio(t) {
   if (t._audioAbort) t._audioAbort.abort();
   if (t._audioElement) { t._audioElement.pause(); t._audioElement.src = ''; }
   if (t._audioUrl) URL.revokeObjectURL(t._audioUrl);
-  playheads.delete(t); t._audioElement = null; t._audioUrl = ''; t._audioLoading = false; t._audioAbort = null; t._audioErr = ''; t._audioDuration = 0; t._sourcePlaying = false;
+  playheads.delete(t); clearPlaybackView(t); t._audioElement = null; t._audioUrl = ''; t._audioLoading = false; t._audioAbort = null; t._audioErr = ''; t._audioDuration = 0; t._sourcePlaying = false;
 }
 function bindAudioElement(t, node) { if (node) { t._audioElement = node; node.currentTime = playheadMs(t) / 1000; } else t._audioElement = null; }
 async function loadAudio(t) {
@@ -428,7 +470,7 @@ function sourceError(t) {
   t._sourcePlaying = false;
   t._audioErr = '此音频格式无法播放。';
 }
-function sourceTime(t, event) { setPlayhead(t, Math.round(event.target.currentTime * 1000)); }
+function sourceTime(t, event) { if (!t._sourcePlaying) setPlayhead(t, Math.round(event.target.currentTime * 1000)); }
 function sourceReady(t, event) {
   t._audioElement = event.target;
   t._audioDuration = Math.round((Number(event.target.duration) || 0) * 1000);
@@ -501,7 +543,7 @@ function toEdit(album, draft) {
       return {
         _id: newId(), order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
         coverage: t.coverage, audio: t.audio || '', klrc: t.klrc || '',
-        head, rows: editorRows, timingLocked: !!t.timing_locked, _view: rows.length ? 'lrc' : 'text', _playing: false, _speed: 1, _previewMs: 0, _activeLine: -1, _activeWord: -1, _textDirty: false,
+        head, rows: editorRows, timingLocked: !!t.timing_locked, _view: rows.length ? 'lrc' : 'text', _playing: false, _speed: 1, _previewMs: 0, _textDirty: false,
         _audioUrl: '', _audioElement: null, _audioLoading: false, _audioAbort: null, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _sourceFrame: null, _previewTimer: null, _volume: 1,
         text: linesToText(t.lines), _orig: t,
       };

@@ -44,11 +44,16 @@ test('工作站与上传面板不保留解释性副标题', async () => {
   assert.doesNotMatch(workbench, /凭邀请密码进入工作站/);
 });
 
-test('播放高亮用索引和 requestAnimationFrame 同步，不在模板重复查找对象', async () => {
+test('播放高亮在非响应式 DOM 映射中同步，不触发长歌词父组件重渲染', async () => {
   const source = await component();
   assert.match(source, /requestAnimationFrame\(sync\)/);
   assert.match(source, /cancelAnimationFrame\(t\._sourceFrame\)/);
-  assert.match(source, /li === t\._activeLine && wi === t\._activeWord/);
+  assert.match(source, /bindLineNode\(t, li, node\)/);
+  assert.match(source, /bindTokenNode\(t, li, wi, node\)/);
+  assert.match(source, /const playbackViews = new WeakMap\(\)/);
+  assert.match(source, /nextLine\?\.classList\.add\('active'\)/);
+  assert.match(source, /nextToken\?\.classList\.add\('active'\)/);
+  assert.doesNotMatch(source, /_activeLine|_activeWord/);
   assert.doesNotMatch(source, /rows\.indexOf|words\.indexOf/);
 });
 
@@ -106,6 +111,7 @@ test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
   const simulationLoop = source.match(/function togglePreview\(t\) \{[\s\S]*?\n}\nfunction releaseAllTracks/)?.[0] || '';
   assert.doesNotMatch(sourceLoop, /t\._previewMs\s*=/);
   assert.doesNotMatch(simulationLoop, /t\._previewMs\s*=/);
+  assert.match(source, /function sourceTime\(t, event\) \{ if \(!t\._sourcePlaying\) setPlayhead/);
   assert.doesNotMatch(source, /function normalizeTrackWords|function syncWordText|function addWord|function removeWord/);
   assert.doesNotMatch(source, /flatMap\(\(r\) => \[Number\(r\.time\)/);
 });
