@@ -23,6 +23,7 @@ test('紧凑工作区同时提供认证原音播放器和逐字编辑', async ()
   assert.match(source, /@click="simplifyTrack\(t\)"/);
   assert.match(source, /@click="addLine\(t, li\)"/);
   assert.match(source, /class="eb-word-timeline" aria-label="逐字时间轨"/);
+  assert.match(source, /expandTimedTokens\(words, newId, 100, Number\(parsedRows\[index \+ 1\]\?\.time\)\)/);
   assert.match(source, /@pointerdown="startTimeDrag\(t, r, wi, \$event\)"/);
   assert.doesNotMatch(source, /v-model\.number="word\.time"/);
   assert.doesNotMatch(source, /v-model="word\.text"/);
@@ -72,6 +73,7 @@ test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
   assert.match(source, /timelineMenu && timelineMenu\.rowId === r\._id/);
   assert.match(source, /position: fixed/);
   assert.match(source, /splitRowAtTokenBoundary\(menu\.t\.rows/);
+  assert.match(source, /mergeTimedRows\(menu\.t\.rows, menu\.rowIndex\)/);
   assert.match(source, /closeTimelineMenu/);
   assert.match(source, /setPointerCapture\(event\.pointerId\)/);
   assert.match(source, /@lostpointercapture="finishTimeDrag\(\$event\)"/);

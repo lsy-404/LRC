@@ -129,6 +129,26 @@ export function mergeTimedToken(row, wordIndex) {
   return { ...row, words, text: words.map((item) => item.text).join('') };
 }
 
+export function expandTimedTokens(words, createId = () => undefined, defaultGap = 100, rowEnd = undefined) {
+  const list = words || []; const fallbackGap = Math.max(1, Math.round(Number(defaultGap) || 100));
+  return list.flatMap((word, index) => {
+    const chars = Array.from(String(word?.text || ''));
+    if (chars.length <= 1) return [word];
+    const start = Number(word.time) || 0;
+    const nextStart = Number(list[index + 1]?.time);
+    const end = Number.isFinite(nextStart) && nextStart > start ? nextStart : (Number.isFinite(rowEnd) && Number(rowEnd) > start ? Number(rowEnd) : start + fallbackGap * chars.length);
+    return chars.map((text, charIndex) => ({ ...word, _id: charIndex ? createId() : word._id, time: Math.round(start + (end - start) * (charIndex / chars.length)), text }));
+  });
+}
+
+export function mergeTimedRows(rows, rowIndex) {
+  const list = [...(rows || [])];
+  if (rowIndex <= 0 || !list[rowIndex]) return list;
+  const previous = list[rowIndex - 1]; const current = list[rowIndex];
+  list.splice(rowIndex - 1, 2, { ...previous, words: [...previous.words, ...current.words], text: previous.text + current.text });
+  return list;
+}
+
 export function activeIndexAt(items, ms) {
   let low = 0; let high = (items || []).length - 1; let result = -1;
   while (low <= high) { const mid = (low + high) >> 1; if (Number(items[mid].time) <= ms) { result = mid; low = mid + 1; } else high = mid - 1; }

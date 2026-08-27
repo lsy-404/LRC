@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { activeIndexAt, clampWordTime, mergeTimedToken, moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
+import { activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
 
 test('时间戳支持厘秒和毫秒并稳定往返', () => {
   assert.equal(timestampToMs('01:02.34'), 62340);
@@ -123,4 +123,40 @@ test('活动索引二分查找返回最后一个不晚于播放位置的标签',
   assert.equal(activeIndexAt(items, 99), -1);
   assert.equal(activeIndexAt(items, 250), 1);
   assert.equal(activeIndexAt(items, 999), 2);
+});
+
+test('多字符时间标签展开为每个 code point 的单独且单调时间戳', () => {
+  let id = 10;
+  const single = { _id: 1, time: 100, text: '你' };
+  const expanded = expandTimedTokens([single, { _id: 2, time: 400, text: '好呀' }, { _id: 3, time: 800, text: '😀' }], () => id++);
+  assert.equal(expanded[0], single);
+  assert.deepEqual(expanded.map((word) => word.text), ['你', '好', '呀', '😀']);
+  assert.deepEqual(expanded.map((word) => word.time), [100, 400, 600, 800]);
+  assert.equal(expanded[1]._id, 2);
+  assert.equal(expanded[2]._id, 10);
+  assert.equal(expanded[3]._id, 3);
+});
+
+test('展开末 token 使用行末上界或默认间隔，emoji 不被截断', () => {
+  let id = 20;
+  const bounded = expandTimedTokens([{ _id: 1, time: 500, text: '甲乙丙' }], () => id++, 100, 800);
+  assert.deepEqual(bounded.map((word) => word.time), [500, 600, 700]);
+  const fallback = expandTimedTokens([{ _id: 2, time: 0, text: '😀好' }], () => id++, 75);
+  assert.deepEqual(fallback.map((word) => word.text), ['😀', '好']);
+  assert.deepEqual(fallback.map((word) => word.time), [0, 75]);
+});
+
+test('合并歌词行不改动任何 token 的对象身份或时间', () => {
+  const first = { _id: 11, time: 100, text: '你' };
+  const second = { _id: 12, time: 200, text: '好' };
+  const third = { _id: 13, time: 300, text: '呀' };
+  const rows = [
+    { _id: 1, time: 100, text: '你好', words: [first, second] },
+    { _id: 2, time: 300, text: '呀', words: [third] },
+  ];
+  const merged = mergeTimedRows(rows, 1);
+  assert.equal(merged.length, 1);
+  assert.equal(merged[0].text, '你好呀');
+  assert.deepEqual(merged[0].words, [first, second, third]);
+  assert.deepEqual(merged[0].words.map((word) => word.time), [100, 200, 300]);
 });

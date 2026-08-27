@@ -253,7 +253,7 @@ import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  activeIndexAt, clampWordTime, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
+  activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 
 const META_FIELDS = [
@@ -343,7 +343,7 @@ function closeTimelineMenu() { timelineMenu.value = null; }
 function openTimelineMenu(t, row, wordIndex, charIndex, event) { timelineMenu.value = { t, row, rowId: row._id, wordIndex, charIndex, rowIndex: t.rows.findIndex((item) => item._id === row._id), x: event.clientX, y: event.clientY }; }
 function applyTimelineBoundary() { const menu = timelineMenu.value; if (!menu) return; const next = menu.charIndex ? splitTimedToken(menu.row, menu.wordIndex, menu.charIndex, newId) : mergeTimedToken(menu.row, menu.wordIndex); if (next !== menu.row) { menu.t.rows.splice(menu.rowIndex, 1, next); syncTrackText(menu.t); lockTiming(menu.t); } closeTimelineMenu(); }
 function splitRowAtBoundary() { const menu = timelineMenu.value; if (!menu || (!menu.wordIndex && !menu.charIndex)) return; menu.t.rows = splitRowAtTokenBoundary(menu.t.rows, menu.rowIndex, menu.wordIndex, menu.charIndex, newId); syncTrackText(menu.t); lockTiming(menu.t); closeTimelineMenu(); }
-function mergeRowPrevious() { const menu = timelineMenu.value; if (!menu || menu.rowIndex <= 0) return; const previous = menu.t.rows[menu.rowIndex - 1]; const current = menu.t.rows[menu.rowIndex]; const merged = { ...previous, words: [...previous.words, ...current.words], text: previous.text + current.text }; menu.t.rows.splice(menu.rowIndex - 1, 2, merged); syncTrackText(menu.t); lockTiming(menu.t); closeTimelineMenu(); }
+function mergeRowPrevious() { const menu = timelineMenu.value; if (!menu || menu.rowIndex <= 0) return; menu.t.rows = mergeTimedRows(menu.t.rows, menu.rowIndex); syncTrackText(menu.t); lockTiming(menu.t); closeTimelineMenu(); }
 function clearTimeDrag() { const state = dragState; if (!state) return; dragState = null; if (state.frame) cancelAnimationFrame(state.frame); state.node.style.transform = ''; document.removeEventListener('visibilitychange', state.visibility); if (state.node.hasPointerCapture(state.pointerId)) state.node.releasePointerCapture(state.pointerId); }
 function startTimeDrag(t, row, index, event) { if (event.button !== 0) return; event.preventDefault(); clearTimeDrag(); const node = event.currentTarget; const state = { t, row, index, node, pointerId: event.pointerId, startX: event.clientX, startTime: Number(row.words[index].time), x: event.clientX, frame: null, visibility: null }; state.visibility = () => { if (document.hidden) finishTimeDrag(); }; dragState = state; node.setPointerCapture(event.pointerId); document.addEventListener('visibilitychange', state.visibility); }
 function moveTimeDrag(event) { if (!dragState || event.pointerId !== dragState.pointerId) return; dragState.x = event.clientX; if (!dragState.frame) dragState.frame = requestAnimationFrame(() => { const state = dragState; if (!state) return; const time = boundedWordTime(state.t, state.row, state.index, state.startTime + (state.x - state.startX) * 10); state.node.style.transform = `translateX(${(time - state.startTime) / 10}px)`; state.frame = null; }); }
@@ -495,7 +495,11 @@ function toEdit(album, draft) {
     _selectedTrack: 0,
     tracks: (draft.tracks || []).map((t) => {
       const { head, rows } = parseLrc(t.lrc);
-      const editorRows = parseKaraokeRows(t.lrc, t.klrc).map((r) => ({ ...r, _id: newId(), words: r.words.map((w) => ({ ...w, _id: newId() })) }));
+      const parsedRows = parseKaraokeRows(t.lrc, t.klrc);
+      const editorRows = parsedRows.map((r, index) => {
+        const words = r.words.map((word) => ({ ...word, _id: newId() }));
+        return { ...r, _id: newId(), words: expandTimedTokens(words, newId, 100, Number(parsedRows[index + 1]?.time)) };
+      });
       return {
         _id: newId(), order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
         coverage: t.coverage, audio: t.audio || '', klrc: t.klrc || '',
