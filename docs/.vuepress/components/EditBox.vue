@@ -352,27 +352,31 @@ function togglePreview(t) { if (t._playing) return pausePreview(t); for (const o
 function releaseAllTracks() { for (const track of allTracks()) releaseAudio(track); }
 function releaseAudio(t) {
   cancelSourceFrame(t); pausePreview(t);
+  if (t._audioAbort) t._audioAbort.abort();
   if (t._audioElement) { t._audioElement.pause(); t._audioElement.src = ''; }
   if (t._audioUrl) URL.revokeObjectURL(t._audioUrl);
-  t._audioElement = null; t._audioUrl = ''; t._audioLoading = false; t._audioErr = ''; t._audioDuration = 0; t._sourcePlaying = false;
+  t._audioElement = null; t._audioUrl = ''; t._audioLoading = false; t._audioAbort = null; t._audioErr = ''; t._audioDuration = 0; t._sourcePlaying = false;
 }
 function bindAudioElement(t, node) { if (node) { t._audioElement = node; node.currentTime = (Number(t._previewMs) || 0) / 1000; } else t._audioElement = null; }
 async function loadAudio(t) {
   if (!t.audio || t._audioLoading) return;
   if (t._audioUrl) return;
+  const controller = new AbortController();
+  t._audioAbort = controller;
   t._audioLoading = true; t._audioErr = '';
   try {
     const q = new URLSearchParams({ ref: curRef.value, name: t.audio });
-    const resp = await fetch(`/api/ingest/audio?${q}`, { headers: authHeaders() });
+    const resp = await fetch(`/api/ingest/audio?${q}`, { headers: authHeaders(), signal: controller.signal });
     if (!resp.ok) throw new Error(resp.status === 404 ? '原音已过期或不存在' : '原音读取失败');
-    t._audioUrl = URL.createObjectURL(await resp.blob());
-  } catch (error) { t._audioErr = error.message || '原音读取失败'; }
-  finally { t._audioLoading = false; }
+    const blob = await resp.blob();
+    if (t._audioAbort === controller) t._audioUrl = URL.createObjectURL(blob);
+  } catch (error) { if (error?.name !== 'AbortError') t._audioErr = error.message || '原音读取失败'; }
+  finally { if (t._audioAbort === controller) { t._audioLoading = false; t._audioAbort = null; } }
 }
 function selectedTracks(e) { const track = e.tracks[e._selectedTrack]; return track ? [track] : []; }
 async function selectTrack(e) {
   const current = e.tracks[e._selectedTrack];
-  for (const track of allTracks()) { if (track !== current) releaseAudio(track); else { pauseSource(track); pausePreview(track); } }
+  for (const track of e.tracks) { if (track !== current) releaseAudio(track); else { pauseSource(track); pausePreview(track); } }
   if (current) await loadAudio(current);
 }
 async function retryAudio(t) {
@@ -482,7 +486,7 @@ function toEdit(album, draft) {
         _id: newId(), order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
         coverage: t.coverage, audio: t.audio || '', klrc: t.klrc || '',
         head, rows: editorRows, timingLocked: !!t.timing_locked, _view: rows.length ? 'lrc' : 'text', _playing: false, _speed: 1, _previewMs: 0, _activeLine: -1, _activeWord: -1, _textDirty: false,
-        _audioUrl: '', _audioElement: null, _audioLoading: false, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _sourceFrame: null, _previewTimer: null, _volume: 1,
+        _audioUrl: '', _audioElement: null, _audioLoading: false, _audioAbort: null, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _sourceFrame: null, _previewTimer: null, _volume: 1,
         text: linesToText(t.lines), _orig: t,
       };
     }),

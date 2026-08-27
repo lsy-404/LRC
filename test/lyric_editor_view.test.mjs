@@ -38,10 +38,15 @@ test('多专辑播放状态按曲目扁平管理，资源切换和状态转换�
   const source = await component();
   assert.match(source, /function allTracks\(\) \{ return edits\.value\.flatMap/);
   assert.match(source, /for \(const other of allTracks\(\)\) pausePreview\(other\)/);
-  assert.match(source, /for \(const track of allTracks\(\)\) \{ if \(track !== current\) releaseAudio\(track\)/);
+  assert.match(source, /for \(const track of e\.tracks\) \{ if \(track !== current\) releaseAudio\(track\)/);
+  assert.doesNotMatch(source.match(/async function selectTrack\(e\)[\s\S]*?\n}/)?.[0] || '', /allTracks\(\)/);
   assert.match(source, /t\._previewTimer = setInterval/);
   assert.match(source, /clearInterval\(t\._previewTimer\)/);
   assert.match(source, /releaseAllTracks\(\);\s*edits\.value = \[\]/);
+  assert.match(source, /const controller = new AbortController\(\)/);
+  assert.match(source, /signal: controller\.signal/);
+  assert.match(source, /if \(t\._audioAbort\) t\._audioAbort\.abort\(\)/);
+  assert.match(source, /error\?\.name !== 'AbortError'/);
 });
 
 test('整行编辑保存逐字对象，提供光标拆分与选区移动', async () => {
