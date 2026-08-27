@@ -45,3 +45,24 @@
 .vp-blogger-info {
     display: none !important;
 }
+
+// 投稿流程是工作区而不是文档阅读页，只在对应路由解除主题的阅读宽度约束。
+.theme-container.contribution-workspace {
+    .vp-page {
+        padding-inline: 0;
+    }
+
+    .vp-page-title,
+    .vp-breadcrumb,
+    [vp-content]:not(.custom),
+    .vp-page-meta,
+    .vp-page-nav {
+        max-width: none;
+        margin-inline: 0;
+        padding-inline: clamp(1rem, 3vw, 3rem);
+    }
+
+    [vp-content]:not(.custom) {
+        padding-block: 0 2rem;
+    }
+}
