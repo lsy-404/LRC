@@ -79,6 +79,30 @@ export function alignTimestamps(rows, lines) {
 export const textToLines = (text) => String(text == null ? '' : text).split('\n').filter(nonEmpty);
 export const linesToText = (lines) => (Array.isArray(lines) ? lines : []).join('\n');
 
+export const utf16ToCodePointIndex = (text, offset) => Array.from(String(text || '').slice(0, Math.max(0, Number(offset) || 0))).length;
+
+export function splitTimedRow(rows, index, codePointIndex, createId = () => undefined) {
+  const list = [...(rows || [])]; const row = list[index]; const chars = Array.from(row?.text || '');
+  if (!row || codePointIndex <= 0 || codePointIndex >= chars.length) return list;
+  const words = reconcileWordCharacters(row.words, row.text, createId, row.time);
+  const rightWords = words.slice(codePointIndex); const leftWords = words.slice(0, codePointIndex);
+  list[index] = { ...row, text: chars.slice(0, codePointIndex).join(''), words: leftWords };
+  list.splice(index + 1, 0, { _id: createId(), time: Number(rightWords[0]?.time || row.time + 1000), text: chars.slice(codePointIndex).join(''), words: rightWords });
+  return list;
+}
+
+export function moveTimedSelection(rows, index, start, end, createId = () => undefined) {
+  const list = [...(rows || [])]; const row = list[index];
+  if (!row || end <= start) return list;
+  const words = reconcileWordCharacters(row.words, row.text, createId, row.time);
+  const moved = words.slice(start, end); if (!moved.length) return list;
+  list[index] = { ...row, words: [...words.slice(0, start), ...words.slice(end)], text: [...words.slice(0, start), ...words.slice(end)].map((word) => word.text).join('') };
+  const next = list[index + 1] || { _id: createId(), time: Number(moved[0]?.time || row.time + 1000), text: '', words: [] };
+  const combined = [...moved, ...(next.words || [])].sort((a, b) => Number(a.time) - Number(b.time));
+  list[index + 1] = { ...next, words: combined, text: combined.map((word) => word.text).join('') };
+  return list;
+}
+
 // 把整行文本变动贴回逐字对象：LCS 保留未改字符的原时间与标识，新增字符在相邻锚点间补时。
 export function reconcileWordCharacters(words, text, createId = () => undefined, rowTime = 0) {
   const old = (words || []).flatMap((word) => Array.from(String(word.text || '')).map((char, index) => ({

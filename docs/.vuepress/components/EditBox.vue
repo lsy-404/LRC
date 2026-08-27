@@ -162,7 +162,7 @@
               </div>
               <div class="eb-words">
                 <div v-for="(word, wi) in r.words" :key="word._id" class="eb-word" :class="{ active: li === t._activeLine && wi === t._activeWord }">
-                  <input v-model.number="word.time" type="number" min="0" step="10" class="eb-input ms" @change="lockTiming(t); normalizeWords(r)">
+                  <input v-model.number="word.time" type="number" min="0" step="10" class="eb-input ms" @change="normalizeTrackWords(t, r)">
                   <input v-model="word.text" class="eb-input" @input="syncWordText(t, r)">
                   <button class="eb-btn small" @click="addWord(t, r, wi)">+</button><button class="eb-btn small danger" @click="removeWord(t, r, wi)">−</button>
                 </div>
@@ -249,7 +249,7 @@ import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  parseLrc, parseKaraokeRows, serializeTimedLyrics, textToLines, linesToText, reconcileTimedRows, reconcileWordCharacters, isTrackEdited, isLowCoverage, msToTimestamp,
+  moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, textToLines, linesToText, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 
 const META_FIELDS = [
@@ -289,7 +289,6 @@ const jobInfo = ref(null);
 const retrying = ref(false);
 let pollTimer = null;
 let previewTimer = null;
-let sourceFrame = null;
 let nextEditorId = 1;
 
 const recentRefs = computed(() => dedupeRecent(cachedRefs.value, pending.value));
@@ -330,40 +329,28 @@ const showLowCov = (t) => isLowCoverage(t.coverage);
 const pct = (v) => Math.round((Number(v) || 0) * 100) + '%';
 
 const newId = () => nextEditorId++;
+function syncTrackText(t) { t.text = linesToText(t.rows.map((row) => row.text)); }
 function normalizeWords(row) { row.words.sort((a, b) => Number(a.time) - Number(b.time)); }
-function normalizeRows(t) { t.rows.sort((a, b) => Number(a.time) - Number(b.time)); }
-function syncRowText(t, row) { row.words = reconcileWordCharacters(row.words, row.text, newId, row.time); t._textDirty = true; lockTiming(t); }
-function syncWordText(t, row) { normalizeWords(row); row.text = row.words.map((word) => word.text).join(''); lockTiming(t); }
+function normalizeTrackWords(t, row) { normalizeWords(row); row.text = row.words.map((word) => word.text).join(''); syncTrackText(t); lockTiming(t); }
+function normalizeRows(t) { t.rows.sort((a, b) => Number(a.time) - Number(b.time)); syncTrackText(t); }
+function syncRowText(t, row) { row.words = reconcileWordCharacters(row.words, row.text, newId, row.time); t._textDirty = true; syncTrackText(t); lockTiming(t); }
+function syncWordText(t, row) { normalizeWords(row); row.text = row.words.map((word) => word.text).join(''); syncTrackText(t); lockTiming(t); }
 function applyWholeText(t) { t.rows = reconcileTimedRows(t.rows, t.text, newId); normalizeRows(t); t.timingLocked = true; updateActiveIndices(t); }
-function recordCursor(row, event) { row._selection = { start: event.target.selectionStart || 0, end: event.target.selectionEnd || 0 }; }
-function splitFromCursor(t, row, index) {
-  const cut = row._selection?.start ?? Array.from(row.text).length;
-  const chars = Array.from(row.text); if (cut <= 0 || cut >= chars.length) return;
-  row.words = reconcileWordCharacters(row.words, row.text, newId, row.time);
-  const rightWords = row.words.splice(cut); const right = chars.splice(cut).join(''); row.text = chars.join('');
-  t.rows.splice(index + 1, 0, { _id: newId(), time: Number(rightWords[0]?.time || row.time + 1000), text: right, words: rightWords }); lockTiming(t);
-}
-function moveSelectionToNext(t, row, index) {
-  const start = row._selection?.start ?? 0; const end = row._selection?.end ?? start;
-  if (end <= start) return;
-  row.words = reconcileWordCharacters(row.words, row.text, newId, row.time);
-  const moved = row.words.splice(start, end - start); row.text = row.words.map((word) => word.text).join('');
-  let next = t.rows[index + 1];
-  if (!next) { next = { _id: newId(), time: Number(moved[0]?.time || row.time + 1000), text: '', words: [] }; t.rows.splice(index + 1, 0, next); }
-  next.words.unshift(...moved); normalizeWords(next); next.text = next.words.map((word) => word.text).join(''); lockTiming(t);
-}
+function recordCursor(row, event) { row._selection = { start: utf16ToCodePointIndex(row.text, event.target.selectionStart), end: utf16ToCodePointIndex(row.text, event.target.selectionEnd) }; }
+function splitFromCursor(t, row, index) { t.rows = splitTimedRow(t.rows, index, row._selection?.start ?? Array.from(row.text).length, newId); syncTrackText(t); lockTiming(t); }
+function moveSelectionToNext(t, row, index) { t.rows = moveTimedSelection(t.rows, index, row._selection?.start ?? 0, row._selection?.end ?? 0, newId); syncTrackText(t); lockTiming(t); }
 function lockTiming(t) { t.timingLocked = true; }
-function addLine(t, index) { const time = Math.max(0, Number(t.rows[index]?.time || 0) + 1000); t.rows.splice(index + 1, 0, { _id: newId(), time, text: '', words: [{ _id: newId(), time, text: '' }] }); lockTiming(t); }
-function removeLine(t, index) { t.rows.splice(index, 1); lockTiming(t); }
-function addWord(t, row, index) { const time = Math.max(Number(row.time) || 0, Number(row.words[index]?.time || row.time || 0) + 100); row.words.splice(index + 1, 0, { _id: newId(), time, text: '' }); normalizeWords(row); lockTiming(t); }
-function removeWord(t, row, index) { row.words.splice(index, 1); row.text = row.words.map((word) => word.text).join(''); lockTiming(t); }
+function addLine(t, index) { const time = Math.max(0, Number(t.rows[index]?.time || 0) + 1000); t.rows.splice(index + 1, 0, { _id: newId(), time, text: '', words: [{ _id: newId(), time, text: '' }] }); syncTrackText(t); lockTiming(t); }
+function removeLine(t, index) { t.rows.splice(index, 1); syncTrackText(t); lockTiming(t); }
+function addWord(t, row, index) { const time = Math.max(Number(row.time) || 0, Number(row.words[index]?.time || row.time || 0) + 100); row.words.splice(index + 1, 0, { _id: newId(), time, text: '' }); normalizeWords(row); syncTrackText(t); lockTiming(t); }
+function removeWord(t, row, index) { row.words.splice(index, 1); row.text = row.words.map((word) => word.text).join(''); syncTrackText(t); lockTiming(t); }
 function previewEnd(t) { return Math.max(1000, ...t.rows.flatMap((r) => [Number(r.time) || 0, ...(r.words || []).map((w) => Number(w.time) || 0)])) + 1500; }
 function updateActiveIndices(t) { const ms = t._previewMs; let line = -1; for (let i = 0; i < t.rows.length; i++) if (ms >= t.rows[i].time && (i + 1 === t.rows.length || ms < t.rows[i + 1].time)) { line = i; break; } t._activeLine = line; const words = t.rows[line]?.words || []; let word = -1; for (let i = 0; i < words.length; i++) if (ms >= words[i].time && (i + 1 === words.length || ms < words[i + 1].time)) { word = i; break; } t._activeWord = word; }
-function cancelSourceFrame() { if (sourceFrame) { cancelAnimationFrame(sourceFrame); sourceFrame = null; } }
+function cancelSourceFrame(t) { if (t._sourceFrame) { cancelAnimationFrame(t._sourceFrame); t._sourceFrame = null; } }
 function pausePreview(t) { t._playing = false; if (previewTimer) { clearInterval(previewTimer); previewTimer = null; } }
 function togglePreview(t) { if (t._playing) return pausePreview(t); edits.value.forEach(pausePreview); t._playing = true; let last = Date.now(); previewTimer = setInterval(() => { const now = Date.now(); t._previewMs = Math.min(previewEnd(t), t._previewMs + (now - last) * t._speed); updateActiveIndices(t); last = now; if (t._previewMs >= previewEnd(t)) pausePreview(t); }, 50); }
 function releaseAudio(t) {
-  cancelSourceFrame();
+  cancelSourceFrame(t); pausePreview(t);
   if (t._audioElement) { t._audioElement.pause(); t._audioElement.src = ''; }
   if (t._audioUrl) URL.revokeObjectURL(t._audioUrl);
   t._audioElement = null; t._audioUrl = ''; t._audioLoading = false; t._audioErr = ''; t._audioDuration = 0; t._sourcePlaying = false;
@@ -383,16 +370,16 @@ async function loadAudio(t) {
 }
 function selectedTracks(e) { const track = e.tracks[e._selectedTrack]; return track ? [track] : []; }
 async function selectTrack(e) {
-  for (const track of e.tracks) { pauseSource(track); pausePreview(track); }
-  const track = e.tracks[e._selectedTrack];
-  if (track) await loadAudio(track);
+  const current = e.tracks[e._selectedTrack];
+  for (const track of e.tracks) { if (track !== current) releaseAudio(track); else { pauseSource(track); pausePreview(track); } }
+  if (current) await loadAudio(current);
 }
 async function retryAudio(t) {
   if (t._audioErr && t._audioUrl) releaseAudio(t);
   t._audioErr = '';
   await loadAudio(t);
 }
-function pauseSource(t) { if (t._audioElement) t._audioElement.pause(); t._sourcePlaying = false; cancelSourceFrame(); }
+function pauseSource(t) { if (t._audioElement) t._audioElement.pause(); t._sourcePlaying = false; cancelSourceFrame(t); }
 function sourceEnd(t) { return Math.max(1, Number(t._audioDuration) || previewEnd(t)); }
 function setVolume(t) { if (t._audioElement) t._audioElement.volume = Number(t._volume); }
 function setSourceRate(t) { if (t._audioElement) t._audioElement.playbackRate = Number(t._speed); }
@@ -412,13 +399,13 @@ async function toggleSource(t) {
   try { await audio.play(); } catch { sourceError(t); }
 }
 function sourcePlay(t, event) {
-  cancelSourceFrame();
+  cancelSourceFrame(t);
   edits.value.forEach((other) => { if (other !== t && other._audioElement) other._audioElement.pause(); pausePreview(other); });
   t._audioElement = event.target; t._sourcePlaying = true; pausePreview(t);
-  const sync = () => { if (!t._sourcePlaying || !t._audioElement) return; t._previewMs = Math.round(t._audioElement.currentTime * 1000); updateActiveIndices(t); sourceFrame = requestAnimationFrame(sync); };
-  sourceFrame = requestAnimationFrame(sync);
+  const sync = () => { if (!t._sourcePlaying || !t._audioElement) return; t._previewMs = Math.round(t._audioElement.currentTime * 1000); updateActiveIndices(t); t._sourceFrame = requestAnimationFrame(sync); };
+  t._sourceFrame = requestAnimationFrame(sync);
 }
-function sourcePause(t) { t._sourcePlaying = false; cancelSourceFrame(); }
+function sourcePause(t) { t._sourcePlaying = false; cancelSourceFrame(t); }
 function sourceError(t) {
   pauseSource(t);
   t._sourcePlaying = false;
@@ -440,6 +427,7 @@ function simplifyTrack(t) {
     row.text = toSimplified(row.text);
     for (const word of row.words) word.text = toSimplified(word.text);
   }
+  syncTrackText(t);
   // 保持已有 LRC/KLRC 的时间戳，只把文本改成简体；Phase B 不会重跑 STT。
   if (t.rows.length) lockTiming(t);
   else t._textDirty = true;
@@ -493,7 +481,7 @@ function toEdit(album, draft) {
         _id: newId(), order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
         coverage: t.coverage, audio: t.audio || '', klrc: t.klrc || '',
         head, rows: editorRows, timingLocked: !!t.timing_locked, _view: rows.length ? 'lrc' : 'text', _playing: false, _speed: 1, _previewMs: 0, _activeLine: -1, _activeWord: -1, _textDirty: false,
-        _audioUrl: '', _audioElement: null, _audioLoading: false, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _volume: 1,
+        _audioUrl: '', _audioElement: null, _audioLoading: false, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _sourceFrame: null, _volume: 1,
         text: linesToText(t.lines), _orig: t,
       };
     }),
@@ -571,6 +559,7 @@ async function load(silent = false) {
     } else {
       stopPoll();
       done.value = false;
+      for (const edit of edits.value) for (const track of edit.tracks) releaseAudio(track);
       edits.value = (data.albums || []).filter((a) => a.draft).map((a) => toEdit(a.album, a.draft));
       await nextTick();
       for (const edit of edits.value) await selectTrack(edit);

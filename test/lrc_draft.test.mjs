@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, timestampToMs } from '../docs/.vuepress/components/lrcDraft.js';
+import { moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
 
 test('时间戳支持厘秒和毫秒并稳定往返', () => {
   assert.equal(timestampToMs('01:02.34'), 62340);
@@ -49,4 +49,24 @@ test('整段文本插行或改单行仍保留其余行和未改字的时间标�
   assert.equal(result[1].words[1]._id, 22);
   assert.equal(result[2].text, '再见');
   assert.ok(result[2].time > 500);
+});
+
+test('emoji 光标按 code point 拆分，不截断代理对', () => {
+  let id = 10;
+  const rows = [{ _id: 1, time: 100, text: 'a😀b', words: [{ _id: 2, time: 100, text: 'a' }, { _id: 3, time: 200, text: '😀' }, { _id: 4, time: 300, text: 'b' }] }];
+  const split = splitTimedRow(rows, 0, utf16ToCodePointIndex('a😀b', 3), () => id++);
+  assert.deepEqual(split.map((row) => row.text), ['a😀', 'b']);
+});
+
+test('选中 emoji 跨句只搬该字符且保留逐字时间标识', () => {
+  let id = 20;
+  const rows = [
+    { _id: 1, time: 100, text: 'a😀b', words: [{ _id: 2, time: 100, text: 'a' }, { _id: 3, time: 200, text: '😀' }, { _id: 4, time: 300, text: 'b' }] },
+    { _id: 5, time: 400, text: 'c', words: [{ _id: 6, time: 400, text: 'c' }] },
+  ];
+  const moved = moveTimedSelection(rows, 0, 1, 2, () => id++);
+  assert.equal(moved[0].text, 'ab');
+  assert.equal(moved[1].text, '😀c');
+  assert.equal(moved[1].words[0]._id, 3);
+  assert.equal(moved[1].words[0].time, 200);
 });
