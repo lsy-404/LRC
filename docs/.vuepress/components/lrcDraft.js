@@ -103,10 +103,11 @@ export function moveTimedSelection(rows, index, start, end, createId = () => und
   return list;
 }
 
-export function clampWordTime(words, index, time, minimumGap = 10) {
+export function clampWordTime(words, index, time, minimumGap = 10, minimum = 0, maximum = Number.POSITIVE_INFINITY) {
   const list = words || []; const before = list[index - 1]; const after = list[index + 1];
-  const low = before ? Number(before.time) + minimumGap : 0;
-  const high = after ? Number(after.time) - minimumGap : Number.POSITIVE_INFINITY;
+  const low = Math.max(Number(minimum) || 0, before ? Number(before.time) + minimumGap : 0);
+  const high = Math.min(Number.isFinite(maximum) ? maximum : Number.POSITIVE_INFINITY, after ? Number(after.time) - minimumGap : Number.POSITIVE_INFINITY);
+  if (high < low) return Math.round(Number(list[index]?.time) || 0);
   return Math.max(low, Math.min(high, Math.round(Number(time) || 0)));
 }
 
@@ -126,6 +127,24 @@ export function mergeTimedToken(row, wordIndex) {
   const previous = words[wordIndex - 1]; const current = words[wordIndex];
   words.splice(wordIndex - 1, 2, { ...previous, text: previous.text + current.text });
   return { ...row, words, text: words.map((item) => item.text).join('') };
+}
+
+export function activeIndexAt(items, ms) {
+  let low = 0; let high = (items || []).length - 1; let result = -1;
+  while (low <= high) { const mid = (low + high) >> 1; if (Number(items[mid].time) <= ms) { result = mid; low = mid + 1; } else high = mid - 1; }
+  return result;
+}
+
+export function splitRowAtTokenBoundary(rows, rowIndex, wordIndex, charIndex, createId = () => undefined) {
+  const list = [...rows]; const row = list[rowIndex]; if (!row) return list;
+  if (wordIndex === 0 && charIndex === 0) return list;
+  const left = row.words.slice(0, wordIndex); const target = row.words[wordIndex]; const right = row.words.slice(wordIndex + 1);
+  if (target && charIndex > 0 && charIndex < Array.from(target.text).length) { const split = splitTimedToken(row, wordIndex, charIndex, createId); left.push(split.words[wordIndex]); right.unshift(split.words[wordIndex + 1]); }
+  else if (target) right.unshift(target);
+  if (!right.length) return list;
+  list[rowIndex] = { ...row, words: left, text: left.map((word) => word.text).join('') };
+  list.splice(rowIndex + 1, 0, { _id: createId(), time: Number(right[0].time), words: right, text: right.map((word) => word.text).join('') });
+  return list;
 }
 
 // 把整行文本变动贴回逐字对象：LCS 保留未改字符的原时间与标识，新增字符在相邻锚点间补时。

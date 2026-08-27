@@ -122,7 +122,7 @@
                 <input class="eb-player-progress" :value="t._previewMs" type="range" min="0" :max="sourceEnd(t)" @input="seekSource(t, $event)">
                 <span class="eb-player-time">{{ formatMs(t._previewMs) }} / {{ formatMs(t._audioDuration) }}</span>
                 <label>音量 <input v-model.number="t._volume" type="range" min="0" max="1" step="0.05" @input="setVolume(t)"></label>
-                <label>速度 <select v-model.number="t._speed" class="eb-select" @change="setSourceRate(t)"><option :value="0.1">0.1×</option><option :value="0.25">0.25×</option><option :value="0.5">0.5×</option><option :value="1">1×</option><option :value="1.5">1.5×</option><option :value="2">2×</option></select></label>
+                <label>速度 <select v-model.number="t._speed" class="eb-select" @change="setSourceRate(t)"><option v-for="rate in PLAYBACK_RATES" :key="rate" :value="rate">{{ rate }}×</option></select></label>
               </div>
               <button v-else class="eb-btn small" @click="retryAudio(t)">重试原音</button>
               <span v-if="t._audioErr" class="eb-msg inline err">{{ t._audioErr }}</span>
@@ -131,7 +131,7 @@
               <div v-if="(!t._audioUrl && !t._audioLoading) || t._audioErr" class="eb-preview eb-simulation">
               <span class="eb-dim">时间轴模拟</span>
               <button class="eb-btn small" @click="togglePreview(t)">{{ t._playing ? '暂停模拟' : '播放模拟' }}</button>
-              <label>速度 <select v-model.number="t._speed" class="eb-select"><option :value="0.1">0.1×</option><option :value="0.25">0.25×</option><option :value="0.5">0.5×</option><option :value="1">1×</option><option :value="1.5">1.5×</option><option :value="2">2×</option></select></label>
+              <label>速度 <select v-model.number="t._speed" class="eb-select"><option v-for="rate in PLAYBACK_RATES" :key="rate" :value="rate">{{ rate }}×</option></select></label>
               <input v-model.number="t._previewMs" type="range" min="0" :max="previewEnd(t)" @input="pausePreview(t)">
               <span>{{ formatMs(t._previewMs) }}</span>
               </div>
@@ -162,13 +162,13 @@
               </div>
               <div class="eb-word-timeline" aria-label="逐字时间轨">
                 <div v-for="(word, wi) in r.words" :key="word._id" class="eb-time-token" :class="{ active: li === t._activeLine && wi === t._activeWord }">
-                  <button class="eb-time-marker" :aria-label="`调整 ${word.text} 的时间`" @pointerdown="startTimeDrag(t, r, wi, $event)" @keydown="nudgeWordTime(t, r, wi, $event)"><span>{{ formatMs(word.time) }}</span></button>
-                  <span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, ci)">{{ char }}</span>
+                  <button class="eb-time-marker" :aria-label="`调整 ${word.text} 的时间`" @pointerdown="startTimeDrag(t, r, wi, $event)" @pointermove="moveTimeDrag($event)" @pointerup="finishTimeDrag($event)" @pointercancel="finishTimeDrag($event)" @lostpointercapture="finishTimeDrag($event)" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, 0, $event)" @keydown="nudgeWordTime(t, r, wi, $event)"><span>{{ formatMs(word.time) }}</span></button>
+                  <span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, ci, $event)">{{ char }}</span>
                 </div>
               </div>
-              <div v-if="timelineMenu" class="eb-timeline-menu" role="menu" @keydown.esc="closeTimelineMenu">
-                <button class="eb-btn small" @click.stop="applyTimelineBoundary">{{ timelineMenu.charIndex ? '在此新增时间标签' : '与前字合并标签' }}</button>
-                <button class="eb-btn small" @click.stop="splitRowAtBoundary">从此处拆成下一句</button>
+              <div v-if="timelineMenu && timelineMenu.rowId === r._id" class="eb-timeline-menu" role="menu" :style="{ left: `${timelineMenu.x}px`, top: `${timelineMenu.y}px` }" @keydown.esc="closeTimelineMenu">
+                <button v-if="timelineMenu.charIndex || timelineMenu.wordIndex" class="eb-btn small" @click.stop="applyTimelineBoundary">{{ timelineMenu.charIndex ? '在此新增时间标签' : '与前字合并标签' }}</button>
+                <button class="eb-btn small" :disabled="!timelineMenu.charIndex && !timelineMenu.wordIndex" @click.stop="splitRowAtBoundary">从此处拆成下一句</button>
                 <button v-if="timelineMenu.rowIndex > 0" class="eb-btn small" @click.stop="mergeRowPrevious">与上一句合并</button>
               </div>
             </div>
@@ -253,7 +253,7 @@ import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  clampWordTime, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, splitTimedToken, textToLines, linesToText, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
+  activeIndexAt, clampWordTime, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 
 const META_FIELDS = [
@@ -277,6 +277,7 @@ const META_FIELDS = [
 // 验证在工作站根层（Workbench）统一完成，密码经 prop 传入
 const props = defineProps({ password: { type: String, default: '' } });
 const toSimplified = OpenCC.Converter({ from: 't', to: 'cn' });
+const PLAYBACK_RATES = [0.1, 0.25, 0.5, 1, 1.5, 2];
 
 const cachedRefs = ref([]);
 const pending = ref([]);
@@ -335,20 +336,20 @@ const pct = (v) => Math.round((Number(v) || 0) * 100) + '%';
 
 const newId = () => nextEditorId++;
 function syncTrackText(t) { t.text = linesToText(t.rows.map((row) => row.text)); }
-function normalizeWords(row) { row.words.sort((a, b) => Number(a.time) - Number(b.time)); }
-function normalizeTrackWords(t, row) { normalizeWords(row); row.text = row.words.map((word) => word.text).join(''); syncTrackText(t); lockTiming(t); }
-function setWordTime(t, row, index, time) { row.words[index].time = clampWordTime(row.words, index, time); updateActiveIndices(t, t._previewMs); lockTiming(t); }
+function boundedWordTime(t, row, index, time) { const rowIndex = t.rows.findIndex((item) => item._id === row._id); const nextRow = t.rows[rowIndex + 1]; return clampWordTime(row.words, index, time, 10, row.time, index === row.words.length - 1 && nextRow ? Number(nextRow.time) - 10 : Number.POSITIVE_INFINITY); }
+function setWordTime(t, row, index, time) { row.words[index].time = boundedWordTime(t, row, index, time); updateActiveIndices(t, t._previewMs); lockTiming(t); }
 function nudgeWordTime(t, row, index, event) { if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return; event.preventDefault(); setWordTime(t, row, index, Number(row.words[index].time) + (event.key === 'ArrowLeft' ? -10 : 10)); }
 function closeTimelineMenu() { timelineMenu.value = null; }
-function openTimelineMenu(t, row, wordIndex, charIndex) { timelineMenu.value = { t, row, wordIndex, charIndex, rowIndex: t.rows.findIndex((item) => item._id === row._id) }; }
+function openTimelineMenu(t, row, wordIndex, charIndex, event) { timelineMenu.value = { t, row, rowId: row._id, wordIndex, charIndex, rowIndex: t.rows.findIndex((item) => item._id === row._id), x: event.clientX, y: event.clientY }; }
 function applyTimelineBoundary() { const menu = timelineMenu.value; if (!menu) return; const next = menu.charIndex ? splitTimedToken(menu.row, menu.wordIndex, menu.charIndex, newId) : mergeTimedToken(menu.row, menu.wordIndex); if (next !== menu.row) { menu.t.rows.splice(menu.rowIndex, 1, next); syncTrackText(menu.t); lockTiming(menu.t); } closeTimelineMenu(); }
-function splitRowAtBoundary() { const menu = timelineMenu.value; if (!menu) return; const charsBefore = menu.row.words.slice(0, menu.wordIndex).reduce((n, word) => n + Array.from(word.text).length, 0) + menu.charIndex; menu.t.rows = splitTimedRow(menu.t.rows, menu.rowIndex, charsBefore, newId); syncTrackText(menu.t); lockTiming(menu.t); closeTimelineMenu(); }
+function splitRowAtBoundary() { const menu = timelineMenu.value; if (!menu || (!menu.wordIndex && !menu.charIndex)) return; menu.t.rows = splitRowAtTokenBoundary(menu.t.rows, menu.rowIndex, menu.wordIndex, menu.charIndex, newId); syncTrackText(menu.t); lockTiming(menu.t); closeTimelineMenu(); }
 function mergeRowPrevious() { const menu = timelineMenu.value; if (!menu || menu.rowIndex <= 0) return; const previous = menu.t.rows[menu.rowIndex - 1]; const current = menu.t.rows[menu.rowIndex]; const merged = { ...previous, words: [...previous.words, ...current.words], text: previous.text + current.text }; menu.t.rows.splice(menu.rowIndex - 1, 2, merged); syncTrackText(menu.t); lockTiming(menu.t); closeTimelineMenu(); }
-function clearTimeDrag() { if (!dragState) return; window.removeEventListener('pointermove', dragState.move); window.removeEventListener('pointerup', dragState.end); window.removeEventListener('pointercancel', dragState.end); dragState = null; }
-function startTimeDrag(t, row, index, event) { if (event.button !== 0) return; event.preventDefault(); clearTimeDrag(); const startX = event.clientX; const startTime = Number(row.words[index].time); const move = (next) => setWordTime(t, row, index, startTime + (next.clientX - startX) * 10); const end = () => clearTimeDrag(); dragState = { move, end }; window.addEventListener('pointermove', move); window.addEventListener('pointerup', end); window.addEventListener('pointercancel', end); }
+function clearTimeDrag() { const state = dragState; if (!state) return; dragState = null; if (state.frame) cancelAnimationFrame(state.frame); state.node.style.transform = ''; document.removeEventListener('visibilitychange', state.visibility); if (state.node.hasPointerCapture(state.pointerId)) state.node.releasePointerCapture(state.pointerId); }
+function startTimeDrag(t, row, index, event) { if (event.button !== 0) return; event.preventDefault(); clearTimeDrag(); const node = event.currentTarget; const state = { t, row, index, node, pointerId: event.pointerId, startX: event.clientX, startTime: Number(row.words[index].time), x: event.clientX, frame: null, visibility: null }; state.visibility = () => { if (document.hidden) finishTimeDrag(); }; dragState = state; node.setPointerCapture(event.pointerId); document.addEventListener('visibilitychange', state.visibility); }
+function moveTimeDrag(event) { if (!dragState || event.pointerId !== dragState.pointerId) return; dragState.x = event.clientX; if (!dragState.frame) dragState.frame = requestAnimationFrame(() => { const state = dragState; if (!state) return; const time = boundedWordTime(state.t, state.row, state.index, state.startTime + (state.x - state.startX) * 10); state.node.style.transform = `translateX(${(time - state.startTime) / 10}px)`; state.frame = null; }); }
+function finishTimeDrag(event) { if (!dragState || (event?.pointerId != null && event.pointerId !== dragState.pointerId)) return; if (event?.clientX != null) dragState.x = event.clientX; const state = dragState; setWordTime(state.t, state.row, state.index, state.startTime + (state.x - state.startX) * 10); clearTimeDrag(); }
 function normalizeRows(t) { t.rows.sort((a, b) => Number(a.time) - Number(b.time)); syncTrackText(t); }
 function syncRowText(t, row) { row.words = reconcileWordCharacters(row.words, row.text, newId, row.time); t._textDirty = true; syncTrackText(t); lockTiming(t); }
-function syncWordText(t, row) { normalizeWords(row); row.text = row.words.map((word) => word.text).join(''); syncTrackText(t); lockTiming(t); }
 function applyWholeText(t) { t.rows = reconcileTimedRows(t.rows, t.text, newId); normalizeRows(t); t.timingLocked = true; updateActiveIndices(t); }
 function recordCursor(row, event) { row._selection = { start: utf16ToCodePointIndex(row.text, event.target.selectionStart), end: utf16ToCodePointIndex(row.text, event.target.selectionEnd) }; }
 function splitFromCursor(t, row, index) { t.rows = splitTimedRow(t.rows, index, row._selection?.start ?? Array.from(row.text).length, newId); syncTrackText(t); lockTiming(t); }
@@ -356,14 +357,12 @@ function moveSelectionToNext(t, row, index) { t.rows = moveTimedSelection(t.rows
 function lockTiming(t) { t.timingLocked = true; }
 function addLine(t, index) { const time = Math.max(0, Number(t.rows[index]?.time || 0) + 1000); t.rows.splice(index + 1, 0, { _id: newId(), time, text: '', words: [{ _id: newId(), time, text: '' }] }); syncTrackText(t); lockTiming(t); }
 function removeLine(t, index) { t.rows.splice(index, 1); syncTrackText(t); lockTiming(t); }
-function addWord(t, row, index) { const time = Math.max(Number(row.time) || 0, Number(row.words[index]?.time || row.time || 0) + 100); row.words.splice(index + 1, 0, { _id: newId(), time, text: '' }); normalizeWords(row); syncTrackText(t); lockTiming(t); }
-function removeWord(t, row, index) { row.words.splice(index, 1); row.text = row.words.map((word) => word.text).join(''); syncTrackText(t); lockTiming(t); }
 function previewEnd(t) { const row = t.rows[t.rows.length - 1]; const word = row?.words?.[row.words.length - 1]; return Math.max(1000, Number(word?.time || row?.time || 0)) + 1500; }
-function updateActiveIndices(t, ms = t._previewMs) { let line = -1; for (let i = 0; i < t.rows.length; i++) if (ms >= t.rows[i].time && (i + 1 === t.rows.length || ms < t.rows[i + 1].time)) { line = i; break; } const words = t.rows[line]?.words || []; let word = -1; for (let i = 0; i < words.length; i++) if (ms >= words[i].time && (i + 1 === words.length || ms < words[i + 1].time)) { word = i; break; } if (t._activeLine !== line) t._activeLine = line; if (t._activeWord !== word) t._activeWord = word; }
+function updateActiveIndices(t, ms = t._previewMs) { const line = activeIndexAt(t.rows, ms); const word = activeIndexAt(t.rows[line]?.words || [], ms); if (t._activeLine !== line) t._activeLine = line; if (t._activeWord !== word) t._activeWord = word; }
 function cancelSourceFrame(t) { if (t._sourceFrame) { cancelAnimationFrame(t._sourceFrame); t._sourceFrame = null; } }
 function allTracks() { return edits.value.flatMap((edit) => edit.tracks); }
 function pausePreview(t) { t._playing = false; if (t._previewTimer) { clearInterval(t._previewTimer); t._previewTimer = null; } }
-function togglePreview(t) { if (t._playing) return pausePreview(t); for (const other of allTracks()) pausePreview(other); t._playing = true; let last = Date.now(); t._previewTimer = setInterval(() => { const now = Date.now(); t._previewMs = Math.min(previewEnd(t), t._previewMs + (now - last) * t._speed); updateActiveIndices(t); last = now; if (t._previewMs >= previewEnd(t)) pausePreview(t); }, 50); }
+function togglePreview(t) { if (t._playing) return pausePreview(t); for (const other of allTracks()) pausePreview(other); t._playing = true; let last = Date.now(); t._previewTimer = setInterval(() => { const now = Date.now(); t._previewMs = Math.min(previewEnd(t), t._previewMs + (now - last) * t._speed); updateActiveIndices(t); last = now; if (t._previewMs >= previewEnd(t)) pausePreview(t); }, 100); }
 function releaseAllTracks() { for (const track of allTracks()) releaseAudio(track); }
 function releaseAudio(t) {
   cancelSourceFrame(t); pausePreview(t);
@@ -422,7 +421,7 @@ function sourcePlay(t, event) {
   cancelSourceFrame(t);
   for (const other of allTracks()) { if (other !== t && other._audioElement) other._audioElement.pause(); pausePreview(other); }
   t._audioElement = event.target; t._sourcePlaying = true; pausePreview(t);
-  let lastUi = 0; const sync = (now) => { if (!t._sourcePlaying || !t._audioElement) return; const ms = Math.round(t._audioElement.currentTime * 1000); updateActiveIndices(t, ms); if (now - lastUi >= 50) { t._previewMs = ms; lastUi = now; } t._sourceFrame = requestAnimationFrame(sync); };
+  let lastUi = 0; const sync = (now) => { if (!t._sourcePlaying || !t._audioElement) return; const ms = Math.round(t._audioElement.currentTime * 1000); updateActiveIndices(t, ms); if (now - lastUi >= 100) { t._previewMs = ms; lastUi = now; } t._sourceFrame = requestAnimationFrame(sync); };
   t._sourceFrame = requestAnimationFrame(sync);
 }
 function sourcePause(t) { t._sourcePlaying = false; cancelSourceFrame(t); }
@@ -851,15 +850,12 @@ onBeforeUnmount(() => {
 .eb-select { background: transparent; color: inherit; border: 1px solid var(--border-color, #ddd); border-radius: 5px; }
 .eb-input.ms { width: 5.4rem; flex: none; font-family: var(--font-family-mono, monospace); }
 .eb-time { display: flex; align-items: center; gap: .2rem; font-size: .7rem; white-space: nowrap; }
-.eb-words { margin-left: 1.1rem; display: grid; gap: .25rem; }
-.eb-word { display: flex; gap: .35rem; align-items: center; }
-.eb-word.active { background: color-mix(in srgb, var(--eb-accent) 16%, transparent); }
 .eb-word-timeline { display: flex; overflow-x: auto; gap: .1rem; padding: .4rem .2rem; contain: layout paint; border-top: 1px solid var(--border-color, #ddd); }
 .eb-time-token { display: inline-flex; align-items: center; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
 .eb-time-token.active { background: color-mix(in srgb, var(--eb-accent) 12%, transparent); }
 .eb-time-marker { writing-mode: vertical-rl; padding: .15rem; border: 0; border-radius: 3px; background: transparent; color: var(--eb-accent); cursor: ew-resize; font-size: .62rem; }
 .eb-time-char { min-width: .8em; padding: .12rem .04rem; border-right: 1px dotted color-mix(in srgb, var(--border-color, #ddd) 75%, transparent); cursor: context-menu; }
-.eb-timeline-menu { display: flex; gap: .35rem; flex-wrap: wrap; padding: .35rem; border: 1px solid var(--border-color, #ddd); border-radius: 6px; background: var(--bg-color, #fff); }
+.eb-timeline-menu { position: fixed; z-index: 4; display: flex; gap: .35rem; flex-wrap: wrap; max-width: min(22rem, calc(100vw - 1rem)); padding: .35rem; border: 1px solid var(--border-color, #ddd); border-radius: 6px; background: var(--bg-color, #fff); box-shadow: 0 .25rem .8rem rgb(0 0 0 / 15%); }
 .eb-line-editor:not(.active) { content-visibility: auto; contain-intrinsic-size: auto 6rem; }
 .eb-ts {
   font-family: var(--font-family-mono, monospace);
@@ -896,7 +892,7 @@ onBeforeUnmount(() => {
   resize: vertical;
 }
 .eb-textarea:focus { outline: none; border-color: var(--eb-accent); }
-@media (max-width: 720px) { .eb-workbench { grid-template-columns: 1fr; gap: .5rem; } .eb-player-panel { position: static; } .eb-track { padding: .5rem; } .eb-player-time { min-width: auto; } .eb-word { flex-wrap: wrap; } }
+@media (max-width: 720px) { .eb-workbench { grid-template-columns: 1fr; gap: .5rem; } .eb-player-panel { position: static; } .eb-track { padding: .5rem; } .eb-player-time { min-width: auto; } }
 
 .eb-pages { margin: .6rem 0; font-size: .82rem; }
 .eb-pages summary { cursor: pointer; opacity: .75; }

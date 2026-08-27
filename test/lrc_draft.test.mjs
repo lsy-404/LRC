@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { clampWordTime, mergeTimedToken, moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, splitTimedToken, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
+import { activeIndexAt, clampWordTime, mergeTimedToken, moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
 
 test('时间戳支持厘秒和毫秒并稳定往返', () => {
   assert.equal(timestampToMs('01:02.34'), 62340);
@@ -90,4 +90,37 @@ test('拖动时间不会越过相邻标签，emoji token 不截断', () => {
   assert.equal(clampWordTime(words, 1, 0, 10), 110);
   const split = splitTimedToken({ text: '😀好', words: [{ _id: 1, time: 100, text: '😀好' }] }, 0, 1, () => 2);
   assert.deepEqual(split.words.map((word) => word.text), ['😀', '好']);
+});
+
+test('过密标签的拖动保持原时间，行和下一行界限也生效', () => {
+  const tight = [{ time: 100, text: '甲' }, { time: 102, text: '乙' }, { time: 105, text: '丙' }];
+  assert.equal(clampWordTime(tight, 1, 999, 10), 102);
+  const words = [{ time: 120, text: '甲' }, { time: 200, text: '乙' }];
+  assert.equal(clampWordTime(words, 0, 0, 10, 110, 190), 110);
+  assert.equal(clampWordTime(words, 1, 999, 10, 110, 180), 180);
+});
+
+test('按 token 字符边界拆行只移动目标边界后的对象', () => {
+  let id = 10;
+  const first = { _id: 1, time: 100, text: '你好' };
+  const second = { _id: 2, time: 300, text: '呀' };
+  const rows = [{ _id: 9, time: 100, text: '你好呀', words: [first, second] }];
+  const split = splitRowAtTokenBoundary(rows, 0, 1, 0, () => id++);
+  assert.equal(split[0].words[0], first);
+  assert.equal(split[1].words[0], second);
+  assert.equal(split[1].words[0]._id, 2);
+  const inside = splitRowAtTokenBoundary([{ _id: 9, time: 100, text: '你好呀', words: [first, second] }], 0, 0, 1, () => id++);
+  assert.equal(inside[0].words[0]._id, 1);
+  assert.equal(inside[1].words[1], second);
+  assert.deepEqual(inside.map((row) => row.text), ['你', '好呀']);
+  const unchanged = splitRowAtTokenBoundary(rows, 0, 0, 0, () => id++);
+  assert.equal(unchanged.length, 1);
+  assert.equal(unchanged[0], rows[0]);
+});
+
+test('活动索引二分查找返回最后一个不晚于播放位置的标签', () => {
+  const items = [{ time: 100 }, { time: 250 }, { time: 400 }];
+  assert.equal(activeIndexAt(items, 99), -1);
+  assert.equal(activeIndexAt(items, 250), 1);
+  assert.equal(activeIndexAt(items, 999), 2);
 });

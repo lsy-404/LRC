@@ -65,12 +65,21 @@ test('整行编辑保存逐字对象，提供光标拆分与选区移动', async
 
 test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
   const source = await component();
-  assert.match(source, /:value="0\.1">0\.1×/);
-  assert.match(source, /:value="0\.25">0\.25×/);
+  assert.match(source, /const PLAYBACK_RATES = \[0\.1, 0\.25, 0\.5, 1, 1\.5, 2\]/);
+  assert.match(source, /v-for="rate in PLAYBACK_RATES"/);
   assert.match(source, /contextmenu\.prevent\.stop="openTimelineMenu/);
+  assert.match(source, /@contextmenu\.prevent\.stop="openTimelineMenu\(t, r, wi, 0, \$event\)"/);
+  assert.match(source, /timelineMenu && timelineMenu\.rowId === r\._id/);
+  assert.match(source, /position: fixed/);
+  assert.match(source, /splitRowAtTokenBoundary\(menu\.t\.rows/);
   assert.match(source, /closeTimelineMenu/);
-  assert.match(source, /window\.addEventListener\('pointercancel', end\)/);
+  assert.match(source, /setPointerCapture\(event\.pointerId\)/);
+  assert.match(source, /@lostpointercapture="finishTimeDrag\(\$event\)"/);
+  assert.match(source, /document\.addEventListener\('visibilitychange'/);
   assert.match(source, /clearTimeDrag\(\)/);
-  assert.match(source, /now - lastUi >= 50/);
+  assert.match(source, /activeIndexAt\(t\.rows, ms\)/);
+  assert.match(source, /now - lastUi >= 100/);
+  assert.match(source, /setInterval\([\s\S]*?\}, 100\)/);
+  assert.doesNotMatch(source, /function normalizeTrackWords|function syncWordText|function addWord|function removeWord/);
   assert.doesNotMatch(source, /flatMap\(\(r\) => \[Number\(r\.time\)/);
 });
