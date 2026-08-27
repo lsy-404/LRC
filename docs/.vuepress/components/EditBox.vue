@@ -86,8 +86,11 @@
           :class="{ lowconf: isLowConf(t), lowcov: showLowCov(t), dirty: isDirty(t) }"
         >
           <div class="eb-track-head">
-            <input v-model.number="t.order" type="number" class="eb-input tiny" title="序号">
-            <input v-model="t.title" class="eb-input grow" placeholder="曲名">
+            <template v-if="t._mode === 'edit'">
+              <input v-model.number="t.order" type="number" class="eb-input tiny" title="序号">
+              <input v-model="t.title" class="eb-input grow" placeholder="曲名">
+            </template>
+            <strong v-else class="eb-track-title">{{ String(t.order).padStart(2, '0') }} · {{ t.title || '未命名曲目' }}</strong>
             <span v-if="isLowConf(t)" class="eb-tag conf" title="视觉分轨的识别置信度低，请重点核对曲名与归属">
               识别低置信 {{ pct(t.confidence) }}
             </span>
@@ -97,7 +100,8 @@
             <span v-if="isDirty(t)" class="eb-tag edit" title="确认后 Phase B 会对该轨重新对齐">
               已修改 · 待重对齐
             </span>
-            <label class="eb-inst"><input v-model="t.inst" type="checkbox"> 伴奏/无人声</label>
+            <label v-if="t._mode === 'edit'" class="eb-inst"><input v-model="t.inst" type="checkbox"> 伴奏/无人声</label>
+            <span v-else-if="t.inst" class="eb-dim">伴奏/无人声</span>
           </div>
 
           <div class="eb-track-bar">
@@ -105,22 +109,22 @@
             <span class="eb-spacer" />
             <button
               class="eb-btn small"
-              :class="{ on: t._view === 'lrc' }"
-              @click="t._view = 'lrc'"
-            >时间轴</button>
+              :class="{ on: t._mode === 'edit' }"
+              @click="t._mode = 'edit'"
+            >编辑歌词</button>
             <button
               class="eb-btn small"
-              :class="{ on: t._view === 'text' }"
-              @click="t._view = 'text'"
-            >整段文本</button>
-            <button class="eb-btn small" @click="simplifyTrack(t)">转为简体</button>
+              :class="{ on: t._mode === 'listen' }"
+              @click="t._mode = 'listen'"
+            >听歌校对</button>
+            <button v-if="t._mode === 'edit'" class="eb-btn small" @click="simplifyTrack(t)">转为简体</button>
           </div>
 
-          <div v-if="t._view === 'lrc'" class="eb-lrc">
-            <p class="eb-note">原音试听只在审核期从受密码保护的原料区读取，生命周期到期后不可用；未加载原音时可用时间轴模拟。</p>
+          <div v-if="t._mode === 'listen'" class="eb-listen" aria-label="听歌校对">
+            <p class="eb-note">原音只在审核期从受密码保护的原料区读取；不会公开原始文件。</p>
             <div v-if="t.audio" class="eb-preview">
               <button class="eb-btn small" :disabled="t._audioLoading" @click="loadAudio(t)">
-                {{ t._audioLoading ? '读取原音…' : (t._audioUrl ? '卸载原音' : '试听原音') }}
+                {{ t._audioLoading ? '读取原音…' : (t._audioUrl ? '卸载原音' : '加载原音播放') }}
               </button>
               <audio
                 v-if="t._audioUrl"
@@ -134,11 +138,47 @@
               />
               <span v-if="t._audioErr" class="eb-msg inline err">{{ t._audioErr }}</span>
             </div>
-            <div class="eb-preview">
-              <button class="eb-btn small" @click="togglePreview(t)">{{ t._playing ? '暂停' : '播放' }}</button>
+            <p v-else class="eb-dim small">此轨没有可读取的原音，将使用时间轴模拟。</p>
+            <div v-if="!t._audioUrl || t._audioErr" class="eb-preview eb-simulation">
+              <span class="eb-dim">时间轴模拟</span>
+              <button class="eb-btn small" @click="togglePreview(t)">{{ t._playing ? '暂停模拟' : '播放模拟' }}</button>
               <label>速度 <select v-model.number="t._speed" class="eb-select"><option :value="0.5">0.5×</option><option :value="1">1×</option><option :value="1.5">1.5×</option><option :value="2">2×</option></select></label>
               <input v-model.number="t._previewMs" type="range" min="0" :max="previewEnd(t)" @input="pausePreview(t)">
               <span>{{ formatMs(t._previewMs) }}</span>
+            </div>
+            <p v-if="!t._audioUrl || t._audioErr" class="eb-dim small">模拟只按歌词时间戳推进，不会播放音频。</p>
+            <div v-if="t.head.length" class="eb-lrc-head">
+              <div v-for="(h, hi) in t.head" :key="hi">{{ h }}</div>
+            </div>
+            <div class="eb-listen-stage" aria-live="polite">
+              <p v-if="!t.rows.length" class="eb-dim">暂无逐字时间轴；请进入“编辑歌词”补充歌词。</p>
+              <p
+                v-for="r in t.rows"
+                v-else
+                :key="r._id"
+                class="eb-listen-line"
+                :class="{ active: isCurrentLine(t, r) }"
+              >
+                <span class="eb-ts">{{ formatMs(r.time) }}</span>
+                <span v-if="r.words.length" class="eb-listen-words"><span v-for="word in r.words" :key="word._id" :class="{ active: isCurrentWord(t, r, word) }">{{ word.text }}</span></span>
+                <span v-else>{{ r.text }}</span>
+              </p>
+            </div>
+          </div>
+
+          <div v-else-if="t._view === 'lrc'" class="eb-lrc">
+            <p class="eb-note">在这里编辑行、逐字和时间；要播放原音并观察高亮，请进入“听歌校对”。</p>
+            <div class="eb-edit-switch">
+              <button
+                class="eb-btn small"
+                :class="{ on: t._view === 'lrc' }"
+                @click="t._view = 'lrc'"
+              >逐行与逐字</button>
+              <button
+                class="eb-btn small"
+                :class="{ on: t._view === 'text' }"
+                @click="t._view = 'text'"
+              >整段文本</button>
             </div>
             <div v-if="t.head.length" class="eb-lrc-head">
               <div v-for="(h, hi) in t.head" :key="hi">{{ h }}</div>
@@ -159,13 +199,19 @@
             </div>
             <button class="eb-btn small" @click="addLine(t, t.rows.length - 1)">新增歌词行</button>
           </div>
-          <textarea
-            v-else
-            v-model="t.text"
-            class="eb-textarea"
-            rows="6"
-            :placeholder="t.inst ? '伴奏轨：留空则借同名正曲时间轴或写占位' : '逐行歌词'"
-          />
+          <div v-else class="eb-text-edit">
+            <p class="eb-note">这里编辑整段文本；需要逐行时间与逐字调整时切换到“逐行与逐字”。</p>
+            <div class="eb-edit-switch">
+              <button class="eb-btn small" @click="t._view = 'lrc'">逐行与逐字</button>
+              <button class="eb-btn small on">整段文本</button>
+            </div>
+            <textarea
+              v-model="t.text"
+              class="eb-textarea"
+              rows="6"
+              :placeholder="t.inst ? '伴奏轨：留空则借同名正曲时间轴或写占位' : '逐行歌词'"
+            />
+          </div>
         </div>
 
         <details v-if="e.pages.length" class="eb-pages">
@@ -400,7 +446,7 @@ function toEdit(album, draft) {
       return {
         order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
         coverage: t.coverage, audio: t.audio || '', klrc: t.klrc || '',
-        head, rows: editorRows, timingLocked: !!t.timing_locked, _view: rows.length ? 'lrc' : 'text', _playing: false, _speed: 1, _previewMs: 0, _textDirty: false,
+        head, rows: editorRows, timingLocked: !!t.timing_locked, _mode: t.audio ? 'listen' : 'edit', _view: rows.length ? 'lrc' : 'text', _playing: false, _speed: 1, _previewMs: 0, _textDirty: false,
         _audioUrl: '', _audioElement: null, _audioLoading: false, _audioErr: '', _sourcePlaying: false,
         text: linesToText(t.lines), _orig: t,
       };
@@ -695,6 +741,7 @@ onBeforeUnmount(() => {
 .eb-track.lowcov { border-color: #a371f7; box-shadow: 0 0 0 2px color-mix(in srgb, #a371f7 22%, transparent); }
 .eb-track.lowconf { border-color: #e3a008; box-shadow: 0 0 0 2px color-mix(in srgb, #e3a008 25%, transparent); }
 .eb-track-head { display: flex; gap: .5rem; align-items: center; margin-bottom: .5rem; flex-wrap: wrap; }
+.eb-track-title { flex: 1; min-width: 8rem; font-size: .95rem; }
 .eb-tag {
   font-size: .72rem;
   border-radius: 99px;
@@ -711,6 +758,7 @@ onBeforeUnmount(() => {
 .eb-btn.on { border-color: var(--eb-accent); color: var(--eb-accent); }
 
 .eb-lrc { font-size: .85rem; }
+.eb-edit-switch { display: flex; gap: .4rem; margin: 0 0 .65rem; }
 .eb-note { margin: 0 0 .5rem; font-size: .75rem; color: var(--eb-accent); }
 .eb-lrc-head {
   font-size: .75rem;
@@ -725,6 +773,12 @@ onBeforeUnmount(() => {
 .eb-line-editor.active { border-color: var(--eb-accent); background: color-mix(in srgb, var(--eb-accent) 8%, transparent); }
 .eb-preview { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem; margin: 0 0 .6rem; font-size: .75rem; }
 .eb-preview input[type="range"] { flex: 1; min-width: 8rem; }
+.eb-simulation { padding: .45rem .55rem; border: 1px dashed var(--border-color, #ddd); border-radius: 7px; }
+.eb-listen-stage { display: grid; gap: .15rem; max-height: 28rem; overflow: auto; padding: .65rem .75rem; border-radius: 8px; background: color-mix(in srgb, var(--eb-accent) 5%, transparent); }
+.eb-listen-line { margin: 0; padding: .45rem .5rem; border-radius: 6px; line-height: 1.8; transition: background .15s, color .15s; }
+.eb-listen-line.active { color: var(--eb-accent); background: color-mix(in srgb, var(--eb-accent) 14%, transparent); font-weight: 600; }
+.eb-listen-words > span { display: inline-block; transition: color .12s, transform .12s; }
+.eb-listen-words > span.active { color: var(--eb-accent); transform: translateY(-1px); text-decoration: underline; }
 .eb-select { background: transparent; color: inherit; border: 1px solid var(--border-color, #ddd); border-radius: 5px; }
 .eb-input.ms { width: 5.4rem; flex: none; font-family: var(--font-family-mono, monospace); }
 .eb-time { display: flex; align-items: center; gap: .2rem; font-size: .7rem; white-space: nowrap; }
