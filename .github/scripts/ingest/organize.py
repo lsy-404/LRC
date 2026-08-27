@@ -647,7 +647,7 @@ def build_track_lrc(
         pair_words = (audio_words or {}).get(pair_file) if pair_file else None
         if pair_words and lines:
             pair_lang = (audio_langs or {}).get(pair_file, "")
-            if pair_lang.startswith("zh"):
+            if lyrics_mod.is_chinese_language(pair_lang):
                 lines = [lyrics_mod.to_simplified(l) for l in lines]
                 credits = [lyrics_mod.to_simplified(c) for c in credits]
             lrc = align_mod.align(
@@ -661,7 +661,8 @@ def build_track_lrc(
             cov = align_mod.coverage(lines, pair_words, language=pair_lang)
             track["audio"] = pair_file
             print(f"  ♫ {title}: 伴奏/无人声轨，时间轴完全 cv 同名正曲", file=sys.stderr)
-            return lrc, cov, lrc_words
+            return (lyrics_mod.to_simplified(lrc), cov, lyrics_mod.to_simplified(lrc_words)) \
+                if lyrics_mod.is_chinese_language(pair_lang) else (lrc, cov, lrc_words)
         header = f"[ti:{title}]\n[al:{album}]\n[ar:{artist}]\n[by:{by}]\n\n"
         if credits:
             header += "\n".join(credits) + "\n\n"
@@ -686,7 +687,7 @@ def build_track_lrc(
             title = (m.group(1) if m else stem).strip().strip("。.")
             track["title"] = title
         lang = (audio_langs or {}).get(audio, "")
-        if lang.startswith("zh"):
+        if lyrics_mod.is_chinese_language(lang):
             # 站点数据规范为简体；whisper 转写与偶发的 OCR 不服从都在此统一转换
             lines = [lyrics_mod.to_simplified(l) for l in lines]
             credits = [lyrics_mod.to_simplified(c) for c in credits]
@@ -700,7 +701,8 @@ def build_track_lrc(
         )
         cov = align_mod.coverage(lines, audio_words[audio], language=lang)
         print(f"  ♪ {title} ← {audio} (覆盖率 {cov:.0%})", file=sys.stderr)
-        return lrc, cov, lrc_words
+        return (lyrics_mod.to_simplified(lrc), cov, lyrics_mod.to_simplified(lrc_words)) \
+            if lyrics_mod.is_chinese_language(lang) else (lrc, cov, lrc_words)
     # 无匹配音频：无时间轴草稿
     header = f"[ti:{title}]\n[al:{album}]\n[ar:{artist}]\n[by:{by}]\n\n"
     if credits:

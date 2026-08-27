@@ -26,10 +26,20 @@ export function fakeBucket(init = {}) {
         cursor: String(end),
       };
     },
-    async get(key) {
+    async head(key) {
+      if (!store.has(key)) return null;
+      return { key, size: Buffer.byteLength(store.get(key)) };
+    },
+    async get(key, options = {}) {
       if (!store.has(key)) return null;
       const value = store.get(key);
-      return { key, size: value.length, text: async () => value };
+      const raw = Buffer.from(value);
+      const range = options?.range;
+      const body = range ? raw.subarray(range.offset, range.offset + range.length) : raw;
+      return {
+        key, size: raw.length, body: new ReadableStream({ start(controller) { controller.enqueue(body); controller.close(); } }),
+        text: async () => value,
+      };
     },
     async put(key, value) {
       const text = await readValue(value);

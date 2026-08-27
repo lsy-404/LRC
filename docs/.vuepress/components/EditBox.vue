@@ -113,10 +113,27 @@
               :class="{ on: t._view === 'text' }"
               @click="t._view = 'text'"
             >整段文本</button>
+            <button class="eb-btn small" @click="simplifyTrack(t)">转为简体</button>
           </div>
 
           <div v-if="t._view === 'lrc'" class="eb-lrc">
-            <p class="eb-note">时间轴模拟：原始音频已销毁；仅按草稿时间戳推进，不会播放音频。</p>
+            <p class="eb-note">原音试听只在审核期从受密码保护的原料区读取，生命周期到期后不可用；未加载原音时可用时间轴模拟。</p>
+            <div v-if="t.audio" class="eb-preview">
+              <button class="eb-btn small" :disabled="t._audioLoading" @click="loadAudio(t)">
+                {{ t._audioLoading ? '读取原音…' : (t._audioUrl ? '卸载原音' : '试听原音') }}
+              </button>
+              <audio
+                v-if="t._audioUrl"
+                controls
+                :src="t._audioUrl"
+                @play="sourcePlay(t, $event)"
+                @pause="sourcePause(t)"
+                @ended="sourcePause(t)"
+                @error="sourceError(t)"
+                @timeupdate="sourceTime(t, $event)"
+              />
+              <span v-if="t._audioErr" class="eb-msg inline err">{{ t._audioErr }}</span>
+            </div>
             <div class="eb-preview">
               <button class="eb-btn small" @click="togglePreview(t)">{{ t._playing ? '暂停' : '播放' }}</button>
               <label>速度 <select v-model.number="t._speed" class="eb-select"><option :value="0.5">0.5×</option><option :value="1">1×</option><option :value="1.5">1.5×</option><option :value="2">2×</option></select></label>
@@ -200,6 +217,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
   parseLrc, parseKaraokeRows, serializeTimedLyrics, textToLines, linesToText, isTrackEdited, isLowCoverage, msToTimestamp,
@@ -225,6 +243,7 @@ const META_FIELDS = [
 
 // 验证在工作站根层（Workbench）统一完成，密码经 prop 传入
 const props = defineProps({ password: { type: String, default: '' } });
+const toSimplified = OpenCC.Converter({ from: 't', to: 'cn' });
 
 const cachedRefs = ref([]);
 const pending = ref([]);
@@ -293,6 +312,45 @@ function removeWord(t, row, index) { row.words.splice(index, 1); row.text = row.
 function previewEnd(t) { return Math.max(1000, ...t.rows.flatMap((r) => [Number(r.time) || 0, ...(r.words || []).map((w) => Number(w.time) || 0)])) + 1500; }
 function pausePreview(t) { t._playing = false; if (previewTimer) { clearInterval(previewTimer); previewTimer = null; } }
 function togglePreview(t) { if (t._playing) return pausePreview(t); edits.value.forEach(pausePreview); t._playing = true; let last = Date.now(); previewTimer = setInterval(() => { const now = Date.now(); t._previewMs = Math.min(previewEnd(t), t._previewMs + (now - last) * t._speed); last = now; if (t._previewMs >= previewEnd(t)) pausePreview(t); }, 50); }
+function releaseAudio(t) {
+  if (t._audioElement) { t._audioElement.pause(); t._audioElement.src = ''; }
+  if (t._audioUrl) URL.revokeObjectURL(t._audioUrl);
+  t._audioElement = null; t._audioUrl = ''; t._audioLoading = false; t._audioErr = '';
+}
+async function loadAudio(t) {
+  if (!t.audio || t._audioLoading) return;
+  if (t._audioUrl) { releaseAudio(t); return; }
+  t._audioLoading = true; t._audioErr = '';
+  try {
+    const q = new URLSearchParams({ ref: curRef.value, name: t.audio });
+    const resp = await fetch(`/api/ingest/audio?${q}`, { headers: authHeaders() });
+    if (!resp.ok) throw new Error(resp.status === 404 ? '原音已过期或不存在' : '原音读取失败');
+    t._audioUrl = URL.createObjectURL(await resp.blob());
+  } catch (error) { t._audioErr = error.message || '原音读取失败'; }
+  finally { t._audioLoading = false; }
+}
+function sourcePlay(t, event) {
+  edits.value.forEach((other) => { if (other !== t && other._audioElement) other._audioElement.pause(); pausePreview(other); });
+  t._audioElement = event.target; t._sourcePlaying = true; pausePreview(t);
+}
+function sourcePause(t) { t._sourcePlaying = false; }
+function sourceError(t) {
+  t._sourcePlaying = false;
+  t._audioErr = '此浏览器无法播放该原始格式；可继续使用时间轴模拟校对。';
+}
+function sourceTime(t, event) { t._previewMs = Math.round(event.target.currentTime * 1000); }
+function simplifyTrack(t) {
+  t.title = toSimplified(t.title);
+  t.head = t.head.map((line) => toSimplified(line));
+  t.text = toSimplified(t.text);
+  for (const row of t.rows) {
+    row.text = toSimplified(row.text);
+    for (const word of row.words) word.text = toSimplified(word.text);
+  }
+  // 保持已有 LRC/KLRC 的时间戳，只把文本改成简体；Phase B 不会重跑 STT。
+  if (t.rows.length) lockTiming(t);
+  else t._textDirty = true;
+}
 const formatMs = (ms) => msToTimestamp(ms);
 function isCurrentLine(t, row) { const next = t.rows[t.rows.indexOf(row) + 1]; return t._previewMs >= row.time && (!next || t._previewMs < next.time); }
 function isCurrentWord(t, row, word) { const next = row.words[row.words.indexOf(word) + 1]; return isCurrentLine(t, row) && t._previewMs >= word.time && (!next || t._previewMs < next.time); }
@@ -343,6 +401,7 @@ function toEdit(album, draft) {
         order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
         coverage: t.coverage, audio: t.audio || '', klrc: t.klrc || '',
         head, rows: editorRows, timingLocked: !!t.timing_locked, _view: rows.length ? 'lrc' : 'text', _playing: false, _speed: 1, _previewMs: 0, _textDirty: false,
+        _audioUrl: '', _audioElement: null, _audioLoading: false, _audioErr: '', _sourcePlaying: false,
         text: linesToText(t.lines), _orig: t,
       };
     }),
@@ -560,7 +619,10 @@ onMounted(() => {
 });
 onBeforeUnmount(() => {
   stopPoll();
-  for (const e of edits.value) if (e._coverPreview) URL.revokeObjectURL(e._coverPreview);
+  for (const e of edits.value) {
+    if (e._coverPreview) URL.revokeObjectURL(e._coverPreview);
+    for (const t of e.tracks) releaseAudio(t);
+  }
 });
 </script>
 
