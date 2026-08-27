@@ -34,6 +34,16 @@ test('播放高亮用索引和 requestAnimationFrame 同步，不在模板重复
   assert.doesNotMatch(source, /rows\.indexOf|words\.indexOf/);
 });
 
+test('多专辑播放状态按曲目扁平管理，资源切换和状态转换统一释放', async () => {
+  const source = await component();
+  assert.match(source, /function allTracks\(\) \{ return edits\.value\.flatMap/);
+  assert.match(source, /for \(const other of allTracks\(\)\) pausePreview\(other\)/);
+  assert.match(source, /for \(const track of allTracks\(\)\) \{ if \(track !== current\) releaseAudio\(track\)/);
+  assert.match(source, /t\._previewTimer = setInterval/);
+  assert.match(source, /clearInterval\(t\._previewTimer\)/);
+  assert.match(source, /releaseAllTracks\(\);\s*edits\.value = \[\]/);
+});
+
 test('整行编辑保存逐字对象，提供光标拆分与选区移动', async () => {
   const source = await component();
   assert.match(source, /reconcileWordCharacters\(row\.words, row\.text, newId, row\.time\)/);

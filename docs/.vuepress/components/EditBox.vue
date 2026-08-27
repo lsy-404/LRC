@@ -288,7 +288,6 @@ const done = ref(false);
 const jobInfo = ref(null);
 const retrying = ref(false);
 let pollTimer = null;
-let previewTimer = null;
 let nextEditorId = 1;
 
 const recentRefs = computed(() => dedupeRecent(cachedRefs.value, pending.value));
@@ -347,8 +346,10 @@ function removeWord(t, row, index) { row.words.splice(index, 1); row.text = row.
 function previewEnd(t) { return Math.max(1000, ...t.rows.flatMap((r) => [Number(r.time) || 0, ...(r.words || []).map((w) => Number(w.time) || 0)])) + 1500; }
 function updateActiveIndices(t) { const ms = t._previewMs; let line = -1; for (let i = 0; i < t.rows.length; i++) if (ms >= t.rows[i].time && (i + 1 === t.rows.length || ms < t.rows[i + 1].time)) { line = i; break; } t._activeLine = line; const words = t.rows[line]?.words || []; let word = -1; for (let i = 0; i < words.length; i++) if (ms >= words[i].time && (i + 1 === words.length || ms < words[i + 1].time)) { word = i; break; } t._activeWord = word; }
 function cancelSourceFrame(t) { if (t._sourceFrame) { cancelAnimationFrame(t._sourceFrame); t._sourceFrame = null; } }
-function pausePreview(t) { t._playing = false; if (previewTimer) { clearInterval(previewTimer); previewTimer = null; } }
-function togglePreview(t) { if (t._playing) return pausePreview(t); edits.value.forEach(pausePreview); t._playing = true; let last = Date.now(); previewTimer = setInterval(() => { const now = Date.now(); t._previewMs = Math.min(previewEnd(t), t._previewMs + (now - last) * t._speed); updateActiveIndices(t); last = now; if (t._previewMs >= previewEnd(t)) pausePreview(t); }, 50); }
+function allTracks() { return edits.value.flatMap((edit) => edit.tracks); }
+function pausePreview(t) { t._playing = false; if (t._previewTimer) { clearInterval(t._previewTimer); t._previewTimer = null; } }
+function togglePreview(t) { if (t._playing) return pausePreview(t); for (const other of allTracks()) pausePreview(other); t._playing = true; let last = Date.now(); t._previewTimer = setInterval(() => { const now = Date.now(); t._previewMs = Math.min(previewEnd(t), t._previewMs + (now - last) * t._speed); updateActiveIndices(t); last = now; if (t._previewMs >= previewEnd(t)) pausePreview(t); }, 50); }
+function releaseAllTracks() { for (const track of allTracks()) releaseAudio(track); }
 function releaseAudio(t) {
   cancelSourceFrame(t); pausePreview(t);
   if (t._audioElement) { t._audioElement.pause(); t._audioElement.src = ''; }
@@ -371,7 +372,7 @@ async function loadAudio(t) {
 function selectedTracks(e) { const track = e.tracks[e._selectedTrack]; return track ? [track] : []; }
 async function selectTrack(e) {
   const current = e.tracks[e._selectedTrack];
-  for (const track of e.tracks) { if (track !== current) releaseAudio(track); else { pauseSource(track); pausePreview(track); } }
+  for (const track of allTracks()) { if (track !== current) releaseAudio(track); else { pauseSource(track); pausePreview(track); } }
   if (current) await loadAudio(current);
 }
 async function retryAudio(t) {
@@ -400,7 +401,7 @@ async function toggleSource(t) {
 }
 function sourcePlay(t, event) {
   cancelSourceFrame(t);
-  edits.value.forEach((other) => { if (other !== t && other._audioElement) other._audioElement.pause(); pausePreview(other); });
+  for (const other of allTracks()) { if (other !== t && other._audioElement) other._audioElement.pause(); pausePreview(other); }
   t._audioElement = event.target; t._sourcePlaying = true; pausePreview(t);
   const sync = () => { if (!t._sourcePlaying || !t._audioElement) return; t._previewMs = Math.round(t._audioElement.currentTime * 1000); updateActiveIndices(t); t._sourceFrame = requestAnimationFrame(sync); };
   t._sourceFrame = requestAnimationFrame(sync);
@@ -481,7 +482,7 @@ function toEdit(album, draft) {
         _id: newId(), order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
         coverage: t.coverage, audio: t.audio || '', klrc: t.klrc || '',
         head, rows: editorRows, timingLocked: !!t.timing_locked, _view: rows.length ? 'lrc' : 'text', _playing: false, _speed: 1, _previewMs: 0, _activeLine: -1, _activeWord: -1, _textDirty: false,
-        _audioUrl: '', _audioElement: null, _audioLoading: false, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _sourceFrame: null, _volume: 1,
+        _audioUrl: '', _audioElement: null, _audioLoading: false, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _sourceFrame: null, _previewTimer: null, _volume: 1,
         text: linesToText(t.lines), _orig: t,
       };
     }),
@@ -520,7 +521,6 @@ function toDraft(e) {
 function stopPoll() { if (pollTimer) { clearInterval(pollTimer); pollTimer = null; } }
 function startPoll() {
   stopPoll();
-  if (previewTimer) clearInterval(previewTimer);
   pollTimer = setInterval(() => { if (!loading.value) load(true); }, 12000);
 }
 
@@ -540,18 +540,21 @@ async function load(silent = false) {
     curRef.value = r;
     jobInfo.value = data.job || null;
     if (data.status === 'processing') {
+      releaseAllTracks();
       edits.value = [];
       msgErr.value = false;
       msg.value = jobInfo.value?.message || '处理中，页面每 12 秒自动刷新…';
       startPoll();
     } else if (data.status === 'failed') {
       stopPoll();
+      releaseAllTracks();
       edits.value = [];
       done.value = false;
       msgErr.value = true;
       msg.value = jobInfo.value?.error || '处理失败';
     } else if (data.status === 'complete') {
       stopPoll();
+      releaseAllTracks();
       edits.value = [];
       done.value = true;
       msgErr.value = false;
@@ -559,7 +562,7 @@ async function load(silent = false) {
     } else {
       stopPoll();
       done.value = false;
-      for (const edit of edits.value) for (const track of edit.tracks) releaseAudio(track);
+      releaseAllTracks();
       edits.value = (data.albums || []).filter((a) => a.draft).map((a) => toEdit(a.album, a.draft));
       await nextTick();
       for (const edit of edits.value) await selectTrack(edit);
@@ -661,6 +664,7 @@ async function discard(ref, album) {
       return;
     }
     pending.value = pending.value.filter((p) => !(p.ref === ref && p.album === album));
+    for (const edit of edits.value.filter((e) => ref === curRef.value && e.album === album)) for (const track of edit.tracks) releaseAudio(track);
     edits.value = edits.value.filter((e) => !(ref === curRef.value && e.album === album));
     if (!edits.value.length && ref === curRef.value) {
       stopPoll();
