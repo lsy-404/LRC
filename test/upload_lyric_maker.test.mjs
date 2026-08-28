@@ -24,7 +24,7 @@ test('上传清单保留专辑级打轴署名，且不重复追加武乙凌薇',
       method: 'POST', body: {
         album: '测试专辑', session: ref,
         lyric_maker: ['甲', '武乙凌薇', '甲', '乙'],
-        files: [{ n: 0, path: '音频/01.mp3', size: 1 }],
+        files: [{ n: 0, path: '音频/01.mp3', size: 1, mime: 'audio/mpeg' }],
       },
     }),
     env: {
@@ -34,5 +34,6 @@ test('上传清单保留专辑级打轴署名，且不重复追加武乙凌薇',
   });
   assert.equal(response.status, 200);
   const manifest = JSON.parse(bucket.store.get(`web/${ref}/manifest.json`));
+  assert.equal(manifest.version, 3);
   assert.deepEqual(manifest.lyric_maker, ['甲', '武乙凌薇', '乙']);
 });
