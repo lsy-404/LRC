@@ -89,7 +89,7 @@ test('整行编辑保存逐字对象，并提供上下文、插入、合音、�
   assert.equal((source.split('<script setup>')[0].match(/eb-icon-btn/g) || []).length, 4);
   assert.match(source, /textRowBoundaryIcon\(r, li\)[\s\S]*?textRowBoundaryAction\(row, rowIndex\) === 'merge' \? '↤' : '✂'/);
   assert.doesNotMatch(source, /moveTimedSelection|moveSelectionToNext/);
-  assert.match(source, /function applyTextRowBoundary\(t, row, rowIndex\) \{\s*const action = textRowBoundaryAction\(row, rowIndex\)/);
+  assert.match(source, /function applyTextRowBoundary\(t, row, rowIndex\) \{\s*if \(t\.authoritativeLrc\) return;\s*const action = textRowBoundaryAction\(row, rowIndex\)/);
   assert.doesNotMatch(source, /splitFromCursor/);
   assert.doesNotMatch(source, /选中移下一句/);
   assert.match(source, /utf16ToCodePointIndex\(row\.text, event\.target\.selectionStart\)/);
@@ -165,7 +165,7 @@ test('待处理列表显示实时作业信息，处理中项不可打开且待�
 
 test('逐字时间轨显示句内偏移、支持单字编辑且只更新整句进度', async () => {
   const source = await component();
-  assert.match(source, /contenteditable="plaintext-only"/);
+  assert.match(source, /:contenteditable="t\.authoritativeLrc \? 'false' : 'plaintext-only'"/);
   assert.match(source, /formatWordOffset\(r, word\.time\)/);
   assert.match(source, /return `\+\$\{msToTimestamp\(wordOffset\(row, time\)\)\}`/);
   assert.match(source, /row\.text = updated\.text/);
@@ -180,7 +180,7 @@ test('逐字时间轨显示句内偏移、支持单字编辑且只更新整句�
 
 test('逐字时间标记输入保留完整文本，并以清空标记方式暴露缺字槽位', async () => {
   const source = await component();
-  assert.match(source, /class="eb-time-chars" contenteditable="plaintext-only"/);
+  assert.match(source, /class="eb-time-chars" :contenteditable="t\.authoritativeLrc \? 'false' : 'plaintext-only'"/);
   assert.match(source, /@input="editTimelineChar\(t, r, wi, \$event\)"/);
   assert.match(source, /可输入多个字/);
   assert.match(source, /replaceTimedTokenText\(row, wordIndex, next\)/);
@@ -217,8 +217,8 @@ test('逐字时间轨把正文缺字显示为可点击补标槽位，不使用�
 
 test('歌词编辑历史提供按钮、未失焦输入和键盘撤回恢复', async () => {
   const source = await component();
-  assert.match(source, /:disabled="!canUndo\(t\)" @click="undoTrack\(t\)">撤回/);
-  assert.match(source, /:disabled="!canRedo\(t\)" @click="redoTrack\(t\)">恢复/);
+  assert.match(source, /:disabled="t\.authoritativeLrc \|\| !canUndo\(t\)" @click="undoTrack\(t\)">撤回/);
+  assert.match(source, /:disabled="t\.authoritativeLrc \|\| !canRedo\(t\)" @click="redoTrack\(t\)">恢复/);
   assert.match(source, /@input="syncRowText\(t, r\); markHistory\(t\)"/);
   assert.match(source, /@input="markHistory\(t\)"\s+@change="applyWholeText\(t\)"/);
   assert.match(source, /window\.addEventListener\('keydown', handleHistoryShortcut\)/);
@@ -273,7 +273,7 @@ test('专辑名称可编辑但审核存储定位保持原投稿名', async () =>
 
 test('合音迁移使用紧凑图标按钮并保留可访问名称', async () => {
   const source = await component();
-  assert.match(source, /class="eb-btn small eb-icon-btn" :aria-label="t\._selectedVocal \? '并回主唱' : '标为合音'"/);
+  assert.match(source, /class="eb-btn small eb-icon-btn" :disabled="t\.authoritativeLrc" :aria-label="t\._selectedVocal \? '并回主唱' : '标为合音'"/);
   assert.match(source, /function harmonyRowIcon\(track\) \{ return track\._selectedVocal \? '↩' : '♫'; \}/);
   assert.match(source, /toggleHarmonyRow\(t, r\)\">\{\{ harmonyRowIcon\(t\) \}\}/);
 });
