@@ -8,7 +8,7 @@
           <span class="eb-p-album">{{ p.album }}</span>
           <span class="eb-p-right">
             <span class="eb-p-meta">
-              {{ phaseText(p.status) }} · {{ p.ref.slice(0, 7) }}<template v-if="p.contributor"> · @{{ p.contributor }}</template>
+              {{ p.message || pendingStageText(p) }}<template v-if="p.progress != null"> {{ Math.round(p.progress) }}%</template> · {{ p.ref.slice(0, 7) }}<template v-if="p.contributor"> · @{{ p.contributor }}</template>
             </span>
             <button class="eb-btn small danger" :disabled="discarding" @click.stop="discard(p.ref, p.album)">丢弃</button>
           </span>
@@ -334,6 +334,7 @@ const STAGE_TEXT = {
   metadata: '正在补充发布信息', opening_pr: '正在创建审核请求',
   awaiting_review: '初稿已生成，等待人工审核', done: '处理完成', failed: '处理失败',
 };
+function pendingStageText(item) { return STAGE_TEXT[item?.stage] || phaseText(item?.status); }
 const isProcessing = computed(() => ACTIVE_JOB_STATES.has(jobInfo.value?.state));
 const jobPercent = computed(() => {
   const n = Number(jobInfo.value?.progress);
@@ -742,6 +743,11 @@ async function loadPending() {
     if (!resp.ok) return;
     const data = await resp.json().catch(() => ({}));
     pending.value = Array.isArray(data.pending) ? data.pending : [];
+    const active = pending.value.find((item) => ACTIVE_JOB_STATES.has(item.state) || item.status === 'processing');
+    if (!curRef.value && !refInput.value.trim() && active?.ref) {
+      refInput.value = active.ref;
+      await load();
+    }
   } catch { /* noop */ }
 }
 function pick(p) {

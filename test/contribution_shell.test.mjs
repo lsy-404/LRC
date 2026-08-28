@@ -6,14 +6,13 @@ const contributionGuide = new URL('../docs/contribute/README.md', import.meta.ur
 const workstation = new URL('../docs/contribute/workstation.md', import.meta.url);
 const styles = new URL('../docs/.vuepress/styles/index.scss', import.meta.url);
 
-test('contribution routes use the isolated full-width workspace shell', async () => {
-  for (const file of [contributionGuide, workstation]) {
-    const source = await readFile(file, 'utf8');
-
-    assert.match(source, /^sidebar: false$/m);
-    assert.match(source, /^toc: false$/m);
-    assert.match(source, /^containerClass: contribution-workspace$/m);
-  }
+test('only workstation uses the isolated full-width workspace shell', async () => {
+  const guide = await readFile(contributionGuide, 'utf8');
+  const app = await readFile(workstation, 'utf8');
+  assert.match(guide, /^sidebar: false$/m);
+  assert.match(guide, /^toc: false$/m);
+  assert.doesNotMatch(guide, /^containerClass: contribution-workspace$/m);
+  assert.match(app, /^containerClass: contribution-workspace$/m);
 });
 
 test('contribution workspace CSS only removes document width constraints in its route shell', async () => {

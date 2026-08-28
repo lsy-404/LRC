@@ -3,7 +3,6 @@ title: 贡献指南
 icon: material-symbols:person-add
 sidebar: false
 toc: false
-containerClass: contribution-workspace
 redirectFrom:
   - /CONTRIBUTING.html
 ---

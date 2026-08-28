@@ -43,6 +43,25 @@ test('list 枚举全部待处理草稿并按时间倒序', async () => {
   assert.equal(data.pending[1].contributor, 'web');
 });
 
+test('list 从上传 manifest 发现尚未生成 review 草稿的投稿并透传作业状态', async () => {
+  const ref = 'c'.repeat(32);
+  const env = envOf(fakeBucket({
+    [`web/${ref}/manifest.json`]: JSON.stringify({ album: '上传中专辑', contributor: 'web' }),
+  }), { INGEST_INTERNAL_CALL: async (path, _body, method) => {
+    assert.equal(method, 'GET');
+    assert.equal(path, `/state?ref=${ref}`);
+    return { ok: true, status: 200, data: {
+      state: 'running', phase: 'phase_a', stage: 'writing_review', progress: 62, message: '正在写入审核草稿',
+    } };
+  } });
+  const resp = await listGet({ request: authedRequest('https://x/api/ingest/list'), env });
+  const item = (await resp.json()).pending.find((entry) => entry.ref === ref);
+  assert.deepEqual(item, {
+    ref, album: '上传中专辑', status: 'processing', state: 'running', stage: 'writing_review', progress: 62,
+    message: '正在写入审核草稿', updated: '', contributor: 'web', is_update: false,
+  });
+});
+
 test('list 拒绝无口令请求', async () => {
   const resp = await listGet({
     request: new Request('https://x/api/ingest/list'), env: envOf(seeded()),

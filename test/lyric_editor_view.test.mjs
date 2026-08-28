@@ -142,6 +142,16 @@ test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
   assert.doesNotMatch(source, /flatMap\(\(r\) => \[Number\(r\.time\)/);
 });
 
+test('待处理列表显示实时作业信息并在无当前 ref 时自动载入活跃投稿', async () => {
+  const source = await component();
+  assert.match(source, /p\.message \|\| pendingStageText\(p\)/);
+  assert.match(source, /p\.progress != null/);
+  assert.match(source, /function pendingStageText\(item\)/);
+  assert.match(source, /const active = pending\.value\.find\(\(item\) => ACTIVE_JOB_STATES\.has\(item\.state\) \|\| item\.status === 'processing'\)/);
+  assert.match(source, /if \(!curRef\.value && !refInput\.value\.trim\(\) && active\?\.ref\)/);
+  assert.match(source, /refInput\.value = active\.ref;\s*await load\(\)/);
+});
+
 test('逐字时间轨显示句内偏移、支持单字编辑且只更新整句进度', async () => {
   const source = await component();
   assert.match(source, /contenteditable="plaintext-only"/);
