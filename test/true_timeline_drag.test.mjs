@@ -13,6 +13,8 @@ test('时间轴视觉权重与拖动换算共享同一毫秒/像素标尺', asyn
   const tokenStyle = source.match(/function timelineTokenStyle\([\s\S]*?\n}/)?.[0] || '';
   assert.doesNotMatch(tokenStyle, /timedSpanFlexWeight/);
   assert.doesNotMatch(source, /flex: var\(--eb-time-grow, 1\) 1 max-content/);
+  assert.match(source, /\.eb-time-track \{[\s\S]*?width: max\(100%, var\(--eb-timeline-width, 100%\)\);[\s\S]*?padding: 0 4rem 3px;[\s\S]*?box-sizing: border-box;/);
+  assert.doesNotMatch(source, /\.eb-time-track \{[^}]*min-width: max-content/);
 });
 
 test('pointer 位移使用 CSS 像素，不受设备像素比或缩放二次放大', async () => {

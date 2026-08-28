@@ -32,7 +32,7 @@ test('播放器内联于歌词编辑区，且不保留原音与模拟说明', as
   assert.match(source, /timedLastTokenSpanMs\(row, nextRowTime/);
   assert.match(source, /--eb-time-grow/);
   assert.match(source, /flex: var\(--eb-time-grow, 1\) 0 0/);
-  assert.match(source, /min-width: max-content/);
+  assert.doesNotMatch(source, /\.eb-time-track \{[^}]*min-width: max-content/);
   assert.match(source, /timelineTokenStyle\(t, r, li, wi\)/);
   assert.match(source, /part\.timingLocked \? words : expandTimedTokens\(words, newId, 100, Number\(parsedRows\[index \+ 1\]\?\.time\)\)/);
   assert.match(source, /@pointerdown="startTimeDrag\(t, r, wi, \$event\)"/);

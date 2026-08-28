@@ -1229,7 +1229,7 @@ onBeforeUnmount(() => {
 .eb-input.ms { width: 5.4rem; flex: none; font-family: var(--font-family-mono, monospace); }
 .eb-time { display: flex; align-items: center; gap: .2rem; font-size: .7rem; white-space: nowrap; }
 .eb-word-timeline { overflow-x: auto; padding: .4rem .2rem; contain: layout paint; border-top: 1px solid var(--border-color, #ddd); }
-.eb-time-track { position: relative; display: flex; width: max(100%, var(--eb-timeline-width, 100%)); min-width: max-content; gap: 0; padding: 0 4rem 3px; box-sizing: border-box; }
+.eb-time-track { position: relative; display: flex; width: max(100%, var(--eb-timeline-width, 100%)); gap: 0; padding: 0 4rem 3px; box-sizing: border-box; }
 .eb-time-lead { box-sizing: border-box; flex: var(--eb-time-grow, 0) 0 0; min-width: 0; border-right: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
 .eb-time-token { position: relative; box-sizing: border-box; display: flex; flex: var(--eb-time-grow, 1) 0 0; min-width: 0; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
 .eb-time-token.active { background: color-mix(in srgb, var(--eb-accent) 12%, transparent); }
