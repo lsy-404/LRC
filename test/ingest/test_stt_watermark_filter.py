@@ -60,10 +60,21 @@ def test_removes_known_attribution_but_preserves_real_words_and_repetition() -> 
     assert [word["text"] for word in words] == ["zither", "and", "harp", "前奏尾句", "李宗盛", "演唱", "作词", "演唱李宗", "la", "la", "la"]
 
 
+def test_removes_character_split_watermarks_without_touching_long_lyrics() -> None:
+    amara = "字幕由amaraorg社区提供"
+    yoyo = "优优独播剧场yoyotelevisionseriesexclusive"
+    attribution = "演唱李宗盛编曲李宗盛"
+    words = [{"text": char} for char in amara + yoyo + attribution]
+    assert stt.filter_watermark_words(words) == []
+    long_lyric = "这是一句超过十二个字符的普通歌词不会被清理"
+    assert stt.filter_watermark_words([{"text": char} for char in long_lyric]) == [{"text": char} for char in long_lyric]
+
+
 def run() -> int:
     test_removes_exact_zither_harp_watermark_and_repeated_run()
     test_removes_known_attribution_but_preserves_real_words_and_repetition()
-    print("2/2 通过")
+    test_removes_character_split_watermarks_without_touching_long_lyrics()
+    print("3/3 通过")
     return 0
 
 

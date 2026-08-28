@@ -9,6 +9,7 @@ const CONFIRMED_STT_WATERMARKS = new Set([
   '优优独播剧场', 'yoyotelevisionseriesexclusive', '优优独播剧场yoyotelevisionseriesexclusive',
   '词曲李宗盛', '演唱李宗盛', '编曲李宗盛', '作词李宗盛', '作曲李宗盛',
 ]);
+const MAX_WATERMARK_TOKEN_SPAN = Math.max(...Array.from(CONFIRMED_STT_WATERMARKS, (phrase) => phrase.length), 'zitherharp'.length);
 const LI_ZONGSHENG_ATTRIBUTION_RE = /(?:词曲|演唱|编曲|作词|作曲)\s*[:：]?\s*李宗盛/g;
 
 const nonEmpty = (s) => String(s == null ? '' : s).trim() !== '';
@@ -20,7 +21,7 @@ function watermarkSpan(tokens, index) {
   if (key === 'zitherharp') return 1;
   if (key === 'zither' && watermarkKey(tokens[index + 1]) === 'harp') return 2;
   let joined = '';
-  for (let size = 1; size <= Math.min(12, tokens.length - index); size++) {
+  for (let size = 1; size <= Math.min(MAX_WATERMARK_TOKEN_SPAN, tokens.length - index); size++) {
     joined += watermarkKey(tokens[index + size - 1]);
     if (CONFIRMED_STT_WATERMARKS.has(joined)) return size;
   }

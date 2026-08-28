@@ -24,6 +24,18 @@ test('清理后仅在歌词完全为空时填充纯音乐文案，并复用首�
   assert.equal(fillInstrumentalFallback(normal), normal);
 });
 
+test('逐字符水印同时从正文和逐字层清除，普通长歌词保留', () => {
+  const amara = '字幕由amaraorg社区提供';
+  const yoyo = '优优独播剧场yoyotelevisionseriesexclusive';
+  const attribution = '演唱李宗盛编曲李宗盛';
+  const watermark = amara + yoyo + attribution;
+  assert.equal(removeKnownSttWatermarks(watermark), '');
+  assert.deepEqual(removeKnownSttWatermarkTokens([...watermark].map((text) => ({ text }))), []);
+  const longLyric = '这是一句超过十二个字符的普通歌词不会被清理';
+  assert.equal(removeKnownSttWatermarks(longLyric), longLyric);
+  assert.deepEqual(removeKnownSttWatermarkTokens([...longLyric].map((text) => ({ text }))).map((word) => word.text), [...longLyric]);
+});
+
 test('句级边界按上下文合并或拆分', () => {
   assert.equal(timedRowBoundaryAction(0, 0, 0), 'none');
   assert.equal(timedRowBoundaryAction(1, 0, 0), 'merge');

@@ -54,6 +54,7 @@ _CONFIRMED_WATERMARKS = {
     "作词李宗盛",
     "作曲李宗盛",
 }
+_MAX_WATERMARK_TOKEN_SPAN = max(map(len, _CONFIRMED_WATERMARKS))
 _LI_ZONGSHENG_ATTRIBUTION = re.compile(r"(?:词曲|演唱|编曲|作词|作曲)\s*[:：]?\s*李宗盛")
 
 
@@ -77,7 +78,7 @@ def _watermark_span(words: list[dict], index: int) -> int:
     if key == "zither" and index + 1 < len(words) and _watermark_key(words[index + 1].get("text")) == "harp":
         return 2
     joined = ""
-    for size in range(1, min(12, len(words) - index) + 1):
+    for size in range(1, min(_MAX_WATERMARK_TOKEN_SPAN, len(words) - index) + 1):
         joined += _watermark_key(words[index + size - 1].get("text"))
         if joined in _CONFIRMED_WATERMARKS:
             return size
