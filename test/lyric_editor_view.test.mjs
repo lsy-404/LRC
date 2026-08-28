@@ -88,6 +88,8 @@ test('整行编辑保存逐字对象，并提供上下文、插入、删除三�
   assert.equal((source.split('<script setup>')[0].match(/eb-icon-btn/g) || []).length, 3);
   assert.match(source, /textRowBoundaryIcon\(r, li\)[\s\S]*?textRowBoundaryAction\(row, rowIndex\) === 'merge' \? '↤' : '✂'/);
   assert.doesNotMatch(source, /moveTimedSelection|moveSelectionToNext/);
+  assert.match(source, /function applyTextRowBoundary\(t, row, rowIndex\) \{\s*const action = textRowBoundaryAction\(row, rowIndex\)/);
+  assert.doesNotMatch(source, /splitFromCursor/);
   assert.doesNotMatch(source, /选中移下一句/);
   assert.match(source, /utf16ToCodePointIndex\(row\.text, event\.target\.selectionStart\)/);
   assert.match(source, /function syncTrackText\(t\)/);

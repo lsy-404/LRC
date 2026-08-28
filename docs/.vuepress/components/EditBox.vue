@@ -437,7 +437,7 @@ function textRowBoundaryLabel(row, rowIndex) {
 }
 function textRowBoundaryIcon(row, rowIndex) { return textRowBoundaryAction(row, rowIndex) === 'merge' ? '↤' : '✂'; }
 function applyTextRowBoundary(t, row, rowIndex) {
-  const action = textRowBoundaryAction(t, row, rowIndex);
+  const action = textRowBoundaryAction(row, rowIndex);
   if (action === 'merge') t.rows = mergeTimedRows(t.rows, rowIndex);
   else if (action === 'split') t.rows = splitTimedRow(t.rows, rowIndex, row._selection?.start ?? Array.from(row.text || '').length, newId);
   else return;
@@ -486,7 +486,6 @@ function normalizeRows(t) { t.rows.sort((a, b) => Number(a.time) - Number(b.time
 function syncRowText(t, row) { row.words = reconcileWordCharacters(row.words, row.text, newId, row.time); t._textDirty = true; syncTrackText(t); lockTiming(t); }
 function applyWholeText(t) { t.rows = reconcileTimedRows(t.rows, t.text, newId); normalizeRows(t); t.timingLocked = true; updateActiveIndices(t, playheadMs(t)); commitHistory(t); }
 function recordCursor(row, event) { row._selection = { start: utf16ToCodePointIndex(row.text, event.target.selectionStart), end: utf16ToCodePointIndex(row.text, event.target.selectionEnd) }; }
-function splitFromCursor(t, row, index) { t.rows = splitTimedRow(t.rows, index, row._selection?.start ?? Array.from(row.text).length, newId); syncTrackText(t); lockTiming(t); commitHistory(t); }
 function lockTiming(t) { t.timingLocked = true; }
 function addLine(t, index) { const time = Math.max(0, Number(t.rows[index]?.time || 0) + 1000); t.rows.splice(index + 1, 0, { _id: newId(), time, text: '', words: [{ _id: newId(), time, text: '' }] }); syncTrackText(t); lockTiming(t); commitHistory(t); }
 function removeLine(t, index) { t.rows.splice(index, 1); syncTrackText(t); lockTiming(t); commitHistory(t); }
