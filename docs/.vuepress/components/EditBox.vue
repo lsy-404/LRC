@@ -12,7 +12,11 @@
             </span>
           </button>
           <span class="eb-p-right">
+            <button v-if="isFailedPending(p)" class="eb-btn small" :disabled="isRetryingPending(p)" @click.stop="retryPending(p)">
+              {{ isRetryingPending(p) ? '重试中…' : '重试' }}
+            </button>
             <button class="eb-btn small danger" :disabled="discarding || isProcessingPending(p)" @click="discard(p.ref, p.storage_album, p.album)">丢弃</button>
+            <span v-if="pendingRetryMessage(p)" class="eb-msg inline" :class="{ err: pendingRetryError(p) }">{{ pendingRetryMessage(p) }}</span>
           </span>
         </li>
       </ul>
@@ -321,6 +325,7 @@ const discarding = ref(false);
 const done = ref(false);
 const jobInfo = ref(null);
 const retrying = ref(false);
+const pendingRetryState = ref({});
 const timelineMenu = ref(null);
 let pollTimer = null;
 let pendingPollTimer = null;
@@ -356,7 +361,13 @@ const STAGE_TEXT = {
 };
 function pendingStageText(item) { return STAGE_TEXT[item?.stage] || phaseText(item?.status); }
 function isProcessingPending(item) { return ACTIVE_JOB_STATES.has(item?.state) || item?.status === 'processing'; }
+function isFailedPending(item) { return item?.state === 'failed' || item?.status === 'failed'; }
 function canOpenPending(item) { return !isProcessingPending(item) && item?.state !== 'failed' && item?.status !== 'failed'; }
+function pendingRetryKey(item) { return `${item?.ref || ''}/${item?.storage_album || ''}`; }
+function pendingRetryEntry(item) { return pendingRetryState.value[pendingRetryKey(item)] || {}; }
+function isRetryingPending(item) { return !!pendingRetryEntry(item).busy; }
+function pendingRetryMessage(item) { return pendingRetryEntry(item).message || ''; }
+function pendingRetryError(item) { return !!pendingRetryEntry(item).error; }
 function pendingLockReason(item) { return isProcessingPending(item) ? '处理中，暂不可编辑' : '处理失败，暂不可编辑'; }
 function pendingAriaLabel(item) {
   const detail = `${item.message || pendingStageText(item)}${item.progress != null ? ` ${Math.round(item.progress)}%` : ''}`;
@@ -833,6 +844,33 @@ function pick(p) {
   if (!canOpenPending(p)) return;
   refInput.value = p.ref;
   load();
+}
+
+async function retryPending(p) {
+  if (!isFailedPending(p) || isRetryingPending(p)) return;
+  const key = pendingRetryKey(p);
+  pendingRetryState.value = { ...pendingRetryState.value, [key]: { busy: true, message: '', error: false } };
+  try {
+    const resp = await fetch('/api/ingest/retry', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', ...authHeaders() },
+      body: JSON.stringify({ ref: p.ref }),
+    });
+    const data = await resp.json().catch(() => ({}));
+    if (!resp.ok || !data.ok) {
+      pendingRetryState.value = { ...pendingRetryState.value, [key]: {
+        busy: false,
+        message: `重试失败：${data.message || data.error || `HTTP ${resp.status}`}`,
+        error: true,
+      } };
+      return;
+    }
+    pendingRetryState.value = { ...pendingRetryState.value, [key]: { busy: false, message: '已重新排队，正在刷新状态…', error: false } };
+    await loadPending();
+    if (curRef.value === p.ref) await load(true);
+  } catch {
+    pendingRetryState.value = { ...pendingRetryState.value, [key]: { busy: false, message: '重试失败：网络错误', error: true } };
+  }
 }
 
 // list 字段数组 <-> 字符串；tracks lines 数组 <-> textarea 文本

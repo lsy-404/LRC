@@ -163,6 +163,18 @@ test('待处理列表显示实时作业信息，处理中项不可打开且待�
   assert.doesNotMatch(source, /const active = pending\.value\.find/);
 });
 
+test('失败投稿可在待处理列表中重试，且始终不能直接进入编辑', async () => {
+  const source = await component();
+  assert.match(source, /v-if="isFailedPending\(p\)"[\s\S]*?@click\.stop="retryPending\(p\)"/);
+  assert.match(source, /isRetryingPending\(p\) \? '重试中…' : '重试'/);
+  assert.match(source, /function isFailedPending\(item\) \{ return item\?\.state === 'failed' \|\| item\?\.status === 'failed'; \}/);
+  assert.match(source, /function canOpenPending\(item\) \{ return !isProcessingPending\(item\) && item\?\.state !== 'failed' && item\?\.status !== 'failed'; \}/);
+  assert.match(source, /async function retryPending\(p\) \{[\s\S]*?fetch\('\/api\/ingest\/retry'/);
+  assert.match(source, /headers: \{ 'content-type': 'application\/json', \.\.\.authHeaders\(\) \}/);
+  assert.match(source, /await loadPending\(\);/);
+  assert.match(source, /message: `重试失败：\$\{data\.message \|\| data\.error \|\| `HTTP \$\{resp\.status\}`\}`/);
+});
+
 test('逐字时间轨显示句内偏移、支持单字编辑且只更新整句进度', async () => {
   const source = await component();
   assert.match(source, /:contenteditable="t\.authoritativeLrc \? 'false' : 'plaintext-only'"/);

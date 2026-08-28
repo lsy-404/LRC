@@ -1,0 +1,7 @@
+# 操作记录
+
+- 2026-08-28：登记失败投稿列表重试入口；确认现有 API、认证与失败锁定规则。
+- 2026-08-28：在 `EditBox.vue` 的失败待投稿项加入 `重试` / `重试中…` 控件；请求携带已验证口令，成功后立即刷新列表，失败行内保留 API 的具体错误。
+- 2026-08-28：`node --test test/lyric_editor_view.test.mjs test/worker/ingest_panel.test.mjs` 通过，37/37。
+- 2026-08-28：尝试 `pnpm run docs:build`，因独立 worktree 缺少 VuePress 依赖未执行到构建阶段；记录后交由主工作区统一构建验证。
+- 2026-08-28：已提交独立分支，待主任务拣选并统一部署。
