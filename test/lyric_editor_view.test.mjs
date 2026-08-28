@@ -122,3 +122,14 @@ test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
   assert.doesNotMatch(source, /function normalizeTrackWords|function syncWordText|function addWord|function removeWord/);
   assert.doesNotMatch(source, /flatMap\(\(r\) => \[Number\(r\.time\)/);
 });
+
+test('逐字时间 token 显示词内进度且只更新当前 DOM 节点', async () => {
+  const source = await component();
+  assert.match(source, /class="eb-time-token-progress"/);
+  assert.match(source, /function tokenProgressPercent\(t, line, word, ms\)/);
+  assert.match(source, /timedTokenSpanMs\(row\.words, word, nextRowTime\(t, line\)\)/);
+  assert.match(source, /node\.style\.setProperty\('--token-progress', `\$\{percent\}%`\)/);
+  assert.match(source, /node\.style\.removeProperty\('--token-progress'\)/);
+  assert.match(source, /clearTokenProgress\(view\.activeToken\)/);
+  assert.doesNotMatch(source, /_tokenProgress|word\._progress|word\.progress/);
+});

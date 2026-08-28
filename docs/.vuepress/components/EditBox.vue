@@ -154,6 +154,7 @@
                 <div class="eb-time-track">
                   <span class="eb-time-lead" :style="timelineLeadStyle(r)" aria-hidden="true" />
                   <div v-for="(word, wi) in r.words" :key="word._id" :ref="(node) => bindTokenNode(t, li, wi, node)" class="eb-time-token" :class="wi % 2 ? 'eb-time-token-lower' : 'eb-time-token-upper'" :style="timelineTokenStyle(t, r, li, wi)">
+                    <span class="eb-time-token-progress" aria-hidden="true" />
                     <span class="eb-time-chars"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" tabindex="0" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, ci, $event)" @keydown="openTimelineMenuFromKey(t, r, wi, ci, $event)">{{ char }}</span></span>
                     <button class="eb-time-marker" :aria-label="`调整 ${word.text} 的时间`" @pointerdown="startTimeDrag(t, r, wi, $event)" @pointermove="moveTimeDrag($event)" @pointerup="finishTimeDrag($event)" @pointercancel="finishTimeDrag($event)" @lostpointercapture="finishTimeDrag($event)" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, 0, $event)" @keydown="nudgeWordTime(t, r, wi, $event)"><span>{{ formatMs(word.time) }}</span></button>
                   </div>
@@ -239,7 +240,7 @@ import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedLeadFlexWeight, timedTokenFlexWeight, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
+  activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedLeadFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 
 const META_FIELDS = [
@@ -362,11 +363,31 @@ function bindLineNode(t, index, node) {
   view.lines[index] = node || null;
   if (node && index === view.activeLineIndex) { node.classList.add('active'); view.activeLine = node; }
 }
+function tokenProgressPercent(t, line, word, ms) {
+  const row = t.rows[line];
+  const token = row?.words?.[word];
+  if (!row || !token) return 0;
+  const start = Number(token.time);
+  if (!Number.isFinite(start)) return 0;
+  const span = timedTokenSpanMs(row.words, word, nextRowTime(t, line));
+  return Math.max(0, Math.min(100, ((Number(ms) - start) / Math.max(1, span)) * 100));
+}
+function setTokenProgress(node, percent) {
+  if (node) node.style.setProperty('--token-progress', `${percent}%`);
+}
+function clearTokenProgress(node) {
+  if (node) node.style.removeProperty('--token-progress');
+}
 function bindTokenNode(t, line, word, node) {
   const view = playbackView(t);
   if (!view.tokens[line]) view.tokens[line] = [];
+  if (!node && view.tokens[line][word] === view.activeToken) clearTokenProgress(view.activeToken);
   view.tokens[line][word] = node || null;
-  if (node && line === view.activeLineIndex && word === view.activeWordIndex) { node.classList.add('active'); view.activeToken = node; }
+  if (node && line === view.activeLineIndex && word === view.activeWordIndex) {
+    node.classList.add('active');
+    view.activeToken = node;
+    setTokenProgress(node, tokenProgressPercent(t, line, word, playheadMs(t)));
+  }
 }
 function updateActiveIndices(t, ms = playheadMs(t)) {
   const view = playbackView(t);
@@ -382,10 +403,12 @@ function updateActiveIndices(t, ms = playheadMs(t)) {
   view.activeLineIndex = line;
   if (view.activeToken !== nextToken) {
     view.activeToken?.classList.remove('active');
+    clearTokenProgress(view.activeToken);
     nextToken?.classList.add('active');
     view.activeToken = nextToken;
   }
   view.activeWordIndex = word;
+  setTokenProgress(nextToken, tokenProgressPercent(t, line, word, ms));
 }
 function clearPlaybackView(t) {
   const view = playbackViews.get(t);
@@ -916,10 +939,11 @@ onBeforeUnmount(() => {
 .eb-word-timeline { overflow-x: auto; padding: .4rem .2rem; contain: layout paint; border-top: 1px solid var(--border-color, #ddd); }
 .eb-time-track { display: flex; width: 100%; min-width: max-content; gap: 0; }
 .eb-time-lead { box-sizing: border-box; flex: var(--eb-time-grow, 0) 1 0; min-width: 0; border-right: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
-.eb-time-token { box-sizing: border-box; display: flex; flex: var(--eb-time-grow, 1) 1 max(2.4rem, max-content); min-width: 2.4rem; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
+.eb-time-token { --token-progress: 0%; position: relative; box-sizing: border-box; display: flex; flex: var(--eb-time-grow, 1) 1 max(2.4rem, max-content); min-width: 2.4rem; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
 .eb-time-token-lower { padding-top: .35rem; }
 .eb-time-token-upper { padding-bottom: .35rem; }
 .eb-time-token.active { background: color-mix(in srgb, var(--eb-accent) 12%, transparent); }
+.eb-time-token-progress { position: absolute; right: 0; bottom: 0; left: 0; height: 2px; pointer-events: none; background: linear-gradient(to right, var(--eb-accent) var(--token-progress), transparent var(--token-progress)); }
 .eb-time-chars { display: flex; min-height: 1.4rem; padding: .12rem .18rem; }
 .eb-time-marker { align-self: flex-start; writing-mode: vertical-rl; padding: .15rem; border: 0; border-radius: 3px; background: transparent; color: var(--eb-accent); cursor: ew-resize; font-size: .62rem; }
 .eb-time-char { min-width: .8em; padding: .12rem .04rem; border-right: 1px dotted color-mix(in srgb, var(--border-color, #ddd) 75%, transparent); cursor: context-menu; }
