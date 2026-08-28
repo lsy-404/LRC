@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "markdown-it": "^14.1.0",
+    "mediabunny": "1.55.3",
     "opencc-js": "^1.4.2",
     "vue-scriptx": "^0.2.7",
     "vuepress-plugin-alert": "0.0.5"
