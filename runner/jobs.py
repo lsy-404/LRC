@@ -23,6 +23,7 @@ BOT_NAME = "lrc-ingest[bot]"
 BOT_EMAIL = "lrc-ingest@users.noreply.github.com"
 FAILURE_OUTPUT_LINES = 12
 FAILURE_OUTPUT_CHARS = 1200
+COMMAND_TIMEOUT_SECONDS = 55 * 60
 
 
 def _now() -> str:
@@ -49,8 +50,13 @@ def run(cmd: list[str], log, *, cwd: Path | None = None, env: dict | None = None
     shown = " ".join(cmd)
     shown = _redact(shown, redact)
     log(f"$ {shown}")
-    proc = subprocess.run(cmd, cwd=cwd, env={**os.environ, **(env or {})},
-                          capture_output=True, text=True)
+    try:
+        proc = subprocess.run(cmd, cwd=cwd, env={**os.environ, **(env or {})},
+                              capture_output=True, text=True, timeout=COMMAND_TIMEOUT_SECONDS)
+    except subprocess.TimeoutExpired as exc:
+        detail = _failure_output_tail(exc, redact)
+        suffix = f"\n{detail}" if detail else ""
+        raise RuntimeError(f"命令超时({COMMAND_TIMEOUT_SECONDS}秒): {shown}{suffix}") from exc
     tail = (proc.stderr or proc.stdout or "").strip().splitlines()[-40:]
     for line in tail:
         log(f"  {_redact(line, redact)}")

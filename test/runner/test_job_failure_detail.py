@@ -42,6 +42,17 @@ class JobFailureDetailTest(unittest.TestCase):
         self.assertNotIn("line-000", detail)
         self.assertLessEqual(len(detail), jobs.FAILURE_OUTPUT_CHARS)
 
+    def test_run_limits_external_command_and_keeps_timeout_tail(self):
+        logs = []
+        timeout = subprocess.TimeoutExpired(["tool"], jobs.COMMAND_TIMEOUT_SECONDS,
+                                            stderr="stuck at remote call\nlast detail")
+        with patch.object(jobs.subprocess, "run", side_effect=timeout) as run:
+            with self.assertRaises(RuntimeError) as caught:
+                jobs.run(["tool"], logs.append)
+        self.assertEqual(run.call_args.kwargs["timeout"], jobs.COMMAND_TIMEOUT_SECONDS)
+        self.assertIn(f"命令超时({jobs.COMMAND_TIMEOUT_SECONDS}秒): tool", str(caught.exception))
+        self.assertIn("[stderr] last detail", str(caught.exception))
+
 
 if __name__ == "__main__":
     unittest.main()

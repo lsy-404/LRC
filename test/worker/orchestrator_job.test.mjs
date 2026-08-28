@@ -211,3 +211,39 @@ test('Phase A 总大小超过基础盘安全上限时不触达 Container', async
   assert.match(ctx.job.error, /上传总大小 1\.26 GiB 超过 1\.25 GiB 上限；请拆分专辑后重试/);
   assert.equal(calls, 0);
 });
+
+test('成功、失败和取消都会停止对应处理器，停止失败不覆盖终态', async () => {
+  const IngestJob = await loadJob();
+  const cases = [
+    { name: 'success', status: { state: 'done', result: { result: 'ok' } }, expected: 'done' },
+    { name: 'failure', status: { state: 'error', error: 'pipeline failed' }, expected: 'failed' },
+    { name: 'cancel', status: null, expected: 'cancelled' },
+  ];
+  for (const scenario of cases) {
+    const ctx = jobContext();
+    let stops = 0;
+    const runner = {
+      fetch: async (url) => {
+        if (url.endsWith('/run')) return new Response('', { status: 202 });
+        return new Response(JSON.stringify(scenario.status), { status: 200 });
+      },
+      stop: async () => {
+        stops += 1;
+        if (scenario.name === 'failure') throw new Error('stop unavailable');
+      },
+    };
+    const job = new IngestJob(ctx, { RUNNER: { getByName: () => runner } });
+    await job.fetch(new Request('https://job/start', {
+      method: 'POST', body: JSON.stringify({ kind: 'phase_b', params: { ref: scenario.name.repeat(8) } }),
+    }));
+    if (scenario.name === 'cancel') {
+      await job.alarm();
+      await job.fetch(new Request('https://job/cancel', { method: 'POST' }));
+    } else {
+      await job.alarm();
+      await job.alarm();
+    }
+    assert.equal(stops, 1, scenario.name);
+    assert.equal(ctx.job.state, scenario.expected, scenario.name);
+  }
+});

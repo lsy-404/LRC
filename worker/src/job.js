@@ -94,6 +94,7 @@ export class IngestJob extends DurableObject {
       ...job, state: 'cancelled', stage: 'cancelled', progress: null,
       message: '作业已取消', wait: null, finishedAt: Date.now(),
     });
+    await this.#stopContainer(job);
     return { ok: true };
   }
 
@@ -168,6 +169,15 @@ export class IngestJob extends DurableObject {
       }
     }
     return null;
+  }
+
+  async #stopContainer(job) {
+    try {
+      await this.#container(job).stop();
+    } catch (e) {
+      // 作业终态已持久化，停止失败只能留日志，不能把已知结果改成失败。
+      console.error(`停止处理器失败 (${job.ref}): ${String(e)}`);
+    }
   }
 
   async #dispatch(job) {
@@ -259,7 +269,7 @@ export class IngestJob extends DurableObject {
         await this.ctx.storage.put('job', checking);
         const error = await this.#preflightPhaseA(checking);
         if (error) {
-          await this.#fail(checking, error);
+          await this.#fail(checking, error, [], false);
           return;
         }
       }
@@ -319,15 +329,17 @@ export class IngestJob extends DurableObject {
       await this.ctx.storage.deleteAlarm();
     }
     await this.ctx.storage.put('job', done);
+    await this.#stopContainer(job);
     await this.#drainPending(done);
   }
 
-  async #fail(job, error, log = []) {
+  async #fail(job, error, log = [], stopContainer = true) {
     await this.ctx.storage.deleteAlarm();
     const failed = { ...job, state: 'failed', error, log: log.slice(-60),
                      finishedAt: Date.now(), wait: null, stage: 'failed',
                      progress: progress(job.progress), message: error };
     await this.ctx.storage.put('job', failed);
+    if (stopContainer) await this.#stopContainer(job);
     await this.#drainPending(failed);
   }
 
