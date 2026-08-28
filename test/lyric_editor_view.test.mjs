@@ -27,6 +27,10 @@ test('播放器内联于歌词编辑区，且不保留原音与模拟说明', as
   assert.match(source, /@click="addLine\(t, li\)"/);
   assert.match(source, /class="eb-word-timeline" role="region" aria-label="逐字时间轨"/);
   assert.match(source, /class="eb-time-track"/);
+  assert.match(source, /eb-time-token-lower/);
+  assert.match(source, /timedTokenFlexWeight\(row\.words/);
+  assert.match(source, /--eb-time-grow/);
+  assert.match(source, /max\(2\.4rem, max-content\)/);
   assert.match(source, /timelineTokenStyle\(t, r, li, wi\)/);
   assert.match(source, /expandTimedTokens\(words, newId, 100, Number\(parsedRows\[index \+ 1\]\?\.time\)\)/);
   assert.match(source, /@pointerdown="startTimeDrag\(t, r, wi, \$event\)"/);
