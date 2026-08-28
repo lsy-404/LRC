@@ -50,8 +50,8 @@ function readyBucket() {
     get: async (key) => {
       const ref = key.split('/')[1];
       return { text: async () => JSON.stringify({
-        version: 2, album: '测试专辑', session: ref,
-        files: [{ n: 0, path: '测试专辑/音轨.mp3', size: 4 }],
+        version: 3, album: '测试专辑', session: ref,
+        files: [{ n: 0, path: '测试专辑/歌词.txt', size: 4, mime: '' }],
       }) };
     },
     head: async () => ({ size: 4 }),
@@ -146,8 +146,8 @@ test('Phase A 原料缺失时记录明确失败且绝不触达 Container', async
   let calls = 0;
   const bucket = {
     get: async () => ({ text: async () => JSON.stringify({
-      version: 2, album: '测试专辑', session: 'e'.repeat(32),
-      files: [{ n: 7, path: '测试专辑/丢失.mp3', size: 12 }],
+      version: 3, album: '测试专辑', session: 'e'.repeat(32),
+      files: [{ n: 7, path: '测试专辑/丢失.txt', size: 12, mime: '' }],
     }) }),
     head: async () => null,
   };
@@ -170,8 +170,8 @@ test('Phase A 对象大小不符时记录清单与存储大小且绝不触达 Co
   let calls = 0;
   const bucket = {
     get: async () => ({ text: async () => JSON.stringify({
-      version: 2, album: '测试专辑', session: 'f'.repeat(32),
-      files: [{ n: 1, path: '测试专辑/音轨.mp3', size: 12 }],
+      version: 3, album: '测试专辑', session: 'f'.repeat(32),
+      files: [{ n: 1, path: '测试专辑/歌词.txt', size: 12, mime: '' }],
     }) }),
     head: async () => ({ size: 11 }),
   };
@@ -194,8 +194,8 @@ test('Phase A 总大小超过基础盘安全上限时不触达 Container', async
   let calls = 0;
   const bucket = {
     get: async () => ({ text: async () => JSON.stringify({
-      version: 2, album: '测试专辑', session: '1'.repeat(32),
-      files: [{ n: 0, path: '测试专辑/超大.flac', size: Math.ceil(1.26 * 1024 * 1024 * 1024) }],
+      version: 3, album: '测试专辑', session: '1'.repeat(32),
+      files: [{ n: 0, path: '测试专辑/超大.txt', size: Math.ceil(1.01 * 1024 * 1024 * 1024), mime: '' }],
     }) }),
     head: async () => ({ size: Math.ceil(1.26 * 1024 * 1024 * 1024) }),
   };
@@ -208,8 +208,50 @@ test('Phase A 总大小超过基础盘安全上限时不触达 Container', async
   }));
   await job.alarm();
   assert.equal(ctx.job.state, 'failed');
-  assert.match(ctx.job.error, /上传总大小 1\.26 GiB 超过 1\.25 GiB 上限；请压缩原始音频后重试/);
+  assert.match(ctx.job.error, /上传总大小 1\.01 GiB 超过 1\.00 GiB 上限；请压缩原始音频后重试/);
   assert.equal(calls, 0);
+});
+
+test('全部音频由 Worker 流式转写并落盘后才启动 Container', async () => {
+  const IngestJob = await loadJob();
+  const ctx = jobContext();
+  const ref = '2'.repeat(32);
+  const writes = [];
+  const stored = new Map();
+  const bucket = {
+    get: async (key) => {
+      if (key.endsWith('manifest.json')) return { text: async () => JSON.stringify({
+        version: 3, album: '测试专辑', session: ref,
+        files: [{ n: 0, path: '测试专辑/歌曲.webm', size: 4, mime: 'audio/webm' }],
+      }) };
+      if (key.endsWith('/0')) return { body: new ReadableStream({ start(c) { c.enqueue(new Uint8Array([1, 2, 3, 4])); c.close(); } }) };
+      if (stored.has(key)) return { text: async () => stored.get(key) };
+      return null;
+    },
+    head: async () => ({ size: 4 }),
+    put: async (key, value) => { writes.push({ key, value }); stored.set(key, value); },
+  };
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (_url, init) => {
+    const body = await new Response(init.body).text();
+    assert.match(body, /Content-Type: audio\/webm/);
+    return new Response(JSON.stringify({ language: 'zh', words: [], segments: [] }), { status: 200 });
+  };
+  try {
+    let runnerCalls = 0;
+    const job = new IngestJob(ctx, {
+      UPLOAD_BUCKET: bucket, LLM_API_KEY: 'configured',
+      RUNNER: { getByName: () => ({ fetch: async () => { runnerCalls += 1; return new Response('', { status: 202 }); } }) },
+    });
+    await job.fetch(new Request('https://job/start', { method: 'POST', body: JSON.stringify({ kind: 'phase_a', params: { ref } }) }));
+    await job.alarm();
+    assert.equal(runnerCalls, 1);
+    assert.equal(ctx.job.state, 'running');
+    assert.equal(ctx.job.params.sttKey, `web/${ref}/stt`);
+    assert.equal(writes[0].key, `web/${ref}/stt/0.json`);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
 });
 
 test('成功、失败和取消都会停止对应处理器，停止失败不覆盖终态', async () => {

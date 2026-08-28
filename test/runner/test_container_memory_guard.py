@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""基础规格容器的并发内存护栏回归。"""
+"""lite 容器的并发和音频边界回归。"""
 from __future__ import annotations
 
 import ast
@@ -29,15 +29,15 @@ def _executor_worker_counts(path: Path) -> list[int]:
 
 
 class ContainerMemoryGuardTest(unittest.TestCase):
-    def test_phase_a_heavy_stages_are_single_lane(self) -> None:
+    def test_phase_a_keeps_only_ocr_in_container(self) -> None:
         self.assertEqual(_executor_worker_counts(ROOT / ".github/scripts/ingest/ocr.py"), [1])
-        self.assertEqual(_executor_worker_counts(ROOT / ".github/scripts/ingest/pipeline.py"), [1])
+        self.assertEqual(_executor_worker_counts(ROOT / ".github/scripts/ingest/pipeline.py"), [])
 
-    def test_container_uses_basic_instance(self) -> None:
+    def test_container_uses_lite_instance(self) -> None:
         text = (ROOT / "worker/wrangler.jsonc").read_text(encoding="utf-8")
         config = json.loads(re.sub(r"^\s*//.*$", "", text, flags=re.MULTILINE))
         container = config["containers"][0]
-        self.assertEqual(container["instance_type"], "basic")
+        self.assertEqual(container["instance_type"], "lite")
         self.assertEqual(container["max_instances"], 5)
 
     def test_runner_never_executes_two_jobs_at_once(self) -> None:

@@ -4,6 +4,15 @@ import {
 } from './_lib.js';
 
 const REQUIRED_LYRIC_MAKER = '武乙凌薇';
+const AUDIO_MIMES = new Set([
+  'audio/flac', 'audio/m4a', 'audio/mp4', 'audio/mpeg', 'audio/mpga',
+  'audio/ogg', 'audio/wav', 'audio/webm', 'audio/x-m4a', 'audio/x-wav',
+]);
+
+function cleanMime(value) {
+  const mime = typeof value === 'string' ? value.toLowerCase().trim() : '';
+  return AUDIO_MIMES.has(mime) ? mime : '';
+}
 
 function cleanLyricMakers(value) {
   const seen = new Set();
@@ -45,13 +54,21 @@ export async function onRequestPost({ request, env }) {
     }
     seenPath.add(path);
     seenN.add(n);
-    files.push({ n, path, size: Number(f?.size) || 0 });
+    const mime = cleanMime(f?.mime);
+    const audioNamed = /\.(?:flac|m4a|mp3|mp4|ogg|wav|webm)$/i.test(path);
+    if (audioNamed && !mime) return json({ error: 'audio file requires an accepted MIME type', path }, 400);
+    files.push({ n, path, size: Number(f?.size) || 0, mime });
   }
 
   const contributor = typeof body?.contributor === 'string'
     ? body.contributor.slice(0, 60) : 'web';
   const lyric_maker = cleanLyricMakers(body?.lyric_maker);
-  const manifest = { version: 2, album, session, contributor, lyric_maker, files };
+  const manifest = {
+    version: 3, album, session, contributor, lyric_maker,
+    upload_metadata: body?.upload_metadata && typeof body.upload_metadata === 'object'
+      ? body.upload_metadata : {},
+    files,
+  };
   await env.UPLOAD_BUCKET.put(`web/${session}/manifest.json`,
     JSON.stringify(manifest, null, 1),
     { httpMetadata: { contentType: 'application/json' } });

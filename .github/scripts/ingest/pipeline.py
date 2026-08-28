@@ -8,7 +8,7 @@
     图片(.png/.jpg/...)    → OCR ┐
     文档(.pdf/.docx)       → 抽取 ┼→ 歌词本文本(无逐曲歌词时 LLM 分轨；并供抽 credits)
     草稿 .txt（含歌词）    → 也按逐曲歌词处理
-    音频(.wav/.flac/...)   → faster-whisper 词级时间戳 → audio_words
+    上传音频                → Worker 的 OpenAI 词级时间戳 → audio_words
     封面图（主视图/cover/最大图）→ cover.*
     manifest.toml          → 专辑名 + meta 覆盖 + [链接] 歌词拍照→音轨绑定
                              + 伴奏/原曲 显式标记（覆盖文件名 inst 启发式）
@@ -46,7 +46,7 @@ else:
 
 TEXT_EXTS = {".txt"}
 LRC_EXTS = {".lrc"}
-IGNORE_NAMES = {"manifest.toml", "readme.md", "readme.txt", ".gitkeep", ".ds_store"}
+IGNORE_NAMES = {"manifest.toml", "upload-manifest.json", "readme.md", "readme.txt", ".gitkeep", ".ds_store"}
 IGNORE_DIRS = {".git", ".github"}
 COVER_HINT = re.compile(r"cover|封面|主视图|jacket", re.I)
 
@@ -141,6 +141,44 @@ def extract_audio_meta(audios: list[Path]) -> tuple[dict, str]:
     if hint:
         print(f"  ◈ 来源线索取自音频 tag: {hint}", file=sys.stderr)
     return meta, hint
+
+
+def load_uploaded_manifest(src: Path, required: bool = False) -> dict:
+    path = src / "upload-manifest.json"
+    if not path.is_file():
+        if required:
+            raise RuntimeError("Phase A 缺少上传清单副本")
+        return {}
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        if required:
+            raise RuntimeError("Phase A 上传清单副本不是有效 JSON") from exc
+        return {}
+    if isinstance(value, dict):
+        return value
+    if required:
+        raise RuntimeError("Phase A 上传清单副本结构无效")
+    return {}
+
+
+def load_precomputed_stt(path: Path | None) -> dict[str, tuple[list[dict], str, dict]]:
+    if path is None or not path.is_file():
+        raise RuntimeError("Phase A 缺少 Worker 预转写结果")
+    try:
+        source = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise RuntimeError("Worker 预转写结果不是有效 JSON") from exc
+    out: dict[str, tuple[list[dict], str, dict]] = {}
+    for item in source.get("tracks") or []:
+        if not isinstance(item, dict) or not isinstance(item.get("path"), str):
+            continue
+        result = item.get("result")
+        if not isinstance(result, dict):
+            continue
+        words, lang, cleanup = stt_mod._parse_verbose_json_with_cleanup(result, None)
+        out[Path(item["path"]).as_posix()] = (words, lang, cleanup)
+    return out
 
 
 def extract_embedded_cover(audios: list[Path], work: Path) -> Path | None:
@@ -253,11 +291,16 @@ def run(src: Path, res_dir: Path, work: Path, album: str, dry_run: bool, lyric_m
 def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bool,
                    lyric_maker: str = "", *, mode: str = "oneshot",
                    bundle_root: Path | None = None, timestamp: str = "",
-                   contributor: str = "") -> dict:
+                   contributor: str = "", precomputed_stt: dict[str, tuple[list[dict], str, dict]] | None = None) -> dict:
     """mode='oneshot'：素材 → build_draft（含对齐）→ finalize → res/（无闸门）。
     mode='phase_a'：素材 → build_draft → review.write_bundle 到 bundle_root/<album>/（停在待修改）。
     """
     buckets = classify(src)
+    uploaded_manifest = load_uploaded_manifest(src, required=mode == "phase_a")
+    for audio in uploaded_manifest.get("audio") or []:
+        path = audio.get("path") if isinstance(audio, dict) else None
+        if isinstance(path, str) and str(audio.get("mime") or "").startswith("audio/"):
+            buckets["audio"].append(src / path)
     summary: dict = {k: [p.name for p in v] for k, v in buckets.items()}
     print(f"分流：图片{len(buckets['image'])} 文档{len(buckets['doc'])} 音频{len(buckets['audio'])} "
           f"文字{len(buckets['text'])} LRC{len(buckets['lrc'])} 其他{len(buckets['other'])}", file=sys.stderr)
@@ -287,6 +330,9 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     # （第 2 步）也用它；meta 覆盖仍在第 5 步与音频 tag 合并
     manifest_path = src / "manifest.toml"
     manifest = org_mod._read_toml(manifest_path) if manifest_path.is_file() else {}
+    if uploaded_manifest:
+        upload_metadata = uploaded_manifest.get("upload_metadata", {})
+        manifest = {**upload_metadata, **manifest}
     photo_links = extract_photo_links(manifest)
     if photo_links:
         print(f"  🔗 manifest 携带 {len(photo_links)} 条歌词拍照绑定", file=sys.stderr)
@@ -295,7 +341,9 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     # 2) 图片 OCR + 文档抽取 → 逐页歌词本文本（保留页出处，供绑定/置信度匹配；
     #    拼接版供纯文本分轨与抽 credits）
     pages: list[dict] = []
-    cover = pick_cover(buckets["image"]) or extract_embedded_cover(buckets["audio"], work)
+    uploaded_cover = str((uploaded_manifest.get("upload_metadata") or {}).get("cover_path") or "")
+    cover = next((image for image in buckets["image"] if image.relative_to(src).as_posix() == uploaded_cover), None)
+    cover = cover or pick_cover(buckets["image"]) or (None if uploaded_manifest else extract_embedded_cover(buckets["audio"], work))
     ocr_images = [p for p in buckets["image"] if p != cover]  # 封面不做歌词处理
     # 图片走一步 vision：build_draft 用 luna 直接看图分轨（OCR 和出词合并），不跑会
     # 「拒绝难图」的独立 OCR。pdf/docx vision 读不了 → 抽文本进 credits 供抽 meta；
@@ -335,6 +383,25 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     inst_files: set[str] = set()
     if buckets["audio"]:
         tracks_plan = org_mod.llm_order_tracks([p.name for p in buckets["audio"]], album)
+        uploaded_tracks = {
+            str(track.get("path")): track.get("metadata") or {}
+            for track in ((uploaded_manifest.get("upload_metadata") or {}).get("tracks") or [])
+            if isinstance(track, dict) and isinstance(track.get("path"), str)
+        }
+        for track in tracks_plan:
+            audio_path = next((audio.relative_to(src).as_posix() for audio in buckets["audio"]
+                               if audio.name == track.get("file")), "")
+            metadata = uploaded_tracks.get(audio_path, {})
+            if not isinstance(metadata, dict):
+                continue
+            if isinstance(metadata.get("title"), str) and metadata["title"].strip():
+                track["title"] = metadata["title"].strip()
+            if isinstance(metadata.get("trackNumber"), int) and metadata["trackNumber"] > 0:
+                track["order"] = metadata["trackNumber"]
+            for key in ("artist", "album", "date"):
+                value = metadata.get(key)
+                if isinstance(value, str) and value.strip() and not manifest.get(key):
+                    manifest[key] = value.strip()
         org_mod.apply_inst_overrides(tracks_plan, inst_marked, inst_as_song)
         keep = {t.get("file") for t in tracks_plan}
         inst_files = {t.get("file") for t in tracks_plan if t.get("inst")}
@@ -354,17 +421,20 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
             if stem in by_stem:
                 track["file"] = by_stem[stem]
 
-    # 4) 音频 → 词级时间戳（云端 whisper-1 并发；伴奏/无人声轨没有人声可转写，跳过）
+    # 4) 音频 → 词级时间戳。转写已由 Worker 在 Container 启动前完成；这里仅消费
+    #    已持久化的结果，避免 lite Container 下载或再上传原始音频。
     audio_words: dict[str, list] = {}
     audio_langs: dict[str, str] = {}
     stt_cleanup: dict[str, dict] = {}
     if buckets["audio"]:
-        from concurrent.futures import ThreadPoolExecutor
         kept = [a for a in buckets["audio"] if (not keep or a.name in keep) and a.name not in inst_files]
-        # 每个 STT 请求前都要在容器内做 ffprobe/ffmpeg；基础规格只保留一路。
-        with ThreadPoolExecutor(max_workers=1) as pool:
-            results = list(pool.map(stt_mod.transcribe_words, kept))
-        for a, (words, lang, cleanup) in zip(kept, results):
+        available = precomputed_stt or {}
+        missing = [a.relative_to(src).as_posix() for a in kept
+                   if a.relative_to(src).as_posix() not in available]
+        if missing:
+            raise RuntimeError(f"Worker 未提供音频预转写结果: {', '.join(missing)}")
+        for a in kept:
+            words, lang, cleanup = available[a.relative_to(src).as_posix()]
             if cleanup.get("removed_word_count"):
                 stt_cleanup[a.name] = cleanup
             if lyrics_mod.is_chinese_language(lang):
@@ -372,35 +442,10 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
             audio_words[a.name] = words
             audio_langs[a.name] = lang
 
-        # 语言重试：检测专辑主语言，对语言离群轨重跑 STT
-        if len(audio_langs) > 1:
-            lang_counts: dict[str, int] = {}
-            for lg in audio_langs.values():
-                lang_counts[lg] = lang_counts.get(lg, 0) + 1
-            majority_lang = max(lang_counts, key=lambda k: lang_counts[k])
-            retry_audios = [
-                a for a in buckets["audio"]
-                if a.name in audio_langs and audio_langs[a.name] != majority_lang
-            ]
-            if retry_audios:
-                print(
-                    f"  ↺ 语言重试（主语言={majority_lang}，重试 {len(retry_audios)} 首）："
-                    f" {[a.name for a in retry_audios]}",
-                    file=sys.stderr,
-                )
-                for a in retry_audios:
-                    words, lang, cleanup = stt_mod.transcribe_words(a, lang=majority_lang)
-                    if cleanup.get("removed_word_count"):
-                        stt_cleanup[a.name] = cleanup
-                    if lyrics_mod.is_chinese_language(lang):
-                        words = [{**word, "text": lyrics_mod.to_simplified(str(word.get("text", "")))} for word in words]
-                    audio_words[a.name] = words
-                    audio_langs[a.name] = lang
-
     # 5) 整理 + 对齐 → res/<专辑>/（meta 全自动；专辑名 = 文件夹名 album）
     #    可选：若投递目录恰含 manifest.toml 则作为 meta 覆盖（非必需，不鼓励）。
     # 音频 tag 权威元信息：优先级仅次于 manifest（manifest 显式键覆盖 tag）
-    tag_meta, source_hint = extract_audio_meta(buckets["audio"])
+    tag_meta, source_hint = ({} if uploaded_manifest else extract_audio_meta(buckets["audio"]))
     manifest = {**tag_meta, **manifest}
 
     # 增补检测：若目标专辑已存在于 res_dir，进入增补模式
@@ -452,17 +497,18 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
 
 def run_phase_a(src: Path, res_dir: Path, work: Path, album: str, bundle_root: Path,
                 timestamp: str = "", dry_run: bool = False, lyric_maker: str = "",
-                contributor: str = "") -> dict:
+                contributor: str = "", stt_json: Path | None = None) -> dict:
     """Phase A：逐专辑 OCR/STT/检索/建草稿/对齐 → review bundle（停在待人工闸门，不写 res）。"""
     work.mkdir(parents=True, exist_ok=True)
     bundle_root = Path(bundle_root)
     bundle_root.mkdir(parents=True, exist_ok=True)
     jobs = _resolve_jobs(src, album)
     print(f"识别到 {len(jobs)} 张专辑：{[a for a, _ in jobs]}", file=sys.stderr)
+    precomputed_stt = load_precomputed_stt(stt_json)
     albums_out = [
         _process_album(name, asrc, res_dir, work, dry_run, lyric_maker,
                        mode="phase_a", bundle_root=bundle_root, timestamp=timestamp,
-                       contributor=contributor)
+                       contributor=contributor, precomputed_stt=precomputed_stt)
         for name, asrc in jobs
     ]
     ok = any(a.get("result") == "ok" for a in albums_out)
@@ -525,6 +571,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--album", default="")
     ap.add_argument("--json", help="把摘要写入该 JSON 文件")
     ap.add_argument("--lyric-maker", default="", help="歌词制作默认署名（lyric_maker 为空时填入）")
+    ap.add_argument("--stt-json", help="Worker 预先写入的逐字转写结果（Phase A 必填）")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args(argv)
 
@@ -544,7 +591,8 @@ def main(argv: list[str] | None = None) -> int:
                 return 1
             summary = run_phase_a(src, Path(args.res_dir), Path(args.work), args.album,
                                   Path(args.bundle_root), args.timestamp, args.dry_run,
-                                  args.lyric_maker, args.contributor)
+                                  args.lyric_maker, args.contributor,
+                                  Path(args.stt_json) if args.stt_json else None)
         else:
             summary = run(src, Path(args.res_dir), Path(args.work), args.album,
                           args.dry_run, args.lyric_maker)

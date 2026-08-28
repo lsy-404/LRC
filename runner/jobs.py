@@ -115,11 +115,27 @@ def phase_a(params: dict, log, report=None) -> dict:
         _progress(report, "downloading", 8, "正在读取投稿清单")
         payload = work / "payload" / album
         total = 0
+        audio_files = []
         for index, f in enumerate(files, start=1):
-            total += store.download(f"web/{ref}/{f['n']}", payload / f["path"],
-                                    int(f.get("size") or 0))
+            destination = payload / f["path"]
+            if str(f.get("mime") or "").startswith("audio/"):
+                audio_files.append(f)
+            else:
+                total += store.download(f"web/{ref}/{f['n']}", destination,
+                                        int(f.get("size") or 0))
             _progress(report, "downloading", 8 + round(17 * index / len(files)),
                       f"正在读取原料（{index}/{len(files)}）")
+        (payload / "upload-manifest.json").write_text(json.dumps({
+            "upload_metadata": manifest.get("upload_metadata") or {},
+            "audio": audio_files,
+        }, ensure_ascii=False), encoding="utf-8")
+        stt_entries = []
+        for item in store.list_keys(f"web/{ref}/stt/"):
+            entry = store.get_json(item["key"])
+            if entry:
+                stt_entries.append(entry)
+        stt_path = work / "stt.json"
+        stt_path.write_text(json.dumps({"tracks": stt_entries}, ensure_ascii=False), encoding="utf-8")
         log(f"取料 {len(files)} 个文件 / {total} 字节 → payload/{album}/")
 
         _progress(report, "cloning", 28, "正在准备处理脚本")
@@ -137,7 +153,7 @@ def phase_a(params: dict, log, report=None) -> dict:
                "--src", str(work / "payload"), "--res-dir", str(res_dir),
                "--bundle-root", str(bundle_root), "--timestamp", _now(),
                "--work", str(work / "ingest_work"), "--json", str(summary_path),
-               "--contributor", contributor]
+               "--contributor", contributor, "--stt-json", str(stt_path)]
         if LYRIC_MAKER:
             cmd += ["--lyric-maker", LYRIC_MAKER]
         run(cmd, log, cwd=repo, env=_pipeline_env(repo))

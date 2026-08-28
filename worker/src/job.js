@@ -11,7 +11,14 @@ const HOUR_MS = 60 * 60 * 1000;
 
 const ACTIVE_STATES = new Set(['queued', 'dispatching', 'running']);
 const MAX_UPLOAD_FILES = 500;
-const MAX_UPLOAD_BYTES = 1.25 * 1024 * 1024 * 1024;
+const MAX_UPLOAD_BYTES = 1024 * 1024 * 1024;
+const MAX_TRANSCRIPTION_BYTES = 25 * 1000 * 1000;
+const TRANSCRIPTION_BATCH_SIZE = 2;
+const OPENAI_TRANSCRIPT_URL = 'https://api.openai.com/v1/audio/transcriptions';
+const AUDIO_MIMES = new Set([
+  'audio/flac', 'audio/m4a', 'audio/mp4', 'audio/mpeg', 'audio/mpga',
+  'audio/ogg', 'audio/wav', 'audio/webm', 'audio/x-m4a', 'audio/x-wav',
+]);
 
 function progress(value) {
   const number = Number(value);
@@ -45,6 +52,62 @@ function validFile(file, ref, seen) {
       || !Number.isSafeInteger(file.size) || file.size < 0) return null;
   seen.add(file.n);
   return `web/${ref}/${file.n}`;
+}
+
+function audioFile(file) {
+  return typeof file?.mime === 'string' && AUDIO_MIMES.has(file.mime.toLowerCase());
+}
+
+function multipartStream(boundary, fields, file, body) {
+  const encoder = new TextEncoder();
+  const head = [
+    ...fields.flatMap(([name, value]) => [
+      `--${boundary}\r\nContent-Disposition: form-data; name="${name}"\r\n\r\n${value}\r\n`,
+    ]),
+    `--${boundary}\r\nContent-Disposition: form-data; name="file"; filename="upload.webm"\r\nContent-Type: ${file.mime}\r\n\r\n`,
+  ].join('');
+  const tail = `\r\n--${boundary}--\r\n`;
+  return new ReadableStream({
+    async start(controller) {
+      controller.enqueue(encoder.encode(head));
+      const reader = body.getReader();
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          controller.enqueue(value);
+        }
+        controller.enqueue(encoder.encode(tail));
+        controller.close();
+      } catch (error) {
+        controller.error(error);
+      } finally {
+        reader.releaseLock();
+      }
+    },
+  });
+}
+
+async function readError(response, limit = 300) {
+  if (!response.body) return '';
+  const reader = response.body.getReader();
+  const chunks = [];
+  let size = 0;
+  try {
+    while (size < limit) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const part = value.slice(0, limit - size);
+      chunks.push(part);
+      size += part.byteLength;
+    }
+  } finally {
+    await reader.cancel();
+  }
+  return new TextDecoder().decode(chunks.length === 1 ? chunks[0] : chunks.reduce((out, part) => {
+    const next = new Uint8Array(out.byteLength + part.byteLength);
+    next.set(out); next.set(part, out.byteLength); return next;
+  }, new Uint8Array()));
 }
 
 export class IngestJob extends DurableObject {
@@ -127,48 +190,156 @@ export class IngestJob extends DurableObject {
 
   async #preflightPhaseA(job) {
     const ref = job.params?.ref;
-    if (typeof ref !== 'string' || !ref) return preflightError('缺少投稿标识');
+    if (typeof ref !== 'string' || !ref) return { error: preflightError('缺少投稿标识') };
     let manifestObject;
     try {
       manifestObject = await this.env.UPLOAD_BUCKET?.get(`web/${ref}/manifest.json`);
     } catch {
-      return preflightError('无法读取上传清单');
+      return { error: preflightError('无法读取上传清单') };
     }
-    if (!manifestObject) return preflightError('找不到上传清单');
+    if (!manifestObject) return { error: preflightError('找不到上传清单') };
 
     let manifest;
     try {
       manifest = JSON.parse(await manifestObject.text());
     } catch {
-      return preflightError('上传清单不是有效 JSON');
+      return { error: preflightError('上传清单不是有效 JSON') };
     }
-    if (!manifest || manifest.version !== 2 || !validAlbum(manifest.album)
+    if (!manifest || manifest.version !== 3 || !validAlbum(manifest.album)
         || manifest.session !== ref || !Array.isArray(manifest.files)
         || !manifest.files.length || manifest.files.length > MAX_UPLOAD_FILES) {
-      return preflightError('上传清单结构无效');
+      return { error: preflightError('上传清单结构无效') };
     }
 
     const seen = new Set();
+    const audioNames = new Set();
     let totalSize = 0;
     for (const file of manifest.files) {
       const key = validFile(file, ref, seen);
-      if (!key) return preflightError('上传文件条目无效');
+      if (!key) return { error: preflightError('上传文件条目无效') };
+      if (audioFile(file) && file.size > MAX_TRANSCRIPTION_BYTES) {
+        return { error: preflightError(`音频 ${file.path} 超过 OpenAI 的 25 MB 转写上限；请在上传前压缩`) };
+      }
+      if (audioFile(file)) {
+        const name = file.path.split('/').at(-1).normalize('NFC').toLocaleLowerCase();
+        if (audioNames.has(name)) return { error: preflightError(`音频文件名重复 ${file.path}`) };
+        audioNames.add(name);
+      }
+      if (String(file.path).match(/\.(?:mp3|wav|flac|m4a|ogg|webm|mp4)$/i) && !audioFile(file)) {
+        return { error: preflightError(`音频 ${file.path} 缺少有效 MIME；请重新选择并压缩该文件`) };
+      }
       totalSize += file.size;
       if (totalSize > MAX_UPLOAD_BYTES) {
-        return preflightError(`上传总大小 ${bytesLabel(totalSize)} 超过 ${bytesLabel(MAX_UPLOAD_BYTES)} 上限；请压缩原始音频后重试`);
+        return { error: preflightError(`上传总大小 ${bytesLabel(totalSize)} 超过 ${bytesLabel(MAX_UPLOAD_BYTES)} 上限；请压缩原始音频后重试`) };
       }
       let object;
       try {
         object = await this.env.UPLOAD_BUCKET.head(key);
       } catch {
-        return preflightError(`无法读取上传对象 ${file.n}`);
+        return { error: preflightError(`无法读取上传对象 ${file.n}`) };
       }
-      if (!object) return preflightError(`缺少上传对象 ${file.n}`);
+      if (!object) return { error: preflightError(`缺少上传对象 ${file.n}`) };
       if (object.size !== file.size) {
-        return preflightError(`上传对象 ${file.n} 大小不匹配（清单 ${file.size}，存储 ${object.size}）`);
+        return { error: preflightError(`上传对象 ${file.n} 大小不匹配（清单 ${file.size}，存储 ${object.size}）`) };
       }
     }
-    return null;
+    return { manifest };
+  }
+
+  async #transcribe(job, file) {
+    const object = await this.env.UPLOAD_BUCKET.get(`web/${job.ref}/${file.n}`);
+    if (!object?.body) throw new Error(`无法读取音频 ${file.path}`);
+    if (!this.env.LLM_API_KEY) throw new Error('未配置音频转写密钥');
+    const boundary = `lrc-${crypto.randomUUID()}`;
+    const response = await fetch(OPENAI_TRANSCRIPT_URL, {
+      method: 'POST',
+      headers: {
+        authorization: `Bearer ${this.env.LLM_API_KEY}`,
+        'content-type': `multipart/form-data; boundary=${boundary}`,
+      },
+      body: multipartStream(boundary, [
+        ['model', 'whisper-1'],
+        ['response_format', 'verbose_json'],
+        ['timestamp_granularities[]', 'word'],
+        ['timestamp_granularities[]', 'segment'],
+      ], file, object.body),
+    });
+    if (!response.ok) {
+      const detail = await readError(response);
+      throw new Error(`OpenAI 转写失败 ${file.path}: ${response.status} ${detail}`);
+    }
+    const result = await response.json();
+    await this.env.UPLOAD_BUCKET.put(`web/${job.ref}/stt/${file.n}.json`, JSON.stringify({
+      n: file.n, path: file.path, mime: file.mime, result,
+    }), { httpMetadata: { contentType: 'application/json' } });
+  }
+
+  async #prepareAudio(job, manifest) {
+    const audio = manifest.files.filter(audioFile);
+    const status = { ...(job.transcriptions || {}) };
+    const pending = audio.filter((file) => status[file.n]?.state !== 'done');
+    if (!pending.length) return { ready: true, job };
+    const batch = pending.slice(0, TRANSCRIPTION_BATCH_SIZE);
+    const processing = {
+      ...job,
+      state: 'queued', wait: 'transcribing', stage: 'transcribing',
+      progress: Math.max(progress(job.progress) || 0, 15),
+      message: `正在识别音频（${audio.length - pending.length + 1}-${audio.length - pending.length + batch.length}/${audio.length}）`,
+      transcriptions: { ...status, ...Object.fromEntries(batch.map((file) => [file.n, { state: 'running', path: file.path }])) },
+      updatedAt: Date.now(),
+    };
+    await this.ctx.storage.put('job', processing);
+    const settled = await Promise.allSettled(batch.map((file) => this.#transcribe(processing, file)));
+    const transcriptions = { ...(processing.transcriptions || {}) };
+    const failed = [];
+    for (let index = 0; index < batch.length; index += 1) {
+      const file = batch[index];
+      const outcome = settled[index];
+      if (outcome.status === 'fulfilled') transcriptions[file.n] = { state: 'done', path: file.path };
+      else {
+        const error = String(outcome.reason?.message || outcome.reason);
+        transcriptions[file.n] = { state: 'failed', path: file.path, error };
+        failed.push(error);
+      }
+    }
+    if (failed.length) {
+      await this.#fail({ ...processing, transcriptions }, failed.join('\n'), [], false);
+      return { ready: false };
+    }
+    const complete = audio.every((file) => transcriptions[file.n]?.state === 'done');
+    const doneCount = Object.values(transcriptions).filter((entry) => entry.state === 'done').length;
+    const updated = {
+      ...processing, transcriptions, wait: complete ? 'dispatch' : 'transcribing',
+      stage: complete ? 'ready_to_align' : 'transcribing',
+      progress: complete ? 35 : Math.max(15, Math.round(15 + (20 * doneCount / Math.max(audio.length, 1)))),
+      message: complete ? '全部音频已识别，正在启动对齐' : '正在识别剩余音频',
+      params: { ...processing.params, sttKey: `web/${job.ref}/stt` },
+      updatedAt: Date.now(),
+    };
+    await this.ctx.storage.put('job', updated);
+    if (!complete) {
+      await this.ctx.storage.setAlarm(Date.now() + INITIAL_DISPATCH_DELAY_MS);
+      return { ready: false };
+    }
+    return { ready: true, job: updated };
+  }
+
+  async #verifyPreparedAudio(job, manifest) {
+    for (const file of manifest.files.filter(audioFile)) {
+      const object = await this.env.UPLOAD_BUCKET.get(`web/${job.ref}/stt/${file.n}.json`);
+      if (!object) return `缺少音频预转写结果 ${file.path}`;
+      let entry;
+      try {
+        entry = JSON.parse(await object.text());
+      } catch {
+        return `音频预转写结果无效 ${file.path}`;
+      }
+      if (entry?.n !== file.n || entry?.path !== file.path || entry?.mime !== file.mime
+          || !entry?.result || typeof entry.result !== 'object') {
+        return `音频预转写结果不匹配 ${file.path}`;
+      }
+    }
+    return '';
   }
 
   async #stopContainer(job) {
@@ -258,6 +429,7 @@ export class IngestJob extends DurableObject {
     // 派发请求本身也可能被冷启动中断；先保留一次闹钟，重入同一 jobId 是幂等的。
     await this.ctx.storage.setAlarm(Date.now() + POLL_MS);
     try {
+      let dispatchJob = starting;
       if (starting.kind === 'phase_a') {
         const checking = {
           ...starting,
@@ -267,15 +439,23 @@ export class IngestJob extends DurableObject {
           updatedAt: Date.now(),
         };
         await this.ctx.storage.put('job', checking);
-        const error = await this.#preflightPhaseA(checking);
-        if (error) {
-          await this.#fail(checking, error, [], false);
+        const preflight = await this.#preflightPhaseA(checking);
+        if (preflight.error) {
+          await this.#fail(checking, preflight.error, [], false);
           return;
         }
+        const prepared = await this.#prepareAudio(checking, preflight.manifest);
+        if (!prepared.ready) return;
+        const sttError = await this.#verifyPreparedAudio(prepared.job, preflight.manifest);
+        if (sttError) {
+          await this.#fail(prepared.job, sttError, [], false);
+          return;
+        }
+        dispatchJob = prepared.job;
       }
-      await this.#dispatch(starting);
+      await this.#dispatch(dispatchJob);
       const running = {
-        ...starting,
+        ...dispatchJob,
         state: 'running',
         wait: 'poll',
         stage: 'processing',
