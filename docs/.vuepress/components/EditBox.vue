@@ -169,7 +169,7 @@
                   <button v-for="slot in missingMarkerSlots(r, 0)" :key="`missing-${r._id}-${slot.textIndex}`" class="eb-time-missing" :title="`为 ${slot.text} 新增时间标记`" :aria-label="`为 ${slot.text} 新增时间标记`" @click="insertMissingMarker(t, r, li, slot.textIndex)">{{ slot.text }}</button>
                   <template v-for="(word, wi) in r.words" :key="word._id">
                   <div :ref="(node) => bindTokenNode(t, li, wi, node)" class="eb-time-token" :style="timelineTokenStyle(t, r, li, wi)">
-                    <span class="eb-time-chars" contenteditable="plaintext-only" spellcheck="false" tabindex="0" @focus="selectTimelineChar" @input="editTimelineChar(t, r, wi, $event)" @keydown.enter.prevent="$event.currentTarget.blur()"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, ci, $event)" @keydown="openTimelineMenuFromKey(t, r, wi, ci, $event)">{{ char }}</span></span>
+                    <span class="eb-time-chars" contenteditable="plaintext-only" spellcheck="false" tabindex="0" :aria-label="`编辑 ${word.text}，可输入多个字`" @focus="selectTimelineChar" @input="editTimelineChar(t, r, wi, $event)" @keydown="openTimelineMenuFromKey(t, r, wi, 0, $event)" @keydown.enter.prevent="$event.currentTarget.blur()"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, ci, $event)">{{ char }}</span></span>
                     <button class="eb-time-marker" :aria-label="`调整 ${word.text} 的句内偏移`" @pointerdown="startTimeDrag(t, r, wi, $event)" @pointermove="moveTimeDrag($event)" @pointerup="finishTimeDrag($event)" @pointercancel="finishTimeDrag($event)" @lostpointercapture="finishTimeDrag($event)" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, 0, $event)" @keydown="nudgeWordTime(t, r, wi, $event)"><span>{{ formatWordOffset(r, word.time) }}</span></button>
                   </div>
                   <button v-for="slot in missingMarkerSlots(r, wi + 1)" :key="`missing-${r._id}-${slot.textIndex}`" class="eb-time-missing" :title="`为 ${slot.text} 新增时间标记`" :aria-label="`为 ${slot.text} 新增时间标记`" @click="insertMissingMarker(t, r, li, slot.textIndex)">{{ slot.text }}</button>
@@ -801,7 +801,7 @@ function toEdit(album, draft) {
         const parsedRows = part.rows;
         const editorRows = parsedRows.map((r, index) => {
         const words = r.words.map((word) => ({ ...word, _id: newId() }));
-        return { ...r, _id: newId(), words: expandTimedTokens(words, newId, 100, Number(parsedRows[index + 1]?.time)) };
+        return { ...r, _id: newId(), words: part.timingLocked ? words : expandTimedTokens(words, newId, 100, Number(parsedRows[index + 1]?.time)) };
       });
         return { ...part, _id: newId(), rows: editorRows, _view: editorRows.length ? 'lrc' : 'text' };
       };

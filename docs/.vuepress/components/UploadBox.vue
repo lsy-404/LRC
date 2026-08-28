@@ -18,7 +18,7 @@
         v-model="album"
         type="text"
         class="ub-input"
-        placeholder="例：再次呼唤我的名字吧"
+        placeholder="例：专辑名称"
         :disabled="busy"
       >
 

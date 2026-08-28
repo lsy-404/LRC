@@ -11,7 +11,7 @@ import { fakeBucket, authedRequest } from './_fakeR2.mjs';
 
 const REF = 'a'.repeat(32);
 const REF2 = 'b'.repeat(32);
-const ALBUM = '再次呼唤我的名字吧';
+const ALBUM = '测试专辑';
 
 function seeded() {
   return fakeBucket({

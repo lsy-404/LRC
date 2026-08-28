@@ -7,10 +7,10 @@
     "docs:clean-dev": "vuepress dev docs --clean-cache",
     "docs:dev": "vuepress dev docs",
     "docs:prod": "live-server docs/.vuepress/dist",
-    "generate-md": "python .github/scripts/generate_md.py",
-    "generate-api": "python .github/scripts/generate_api.py",
-    "test-meta": "python .github/scripts/test_meta.py",
-    "update-meta-dates": "python .github/scripts/update_meta_dates.py",
+    "generate-md": "python3 .github/scripts/generate_md.py",
+    "generate-api": "python3 .github/scripts/generate_api.py",
+    "test-meta": "python3 .github/scripts/test_meta.py",
+    "update-meta-dates": "python3 .github/scripts/update_meta_dates.py",
     "upgrade": "pnpm dlx vp-update"
   },
   "devDependencies": {

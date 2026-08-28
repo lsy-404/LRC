@@ -5,7 +5,7 @@ import {
 } from '../../functions/api/upload/_lib.js';
 
 test('cleanAlbum 接受正常专辑名', () => {
-  assert.equal(cleanAlbum('再次呼唤我的名字吧'), '再次呼唤我的名字吧');
+  assert.equal(cleanAlbum('测试专辑'), '测试专辑');
   assert.equal(cleanAlbum('Album Name (2026)'), 'Album Name (2026)');
   assert.equal(cleanAlbum('  溯流  '), '溯流');
 });

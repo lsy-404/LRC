@@ -38,10 +38,17 @@ _LANG_CODE = {"chinese": "zh", "mandarin": "zh", "japanese": "ja", "english": "e
 # 这些是已在实际转写中出现的非歌词水印，必须以完整短语匹配；不能因单词
 # "zither" 或 "harp" 存在就删除，后者可以是正常英文歌词的一部分。
 _WATERMARK_KEY = re.compile(r"[^a-z0-9一-鿿]+")
-_SUBTITLE_ATTRIBUTIONS = {
+_CONFIRMED_WATERMARKS = {
     "字幕由amaraorg社区提供",
     "字幕由amaraorg社群提供",
     "字幕由amaraorg字幕组提供",
+    "由amaraorg社区提供的字幕",
+    "由amaraorg社群提供的字幕",
+    "由amaraorg字幕组提供的字幕",
+    "优优独播剧场",
+    "yoyotelevisionseriesexclusive",
+    "优优独播剧场yoyotelevisionseriesexclusive",
+    "词曲李宗盛",
 }
 
 
@@ -61,9 +68,9 @@ def _watermark_span(words: list[dict], index: int) -> int:
     if key == "zither" and index + 1 < len(words) and _watermark_key(words[index + 1].get("text")) == "harp":
         return 2
     joined = ""
-    for size in range(1, min(6, len(words) - index) + 1):
+    for size in range(1, min(12, len(words) - index) + 1):
         joined += _watermark_key(words[index + size - 1].get("text"))
-        if joined in _SUBTITLE_ATTRIBUTIONS:
+        if joined in _CONFIRMED_WATERMARKS:
             return size
     return 0
 

@@ -3,7 +3,12 @@
 const TS_RE = /^\[(\d{1,3}:\d{2}(?:[.:]\d{1,3})?)\](.*)$/;
 const KARAOKE_RE = /<\d{1,3}:\d{2}(?:[.:]\d{1,3})?>/g;
 const WATERMARK_KEY_RE = /[^a-z0-9一-鿿]+/g;
-const SUBTITLE_ATTRIBUTIONS = new Set(['字幕由amaraorg社区提供', '字幕由amaraorg社群提供', '字幕由amaraorg字幕组提供']);
+const CONFIRMED_STT_WATERMARKS = new Set([
+  '字幕由amaraorg社区提供', '字幕由amaraorg社群提供', '字幕由amaraorg字幕组提供',
+  '由amaraorg社区提供的字幕', '由amaraorg社群提供的字幕', '由amaraorg字幕组提供的字幕',
+  '优优独播剧场', 'yoyotelevisionseriesexclusive', '优优独播剧场yoyotelevisionseriesexclusive',
+  '词曲李宗盛',
+]);
 
 const nonEmpty = (s) => String(s == null ? '' : s).trim() !== '';
 const watermarkKey = (text) => String(text == null ? '' : text).toLowerCase().replace(WATERMARK_KEY_RE, '');
@@ -13,19 +18,27 @@ function watermarkSpan(tokens, index) {
   if (key === 'zitherharp') return 1;
   if (key === 'zither' && watermarkKey(tokens[index + 1]) === 'harp') return 2;
   let joined = '';
-  for (let size = 1; size <= Math.min(6, tokens.length - index); size++) {
+  for (let size = 1; size <= Math.min(12, tokens.length - index); size++) {
     joined += watermarkKey(tokens[index + size - 1]);
-    if (SUBTITLE_ATTRIBUTIONS.has(joined)) return size;
+    if (CONFIRMED_STT_WATERMARKS.has(joined)) return size;
   }
   return 0;
 }
 
 // 只匹配已确认的完整水印短语。孤立的 zither/harp 和普通重复歌词保持不变。
 export function removeKnownSttWatermarks(text) {
-  return String(text == null ? '' : text).split('\n').map((line) => line
-    .replace(/\bzither\s*harp\b/gi, '')
-    .replace(/字幕由\s*amara\s*\.?\s*org\s*(?:社区|社群|字幕组)\s*提供/gi, '')
-    .replace(/[ \t]{2,}/g, ' ').trim()).join('\n');
+  return String(text == null ? '' : text).split('\n').map((line) => {
+    const key = watermarkKey(line);
+    if (key === 'zitherharp' || CONFIRMED_STT_WATERMARKS.has(key)) return '';
+    return line
+      .replace(/\bzither\s*harp\b/gi, '')
+      .replace(/字幕由\s*amara\s*\.?\s*org\s*(?:社区|社群|字幕组)\s*提供/gi, '')
+      .replace(/由\s*amara\s*\.?\s*org\s*(?:社区|社群|字幕组)\s*提供的?字幕/gi, '')
+      .replace(/优优独播剧场(?:\s*[—-]*\s*yoyo\s*television\s*series\s*exclusive)?/gi, '')
+      .replace(/\byoyo\s*television\s*series\s*exclusive\b/gi, '')
+      .replace(/词曲\s*[:：]?\s*李宗盛/g, '')
+      .replace(/[ \t]{2,}/g, ' ').trim();
+  }).join('\n');
 }
 
 export function removeKnownSttWatermarkTokens(words) {

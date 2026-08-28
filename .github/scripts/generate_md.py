@@ -318,12 +318,13 @@ def main() -> None:
                 # 日期无效或缺失，设置为 -1
                 order_line = "order: -1\n"
 
+        tag_lines = "".join(f"  - {format_tag_for_yaml(tag)}\n" for tag in tags)
         md_content = f"""---
 title: {yaml_quote(display_name)}
 {date_line}{order_line}category:
   - {yaml_quote(category_value)}
 tag:
-{''.join(f'  - {format_tag_for_yaml(tag)}\n' for tag in tags)}---
+{tag_lines}---
 
 # {display_name}
 

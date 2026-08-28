@@ -34,7 +34,7 @@ test('播放器内联于歌词编辑区，且不保留原音与模拟说明', as
   assert.match(source, /flex: var\(--eb-time-grow, 1\) 1 max-content/);
   assert.match(source, /min-width: max-content/);
   assert.match(source, /timelineTokenStyle\(t, r, li, wi\)/);
-  assert.match(source, /expandTimedTokens\(words, newId, 100, Number\(parsedRows\[index \+ 1\]\?\.time\)\)/);
+  assert.match(source, /part\.timingLocked \? words : expandTimedTokens\(words, newId, 100, Number\(parsedRows\[index \+ 1\]\?\.time\)\)/);
   assert.match(source, /@pointerdown="startTimeDrag\(t, r, wi, \$event\)"/);
   assert.doesNotMatch(source, /v-model\.number="word\.time"/);
   assert.doesNotMatch(source, /v-model="word\.text"/);
@@ -171,11 +171,13 @@ test('逐字时间标记输入保留完整文本，并以清空标记方式暴�
   const source = await component();
   assert.match(source, /class="eb-time-chars" contenteditable="plaintext-only"/);
   assert.match(source, /@input="editTimelineChar\(t, r, wi, \$event\)"/);
+  assert.match(source, /可输入多个字/);
   assert.match(source, /replaceTimedTokenText\(row, wordIndex, next\)/);
   assert.doesNotMatch(source, /entered\[entered\.length - 1\]/);
   assert.match(source, /row\.words = updated\.words/);
   assert.match(source, /row\.text = updated\.text/);
   assert.match(source, /String\(event\.currentTarget\.textContent \|\| ''\)\.replace/);
+  assert.match(source, /part\.timingLocked \? words : expandTimedTokens/);
 });
 
 test('逐字时间轨为稀疏句提供更大的前后操作距离且保留安全夹紧', async () => {
