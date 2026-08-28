@@ -257,10 +257,8 @@ def _parse_verbose_json_with_cleanup(result: dict, lang: str | None) -> tuple[li
     return words, code, cleanup
 
 
-def transcribe_words(audio: Path, pipeline=None, lang: str | None = None) -> tuple[list[dict], str, dict]:
+def transcribe_words(audio: Path, lang: str | None = None) -> tuple[list[dict], str, dict]:
     """转写单个音频，返回 (词流、语言代码、清理审计)。失败抛 LLMError。
-
-    pipeline 参数仅为兼容旧调用签名保留（云端无本地模型可加载）。
     """
     fields: dict = {
         "model": "whisper-1",
