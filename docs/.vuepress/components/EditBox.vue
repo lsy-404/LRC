@@ -110,7 +110,7 @@
             <button class="eb-btn small" :disabled="!canRedo(t)" @click="redoTrack(t)">恢复</button>
           </div>
 
-          <div class="eb-workbench" aria-label="歌词校对工作区">
+          <div class="eb-workbench" tabindex="0" aria-label="歌词校对工作区" @keydown="handleWorkbenchShortcut(t, $event)">
             <div class="eb-editor-panel">
               <div class="eb-inline-player">
               <div v-if="t.audio" class="eb-preview">
@@ -152,7 +152,7 @@
               <div class="eb-lrc-row">
                 <label class="eb-time"><input v-model.number="r.time" type="number" min="0" step="10" class="eb-input ms" @focus="beginRowTimeEdit(r)" @input="shiftRowTime(t, r)" @change="finishRowTimeEdit(t, r)" @blur="finishRowTimeEdit(t, r)">毫秒</label>
                 <input v-model="r.text" class="eb-input lrc" @input="syncRowText(t, r); markHistory(t)" @blur="commitHistory(t)" @click="recordCursor(r, $event)" @keyup="recordCursor(r, $event)" @select="recordCursor(r, $event)">
-                <button class="eb-btn small" @click="splitFromCursor(t, r, li)">从光标拆分</button><button class="eb-btn small" @click="moveSelectionToNext(t, r, li)">选中移下一句</button><button class="eb-btn small" @click="addLine(t, li)">+ 行</button><button class="eb-btn small danger" @click="removeLine(t, li)">删</button>
+                <button class="eb-btn small eb-icon-btn" :disabled="textRowBoundaryAction(r, li) === 'none'" :aria-label="textRowBoundaryLabel(r, li)" :title="textRowBoundaryLabel(r, li)" @click="applyTextRowBoundary(t, r, li)">{{ textRowBoundaryIcon(r, li) }}</button><button class="eb-btn small eb-icon-btn" aria-label="插入歌词行" title="插入歌词行" @click="addLine(t, li)">＋</button><button class="eb-btn small danger eb-icon-btn" aria-label="删除歌词行" title="删除歌词行" @click="removeLine(t, li)">×</button>
               </div>
               <div class="eb-word-timeline" role="region" aria-label="逐字时间轨">
                 <div class="eb-time-track">
@@ -167,8 +167,7 @@
               </div>
               <div v-if="timelineMenu && timelineMenu.rowId === r._id" class="eb-timeline-menu" role="menu" :style="{ left: `${timelineMenu.x}px`, top: `${timelineMenu.y}px` }" @keydown.esc="closeTimelineMenu">
                 <button v-if="timelineMenu.charIndex || timelineMenu.wordIndex" role="menuitem" class="eb-btn small" :title="timelineMenu.charIndex ? '新增此处的时间标签' : '删除当前时间标签（并入前字）'" @click.stop="applyTimelineBoundary">{{ timelineMenu.charIndex ? '在此新增时间标签' : '删除当前时间标签（并入前字）' }}</button>
-                <button role="menuitem" class="eb-btn small" :disabled="!timelineMenu.charIndex && !timelineMenu.wordIndex" @click.stop="splitRowAtBoundary">从此处拆成下一句</button>
-                <button v-if="timelineMenu.rowIndex > 0" role="menuitem" class="eb-btn small" @click.stop="mergeRowPrevious">与上一句合并</button>
+                <button role="menuitem" class="eb-btn small" :disabled="timelineBoundaryAction(timelineMenu) === 'none'" @click.stop="applyRowBoundary">{{ timelineBoundaryLabel(timelineMenu) }}</button>
               </div>
             </div>
               <button class="eb-btn small" @click="addLine(t, t.rows.length - 1)">新增歌词行</button>
@@ -247,7 +246,7 @@ import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedCharacterAverageMs, timedLastTokenSpanMs, timedLeadFlexWeight, timedSentenceEndMs, timedSpanFlexWeight, timedTokenSpanMs, timedTrailingGapMs, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
+  activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedCharacterAverageMs, timedLastTokenSpanMs, timedLeadFlexWeight, timedSentenceEndMs, timedSpanFlexWeight, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, markLyricHistoryDirty, recordLyricHistory, redoLyricHistory, undoLyricHistory } from './lyricHistory.js';
 
@@ -411,8 +410,52 @@ function closeTimelineMenu() { timelineMenu.value = null; }
 function openTimelineMenu(t, row, wordIndex, charIndex, event) { const x = Math.max(8, Math.min(window.innerWidth - 240, Number(event.clientX) || 8)); const y = Math.max(8, Math.min(window.innerHeight - 120, Number(event.clientY) || 8)); timelineMenu.value = { t, row, rowId: row._id, wordIndex, charIndex, rowIndex: t.rows.findIndex((item) => item._id === row._id), x, y }; nextTick(() => document.querySelector('.eb-timeline-menu [role="menuitem"]:not([disabled])')?.focus()); }
 function openTimelineMenuFromKey(t, row, wordIndex, charIndex, event) { if (!(event.shiftKey && event.key === 'F10') && event.key !== 'ContextMenu') return; event.preventDefault(); const rect = event.currentTarget.getBoundingClientRect(); openTimelineMenu(t, row, wordIndex, charIndex, { clientX: rect.left, clientY: rect.bottom }); }
 function applyTimelineBoundary() { const menu = timelineMenu.value; if (!menu) return; const next = menu.charIndex ? splitTimedToken(menu.row, menu.wordIndex, menu.charIndex, newId) : mergeTimedToken(menu.row, menu.wordIndex); if (next !== menu.row) { menu.t.rows.splice(menu.rowIndex, 1, next); syncTrackText(menu.t); lockTiming(menu.t); commitHistory(menu.t); } closeTimelineMenu(); }
-function splitRowAtBoundary() { const menu = timelineMenu.value; if (!menu || (!menu.wordIndex && !menu.charIndex)) return; menu.t.rows = splitRowAtTokenBoundary(menu.t.rows, menu.rowIndex, menu.wordIndex, menu.charIndex, newId); syncTrackText(menu.t); lockTiming(menu.t); commitHistory(menu.t); closeTimelineMenu(); }
-function mergeRowPrevious() { const menu = timelineMenu.value; if (!menu || menu.rowIndex <= 0) return; menu.t.rows = mergeTimedRows(menu.t.rows, menu.rowIndex); syncTrackText(menu.t); lockTiming(menu.t); commitHistory(menu.t); closeTimelineMenu(); }
+function timelineBoundaryAction(menu) { return menu ? timedRowBoundaryAction(menu.rowIndex, menu.wordIndex, menu.charIndex) : 'none'; }
+function timelineBoundaryLabel(menu) {
+  const action = timelineBoundaryAction(menu);
+  return action === 'merge' ? '合并到上一句' : action === 'split' ? '从此处拆分' : '首句首边界无需操作';
+}
+function applyRowBoundary() {
+  const menu = timelineMenu.value;
+  const action = timelineBoundaryAction(menu);
+  if (!menu || action === 'none') return;
+  if (action === 'merge') menu.t.rows = mergeTimedRows(menu.t.rows, menu.rowIndex);
+  else menu.t.rows = splitRowAtTokenBoundary(menu.t.rows, menu.rowIndex, menu.wordIndex, menu.charIndex, newId);
+  syncTrackText(menu.t); lockTiming(menu.t); commitHistory(menu.t); closeTimelineMenu();
+}
+function textRowBoundaryAction(row, rowIndex) {
+  const cursor = row._selection?.start ?? Array.from(row.text || '').length;
+  if (rowIndex > 0 && cursor === 0) return 'merge';
+  return cursor > 0 && cursor < Array.from(row.text || '').length ? 'split' : 'none';
+}
+function textRowBoundaryLabel(row, rowIndex) {
+  const action = textRowBoundaryAction(row, rowIndex);
+  if (action === 'merge') return '合并到上一句';
+  if (action === 'split') return '从光标拆分';
+  const cursor = row._selection?.start ?? Array.from(row.text || '').length;
+  return cursor === 0 && rowIndex === 0 ? '首句首光标无需操作' : '行尾无有效切点';
+}
+function textRowBoundaryIcon(row, rowIndex) { return textRowBoundaryAction(row, rowIndex) === 'merge' ? '↤' : '✂'; }
+function applyTextRowBoundary(t, row, rowIndex) {
+  const action = textRowBoundaryAction(row, rowIndex);
+  if (action === 'merge') t.rows = mergeTimedRows(t.rows, rowIndex);
+  else if (action === 'split') t.rows = splitTimedRow(t.rows, rowIndex, row._selection?.start ?? Array.from(row.text || '').length, newId);
+  else return;
+  syncTrackText(t); lockTiming(t); commitHistory(t);
+}
+function handleWorkbenchShortcut(t, event) {
+  const target = event.target;
+  if (target instanceof HTMLElement && (target.matches('input, textarea, select, button, [contenteditable="true"], [contenteditable="plaintext-only"]') || target.closest('button'))) return;
+  if (event.metaKey || event.ctrlKey || event.altKey) return;
+  const line = playbackView(t).activeLineIndex >= 0 ? playbackView(t).activeLineIndex : 0;
+  if (event.key === ' ') { if (event.repeat) return; event.preventDefault(); if (t._audioUrl && !t._audioErr) toggleSource(t); else togglePreview(t); return; }
+  if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+    event.preventDefault(); nudgePlayhead(t, event.key === 'ArrowLeft' ? -1000 : 1000); return;
+  }
+  if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+    event.preventDefault(); const next = Math.max(0, Math.min(t.rows.length - 1, line + (event.key === 'ArrowUp' ? -1 : 1))); seekTrack(t, Number(t.rows[next]?.time) || 0); playbackView(t).lines[next]?.scrollIntoView({ block: 'nearest' });
+  }
+}
 function clearTimeDrag() {
   const state = dragState;
   if (!state) return;
@@ -443,8 +486,6 @@ function normalizeRows(t) { t.rows.sort((a, b) => Number(a.time) - Number(b.time
 function syncRowText(t, row) { row.words = reconcileWordCharacters(row.words, row.text, newId, row.time); t._textDirty = true; syncTrackText(t); lockTiming(t); }
 function applyWholeText(t) { t.rows = reconcileTimedRows(t.rows, t.text, newId); normalizeRows(t); t.timingLocked = true; updateActiveIndices(t, playheadMs(t)); commitHistory(t); }
 function recordCursor(row, event) { row._selection = { start: utf16ToCodePointIndex(row.text, event.target.selectionStart), end: utf16ToCodePointIndex(row.text, event.target.selectionEnd) }; }
-function splitFromCursor(t, row, index) { t.rows = splitTimedRow(t.rows, index, row._selection?.start ?? Array.from(row.text).length, newId); syncTrackText(t); lockTiming(t); commitHistory(t); }
-function moveSelectionToNext(t, row, index) { t.rows = moveTimedSelection(t.rows, index, row._selection?.start ?? 0, row._selection?.end ?? 0, newId); syncTrackText(t); lockTiming(t); commitHistory(t); }
 function lockTiming(t) { t.timingLocked = true; }
 function addLine(t, index) { const time = Math.max(0, Number(t.rows[index]?.time || 0) + 1000); t.rows.splice(index + 1, 0, { _id: newId(), time, text: '', words: [{ _id: newId(), time, text: '' }] }); syncTrackText(t); lockTiming(t); commitHistory(t); }
 function removeLine(t, index) { t.rows.splice(index, 1); syncTrackText(t); lockTiming(t); commitHistory(t); }
@@ -513,6 +554,8 @@ function bindProgressNode(t, node) { t._progressNode = node || null; updatePlayb
 function bindPlayerTimeNode(t, node) { t._playerTimeNode = node || null; updatePlaybackDom(t); }
 function updatePlaybackDom(t) { const ms = playheadMs(t); if (t._progressNode) t._progressNode.value = String(ms); if (t._playerTimeNode) t._playerTimeNode.textContent = t._audioUrl && !t._audioErr ? `${formatMs(ms)} / ${formatMs(t._audioDuration)}` : formatMs(ms); }
 function setPlayhead(t, ms, commit = false) { const next = Math.max(0, Math.round(Number(ms) || 0)); playheads.set(t, next); updateActiveIndices(t, next); updatePlaybackDom(t); if (commit) t._previewMs = next; }
+function seekTrack(t, ms) { const end = t._audioUrl && !t._audioErr ? sourceEnd(t) : previewEnd(t); const next = Math.max(0, Math.min(end, Math.round(Number(ms) || 0))); setPlayhead(t, next, true); if (t._audioElement) t._audioElement.currentTime = next / 1000; }
+function nudgePlayhead(t, delta) { seekTrack(t, playheadMs(t) + delta); }
 function cancelSourceTimer(t) { if (t._sourceTimer) { clearInterval(t._sourceTimer); t._sourceTimer = null; } }
 function allTracks() { return edits.value.flatMap((edit) => edit.tracks); }
 function pausePreview(t) { t._playing = false; if (t._previewTimer) { clearInterval(t._previewTimer); t._previewTimer = null; } setPlayhead(t, playheadMs(t), true); }
@@ -975,6 +1018,7 @@ onBeforeUnmount(() => {
 .eb-btn.primary { background: var(--eb-accent); border-color: var(--eb-accent); color: #fff; }
 .eb-btn.big { padding: .55rem 1.6rem; font-size: .95rem; }
 .eb-btn.small { padding: .25rem .7rem; font-size: .75rem; }
+.eb-icon-btn { width: 2rem; height: 2rem; padding: 0; display: inline-grid; place-items: center; flex: none; }
 .eb-btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
 .eb-btn.danger { color: #f85149; }
 .eb-btn.danger:hover:not(:disabled) { border-color: #f85149; }

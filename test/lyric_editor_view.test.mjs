@@ -18,7 +18,7 @@ test('每张专辑只渲染当前选中轨，并在选择时读取该轨原音',
 
 test('播放器内联于歌词编辑区，且不保留原音与模拟说明', async () => {
   const source = await component();
-  assert.match(source, /class="eb-workbench" aria-label="歌词校对工作区"/);
+  assert.match(source, /class="eb-workbench" tabindex="0" aria-label="歌词校对工作区" @keydown="handleWorkbenchShortcut\(t, \$event\)"\s*>/);
   assert.match(source, /class="eb-editor-panel">\s*<div class="eb-inline-player">/);
   assert.match(source, /class="eb-player" aria-label="播放器"/);
   assert.match(source, /@click="toggleSource\(t\)"/);
@@ -79,12 +79,18 @@ test('多专辑播放状态按曲目扁平管理，资源切换和状态转换�
   assert.match(source, /error\?\.name !== 'AbortError'/);
 });
 
-test('整行编辑保存逐字对象，提供光标拆分与选区移动', async () => {
+test('整行编辑保存逐字对象，并提供上下文、插入、删除三个紧凑按钮', async () => {
   const source = await component();
   assert.match(source, /reconcileWordCharacters\(row\.words, row\.text, newId, row\.time\)/);
   assert.match(source, /@select="recordCursor\(r, \$event\)"/);
-  assert.match(source, /@click="splitFromCursor\(t, r, li\)">从光标拆分/);
-  assert.match(source, /@click="moveSelectionToNext\(t, r, li\)">选中移下一句/);
+  assert.match(source, /aria-label="插入歌词行"/);
+  assert.match(source, /aria-label="删除歌词行"/);
+  assert.equal((source.split('<script setup>')[0].match(/eb-icon-btn/g) || []).length, 3);
+  assert.match(source, /textRowBoundaryIcon\(r, li\)[\s\S]*?textRowBoundaryAction\(row, rowIndex\) === 'merge' \? '↤' : '✂'/);
+  assert.doesNotMatch(source, /moveTimedSelection|moveSelectionToNext/);
+  assert.match(source, /function applyTextRowBoundary\(t, row, rowIndex\) \{\s*const action = textRowBoundaryAction\(row, rowIndex\)/);
+  assert.doesNotMatch(source, /splitFromCursor/);
+  assert.doesNotMatch(source, /选中移下一句/);
   assert.match(source, /utf16ToCodePointIndex\(row\.text, event\.target\.selectionStart\)/);
   assert.match(source, /function syncTrackText\(t\)/);
   assert.match(source, /@change="applyWholeText\(t\)"/);
@@ -105,6 +111,18 @@ test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
   assert.match(source, /@lostpointercapture="finishTimeDrag\(\$event\)"/);
   assert.match(source, /document\.addEventListener\('visibilitychange'/);
   assert.match(source, /clearTimeDrag\(\)/);
+  assert.match(source, /function timelineBoundaryAction\(menu\)/);
+  assert.match(source, /合并到上一句/);
+  assert.match(source, /从此处拆分/);
+  assert.match(source, /function handleWorkbenchShortcut\(t, event\)/);
+  assert.match(source, /event\.key === ' '/);
+  assert.match(source, /event\.key === 'ArrowUp' \|\| event\.key === 'ArrowDown'/);
+  assert.match(source, /nudgePlayhead\(t, event\.key === 'ArrowLeft' \? -1000 : 1000\)/);
+  assert.match(source, /function seekTrack\(t, ms\)/);
+  assert.match(source, /seekTrack\(t, Number\(t\.rows\[next\]\?\.time\) \|\| 0\)/);
+  assert.match(source, /if \(event\.repeat\) return/);
+  assert.match(source, /if \(t\._audioUrl && !t\._audioErr\) toggleSource\(t\); else togglePreview\(t\)/);
+  assert.match(source, /input, textarea, select, button/);
   assert.match(source, /activeIndexAt\(t\.rows, ms\)/);
   assert.match(source, /SOURCE_PROGRESS_INTERVAL_MS = 80/);
   assert.match(source, /now - lastProgress >= SOURCE_PROGRESS_INTERVAL_MS/);
