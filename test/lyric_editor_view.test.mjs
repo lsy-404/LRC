@@ -18,7 +18,7 @@ test('每张专辑只渲染当前选中轨，并在选择时读取该轨原音',
 
 test('播放器内联于歌词编辑区，且不保留原音与模拟说明', async () => {
   const source = await component();
-  assert.match(source, /class="eb-workbench" tabindex="0" aria-label="歌词校对工作区" @keydown="handleWorkbenchShortcut\(t, \$event\)"\s*>/);
+  assert.match(source, /class="eb-workbench"[\s\S]*data-workbench="true"[\s\S]*tabindex="0"/);
   assert.match(source, /class="eb-editor-panel">\s*<div class="eb-inline-player">/);
   assert.match(source, /class="eb-player" aria-label="播放器"/);
   assert.match(source, /@click="toggleSource\(t\)"/);
@@ -116,6 +116,11 @@ test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
   assert.match(source, /合并到上一句/);
   assert.match(source, /从此处拆分/);
   assert.match(source, /function handleWorkbenchShortcut\(t, event\)/);
+  assert.match(source, /function handleWorkbenchKeydown\(event\)/);
+  assert.match(source, /window\.addEventListener\('keydown', handleWorkbenchKeydown\)/);
+  assert.match(source, /window\.removeEventListener\('keydown', handleWorkbenchKeydown\)/);
+  assert.match(source, /function bindWorkbenchNode\(t, node\)/);
+  assert.match(source, /function isWorkbenchShortcutTarget\(target\)/);
   assert.match(source, /event\.key === ' '/);
   assert.match(source, /event\.key === 'ArrowUp' \|\| event\.key === 'ArrowDown'/);
   assert.match(source, /nudgePlayhead\(t, event\.key === 'ArrowLeft' \? -1000 : 1000\)/);
@@ -123,7 +128,7 @@ test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
   assert.match(source, /seekTrack\(t, Number\(t\.rows\[next\]\?\.time\) \|\| 0\)/);
   assert.match(source, /if \(event\.repeat\) return/);
   assert.match(source, /if \(t\._audioUrl && !t\._audioErr\) toggleSource\(t\); else togglePreview\(t\)/);
-  assert.match(source, /input, textarea, select, button/);
+  assert.match(source, /input, textarea, select, button, \[contenteditable\]/);
   assert.match(source, /activeIndexAt\(t\.rows, ms\)/);
   assert.match(source, /SOURCE_PROGRESS_INTERVAL_MS = 80/);
   assert.match(source, /now - lastProgress >= SOURCE_PROGRESS_INTERVAL_MS/);

@@ -121,7 +121,15 @@
             <button class="eb-btn small" @click="addVocal(t)">添加声部</button>
           </div>
 
-          <div class="eb-workbench" tabindex="0" aria-label="歌词校对工作区" @keydown="handleWorkbenchShortcut(t, $event)">
+          <div
+            :ref="(node) => bindWorkbenchNode(t, node)"
+            class="eb-workbench"
+            data-workbench="true"
+            tabindex="0"
+            aria-label="歌词校对工作区"
+            @focusin="setWorkbenchFocus(t)"
+            @pointerdown="setWorkbenchFocus(t)"
+          >
             <div class="eb-editor-panel">
               <div class="eb-inline-player">
               <div v-if="t.audio" class="eb-preview">
@@ -318,6 +326,8 @@ let historyTrack = null;
 const rowTimeEdits = new WeakMap();
 const playheads = new WeakMap();
 const playbackViews = new WeakMap();
+const workbenchTracks = new WeakMap();
+let activeWorkbenchTrack = null;
 
 const recentRefs = computed(() => dedupeRecent(cachedRefs.value, pending.value));
 
@@ -496,9 +506,15 @@ function applyTextRowBoundary(t, row, rowIndex) {
   else return;
   syncTrackText(t); lockTiming(t); commitHistory(t);
 }
+function bindWorkbenchNode(t, node) {
+  if (node) workbenchTracks.set(node, t);
+}
+function setWorkbenchFocus(t) { activeWorkbenchTrack = t; }
+function isWorkbenchShortcutTarget(target) {
+  return target instanceof Element && (target.matches('input, textarea, select, button, [contenteditable]:not([contenteditable="false"])') || target.closest('button'));
+}
 function handleWorkbenchShortcut(t, event) {
-  const target = event.target;
-  if (target instanceof HTMLElement && (target.matches('input, textarea, select, button, [contenteditable="true"], [contenteditable="plaintext-only"]') || target.closest('button'))) return;
+  if (isWorkbenchShortcutTarget(event.target)) return;
   if (event.metaKey || event.ctrlKey || event.altKey) return;
   const line = playbackView(t).activeLineIndex >= 0 ? playbackView(t).activeLineIndex : 0;
   if (event.key === ' ') { if (event.repeat) return; event.preventDefault(); if (t._audioUrl && !t._audioErr) toggleSource(t); else togglePreview(t); return; }
@@ -508,6 +524,14 @@ function handleWorkbenchShortcut(t, event) {
   if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
     event.preventDefault(); const next = Math.max(0, Math.min(t.rows.length - 1, line + (event.key === 'ArrowUp' ? -1 : 1))); seekTrack(t, Number(t.rows[next]?.time) || 0); playbackView(t).lines[next]?.scrollIntoView({ block: 'nearest' });
   }
+}
+function handleWorkbenchKeydown(event) {
+  const target = event.target;
+  const workbench = target instanceof Element ? target.closest('.eb-workbench') : null;
+  if (!workbench || !workbenchTracks.has(workbench)) return;
+  const track = workbenchTracks.get(workbench);
+  if (track !== activeWorkbenchTrack) activeWorkbenchTrack = track;
+  handleWorkbenchShortcut(track, event);
 }
 function clearTimeDrag() {
   const state = dragState;
@@ -1083,6 +1107,7 @@ onMounted(() => {
   window.addEventListener('click', closeTimelineMenu);
   window.addEventListener('keydown', closeTimelineMenuOnEscape);
   window.addEventListener('keydown', handleHistoryShortcut);
+  window.addEventListener('keydown', handleWorkbenchKeydown);
 });
 function closeTimelineMenuOnEscape(event) { if (event.key === 'Escape') closeTimelineMenu(); }
 function handleHistoryShortcut(event) {
@@ -1098,6 +1123,8 @@ onBeforeUnmount(() => {
   window.removeEventListener('click', closeTimelineMenu);
   window.removeEventListener('keydown', closeTimelineMenuOnEscape);
   window.removeEventListener('keydown', handleHistoryShortcut);
+  window.removeEventListener('keydown', handleWorkbenchKeydown);
+  activeWorkbenchTrack = null;
   for (const e of edits.value) {
     if (e._coverPreview) URL.revokeObjectURL(e._coverPreview);
     for (const t of e.tracks) releaseAudio(t);
