@@ -25,7 +25,7 @@ test('播放器内联于歌词编辑区，且不保留原音与模拟说明', as
   assert.match(source, /@input="seekSource\(t, \$event\)"/);
   assert.match(source, /@click="simplifyTrack\(t\)"/);
   assert.match(source, /removeKnownSttWatermarkTokens\(row\.words\)/);
-  assert.match(source, /@click="addLine\(t, li\)"/);
+  assert.match(source, /@click="addLine\(vocal, li\)"/);
   assert.match(source, /class="eb-word-timeline" role="region" aria-label="逐字时间轨"/);
   assert.match(source, /class="eb-time-track"/);
   assert.doesNotMatch(source, /eb-time-token-(?:lower|upper)/);
@@ -33,9 +33,9 @@ test('播放器内联于歌词编辑区，且不保留原音与模拟说明', as
   assert.match(source, /--eb-time-grow/);
   assert.match(source, /flex: var\(--eb-time-grow, 1\) 0 0/);
   assert.doesNotMatch(source, /\.eb-time-track \{[^}]*min-width: max-content/);
-  assert.match(source, /timelineTokenStyle\(t, r, li, wi\)/);
+  assert.match(source, /timelineTokenStyle\(vocal, r, li, wi\)/);
   assert.match(source, /part\.timingLocked \? words : expandTimedTokens\(words, newId, 100, Number\(parsedRows\[index \+ 1\]\?\.time\)\)/);
-  assert.match(source, /@pointerdown="startTimeDrag\(t, r, wi, \$event\)"/);
+  assert.match(source, /@pointerdown="startTimeDrag\(vocal, r, wi, \$event\)"/);
   assert.doesNotMatch(source, /v-model\.number="word\.time"/);
   assert.doesNotMatch(source, /v-model="word\.text"/);
   assert.match(source, /@click="retryAudio\(t\)">重试/);
@@ -56,8 +56,8 @@ test('播放高亮在非响应式 DOM 映射中同步，不触发长歌词父组
   assert.match(source, /t\._sourceTimer = setInterval\(sync, SOURCE_CURSOR_INTERVAL_MS\)/);
   assert.match(source, /clearInterval\(t\._sourceTimer\)/);
   assert.doesNotMatch(source, /requestAnimationFrame\(sync\)|_sourceFrame/);
-  assert.match(source, /bindLineNode\(t, li, node\)/);
-  assert.match(source, /bindTokenNode\(t, li, wi, node\)/);
+  assert.match(source, /bindLineNode\(vocal, li, node\)/);
+  assert.match(source, /bindTokenNode\(vocal, li, wi, node\)/);
   assert.match(source, /const playbackViews = new WeakMap\(\)/);
   assert.match(source, /nextLine\?\.classList\.add\('active'\)/);
   assert.match(source, /nextToken\?\.classList\.add\('active'\)/);
@@ -80,7 +80,7 @@ test('多专辑播放状态按曲目扁平管理，资源切换和状态转换�
   assert.match(source, /error\?\.name !== 'AbortError'/);
 });
 
-test('整行编辑保存逐字对象，并提供上下文、插入、合音、删除四个紧凑按钮', async () => {
+test('整行编辑保存逐字对象，并提供上下文、插入、和声、删除四个紧凑按钮', async () => {
   const source = await component();
   assert.match(source, /reconcileWordCharacters\(row\.words, row\.text, newId, row\.time\)/);
   assert.match(source, /@select="recordCursor\(r, \$event\)"/);
@@ -94,7 +94,7 @@ test('整行编辑保存逐字对象，并提供上下文、插入、合音、�
   assert.doesNotMatch(source, /选中移下一句/);
   assert.match(source, /utf16ToCodePointIndex\(row\.text, event\.target\.selectionStart\)/);
   assert.match(source, /function syncTrackText\(t\)/);
-  assert.match(source, /@change="applyWholeText\(t\)"/);
+  assert.match(source, /@change="applyWholeText\(vocal\)"/);
 });
 
 test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
@@ -102,7 +102,7 @@ test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
   assert.match(source, /const PLAYBACK_RATES = \[0\.1, 0\.25, 0\.5, 1, 1\.5, 2\]/);
   assert.match(source, /v-for="rate in PLAYBACK_RATES"/);
   assert.match(source, /contextmenu\.prevent\.stop="openTimelineMenu/);
-  assert.match(source, /@contextmenu\.prevent\.stop="openTimelineMenu\(t, r, wi, 0, \$event\)"/);
+  assert.match(source, /@contextmenu\.prevent\.stop="openTimelineMenu\(vocal, r, wi, 0, \$event\)"/);
   assert.match(source, /timelineMenu && timelineMenu\.rowId === r\._id/);
   assert.match(source, /position: fixed/);
   assert.match(source, /splitRowAtTokenBoundary\(menu\.t\.rows/);
@@ -202,7 +202,7 @@ test('逐字时间轨显示句内偏移、支持单字编辑且只更新整句�
 test('逐字时间标记输入保留完整文本，并以清空标记方式暴露缺字槽位', async () => {
   const source = await component();
   assert.match(source, /class="eb-time-chars" :contenteditable="t\.authoritativeLrc \? 'false' : 'plaintext-only'"/);
-  assert.match(source, /@input="editTimelineChar\(t, r, wi, \$event\)"/);
+  assert.match(source, /@input="editTimelineChar\(vocal, r, wi, \$event\)"/);
   assert.match(source, /可输入多个字/);
   assert.match(source, /replaceTimedTokenText\(row, wordIndex, next\)/);
   assert.doesNotMatch(source, /entered\[entered\.length - 1\]/);
@@ -214,7 +214,7 @@ test('逐字时间标记输入保留完整文本，并以清空标记方式暴�
 
 test('逐字时间轨为稀疏句提供更大的前后操作距离且保留安全夹紧', async () => {
   const source = await component();
-  assert.match(source, /:style="timelineTrackStyle\(t, r, li\)"/);
+  assert.match(source, /:style="timelineTrackStyle\(vocal, r, li\)"/);
   assert.match(source, /const TIMELINE_MS_PER_PIXEL = 5/);
   assert.match(source, /const TIMELINE_PADDING_PX = 64/);
   assert.match(source, /function timelineTrackStyle\(t, row, rowIndex\)/);
@@ -240,34 +240,39 @@ test('歌词编辑历史提供按钮、未失焦输入和键盘撤回恢复', as
   const source = await component();
   assert.match(source, /:disabled="t\.authoritativeLrc \|\| !canUndo\(t\)" @click="undoTrack\(t\)">撤回/);
   assert.match(source, /:disabled="t\.authoritativeLrc \|\| !canRedo\(t\)" @click="redoTrack\(t\)">恢复/);
-  assert.match(source, /@input="syncRowText\(t, r\); markHistory\(t\)"/);
-  assert.match(source, /@input="markHistory\(t\)"\s+@change="applyWholeText\(t\)"/);
+  assert.match(source, /@input="syncRowText\(vocal, r\); markHistory\(vocal\)"/);
+  assert.match(source, /@input="markHistory\(vocal\)"\s+@change="applyWholeText\(vocal\)"/);
   assert.match(source, /window\.addEventListener\('keydown', handleHistoryShortcut\)/);
   assert.match(source, /if \(event\.shiftKey\) redoTrack\(historyTrack\)/);
   assert.match(source, /clearPlaybackView\(t\);\s+nextTick\(\(\) => updateAllVocalHighlights/);
 });
 
-test('同曲多声部使用独立草稿流，并共享播放头高亮重叠歌词', async () => {
+test('主唱与和声在同一工作台内共享可编辑时间轴，并以文字颜色条区分', async () => {
   const source = await component();
   assert.match(source, /parseVocalDrafts\(t\)\.map\(makeVocal\)/);
   assert.match(source, /serializeVocalDrafts\(t\._vocals\)/);
-  assert.match(source, /class="eb-vocal-bar"/);
-  assert.match(source, /添加声部/);
-  assert.match(source, /function selectVocal\(t, index\)/);
-  assert.match(source, /class="eb-vocal-overlap"/);
+  assert.match(source, /class="eb-vocal-legend" aria-label="主唱与和声图例"/);
+  assert.match(source, /eb-vocal-key main">主唱/);
+  assert.match(source, /eb-vocal-key harmony">和声/);
+  assert.match(source, /class="eb-vocal-lane" :class="vocalLaneClass\(vocal, vi\)"/);
+  assert.match(source, /v-for="\(r, li\) in vocal\.rows"/);
+  assert.match(source, /bindLineNode\(vocal, li, node\)/);
+  assert.match(source, /bindTokenNode\(vocal, li, wi, node\)/);
+  assert.match(source, /--eb-vocal-color/);
+  assert.doesNotMatch(source, /eb-vocal-overlap|eb-vocal-bar|添加声部|\b合音\b/);
   assert.match(source, /function updateAllVocalHighlights\(t, ms\)/);
-  assert.match(source, /for \(const vocal of t\._vocals\) if \(vocal !== selectedVocal\(t\)\) updateActiveIndices\(vocal, ms\)/);
+  assert.match(source, /for \(const vocal of t\._vocals\) updateActiveIndices\(vocal, ms\)/);
   assert.match(source, /updateAllVocalHighlights\(t, ms\)/);
 });
 
-test('逐行支持标为合音与并回主唱，迁移保留时间并使用当前声部边界', async () => {
+test('逐行支持标为和声与并回主唱，迁移保留时间并使用当前歌词流边界', async () => {
   const source = await component();
-  assert.match(source, /标为合音/);
+  assert.match(source, /标为和声/);
   assert.match(source, /并回主唱/);
-  assert.match(source, /@click="toggleHarmonyRow\(t, r\)"/);
+  assert.match(source, /@click="toggleHarmonyRow\(vocal, r\)"/);
   assert.match(source, /function ensureHarmonyVocal\(t\)/);
-  assert.match(source, /id: 'harmony', name: '合音'/);
-  assert.match(source, /function toggleHarmonyRow\(t, row\)/);
+  assert.match(source, /id: 'harmony', name: '和声'/);
+  assert.match(source, /function toggleHarmonyRow\(vocal, row\)/);
   assert.match(source, /transferTimedVocalRow\(t\._vocals, sourceIndex, rowIndex, targetIndex\)/);
   assert.match(source, /t\._vocals\[targetIndex\]\.timingLocked = true/);
   assert.match(source, /t\._vocals\[targetIndex\]\._view = 'lrc'/);
@@ -292,9 +297,9 @@ test('专辑名称可编辑但审核存储定位保持原投稿名', async () =>
   assert.match(source, /e\.album = draft\.album/);
 });
 
-test('合音迁移使用紧凑图标按钮并保留可访问名称', async () => {
+test('和声迁移使用紧凑图标按钮并保留可访问名称', async () => {
   const source = await component();
-  assert.match(source, /class="eb-btn small eb-icon-btn" :disabled="t\.authoritativeLrc" :aria-label="t\._selectedVocal \? '并回主唱' : '标为合音'"/);
-  assert.match(source, /function harmonyRowIcon\(track\) \{ return track\._selectedVocal \? '↩' : '♫'; \}/);
-  assert.match(source, /toggleHarmonyRow\(t, r\)\">\{\{ harmonyRowIcon\(t\) \}\}/);
+  assert.match(source, /:aria-label="vi \? '并回主唱' : '标为和声'"/);
+  assert.match(source, /function harmonyRowIcon\(vocal\) \{ return vocal\.id === 'main' \? '♫' : '↩'; \}/);
+  assert.match(source, /toggleHarmonyRow\(vocal, r\)\">\{\{ harmonyRowIcon\(vocal\) \}\}/);
 });

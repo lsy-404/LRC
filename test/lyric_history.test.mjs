@@ -91,7 +91,7 @@ test('连续输入在撤回时提交为单条历史，光标位置不产生歌�
   assert.equal(current.text, '你好呀');
 });
 
-test('声部历史深拷贝移动后的句行与首字时间', () => {
+test('和声历史深拷贝移动后的句行与首字时间', () => {
   const harmony = track();
   harmony.rows = [{ _id: 8, time: 2100, text: '和声', words: [{ _id: 9, time: 2180, text: '和' }, { _id: 10, time: 2470, text: '声' }] }];
   const history = createLyricHistory(harmony);
@@ -101,13 +101,13 @@ test('声部历史深拷贝移动后的句行与首字时间', () => {
   assert.deepEqual(harmony.rows[0].words.map((word) => word.time), [2180, 2470]);
 });
 
-test('跨声部移动作为一个历史步骤原子撤回和恢复', () => {
+test('主唱与和声移动作为一个历史步骤原子撤回和恢复', () => {
   const current = track();
   current._selectedVocal = 0;
   current._view = 'lrc';
   current._vocals = [
     { id: 'main', name: '主唱', head: [], rows: current.rows, text: current.text, timingLocked: true, _view: 'lrc' },
-    { id: 'harmony', name: '合音', head: [], rows: [], text: '', timingLocked: true, _view: 'lrc' },
+    { id: 'harmony', name: '和声', head: [], rows: [], text: '', timingLocked: true, _view: 'lrc' },
   ];
   const history = createLyricHistory(current);
   const moved = current.rows[0];

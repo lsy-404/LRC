@@ -10,7 +10,7 @@ test('权威 LRC 锁定歌词编辑控件而保留试听和元数据保存', asy
   assert.match(source, /:readonly="t\.authoritativeLrc" @input="syncRowText/);
   assert.match(source, /:contenteditable="t\.authoritativeLrc \? 'false' : 'plaintext-only'"/);
   assert.match(source, /:disabled="t\.authoritativeLrc" @click="addLine/);
-  assert.match(source, /:disabled="t\.authoritativeLrc" @click="addVocal/);
+  assert.doesNotMatch(source, /addVocal|添加声部|标为合音/);
   assert.match(source, /if \(t\.authoritativeLrc\) return; const time = Math\.max\(0, Number\(t\.rows/);
   assert.match(source, /if \(t\.authoritativeLrc\) return; t\.rows = reconcileTimedRows/);
   assert.match(source, /if \(t\.authoritativeLrc\) \{\s+return \{\s+\.\.\.t\._orig,/);

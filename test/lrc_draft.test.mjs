@@ -87,7 +87,7 @@ test('序列化保留头部并忽略空逐字项', () => {
   assert.doesNotMatch(result.klrc, /<00:01.000>/);
 });
 
-test('多声部草稿保留主声部字段并允许重叠时间', () => {
+test('主唱和声草稿保留主唱字段并允许重叠时间', () => {
   const parts = parseVocalDrafts({
     lrc: '[00:01.000]主唱\n', klrc: '[00:01.000]<00:01.000>主<00:01.200>唱\n', lines: ['主唱'], timing_locked: true,
     vocals: [{ id: 'harmony', name: '和声', lrc: '[00:01.000]和声\n', klrc: '[00:01.000]<00:01.000>和<00:01.200>声\n', lines: ['和声'], timing_locked: true }],
@@ -101,10 +101,43 @@ test('多声部草稿保留主声部字段并允许重叠时间', () => {
   assert.match(saved.vocals[0].klrc, /和[\s\S]*声/);
 });
 
-test('句子可跨声部稳定归并并移回主唱，保留首字时间和 token 身份', () => {
+test('遗留旧名称规范为和声，主唱和声来回移动后可完整保存', () => {
+  const parts = parseVocalDrafts({
+    lrc: '[00:01.000]主唱\n', klrc: '[00:01.000]<00:01.050>主<00:01.200>唱\n', lines: ['主唱'], timing_locked: true,
+    vocals: [{ id: 'harmony', name: '合音', lrc: '[00:01.500]和声\n', klrc: '[00:01.500]<00:01.550>和<00:01.700>声\n', lines: ['和声'], timing_locked: true }],
+  });
+  assert.deepEqual(parts.map((part) => part.name), ['主唱', '和声']);
+  assert.deepEqual(parts.map((part) => part.id), ['main', 'harmony']);
+  const moved = transferTimedVocalRow(parts, 0, 0, 1);
+  assert.equal(moved[0].rows.length, 0);
+  assert.deepEqual(moved[1].rows.map((row) => row.time), [1000, 1500]);
+  assert.equal(moved[1].rows[0].words[0].time, 1050);
+  const restored = transferTimedVocalRow(moved, 1, 0, 0);
+  const saved = serializeVocalDrafts(restored);
+  assert.deepEqual(saved.main.lines, ['主唱']);
+  assert.equal(saved.vocals[0].name, '和声');
+  assert.deepEqual(saved.vocals[0].lines, ['和声']);
+});
+
+test('多条和声保持唯一标识并完整往返序列化', () => {
+  const parts = parseVocalDrafts({
+    lrc: '[00:01.000]主唱\n', klrc: '[00:01.000]<00:01.000>主唱\n', lines: ['主唱'],
+    vocals: [
+      { id: 'harmony', name: '和声', lrc: '[00:01.200]和声一\n', klrc: '[00:01.200]<00:01.200>和声一\n', lines: ['和声一'] },
+      { id: 'harmony', name: '旧名称', lrc: '[00:01.400]和声二\n', klrc: '[00:01.400]<00:01.400>和声二\n', lines: ['和声二'] },
+    ],
+  });
+  assert.deepEqual(parts.map((part) => part.id), ['main', 'harmony', 'harmony-3']);
+  assert.deepEqual(parts.slice(1).map((part) => part.name), ['和声', '和声']);
+  const saved = serializeVocalDrafts(parts);
+  assert.deepEqual(saved.vocals.map((part) => part.id), ['harmony', 'harmony-3']);
+  assert.deepEqual(saved.vocals.map((part) => part.lines), [['和声一'], ['和声二']]);
+});
+
+test('句子可跨主唱和声稳定归并并移回主唱，保留首字时间和 token 身份', () => {
   const parts = parseVocalDrafts({
     lrc: '[00:01.000]主唱\n', klrc: '[00:01.000]<00:01.250>主<00:01.400>唱\n', lines: ['主唱'], timing_locked: true,
-    vocals: [{ id: 'harmony', name: '合音', lrc: '[00:00.800]先到\n[00:01.000]同拍\n', klrc: '[00:00.800]<00:00.800>先到\n[00:01.000]<00:01.000>同拍\n', lines: ['先到', '同拍'], timing_locked: true }],
+    vocals: [{ id: 'harmony', name: '和声', lrc: '[00:00.800]先到\n[00:01.000]同拍\n', klrc: '[00:00.800]<00:00.800>先到\n[00:01.000]<00:01.000>同拍\n', lines: ['先到', '同拍'], timing_locked: true }],
   });
   const row = parts[0].rows[0]; const firstWord = row.words[0];
   row._id = 'main-row'; firstWord._id = 'main-word';
@@ -120,7 +153,7 @@ test('句子可跨声部稳定归并并移回主唱，保留首字时间和 toke
   assert.match(serializeVocalDrafts(returned).main.klrc, /\[00:01.000\]<00:01.250>主/);
 });
 
-test('跨声部移动句行后保留首字独立时间并分别序列化', () => {
+test('跨主唱和声移动句行后保留首字独立时间并分别序列化', () => {
   const moved = { _id: 7, time: 2100, text: '和声', words: [{ _id: 8, time: 2180, text: '和' }, { _id: 9, time: 2470, text: '声' }] };
   const saved = serializeVocalDrafts([
     { id: 'main', name: '主唱', head: [], rows: [{ _id: 1, time: 2100, text: '主唱', words: [{ _id: 2, time: 2100, text: '主' }, { _id: 3, time: 2300, text: '唱' }] }], timingLocked: true },

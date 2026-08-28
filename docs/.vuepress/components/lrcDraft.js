@@ -135,14 +135,19 @@ export function serializeTimedLyrics(head, rows) {
   return { lrc, klrc, lines: clean.map((row) => row.text) };
 }
 
-// LRC/KLRC 本身不定义声部名称；草稿把主声部保留在原字段，其余声部各存自己的歌词流。
+// LRC/KLRC 本身不定义名称；草稿把主唱保留在原字段，和声各存自己的歌词流。
 export function parseVocalDrafts(track) {
   const sources = [{ id: 'main', name: '主唱', lrc: track?.lrc, klrc: track?.klrc, lines: track?.lines, timing_locked: track?.timing_locked }, ...(Array.isArray(track?.vocals) ? track.vocals : [])];
+  const usedIds = new Set();
   return sources.map((source, index) => {
     const { head, rows: plainRows } = parseLrc(source.lrc);
+    const baseId = index ? String(source.id || 'harmony') : 'main';
+    let id = baseId === 'main' && index ? `harmony-${index + 1}` : baseId;
+    while (usedIds.has(id)) id = `${baseId || 'harmony'}-${index + 1}`;
+    usedIds.add(id);
     return {
-      id: String(source.id || (index ? `vocal-${index + 1}` : 'main')),
-      name: String(source.name || (index ? `声部 ${index + 1}` : '主唱')),
+      id,
+      name: index ? '和声' : '主唱',
       head,
       rows: parseKaraokeRows(source.lrc, source.klrc),
       text: linesToText(Array.isArray(source.lines) ? source.lines : plainRows.map((row) => row.text)),
@@ -152,17 +157,19 @@ export function parseVocalDrafts(track) {
 }
 
 export function serializeVocalDrafts(vocals) {
-  const parts = (vocals || []).map((vocal, index) => ({
-    id: String(vocal.id || (index ? `vocal-${index + 1}` : 'main')),
-    name: String(vocal.name || (index ? `声部 ${index + 1}` : '主唱')),
-    ...serializeTimedLyrics(vocal.head, vocal.rows),
-    timing_locked: !!vocal.timingLocked,
-  }));
+  const usedIds = new Set();
+  const parts = (vocals || []).map((vocal, index) => {
+    const baseId = index ? String(vocal.id || 'harmony') : 'main';
+    let id = baseId === 'main' && index ? `harmony-${index + 1}` : baseId;
+    while (usedIds.has(id)) id = `${baseId || 'harmony'}-${index + 1}`;
+    usedIds.add(id);
+    return { id, name: index ? '和声' : '主唱', ...serializeTimedLyrics(vocal.head, vocal.rows), timing_locked: !!vocal.timingLocked };
+  });
   const [main = { lrc: '', klrc: '', lines: [], timing_locked: false }, ...vocalsOnly] = parts;
   return { main, vocals: vocalsOnly };
 }
 
-// 句子在声部间移动时保留原行和逐字对象，目标声部只按时间稳定归并。
+// 句子在主唱和声间移动时保留原行和逐字对象，目标歌词流只按时间稳定归并。
 export function transferTimedVocalRow(vocals, sourceIndex, rowIndex, targetIndex) {
   const list = [...(vocals || [])];
   const source = list[sourceIndex]; const target = list[targetIndex];

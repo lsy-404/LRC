@@ -122,10 +122,9 @@
             <button class="eb-btn small" :disabled="t.authoritativeLrc || !canRedo(t)" @click="redoTrack(t)">恢复</button>
           </div>
 
-          <div class="eb-vocal-bar">
-            <label>声部 <select class="eb-select" :disabled="t.authoritativeLrc" :value="t._selectedVocal" @change="selectVocal(t, Number($event.target.value))"><option v-for="(vocal, index) in t._vocals" :key="vocal.id" :value="index">{{ vocal.name }}</option></select></label>
-            <input v-model="selectedVocal(t).name" class="eb-input vocal-name" :readonly="t.authoritativeLrc" aria-label="声部名称" @input="markHistory(t)" @blur="commitHistory(t)">
-            <button class="eb-btn small" :disabled="t.authoritativeLrc" @click="addVocal(t)">添加声部</button>
+          <div class="eb-vocal-legend" aria-label="主唱与和声图例">
+            <span class="eb-vocal-key main">主唱</span>
+            <span v-if="hasHarmony(t)" class="eb-vocal-key harmony">和声</span>
           </div>
 
           <div
@@ -158,68 +157,51 @@
               <span :ref="(node) => bindPlayerTimeNode(t, node)">{{ formatMs(t._previewMs) }}</span>
               </div>
               </div>
-              <div class="eb-edit-switch">
-              <button
-                class="eb-btn small"
-                :class="{ on: t._view === 'lrc' }"
-                @click="t._view = 'lrc'"
-              >逐行与逐字</button>
-              <button
-                class="eb-btn small"
-                :class="{ on: t._view === 'text' }"
-                @click="t._view = 'text'"
-              >整段文本</button>
-              </div>
-              <div v-if="t.head.length" class="eb-lrc-head">
-              <div v-for="(h, hi) in t.head" :key="hi">{{ h }}</div>
-              </div>
-              <div v-if="t._view === 'lrc'">
-              <div v-for="(r, li) in t.rows" :key="r._id" :ref="(node) => bindLineNode(t, li, node)" class="eb-line-editor">
+              <div v-for="(vocal, vi) in t._vocals" :key="vocal.id" class="eb-vocal-lane" :class="vocalLaneClass(vocal, vi)">
+              <div class="eb-vocal-lane-label"><span>{{ vocalLabel(vocal, vi) }}</span><div class="eb-edit-switch"><button class="eb-btn small" :class="{ on: vocal._view === 'lrc' }" @click="vocal._view = 'lrc'">逐行与逐字</button><button class="eb-btn small" :class="{ on: vocal._view === 'text' }" @click="vocal._view = 'text'">整段文本</button></div></div>
+              <div v-if="vocal.head.length" class="eb-lrc-head"><div v-for="(h, hi) in vocal.head" :key="hi">{{ h }}</div></div>
+              <div v-if="vocal._view === 'lrc'">
+              <div v-for="(r, li) in vocal.rows" :key="r._id" :ref="(node) => bindLineNode(vocal, li, node)" class="eb-line-editor" @focusin="activateVocal(t, vi)">
               <div class="eb-lrc-row">
-                <label class="eb-time"><input v-model.number="r.time" type="number" min="0" step="10" class="eb-input ms" :readonly="t.authoritativeLrc" @focus="beginRowTimeEdit(r)" @input="shiftRowTime(t, r)" @change="finishRowTimeEdit(t, r)" @blur="finishRowTimeEdit(t, r)">毫秒</label>
-                <input v-model="r.text" class="eb-input lrc" :readonly="t.authoritativeLrc" @input="syncRowText(t, r); markHistory(t)" @blur="commitHistory(t)" @click="recordCursor(r, $event)" @keyup="recordCursor(r, $event)" @select="recordCursor(r, $event)">
-                <button class="eb-btn small eb-icon-btn" :disabled="t.authoritativeLrc || textRowBoundaryAction(r, li) === 'none'" :aria-label="textRowBoundaryLabel(r, li)" :title="textRowBoundaryLabel(r, li)" @click="applyTextRowBoundary(t, r, li)">{{ textRowBoundaryIcon(r, li) }}</button><button class="eb-btn small eb-icon-btn" :disabled="t.authoritativeLrc" aria-label="插入歌词行" title="插入歌词行" @click="addLine(t, li)">＋</button><button class="eb-btn small eb-icon-btn" :disabled="t.authoritativeLrc" :aria-label="t._selectedVocal ? '并回主唱' : '标为合音'" :title="t._selectedVocal ? '并回主唱' : '标为合音'" @click="toggleHarmonyRow(t, r)">{{ harmonyRowIcon(t) }}</button><button class="eb-btn small danger eb-icon-btn" :disabled="t.authoritativeLrc" aria-label="删除歌词行" title="删除歌词行" @click="removeLine(t, li)">×</button>
+                <label class="eb-time"><input v-model.number="r.time" type="number" min="0" step="10" class="eb-input ms" :readonly="t.authoritativeLrc" @focus="beginRowTimeEdit(r)" @input="shiftRowTime(vocal, r)" @change="finishRowTimeEdit(vocal, r)" @blur="finishRowTimeEdit(vocal, r)">毫秒</label>
+                <input v-model="r.text" class="eb-input lrc" :readonly="t.authoritativeLrc" @input="syncRowText(vocal, r); markHistory(vocal)" @blur="commitHistory(vocal)" @click="recordCursor(r, $event)" @keyup="recordCursor(r, $event)" @select="recordCursor(r, $event)">
+                <button class="eb-btn small eb-icon-btn" :disabled="t.authoritativeLrc || textRowBoundaryAction(r, li) === 'none'" :aria-label="textRowBoundaryLabel(r, li)" :title="textRowBoundaryLabel(r, li)" @click="applyTextRowBoundary(vocal, r, li)">{{ textRowBoundaryIcon(r, li) }}</button><button class="eb-btn small eb-icon-btn" :disabled="t.authoritativeLrc" aria-label="插入歌词行" title="插入歌词行" @click="addLine(vocal, li)">＋</button><button class="eb-btn small eb-icon-btn" :disabled="t.authoritativeLrc" :aria-label="vi ? '并回主唱' : '标为和声'" :title="vi ? '并回主唱' : '标为和声'" @click="toggleHarmonyRow(vocal, r)">{{ harmonyRowIcon(vocal) }}</button><button class="eb-btn small danger eb-icon-btn" :disabled="t.authoritativeLrc" aria-label="删除歌词行" title="删除歌词行" @click="removeLine(vocal, li)">×</button>
               </div>
               <div class="eb-word-timeline" role="region" aria-label="逐字时间轨">
-                <div class="eb-time-track" :style="timelineTrackStyle(t, r, li)">
+                <div class="eb-time-track" :style="timelineTrackStyle(vocal, r, li)">
                   <span class="eb-time-lead" :style="timelineLeadStyle(r)" aria-hidden="true" />
-                  <button v-for="slot in missingMarkerSlots(r, 0)" :key="`missing-${r._id}-${slot.textIndex}`" class="eb-time-missing" :disabled="t.authoritativeLrc" :title="`为 ${slot.text} 新增时间标记`" :aria-label="`为 ${slot.text} 新增时间标记`" @click="insertMissingMarker(t, r, li, slot.textIndex)">{{ slot.text }}</button>
+                  <button v-for="slot in missingMarkerSlots(r, 0)" :key="`missing-${r._id}-${slot.textIndex}`" class="eb-time-missing" :disabled="t.authoritativeLrc" :title="`为 ${slot.text} 新增时间标记`" :aria-label="`为 ${slot.text} 新增时间标记`" @click="insertMissingMarker(vocal, r, li, slot.textIndex)">{{ slot.text }}</button>
                   <template v-for="(word, wi) in r.words" :key="word._id">
-                  <div :ref="(node) => bindTokenNode(t, li, wi, node)" class="eb-time-token" :style="timelineTokenStyle(t, r, li, wi)">
-                    <span class="eb-time-chars" :contenteditable="t.authoritativeLrc ? 'false' : 'plaintext-only'" spellcheck="false" tabindex="0" :aria-label="`编辑 ${word.text}，可输入多个字`" @focus="selectTimelineChar" @input="editTimelineChar(t, r, wi, $event)" @keydown="openTimelineMenuFromKey(t, r, wi, 0, $event)" @keydown.enter.prevent="$event.currentTarget.blur()"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" @contextmenu.prevent.stop="!t.authoritativeLrc && openTimelineMenu(t, r, wi, ci, $event)">{{ char }}</span></span>
-                    <button class="eb-time-marker" :disabled="t.authoritativeLrc" :aria-label="`调整 ${word.text} 的句内偏移`" @pointerdown="startTimeDrag(t, r, wi, $event)" @pointermove="moveTimeDrag($event)" @pointerup="finishTimeDrag($event)" @pointercancel="finishTimeDrag($event)" @lostpointercapture="finishTimeDrag($event)" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, 0, $event)" @keydown="nudgeWordTime(t, r, wi, $event)"><span>{{ formatWordOffset(r, word.time) }}</span></button>
+                  <div :ref="(node) => bindTokenNode(vocal, li, wi, node)" class="eb-time-token" :style="timelineTokenStyle(vocal, r, li, wi)">
+                    <span class="eb-time-chars" :contenteditable="t.authoritativeLrc ? 'false' : 'plaintext-only'" spellcheck="false" tabindex="0" :aria-label="`编辑 ${word.text}，可输入多个字`" @focus="selectTimelineChar" @input="editTimelineChar(vocal, r, wi, $event)" @keydown="openTimelineMenuFromKey(vocal, r, wi, 0, $event)" @keydown.enter.prevent="$event.currentTarget.blur()"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" @contextmenu.prevent.stop="!t.authoritativeLrc && openTimelineMenu(vocal, r, wi, ci, $event)">{{ char }}</span></span>
+                    <button class="eb-time-marker" :disabled="t.authoritativeLrc" :aria-label="`调整 ${word.text} 的句内偏移`" @pointerdown="startTimeDrag(vocal, r, wi, $event)" @pointermove="moveTimeDrag($event)" @pointerup="finishTimeDrag($event)" @pointercancel="finishTimeDrag($event)" @lostpointercapture="finishTimeDrag($event)" @contextmenu.prevent.stop="openTimelineMenu(vocal, r, wi, 0, $event)" @keydown="nudgeWordTime(vocal, r, wi, $event)"><span>{{ formatWordOffset(r, word.time) }}</span></button>
                   </div>
-                  <button v-for="slot in missingMarkerSlots(r, wi + 1)" :key="`missing-${r._id}-${slot.textIndex}`" class="eb-time-missing" :disabled="t.authoritativeLrc" :title="`为 ${slot.text} 新增时间标记`" :aria-label="`为 ${slot.text} 新增时间标记`" @click="insertMissingMarker(t, r, li, slot.textIndex)">{{ slot.text }}</button>
+                  <button v-for="slot in missingMarkerSlots(r, wi + 1)" :key="`missing-${r._id}-${slot.textIndex}`" class="eb-time-missing" :disabled="t.authoritativeLrc" :title="`为 ${slot.text} 新增时间标记`" :aria-label="`为 ${slot.text} 新增时间标记`" @click="insertMissingMarker(vocal, r, li, slot.textIndex)">{{ slot.text }}</button>
                   </template>
-                  <span class="eb-time-trailing" :style="timelineTrailingStyle(t, r, li)" aria-hidden="true" />
-                  <span :ref="(node) => bindRowProgressNode(t, li, node)" class="eb-time-sentence-progress" aria-hidden="true" />
+                  <span class="eb-time-trailing" :style="timelineTrailingStyle(vocal, r, li)" aria-hidden="true" />
+                  <span :ref="(node) => bindRowProgressNode(vocal, li, node)" class="eb-time-sentence-progress" aria-hidden="true" />
                 </div>
               </div>
-              <div v-if="timelineMenu && timelineMenu.rowId === r._id" class="eb-timeline-menu" role="menu" :style="{ left: `${timelineMenu.x}px`, top: `${timelineMenu.y}px` }" @keydown.esc="closeTimelineMenu">
+              <div v-if="timelineMenu && timelineMenu.rowId === r._id && timelineMenu.t === vocal" class="eb-timeline-menu" role="menu" :style="{ left: `${timelineMenu.x}px`, top: `${timelineMenu.y}px` }" @keydown.esc="closeTimelineMenu">
                 <button v-if="timelineMenu.charIndex || timelineMenu.wordIndex" role="menuitem" class="eb-btn small" :disabled="t.authoritativeLrc" :title="timelineMenu.charIndex ? '新增此处的时间标签' : '删除当前时间标签（并入前字）'" @click.stop="applyTimelineBoundary">{{ timelineMenu.charIndex ? '在此新增时间标签' : '删除当前时间标签（并入前字）' }}</button>
                 <button role="menuitem" class="eb-btn small" :disabled="t.authoritativeLrc || timelineBoundaryAction(timelineMenu) === 'none'" @click.stop="applyRowBoundary">{{ timelineBoundaryLabel(timelineMenu) }}</button>
               </div>
             </div>
-              <button class="eb-btn small" :disabled="t.authoritativeLrc" @click="addLine(t, t.rows.length - 1)">新增歌词行</button>
+              <button class="eb-btn small" :disabled="t.authoritativeLrc" @click="addLine(vocal, vocal.rows.length - 1)">新增歌词行</button>
               </div>
               <textarea
                 v-else
-              v-model="t.text"
+              v-model="vocal.text"
               class="eb-textarea"
               rows="6"
               :readonly="t.authoritativeLrc"
-              @input="markHistory(t)"
-              @change="applyWholeText(t)"
-              @blur="commitHistory(t)"
+              @input="markHistory(vocal)"
+              @change="applyWholeText(vocal)"
+              @blur="commitHistory(vocal)"
               :placeholder="t.inst ? '伴奏轨：留空则借同名正曲时间轴或写占位' : '逐行歌词'"
               />
-              <button v-if="t._view === 'text'" class="eb-btn small" :disabled="t.authoritativeLrc" @click="applyWholeText(t)">应用整段文本并保留时间轴</button>
+              <button v-if="vocal._view === 'text'" class="eb-btn small" :disabled="t.authoritativeLrc" @click="applyWholeText(vocal)">应用整段文本并保留时间轴</button>
             </div>
-            <div v-for="(vocal, index) in t._vocals" v-show="index !== t._selectedVocal" :key="vocal.id" class="eb-vocal-overlap" :aria-label="`${vocal.name} 重叠高亮`">
-              <b>{{ vocal.name }}</b>
-              <div v-for="(row, line) in vocal.rows" :key="row._id" :ref="(node) => bindLineNode(vocal, line, node)" class="eb-vocal-line">
-                <span v-for="(word, wordIndex) in row.words" :key="word._id" :ref="(node) => bindTokenNode(vocal, line, wordIndex, node)" class="eb-vocal-word">{{ word.text }}</span>
-              </div>
             </div>
           </div>
           <audio
@@ -455,20 +437,20 @@ function editTimelineChar(t, row, wordIndex, event) {
   event.currentTarget.blur();
 }
 function boundedWordTime(t, row, index, time) { const rowIndex = t.rows.findIndex((item) => item._id === row._id); const nextRow = t.rows[rowIndex + 1]; return clampWordTime(row.words, index, time, 10, row.time, index === row.words.length - 1 && nextRow ? Number(nextRow.time) - 10 : Number.POSITIVE_INFINITY); }
-function setHistoryTrack(t) { historyTrack = t; }
-function clearHistoryTrack(t, event) { if (historyTrack === t && !event.currentTarget.contains(event.relatedTarget)) historyTrack = null; }
-function canUndo(t) { return canUndoLyricHistory(t._history); }
-function canRedo(t) { return canRedoLyricHistory(t._history); }
-function markHistory(t) { markLyricHistoryDirty(t._history); }
-function commitHistory(t) { recordLyricHistory(t._history, t); }
+function setHistoryTrack(t) { historyTrack = trackOwner(t); }
+function clearHistoryTrack(t, event) { if (historyTrack === trackOwner(t) && !event.currentTarget.contains(event.relatedTarget)) historyTrack = null; }
+function canUndo(t) { return canUndoLyricHistory(trackOwner(t)._history); }
+function canRedo(t) { return canRedoLyricHistory(trackOwner(t)._history); }
+function markHistory(t) { markLyricHistoryDirty(trackOwner(t)._history); }
+function commitHistory(t) { const track = trackOwner(t); if (track !== t) activateVocal(track, track._vocals.indexOf(t)); recordLyricHistory(track._history, track); }
 function restoreHistory(t, restore) {
   if (!restore(t._history, t)) return;
-  for (const vocal of t._vocals) vocal._owner = t;
+  for (const vocal of t._vocals) { vocal._owner = t; vocal._history = t._history; vocal.name = vocal.id === 'main' ? '主唱' : '和声'; }
   closeTimelineMenu(); clearPlaybackView(t);
   nextTick(() => updateAllVocalHighlights(t, playheadMs(t)));
 }
-function undoTrack(t) { if (!t.authoritativeLrc) restoreHistory(t, undoLyricHistory); }
-function redoTrack(t) { if (!t.authoritativeLrc) restoreHistory(t, redoLyricHistory); }
+function undoTrack(t) { const track = trackOwner(t); if (!track.authoritativeLrc) restoreHistory(track, undoLyricHistory); }
+function redoTrack(t) { const track = trackOwner(t); if (!track.authoritativeLrc) restoreHistory(track, redoLyricHistory); }
 function setWordTime(t, row, index, time) { if (t.authoritativeLrc) return; row.words[index].time = boundedWordTime(t, row, index, time); updateActiveIndices(t, playheadMs(t)); lockTiming(t); commitHistory(t); }
 function beginRowTimeEdit(row) { rowTimeEdits.set(row, Number(row.time) || 0); }
 function shiftRowTime(t, row) {
@@ -519,7 +501,6 @@ function textRowBoundaryLabel(row, rowIndex) {
   return cursor === 0 && rowIndex === 0 ? '首句首光标无需操作' : '行尾无有效切点';
 }
 function textRowBoundaryIcon(row, rowIndex) { return textRowBoundaryAction(row, rowIndex) === 'merge' ? '↤' : '✂'; }
-function harmonyRowIcon(track) { return track._selectedVocal ? '↩' : '♫'; }
 function applyTextRowBoundary(t, row, rowIndex) {
   if (t.authoritativeLrc) return;
   const action = textRowBoundaryAction(row, rowIndex);
@@ -584,7 +565,7 @@ function moveTimeDrag(event) {
     state.frame = null;
   });
 }
-function finishTimeDrag(event) { if (!dragState || (event?.pointerId != null && event.pointerId !== dragState.pointerId)) return; if (event?.clientX != null) dragState.x = event.clientX; const state = dragState; if (!allTracks().includes(state.t) || !state.t.rows.includes(state.row)) return clearTimeDrag(); setWordTime(state.t, state.row, state.index, state.startTime + (state.x - state.startX) * TIMELINE_MS_PER_PIXEL); clearTimeDrag(); }
+function finishTimeDrag(event) { if (!dragState || (event?.pointerId != null && event.pointerId !== dragState.pointerId)) return; if (event?.clientX != null) dragState.x = event.clientX; const state = dragState; if (!allTracks().includes(trackOwner(state.t)) || !state.t.rows.includes(state.row)) return clearTimeDrag(); setWordTime(state.t, state.row, state.index, state.startTime + (state.x - state.startX) * TIMELINE_MS_PER_PIXEL); clearTimeDrag(); }
 function normalizeRows(t) { t.rows.sort((a, b) => Number(a.time) - Number(b.time)); syncTrackText(t); }
 function syncRowText(t, row) { row.words = reconcileWordCharacters(row.words, row.text, newId, row.time); t._textDirty = true; syncTrackText(t); lockTiming(t); }
 function applyWholeText(t) { if (t.authoritativeLrc) return; t.rows = reconcileTimedRows(t.rows, t.text, newId); normalizeRows(t); t.timingLocked = true; updateActiveIndices(t, playheadMs(t)); commitHistory(t); }
@@ -663,50 +644,46 @@ function nudgePlayhead(t, delta) { seekTrack(t, playheadMs(t) + delta); }
 function cancelSourceTimer(t) { if (t._sourceTimer) { clearInterval(t._sourceTimer); t._sourceTimer = null; } }
 function allTracks() { return edits.value.flatMap((edit) => edit.tracks); }
 function selectedVocal(t) { return t._vocals[t._selectedVocal] || t._vocals[0]; }
+function hasHarmony(t) { return t._vocals.some((vocal, index) => index > 0 && vocal.rows.length); }
+function vocalLabel(vocal, index) { return index === 0 ? '主唱' : '和声'; }
+function vocalLaneClass(vocal, index) { return index === 0 ? 'main' : 'harmony'; }
 function persistVocal(t) {
   const vocal = selectedVocal(t); if (!vocal) return;
   vocal.head = t.head; vocal.rows = t.rows; vocal.text = t.text; vocal.timingLocked = t.timingLocked; vocal._view = t._view;
 }
-function selectVocal(t, index) {
-  if (t.authoritativeLrc) return;
+function activateVocal(t, index) {
   persistVocal(t);
   const vocal = t._vocals[index]; if (!vocal) return;
   t._selectedVocal = index; t.head = vocal.head; t.rows = vocal.rows; t.text = vocal.text; t.timingLocked = vocal.timingLocked; t._view = vocal._view;
-  clearPlaybackView(t); nextTick(() => updateAllVocalHighlights(t, playheadMs(t)));
-}
-function addVocal(t) {
-  if (t.authoritativeLrc) return;
-  persistVocal(t);
-  const vocal = { id: `vocal-${t._vocals.length + 1}`, name: `声部 ${t._vocals.length + 1}`, head: [], rows: [], text: '', timingLocked: false, _view: 'text', _owner: t };
-  t._vocals.push(vocal); selectVocal(t, t._vocals.length - 1); markHistory(t); commitHistory(t);
 }
 function ensureHarmonyVocal(t) {
-  const existing = t._vocals.find((vocal) => vocal.id === 'harmony' || vocal.name === '合音');
+  const existing = t._vocals.find((vocal, index) => index > 0);
   if (existing) return existing;
-  const vocal = { id: 'harmony', name: '合音', head: [], rows: [], text: '', timingLocked: true, _view: 'lrc', _owner: t };
+  const vocal = { id: 'harmony', name: '和声', head: [], rows: [], text: '', timingLocked: true, _view: 'lrc', _owner: t, _history: t._history };
   t._vocals.push(vocal);
   return vocal;
 }
-function toggleHarmonyRow(t, row) {
+function harmonyRowIcon(vocal) { return vocal.id === 'main' ? '♫' : '↩'; }
+function toggleHarmonyRow(vocal, row) {
+  const t = trackOwner(vocal);
   if (t.authoritativeLrc) return;
-  persistVocal(t);
-  const sourceIndex = t._selectedVocal;
-  const target = t._selectedVocal ? t._vocals[0] : ensureHarmonyVocal(t);
+  const sourceIndex = t._vocals.indexOf(vocal);
+  const target = sourceIndex ? t._vocals[0] : ensureHarmonyVocal(t);
   const targetIndex = t._vocals.indexOf(target);
-  const rowIndex = t._vocals[sourceIndex]?.rows.findIndex((item) => item === row) ?? -1;
+  const rowIndex = vocal.rows.findIndex((item) => item === row);
   if (targetIndex < 0 || rowIndex < 0) return;
   t._vocals = transferTimedVocalRow(t._vocals, sourceIndex, rowIndex, targetIndex);
-  for (const vocal of t._vocals) vocal._owner = t;
+  for (const part of t._vocals) { part._owner = t; part._history = t._history; part.name = part.id === 'main' ? '主唱' : '和声'; }
   t._vocals[targetIndex].timingLocked = true;
   t._vocals[targetIndex]._view = 'lrc';
-  const source = t._vocals[sourceIndex];
+  const source = t._vocals[Math.min(sourceIndex, t._vocals.length - 1)];
+  t._selectedVocal = Math.min(sourceIndex, t._vocals.length - 1);
   t.head = source.head; t.rows = source.rows; t.text = source.text; t.timingLocked = source.timingLocked; t._view = source._view;
   lockTiming(t);
   commitHistory(t);
 }
 function updateAllVocalHighlights(t, ms) {
-  updateActiveIndices(t, ms);
-  for (const vocal of t._vocals) if (vocal !== selectedVocal(t)) updateActiveIndices(vocal, ms);
+  for (const vocal of t._vocals) updateActiveIndices(vocal, ms);
 }
 function pausePreview(t) { t._playing = false; if (t._previewTimer) { clearInterval(t._previewTimer); t._previewTimer = null; } setPlayhead(t, playheadMs(t), true); }
 function togglePreview(t) { if (t._playing) return pausePreview(t); for (const other of allTracks()) pausePreview(other); t._playing = true; let last = Date.now(); t._previewTimer = setInterval(() => { const now = Date.now(); const ms = Math.min(previewEnd(t), playheadMs(t) + (now - last) * t._speed); setPlayhead(t, ms); last = now; if (ms >= previewEnd(t)) pausePreview(t); }, 100); }
@@ -940,7 +917,7 @@ function toEdit(album, draft) {
         text: primary.text, _orig: t, _vocals: vocals, _selectedVocal: 0,
       };
       track._history = createLyricHistory(track);
-      for (const vocal of vocals) vocal._owner = track;
+      for (const vocal of vocals) { vocal._owner = track; vocal._history = track._history; vocal.name = vocal.id === 'main' ? '主唱' : '和声'; }
       return track;
     }),
     pages: draft.pages || [],
@@ -1319,14 +1296,14 @@ onBeforeUnmount(() => {
 .eb-tag.edit { color: var(--eb-accent); }
 
 .eb-track-bar { display: flex; gap: .4rem; align-items: center; margin-bottom: .5rem; font-size: .75rem; }
-.eb-vocal-bar { display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; margin: 0 0 .5rem; font-size: .75rem; }
-.eb-vocal-bar label { display: flex; gap: .25rem; align-items: center; }
-.eb-vocal-bar .vocal-name { width: auto; flex: 1; min-width: 7rem; padding: .25rem .45rem; }
-.eb-vocal-overlap { margin: .65rem 0 0; padding: .45rem .55rem; border-left: 2px solid color-mix(in srgb, var(--eb-accent) 55%, transparent); background: color-mix(in srgb, var(--eb-accent) 4%, transparent); font-size: .82rem; }
-.eb-vocal-overlap b { display: block; margin-bottom: .25rem; font-size: .75rem; opacity: .72; }
-.eb-vocal-line { display: inline-flex; margin: .08rem .3rem .08rem 0; padding: .12rem .2rem; border-radius: 3px; }
-.eb-vocal-line.active, .eb-vocal-word.active { background: color-mix(in srgb, var(--eb-accent) 18%, transparent); }
-.eb-vocal-word { padding: 0 .04rem; }
+.eb-vocal-legend { display: flex; gap: .4rem; align-items: center; margin: 0 0 .5rem; font-size: .75rem; }
+.eb-vocal-key, .eb-vocal-lane-label > span { display: inline-flex; align-items: center; gap: .28rem; font-weight: 650; }
+.eb-vocal-key::before, .eb-vocal-lane-label > span::before { content: ''; width: .38rem; height: 1rem; border-radius: 99px; background: var(--eb-vocal-color); }
+.eb-vocal-key.main, .eb-vocal-lane.main { --eb-vocal-color: var(--eb-accent); }
+.eb-vocal-key.harmony, .eb-vocal-lane.harmony { --eb-vocal-color: #b96cff; }
+.eb-vocal-lane { border-left: 3px solid var(--eb-vocal-color); padding-left: .55rem; margin: .7rem 0; }
+.eb-vocal-lane-label { display: flex; justify-content: space-between; gap: .5rem; align-items: center; margin: 0 0 .35rem; font-size: .78rem; }
+.eb-vocal-lane .eb-edit-switch { margin: 0; }
 .eb-spacer { flex: 1; }
 .eb-btn.on { border-color: var(--eb-accent); color: var(--eb-accent); }
 
