@@ -136,15 +136,21 @@ export function serializeTimedLyrics(head, rows) {
 }
 
 // LRC/KLRC 本身不定义名称；草稿把主唱保留在原字段，和声各存自己的歌词流。
+function uniqueVocalId(usedIds, candidate, fallback = 'harmony') {
+  const baseId = String(candidate || fallback);
+  let id = baseId;
+  let suffix = 2;
+  while (usedIds.has(id)) id = `${baseId}-${suffix++}`;
+  usedIds.add(id);
+  return id;
+}
+
 export function parseVocalDrafts(track) {
   const sources = [{ id: 'main', name: '主唱', lrc: track?.lrc, klrc: track?.klrc, lines: track?.lines, timing_locked: track?.timing_locked }, ...(Array.isArray(track?.vocals) ? track.vocals : [])];
   const usedIds = new Set();
   return sources.map((source, index) => {
     const { head, rows: plainRows } = parseLrc(source.lrc);
-    const baseId = index ? String(source.id || 'harmony') : 'main';
-    let id = baseId === 'main' && index ? `harmony-${index + 1}` : baseId;
-    while (usedIds.has(id)) id = `${baseId || 'harmony'}-${index + 1}`;
-    usedIds.add(id);
+    const id = uniqueVocalId(usedIds, index && source.id === 'main' ? '' : source.id, index ? 'harmony' : 'main');
     return {
       id,
       name: index ? '和声' : '主唱',
@@ -159,10 +165,7 @@ export function parseVocalDrafts(track) {
 export function serializeVocalDrafts(vocals) {
   const usedIds = new Set();
   const parts = (vocals || []).map((vocal, index) => {
-    const baseId = index ? String(vocal.id || 'harmony') : 'main';
-    let id = baseId === 'main' && index ? `harmony-${index + 1}` : baseId;
-    while (usedIds.has(id)) id = `${baseId || 'harmony'}-${index + 1}`;
-    usedIds.add(id);
+    const id = uniqueVocalId(usedIds, index && vocal.id === 'main' ? '' : vocal.id, index ? 'harmony' : 'main');
     return { id, name: index ? '和声' : '主唱', ...serializeTimedLyrics(vocal.head, vocal.rows), timing_locked: !!vocal.timingLocked };
   });
   const [main = { lrc: '', klrc: '', lines: [], timing_locked: false }, ...vocalsOnly] = parts;

@@ -127,11 +127,25 @@ test('多条和声保持唯一标识并完整往返序列化', () => {
       { id: 'harmony', name: '旧名称', lrc: '[00:01.400]和声二\n', klrc: '[00:01.400]<00:01.400>和声二\n', lines: ['和声二'] },
     ],
   });
-  assert.deepEqual(parts.map((part) => part.id), ['main', 'harmony', 'harmony-3']);
+  assert.deepEqual(parts.map((part) => part.id), ['main', 'harmony', 'harmony-2']);
   assert.deepEqual(parts.slice(1).map((part) => part.name), ['和声', '和声']);
   const saved = serializeVocalDrafts(parts);
-  assert.deepEqual(saved.vocals.map((part) => part.id), ['harmony', 'harmony-3']);
+  assert.deepEqual(saved.vocals.map((part) => part.id), ['harmony', 'harmony-2']);
   assert.deepEqual(saved.vocals.map((part) => part.lines), [['和声一'], ['和声二']]);
+});
+
+test('已有 harmony-3 时再次撞名会继续递增后缀', () => {
+  const parts = parseVocalDrafts({
+    lrc: '[00:01.000]主唱\n',
+    vocals: [
+      { id: 'harmony', lrc: '[00:01.100]一\n', lines: ['一'] },
+      { id: 'harmony-3', lrc: '[00:01.200]二\n', lines: ['二'] },
+      { id: 'harmony-3', lrc: '[00:01.300]三\n', lines: ['三'] },
+    ],
+  });
+  assert.deepEqual(parts.map((part) => part.id), ['main', 'harmony', 'harmony-3', 'harmony-3-2']);
+  const saved = serializeVocalDrafts(parts);
+  assert.deepEqual(saved.vocals.map((part) => part.id), ['harmony', 'harmony-3', 'harmony-3-2']);
 });
 
 test('句子可跨主唱和声稳定归并并移回主唱，保留首字时间和 token 身份', () => {
