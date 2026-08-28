@@ -108,7 +108,7 @@
           <div class="eb-track-bar">
             <span class="eb-dim">{{ trackState(t) }}</span>
             <span class="eb-spacer" />
-            <button class="eb-btn small" @click="simplifyTrack(t)">转为简体</button>
+            <button class="eb-btn small" @click="simplifyTrack(t)">转简体/清理水印</button>
             <button class="eb-btn small" :disabled="!canUndo(t)" @click="undoTrack(t)">撤回</button>
             <button class="eb-btn small" :disabled="!canRedo(t)" @click="redoTrack(t)">恢复</button>
           </div>
@@ -265,7 +265,7 @@ import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  activeIndexAt, clampWordTime, expandTimedTokens, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, parseLrc, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, replaceTimedTokenText, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedCharacterAverageMs, timedLastTokenSpanMs, timedLeadFlexWeight, timedSentenceEndMs, timedSpanFlexWeight, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, transferTimedVocalRow, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
+  activeIndexAt, clampWordTime, expandTimedTokens, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, parseLrc, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, removeKnownSttWatermarks, removeKnownSttWatermarkTokens, replaceTimedTokenText, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedCharacterAverageMs, timedLastTokenSpanMs, timedLeadFlexWeight, timedSentenceEndMs, timedSpanFlexWeight, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, transferTimedVocalRow, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, markLyricHistoryDirty, recordLyricHistory, redoLyricHistory, undoLyricHistory } from './lyricHistory.js';
 
@@ -733,12 +733,13 @@ function sourceReady(t, event) {
   event.target.playbackRate = Number(t._speed);
 }
 function simplifyTrack(t) {
-  t.title = toSimplified(t.title);
-  t.head = t.head.map((line) => toSimplified(line));
-  t.text = toSimplified(t.text);
+  const clean = (text) => removeKnownSttWatermarks(toSimplified(text));
+  t.title = clean(t.title);
+  t.head = t.head.map(clean);
+  t.text = clean(t.text);
   for (const row of t.rows) {
-    row.text = toSimplified(row.text);
-    for (const word of row.words) word.text = toSimplified(word.text);
+    row.text = clean(row.text);
+    row.words = removeKnownSttWatermarkTokens(row.words).map((word) => ({ ...word, text: clean(word.text) }));
   }
   syncTrackText(t);
   // 保持已有 LRC/KLRC 的时间戳，只把文本改成简体；Phase B 不会重跑 STT。

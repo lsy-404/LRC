@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import uuid
 from pathlib import Path
@@ -33,6 +34,54 @@ MACHINE_NOTE = "机器转写，待人工校对"
 # verbose_json 返回语言全名 → ISO 代码（align/繁转简按代码判断）
 _LANG_CODE = {"chinese": "zh", "mandarin": "zh", "japanese": "ja", "english": "en",
               "korean": "ko", "cantonese": "yue"}
+
+# 这些是已在实际转写中出现的非歌词水印，必须以完整短语匹配；不能因单词
+# "zither" 或 "harp" 存在就删除，后者可以是正常英文歌词的一部分。
+_WATERMARK_KEY = re.compile(r"[^a-z0-9一-鿿]+")
+_SUBTITLE_ATTRIBUTIONS = {
+    "字幕由amaraorg社区提供",
+    "字幕由amaraorg社群提供",
+    "字幕由amaraorg字幕组提供",
+}
+
+
+def _watermark_key(text: object) -> str:
+    return _WATERMARK_KEY.sub("", str(text or "").casefold())
+
+
+def _watermark_span(words: list[dict], index: int) -> int:
+    """返回从 index 开始的已知水印词数；0 表示普通歌词。
+
+    只消除完整 Zither Harp 标记、其无空格变体和明确的 Amara 字幕归属句。
+    连续出现的同一水印会逐段匹配清除，但普通重复歌词保持原样。
+    """
+    key = _watermark_key(words[index].get("text"))
+    if key == "zitherharp":
+        return 1
+    if key == "zither" and index + 1 < len(words) and _watermark_key(words[index + 1].get("text")) == "harp":
+        return 2
+    joined = ""
+    for size in range(1, min(6, len(words) - index) + 1):
+        joined += _watermark_key(words[index + size - 1].get("text"))
+        if joined in _SUBTITLE_ATTRIBUTIONS:
+            return size
+    return 0
+
+
+def filter_watermark_words(words: list[dict]) -> list[dict]:
+    """剔除确认的 STT 水印，同时保留其余词和可用的 segment 边界。"""
+    kept: list[dict] = []
+    i = 0
+    while i < len(words):
+        span = _watermark_span(words, i)
+        if not span:
+            kept.append(words[i])
+            i += 1
+            continue
+        if any(w.get("seg_end") for w in words[i:i + span]) and kept:
+            kept[-1]["seg_end"] = True
+        i += span
+    return kept
 
 
 def find_audio(directory: Path) -> list[Path]:
@@ -114,6 +163,7 @@ def _parse_verbose_json(result: dict, lang: str | None) -> tuple[list[dict], str
                 break
         if best is not None:
             best["seg_end"] = True
+    words = filter_watermark_words(words)
     lang_name = str(result.get("language", "")).strip().lower()
     code = lang or _LANG_CODE.get(lang_name, lang_name[:2])
     return words, code
