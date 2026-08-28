@@ -281,6 +281,7 @@
 <script setup>
 import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
+import { stripFlacPictureBlocks } from '../lib/flac.js';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
   activeIndexAt, clampWordTime, expandTimedTokens, fillInstrumentalFallback, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, parseLrc, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, removeKnownSttWatermarks, removeKnownSttWatermarkTokens, replaceTimedTokenText, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedLastTokenSpanMs, timedSentenceEndMs, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, transferTimedVocalRow, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
@@ -753,7 +754,7 @@ async function loadAudio(t) {
     const q = new URLSearchParams({ ref: curRef.value, name: t.audio });
     const resp = await fetch(`/api/ingest/audio?${q}`, { headers: authHeaders(), signal: controller.signal });
     if (resp.status !== 200) throw new Error(resp.status === 404 ? '原音已过期或不存在' : `服务器只返回了 ${resp.status}，原曲未完整下载`);
-    const blob = await fullAudioBlob(resp, t, controller, loadId);
+    const blob = await stripFlacPictureBlocks(await fullAudioBlob(resp, t, controller, loadId));
     if (!blob.size) throw new Error('原曲文件为空');
     if (isCurrentAudioLoad(t, controller, loadId)) t._audioUrl = URL.createObjectURL(blob);
   } catch (error) { if (error?.name !== 'AbortError' && isCurrentAudioLoad(t, controller, loadId)) { t._audioErr = `原音下载失败：${error.message || '读取失败'}`; t._audioLoading = false; } }

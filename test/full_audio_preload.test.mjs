@@ -6,6 +6,7 @@ test('原曲使用完整受认证响应构造正确 MIME 的 Blob，并以加载
   const source = await readFile(new URL('../docs/.vuepress/components/EditBox.vue', import.meta.url), 'utf8');
   assert.match(source, /resp\.status !== 200/);
   assert.match(source, /fullAudioBlob\(resp, t, controller, loadId\)/);
+  assert.match(source, /stripFlacPictureBlocks\(await fullAudioBlob\(resp, t, controller, loadId\)\)/);
   assert.match(source, /new Blob\(chunks, \{ type \}\)/);
   assert.match(source, /URL\.createObjectURL\(blob\)/);
   assert.match(source, /t\._audioLoadId = \(t\._audioLoadId \|\| 0\) \+ 1/);
