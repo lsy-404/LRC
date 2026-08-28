@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { activeIndexAt, clampWordTime, expandTimedTokens, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, moveTimedSelection, msToTimestamp, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadFlexWeight, timedRowBoundaryAction, timedSpanFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
+import { activeIndexAt, clampWordTime, expandTimedTokens, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, moveTimedSelection, msToTimestamp, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadFlexWeight, timedRowBoundaryAction, timedSpanFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, timestampToMs, transferTimedVocalRow, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
 
 test('句级边界按上下文合并或拆分', () => {
   assert.equal(timedRowBoundaryAction(0, 0, 0), 'none');
@@ -65,6 +65,25 @@ test('多声部草稿保留主声部字段并允许重叠时间', () => {
   assert.match(saved.main.klrc, /主[\s\S]*唱/);
   assert.equal(saved.vocals[0].name, '和声');
   assert.match(saved.vocals[0].klrc, /和[\s\S]*声/);
+});
+
+test('句子可跨声部稳定归并并移回主唱，保留首字时间和 token 身份', () => {
+  const parts = parseVocalDrafts({
+    lrc: '[00:01.000]主唱\n', klrc: '[00:01.000]<00:01.250>主<00:01.400>唱\n', lines: ['主唱'], timing_locked: true,
+    vocals: [{ id: 'harmony', name: '合音', lrc: '[00:00.800]先到\n[00:01.000]同拍\n', klrc: '[00:00.800]<00:00.800>先到\n[00:01.000]<00:01.000>同拍\n', lines: ['先到', '同拍'], timing_locked: true }],
+  });
+  const row = parts[0].rows[0]; const firstWord = row.words[0];
+  row._id = 'main-row'; firstWord._id = 'main-word';
+  const moved = transferTimedVocalRow(parts, 0, 0, 1);
+  assert.equal(moved[0].rows.length, 0);
+  assert.equal(moved[1].rows[2], row);
+  assert.deepEqual(moved[1].rows.map((item) => item.time), [800, 1000, 1000]);
+  assert.equal(moved[1].rows[2].words[0], firstWord);
+  const returned = transferTimedVocalRow(moved, 1, 2, 0);
+  assert.equal(returned[0].rows[0], row);
+  assert.equal(returned[0].rows[0].words[0], firstWord);
+  assert.equal(firstWord.time, 1250);
+  assert.match(serializeVocalDrafts(returned).main.klrc, /\[00:01.000\]<00:01.250>主/);
 });
 
 test('整行字符编辑以 LCS 保留未改字符的逐字时间与标识', () => {

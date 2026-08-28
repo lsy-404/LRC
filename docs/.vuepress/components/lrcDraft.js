@@ -101,6 +101,19 @@ export function serializeVocalDrafts(vocals) {
   return { main, vocals: vocalsOnly };
 }
 
+// 句子在声部间移动时保留原行和逐字对象，目标声部只按时间稳定归并。
+export function transferTimedVocalRow(vocals, sourceIndex, rowIndex, targetIndex) {
+  const list = [...(vocals || [])];
+  const source = list[sourceIndex]; const target = list[targetIndex];
+  const row = source?.rows?.[rowIndex];
+  if (!source || !target || sourceIndex === targetIndex || !row) return list;
+  const sourceRows = [...source.rows]; sourceRows.splice(rowIndex, 1);
+  const targetRows = [...(target.rows || []), row].sort((a, b) => Number(a.time) - Number(b.time));
+  list[sourceIndex] = { ...source, rows: sourceRows, text: linesToText(sourceRows.map((item) => item.text)) };
+  list[targetIndex] = { ...target, rows: targetRows, text: linesToText(targetRows.map((item) => item.text)) };
+  return list;
+}
+
 // 把时间轴按序贴回歌词行；行数不符时 matched=false，时间戳留空
 export function alignTimestamps(rows, lines) {
   const list = Array.isArray(rows) ? rows : [];
