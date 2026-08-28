@@ -7,11 +7,13 @@ const CONFIRMED_STT_WATERMARKS = new Set([
   '字幕由amaraorg社区提供', '字幕由amaraorg社群提供', '字幕由amaraorg字幕组提供',
   '由amaraorg社区提供的字幕', '由amaraorg社群提供的字幕', '由amaraorg字幕组提供的字幕',
   '优优独播剧场', 'yoyotelevisionseriesexclusive', '优优独播剧场yoyotelevisionseriesexclusive',
-  '词曲李宗盛', '演唱李宗盛',
+  '词曲李宗盛', '演唱李宗盛', '编曲李宗盛', '作词李宗盛', '作曲李宗盛',
 ]);
+const LI_ZONGSHENG_ATTRIBUTION_RE = /(?:词曲|演唱|编曲|作词|作曲)\s*[:：]?\s*李宗盛/g;
 
 const nonEmpty = (s) => String(s == null ? '' : s).trim() !== '';
 const watermarkKey = (text) => String(text == null ? '' : text).toLowerCase().replace(WATERMARK_KEY_RE, '');
+const stripLiZongshengAttribution = (text) => String(text == null ? '' : text).replace(LI_ZONGSHENG_ATTRIBUTION_RE, '').trim();
 
 function watermarkSpan(tokens, index) {
   const key = watermarkKey(tokens[index]);
@@ -36,8 +38,7 @@ export function removeKnownSttWatermarks(text) {
       .replace(/由\s*amara\s*\.?\s*org\s*(?:社区|社群|字幕组)\s*提供的?字幕/gi, '')
       .replace(/优优独播剧场(?:\s*[—-]*\s*yoyo\s*television\s*series\s*exclusive)?/gi, '')
       .replace(/\byoyo\s*television\s*series\s*exclusive\b/gi, '')
-      .replace(/词曲\s*[:：]?\s*李宗盛/g, '')
-      .replace(/演唱\s*[:：]?\s*李宗盛/g, '')
+      .replace(LI_ZONGSHENG_ATTRIBUTION_RE, '')
       .replace(/[ \t]{2,}/g, ' ').trim();
   }).join('\n');
 }
@@ -48,7 +49,11 @@ export function removeKnownSttWatermarkTokens(words) {
   for (let index = 0; index < tokens.length;) {
     const span = watermarkSpan(tokens.map((word) => word?.text), index);
     if (span) index += span;
-    else { kept.push(tokens[index]); index += 1; }
+    else {
+      const text = stripLiZongshengAttribution(tokens[index]?.text);
+      if (text) kept.push({ ...tokens[index], text });
+      index += 1;
+    }
   }
   return kept;
 }

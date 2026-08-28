@@ -50,11 +50,19 @@ _CONFIRMED_WATERMARKS = {
     "优优独播剧场yoyotelevisionseriesexclusive",
     "词曲李宗盛",
     "演唱李宗盛",
+    "编曲李宗盛",
+    "作词李宗盛",
+    "作曲李宗盛",
 }
+_LI_ZONGSHENG_ATTRIBUTION = re.compile(r"(?:词曲|演唱|编曲|作词|作曲)\s*[:：]?\s*李宗盛")
 
 
 def _watermark_key(text: object) -> str:
     return _WATERMARK_KEY.sub("", str(text or "").casefold())
+
+
+def _strip_li_zongsheng_attribution(text: object) -> str:
+    return _LI_ZONGSHENG_ATTRIBUTION.sub("", str(text or "")).strip()
 
 
 def _watermark_span(words: list[dict], index: int) -> int:
@@ -82,13 +90,13 @@ def filter_watermark_words(words: list[dict]) -> list[dict]:
     i = 0
     while i < len(words):
         span = _watermark_span(words, i)
-        if not span:
-            kept.append(words[i])
-            i += 1
-            continue
-        if any(w.get("seg_end") for w in words[i:i + span]) and kept:
+        candidate = words[i:i + span] if span else [words[i]]
+        text = "" if span else _strip_li_zongsheng_attribution(words[i].get("text"))
+        if (span or not text) and any(w.get("seg_end") for w in candidate) and kept:
             kept[-1]["seg_end"] = True
-        i += span
+        if not span and text:
+            kept.append({**words[i], "text": text})
+        i += span or 1
     return kept
 
 

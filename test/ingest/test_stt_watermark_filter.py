@@ -26,7 +26,7 @@ def test_removes_exact_zither_harp_watermark_and_repeated_run() -> None:
     assert words[0].get("seg_end") is True
 
 
-def test_removes_known_subtitle_attribution_but_preserves_real_words_and_repetition() -> None:
+def test_removes_known_attribution_but_preserves_real_words_and_repetition() -> None:
     words, _ = stt._parse_verbose_json({
         "language": "english",
         "words": [
@@ -46,17 +46,23 @@ def test_removes_known_subtitle_attribution_but_preserves_real_words_and_repetit
             {"start": 13, "end": 14, "word": "李宗盛"},
             {"start": 14, "end": 15, "word": "演唱"},
             {"start": 15, "end": 16, "word": "李宗盛"},
-            {"start": 16, "end": 17, "word": "la"},
-            {"start": 17, "end": 18, "word": "la"},
-            {"start": 18, "end": 19, "word": "la"},
+            {"start": 16, "end": 17, "word": "编曲李宗盛作词：李宗盛"},
+            {"start": 17, "end": 18, "word": "前奏作曲李宗盛尾句"},
+            {"start": 18, "end": 19, "word": "李宗盛"},
+            {"start": 19, "end": 20, "word": "演唱"},
+            {"start": 20, "end": 21, "word": "作词"},
+            {"start": 21, "end": 22, "word": "演唱李宗"},
+            {"start": 22, "end": 23, "word": "la"},
+            {"start": 23, "end": 24, "word": "la"},
+            {"start": 24, "end": 25, "word": "la"},
         ],
     }, None)
-    assert [word["text"] for word in words] == ["zither", "and", "harp", "la", "la", "la"]
+    assert [word["text"] for word in words] == ["zither", "and", "harp", "前奏尾句", "李宗盛", "演唱", "作词", "演唱李宗", "la", "la", "la"]
 
 
 def run() -> int:
     test_removes_exact_zither_harp_watermark_and_repeated_run()
-    test_removes_known_subtitle_attribution_but_preserves_real_words_and_repetition()
+    test_removes_known_attribution_but_preserves_real_words_and_repetition()
     print("2/2 通过")
     return 0
 
