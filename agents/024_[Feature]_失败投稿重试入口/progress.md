@@ -11,3 +11,4 @@
 - 2026-08-28：`node --test test/lyric_editor_view.test.mjs` 19/19 通过。
 - 2026-08-28：共享音频标签读取器检查 fLaC 文件头并强制使用 `mutagen.flac.FLAC`，元信息与内嵌封面复用该路径；单文件解析失败仅输出异常类别并继续。
 - 2026-08-28：`python3 test/ingest/test_audio_content_routing.py` 4/4 通过（含真实最小合法 FLAC 改名 `.mp3`、精确 mock 路由、坏标签跳过）；`python3 -m py_compile .github/scripts/ingest/pipeline.py` 通过。
+- 2026-08-28：生产重试按钮命中区修复后成功重新排队；详细错误定位到伪 `.mp3` 的 FLAC 标签解析，内容头路由修复后越过原 17% 崩溃并生成 11 轨初稿至 100%。

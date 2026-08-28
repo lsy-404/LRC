@@ -8,3 +8,4 @@
 - `node --test test/upload_lyric_maker.test.mjs test/worker/ingest_panel.test.mjs`：25 项通过。
 - `python3 test/ingest/test_album_lyric_maker.py` 与 `python3 test/ingest/test_authoritative_lrc.py`：各 2/2 通过。
 - `npm run docs:build` 未能执行：该 worktree 没有 `vuepress` 可执行文件。
+- 主工作区完整 Node 165/165 与 VuePress 898 页构建通过；生产上传页显示专辑级署名输入，“无事发生”新初稿的歌词制作和 `[by:]` 均自动包含武乙凌薇。
