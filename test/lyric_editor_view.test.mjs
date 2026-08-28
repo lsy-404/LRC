@@ -171,6 +171,15 @@ test('逐字时间轨为稀疏句提供更大的前后操作距离且保留安�
   assert.match(source, /function boundedWordTime\(t, row, index, time\)/);
 });
 
+test('逐字时间轨把正文缺字显示为可点击补标槽位，不使用原生输入框', async () => {
+  const source = await component();
+  assert.match(source, /missingTimedCharacterSlots\(row\)\.filter/);
+  assert.match(source, /insertMissingTimedCharacter\(row, textIndex, newId, nextRowTime/);
+  assert.match(source, /class="eb-time-missing"/);
+  assert.match(source, /为 \$\{slot\.text\} 新增时间标记/);
+  assert.doesNotMatch(source, /window\.prompt|\bprompt\s*\(/);
+});
+
 test('歌词编辑历史提供按钮、未失焦输入和键盘撤回恢复', async () => {
   const source = await component();
   assert.match(source, /:disabled="!canUndo\(t\)" @click="undoTrack\(t\)">撤回/);

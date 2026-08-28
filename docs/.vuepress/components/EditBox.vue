@@ -157,10 +157,14 @@
               <div class="eb-word-timeline" role="region" aria-label="逐字时间轨">
                 <div class="eb-time-track" :style="timelineTrackStyle(t, r, li)">
                   <span class="eb-time-lead" :style="timelineLeadStyle(r)" aria-hidden="true" />
-                  <div v-for="(word, wi) in r.words" :key="word._id" :ref="(node) => bindTokenNode(t, li, wi, node)" class="eb-time-token" :style="timelineTokenStyle(t, r, li, wi)">
+                  <button v-for="slot in missingMarkerSlots(r, 0)" :key="`missing-${r._id}-${slot.textIndex}`" class="eb-time-missing" :title="`为 ${slot.text} 新增时间标记`" :aria-label="`为 ${slot.text} 新增时间标记`" @click="insertMissingMarker(t, r, li, slot.textIndex)">{{ slot.text }}</button>
+                  <template v-for="(word, wi) in r.words" :key="word._id">
+                  <div :ref="(node) => bindTokenNode(t, li, wi, node)" class="eb-time-token" :style="timelineTokenStyle(t, r, li, wi)">
                     <span class="eb-time-chars"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" contenteditable="plaintext-only" spellcheck="false" tabindex="0" @focus="selectTimelineChar" @input="editTimelineChar(t, r, wi, ci, $event)" @keydown.enter.prevent="$event.currentTarget.blur()" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, ci, $event)" @keydown="openTimelineMenuFromKey(t, r, wi, ci, $event)">{{ char }}</span></span>
                     <button class="eb-time-marker" :aria-label="`调整 ${word.text} 的句内偏移`" @pointerdown="startTimeDrag(t, r, wi, $event)" @pointermove="moveTimeDrag($event)" @pointerup="finishTimeDrag($event)" @pointercancel="finishTimeDrag($event)" @lostpointercapture="finishTimeDrag($event)" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, 0, $event)" @keydown="nudgeWordTime(t, r, wi, $event)"><span>{{ formatWordOffset(r, word.time) }}</span></button>
                   </div>
+                  <button v-for="slot in missingMarkerSlots(r, wi + 1)" :key="`missing-${r._id}-${slot.textIndex}`" class="eb-time-missing" :title="`为 ${slot.text} 新增时间标记`" :aria-label="`为 ${slot.text} 新增时间标记`" @click="insertMissingMarker(t, r, li, slot.textIndex)">{{ slot.text }}</button>
+                  </template>
                   <span class="eb-time-trailing" :style="timelineTrailingStyle(t, r, li)" aria-hidden="true" />
                   <span :ref="(node) => bindRowProgressNode(t, li, node)" class="eb-time-sentence-progress" aria-hidden="true" />
                 </div>
@@ -246,7 +250,7 @@ import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedCharacterAverageMs, timedLastTokenSpanMs, timedLeadFlexWeight, timedSentenceEndMs, timedSpanFlexWeight, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
+  activeIndexAt, clampWordTime, expandTimedTokens, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedCharacterAverageMs, timedLastTokenSpanMs, timedLeadFlexWeight, timedSentenceEndMs, timedSpanFlexWeight, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, markLyricHistoryDirty, recordLyricHistory, redoLyricHistory, undoLyricHistory } from './lyricHistory.js';
 
@@ -358,6 +362,15 @@ function timelineTrailingStyle(t, row, rowIndex) {
   const duration = timedTrailingGapMs(row, next);
   const average = timedCharacterAverageMs(row, next);
   return { '--eb-time-grow': duration > 0 ? Math.min(4, duration / average) : 0 };
+}
+function missingMarkerSlots(row, wordIndex) { return missingTimedCharacterSlots(row).filter((slot) => slot.wordIndex === wordIndex); }
+function insertMissingMarker(t, row, rowIndex, textIndex) {
+  const next = insertMissingTimedCharacter(row, textIndex, newId, nextRowTime(t, rowIndex));
+  if (next === row) return;
+  t.rows.splice(rowIndex, 1, next);
+  lockTiming(t);
+  updateActiveIndices(t, playheadMs(t));
+  commitHistory(t);
 }
 function wordOffset(row, time) { return Math.max(0, Math.round(Number(time) - Number(row?.time))); }
 function formatWordOffset(row, time) { return `+${msToTimestamp(wordOffset(row, time))}`; }
@@ -1102,6 +1115,8 @@ onBeforeUnmount(() => {
 .eb-time-marker { align-self: flex-start; writing-mode: vertical-rl; padding: .15rem; border: 0; border-radius: 3px; background: transparent; color: var(--eb-accent); cursor: ew-resize; touch-action: none; font-size: .62rem; }
 .eb-time-char { min-width: .8em; padding: .12rem .04rem; border-right: 1px dotted color-mix(in srgb, var(--border-color, #ddd) 75%, transparent); cursor: text; }
 .eb-time-char:focus { outline: 1px solid var(--eb-accent); outline-offset: 1px; }
+.eb-time-missing { align-self: stretch; min-width: 1.6rem; padding: .12rem .25rem; border: 0; border-left: 1px dashed color-mix(in srgb, var(--eb-accent) 65%, transparent); border-right: 1px dashed color-mix(in srgb, var(--eb-accent) 65%, transparent); background: color-mix(in srgb, var(--eb-accent) 8%, transparent); color: var(--eb-accent); cursor: copy; font: inherit; opacity: .8; }
+.eb-time-missing:hover, .eb-time-missing:focus-visible { background: color-mix(in srgb, var(--eb-accent) 18%, transparent); opacity: 1; outline: 1px solid var(--eb-accent); outline-offset: -1px; }
 .eb-timeline-menu { position: fixed; z-index: 4; display: flex; gap: .35rem; flex-wrap: wrap; max-width: min(22rem, calc(100vw - 1rem)); padding: .35rem; border: 1px solid var(--border-color, #ddd); border-radius: 6px; background: var(--bg-color, #fff); box-shadow: 0 .25rem .8rem rgb(0 0 0 / 15%); }
 .eb-line-editor:not(.active) { content-visibility: auto; contain-intrinsic-size: auto 6rem; }
 .eb-ts {

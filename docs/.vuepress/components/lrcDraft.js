@@ -277,6 +277,50 @@ export function reconcileWordCharacters(words, text, createId = () => undefined,
   });
 }
 
+function matchedTimedCharacters(words, text) {
+  const old = (words || []).flatMap((word, wordIndex) => Array.from(String(word.text || '')).map((char) => ({ char, wordIndex })));
+  const next = Array.from(String(text || ''));
+  const dp = Array.from({ length: old.length + 1 }, () => Array(next.length + 1).fill(0));
+  for (let i = old.length - 1; i >= 0; i--) for (let j = next.length - 1; j >= 0; j--) {
+    dp[i][j] = old[i].char === next[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+  }
+  const matched = new Map();
+  for (let i = 0, j = 0; i < old.length && j < next.length;) {
+    if (old[i].char === next[j]) { matched.set(j, old[i]); i++; j++; }
+    else if (dp[i + 1][j] >= dp[i][j + 1]) i++;
+    else j++;
+  }
+  return { next, matched };
+}
+
+// 正文比逐字标记多出的字符会作为可补建的槽位返回，不重写任何已有 token。
+export function missingTimedCharacterSlots(row) {
+  const words = row?.words || [];
+  const { next, matched } = matchedTimedCharacters(words, row?.text);
+  return next.flatMap((text, textIndex) => {
+    if (matched.has(textIndex)) return [];
+    let nextMatch = textIndex + 1;
+    while (nextMatch < next.length && !matched.has(nextMatch)) nextMatch++;
+    return [{ text, textIndex, wordIndex: nextMatch < next.length ? matched.get(nextMatch).wordIndex : words.length }];
+  });
+}
+
+// 在缺字槽位补建单一 token；相邻 token 与句边界决定插值时间。
+export function insertMissingTimedCharacter(row, textIndex, createId = () => undefined, rowEnd = undefined) {
+  if (!row) return row;
+  const slot = missingTimedCharacterSlots(row).find((item) => item.textIndex === textIndex);
+  if (!slot) return row;
+  const words = [...(row.words || [])];
+  const before = words[slot.wordIndex - 1];
+  const after = words[slot.wordIndex];
+  const low = before ? Number(before.time) : Math.max(0, Number(row.time) || 0);
+  const high = after ? Number(after.time) : Number(rowEnd);
+  const time = Number.isFinite(high) && high > low ? Math.round(low + (high - low) / 2) : Math.round(low + 100);
+  if ((before && time <= Number(before.time)) || (after && time >= Number(after.time))) return row;
+  words.splice(slot.wordIndex, 0, { _id: createId(), text: slot.text, time });
+  return { ...row, words };
+}
+
 export function reconcileTimedRows(rows, text, createId = () => undefined) {
   const old = Array.isArray(rows) ? rows : [];
   const next = textToLines(text);

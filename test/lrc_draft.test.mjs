@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, shiftTimedRow, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadFlexWeight, timedRowBoundaryAction, timedSpanFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
+import { activeIndexAt, clampWordTime, expandTimedTokens, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, shiftTimedRow, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadFlexWeight, timedRowBoundaryAction, timedSpanFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
 
 test('句级边界按上下文合并或拆分', () => {
   assert.equal(timedRowBoundaryAction(0, 0, 0), 'none');
@@ -62,6 +62,30 @@ test('整行字符编辑以 LCS 保留未改字符的逐字时间与标识', () 
   assert.equal(result[2]._id, 2);
   assert.equal(result[3]._id, 3);
   assert.ok(result[1].time > 100 && result[1].time < 200);
+});
+
+test('缺字槽位只补建点击的正文字符，并在相邻标记间插值', () => {
+  let id = 10;
+  const first = { _id: 1, time: 100, text: '你' };
+  const last = { _id: 2, time: 300, text: '好' };
+  const row = { _id: 9, time: 100, text: '你们好', words: [first, last] };
+  assert.deepEqual(missingTimedCharacterSlots(row), [{ text: '们', textIndex: 1, wordIndex: 1 }]);
+  const next = insertMissingTimedCharacter(row, 1, () => id++, 500);
+  assert.equal(next.words[0], first);
+  assert.equal(next.words[2], last);
+  assert.deepEqual(next.words.map((word) => [word.text, word.time]), [['你', 100], ['们', 200], ['好', 300]]);
+  assert.equal(next.words[1]._id, 10);
+});
+
+test('首尾缺字从句边界插值且已有标记严格有序', () => {
+  let id = 10;
+  const first = { _id: 1, time: 200, text: '好' };
+  const row = { time: 100, text: '你好吗', words: [first] };
+  const leading = insertMissingTimedCharacter(row, 0, () => id++, 500);
+  assert.deepEqual(leading.words.map((word) => [word.text, word.time]), [['你', 150], ['好', 200]]);
+  const trailing = insertMissingTimedCharacter(leading, 2, () => id++, 500);
+  assert.deepEqual(trailing.words.map((word) => [word.text, word.time]), [['你', 150], ['好', 200], ['吗', 350]]);
+  assert.ok(trailing.words.every((word, index, words) => index === 0 || words[index - 1].time < word.time));
 });
 
 test('整段文本插行或改单行仍保留其余行和未改字的时间标识', () => {
