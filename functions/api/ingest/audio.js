@@ -15,6 +15,24 @@ function contentType(name) {
   return AUDIO_EXTS.get(name.slice(dot).toLowerCase()) || '';
 }
 
+function sniffContentType(bytes, fallback) {
+  const at = (index) => bytes[index] ?? -1;
+  const text = (start, value) => value.split('').every((char, index) => at(start + index) === char.charCodeAt(0));
+  if (text(0, 'fLaC')) return 'audio/flac';
+  if (text(0, 'OggS')) return 'audio/ogg';
+  if (text(0, 'RIFF') && text(8, 'WAVE')) return 'audio/wav';
+  if (text(0, 'ID3') || (at(0) === 0xff && (at(1) & 0xe0) === 0xe0)) return 'audio/mpeg';
+  if (text(4, 'ftyp')) return 'audio/mp4';
+  return fallback;
+}
+
+async function detectedContentType(bucket, key, fallback) {
+  const probe = await bucket.get(key, { range: { offset: 0, length: 16 } });
+  if (!probe?.body) return fallback;
+  const bytes = new Uint8Array(await new Response(probe.body).arrayBuffer());
+  return sniffContentType(bytes, fallback);
+}
+
 function parseRange(value, size) {
   if (!value || !value.startsWith('bytes=') || value.includes(',')) return null;
   const match = /^bytes=(\d*)-(\d*)$/.exec(value);
@@ -49,10 +67,11 @@ export async function onRequestGet({ request, env }) {
   const range = parseRange(request.headers.get('range'), size);
   if (range === undefined) return new Response(null, { status: 416, headers: { 'content-range': `bytes */${size}` } });
 
+  const type = await detectedContentType(env.UPLOAD_BUCKET, key, contentType(name));
   const object = await env.UPLOAD_BUCKET.get(key, range ? { range } : undefined);
   if (!object?.body) return json({ error: 'audio not found' }, 404);
   const headers = new Headers({
-    'content-type': contentType(name), 'accept-ranges': 'bytes',
+    'content-type': type, 'accept-ranges': 'bytes',
     'cache-control': 'private, no-store', 'x-content-type-options': 'nosniff',
   });
   if (range) {

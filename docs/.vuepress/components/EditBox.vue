@@ -140,7 +140,7 @@
             <div class="eb-editor-panel">
               <div class="eb-inline-player">
               <div v-if="t.audio" class="eb-preview">
-              <span v-if="t._audioLoading" class="eb-dim">载入中…</span>
+              <span v-if="t._audioLoading" class="eb-dim">载入原曲…<template v-if="t._audioProgress >= 0"> {{ t._audioProgress }}%</template></span>
               <div v-else-if="t._audioUrl && !t._audioErr" class="eb-player" aria-label="播放器">
                 <button class="eb-btn small" @click="toggleSource(t)">{{ t._sourcePlaying ? '暂停' : '播放' }}</button>
                 <input :ref="(node) => bindProgressNode(t, node)" class="eb-player-progress" :value="t._previewMs" type="range" min="0" :max="sourceEnd(t)" aria-label="播放进度" @input="seekSource(t, $event)">
@@ -227,7 +227,7 @@
             :ref="(node) => bindAudioElement(t, node)"
             class="eb-hidden-audio"
             :src="t._audioUrl"
-            preload="metadata"
+            preload="auto"
             @play="sourcePlay(t, $event)"
             @pause="sourcePause(t)"
             @ended="sourcePause(t)"
@@ -712,26 +712,52 @@ function togglePreview(t) { if (t._playing) return pausePreview(t); for (const o
 function releaseAllTracks() { clearTimeDrag(); historyTrack = null; for (const track of allTracks()) releaseAudio(track); }
 function releaseAudio(t) {
   cancelSourceTimer(t); pausePreview(t);
+  t._audioLoadId = (t._audioLoadId || 0) + 1;
   if (t._audioAbort) t._audioAbort.abort();
   if (t._audioElement) { t._audioElement.pause(); t._audioElement.src = ''; }
   if (t._audioUrl) URL.revokeObjectURL(t._audioUrl);
-  playheads.delete(t); clearPlaybackView(t); t._audioElement = null; t._audioUrl = ''; t._audioLoading = false; t._audioAbort = null; t._audioErr = ''; t._audioDuration = 0; t._sourcePlaying = false;
+  playheads.delete(t); clearPlaybackView(t); t._audioElement = null; t._audioUrl = ''; t._audioLoading = false; t._audioAbort = null; t._audioErr = ''; t._audioDuration = 0; t._sourcePlaying = false; t._audioProgress = -1;
 }
 function bindAudioElement(t, node) { if (node) { t._audioElement = node; node.currentTime = playheadMs(t) / 1000; } else t._audioElement = null; }
+function isCurrentAudioLoad(t, controller, loadId) { return t._audioAbort === controller && t._audioLoadId === loadId; }
+async function fullAudioBlob(resp, t, controller, loadId) {
+  const type = resp.headers.get('content-type') || 'application/octet-stream';
+  const total = Number(resp.headers.get('content-length'));
+  if (!resp.body || !Number.isFinite(total) || total <= 0) return new Blob([await resp.arrayBuffer()], { type });
+  const reader = resp.body.getReader();
+  const chunks = [];
+  let received = 0;
+  let lastProgressAt = 0;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value); received += value.byteLength;
+    const now = performance.now();
+    if (isCurrentAudioLoad(t, controller, loadId) && now - lastProgressAt >= 150) {
+      t._audioProgress = Math.min(99, Math.round((received / total) * 100));
+      lastProgressAt = now;
+    }
+  }
+  if (isCurrentAudioLoad(t, controller, loadId)) t._audioProgress = 100;
+  return new Blob(chunks, { type });
+}
 async function loadAudio(t) {
   if (!t.audio || t._audioLoading) return;
   if (t._audioUrl) return;
   const controller = new AbortController();
+  const loadId = (t._audioLoadId || 0) + 1;
+  t._audioLoadId = loadId;
   t._audioAbort = controller;
-  t._audioLoading = true; t._audioErr = '';
+  t._audioLoading = true; t._audioErr = ''; t._audioProgress = -1;
   try {
     const q = new URLSearchParams({ ref: curRef.value, name: t.audio });
     const resp = await fetch(`/api/ingest/audio?${q}`, { headers: authHeaders(), signal: controller.signal });
-    if (!resp.ok) throw new Error(resp.status === 404 ? '原音已过期或不存在' : '原音读取失败');
-    const blob = await resp.blob();
-    if (t._audioAbort === controller) t._audioUrl = URL.createObjectURL(blob);
-  } catch (error) { if (error?.name !== 'AbortError') t._audioErr = error.message || '原音读取失败'; }
-  finally { if (t._audioAbort === controller) { t._audioLoading = false; t._audioAbort = null; } }
+    if (resp.status !== 200) throw new Error(resp.status === 404 ? '原音已过期或不存在' : `服务器只返回了 ${resp.status}，原曲未完整下载`);
+    const blob = await fullAudioBlob(resp, t, controller, loadId);
+    if (!blob.size) throw new Error('原曲文件为空');
+    if (isCurrentAudioLoad(t, controller, loadId)) t._audioUrl = URL.createObjectURL(blob);
+  } catch (error) { if (error?.name !== 'AbortError' && isCurrentAudioLoad(t, controller, loadId)) { t._audioErr = `原音下载失败：${error.message || '读取失败'}`; t._audioLoading = false; } }
+  finally { if (isCurrentAudioLoad(t, controller, loadId)) { t._audioAbort = null; if (!t._audioUrl) t._audioLoading = false; } }
 }
 function selectedTracks(e) { const track = e.tracks[e._selectedTrack]; return track ? [track] : []; }
 async function selectTrack(e) {
@@ -763,7 +789,7 @@ async function toggleSource(t) {
   if (!audio.paused) { audio.pause(); return; }
   audio.volume = Number(t._volume);
   audio.playbackRate = Number(t._speed);
-  try { await audio.play(); } catch { sourceError(t); }
+  try { await audio.play(); } catch (error) { sourcePlayError(t, error); }
 }
 function sourcePlay(t, event) {
   cancelSourceTimer(t);
@@ -785,14 +811,21 @@ function sourcePlay(t, event) {
   t._sourceTimer = setInterval(sync, SOURCE_CURSOR_INTERVAL_MS);
 }
 function sourcePause(t) { t._sourcePlaying = false; cancelSourceTimer(t); setPlayhead(t, t._audioElement ? Math.round(t._audioElement.currentTime * 1000) : playheadMs(t), true); }
-function sourceError(t) {
+function sourcePlayError(t, error) {
+  if (error?.name === 'NotAllowedError') { t._audioErr = '浏览器阻止自动播放，请再次点击播放。'; return; }
+  sourceError(t, { target: t._audioElement });
+}
+function sourceError(t, event) {
   pauseSource(t);
   t._sourcePlaying = false;
-  t._audioErr = '此音频格式无法播放。';
+  t._audioLoading = false;
+  const code = Number(event?.target?.error?.code || 0);
+  t._audioErr = code === 3 ? '原音解码失败：文件格式或编码不受当前浏览器支持。' : code === 2 ? '原音播放网络错误。' : '原音播放失败，请重试。';
 }
 function sourceTime(t, event) { if (!t._sourcePlaying) setPlayhead(t, Math.round(event.target.currentTime * 1000)); }
 function sourceReady(t, event) {
   t._audioElement = event.target;
+  t._audioLoading = false;
   t._audioDuration = Math.round((Number(event.target.duration) || 0) * 1000);
   if (Math.abs(event.target.currentTime * 1000 - playheadMs(t)) > 20) event.target.currentTime = playheadMs(t) / 1000;
   event.target.volume = Number(t._volume);
@@ -902,7 +935,7 @@ function toEdit(album, draft) {
         _id: newId(), order: t.order, title: t.title || '', inst: !!t.inst, authoritativeLrc: !!t.authoritative_lrc, outputName: t.output_name || '', finalName: t.final_name || '', confidence: t.confidence,
         coverage: t.coverage, audio: t.audio || '', klrc: t.klrc || '',
         head: primary.head, rows: primary.rows, timingLocked: primary.timingLocked, _view: primary._view, _playing: false, _speed: 1, _previewMs: 0, _textDirty: false,
-        _audioUrl: '', _audioElement: null, _audioLoading: false, _audioAbort: null, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _sourceTimer: null, _previewTimer: null, _volume: 1,
+        _audioUrl: '', _audioElement: null, _audioLoading: false, _audioAbort: null, _audioLoadId: 0, _audioProgress: -1, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _sourceTimer: null, _previewTimer: null, _volume: 1,
         text: primary.text, _orig: t, _vocals: vocals, _selectedVocal: 0,
       };
       track._history = createLyricHistory(track);
