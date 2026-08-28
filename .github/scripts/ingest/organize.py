@@ -826,6 +826,7 @@ def build_draft(
     cover_path: Path | None = None,
     existing_meta: dict | None = None,
     default_lyric_maker: str = "",
+    stt_cleanup: dict[str, dict] | None = None,
 ) -> dict[str, Any]:
     """Phase A：整理素材并对齐为成品草稿（不写盘）。
 
@@ -835,6 +836,7 @@ def build_draft(
     """
     audio_words = audio_words or {}
     audio_langs = audio_langs or {}
+    stt_cleanup = stt_cleanup or {}
     tracks_explicit = tracks_explicit or []
 
     # 1) 轨来源优先级：逐曲歌词 txt > 音频轨单（音频为中心）> 歌词本分轨（纯文本投稿）
@@ -985,6 +987,7 @@ def build_draft(
     return {
         "album": album, "tracks": tracks, "meta": meta, "names": names,
         "audio_words": audio_words, "audio_langs": audio_langs,
+        "stt_cleanup": stt_cleanup,
         "cover_path": str(cover_path) if cover_path else None,
         "pages": pages or [],
     }

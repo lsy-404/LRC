@@ -33,7 +33,9 @@ def _split_stt(draft: dict) -> dict:
     """draft 的 audio_words + audio_langs → {audio_name: {lang, words}}。"""
     aw = draft.get("audio_words") or {}
     al = draft.get("audio_langs") or {}
-    return {name: {"lang": al.get(name, ""), "words": words} for name, words in aw.items()}
+    cleanup = draft.get("stt_cleanup") or {}
+    return {name: {"lang": al.get(name, ""), "words": words, "cleanup": cleanup.get(name, {})}
+            for name, words in aw.items()}
 
 
 def write_bundle(bundle_dir: Path, draft: dict, *, status: str = STATUS_A_DONE,
@@ -84,6 +86,7 @@ def read_bundle(bundle_dir: Path) -> dict:
         "pages": editable.get("pages", []),
         "audio_words": {name: v.get("words", []) for name, v in stt.items()},
         "audio_langs": {name: v.get("lang", "") for name, v in stt.items()},
+        "stt_cleanup": {name: v.get("cleanup", {}) for name, v in stt.items() if v.get("cleanup")},
         "cover_path": cover_path,
     }
 

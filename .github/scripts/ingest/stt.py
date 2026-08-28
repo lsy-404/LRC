@@ -18,6 +18,7 @@ import json
 import re
 import sys
 import uuid
+from dataclasses import dataclass
 from pathlib import Path
 from urllib import request
 
@@ -57,6 +58,25 @@ _CONFIRMED_WATERMARKS = {
 _MAX_WATERMARK_TOKEN_SPAN = max(map(len, _CONFIRMED_WATERMARKS))
 _LI_ZONGSHENG_ATTRIBUTION = re.compile(r"(?:词曲|演唱|编曲|作词|作曲)\s*[:：]?\s*李宗盛")
 
+# 仅在四项信号全部出现时移除未声明文本。Whisper 对歌曲副歌常给出重复段落，
+# 所以重复本身、低置信本身或静音概率本身都不能作为删除依据。
+_AUTO_NO_SPEECH_MIN = 0.80
+_AUTO_AVG_LOGPROB_MAX = -1.00
+_AUTO_COMPRESSION_RATIO_MIN = 2.40
+
+
+@dataclass
+class Transcription:
+    """兼容原有 ``words, lang = transcribe_words(...)`` 的转写结果。"""
+
+    words: list[dict]
+    lang: str
+    cleanup: dict
+
+    def __iter__(self):
+        yield self.words
+        yield self.lang
+
 
 def _watermark_key(text: object) -> str:
     return _WATERMARK_KEY.sub("", str(text or "").casefold())
@@ -85,20 +105,80 @@ def _watermark_span(words: list[dict], index: int) -> int:
     return 0
 
 
+def _remove_word_indexes(words: list[dict], indexes: set[int]) -> list[dict]:
+    """移除词并把被移除段末边界转交给前一个保留词。"""
+    kept: list[dict] = []
+    for i, word in enumerate(words):
+        if i in indexes:
+            if word.get("seg_end") and kept:
+                kept[-1]["seg_end"] = True
+            continue
+        kept.append(dict(word))
+    return kept
+
+
 def filter_watermark_words(words: list[dict]) -> list[dict]:
     """剔除确认的 STT 水印，同时保留其余词和可用的 segment 边界。"""
-    kept: list[dict] = []
+    remove: set[int] = set()
     i = 0
     while i < len(words):
         span = _watermark_span(words, i)
-        candidate = words[i:i + span] if span else [words[i]]
         text = "" if span else _strip_li_zongsheng_attribution(words[i].get("text"))
-        if (span or not text) and any(w.get("seg_end") for w in candidate) and kept:
-            kept[-1]["seg_end"] = True
-        if not span and text:
-            kept.append({**words[i], "text": text})
+        if span:
+            remove.update(range(i, i + span))
+        elif not text:
+            remove.add(i)
+        elif text != words[i].get("text"):
+            words[i] = {**words[i], "text": text}
         i += span or 1
-    return kept
+    return _remove_word_indexes(words, remove)
+
+
+def _segment_key(words: list[dict], segment: int) -> str:
+    return "".join(_watermark_key(w.get("text")) for w in words if w.get("_segment") == segment)
+
+
+def filter_highly_suspicious_words(words: list[dict], segments: list[dict]) -> tuple[list[dict], dict]:
+    """保守地移除 Whisper 静音幻觉，返回可写入 review bundle 的摘要。
+
+    未声明文本必须是连续三段相同短句，且每段都同时满足高静音概率、低
+    avg_logprob 和高 compression_ratio；任一指标缺失也保留。这样普通副歌和
+    低置信但有声的歌词不会因单一启发式被删。
+    """
+    remove: set[int] = set()
+    removed_segments: list[int] = []
+    keys = [_segment_key(words, n) for n in range(len(segments))]
+    for start in range(max(0, len(segments) - 2)):
+        run = keys[start:start + 3]
+        if len(run) != 3 or not run[0] or len(set(run)) != 1:
+            continue
+        for segment_index in range(start, start + 3):
+            segment = segments[segment_index]
+            try:
+                suspicious = (
+                    float(segment["no_speech_prob"]) >= _AUTO_NO_SPEECH_MIN
+                    and float(segment["avg_logprob"]) <= _AUTO_AVG_LOGPROB_MAX
+                    and float(segment["compression_ratio"]) >= _AUTO_COMPRESSION_RATIO_MIN
+                )
+            except (KeyError, TypeError, ValueError):
+                suspicious = False
+            if not suspicious:
+                break
+        else:
+            for segment_index in range(start, start + 3):
+                removed_segments.append(segment_index)
+                remove.update(i for i, word in enumerate(words) if word.get("_segment") == segment_index)
+
+    if not remove:
+        return words, {"removed_word_count": 0, "removed_segments": []}
+    cleaned = _remove_word_indexes(words, remove)
+    return cleaned, {
+        "removed_word_count": len(remove),
+        "removed_segments": sorted(set(removed_segments)),
+        "reason": "highly_suspected_stt_pollution",
+        "signals": ["three_consecutive_repeated_segments", "no_speech_prob>=0.80",
+                    "avg_logprob<=-1.00", "compression_ratio>=2.40"],
+    }
 
 
 def find_audio(directory: Path) -> list[Path]:
@@ -164,29 +244,40 @@ def _compress_for_upload(audio: Path) -> tuple[bytes, str]:
         out.unlink(missing_ok=True)
 
 
-def _parse_verbose_json(result: dict, lang: str | None) -> tuple[list[dict], str]:
+def _parse_verbose_json_with_cleanup(result: dict, lang: str | None) -> tuple[list[dict], str, dict]:
     """verbose_json → ([{start,end,text,seg_end?}], 语言代码)。纯函数便于测试。"""
     words = [{"start": float(w["start"]), "end": float(w["end"]),
               "text": str(w.get("word", "")).strip()}
              for w in (result.get("words") or []) if str(w.get("word", "")).strip()]
     # 用 segment 边界给词标 seg_end（organize._words_to_lines 的断行依据）
-    for s in result.get("segments") or []:
+    segments = result.get("segments") or []
+    for segment_index, s in enumerate(segments):
+        s_start = float(s.get("start", 0.0))
         s_end = float(s.get("end", 0.0))
         best = None
         for w in words:
-            if w["end"] <= s_end + 0.05:
+            if w["end"] <= s_end + 0.05 and w["start"] >= s_start - 0.05:
+                w["_segment"] = segment_index
                 best = w
-            else:
+            elif w["start"] > s_end + 0.05:
                 break
         if best is not None:
             best["seg_end"] = True
     words = filter_watermark_words(words)
+    words, cleanup = filter_highly_suspicious_words(words, segments)
+    words = [{k: v for k, v in word.items() if k != "_segment"} for word in words]
     lang_name = str(result.get("language", "")).strip().lower()
     code = lang or _LANG_CODE.get(lang_name, lang_name[:2])
+    return words, code, cleanup
+
+
+def _parse_verbose_json(result: dict, lang: str | None) -> tuple[list[dict], str]:
+    """verbose_json 的兼容入口；详情由转写流程写入 review bundle。"""
+    words, code, _ = _parse_verbose_json_with_cleanup(result, lang)
     return words, code
 
 
-def transcribe_words(audio: Path, pipeline=None, lang: str | None = None) -> tuple[list[dict], str]:
+def transcribe_words(audio: Path, pipeline=None, lang: str | None = None) -> Transcription:
     """转写单个音频，返回 ([{start,end,text}, ...], 语言代码)。失败抛 LLMError。
 
     pipeline 参数仅为兼容旧调用签名保留（云端无本地模型可加载）。
@@ -216,11 +307,11 @@ def transcribe_words(audio: Path, pipeline=None, lang: str | None = None) -> tup
             except Exception:
                 pass
         raise _llm.LLMError(f"云端转写失败 {audio.name}: {e} {detail}")
-    words, code = _parse_verbose_json(result, lang)
+    words, code, cleanup = _parse_verbose_json_with_cleanup(result, lang)
     dur = result.get("duration")
     print(f"✓ STT(云端词级) {audio.name}: {len(words)} 词, 语言={code}, 时长={dur}s",
           file=sys.stderr, flush=True)
-    return words, code
+    return Transcription(words, code, cleanup)
 
 
 def main(argv: list[str] | None = None) -> int:
