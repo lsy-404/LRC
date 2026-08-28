@@ -21,25 +21,43 @@ REPO = os.environ.get("GH_REPO", "wuyilingwei/LRC")
 LYRIC_MAKER = os.environ.get("LYRIC_MAKER", "")
 BOT_NAME = "lrc-ingest[bot]"
 BOT_EMAIL = "lrc-ingest@users.noreply.github.com"
+FAILURE_OUTPUT_LINES = 12
+FAILURE_OUTPUT_CHARS = 1200
 
 
 def _now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def _redact(value: str, redact: str) -> str:
+    return value.replace(redact, "***") if redact else value
+
+
+def _failure_output_tail(proc: subprocess.CompletedProcess, redact: str) -> str:
+    chunks = []
+    for name, output in (("stderr", proc.stderr), ("stdout", proc.stdout)):
+        lines = str(output or "").strip().splitlines()[-FAILURE_OUTPUT_LINES:]
+        chunks.extend(f"[{name}] {_redact(line, redact)}" for line in lines)
+    detail = "\n".join(chunks)
+    if len(detail) > FAILURE_OUTPUT_CHARS:
+        detail = "…" + detail[-(FAILURE_OUTPUT_CHARS - 1):]
+    return detail
+
+
 def run(cmd: list[str], log, *, cwd: Path | None = None, env: dict | None = None,
         redact: str = "") -> str:
     shown = " ".join(cmd)
-    if redact:
-        shown = shown.replace(redact, "***")
+    shown = _redact(shown, redact)
     log(f"$ {shown}")
     proc = subprocess.run(cmd, cwd=cwd, env={**os.environ, **(env or {})},
                           capture_output=True, text=True)
     tail = (proc.stderr or proc.stdout or "").strip().splitlines()[-40:]
     for line in tail:
-        log(f"  {line}")
+        log(f"  {_redact(line, redact)}")
     if proc.returncode != 0:
-        raise RuntimeError(f"命令失败({proc.returncode}): {shown}")
+        detail = _failure_output_tail(proc, redact)
+        suffix = f"\n{detail}" if detail else ""
+        raise RuntimeError(f"命令失败({proc.returncode}): {shown}{suffix}")
     return proc.stdout
 
 
