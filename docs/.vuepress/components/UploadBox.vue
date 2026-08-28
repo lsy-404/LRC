@@ -45,7 +45,7 @@
           v-model="lyricMakerText"
           type="text"
           class="ub-input"
-          placeholder="多个署名用顿号、逗号或换行分隔"
+          placeholder="多个署名用顿号或逗号分隔"
           :disabled="busy"
           @blur="normalizeLyricMakerText"
         >
