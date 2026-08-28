@@ -18,7 +18,6 @@ import json
 import re
 import sys
 import uuid
-from dataclasses import dataclass
 from pathlib import Path
 from urllib import request
 
@@ -63,19 +62,6 @@ _LI_ZONGSHENG_ATTRIBUTION = re.compile(r"(?:词曲|演唱|编曲|作词|作曲)\
 _AUTO_NO_SPEECH_MIN = 0.80
 _AUTO_AVG_LOGPROB_MAX = -1.00
 _AUTO_COMPRESSION_RATIO_MIN = 2.40
-
-
-@dataclass
-class Transcription:
-    """兼容原有 ``words, lang = transcribe_words(...)`` 的转写结果。"""
-
-    words: list[dict]
-    lang: str
-    cleanup: dict
-
-    def __iter__(self):
-        yield self.words
-        yield self.lang
 
 
 def _watermark_key(text: object) -> str:
@@ -271,14 +257,8 @@ def _parse_verbose_json_with_cleanup(result: dict, lang: str | None) -> tuple[li
     return words, code, cleanup
 
 
-def _parse_verbose_json(result: dict, lang: str | None) -> tuple[list[dict], str]:
-    """verbose_json 的兼容入口；详情由转写流程写入 review bundle。"""
-    words, code, _ = _parse_verbose_json_with_cleanup(result, lang)
-    return words, code
-
-
-def transcribe_words(audio: Path, pipeline=None, lang: str | None = None) -> Transcription:
-    """转写单个音频，返回 ([{start,end,text}, ...], 语言代码)。失败抛 LLMError。
+def transcribe_words(audio: Path, pipeline=None, lang: str | None = None) -> tuple[list[dict], str, dict]:
+    """转写单个音频，返回 (词流、语言代码、清理审计)。失败抛 LLMError。
 
     pipeline 参数仅为兼容旧调用签名保留（云端无本地模型可加载）。
     """
@@ -311,7 +291,7 @@ def transcribe_words(audio: Path, pipeline=None, lang: str | None = None) -> Tra
     dur = result.get("duration")
     print(f"✓ STT(云端词级) {audio.name}: {len(words)} 词, 语言={code}, 时长={dur}s",
           file=sys.stderr, flush=True)
-    return Transcription(words, code, cleanup)
+    return words, code, cleanup
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -329,8 +309,8 @@ def main(argv: list[str] | None = None) -> int:
         print("没有可转写的音频", file=sys.stderr)
         return 0
     for a in audios:
-        words, code = transcribe_words(a, lang=args.lang)
-        print(json.dumps({"file": a.name, "language": code, "words": words},
+        words, code, cleanup = transcribe_words(a, lang=args.lang)
+        print(json.dumps({"file": a.name, "language": code, "words": words, "cleanup": cleanup},
                          ensure_ascii=False))
     return 0
 

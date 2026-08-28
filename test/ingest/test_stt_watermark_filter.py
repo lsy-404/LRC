@@ -11,7 +11,7 @@ from ingest import review, stt  # noqa: E402
 
 
 def test_removes_exact_zither_harp_watermark_and_repeated_run() -> None:
-    words, _ = stt._parse_verbose_json({
+    words, _, _ = stt._parse_verbose_json_with_cleanup({
         "language": "english",
         "words": [
             {"start": 0, "end": 1, "word": "real"},
@@ -27,7 +27,7 @@ def test_removes_exact_zither_harp_watermark_and_repeated_run() -> None:
 
 
 def test_removes_known_attribution_but_preserves_real_words_and_repetition() -> None:
-    words, _ = stt._parse_verbose_json({
+    words, _, _ = stt._parse_verbose_json_with_cleanup({
         "language": "english",
         "words": [
             {"start": 0, "end": 1, "word": "zither"},

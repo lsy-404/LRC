@@ -324,10 +324,9 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
         kept = [a for a in buckets["audio"] if (not keep or a.name in keep) and a.name not in inst_files]
         with ThreadPoolExecutor(max_workers=4) as pool:
             results = list(pool.map(stt_mod.transcribe_words, kept))
-        for a, result in zip(kept, results):
-            words, lang = result
-            if getattr(result, "cleanup", {}).get("removed_word_count"):
-                stt_cleanup[a.name] = result.cleanup
+        for a, (words, lang, cleanup) in zip(kept, results):
+            if cleanup.get("removed_word_count"):
+                stt_cleanup[a.name] = cleanup
             if lyrics_mod.is_chinese_language(lang):
                 words = [{**word, "text": lyrics_mod.to_simplified(str(word.get("text", "")))} for word in words]
             audio_words[a.name] = words
@@ -350,10 +349,9 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
                     file=sys.stderr,
                 )
                 for a in retry_audios:
-                    result = stt_mod.transcribe_words(a, lang=majority_lang)
-                    words, lang = result
-                    if getattr(result, "cleanup", {}).get("removed_word_count"):
-                        stt_cleanup[a.name] = result.cleanup
+                    words, lang, cleanup = stt_mod.transcribe_words(a, lang=majority_lang)
+                    if cleanup.get("removed_word_count"):
+                        stt_cleanup[a.name] = cleanup
                     if lyrics_mod.is_chinese_language(lang):
                         words = [{**word, "text": lyrics_mod.to_simplified(str(word.get("text", "")))} for word in words]
                     audio_words[a.name] = words
