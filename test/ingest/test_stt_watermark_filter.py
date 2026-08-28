@@ -44,9 +44,11 @@ def test_removes_known_subtitle_attribution_but_preserves_real_words_and_repetit
             {"start": 11, "end": 12, "word": "YoYoTelevisionSeriesExclusive"},
             {"start": 12, "end": 13, "word": "词曲"},
             {"start": 13, "end": 14, "word": "李宗盛"},
-            {"start": 14, "end": 15, "word": "la"},
-            {"start": 15, "end": 16, "word": "la"},
+            {"start": 14, "end": 15, "word": "演唱"},
+            {"start": 15, "end": 16, "word": "李宗盛"},
             {"start": 16, "end": 17, "word": "la"},
+            {"start": 17, "end": 18, "word": "la"},
+            {"start": 18, "end": 19, "word": "la"},
         ],
     }, None)
     assert [word["text"] for word in words] == ["zither", "and", "harp", "la", "la", "la"]

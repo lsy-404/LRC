@@ -7,7 +7,7 @@ const CONFIRMED_STT_WATERMARKS = new Set([
   '字幕由amaraorg社区提供', '字幕由amaraorg社群提供', '字幕由amaraorg字幕组提供',
   '由amaraorg社区提供的字幕', '由amaraorg社群提供的字幕', '由amaraorg字幕组提供的字幕',
   '优优独播剧场', 'yoyotelevisionseriesexclusive', '优优独播剧场yoyotelevisionseriesexclusive',
-  '词曲李宗盛',
+  '词曲李宗盛', '演唱李宗盛',
 ]);
 
 const nonEmpty = (s) => String(s == null ? '' : s).trim() !== '';
@@ -37,6 +37,7 @@ export function removeKnownSttWatermarks(text) {
       .replace(/优优独播剧场(?:\s*[—-]*\s*yoyo\s*television\s*series\s*exclusive)?/gi, '')
       .replace(/\byoyo\s*television\s*series\s*exclusive\b/gi, '')
       .replace(/词曲\s*[:：]?\s*李宗盛/g, '')
+      .replace(/演唱\s*[:：]?\s*李宗盛/g, '')
       .replace(/[ \t]{2,}/g, ' ').trim();
   }).join('\n');
 }
@@ -50,6 +51,13 @@ export function removeKnownSttWatermarkTokens(words) {
     else { kept.push(tokens[index]); index += 1; }
   }
   return kept;
+}
+
+export function fillInstrumentalFallback(rows, text = '纯音乐请欣赏') {
+  const list = Array.isArray(rows) ? rows : [];
+  if (list.some((row) => String(row?.text || '').trim())) return list;
+  const time = Math.max(0, Number(list[0]?.time) || 0);
+  return [{ _id: list[0]?._id, time, text, words: [{ _id: list[0]?.words?.[0]?._id, time, text }] }];
 }
 
 // 去掉逐字增强 LRC 的行内 <mm:ss.xx> 标记

@@ -49,6 +49,7 @@ _CONFIRMED_WATERMARKS = {
     "yoyotelevisionseriesexclusive",
     "优优独播剧场yoyotelevisionseriesexclusive",
     "词曲李宗盛",
+    "演唱李宗盛",
 }
 
 
