@@ -12,3 +12,7 @@
 - 2026-08-27：提交 `09b35de`（`feat: support parallel vocal lyric parts`），未部署、未推送。
 - 2026-08-27：完成动态轨道宽度、前后留白和 5 ms/px 精细拖动，聚焦测试 35 项通过。
 - 2026-08-27：开始主线整合，并补充多声部最终写盘与缺字边界验收。
+- 2026-08-27：从 `main` 创建 `codex/multi-vocal-output` 独立 worktree。
+- 2026-08-27：审计 `organize.finalize`、声部草稿序列化实现与 `test/ingest` 测试约定。
+- 2026-08-27：在 Phase B 落盘前稳定合并已锁定附加声部的时间行，保留主声部头部且不输出声部名称。
+- 2026-08-27：运行 `test_multi_vocal_output.py`、`test_timing_lock.py`、`test_chinese_simplified.py`，共 6 项通过。

@@ -758,6 +758,45 @@ def track_needs_align(track: dict) -> bool:
     return bool(track.get("edited")) or not track.get("aligned") or not track.get("lrc")
 
 
+_TIMED_LYRIC_LINE_RE = re.compile(r"^\[(\d{1,3}):(\d{2})(?:[.:](\d{1,3}))?\]")
+
+
+def _timed_lines(content: str) -> list[tuple[int, str]]:
+    """提取可排序的计时歌词行，保留原行内容。"""
+    entries: list[tuple[int, str]] = []
+    for line in str(content or "").splitlines():
+        match = _TIMED_LYRIC_LINE_RE.match(line)
+        if not match:
+            continue
+        fraction = (match.group(3) or "").ljust(3, "0")
+        entries.append(((int(match.group(1)) * 60 + int(match.group(2))) * 1000 + int(fraction), line))
+    return entries
+
+
+def _merge_timed_lyrics(main: str, additions: list[str]) -> str:
+    """保留主声部非时间行，把附加声部时间行稳定并入同一时间轴。"""
+    extra = [entry for content in additions for entry in _timed_lines(content)]
+    if not extra:
+        return main
+    head = [line for line in str(main).splitlines() if not _TIMED_LYRIC_LINE_RE.match(line)]
+    timeline = _timed_lines(main) + extra
+    timeline.sort(key=lambda entry: entry[0])
+    return "\n".join([*head, *(line for _, line in timeline)]) + "\n"
+
+
+def merge_vocal_outputs(lrc: str, klrc: Optional[str], vocals: Any) -> tuple[str, Optional[str]]:
+    """把已锁定且具备 LRC/KLRC 时间轴的附加声部写入最终成品。"""
+    valid = [vocal for vocal in (vocals or []) if isinstance(vocal, dict)
+             and vocal.get("timing_locked") and _timed_lines(vocal.get("lrc", ""))
+             and _timed_lines(vocal.get("klrc", ""))]
+    if not valid:
+        return lrc, klrc
+    return (
+        _merge_timed_lyrics(lrc, [vocal["lrc"] for vocal in valid]),
+        _merge_timed_lyrics(klrc, [vocal["klrc"] for vocal in valid]) if klrc else klrc,
+    )
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # 主流程
 # ──────────────────────────────────────────────────────────────────────────────
@@ -986,6 +1025,7 @@ def finalize(draft: dict[str, Any], res_dir: Path, dry_run: bool = False) -> dic
             t["lrc"], t["klrc"], t["coverage"], t["aligned"] = lrc, lrc_words, cov, True
         else:
             lrc, cov, lrc_words = t["lrc"], float(t.get("coverage") or 0.0), t.get("klrc")
+        lrc, lrc_words = merge_vocal_outputs(lrc, lrc_words, t.get("vocals"))
         covs.append(cov)
         # build_track_lrc 匹配到音频后可能已用音频文件名回填空标题，故在其后取值
         basename = _output_basename(t, order)
