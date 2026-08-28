@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadSpanPx, timedTokenSpanMs, timedTokenSpanPx, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
+import { activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadFlexWeight, timedLeadSpanPx, timedSpanFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, timedTokenSpanPx, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
 
 test('时间戳支持厘秒和毫秒并稳定往返', () => {
   assert.equal(timestampToMs('01:02.34'), 62340);
@@ -173,4 +173,14 @@ test('时间轨区段持续表示前奏、相邻标签、末标签与长间隔',
   assert.equal(timedTokenSpanPx([{ time: 0, text: '短' }, { time: 100, text: '中' }, { time: 300, text: '长' }], 1), 20);
   assert.equal(timedTokenSpanPx([{ time: 0, text: '长' }, { time: 20000, text: '间' }], 0), 2000);
   assert.equal(timedTokenSpanMs([{ time: 100, text: '密' }, { time: 100, text: '集' }], 0, 700), 600);
+});
+
+test('时间轨时长权重有上下限并支持前奏与逐字 token', () => {
+  assert.equal(timedSpanFlexWeight(1), 0.7);
+  assert.equal(timedSpanFlexWeight(200000), 3);
+  const words = [{ time: 0, text: '短' }, { time: 100, text: '长' }];
+  assert.equal(timedTokenFlexWeight(words, 0), 0.7);
+  assert.equal(timedTokenFlexWeight(words, 1, 20000), 3);
+  assert.equal(timedLeadFlexWeight(0, 1), 0.7);
+  assert.equal(timedLeadFlexWeight(0, undefined), 0);
 });

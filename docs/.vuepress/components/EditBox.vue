@@ -153,7 +153,7 @@
               <div class="eb-word-timeline" role="region" aria-label="逐字时间轨">
                 <div class="eb-time-track">
                   <span class="eb-time-lead" :style="timelineLeadStyle(r)" aria-hidden="true" />
-                  <div v-for="(word, wi) in r.words" :key="word._id" :ref="(node) => bindTokenNode(t, li, wi, node)" class="eb-time-token" :style="timelineTokenStyle(t, r, li, wi)">
+                  <div v-for="(word, wi) in r.words" :key="word._id" :ref="(node) => bindTokenNode(t, li, wi, node)" class="eb-time-token" :class="wi % 2 ? 'eb-time-token-lower' : 'eb-time-token-upper'" :style="timelineTokenStyle(t, r, li, wi)">
                     <span class="eb-time-chars"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" tabindex="0" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, ci, $event)" @keydown="openTimelineMenuFromKey(t, r, wi, ci, $event)">{{ char }}</span></span>
                     <button class="eb-time-marker" :aria-label="`调整 ${word.text} 的时间`" @pointerdown="startTimeDrag(t, r, wi, $event)" @pointermove="moveTimeDrag($event)" @pointerup="finishTimeDrag($event)" @pointercancel="finishTimeDrag($event)" @lostpointercapture="finishTimeDrag($event)" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, 0, $event)" @keydown="nudgeWordTime(t, r, wi, $event)"><span>{{ formatMs(word.time) }}</span></button>
                   </div>
@@ -239,7 +239,7 @@ import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedLeadSpanPx, timedTokenSpanPx, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
+  activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedLeadFlexWeight, timedTokenFlexWeight, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 
 const META_FIELDS = [
@@ -327,8 +327,8 @@ const pct = (v) => Math.round((Number(v) || 0) * 100) + '%';
 const newId = () => nextEditorId++;
 function syncTrackText(t) { t.text = linesToText(t.rows.map((row) => row.text)); }
 function nextRowTime(t, rowIndex) { return Number(t.rows[rowIndex + 1]?.time); }
-function timelineLeadStyle(row) { return { flexBasis: `${timedLeadSpanPx(row.time, row.words[0]?.time)}px` }; }
-function timelineTokenStyle(t, row, rowIndex, wordIndex) { return { flexBasis: `${timedTokenSpanPx(row.words, wordIndex, nextRowTime(t, rowIndex))}px` }; }
+function timelineLeadStyle(row) { return { '--eb-time-grow': timedLeadFlexWeight(row.time, row.words[0]?.time) }; }
+function timelineTokenStyle(t, row, rowIndex, wordIndex) { return { '--eb-time-grow': timedTokenFlexWeight(row.words, wordIndex, nextRowTime(t, rowIndex)) }; }
 function boundedWordTime(t, row, index, time) { const rowIndex = t.rows.findIndex((item) => item._id === row._id); const nextRow = t.rows[rowIndex + 1]; return clampWordTime(row.words, index, time, 10, row.time, index === row.words.length - 1 && nextRow ? Number(nextRow.time) - 10 : Number.POSITIVE_INFINITY); }
 function setWordTime(t, row, index, time) { row.words[index].time = boundedWordTime(t, row, index, time); updateActiveIndices(t, playheadMs(t)); lockTiming(t); }
 function nudgeWordTime(t, row, index, event) { if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return; event.preventDefault(); setWordTime(t, row, index, Number(row.words[index].time) + (event.key === 'ArrowLeft' ? -10 : 10)); }
@@ -914,9 +914,11 @@ onBeforeUnmount(() => {
 .eb-input.ms { width: 5.4rem; flex: none; font-family: var(--font-family-mono, monospace); }
 .eb-time { display: flex; align-items: center; gap: .2rem; font-size: .7rem; white-space: nowrap; }
 .eb-word-timeline { overflow-x: auto; padding: .4rem .2rem; contain: layout paint; border-top: 1px solid var(--border-color, #ddd); }
-.eb-time-track { display: flex; min-width: max-content; gap: 0; }
-.eb-time-lead { box-sizing: border-box; flex: 0 0 auto; border-right: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
-.eb-time-token { box-sizing: border-box; display: flex; flex: 0 0 auto; min-width: 0; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
+.eb-time-track { display: flex; width: 100%; min-width: max-content; gap: 0; }
+.eb-time-lead { box-sizing: border-box; flex: var(--eb-time-grow, 0) 1 0; min-width: 0; border-right: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
+.eb-time-token { box-sizing: border-box; display: flex; flex: var(--eb-time-grow, 1) 1 max(2.4rem, max-content); min-width: 2.4rem; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
+.eb-time-token-lower { padding-top: .35rem; }
+.eb-time-token-upper { padding-bottom: .35rem; }
 .eb-time-token.active { background: color-mix(in srgb, var(--eb-accent) 12%, transparent); }
 .eb-time-chars { display: flex; min-height: 1.4rem; padding: .12rem .18rem; }
 .eb-time-marker { align-self: flex-start; writing-mode: vertical-rl; padding: .15rem; border: 0; border-radius: 3px; background: transparent; color: var(--eb-accent); cursor: ew-resize; font-size: .62rem; }
