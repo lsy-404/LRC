@@ -3,7 +3,7 @@ import { json, passwordOk, bearer, cleanRef, readJson } from './_lib.js';
 const AUDIO_EXTS = new Map([
   ['.mp3', 'audio/mpeg'], ['.wav', 'audio/wav'], ['.flac', 'audio/flac'],
   ['.m4a', 'audio/mp4'], ['.aac', 'audio/aac'], ['.ogg', 'audio/ogg'],
-  ['.opus', 'audio/ogg'], ['.wma', 'audio/x-ms-wma'],
+  ['.opus', 'audio/ogg'], ['.webm', 'audio/webm'], ['.wma', 'audio/x-ms-wma'],
 ]);
 
 function baseName(path) {

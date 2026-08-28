@@ -114,6 +114,7 @@ def phase_a(params: dict, log, report=None) -> dict:
     try:
         _progress(report, "downloading", 8, "正在读取投稿清单")
         payload = work / "payload" / album
+        payload.mkdir(parents=True, exist_ok=True)
         total = 0
         audio_files = []
         for index, f in enumerate(files, start=1):

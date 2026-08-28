@@ -181,6 +181,35 @@ def load_precomputed_stt(path: Path | None) -> dict[str, tuple[list[dict], str, 
     return out
 
 
+def apply_uploaded_audio_metadata(tracks_plan: list[dict], metadata: dict,
+                                  audio_paths: dict[str, str], manifest: dict) -> None:
+    """压缩会清除 tag；只接受上传前已声明的字段作为其替代来源。"""
+    source = metadata.get("tracks") if isinstance(metadata, dict) else []
+    by_path = {
+        str(track.get("path")): track.get("metadata") or {}
+        for track in source if isinstance(track, dict) and isinstance(track.get("path"), str)
+    }
+    for track in tracks_plan:
+        values = by_path.get(audio_paths.get(str(track.get("file") or ""), ""), {})
+        if not isinstance(values, dict):
+            continue
+        title = values.get("title")
+        if isinstance(title, str) and title.strip():
+            track["title"] = title.strip()
+        number = values.get("trackNumber")
+        if isinstance(number, int) and number > 0:
+            track["order"] = number
+        artist = values.get("artist")
+        if isinstance(artist, str) and artist.strip() and not manifest.get("vocal"):
+            manifest["vocal"] = [artist.strip()]
+        date = values.get("date")
+        if isinstance(date, str) and date.strip() and not manifest.get("year"):
+            manifest["year"] = date.strip()
+        album = values.get("album")
+        if isinstance(album, str) and album.strip() and not manifest.get("album"):
+            manifest["album"] = album.strip()
+
+
 def extract_embedded_cover(audios: list[Path], work: Path) -> Path | None:
     """从音频内嵌 tag 提取封面（FLAC pictures；专辑内通常一致，取第一个带图的）。"""
     if not audios:
@@ -383,25 +412,9 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     inst_files: set[str] = set()
     if buckets["audio"]:
         tracks_plan = org_mod.llm_order_tracks([p.name for p in buckets["audio"]], album)
-        uploaded_tracks = {
-            str(track.get("path")): track.get("metadata") or {}
-            for track in ((uploaded_manifest.get("upload_metadata") or {}).get("tracks") or [])
-            if isinstance(track, dict) and isinstance(track.get("path"), str)
-        }
-        for track in tracks_plan:
-            audio_path = next((audio.relative_to(src).as_posix() for audio in buckets["audio"]
-                               if audio.name == track.get("file")), "")
-            metadata = uploaded_tracks.get(audio_path, {})
-            if not isinstance(metadata, dict):
-                continue
-            if isinstance(metadata.get("title"), str) and metadata["title"].strip():
-                track["title"] = metadata["title"].strip()
-            if isinstance(metadata.get("trackNumber"), int) and metadata["trackNumber"] > 0:
-                track["order"] = metadata["trackNumber"]
-            for key in ("artist", "album", "date"):
-                value = metadata.get(key)
-                if isinstance(value, str) and value.strip() and not manifest.get(key):
-                    manifest[key] = value.strip()
+        audio_paths = {audio.name: audio.relative_to(src).as_posix() for audio in buckets["audio"]}
+        apply_uploaded_audio_metadata(tracks_plan, uploaded_manifest.get("upload_metadata") or {},
+                                      audio_paths, manifest)
         org_mod.apply_inst_overrides(tracks_plan, inst_marked, inst_as_song)
         keep = {t.get("file") for t in tracks_plan}
         inst_files = {t.get("file") for t in tracks_plan if t.get("inst")}

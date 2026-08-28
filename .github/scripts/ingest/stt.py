@@ -27,7 +27,7 @@ if __package__ in (None, ""):
 else:
     from . import _llm
 
-AUDIO_EXTS = {".wav", ".mp3", ".flac", ".m4a", ".aac", ".ogg", ".opus", ".wma"}
+AUDIO_EXTS = {".wav", ".mp3", ".flac", ".m4a", ".aac", ".ogg", ".opus", ".webm", ".wma"}
 
 MACHINE_NOTE = "机器转写，待人工校对"
 
