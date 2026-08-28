@@ -27,6 +27,12 @@ test('移动句首时按 delta 平移逐字绝对时间并保持句内偏移', (
   assert.deepEqual(serializeTimedLyrics([], [shifted]), { lrc: '[00:01.800]你好\n', klrc: '[00:01.800]<00:01.900>你<00:02.150>好\n', lines: ['你好'] });
 });
 
+test('输入框已更新句首时仍以编辑前时间计算逐字平移', () => {
+  const row = { time: 1800, text: '你好', words: [{ time: 1100, text: '你' }, { time: 1350, text: '好' }] };
+  const shifted = shiftTimedRow(row, row.time, 1000);
+  assert.deepEqual(shifted.words.map((word) => word.time), [1900, 2150]);
+});
+
 test('序列化保留头部并忽略空逐字项', () => {
   const result = serializeTimedLyrics(['[ti:标题]'], [{ time: 1000, text: '词', words: [{ time: 1000, text: '' }, { time: 1100, text: '词' }] }]);
   assert.match(result.lrc, /^\[ti:标题\]/);

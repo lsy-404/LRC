@@ -38,13 +38,13 @@ export function msToTimestamp(ms) {
 }
 
 // 句首移动时保持逐字时间相对句首的偏移不变。
-export function shiftTimedRow(row, nextTime) {
+export function shiftTimedRow(row, nextTime, previousTime = row?.time) {
   if (!row) return row;
-  const previousTime = Number(row.time) || 0;
+  const previous = Number(previousTime) || 0;
   const time = Math.max(0, Math.round(Number(nextTime) || 0));
-  const delta = time - previousTime;
+  const delta = time - previous;
   if (!delta) return { ...row, time };
-  return { ...row, time, words: (row.words || []).map((word) => ({ ...word, time: Math.max(0, Math.round(Number(word.time) + delta)) })) };
+  return { ...row, time, words: (row.words || []).map((word) => ({ ...word, time: Math.max(0, Math.round((Number(word.time) || previous) + delta)) })) };
 }
 
 export function parseKaraokeRows(lrc, klrc) {
@@ -188,6 +188,45 @@ export function timedLeadFlexWeight(rowTime, firstTime) {
   const first = Number(firstTime);
   if (!Number.isFinite(start) || !Number.isFinite(first) || first <= start) return 0;
   return timedSpanFlexWeight(first - start);
+}
+
+export function timedCharacterAverageMs(row, nextRowTime, defaultMs = 500) {
+  const times = (row?.words || []).map((word) => Number(word.time)).filter(Number.isFinite);
+  const gaps = times.slice(1).map((time, index) => time - times[index]).filter((gap) => gap > 0);
+  if (gaps.length) return Math.max(1, gaps.reduce((sum, gap) => sum + gap, 0) / gaps.length);
+  const fallback = Math.max(1, Number(defaultMs) || 500);
+  const next = Number(nextRowTime);
+  const last = times[times.length - 1];
+  return Number.isFinite(last) && Number.isFinite(next) && next > last ? Math.max(1, Math.min(fallback, next - last)) : fallback;
+}
+
+export function timedLastTokenSpanMs(row, nextRowTime, defaultMs = 500) {
+  const average = timedCharacterAverageMs(row, nextRowTime, defaultMs);
+  const words = row?.words || [];
+  const last = Number(words[words.length - 1]?.time);
+  const next = Number(nextRowTime);
+  return Number.isFinite(last) && Number.isFinite(next) && next > last ? Math.max(1, Math.min(average, next - last)) : average;
+}
+
+export function timedTrailingGapMs(row, nextRowTime, defaultMs = 500) {
+  const average = timedCharacterAverageMs(row, nextRowTime, defaultMs);
+  const words = row?.words || [];
+  const start = Number(row?.time);
+  const last = Number(words[words.length - 1]?.time);
+  const anchor = Number.isFinite(last) ? Math.max(Number.isFinite(start) ? start : 0, last) : (Number.isFinite(start) ? start : 0);
+  const contentEnd = anchor + (Number.isFinite(last) ? timedLastTokenSpanMs(row, nextRowTime, defaultMs) : 0);
+  const next = Number(nextRowTime);
+  if (Number.isFinite(next)) return Math.max(0, Math.min(average * 4, next - contentEnd));
+  return average * 4;
+}
+
+export function timedSentenceEndMs(row, nextRowTime, defaultMs = 500) {
+  const start = Number(row?.time);
+  const words = row?.words || [];
+  const last = Number(words[words.length - 1]?.time);
+  const anchor = Number.isFinite(last) ? Math.max(Number.isFinite(start) ? start : 0, last) : (Number.isFinite(start) ? start : 0);
+  const contentEnd = anchor + (Number.isFinite(last) ? timedLastTokenSpanMs(row, nextRowTime, defaultMs) : 0);
+  return contentEnd + timedTrailingGapMs(row, nextRowTime, defaultMs);
 }
 
 export function splitRowAtTokenBoundary(rows, rowIndex, wordIndex, charIndex, createId = () => undefined) {

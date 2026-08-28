@@ -27,8 +27,8 @@ test('播放器内联于歌词编辑区，且不保留原音与模拟说明', as
   assert.match(source, /@click="addLine\(t, li\)"/);
   assert.match(source, /class="eb-word-timeline" role="region" aria-label="逐字时间轨"/);
   assert.match(source, /class="eb-time-track"/);
-  assert.match(source, /eb-time-token-lower/);
-  assert.match(source, /timedTokenFlexWeight\(row\.words/);
+  assert.doesNotMatch(source, /eb-time-token-(?:lower|upper)/);
+  assert.match(source, /timedLastTokenSpanMs\(row, nextRowTime/);
   assert.match(source, /--eb-time-grow/);
   assert.match(source, /flex: var\(--eb-time-grow, 1\) 1 max-content/);
   assert.match(source, /min-width: max-content/);
@@ -124,15 +124,18 @@ test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
   assert.doesNotMatch(source, /flatMap\(\(r\) => \[Number\(r\.time\)/);
 });
 
-test('逐字时间 token 显示词内进度且只更新当前 DOM 节点', async () => {
+test('逐字时间轨显示句内偏移、支持单字编辑且只更新整句进度', async () => {
   const source = await component();
-  assert.match(source, /class="eb-time-token-progress"/);
-  assert.match(source, /function tokenProgressPercent\(t, line, word, ms\)/);
-  assert.match(source, /timedTokenSpanMs\(row\.words, word, nextRowTime\(t, line\)\)/);
-  assert.match(source, /node\.style\.setProperty\('--eb-token-progress', `\$\{percent\}%`\)/);
-  assert.match(source, /node\.style\.removeProperty\('--eb-token-progress'\)/);
-  assert.match(source, /clearTokenProgress\(view\.activeToken\)/);
-  assert.doesNotMatch(source, /_tokenProgress|word\._progress|word\.progress/);
+  assert.match(source, /contenteditable="plaintext-only"/);
+  assert.match(source, /formatWordOffset\(r, word\.time\)/);
+  assert.match(source, /return `\+\$\{msToTimestamp\(wordOffset\(row, time\)\)\}`/);
+  assert.match(source, /row\.text = row\.words\.map\(\(item\) => item\.text\)\.join\(''\)/);
+  assert.match(source, /label\.textContent = formatWordOffset\(state\.row, time\)/);
+  assert.match(source, /class="eb-time-sentence-progress"/);
+  assert.match(source, /--eb-sentence-progress/);
+  assert.match(source, /timedTrailingGapMs\(row, next\)/);
+  assert.match(source, /Math\.min\(4, duration \/ average\)/);
+  assert.doesNotMatch(source, /eb-time-token-progress|--eb-token-progress|tokenProgressPercent|clearTokenProgress/);
 });
 
 test('歌词编辑历史提供按钮、未失焦输入和键盘撤回恢复', async () => {

@@ -157,11 +157,12 @@
               <div class="eb-word-timeline" role="region" aria-label="逐字时间轨">
                 <div class="eb-time-track">
                   <span class="eb-time-lead" :style="timelineLeadStyle(r)" aria-hidden="true" />
-                  <div v-for="(word, wi) in r.words" :key="word._id" :ref="(node) => bindTokenNode(t, li, wi, node)" class="eb-time-token" :class="wi % 2 ? 'eb-time-token-lower' : 'eb-time-token-upper'" :style="timelineTokenStyle(t, r, li, wi)">
-                    <span class="eb-time-token-progress" aria-hidden="true" />
-                    <span class="eb-time-chars"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" contenteditable="true" spellcheck="false" tabindex="0" @input="editTimelineChar(t, r, wi, ci, $event)" @keydown.enter.prevent @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, ci, $event)" @keydown="openTimelineMenuFromKey(t, r, wi, ci, $event)">{{ char }}</span></span>
-                    <button class="eb-time-marker" :aria-label="`调整 ${word.text} 的时间`" @pointerdown="startTimeDrag(t, r, wi, $event)" @pointermove="moveTimeDrag($event)" @pointerup="finishTimeDrag($event)" @pointercancel="finishTimeDrag($event)" @lostpointercapture="finishTimeDrag($event)" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, 0, $event)" @keydown="nudgeWordTime(t, r, wi, $event)"><span>{{ formatMs(wordOffset(r, word)) }}</span></button>
+                  <div v-for="(word, wi) in r.words" :key="word._id" :ref="(node) => bindTokenNode(t, li, wi, node)" class="eb-time-token" :style="timelineTokenStyle(t, r, li, wi)">
+                    <span class="eb-time-chars"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" contenteditable="plaintext-only" spellcheck="false" tabindex="0" @focus="selectTimelineChar" @input="editTimelineChar(t, r, wi, ci, $event)" @keydown.enter.prevent="$event.currentTarget.blur()" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, ci, $event)" @keydown="openTimelineMenuFromKey(t, r, wi, ci, $event)">{{ char }}</span></span>
+                    <button class="eb-time-marker" :aria-label="`调整 ${word.text} 的句内偏移`" @pointerdown="startTimeDrag(t, r, wi, $event)" @pointermove="moveTimeDrag($event)" @pointerup="finishTimeDrag($event)" @pointercancel="finishTimeDrag($event)" @lostpointercapture="finishTimeDrag($event)" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, 0, $event)" @keydown="nudgeWordTime(t, r, wi, $event)"><span>{{ formatWordOffset(r, word.time) }}</span></button>
                   </div>
+                  <span class="eb-time-trailing" :style="timelineTrailingStyle(t, r, li)" aria-hidden="true" />
+                  <span :ref="(node) => bindRowProgressNode(t, li, node)" class="eb-time-sentence-progress" aria-hidden="true" />
                 </div>
               </div>
               <div v-if="timelineMenu && timelineMenu.rowId === r._id" class="eb-timeline-menu" role="menu" :style="{ left: `${timelineMenu.x}px`, top: `${timelineMenu.y}px` }" @keydown.esc="closeTimelineMenu">
@@ -246,7 +247,7 @@ import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedLeadFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
+  activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedCharacterAverageMs, timedLastTokenSpanMs, timedLeadFlexWeight, timedSentenceEndMs, timedSpanFlexWeight, timedTokenSpanMs, timedTrailingGapMs, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, markLyricHistoryDirty, recordLyricHistory, redoLyricHistory, undoLyricHistory } from './lyricHistory.js';
 
@@ -338,20 +339,45 @@ const newId = () => nextEditorId++;
 function syncTrackText(t) { t.text = linesToText(t.rows.map((row) => row.text)); }
 function nextRowTime(t, rowIndex) { return Number(t.rows[rowIndex + 1]?.time); }
 function timelineLeadStyle(row) { return { '--eb-time-grow': timedLeadFlexWeight(row.time, row.words[0]?.time) }; }
-function timelineTokenStyle(t, row, rowIndex, wordIndex) { return { '--eb-time-grow': timedTokenFlexWeight(row.words, wordIndex, nextRowTime(t, rowIndex)) }; }
-function wordOffset(row, word) { return Math.max(0, Math.round(Number(word?.time) - Number(row?.time))); }
+function timelineTokenStyle(t, row, rowIndex, wordIndex) {
+  const duration = wordIndex === row.words.length - 1
+    ? timedLastTokenSpanMs(row, nextRowTime(t, rowIndex))
+    : timedTokenSpanMs(row.words, wordIndex);
+  return { '--eb-time-grow': timedSpanFlexWeight(duration) };
+}
+function timelineTrailingStyle(t, row, rowIndex) {
+  const next = nextRowTime(t, rowIndex);
+  const duration = timedTrailingGapMs(row, next);
+  const average = timedCharacterAverageMs(row, next);
+  return { '--eb-time-grow': duration > 0 ? Math.min(4, duration / average) : 0 };
+}
+function wordOffset(row, time) { return Math.max(0, Math.round(Number(time) - Number(row?.time))); }
+function formatWordOffset(row, time) { return `+${msToTimestamp(wordOffset(row, time))}`; }
+function selectTimelineChar(event) {
+  const selection = window.getSelection();
+  if (!selection) return;
+  const range = document.createRange();
+  range.selectNodeContents(event.currentTarget);
+  selection.removeAllRanges();
+  selection.addRange(range);
+}
 function editTimelineChar(t, row, wordIndex, charIndex, event) {
+  if (event.isComposing) return;
   const word = row.words[wordIndex];
   if (!word) return;
   const chars = Array.from(word.text || '');
-  const next = Array.from(event.currentTarget.textContent || '')[0] || '';
+  const entered = Array.from(event.currentTarget.textContent || '');
+  const next = entered[entered.length - 1] || '';
   if (!next) { event.currentTarget.textContent = chars[charIndex] || ''; return; }
+  event.currentTarget.textContent = next;
   if (chars[charIndex] === next) return;
   chars[charIndex] = next;
   word.text = chars.join('');
+  row.text = row.words.map((item) => item.text).join('');
   syncTrackText(t);
-  markHistory(t);
   lockTiming(t);
+  commitHistory(t);
+  event.currentTarget.blur();
 }
 function boundedWordTime(t, row, index, time) { const rowIndex = t.rows.findIndex((item) => item._id === row._id); const nextRow = t.rows[rowIndex + 1]; return clampWordTime(row.words, index, time, 10, row.time, index === row.words.length - 1 && nextRow ? Number(nextRow.time) - 10 : Number.POSITIVE_INFINITY); }
 function setHistoryTrack(t) { historyTrack = t; }
@@ -367,16 +393,17 @@ function setWordTime(t, row, index, time) { row.words[index].time = boundedWordT
 function beginRowTimeEdit(row) { rowTimeEdits.set(row, Number(row.time) || 0); }
 function shiftRowTime(t, row) {
   const previous = rowTimeEdits.has(row) ? rowTimeEdits.get(row) : Number(row.time) || 0;
-  const shifted = shiftTimedRow(row, row.time);
+  const shifted = shiftTimedRow(row, row.time, previous);
   row.time = shifted.time;
   row.words = shifted.words;
   rowTimeEdits.set(row, row.time);
-  if (row.time !== previous) { markHistory(t); lockTiming(t); updateActiveIndices(t, playheadMs(t)); }
+  if (row.time !== previous) { markHistory(t); lockTiming(t); }
 }
 function finishRowTimeEdit(t, row) {
   rowTimeEdits.delete(row);
   normalizeRows(t);
   lockTiming(t);
+  updateActiveIndices(t, playheadMs(t));
   commitHistory(t);
 }
 function nudgeWordTime(t, row, index, event) { if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return; event.preventDefault(); setWordTime(t, row, index, Number(row.words[index].time) + (event.key === 'ArrowLeft' ? -10 : 10)); }
@@ -386,9 +413,31 @@ function openTimelineMenuFromKey(t, row, wordIndex, charIndex, event) { if (!(ev
 function applyTimelineBoundary() { const menu = timelineMenu.value; if (!menu) return; const next = menu.charIndex ? splitTimedToken(menu.row, menu.wordIndex, menu.charIndex, newId) : mergeTimedToken(menu.row, menu.wordIndex); if (next !== menu.row) { menu.t.rows.splice(menu.rowIndex, 1, next); syncTrackText(menu.t); lockTiming(menu.t); commitHistory(menu.t); } closeTimelineMenu(); }
 function splitRowAtBoundary() { const menu = timelineMenu.value; if (!menu || (!menu.wordIndex && !menu.charIndex)) return; menu.t.rows = splitRowAtTokenBoundary(menu.t.rows, menu.rowIndex, menu.wordIndex, menu.charIndex, newId); syncTrackText(menu.t); lockTiming(menu.t); commitHistory(menu.t); closeTimelineMenu(); }
 function mergeRowPrevious() { const menu = timelineMenu.value; if (!menu || menu.rowIndex <= 0) return; menu.t.rows = mergeTimedRows(menu.t.rows, menu.rowIndex); syncTrackText(menu.t); lockTiming(menu.t); commitHistory(menu.t); closeTimelineMenu(); }
-function clearTimeDrag() { const state = dragState; if (!state) return; dragState = null; if (state.frame) cancelAnimationFrame(state.frame); state.node.style.transform = ''; document.removeEventListener('visibilitychange', state.visibility); if (state.node.hasPointerCapture(state.pointerId)) state.node.releasePointerCapture(state.pointerId); }
+function clearTimeDrag() {
+  const state = dragState;
+  if (!state) return;
+  dragState = null;
+  if (state.frame) cancelAnimationFrame(state.frame);
+  state.node.style.transform = '';
+  const label = state.node.querySelector('span');
+  if (label) label.textContent = formatWordOffset(state.row, state.row.words[state.index]?.time);
+  document.removeEventListener('visibilitychange', state.visibility);
+  if (state.node.hasPointerCapture(state.pointerId)) state.node.releasePointerCapture(state.pointerId);
+}
 function startTimeDrag(t, row, index, event) { if (event.button !== 0) return; event.preventDefault(); clearTimeDrag(); const node = event.currentTarget; const state = { t, row, index, node, pointerId: event.pointerId, startX: event.clientX, startTime: Number(row.words[index].time), x: event.clientX, frame: null, visibility: null }; state.visibility = () => { if (document.hidden) finishTimeDrag(); }; dragState = state; node.setPointerCapture(event.pointerId); document.addEventListener('visibilitychange', state.visibility); }
-function moveTimeDrag(event) { if (!dragState || event.pointerId !== dragState.pointerId) return; dragState.x = event.clientX; if (!dragState.frame) dragState.frame = requestAnimationFrame(() => { const state = dragState; if (!state) return; const time = boundedWordTime(state.t, state.row, state.index, state.startTime + (state.x - state.startX) * 10); state.node.style.transform = `translateX(${(time - state.startTime) / 10}px)`; state.frame = null; }); }
+function moveTimeDrag(event) {
+  if (!dragState || event.pointerId !== dragState.pointerId) return;
+  dragState.x = event.clientX;
+  if (!dragState.frame) dragState.frame = requestAnimationFrame(() => {
+    const state = dragState;
+    if (!state) return;
+    const time = boundedWordTime(state.t, state.row, state.index, state.startTime + (state.x - state.startX) * 10);
+    state.node.style.transform = `translateX(${(time - state.startTime) / 10}px)`;
+    const label = state.node.querySelector('span');
+    if (label) label.textContent = formatWordOffset(state.row, time);
+    state.frame = null;
+  });
+}
 function finishTimeDrag(event) { if (!dragState || (event?.pointerId != null && event.pointerId !== dragState.pointerId)) return; if (event?.clientX != null) dragState.x = event.clientX; const state = dragState; if (!allTracks().includes(state.t) || !state.t.rows.includes(state.row)) return clearTimeDrag(); setWordTime(state.t, state.row, state.index, state.startTime + (state.x - state.startX) * 10); clearTimeDrag(); }
 function normalizeRows(t) { t.rows.sort((a, b) => Number(a.time) - Number(b.time)); syncTrackText(t); }
 function syncRowText(t, row) { row.words = reconcileWordCharacters(row.words, row.text, newId, row.time); t._textDirty = true; syncTrackText(t); lockTiming(t); }
@@ -402,7 +451,7 @@ function removeLine(t, index) { t.rows.splice(index, 1); syncTrackText(t); lockT
 function previewEnd(t) { const row = t.rows[t.rows.length - 1]; const word = row?.words?.[row.words.length - 1]; return Math.max(1000, Number(word?.time || row?.time || 0)) + 1500; }
 function playbackView(t) {
   let view = playbackViews.get(t);
-  if (!view) { view = { lines: [], tokens: [], activeLine: null, activeToken: null, activeLineIndex: -1, activeWordIndex: -1 }; playbackViews.set(t, view); }
+  if (!view) { view = { lines: [], tokens: [], progresses: [], activeLine: null, activeToken: null, activeLineIndex: -1, activeWordIndex: -1 }; playbackViews.set(t, view); }
   return view;
 }
 function bindLineNode(t, index, node) {
@@ -410,36 +459,29 @@ function bindLineNode(t, index, node) {
   view.lines[index] = node || null;
   if (node && index === view.activeLineIndex) { node.classList.add('active'); view.activeLine = node; }
 }
-function tokenProgressPercent(t, line, word, ms) {
-  const row = t.rows[line];
-  const token = row?.words?.[word];
-  if (!row || !token) return 0;
-  const start = Number(token.time);
-  if (!Number.isFinite(start)) return 0;
-  const span = timedTokenSpanMs(row.words, word, nextRowTime(t, line));
-  return Math.max(0, Math.min(100, ((Number(ms) - start) / Math.max(1, span)) * 100));
-}
-function setTokenProgress(node, percent) {
-  if (node) node.style.setProperty('--eb-token-progress', `${percent}%`);
-}
-function clearTokenProgress(node) {
-  if (node) node.style.removeProperty('--eb-token-progress');
+function sentenceProgressPercent(t, line, ms) {
+  const row = t.rows[line]; if (!row) return 0;
+  const start = Number(row.time); const end = timedSentenceEndMs(row, nextRowTime(t, line));
+  return Number.isFinite(start) && end > start ? Math.max(0, Math.min(100, ((Number(ms) - start) / (end - start)) * 100)) : 0;
 }
 function bindTokenNode(t, line, word, node) {
   const view = playbackView(t);
   if (!view.tokens[line]) view.tokens[line] = [];
-  if (!node && view.tokens[line][word] === view.activeToken) clearTokenProgress(view.activeToken);
   view.tokens[line][word] = node || null;
   if (node && line === view.activeLineIndex && word === view.activeWordIndex) {
     node.classList.add('active');
     view.activeToken = node;
-    setTokenProgress(node, tokenProgressPercent(t, line, word, playheadMs(t)));
   }
+}
+function bindRowProgressNode(t, line, node) {
+  const view = playbackView(t); view.progresses[line] = node || null;
+  if (node && line === view.activeLineIndex) node.style.setProperty('--eb-sentence-progress', `${sentenceProgressPercent(t, line, playheadMs(t))}%`);
 }
 function updateActiveIndices(t, ms = playheadMs(t)) {
   const view = playbackView(t);
   const line = activeIndexAt(t.rows, ms);
   const word = activeIndexAt(t.rows[line]?.words || [], ms);
+  const previousLine = view.activeLineIndex;
   const nextLine = line >= 0 ? view.lines[line] : null;
   const nextToken = word >= 0 ? view.tokens[line]?.[word] : null;
   if (view.activeLine !== nextLine) {
@@ -450,19 +492,20 @@ function updateActiveIndices(t, ms = playheadMs(t)) {
   view.activeLineIndex = line;
   if (view.activeToken !== nextToken) {
     view.activeToken?.classList.remove('active');
-    clearTokenProgress(view.activeToken);
     nextToken?.classList.add('active');
     view.activeToken = nextToken;
   }
   view.activeWordIndex = word;
-  setTokenProgress(nextToken, tokenProgressPercent(t, line, word, ms));
+  const progress = view.progresses[line];
+  if (previousLine !== line) view.progresses.forEach((node, index) => { if (node && index !== line) node.style.removeProperty('--eb-sentence-progress'); });
+  if (progress) progress.style.setProperty('--eb-sentence-progress', `${sentenceProgressPercent(t, line, ms)}%`);
 }
 function clearPlaybackView(t) {
   const view = playbackViews.get(t);
   if (!view) return;
   view.activeLine?.classList.remove('active');
   view.activeToken?.classList.remove('active');
-  clearTokenProgress(view.activeToken);
+  view.progresses.forEach((node) => node?.style.removeProperty('--eb-sentence-progress'));
   playbackViews.delete(t);
 }
 function playheadMs(t) { return playheads.get(t) ?? (Number(t._previewMs) || 0); }
@@ -996,17 +1039,15 @@ onBeforeUnmount(() => {
 .eb-input.ms { width: 5.4rem; flex: none; font-family: var(--font-family-mono, monospace); }
 .eb-time { display: flex; align-items: center; gap: .2rem; font-size: .7rem; white-space: nowrap; }
 .eb-word-timeline { overflow-x: auto; padding: .4rem .2rem; contain: layout paint; border-top: 1px solid var(--border-color, #ddd); }
-.eb-time-track { display: flex; width: 100%; min-width: max-content; gap: 0; }
+.eb-time-track { position: relative; display: flex; width: 100%; min-width: max-content; gap: 0; padding-bottom: 3px; box-sizing: border-box; }
 .eb-time-lead { box-sizing: border-box; flex: var(--eb-time-grow, 0) 1 0; min-width: 0; border-right: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
-.eb-time-token { --eb-token-progress: 0%; position: relative; box-sizing: border-box; display: flex; flex: var(--eb-time-grow, 1) 1 max-content; min-width: max-content; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
-.eb-time-token-lower { padding-top: .35rem; }
-.eb-time-token-upper { padding-bottom: .35rem; }
+.eb-time-token { position: relative; box-sizing: border-box; display: flex; flex: var(--eb-time-grow, 1) 1 max-content; min-width: max-content; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
 .eb-time-token.active { background: color-mix(in srgb, var(--eb-accent) 12%, transparent); }
-.eb-time-token-progress { position: absolute; right: .12rem; bottom: 0; left: .12rem; height: 3px; border-radius: 999px; opacity: 0; pointer-events: none; background: linear-gradient(to right, var(--eb-accent) var(--eb-token-progress), color-mix(in srgb, var(--border-color, #ddd) 65%, transparent) var(--eb-token-progress)); }
-.eb-time-token.active .eb-time-token-progress { opacity: 1; }
+.eb-time-trailing { flex: var(--eb-time-grow, 0) 1 0; min-width: 0; border-left: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
+.eb-time-sentence-progress { position: absolute; right: 0; bottom: 0; left: 0; height: 3px; pointer-events: none; background: linear-gradient(to right, var(--eb-accent) var(--eb-sentence-progress, 0%), color-mix(in srgb, var(--border-color, #ddd) 65%, transparent) var(--eb-sentence-progress, 0%)); }
 .eb-time-chars { display: flex; min-width: 2.4rem; min-height: 1.4rem; padding: .12rem .18rem; }
 .eb-time-marker { align-self: flex-start; writing-mode: vertical-rl; padding: .15rem; border: 0; border-radius: 3px; background: transparent; color: var(--eb-accent); cursor: ew-resize; font-size: .62rem; }
-.eb-time-char { min-width: .8em; padding: .12rem .04rem; border-right: 1px dotted color-mix(in srgb, var(--border-color, #ddd) 75%, transparent); cursor: context-menu; }
+.eb-time-char { min-width: .8em; padding: .12rem .04rem; border-right: 1px dotted color-mix(in srgb, var(--border-color, #ddd) 75%, transparent); cursor: text; }
 .eb-time-char:focus { outline: 1px solid var(--eb-accent); outline-offset: 1px; }
 .eb-timeline-menu { position: fixed; z-index: 4; display: flex; gap: .35rem; flex-wrap: wrap; max-width: min(22rem, calc(100vw - 1rem)); padding: .35rem; border: 1px solid var(--border-color, #ddd); border-radius: 6px; background: var(--bg-color, #fff); box-shadow: 0 .25rem .8rem rgb(0 0 0 / 15%); }
 .eb-line-editor:not(.active) { content-visibility: auto; contain-intrinsic-size: auto 6rem; }
