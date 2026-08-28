@@ -1,6 +1,19 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, shiftTimedRow, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadFlexWeight, timedSpanFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
+import { activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, shiftTimedRow, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadFlexWeight, timedRowBoundaryAction, timedSpanFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
+
+test('句级边界按上下文合并或拆分', () => {
+  assert.equal(timedRowBoundaryAction(0, 0, 0), 'none');
+  assert.equal(timedRowBoundaryAction(1, 0, 0), 'merge');
+  assert.equal(timedRowBoundaryAction(0, 1, 0), 'split');
+  assert.equal(timedRowBoundaryAction(1, 1, 0), 'split');
+  assert.equal(timedRowBoundaryAction(1, 0, 1), 'split');
+});
+
+test('句首光标合并上一句，其余光标位置拆分', () => {
+  assert.equal(timedRowBoundaryAction(2, 0, 0), 'merge');
+  assert.equal(timedRowBoundaryAction(2, 0, 2), 'split');
+});
 
 test('时间戳支持厘秒和毫秒并稳定往返', () => {
   assert.equal(timestampToMs('01:02.34'), 62340);

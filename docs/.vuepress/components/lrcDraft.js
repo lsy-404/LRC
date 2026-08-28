@@ -159,6 +159,12 @@ export function mergeTimedRows(rows, rowIndex) {
   return list;
 }
 
+export function timedRowBoundaryAction(rowIndex, wordIndex, charIndex) {
+  if (rowIndex > 0 && wordIndex === 0 && charIndex === 0) return 'merge';
+  if (wordIndex > 0 || charIndex > 0) return 'split';
+  return 'none';
+}
+
 export function activeIndexAt(items, ms) {
   let low = 0; let high = (items || []).length - 1; let result = -1;
   while (low <= high) { const mid = (low + high) >> 1; if (Number(items[mid].time) <= ms) { result = mid; low = mid + 1; } else high = mid - 1; }
