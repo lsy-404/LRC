@@ -249,13 +249,16 @@ test('逐行支持标为合音与并回主唱，迁移保留时间并使用当�
 
 test('专辑名称可编辑但审核存储定位保持原投稿名', async () => {
   const source = await component();
-  assert.match(source, /v-model="e\.album" class="eb-input eb-album"/);
+  assert.match(source, /v-model="e\.album" class="eb-input eb-album" aria-label="专辑名称" @input="syncPendingDisplay\(e\)"/);
   assert.match(source, /_storageAlbum: album/);
-  assert.match(source, /toEdit\(a\.storage_album \|\| a\.album, a\.draft\)/);
-  assert.match(source, /discard\(p\.ref, p\.storage_album \|\| p\.album, p\.album\)/);
+  assert.match(source, /toEdit\(a\.storage_album, a\.draft\)/);
+  assert.match(source, /discard\(p\.ref, p\.storage_album, p\.album\)/);
+  assert.match(source, /p\.storage_album === album/);
   assert.match(source, /await loadPending\(\)/);
-  assert.match(source, /album: e\._storageAlbum, draft: toDraft\(e\)/);
+  assert.match(source, /album: e\._storageAlbum, draft/);
   assert.match(source, /album: e\._storageAlbum, ext/);
   assert.match(source, /function cleanAlbumName\(value, fallback\)/);
   assert.match(source, /names\.zh_name =/);
+  assert.match(source, /const draft = toDraft\(e\)/);
+  assert.match(source, /e\.album = draft\.album/);
 });

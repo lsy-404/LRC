@@ -14,26 +14,32 @@ export async function onRequestGet({ request, env }) {
 
   const pending = [];
   const refs = new Set();
-  for (const o of marks) {
+  const reviewItems = await Promise.all(marks.map(async (o) => {
     const parts = o.key.split('/');
-    if (parts.length !== 4) continue;
+    if (parts.length !== 4) return null;
     const [, ref, album] = parts;
-    const st = (await readJson(env, o.key)) || {};
-    const draft = (await readJson(env, `${REVIEW}/${ref}/${album}/draft.json`)) || {};
-    refs.add(ref);
-    pending.push({
+    const [st, draft] = await Promise.all([
+      readJson(env, o.key),
+      readJson(env, `${REVIEW}/${ref}/${album}/draft.json`),
+    ]);
+    return {
       ref,
-      album: draft.album || st.album || album,
+      album: draft?.album || st?.album || album,
       storage_album: album,
-      status: st.phase || '',
+      status: st?.phase || '',
       state: '',
       stage: '',
       progress: null,
       message: '',
-      updated: st.updated || '',
-      contributor: st.contributor || '',
-      is_update: !!st.is_update,
-    });
+      updated: st?.updated || '',
+      contributor: st?.contributor || '',
+      is_update: !!st?.is_update,
+    };
+  }));
+  for (const item of reviewItems) {
+    if (!item) continue;
+    refs.add(item.ref);
+    pending.push(item);
   }
   const manifests = webObjects.filter((o) => {
     const parts = o.key.split('/');

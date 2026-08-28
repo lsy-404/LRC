@@ -4,7 +4,7 @@
     <section v-if="pending.length" class="eb-card">
       <label class="eb-label">待处理投稿</label>
       <ul class="eb-pending">
-        <li v-for="p in pending" :key="p.ref + '/' + (p.storage_album || p.album)" :class="{ processing: isProcessingPending(p) }">
+        <li v-for="p in pending" :key="p.ref + '/' + p.storage_album" :class="{ processing: isProcessingPending(p) }">
           <button class="eb-pending-open" type="button" :disabled="!canOpenPending(p)" :aria-label="pendingAriaLabel(p)" @click="pick(p)">
             <span class="eb-p-album">{{ p.album }}</span>
             <span class="eb-p-meta">
@@ -12,7 +12,7 @@
             </span>
           </button>
           <span class="eb-p-right">
-            <button class="eb-btn small danger" :disabled="discarding || isProcessingPending(p)" @click="discard(p.ref, p.storage_album || p.album, p.album)">丢弃</button>
+            <button class="eb-btn small danger" :disabled="discarding || isProcessingPending(p)" @click="discard(p.ref, p.storage_album, p.album)">丢弃</button>
           </span>
         </li>
       </ul>
@@ -67,7 +67,7 @@
       <!-- 逐专辑编辑 -->
       <section v-for="e in edits" :key="e._storageAlbum" class="eb-card rise">
         <label class="eb-flabel" :for="`album-${e._storageAlbum}`">专辑名称</label>
-        <input :id="`album-${e._storageAlbum}`" v-model="e.album" class="eb-input eb-album" aria-label="专辑名称">
+        <input :id="`album-${e._storageAlbum}`" v-model="e.album" class="eb-input eb-album" aria-label="专辑名称" @input="syncPendingDisplay(e)">
 
         <div class="eb-meta">
           <div v-for="f in META_FIELDS" :key="f.key" class="eb-field">
@@ -870,6 +870,12 @@ function cleanAlbumName(value, fallback) {
   return basename && !/^\.+$/.test(basename) ? basename : fallback;
 }
 
+function syncPendingDisplay(e) {
+  const display = cleanAlbumName(e.album, e._originalAlbum);
+  const item = pending.value.find((p) => p.ref === curRef.value && p.storage_album === e._storageAlbum);
+  if (item) item.album = display;
+}
+
 function stopPoll() { if (pollTimer) { clearInterval(pollTimer); pollTimer = null; } }
 function startPoll() {
   stopPoll();
@@ -920,7 +926,7 @@ async function load(silent = false) {
       clearTimeDrag();
       releaseAllTracks();
       edits.value = (data.albums || []).filter((a) => a.draft)
-        .map((a) => toEdit(a.storage_album || a.album, a.draft));
+        .map((a) => toEdit(a.storage_album, a.draft));
       await nextTick();
       for (const edit of edits.value) await selectTrack(edit);
       msgErr.value = false;
@@ -991,10 +997,14 @@ function removeCover(e) {
 async function save(e) {
   e._saving = true; e._msg = ''; e._err = false;
   try {
+    const draft = toDraft(e);
+    e.album = draft.album;
+    e._originalAlbum = draft.album;
+    syncPendingDisplay(e);
     const resp = await fetch('/api/ingest/save', {
       method: 'POST',
       headers: { 'content-type': 'application/json', ...authHeaders() },
-      body: JSON.stringify({ ref: curRef.value, album: e._storageAlbum, draft: toDraft(e) }),
+      body: JSON.stringify({ ref: curRef.value, album: e._storageAlbum, draft }),
     });
     const data = await resp.json().catch(() => ({}));
     if (resp.ok) {
@@ -1024,7 +1034,7 @@ async function discard(ref, album, displayAlbum = album) {
       msg.value = '丢弃失败：' + (data.message || data.error || resp.status);
       return;
     }
-    pending.value = pending.value.filter((p) => !(p.ref === ref && (p.storage_album || p.album) === album));
+    pending.value = pending.value.filter((p) => !(p.ref === ref && p.storage_album === album));
     for (const edit of edits.value.filter((e) => ref === curRef.value && e._storageAlbum === album)) for (const track of edit.tracks) releaseAudio(track);
     edits.value = edits.value.filter((e) => !(ref === curRef.value && e._storageAlbum === album));
     if (!edits.value.length && ref === curRef.value) {
