@@ -60,7 +60,7 @@ jobs:
       - name: Deploy Worker with static assets
         uses: cloudflare/wrangler-action@v3.14.1
         with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
+          apiToken: ${{ secrets.CF_WORKERS_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           workingDirectory: worker
           command: deploy --containers-rollout=immediate
