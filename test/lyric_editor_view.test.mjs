@@ -143,14 +143,17 @@ test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
   assert.doesNotMatch(source, /flatMap\(\(r\) => \[Number\(r\.time\)/);
 });
 
-test('待处理列表显示实时作业信息并在无当前 ref 时自动载入活跃投稿', async () => {
+test('待处理列表显示实时作业信息，处理中项不可打开且待审核项可打开', async () => {
   const source = await component();
   assert.match(source, /p\.message \|\| pendingStageText\(p\)/);
   assert.match(source, /p\.progress != null/);
   assert.match(source, /function pendingStageText\(item\)/);
-  assert.match(source, /const active = pending\.value\.find\(\(item\) => ACTIVE_JOB_STATES\.has\(item\.state\)\)/);
-  assert.match(source, /if \(!curRef\.value && !refInput\.value\.trim\(\) && active\?\.ref\)/);
-  assert.match(source, /refInput\.value = active\.ref;\s*await load\(\)/);
+  assert.match(source, /:disabled="!canOpenPending\(p\)"/);
+  assert.match(source, /function pendingLockReason\(item\) \{ return isProcessingPending\(item\) \? '处理中，暂不可编辑'/);
+  assert.match(source, /function canOpenPending\(item\) \{ return !isProcessingPending\(item\)/);
+  assert.match(source, /function pick\(p\) \{\s*if \(!canOpenPending\(p\)\) return;/);
+  assert.match(source, /pendingPollTimer = setInterval\(loadPending, 12000\)/);
+  assert.doesNotMatch(source, /const active = pending\.value\.find/);
 });
 
 test('逐字时间轨显示句内偏移、支持单字编辑且只更新整句进度', async () => {

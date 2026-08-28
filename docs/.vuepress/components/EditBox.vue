@@ -4,13 +4,15 @@
     <section v-if="pending.length" class="eb-card">
       <label class="eb-label">待处理投稿</label>
       <ul class="eb-pending">
-        <li v-for="p in pending" :key="p.ref + '/' + p.album" @click="pick(p)">
-          <span class="eb-p-album">{{ p.album }}</span>
-          <span class="eb-p-right">
+        <li v-for="p in pending" :key="p.ref + '/' + p.album" :class="{ processing: isProcessingPending(p) }">
+          <button class="eb-pending-open" type="button" :disabled="!canOpenPending(p)" :aria-label="pendingAriaLabel(p)" @click="pick(p)">
+            <span class="eb-p-album">{{ p.album }}</span>
             <span class="eb-p-meta">
-              {{ p.message || pendingStageText(p) }}<template v-if="p.progress != null"> {{ Math.round(p.progress) }}%</template> · {{ p.ref.slice(0, 7) }}<template v-if="p.contributor"> · @{{ p.contributor }}</template>
+              {{ p.message || pendingStageText(p) }}<template v-if="p.progress != null"> {{ Math.round(p.progress) }}%</template><template v-if="!canOpenPending(p)"> · {{ pendingLockReason(p) }}</template> · {{ p.ref.slice(0, 7) }}<template v-if="p.contributor"> · @{{ p.contributor }}</template>
             </span>
-            <button class="eb-btn small danger" :disabled="discarding" @click.stop="discard(p.ref, p.album)">丢弃</button>
+          </button>
+          <span class="eb-p-right">
+            <button class="eb-btn small danger" :disabled="discarding || isProcessingPending(p)" @click="discard(p.ref, p.album)">丢弃</button>
           </span>
         </li>
       </ul>
@@ -309,6 +311,7 @@ const jobInfo = ref(null);
 const retrying = ref(false);
 const timelineMenu = ref(null);
 let pollTimer = null;
+let pendingPollTimer = null;
 let nextEditorId = 1;
 let dragState = null;
 let historyTrack = null;
@@ -338,6 +341,13 @@ const STAGE_TEXT = {
   awaiting_review: '初稿已生成，等待人工审核', done: '处理完成', failed: '处理失败',
 };
 function pendingStageText(item) { return STAGE_TEXT[item?.stage] || phaseText(item?.status); }
+function isProcessingPending(item) { return ACTIVE_JOB_STATES.has(item?.state) || item?.status === 'processing'; }
+function canOpenPending(item) { return !isProcessingPending(item) && item?.state !== 'failed' && item?.status !== 'failed'; }
+function pendingLockReason(item) { return isProcessingPending(item) ? '处理中，暂不可编辑' : '处理失败，暂不可编辑'; }
+function pendingAriaLabel(item) {
+  const detail = `${item.message || pendingStageText(item)}${item.progress != null ? ` ${Math.round(item.progress)}%` : ''}`;
+  return `${item.album || '未命名投稿'}：${detail}${canOpenPending(item) ? '' : `，${pendingLockReason(item)}`}`;
+}
 const isProcessing = computed(() => ACTIVE_JOB_STATES.has(jobInfo.value?.state));
 const jobPercent = computed(() => {
   const n = Number(jobInfo.value?.progress);
@@ -770,14 +780,10 @@ async function loadPending() {
     if (!resp.ok) return;
     const data = await resp.json().catch(() => ({}));
     pending.value = Array.isArray(data.pending) ? data.pending : [];
-    const active = pending.value.find((item) => ACTIVE_JOB_STATES.has(item.state));
-    if (!curRef.value && !refInput.value.trim() && active?.ref) {
-      refInput.value = active.ref;
-      await load();
-    }
   } catch { /* noop */ }
 }
 function pick(p) {
+  if (!canOpenPending(p)) return;
   refInput.value = p.ref;
   load();
 }
@@ -1054,6 +1060,7 @@ async function continueIngest() {
 onMounted(() => {
   loadCachedRefs();
   loadPending();
+  pendingPollTimer = setInterval(loadPending, 12000);
   window.addEventListener('click', closeTimelineMenu);
   window.addEventListener('keydown', closeTimelineMenuOnEscape);
   window.addEventListener('keydown', handleHistoryShortcut);
@@ -1067,6 +1074,7 @@ function handleHistoryShortcut(event) {
 }
 onBeforeUnmount(() => {
   stopPoll();
+  if (pendingPollTimer) { clearInterval(pendingPollTimer); pendingPollTimer = null; }
   clearTimeDrag();
   window.removeEventListener('click', closeTimelineMenu);
   window.removeEventListener('keydown', closeTimelineMenuOnEscape);
@@ -1285,13 +1293,29 @@ onBeforeUnmount(() => {
   border: 1px solid var(--border-color, #ddd);
   border-radius: 7px;
   margin-bottom: .4rem;
-  cursor: pointer;
   transition: border-color .15s, background .15s;
 }
-.eb-pending li:hover {
+.eb-pending-open {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  justify-content: space-between;
+  align-items: center;
+  gap: .6rem;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.eb-pending li:not(.processing):hover {
   border-color: var(--eb-accent);
   background: color-mix(in srgb, var(--eb-accent) 6%, transparent);
 }
+.eb-pending-open:disabled { cursor: default; opacity: 1; }
+.eb-pending li.processing { border-style: dashed; }
 .eb-p-album { font-weight: 600; }
 .eb-p-right { display: flex; gap: .6rem; align-items: center; }
 .eb-p-meta { font-size: .75rem; opacity: .65; white-space: nowrap; }
