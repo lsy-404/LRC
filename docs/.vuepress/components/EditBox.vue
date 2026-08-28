@@ -150,18 +150,19 @@
               <div v-if="t._view === 'lrc'">
               <div v-for="(r, li) in t.rows" :key="r._id" :ref="(node) => bindLineNode(t, li, node)" class="eb-line-editor">
               <div class="eb-lrc-row">
-                <label class="eb-time"><input v-model.number="r.time" type="number" min="0" step="10" class="eb-input ms" @input="markHistory(t)" @change="normalizeRows(t); lockTiming(t); commitHistory(t)">毫秒</label>
+                <label class="eb-time"><input v-model.number="r.time" type="number" min="0" step="10" class="eb-input ms" @focus="rememberRowTime(r)" @input="markHistory(t)" @change="updateRowTime(t, r)">毫秒</label>
                 <input v-model="r.text" class="eb-input lrc" @input="syncRowText(t, r); markHistory(t)" @blur="commitHistory(t)" @click="recordCursor(r, $event)" @keyup="recordCursor(r, $event)" @select="recordCursor(r, $event)">
                 <button class="eb-btn small" @click="splitFromCursor(t, r, li)">从光标拆分</button><button class="eb-btn small" @click="moveSelectionToNext(t, r, li)">选中移下一句</button><button class="eb-btn small" @click="addLine(t, li)">+ 行</button><button class="eb-btn small danger" @click="removeLine(t, li)">删</button>
               </div>
               <div class="eb-word-timeline" role="region" aria-label="逐字时间轨">
                 <div class="eb-time-track">
                   <span class="eb-time-lead" :style="timelineLeadStyle(r)" aria-hidden="true" />
-                  <div v-for="(word, wi) in r.words" :key="word._id" :ref="(node) => bindTokenNode(t, li, wi, node)" class="eb-time-token" :class="wi % 2 ? 'eb-time-token-lower' : 'eb-time-token-upper'" :style="timelineTokenStyle(t, r, li, wi)">
-                    <span class="eb-time-token-progress" aria-hidden="true" />
+                  <div v-for="(word, wi) in r.words" :key="word._id" :ref="(node) => bindTokenNode(t, li, wi, node)" class="eb-time-token" :style="timelineTokenStyle(t, r, li, wi)">
                     <span class="eb-time-chars"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" tabindex="0" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, ci, $event)" @keydown="openTimelineMenuFromKey(t, r, wi, ci, $event)">{{ char }}</span></span>
                     <button class="eb-time-marker" :aria-label="`调整 ${word.text} 的时间`" @pointerdown="startTimeDrag(t, r, wi, $event)" @pointermove="moveTimeDrag($event)" @pointerup="finishTimeDrag($event)" @pointercancel="finishTimeDrag($event)" @lostpointercapture="finishTimeDrag($event)" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, 0, $event)" @keydown="nudgeWordTime(t, r, wi, $event)"><span>{{ formatMs(word.time) }}</span></button>
                   </div>
+                  <span class="eb-time-trailing" :style="timelineTrailingStyle(t, r, li)" aria-hidden="true" />
+                  <span :ref="(node) => bindRowProgressNode(t, li, node)" class="eb-time-sentence-progress" aria-hidden="true" />
                 </div>
               </div>
               <div v-if="timelineMenu && timelineMenu.rowId === r._id" class="eb-timeline-menu" role="menu" :style="{ left: `${timelineMenu.x}px`, top: `${timelineMenu.y}px` }" @keydown.esc="closeTimelineMenu">
@@ -246,7 +247,7 @@ import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedLeadFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
+  activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedLeadFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, timedTrailingGapMs, timedSentenceEndMs, timedSpanFlexWeight, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, markLyricHistoryDirty, recordLyricHistory, redoLyricHistory, undoLyricHistory } from './lyricHistory.js';
 
@@ -338,6 +339,7 @@ function syncTrackText(t) { t.text = linesToText(t.rows.map((row) => row.text));
 function nextRowTime(t, rowIndex) { return Number(t.rows[rowIndex + 1]?.time); }
 function timelineLeadStyle(row) { return { '--eb-time-grow': timedLeadFlexWeight(row.time, row.words[0]?.time) }; }
 function timelineTokenStyle(t, row, rowIndex, wordIndex) { return { '--eb-time-grow': timedTokenFlexWeight(row.words, wordIndex, nextRowTime(t, rowIndex)) }; }
+function timelineTrailingStyle(t, row, rowIndex) { return { '--eb-time-grow': timedSpanFlexWeight(timedTrailingGapMs(row, nextRowTime(t, rowIndex))) }; }
 function boundedWordTime(t, row, index, time) { const rowIndex = t.rows.findIndex((item) => item._id === row._id); const nextRow = t.rows[rowIndex + 1]; return clampWordTime(row.words, index, time, 10, row.time, index === row.words.length - 1 && nextRow ? Number(nextRow.time) - 10 : Number.POSITIVE_INFINITY); }
 function setHistoryTrack(t) { historyTrack = t; }
 function clearHistoryTrack(t, event) { if (historyTrack === t && !event.currentTarget.contains(event.relatedTarget)) historyTrack = null; }
@@ -349,6 +351,16 @@ function restoreHistory(t, restore) { if (restore(t._history, t)) { closeTimelin
 function undoTrack(t) { restoreHistory(t, undoLyricHistory); }
 function redoTrack(t) { restoreHistory(t, redoLyricHistory); }
 function setWordTime(t, row, index, time) { row.words[index].time = boundedWordTime(t, row, index, time); updateActiveIndices(t, playheadMs(t)); lockTiming(t); commitHistory(t); }
+function rememberRowTime(row) { row._timelineRowTime = Number(row.time) || 0; }
+function updateRowTime(t, row) {
+  const previous = Number(row._timelineRowTime);
+  const current = Math.max(0, Number(row.time) || 0);
+  const delta = current - (Number.isFinite(previous) ? previous : current);
+  row.time = current;
+  if (delta) row.words.forEach((word) => { word.time = Math.max(row.time, (Number(word.time) || row.time) + delta); });
+  delete row._timelineRowTime;
+  normalizeRows(t); lockTiming(t); updateActiveIndices(t, playheadMs(t)); commitHistory(t);
+}
 function nudgeWordTime(t, row, index, event) { if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return; event.preventDefault(); setWordTime(t, row, index, Number(row.words[index].time) + (event.key === 'ArrowLeft' ? -10 : 10)); }
 function closeTimelineMenu() { timelineMenu.value = null; }
 function openTimelineMenu(t, row, wordIndex, charIndex, event) { const x = Math.max(8, Math.min(window.innerWidth - 240, Number(event.clientX) || 8)); const y = Math.max(8, Math.min(window.innerHeight - 120, Number(event.clientY) || 8)); timelineMenu.value = { t, row, rowId: row._id, wordIndex, charIndex, rowIndex: t.rows.findIndex((item) => item._id === row._id), x, y }; nextTick(() => document.querySelector('.eb-timeline-menu [role="menuitem"]:not([disabled])')?.focus()); }
@@ -372,13 +384,18 @@ function removeLine(t, index) { t.rows.splice(index, 1); syncTrackText(t); lockT
 function previewEnd(t) { const row = t.rows[t.rows.length - 1]; const word = row?.words?.[row.words.length - 1]; return Math.max(1000, Number(word?.time || row?.time || 0)) + 1500; }
 function playbackView(t) {
   let view = playbackViews.get(t);
-  if (!view) { view = { lines: [], tokens: [], activeLine: null, activeToken: null, activeLineIndex: -1, activeWordIndex: -1 }; playbackViews.set(t, view); }
+  if (!view) { view = { lines: [], tokens: [], progresses: [], activeLine: null, activeToken: null, activeLineIndex: -1, activeWordIndex: -1 }; playbackViews.set(t, view); }
   return view;
 }
 function bindLineNode(t, index, node) {
   const view = playbackView(t);
   view.lines[index] = node || null;
   if (node && index === view.activeLineIndex) { node.classList.add('active'); view.activeLine = node; }
+}
+function sentenceProgressPercent(t, line, ms) {
+  const row = t.rows[line]; if (!row) return 0;
+  const start = Number(row.time); const end = timedSentenceEndMs(row, nextRowTime(t, line));
+  return Number.isFinite(start) && end > start ? Math.max(0, Math.min(100, ((Number(ms) - start) / (end - start)) * 100)) : 0;
 }
 function tokenProgressPercent(t, line, word, ms) {
   const row = t.rows[line];
@@ -406,10 +423,15 @@ function bindTokenNode(t, line, word, node) {
     setTokenProgress(node, tokenProgressPercent(t, line, word, playheadMs(t)));
   }
 }
+function bindRowProgressNode(t, line, node) {
+  const view = playbackView(t); view.progresses[line] = node || null;
+  if (node && line === view.activeLineIndex) node.style.setProperty('--eb-sentence-progress', `${sentenceProgressPercent(t, line, playheadMs(t))}%`);
+}
 function updateActiveIndices(t, ms = playheadMs(t)) {
   const view = playbackView(t);
   const line = activeIndexAt(t.rows, ms);
   const word = activeIndexAt(t.rows[line]?.words || [], ms);
+  const previousLine = view.activeLineIndex;
   const nextLine = line >= 0 ? view.lines[line] : null;
   const nextToken = word >= 0 ? view.tokens[line]?.[word] : null;
   if (view.activeLine !== nextLine) {
@@ -426,6 +448,9 @@ function updateActiveIndices(t, ms = playheadMs(t)) {
   }
   view.activeWordIndex = word;
   setTokenProgress(nextToken, tokenProgressPercent(t, line, word, ms));
+  const progress = view.progresses[line];
+  if (previousLine !== line) view.progresses.forEach((node, index) => { if (node && index !== line) node.style.removeProperty('--eb-sentence-progress'); });
+  if (progress) progress.style.setProperty('--eb-sentence-progress', `${sentenceProgressPercent(t, line, ms)}%`);
 }
 function clearPlaybackView(t) {
   const view = playbackViews.get(t);
@@ -968,12 +993,10 @@ onBeforeUnmount(() => {
 .eb-word-timeline { overflow-x: auto; padding: .4rem .2rem; contain: layout paint; border-top: 1px solid var(--border-color, #ddd); }
 .eb-time-track { display: flex; width: 100%; min-width: max-content; gap: 0; }
 .eb-time-lead { box-sizing: border-box; flex: var(--eb-time-grow, 0) 1 0; min-width: 0; border-right: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
-.eb-time-token { --eb-token-progress: 0%; position: relative; box-sizing: border-box; display: flex; flex: var(--eb-time-grow, 1) 1 max-content; min-width: max-content; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
-.eb-time-token-lower { padding-top: .35rem; }
-.eb-time-token-upper { padding-bottom: .35rem; }
+.eb-time-token { position: relative; box-sizing: border-box; display: flex; flex: var(--eb-time-grow, 1) 1 max-content; min-width: max-content; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
 .eb-time-token.active { background: color-mix(in srgb, var(--eb-accent) 12%, transparent); }
-.eb-time-token-progress { position: absolute; right: .12rem; bottom: 0; left: .12rem; height: 3px; border-radius: 999px; opacity: 0; pointer-events: none; background: linear-gradient(to right, var(--eb-accent) var(--eb-token-progress), color-mix(in srgb, var(--border-color, #ddd) 65%, transparent) var(--eb-token-progress)); }
-.eb-time-token.active .eb-time-token-progress { opacity: 1; }
+.eb-time-trailing { flex: var(--eb-time-grow, 1) 1 0; min-width: 0; border-left: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
+.eb-time-sentence-progress { position: absolute; right: 0; bottom: 0; left: 0; height: 3px; pointer-events: none; background: linear-gradient(to right, var(--eb-accent) var(--eb-sentence-progress, 0%), color-mix(in srgb, var(--border-color, #ddd) 65%, transparent) var(--eb-sentence-progress, 0%)); }
 .eb-time-chars { display: flex; min-width: 2.4rem; min-height: 1.4rem; padding: .12rem .18rem; }
 .eb-time-marker { align-self: flex-start; writing-mode: vertical-rl; padding: .15rem; border: 0; border-radius: 3px; background: transparent; color: var(--eb-accent); cursor: ew-resize; font-size: .62rem; }
 .eb-time-char { min-width: .8em; padding: .12rem .04rem; border-right: 1px dotted color-mix(in srgb, var(--border-color, #ddd) 75%, transparent); cursor: context-menu; }

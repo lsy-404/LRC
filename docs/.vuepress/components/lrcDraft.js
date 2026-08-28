@@ -180,6 +180,35 @@ export function timedLeadFlexWeight(rowTime, firstTime) {
   return timedSpanFlexWeight(first - start);
 }
 
+// Average character duration is derived from the sentence interval when available.
+export function timedCharacterAverageMs(row, nextRowTime, defaultMs = 500) {
+  const start = Number(row?.time);
+  const count = Array.from(String(row?.text || row?.words?.map((word) => word.text).join('') || '')).length;
+  if (!count) return Math.max(1, Number(defaultMs) || 500);
+  const end = Number(nextRowTime);
+  if (Number.isFinite(start) && Number.isFinite(end) && end > start) return Math.max(1, (end - start) / count);
+  const times = (row?.words || []).map((word) => Number(word.time)).filter(Number.isFinite);
+  const gaps = times.slice(1).map((time, index) => time - times[index]).filter((gap) => gap > 0);
+  return gaps.length ? Math.max(1, gaps.reduce((sum, gap) => sum + gap, 0) / gaps.length) : Math.max(1, Number(defaultMs) || 500);
+}
+
+// The trailing blank is capped by the next sentence and defaults to four characters.
+export function timedTrailingGapMs(row, nextRowTime, defaultMs = 500) {
+  const average = timedCharacterAverageMs(row, nextRowTime, defaultMs);
+  const last = Number(row?.words?.[row.words.length - 1]?.time);
+  const next = Number(nextRowTime);
+  const available = Number.isFinite(last) && Number.isFinite(next) && next > last ? next - last : Number.POSITIVE_INFINITY;
+  return Math.max(0, Math.min(average * 4, available));
+}
+
+export function timedSentenceEndMs(row, nextRowTime, defaultMs = 500) {
+  const start = Number(row?.time);
+  const next = Number(nextRowTime);
+  if (Number.isFinite(next) && next > start) return next;
+  const last = Number(row?.words?.[row.words.length - 1]?.time);
+  return Math.max(Number.isFinite(start) ? start : 0, Number.isFinite(last) ? last : 0) + timedTrailingGapMs(row, undefined, defaultMs);
+}
+
 export function splitRowAtTokenBoundary(rows, rowIndex, wordIndex, charIndex, createId = () => undefined) {
   const list = [...rows]; const row = list[rowIndex]; if (!row) return list;
   if (wordIndex === 0 && charIndex === 0) return list;
