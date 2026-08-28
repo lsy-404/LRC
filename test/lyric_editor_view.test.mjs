@@ -80,13 +80,13 @@ test('多专辑播放状态按曲目扁平管理，资源切换和状态转换�
   assert.match(source, /error\?\.name !== 'AbortError'/);
 });
 
-test('整行编辑保存逐字对象，并提供上下文、插入、删除三个紧凑按钮', async () => {
+test('整行编辑保存逐字对象，并提供上下文、插入、合音、删除四个紧凑按钮', async () => {
   const source = await component();
   assert.match(source, /reconcileWordCharacters\(row\.words, row\.text, newId, row\.time\)/);
   assert.match(source, /@select="recordCursor\(r, \$event\)"/);
   assert.match(source, /aria-label="插入歌词行"/);
   assert.match(source, /aria-label="删除歌词行"/);
-  assert.equal((source.split('<script setup>')[0].match(/eb-icon-btn/g) || []).length, 3);
+  assert.equal((source.split('<script setup>')[0].match(/eb-icon-btn/g) || []).length, 4);
   assert.match(source, /textRowBoundaryIcon\(r, li\)[\s\S]*?textRowBoundaryAction\(row, rowIndex\) === 'merge' \? '↤' : '✂'/);
   assert.doesNotMatch(source, /moveTimedSelection|moveSelectionToNext/);
   assert.match(source, /function applyTextRowBoundary\(t, row, rowIndex\) \{\s*const action = textRowBoundaryAction\(row, rowIndex\)/);
@@ -269,4 +269,11 @@ test('专辑名称可编辑但审核存储定位保持原投稿名', async () =>
   assert.match(source, /names\.zh_name =/);
   assert.match(source, /const draft = toDraft\(e\)/);
   assert.match(source, /e\.album = draft\.album/);
+});
+
+test('合音迁移使用紧凑图标按钮并保留可访问名称', async () => {
+  const source = await component();
+  assert.match(source, /class="eb-btn small eb-icon-btn" :aria-label="t\._selectedVocal \? '并回主唱' : '标为合音'"/);
+  assert.match(source, /function harmonyRowIcon\(track\) \{ return track\._selectedVocal \? '↩' : '♫'; \}/);
+  assert.match(source, /toggleHarmonyRow\(t, r\)\">\{\{ harmonyRowIcon\(t\) \}\}/);
 });
