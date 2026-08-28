@@ -83,11 +83,11 @@ test('整行编辑保存逐字对象，并提供上下文、插入、删除三�
   const source = await component();
   assert.match(source, /reconcileWordCharacters\(row\.words, row\.text, newId, row\.time\)/);
   assert.match(source, /@select="recordCursor\(r, \$event\)"/);
-  assert.match(source, /textRowBoundaryIcon\(t, r, li\)/);
   assert.match(source, /aria-label="插入歌词行"/);
   assert.match(source, /aria-label="删除歌词行"/);
   assert.equal((source.split('<script setup>')[0].match(/eb-icon-btn/g) || []).length, 3);
-  assert.match(source, /textRowBoundaryIcon\(t, r, li\)[\s\S]*?textRowBoundaryAction\(t, row, rowIndex\) === 'merge' \? '↤' : '✂'/);
+  assert.match(source, /textRowBoundaryIcon\(r, li\)[\s\S]*?textRowBoundaryAction\(row, rowIndex\) === 'merge' \? '↤' : '✂'/);
+  assert.doesNotMatch(source, /moveTimedSelection|moveSelectionToNext/);
   assert.doesNotMatch(source, /选中移下一句/);
   assert.match(source, /utf16ToCodePointIndex\(row\.text, event\.target\.selectionStart\)/);
   assert.match(source, /function syncTrackText\(t\)/);
@@ -116,6 +116,9 @@ test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
   assert.match(source, /event\.key === ' '/);
   assert.match(source, /event\.key === 'ArrowUp' \|\| event\.key === 'ArrowDown'/);
   assert.match(source, /nudgePlayhead\(t, event\.key === 'ArrowLeft' \? -1000 : 1000\)/);
+  assert.match(source, /function seekTrack\(t, ms\)/);
+  assert.match(source, /seekTrack\(t, Number\(t\.rows\[next\]\?\.time\) \|\| 0\)/);
+  assert.match(source, /if \(event\.repeat\) return/);
   assert.match(source, /if \(t\._audioUrl && !t\._audioErr\) toggleSource\(t\); else togglePreview\(t\)/);
   assert.match(source, /input, textarea, select, button/);
   assert.match(source, /activeIndexAt\(t\.rows, ms\)/);

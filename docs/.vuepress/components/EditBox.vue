@@ -152,7 +152,7 @@
               <div class="eb-lrc-row">
                 <label class="eb-time"><input v-model.number="r.time" type="number" min="0" step="10" class="eb-input ms" @focus="beginRowTimeEdit(r)" @input="shiftRowTime(t, r)" @change="finishRowTimeEdit(t, r)" @blur="finishRowTimeEdit(t, r)">毫秒</label>
                 <input v-model="r.text" class="eb-input lrc" @input="syncRowText(t, r); markHistory(t)" @blur="commitHistory(t)" @click="recordCursor(r, $event)" @keyup="recordCursor(r, $event)" @select="recordCursor(r, $event)">
-                <button class="eb-btn small eb-icon-btn" :disabled="textRowBoundaryAction(t, r, li) === 'none'" :aria-label="textRowBoundaryLabel(t, r, li)" :title="textRowBoundaryLabel(t, r, li)" @click="applyTextRowBoundary(t, r, li)">{{ textRowBoundaryIcon(t, r, li) }}</button><button class="eb-btn small eb-icon-btn" aria-label="插入歌词行" title="插入歌词行" @click="addLine(t, li)">＋</button><button class="eb-btn small danger eb-icon-btn" aria-label="删除歌词行" title="删除歌词行" @click="removeLine(t, li)">×</button>
+                <button class="eb-btn small eb-icon-btn" :disabled="textRowBoundaryAction(r, li) === 'none'" :aria-label="textRowBoundaryLabel(r, li)" :title="textRowBoundaryLabel(r, li)" @click="applyTextRowBoundary(t, r, li)">{{ textRowBoundaryIcon(r, li) }}</button><button class="eb-btn small eb-icon-btn" aria-label="插入歌词行" title="插入歌词行" @click="addLine(t, li)">＋</button><button class="eb-btn small danger eb-icon-btn" aria-label="删除歌词行" title="删除歌词行" @click="removeLine(t, li)">×</button>
               </div>
               <div class="eb-word-timeline" role="region" aria-label="逐字时间轨">
                 <div class="eb-time-track">
@@ -246,7 +246,7 @@ import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedCharacterAverageMs, timedLastTokenSpanMs, timedLeadFlexWeight, timedSentenceEndMs, timedSpanFlexWeight, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
+  activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedCharacterAverageMs, timedLastTokenSpanMs, timedLeadFlexWeight, timedSentenceEndMs, timedSpanFlexWeight, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, markLyricHistoryDirty, recordLyricHistory, redoLyricHistory, undoLyricHistory } from './lyricHistory.js';
 
@@ -423,16 +423,19 @@ function applyRowBoundary() {
   else menu.t.rows = splitRowAtTokenBoundary(menu.t.rows, menu.rowIndex, menu.wordIndex, menu.charIndex, newId);
   syncTrackText(menu.t); lockTiming(menu.t); commitHistory(menu.t); closeTimelineMenu();
 }
-function textRowBoundaryAction(t, row, rowIndex) {
+function textRowBoundaryAction(row, rowIndex) {
   const cursor = row._selection?.start ?? Array.from(row.text || '').length;
   if (rowIndex > 0 && cursor === 0) return 'merge';
   return cursor > 0 && cursor < Array.from(row.text || '').length ? 'split' : 'none';
 }
-function textRowBoundaryLabel(t, row, rowIndex) {
-  const action = textRowBoundaryAction(t, row, rowIndex);
-  return action === 'merge' ? '合并到上一句' : action === 'split' ? '从光标拆分' : '首句首光标无需操作';
+function textRowBoundaryLabel(row, rowIndex) {
+  const action = textRowBoundaryAction(row, rowIndex);
+  if (action === 'merge') return '合并到上一句';
+  if (action === 'split') return '从光标拆分';
+  const cursor = row._selection?.start ?? Array.from(row.text || '').length;
+  return cursor === 0 && rowIndex === 0 ? '首句首光标无需操作' : '行尾无有效切点';
 }
-function textRowBoundaryIcon(t, row, rowIndex) { return textRowBoundaryAction(t, row, rowIndex) === 'merge' ? '↤' : '✂'; }
+function textRowBoundaryIcon(row, rowIndex) { return textRowBoundaryAction(row, rowIndex) === 'merge' ? '↤' : '✂'; }
 function applyTextRowBoundary(t, row, rowIndex) {
   const action = textRowBoundaryAction(t, row, rowIndex);
   if (action === 'merge') t.rows = mergeTimedRows(t.rows, rowIndex);
@@ -445,12 +448,12 @@ function handleWorkbenchShortcut(t, event) {
   if (target instanceof HTMLElement && (target.matches('input, textarea, select, button, [contenteditable="true"], [contenteditable="plaintext-only"]') || target.closest('button'))) return;
   if (event.metaKey || event.ctrlKey || event.altKey) return;
   const line = playbackView(t).activeLineIndex >= 0 ? playbackView(t).activeLineIndex : 0;
-  if (event.key === ' ') { event.preventDefault(); if (t._audioUrl && !t._audioErr) toggleSource(t); else togglePreview(t); return; }
+  if (event.key === ' ') { if (event.repeat) return; event.preventDefault(); if (t._audioUrl && !t._audioErr) toggleSource(t); else togglePreview(t); return; }
   if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
     event.preventDefault(); nudgePlayhead(t, event.key === 'ArrowLeft' ? -1000 : 1000); return;
   }
   if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-    event.preventDefault(); const next = Math.max(0, Math.min(t.rows.length - 1, line + (event.key === 'ArrowUp' ? -1 : 1))); setPlayhead(t, Number(t.rows[next]?.time) || 0, true); playbackView(t).lines[next]?.scrollIntoView({ block: 'nearest' });
+    event.preventDefault(); const next = Math.max(0, Math.min(t.rows.length - 1, line + (event.key === 'ArrowUp' ? -1 : 1))); seekTrack(t, Number(t.rows[next]?.time) || 0); playbackView(t).lines[next]?.scrollIntoView({ block: 'nearest' });
   }
 }
 function clearTimeDrag() {
@@ -484,7 +487,6 @@ function syncRowText(t, row) { row.words = reconcileWordCharacters(row.words, ro
 function applyWholeText(t) { t.rows = reconcileTimedRows(t.rows, t.text, newId); normalizeRows(t); t.timingLocked = true; updateActiveIndices(t, playheadMs(t)); commitHistory(t); }
 function recordCursor(row, event) { row._selection = { start: utf16ToCodePointIndex(row.text, event.target.selectionStart), end: utf16ToCodePointIndex(row.text, event.target.selectionEnd) }; }
 function splitFromCursor(t, row, index) { t.rows = splitTimedRow(t.rows, index, row._selection?.start ?? Array.from(row.text).length, newId); syncTrackText(t); lockTiming(t); commitHistory(t); }
-function moveSelectionToNext(t, row, index) { t.rows = moveTimedSelection(t.rows, index, row._selection?.start ?? 0, row._selection?.end ?? 0, newId); syncTrackText(t); lockTiming(t); commitHistory(t); }
 function lockTiming(t) { t.timingLocked = true; }
 function addLine(t, index) { const time = Math.max(0, Number(t.rows[index]?.time || 0) + 1000); t.rows.splice(index + 1, 0, { _id: newId(), time, text: '', words: [{ _id: newId(), time, text: '' }] }); syncTrackText(t); lockTiming(t); commitHistory(t); }
 function removeLine(t, index) { t.rows.splice(index, 1); syncTrackText(t); lockTiming(t); commitHistory(t); }
@@ -553,7 +555,8 @@ function bindProgressNode(t, node) { t._progressNode = node || null; updatePlayb
 function bindPlayerTimeNode(t, node) { t._playerTimeNode = node || null; updatePlaybackDom(t); }
 function updatePlaybackDom(t) { const ms = playheadMs(t); if (t._progressNode) t._progressNode.value = String(ms); if (t._playerTimeNode) t._playerTimeNode.textContent = t._audioUrl && !t._audioErr ? `${formatMs(ms)} / ${formatMs(t._audioDuration)}` : formatMs(ms); }
 function setPlayhead(t, ms, commit = false) { const next = Math.max(0, Math.round(Number(ms) || 0)); playheads.set(t, next); updateActiveIndices(t, next); updatePlaybackDom(t); if (commit) t._previewMs = next; }
-function nudgePlayhead(t, delta) { const next = Math.max(0, playheadMs(t) + delta); setPlayhead(t, next, true); if (t._audioElement) t._audioElement.currentTime = next / 1000; }
+function seekTrack(t, ms) { const end = t._audioUrl && !t._audioErr ? sourceEnd(t) : previewEnd(t); const next = Math.max(0, Math.min(end, Math.round(Number(ms) || 0))); setPlayhead(t, next, true); if (t._audioElement) t._audioElement.currentTime = next / 1000; }
+function nudgePlayhead(t, delta) { seekTrack(t, playheadMs(t) + delta); }
 function cancelSourceTimer(t) { if (t._sourceTimer) { clearInterval(t._sourceTimer); t._sourceTimer = null; } }
 function allTracks() { return edits.value.flatMap((edit) => edit.tracks); }
 function pausePreview(t) { t._playing = false; if (t._previewTimer) { clearInterval(t._previewTimer); t._previewTimer = null; } setPlayhead(t, playheadMs(t), true); }
