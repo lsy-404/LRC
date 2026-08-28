@@ -45,14 +45,31 @@ function jobContext() {
   };
 }
 
+function readyBucket() {
+  return {
+    get: async (key) => {
+      const ref = key.split('/')[1];
+      return { text: async () => JSON.stringify({
+        version: 2, album: '测试专辑', session: ref,
+        files: [{ n: 0, path: '测试专辑/音轨.mp3', size: 4 }],
+      }) };
+    },
+    head: async () => ({ size: 4 }),
+  };
+}
+
+function runnerEnv(fetch) {
+  return { UPLOAD_BUCKET: readyBucket(), RUNNER: { getByName: () => ({ fetch }) } };
+}
+
 test('start 先持久化并排队，不等待容器冷启动', async () => {
   const IngestJob = await loadJob();
   const ctx = jobContext();
   const calls = [];
-  const job = new IngestJob(ctx, { RUNNER: { getByName: () => ({ fetch: async (...args) => {
+  const job = new IngestJob(ctx, runnerEnv(async (...args) => {
     calls.push(args);
     return new Response('', { status: 200 });
-  } }) } });
+  }));
   const response = await job.fetch(new Request('https://job/start', {
     method: 'POST', body: JSON.stringify({ kind: 'phase_a', params: { ref: 'a'.repeat(32) } }),
   }));
@@ -68,10 +85,10 @@ test('首次 alarm 直接派发已持久化作业', async () => {
   const IngestJob = await loadJob();
   const ctx = jobContext();
   const calls = [];
-  const job = new IngestJob(ctx, { RUNNER: { getByName: () => ({ fetch: async (url, init) => {
+  const job = new IngestJob(ctx, runnerEnv(async (url, init) => {
     calls.push({ url, init });
     return new Response('', { status: 202 });
-  } }) } });
+  }));
   await job.fetch(new Request('https://job/start', {
     method: 'POST', body: JSON.stringify({ kind: 'phase_a', params: { ref: 'b'.repeat(32) } }),
   }));
@@ -87,13 +104,13 @@ test('首次 alarm 直接派发已持久化作业', async () => {
 test('轮询把容器阶段和进度持久化给状态接口', async () => {
   const IngestJob = await loadJob();
   const ctx = jobContext();
-  const job = new IngestJob(ctx, { RUNNER: { getByName: () => ({ fetch: async (url) => {
+  const job = new IngestJob(ctx, runnerEnv(async (url) => {
     if (url.endsWith('/run')) return new Response('', { status: 202 });
     return new Response(JSON.stringify({
       state: 'running', stage: 'downloading', progress: 23,
       message: '正在读取原料（2/9）', updated_at: '2026-08-26T12:00:00Z',
     }), { status: 200 });
-  } }) } });
+  }));
   await job.fetch(new Request('https://job/start', {
     method: 'POST', body: JSON.stringify({ kind: 'phase_a', params: { ref: 'c'.repeat(32) } }),
   }));
@@ -109,9 +126,9 @@ test('轮询把容器阶段和进度持久化给状态接口', async () => {
 test('派发失败后保留同一作业并排队重试', async () => {
   const IngestJob = await loadJob();
   const ctx = jobContext();
-  const job = new IngestJob(ctx, { RUNNER: { getByName: () => ({ fetch: async () => {
+  const job = new IngestJob(ctx, runnerEnv(async () => {
     throw new Error('container warming');
-  } }) } });
+  }));
   await job.fetch(new Request('https://job/start', {
     method: 'POST', body: JSON.stringify({ kind: 'phase_a', params: { ref: 'd'.repeat(32) } }),
   }));
@@ -121,4 +138,76 @@ test('派发失败后保留同一作业并排队重试', async () => {
   assert.equal(ctx.job.attempts, 1);
   assert.equal(ctx.job.jobId, jobId);
   assert.equal(ctx.job.stage, 'retrying');
+});
+
+test('Phase A 原料缺失时记录明确失败且绝不触达 Container', async () => {
+  const IngestJob = await loadJob();
+  const ctx = jobContext();
+  let calls = 0;
+  const bucket = {
+    get: async () => ({ text: async () => JSON.stringify({
+      version: 2, album: '测试专辑', session: 'e'.repeat(32),
+      files: [{ n: 7, path: '测试专辑/丢失.mp3', size: 12 }],
+    }) }),
+    head: async () => null,
+  };
+  const job = new IngestJob(ctx, {
+    UPLOAD_BUCKET: bucket,
+    RUNNER: { getByName: () => ({ fetch: async () => { calls += 1; return new Response(); } }) },
+  });
+  await job.fetch(new Request('https://job/start', {
+    method: 'POST', body: JSON.stringify({ kind: 'phase_a', params: { ref: 'e'.repeat(32) } }),
+  }));
+  await job.alarm();
+  assert.equal(ctx.job.state, 'failed');
+  assert.match(ctx.job.error, /原料预检失败：缺少上传对象 7/);
+  assert.equal(calls, 0);
+});
+
+test('Phase A 对象大小不符时记录清单与存储大小且绝不触达 Container', async () => {
+  const IngestJob = await loadJob();
+  const ctx = jobContext();
+  let calls = 0;
+  const bucket = {
+    get: async () => ({ text: async () => JSON.stringify({
+      version: 2, album: '测试专辑', session: 'f'.repeat(32),
+      files: [{ n: 1, path: '测试专辑/音轨.mp3', size: 12 }],
+    }) }),
+    head: async () => ({ size: 11 }),
+  };
+  const job = new IngestJob(ctx, {
+    UPLOAD_BUCKET: bucket,
+    RUNNER: { getByName: () => ({ fetch: async () => { calls += 1; return new Response(); } }) },
+  });
+  await job.fetch(new Request('https://job/start', {
+    method: 'POST', body: JSON.stringify({ kind: 'phase_a', params: { ref: 'f'.repeat(32) } }),
+  }));
+  await job.alarm();
+  assert.equal(ctx.job.state, 'failed');
+  assert.match(ctx.job.error, /大小不匹配（清单 12，存储 11）/);
+  assert.equal(calls, 0);
+});
+
+test('Phase A 总大小超过基础盘安全上限时不触达 Container', async () => {
+  const IngestJob = await loadJob();
+  const ctx = jobContext();
+  let calls = 0;
+  const bucket = {
+    get: async () => ({ text: async () => JSON.stringify({
+      version: 2, album: '测试专辑', session: '1'.repeat(32),
+      files: [{ n: 0, path: '测试专辑/超大.flac', size: Math.ceil(1.26 * 1024 * 1024 * 1024) }],
+    }) }),
+    head: async () => ({ size: Math.ceil(1.26 * 1024 * 1024 * 1024) }),
+  };
+  const job = new IngestJob(ctx, {
+    UPLOAD_BUCKET: bucket,
+    RUNNER: { getByName: () => ({ fetch: async () => { calls += 1; return new Response(); } }) },
+  });
+  await job.fetch(new Request('https://job/start', {
+    method: 'POST', body: JSON.stringify({ kind: 'phase_a', params: { ref: '1'.repeat(32) } }),
+  }));
+  await job.alarm();
+  assert.equal(ctx.job.state, 'failed');
+  assert.match(ctx.job.error, /上传总大小 1\.26 GiB 超过 1\.25 GiB 上限；请拆分专辑后重试/);
+  assert.equal(calls, 0);
 });

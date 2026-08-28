@@ -10,10 +10,41 @@ const MAX_RUN_MS = 60 * 60 * 1000;
 const HOUR_MS = 60 * 60 * 1000;
 
 const ACTIVE_STATES = new Set(['queued', 'dispatching', 'running']);
+const MAX_UPLOAD_FILES = 500;
+const MAX_UPLOAD_BYTES = 1.25 * 1024 * 1024 * 1024;
 
 function progress(value) {
   const number = Number(value);
   return Number.isFinite(number) ? Math.max(0, Math.min(100, Math.round(number))) : null;
+}
+
+function preflightError(message) {
+  return `原料预检失败：${message}`;
+}
+
+function bytesLabel(bytes) {
+  return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GiB`;
+}
+
+function validAlbum(value) {
+  return typeof value === 'string' && value.trim() && value.length <= 120
+    && !/[\\/\u0000-\u001f\u007f]/.test(value);
+}
+
+function validPath(value) {
+  if (typeof value !== 'string' || !value || value.length > 2000) return false;
+  const parts = value.normalize('NFC').replaceAll('\\', '/').split('/');
+  return parts.length <= 10 && parts.every((part) => part && part !== '.' && part !== '..'
+    && part.length <= 200 && !/[\u0000-\u001f\u007f]/.test(part));
+}
+
+function validFile(file, ref, seen) {
+  if (!file || typeof file !== 'object' || !Number.isInteger(file.n)
+      || file.n < 0 || file.n >= MAX_UPLOAD_FILES || seen.has(file.n)
+      || !validPath(file.path)
+      || !Number.isSafeInteger(file.size) || file.size < 0) return null;
+  seen.add(file.n);
+  return `web/${ref}/${file.n}`;
 }
 
 export class IngestJob extends DurableObject {
@@ -91,6 +122,52 @@ export class IngestJob extends DurableObject {
 
   #container(job) {
     return this.env.RUNNER.getByName(job.kind === 'generate' ? 'generate' : job.ref);
+  }
+
+  async #preflightPhaseA(job) {
+    const ref = job.params?.ref;
+    if (typeof ref !== 'string' || !ref) return preflightError('缺少投稿标识');
+    let manifestObject;
+    try {
+      manifestObject = await this.env.UPLOAD_BUCKET?.get(`web/${ref}/manifest.json`);
+    } catch {
+      return preflightError('无法读取上传清单');
+    }
+    if (!manifestObject) return preflightError('找不到上传清单');
+
+    let manifest;
+    try {
+      manifest = JSON.parse(await manifestObject.text());
+    } catch {
+      return preflightError('上传清单不是有效 JSON');
+    }
+    if (!manifest || manifest.version !== 2 || !validAlbum(manifest.album)
+        || manifest.session !== ref || !Array.isArray(manifest.files)
+        || !manifest.files.length || manifest.files.length > MAX_UPLOAD_FILES) {
+      return preflightError('上传清单结构无效');
+    }
+
+    const seen = new Set();
+    let totalSize = 0;
+    for (const file of manifest.files) {
+      const key = validFile(file, ref, seen);
+      if (!key) return preflightError('上传文件条目无效');
+      totalSize += file.size;
+      if (totalSize > MAX_UPLOAD_BYTES) {
+        return preflightError(`上传总大小 ${bytesLabel(totalSize)} 超过 ${bytesLabel(MAX_UPLOAD_BYTES)} 上限；请拆分专辑后重试`);
+      }
+      let object;
+      try {
+        object = await this.env.UPLOAD_BUCKET.head(key);
+      } catch {
+        return preflightError(`无法读取上传对象 ${file.n}`);
+      }
+      if (!object) return preflightError(`缺少上传对象 ${file.n}`);
+      if (object.size !== file.size) {
+        return preflightError(`上传对象 ${file.n} 大小不匹配（清单 ${file.size}，存储 ${object.size}）`);
+      }
+    }
+    return null;
   }
 
   async #dispatch(job) {
@@ -171,6 +248,21 @@ export class IngestJob extends DurableObject {
     // 派发请求本身也可能被冷启动中断；先保留一次闹钟，重入同一 jobId 是幂等的。
     await this.ctx.storage.setAlarm(Date.now() + POLL_MS);
     try {
+      if (starting.kind === 'phase_a') {
+        const checking = {
+          ...starting,
+          stage: 'preflight',
+          progress: Math.max(progress(starting.progress) || 0, 10),
+          message: '正在核对上传原料',
+          updatedAt: Date.now(),
+        };
+        await this.ctx.storage.put('job', checking);
+        const error = await this.#preflightPhaseA(checking);
+        if (error) {
+          await this.#fail(checking, error);
+          return;
+        }
+      }
       await this.#dispatch(starting);
       const running = {
         ...starting,
