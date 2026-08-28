@@ -100,6 +100,9 @@
             <span v-if="showLowCov(t)" class="eb-tag cov" title="时间轴对齐覆盖率低，时间戳可能不准">
               对齐覆盖 {{ pct(t.coverage) }}
             </span>
+            <span v-if="t.authoritativeLrc" class="eb-tag" title="上传的 LRC 原文与行时间戳受保护；仅补充逐字侧车和元数据">
+              权威 LRC
+            </span>
             <span v-if="isDirty(t)" class="eb-tag edit" title="确认后 Phase B 会对该轨重新对齐">
               已修改 · 待重对齐
             </span>
@@ -110,7 +113,7 @@
           <div class="eb-track-bar">
             <span class="eb-dim">{{ trackState(t) }}</span>
             <span class="eb-spacer" />
-            <button class="eb-btn small" @click="simplifyTrack(t)">转简体/清理水印</button>
+            <button class="eb-btn small" :disabled="t.authoritativeLrc" @click="simplifyTrack(t)">转简体/清理水印</button>
             <button class="eb-btn small" :disabled="!canUndo(t)" @click="undoTrack(t)">撤回</button>
             <button class="eb-btn small" :disabled="!canRedo(t)" @click="redoTrack(t)">恢复</button>
           </div>
@@ -776,6 +779,7 @@ function sourceReady(t, event) {
   event.target.playbackRate = Number(t._speed);
 }
 function simplifyTrack(t) {
+  if (t.authoritativeLrc) return;
   const clean = (text) => removeKnownSttWatermarks(toSimplified(text));
   t.title = clean(t.title);
   t.head = t.head.map(clean);
@@ -848,7 +852,7 @@ function toEdit(album, draft) {
       const vocals = parseVocalDrafts(t).map(makeVocal);
       const primary = vocals[0];
       const track = {
-        _id: newId(), order: t.order, title: t.title || '', inst: !!t.inst, outputName: t.output_name || '', finalName: t.final_name || '', confidence: t.confidence,
+        _id: newId(), order: t.order, title: t.title || '', inst: !!t.inst, authoritativeLrc: !!t.authoritative_lrc, outputName: t.output_name || '', finalName: t.final_name || '', confidence: t.confidence,
         coverage: t.coverage, audio: t.audio || '', klrc: t.klrc || '',
         head: primary.head, rows: primary.rows, timingLocked: primary.timingLocked, _view: primary._view, _playing: false, _speed: 1, _previewMs: 0, _textDirty: false,
         _audioUrl: '', _audioElement: null, _audioLoading: false, _audioAbort: null, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _sourceTimer: null, _previewTimer: null, _volume: 1,
@@ -877,6 +881,16 @@ function toDraft(e) {
   }
   // 展开 _orig 以原样透传 lrc/klrc/coverage/audio/aligned 等对齐产物字段
   const tracks = e.tracks.map((t) => {
+    if (t.authoritativeLrc) {
+      return {
+        ...t._orig,
+        order: Number(t.order) || t._orig.order,
+        title: t.title.trim(),
+        output_name: t.outputName.trim(),
+        final_name: t._orig.final_name || '',
+        edited: false,
+      };
+    }
     persistVocal(t);
     const timing = serializeVocalDrafts(t._vocals);
     return {

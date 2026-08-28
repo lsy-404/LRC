@@ -32,9 +32,9 @@ if str(_SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(_SCRIPTS_DIR))
 
 if __package__ in (None, ""):
-    from ingest import _llm, align as align_mod, lyrics as lyrics_mod, websearch as web_mod  # type: ignore
+    from ingest import _llm, align as align_mod, authority_lrc as authority_mod, lyrics as lyrics_mod, websearch as web_mod  # type: ignore
 else:
-    from . import _llm, align as align_mod, lyrics as lyrics_mod, websearch as web_mod
+    from . import _llm, align as align_mod, authority_lrc as authority_mod, lyrics as lyrics_mod, websearch as web_mod
 
 try:
     import tomllib  # py311+
@@ -736,6 +736,27 @@ def build_track_lrc(
     return header + "\n".join(lines) + "\n", 0.0, None
 
 
+def build_authoritative_track(
+    track: dict,
+    audio_words: dict[str, list],
+    used: set,
+    audio_langs: dict[str, str] | None = None,
+) -> tuple[str, float, Optional[str]]:
+    """Retain uploaded LRC verbatim and optionally attach a bounded KLRC sidecar."""
+    source_lrc = str(track.get("lrc") or "")
+    lines = track.get("lines") or []
+    audio = track.get("file") if track.get("file") in (audio_words or {}) else (
+        match_audio_to_track(lines, audio_words, used, audio_langs) if audio_words else None)
+    if not audio:
+        track["audio"] = ""
+        return source_lrc, 0.0, None
+    used.add(audio)
+    track["audio"] = audio
+    klrc, coverage = authority_mod.build_authoritative_klrc(source_lrc, audio_words[audio])
+    print(f"  ♪ {track.get('title', audio)} ← {audio}（权威 LRC，逐字覆盖率 {coverage:.0%}）", file=sys.stderr)
+    return source_lrc, coverage, klrc
+
+
 def align_tracks(
     tracks: list[dict],
     album: str,
@@ -750,8 +771,11 @@ def align_tracks(
     """
     used: set = set()
     for t in tracks:
-        lrc, cov, lrc_words = build_track_lrc(
-            t, album, audio_words, used, audio_langs, by=by, album_meta=album_meta)
+        if t.get("authoritative_lrc"):
+            lrc, cov, lrc_words = build_authoritative_track(t, audio_words, used, audio_langs)
+        else:
+            lrc, cov, lrc_words = build_track_lrc(
+                t, album, audio_words, used, audio_langs, by=by, album_meta=album_meta)
         t["lrc"] = lrc
         t["klrc"] = lrc_words
         t["coverage"] = cov
@@ -762,6 +786,8 @@ def align_tracks(
 
 def track_needs_align(track: dict) -> bool:
     """人工改过、或草稿里没有可用的对齐成品 → 该轨需要（重新）对齐。"""
+    if track.get("authoritative_lrc"):
+        return False
     if track.get("timing_locked") and track.get("lrc"):
         return False
     return bool(track.get("edited")) or not track.get("aligned") or not track.get("lrc")
@@ -906,6 +932,9 @@ def build_draft(
     # 轨道归一化：staff 行从歌词正文剥离（元信息不进时间轴），原样行保留
     # 用于双模式输出（头部标签 + 正文未计时 credit 行）
     for t in tracks:
+        if t.get("authoritative_lrc"):
+            # source LRC 的正文和时间轴不可由任何自动流程触及。
+            continue
         raw_lines = t.get("lines") or [l for l in str(t.get("lyrics", "")).splitlines() if l.strip()]
         raw_lines = [l for l in raw_lines if not _SECTION_MARKER_RE.match(l)]  # 剥 [CREDITS]/[LYRICS] 段落标记
         t_staff, staff_rows, lyric_lines = lyrics_mod.split_staff_lines(raw_lines)
@@ -1031,9 +1060,12 @@ def finalize(draft: dict[str, Any], res_dir: Path, dry_run: bool = False) -> dic
     for i, (t, r) in enumerate(zip(tracks, redo), 1):
         order = t.get("order", i) or i
         if r:
-            lrc, cov, lrc_words = build_track_lrc(
-                t, album, audio_words, used, audio_langs,
-                by="/".join(meta.get("lyric_maker") or []), album_meta=meta)
+            if t.get("authoritative_lrc"):
+                lrc, cov, lrc_words = build_authoritative_track(t, audio_words, used, audio_langs)
+            else:
+                lrc, cov, lrc_words = build_track_lrc(
+                    t, album, audio_words, used, audio_langs,
+                    by="/".join(meta.get("lyric_maker") or []), album_meta=meta)
             t["lrc"], t["klrc"], t["coverage"], t["aligned"] = lrc, lrc_words, cov, True
         else:
             lrc, cov, lrc_words = t["lrc"], float(t.get("coverage") or 0.0), t.get("klrc")

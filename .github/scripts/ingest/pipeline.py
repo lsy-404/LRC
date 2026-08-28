@@ -34,6 +34,7 @@ if __package__ in (None, ""):
     from ingest import organize as org_mod
     from ingest import lyrics as lyrics_mod
     from ingest import review as review_mod
+    from ingest import authority_lrc as authority_mod
 else:
     from . import ocr as ocr_mod
     from . import documents as doc_mod
@@ -41,8 +42,10 @@ else:
     from . import organize as org_mod
     from . import lyrics as lyrics_mod
     from . import review as review_mod
+    from . import authority_lrc as authority_mod
 
 TEXT_EXTS = {".txt"}
+LRC_EXTS = {".lrc"}
 IGNORE_NAMES = {"manifest.toml", "readme.md", "readme.txt", ".gitkeep", ".ds_store"}
 IGNORE_DIRS = {".git", ".github"}
 COVER_HINT = re.compile(r"cover|封面|主视图|jacket", re.I)
@@ -60,7 +63,7 @@ def _iter_files(src: Path):
 
 
 def classify(src: Path) -> dict[str, list[Path]]:
-    buckets: dict[str, list[Path]] = {"image": [], "doc": [], "audio": [], "text": [], "other": []}
+    buckets: dict[str, list[Path]] = {"image": [], "doc": [], "audio": [], "text": [], "lrc": [], "other": []}
     for p in _iter_files(src):
         ext = p.suffix.lower()
         if ext in ocr_mod.IMAGE_EXTS:
@@ -71,6 +74,8 @@ def classify(src: Path) -> dict[str, list[Path]]:
             buckets["audio"].append(p)
         elif ext in TEXT_EXTS:
             buckets["text"].append(p)
+        elif ext in LRC_EXTS:
+            buckets["lrc"].append(p)
         else:
             buckets["other"].append(p)
     return buckets
@@ -236,7 +241,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     buckets = classify(src)
     summary: dict = {k: [p.name for p in v] for k, v in buckets.items()}
     print(f"分流：图片{len(buckets['image'])} 文档{len(buckets['doc'])} 音频{len(buckets['audio'])} "
-          f"文字{len(buckets['text'])} 其他{len(buckets['other'])}", file=sys.stderr)
+          f"文字{len(buckets['text'])} LRC{len(buckets['lrc'])} 其他{len(buckets['other'])}", file=sys.stderr)
 
     # 1) 逐曲歌词 txt / credits txt
     tracks_explicit: list[dict] = []
@@ -252,6 +257,12 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
         if parsed["lines"]:
             tracks_explicit.append(parsed)
             print(f"  歌词轨: {p.name} → {parsed['title']} ({len(parsed['lines'])} 行)", file=sys.stderr)
+
+    # 上传 LRC 是绝对权威来源。它从此处起携带原始文本到草稿和最终输出；后续
+    # STT 只可生成独立 .klrc 侧车，不能改写、清理、排序或格式化该 LRC。
+    for order, p in enumerate(buckets["lrc"], len(tracks_explicit) + 1):
+        tracks_explicit.append(authority_mod.load_authoritative_track(p, order))
+        print(f"  权威 LRC: {p.name}", file=sys.stderr)
 
     # manifest 提前读：伴奏/原曲 显式标记须在轨单编排（第 3 步）生效，SP 页分流
     # （第 2 步）也用它；meta 覆盖仍在第 5 步与音频 tag 合并
@@ -314,6 +325,15 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
         if inst_files:
             print(f"  ○ 轨单保留但不转写 {len(inst_files)} 个伴奏/无人声轨: {sorted(inst_files)}",
                   file=sys.stderr)
+        # LRC 与同名音频的文件名绑定不依赖 LLM。这样 STT 只能补充该 LRC 的
+        # 逐字侧车，不会因模糊匹配失败而改走自动生成歌词。
+        by_stem = {Path(t["file"]).stem.casefold(): t["file"] for t in tracks_plan if t.get("file")}
+        for track in tracks_explicit:
+            if not track.get("authoritative_lrc"):
+                continue
+            stem = str(track.get("_source_stem") or "").casefold()
+            if stem in by_stem:
+                track["file"] = by_stem[stem]
 
     # 4) 音频 → 词级时间戳（云端 whisper-1 并发；伴奏/无人声轨没有人声可转写，跳过）
     audio_words: dict[str, list] = {}
