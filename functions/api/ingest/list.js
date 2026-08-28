@@ -19,10 +19,12 @@ export async function onRequestGet({ request, env }) {
     if (parts.length !== 4) continue;
     const [, ref, album] = parts;
     const st = (await readJson(env, o.key)) || {};
+    const draft = (await readJson(env, `${REVIEW}/${ref}/${album}/draft.json`)) || {};
     refs.add(ref);
     pending.push({
       ref,
-      album,
+      album: draft.album || st.album || album,
+      storage_album: album,
       status: st.phase || '',
       state: '',
       stage: '',
@@ -50,6 +52,7 @@ export async function onRequestGet({ request, env }) {
     pending.push({
       ref,
       album: manifest.album || '',
+      storage_album: manifest.album || '',
       status: job.state === 'failed' ? 'failed' : 'processing',
       state: job.state || '',
       stage: job.stage || '',

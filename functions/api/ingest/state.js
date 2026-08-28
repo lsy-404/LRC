@@ -45,7 +45,12 @@ export async function onRequestGet({ request, env }) {
       readJson(env, `${base}/draft.json`),
       readJson(env, `${base}/status.json`),
     ]);
-    albums.push({ album, status: status || {}, draft });
+    albums.push({
+      album: draft?.album || status?.album || album,
+      storage_album: album,
+      status: status || {},
+      draft,
+    });
   }
   return json({ ref, status: 'ready', job, albums });
 }

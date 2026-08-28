@@ -4,7 +4,7 @@
     <section v-if="pending.length" class="eb-card">
       <label class="eb-label">待处理投稿</label>
       <ul class="eb-pending">
-        <li v-for="p in pending" :key="p.ref + '/' + p.album" :class="{ processing: isProcessingPending(p) }">
+        <li v-for="p in pending" :key="p.ref + '/' + (p.storage_album || p.album)" :class="{ processing: isProcessingPending(p) }">
           <button class="eb-pending-open" type="button" :disabled="!canOpenPending(p)" :aria-label="pendingAriaLabel(p)" @click="pick(p)">
             <span class="eb-p-album">{{ p.album }}</span>
             <span class="eb-p-meta">
@@ -12,7 +12,7 @@
             </span>
           </button>
           <span class="eb-p-right">
-            <button class="eb-btn small danger" :disabled="discarding || isProcessingPending(p)" @click="discard(p.ref, p.album)">丢弃</button>
+            <button class="eb-btn small danger" :disabled="discarding || isProcessingPending(p)" @click="discard(p.ref, p.storage_album || p.album, p.album)">丢弃</button>
           </span>
         </li>
       </ul>
@@ -247,7 +247,7 @@
           <button class="eb-btn" :disabled="e._saving" @click="save(e)">
             {{ e._saving ? '保存中…' : '保存修改' }}
           </button>
-          <button class="eb-btn danger" :disabled="discarding" @click="discard(curRef, e._storageAlbum)">
+          <button class="eb-btn danger" :disabled="discarding" @click="discard(curRef, e._storageAlbum, e.album)">
             {{ discarding ? '丢弃中…' : '丢弃此草稿' }}
           </button>
           <span v-if="e._msg" class="eb-msg inline" :class="{ err: e._err }">{{ e._msg }}</span>
@@ -919,7 +919,8 @@ async function load(silent = false) {
       done.value = false;
       clearTimeDrag();
       releaseAllTracks();
-      edits.value = (data.albums || []).filter((a) => a.draft).map((a) => toEdit(a.album, a.draft));
+      edits.value = (data.albums || []).filter((a) => a.draft)
+        .map((a) => toEdit(a.storage_album || a.album, a.draft));
       await nextTick();
       for (const edit of edits.value) await selectTrack(edit);
       msgErr.value = false;
@@ -996,7 +997,10 @@ async function save(e) {
       body: JSON.stringify({ ref: curRef.value, album: e._storageAlbum, draft: toDraft(e) }),
     });
     const data = await resp.json().catch(() => ({}));
-    if (resp.ok) { e._msg = '已保存'; e._coverNew = false; }
+    if (resp.ok) {
+      e._msg = '已保存'; e._coverNew = false;
+      await loadPending();
+    }
     else { e._err = true; e._msg = '保存失败：' + (data.message || data.error || resp.status); }
   } catch { e._err = true; e._msg = '网络错误'; }
   finally { e._saving = false; }
@@ -1004,8 +1008,8 @@ async function save(e) {
 
 // 丢弃草稿：服务端删除 review bundle（原料早已销毁，删的是派生态，不可恢复），
 // 同步剔除本地缓存与当前编辑态。404 视为已不存在，同样按丢弃成功处理。
-async function discard(ref, album) {
-  if (!window.confirm(`丢弃「${album}」的草稿？该投稿将不再入库，且无法恢复。`)) return;
+async function discard(ref, album, displayAlbum = album) {
+  if (!window.confirm(`丢弃「${displayAlbum}」的草稿？该投稿将不再入库，且无法恢复。`)) return;
   discarding.value = true;
   clearTimeDrag();
   try {
@@ -1020,9 +1024,9 @@ async function discard(ref, album) {
       msg.value = '丢弃失败：' + (data.message || data.error || resp.status);
       return;
     }
-    pending.value = pending.value.filter((p) => !(p.ref === ref && p.album === album));
-    for (const edit of edits.value.filter((e) => ref === curRef.value && e.album === album)) for (const track of edit.tracks) releaseAudio(track);
-    edits.value = edits.value.filter((e) => !(ref === curRef.value && e.album === album));
+    pending.value = pending.value.filter((p) => !(p.ref === ref && (p.storage_album || p.album) === album));
+    for (const edit of edits.value.filter((e) => ref === curRef.value && e._storageAlbum === album)) for (const track of edit.tracks) releaseAudio(track);
+    edits.value = edits.value.filter((e) => !(ref === curRef.value && e._storageAlbum === album));
     if (!edits.value.length && ref === curRef.value) {
       stopPoll();
       refInput.value = '';
@@ -1030,7 +1034,7 @@ async function discard(ref, album) {
     }
     if (!pending.value.some((p) => p.ref === ref)) cachedRefs.value = removeRef(ref);
     msgErr.value = false;
-    msg.value = `已丢弃「${album}」`;
+    msg.value = `已丢弃「${displayAlbum}」`;
   } catch { msgErr.value = true; msg.value = '网络错误'; }
   finally { discarding.value = false; }
 }

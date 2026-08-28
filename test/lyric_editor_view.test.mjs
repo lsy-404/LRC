@@ -251,6 +251,9 @@ test('专辑名称可编辑但审核存储定位保持原投稿名', async () =>
   const source = await component();
   assert.match(source, /v-model="e\.album" class="eb-input eb-album"/);
   assert.match(source, /_storageAlbum: album/);
+  assert.match(source, /toEdit\(a\.storage_album \|\| a\.album, a\.draft\)/);
+  assert.match(source, /discard\(p\.ref, p\.storage_album \|\| p\.album, p\.album\)/);
+  assert.match(source, /await loadPending\(\)/);
   assert.match(source, /album: e\._storageAlbum, draft: toDraft\(e\)/);
   assert.match(source, /album: e\._storageAlbum, ext/);
   assert.match(source, /function cleanAlbumName\(value, fallback\)/);

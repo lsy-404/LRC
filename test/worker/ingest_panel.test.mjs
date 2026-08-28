@@ -58,6 +58,7 @@ test('list 从上传 manifest 发现尚未生成 review 草稿的投稿并透传
   const item = (await resp.json()).pending.find((entry) => entry.ref === ref);
   assert.deepEqual(item, {
     ref, album: '上传中专辑', status: 'processing', state: 'running', stage: 'writing_review', progress: 62,
+    storage_album: '上传中专辑',
     message: '正在写入审核草稿', updated: '', contributor: 'web', is_update: false,
   });
 });
@@ -94,6 +95,7 @@ test('state 返回该 ref 的草稿', async () => {
   assert.equal(data.status, 'ready');
   assert.equal(data.albums.length, 1);
   assert.equal(data.albums[0].album, ALBUM);
+  assert.equal(data.albums[0].storage_album, ALBUM);
   assert.equal(data.albums[0].draft.tracks[0].title, '心跳');
 });
 
@@ -198,6 +200,21 @@ test('save 用原审核目录定位，同时保留已改的专辑输出名', asy
   assert.equal(resp.status, 200);
   assert.deepEqual(JSON.parse(bucket.store.get(`review/${REF}/${ALBUM}/draft.json`)), draft);
   assert.equal(bucket.store.has(`review/${REF}/${renamed}/draft.json`), false);
+});
+
+test('list 和 state 使用草稿显示名，同时返回不可变存储名', async () => {
+  const bucket = seeded();
+  const renamed = '李宗盛';
+  bucket.store.set(`review/${REF}/${ALBUM}/draft.json`, JSON.stringify({ album: renamed, tracks: [] }));
+  const env = envOf(bucket);
+  const listResp = await listGet({ request: authedRequest('https://x/api/ingest/list'), env });
+  const listItem = (await listResp.json()).pending.find((item) => item.ref === REF);
+  assert.equal(listItem.album, renamed);
+  assert.equal(listItem.storage_album, ALBUM);
+  const stateResp = await stateGet({ request: authedRequest(`https://x/s?ref=${REF}`), env });
+  const stateItem = (await stateResp.json()).albums[0];
+  assert.equal(stateItem.album, renamed);
+  assert.equal(stateItem.storage_album, ALBUM);
 });
 
 test('cover 写入 bundle 封面', async () => {
