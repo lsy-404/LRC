@@ -150,7 +150,7 @@
               <div v-if="t._view === 'lrc'">
               <div v-for="(r, li) in t.rows" :key="r._id" :ref="(node) => bindLineNode(t, li, node)" class="eb-line-editor">
               <div class="eb-lrc-row">
-                <label class="eb-time"><input v-model.number="r.time" type="number" min="0" step="10" class="eb-input ms" @input="markHistory(t)" @change="normalizeRows(t); lockTiming(t); commitHistory(t)">毫秒</label>
+                <label class="eb-time"><input v-model.number="r.time" type="number" min="0" step="10" class="eb-input ms" @focus="beginRowTimeEdit(r)" @input="shiftRowTime(t, r)" @change="finishRowTimeEdit(t, r)" @blur="finishRowTimeEdit(t, r)">毫秒</label>
                 <input v-model="r.text" class="eb-input lrc" @input="syncRowText(t, r); markHistory(t)" @blur="commitHistory(t)" @click="recordCursor(r, $event)" @keyup="recordCursor(r, $event)" @select="recordCursor(r, $event)">
                 <button class="eb-btn small" @click="splitFromCursor(t, r, li)">从光标拆分</button><button class="eb-btn small" @click="moveSelectionToNext(t, r, li)">选中移下一句</button><button class="eb-btn small" @click="addLine(t, li)">+ 行</button><button class="eb-btn small danger" @click="removeLine(t, li)">删</button>
               </div>
@@ -159,8 +159,8 @@
                   <span class="eb-time-lead" :style="timelineLeadStyle(r)" aria-hidden="true" />
                   <div v-for="(word, wi) in r.words" :key="word._id" :ref="(node) => bindTokenNode(t, li, wi, node)" class="eb-time-token" :class="wi % 2 ? 'eb-time-token-lower' : 'eb-time-token-upper'" :style="timelineTokenStyle(t, r, li, wi)">
                     <span class="eb-time-token-progress" aria-hidden="true" />
-                    <span class="eb-time-chars"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" tabindex="0" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, ci, $event)" @keydown="openTimelineMenuFromKey(t, r, wi, ci, $event)">{{ char }}</span></span>
-                    <button class="eb-time-marker" :aria-label="`调整 ${word.text} 的时间`" @pointerdown="startTimeDrag(t, r, wi, $event)" @pointermove="moveTimeDrag($event)" @pointerup="finishTimeDrag($event)" @pointercancel="finishTimeDrag($event)" @lostpointercapture="finishTimeDrag($event)" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, 0, $event)" @keydown="nudgeWordTime(t, r, wi, $event)"><span>{{ formatMs(word.time) }}</span></button>
+                    <span class="eb-time-chars"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" contenteditable="true" spellcheck="false" tabindex="0" @input="editTimelineChar(t, r, wi, ci, $event)" @keydown.enter.prevent @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, ci, $event)" @keydown="openTimelineMenuFromKey(t, r, wi, ci, $event)">{{ char }}</span></span>
+                    <button class="eb-time-marker" :aria-label="`调整 ${word.text} 的时间`" @pointerdown="startTimeDrag(t, r, wi, $event)" @pointermove="moveTimeDrag($event)" @pointerup="finishTimeDrag($event)" @pointercancel="finishTimeDrag($event)" @lostpointercapture="finishTimeDrag($event)" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, 0, $event)" @keydown="nudgeWordTime(t, r, wi, $event)"><span>{{ formatMs(wordOffset(r, word)) }}</span></button>
                   </div>
                 </div>
               </div>
@@ -246,7 +246,7 @@ import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedLeadFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
+  activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedLeadFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, markLyricHistoryDirty, recordLyricHistory, redoLyricHistory, undoLyricHistory } from './lyricHistory.js';
 
@@ -293,6 +293,7 @@ let pollTimer = null;
 let nextEditorId = 1;
 let dragState = null;
 let historyTrack = null;
+const rowTimeEdits = new WeakMap();
 const playheads = new WeakMap();
 const playbackViews = new WeakMap();
 
@@ -338,6 +339,20 @@ function syncTrackText(t) { t.text = linesToText(t.rows.map((row) => row.text));
 function nextRowTime(t, rowIndex) { return Number(t.rows[rowIndex + 1]?.time); }
 function timelineLeadStyle(row) { return { '--eb-time-grow': timedLeadFlexWeight(row.time, row.words[0]?.time) }; }
 function timelineTokenStyle(t, row, rowIndex, wordIndex) { return { '--eb-time-grow': timedTokenFlexWeight(row.words, wordIndex, nextRowTime(t, rowIndex)) }; }
+function wordOffset(row, word) { return Math.max(0, Math.round(Number(word?.time) - Number(row?.time))); }
+function editTimelineChar(t, row, wordIndex, charIndex, event) {
+  const word = row.words[wordIndex];
+  if (!word) return;
+  const chars = Array.from(word.text || '');
+  const next = Array.from(event.currentTarget.textContent || '')[0] || '';
+  if (!next) { event.currentTarget.textContent = chars[charIndex] || ''; return; }
+  if (chars[charIndex] === next) return;
+  chars[charIndex] = next;
+  word.text = chars.join('');
+  syncTrackText(t);
+  markHistory(t);
+  lockTiming(t);
+}
 function boundedWordTime(t, row, index, time) { const rowIndex = t.rows.findIndex((item) => item._id === row._id); const nextRow = t.rows[rowIndex + 1]; return clampWordTime(row.words, index, time, 10, row.time, index === row.words.length - 1 && nextRow ? Number(nextRow.time) - 10 : Number.POSITIVE_INFINITY); }
 function setHistoryTrack(t) { historyTrack = t; }
 function clearHistoryTrack(t, event) { if (historyTrack === t && !event.currentTarget.contains(event.relatedTarget)) historyTrack = null; }
@@ -349,6 +364,21 @@ function restoreHistory(t, restore) { if (restore(t._history, t)) { closeTimelin
 function undoTrack(t) { restoreHistory(t, undoLyricHistory); }
 function redoTrack(t) { restoreHistory(t, redoLyricHistory); }
 function setWordTime(t, row, index, time) { row.words[index].time = boundedWordTime(t, row, index, time); updateActiveIndices(t, playheadMs(t)); lockTiming(t); commitHistory(t); }
+function beginRowTimeEdit(row) { rowTimeEdits.set(row, Number(row.time) || 0); }
+function shiftRowTime(t, row) {
+  const previous = rowTimeEdits.has(row) ? rowTimeEdits.get(row) : Number(row.time) || 0;
+  const shifted = shiftTimedRow(row, row.time);
+  row.time = shifted.time;
+  row.words = shifted.words;
+  rowTimeEdits.set(row, row.time);
+  if (row.time !== previous) { markHistory(t); lockTiming(t); updateActiveIndices(t, playheadMs(t)); }
+}
+function finishRowTimeEdit(t, row) {
+  rowTimeEdits.delete(row);
+  normalizeRows(t);
+  lockTiming(t);
+  commitHistory(t);
+}
 function nudgeWordTime(t, row, index, event) { if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return; event.preventDefault(); setWordTime(t, row, index, Number(row.words[index].time) + (event.key === 'ArrowLeft' ? -10 : 10)); }
 function closeTimelineMenu() { timelineMenu.value = null; }
 function openTimelineMenu(t, row, wordIndex, charIndex, event) { const x = Math.max(8, Math.min(window.innerWidth - 240, Number(event.clientX) || 8)); const y = Math.max(8, Math.min(window.innerHeight - 120, Number(event.clientY) || 8)); timelineMenu.value = { t, row, rowId: row._id, wordIndex, charIndex, rowIndex: t.rows.findIndex((item) => item._id === row._id), x, y }; nextTick(() => document.querySelector('.eb-timeline-menu [role="menuitem"]:not([disabled])')?.focus()); }

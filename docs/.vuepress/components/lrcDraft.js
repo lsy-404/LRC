@@ -37,6 +37,16 @@ export function msToTimestamp(ms) {
   return `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}.${String(n % 1000).padStart(3, '0')}`;
 }
 
+// 句首移动时保持逐字时间相对句首的偏移不变。
+export function shiftTimedRow(row, nextTime) {
+  if (!row) return row;
+  const previousTime = Number(row.time) || 0;
+  const time = Math.max(0, Math.round(Number(nextTime) || 0));
+  const delta = time - previousTime;
+  if (!delta) return { ...row, time };
+  return { ...row, time, words: (row.words || []).map((word) => ({ ...word, time: Math.max(0, Math.round(Number(word.time) + delta)) })) };
+}
+
 export function parseKaraokeRows(lrc, klrc) {
   const base = parseLrc(lrc);
   const timed = String(klrc || lrc).split('\n').map((line) => {
