@@ -63,8 +63,9 @@
       </section>
 
       <!-- 逐专辑编辑 -->
-      <section v-for="e in edits" :key="e.album" class="eb-card rise">
-        <h3 class="eb-album">{{ e.album }}</h3>
+      <section v-for="e in edits" :key="e._storageAlbum" class="eb-card rise">
+        <label class="eb-flabel" :for="`album-${e._storageAlbum}`">专辑名称</label>
+        <input :id="`album-${e._storageAlbum}`" v-model="e.album" class="eb-input eb-album" aria-label="专辑名称">
 
         <div class="eb-meta">
           <div v-for="f in META_FIELDS" :key="f.key" class="eb-field">
@@ -74,8 +75,8 @@
         </div>
 
         <div class="eb-track-select">
-          <label :for="`track-${e.album}`">曲目</label>
-          <select :id="`track-${e.album}`" v-model.number="e._selectedTrack" class="eb-select" @change="selectTrack(e)">
+          <label :for="`track-${e._storageAlbum}`">曲目</label>
+          <select :id="`track-${e._storageAlbum}`" v-model.number="e._selectedTrack" class="eb-select" @change="selectTrack(e)">
             <option v-for="(track, index) in e.tracks" :key="track._id" :value="index">{{ String(track.order).padStart(2, '0') }} · {{ track.title || '未命名曲目' }}</option>
           </select>
         </div>
@@ -244,7 +245,7 @@
           <button class="eb-btn" :disabled="e._saving" @click="save(e)">
             {{ e._saving ? '保存中…' : '保存修改' }}
           </button>
-          <button class="eb-btn danger" :disabled="discarding" @click="discard(curRef, e.album)">
+          <button class="eb-btn danger" :disabled="discarding" @click="discard(curRef, e._storageAlbum)">
             {{ discarding ? '丢弃中…' : '丢弃此草稿' }}
           </button>
           <span v-if="e._msg" class="eb-msg inline" :class="{ err: e._err }">{{ e._msg }}</span>
@@ -792,7 +793,9 @@ function toEdit(album, draft) {
     meta[f.key] = f.list ? (Array.isArray(v) ? v.join('、') : '') : (v || '');
   }
   return {
-    album,
+    album: draft.album || album,
+    _storageAlbum: album,
+    _originalAlbum: draft.album || album,
     _draft: draft,
     meta,
     _selectedTrack: 0,
@@ -851,7 +854,17 @@ function toDraft(e) {
     vocals: timing.vocals,
     edited: timing.main.timing_locked ? false : isDirty(t),
   }; });
-  return { ...e._draft, meta, tracks, cover_ext: e.coverRemoved ? '' : e.coverExt };
+  const album = cleanAlbumName(e.album, e._originalAlbum);
+  const names = { ...(e._draft.names || {}) };
+  names.zh_name = /[\u3400-\u9fff]/.test(album) ? album : '';
+  names.en_name = /[\u3400-\u9fff]/.test(album) ? '' : album;
+  return { ...e._draft, album, names, meta, tracks, cover_ext: e.coverRemoved ? '' : e.coverExt };
+}
+
+function cleanAlbumName(value, fallback) {
+  const basename = String(value || '').replace(/\\/g, '/').split('/').pop().trim()
+    .replace(/[<>:"/\\|?*\u0000-\u001f]/g, '_');
+  return basename && !/^\.+$/.test(basename) ? basename : fallback;
 }
 
 function stopPoll() { if (pollTimer) { clearInterval(pollTimer); pollTimer = null; } }
@@ -950,7 +963,7 @@ async function pickCover(e, ev) {
   e._coverBusy = true; e._msg = ''; e._err = false;
   try {
     const ext = (file.name.match(/\.[a-z0-9]+$/i) || ['.png'])[0].toLowerCase();
-    const q = new URLSearchParams({ ref: curRef.value, album: e.album, ext });
+    const q = new URLSearchParams({ ref: curRef.value, album: e._storageAlbum, ext });
     const resp = await fetch(`/api/ingest/cover?${q}`, {
       method: 'POST', headers: authHeaders(), body: file,
     });
@@ -977,7 +990,7 @@ async function save(e) {
     const resp = await fetch('/api/ingest/save', {
       method: 'POST',
       headers: { 'content-type': 'application/json', ...authHeaders() },
-      body: JSON.stringify({ ref: curRef.value, album: e.album, draft: toDraft(e) }),
+      body: JSON.stringify({ ref: curRef.value, album: e._storageAlbum, draft: toDraft(e) }),
     });
     const data = await resp.json().catch(() => ({}));
     if (resp.ok) { e._msg = '已保存'; e._coverNew = false; }

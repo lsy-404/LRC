@@ -187,6 +187,19 @@ test('save 拒绝缺字段', async () => {
   assert.equal(resp.status, 400);
 });
 
+test('save 用原审核目录定位，同时保留已改的专辑输出名', async () => {
+  const bucket = seeded();
+  const renamed = '新专辑';
+  const draft = { album: renamed, tracks: [{ title: '心跳' }] };
+  const resp = await savePost({
+    request: authedRequest('https://x/save', { method: 'POST', body: { ref: REF, album: ALBUM, draft } }),
+    env: envOf(bucket),
+  });
+  assert.equal(resp.status, 200);
+  assert.deepEqual(JSON.parse(bucket.store.get(`review/${REF}/${ALBUM}/draft.json`)), draft);
+  assert.equal(bucket.store.has(`review/${REF}/${renamed}/draft.json`), false);
+});
+
 test('cover 写入 bundle 封面', async () => {
   const bucket = seeded();
   const req = new Request(`https://x/cover?ref=${REF}&album=${encodeURIComponent(ALBUM)}&ext=.jpg`, {

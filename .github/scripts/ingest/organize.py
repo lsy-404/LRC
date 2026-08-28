@@ -113,6 +113,14 @@ def _sanitize_filename(name: str) -> str:
     return out or "untitled"
 
 
+def _safe_album_name(name: Any, fallback: str = "untitled") -> str:
+    """Albums are output directory basenames, never paths supplied by a review draft."""
+    base = Path(str(name or "").replace("\\", "/")).name.strip()
+    if not base or base in {".", ".."}:
+        base = fallback
+    return _sanitize_filename(base)
+
+
 def _output_basename(track: dict[str, Any], order: Any) -> str:
     """Use a safe requested basename, or preserve the established order/title default."""
     preferred = track.get("final_name") if track.get("inst") else None
@@ -987,7 +995,7 @@ def finalize(draft: dict[str, Any], res_dir: Path, dry_run: bool = False) -> dic
 
     只对人工改过（edited）或缺对齐成品的轨重跑对齐，其余直接落盘草稿里的 lrc/klrc。
     """
-    album = str(draft["album"])
+    album = _safe_album_name(draft.get("album"))
     tracks = draft["tracks"]
     meta = draft["meta"]
     names = draft["names"]

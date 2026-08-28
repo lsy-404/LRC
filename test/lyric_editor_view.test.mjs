@@ -229,3 +229,13 @@ test('逐行支持标为合音与并回主唱，迁移保留时间并使用当�
   assert.match(source, /function shiftRowTime\(t, row\)/);
   assert.match(source, /nextTick\(\(\) => updateAllVocalHighlights\(t, playheadMs\(t\)\)\)/);
 });
+
+test('专辑名称可编辑但审核存储定位保持原投稿名', async () => {
+  const source = await component();
+  assert.match(source, /v-model="e\.album" class="eb-input eb-album"/);
+  assert.match(source, /_storageAlbum: album/);
+  assert.match(source, /album: e\._storageAlbum, draft: toDraft\(e\)/);
+  assert.match(source, /album: e\._storageAlbum, ext/);
+  assert.match(source, /function cleanAlbumName\(value, fallback\)/);
+  assert.match(source, /names\.zh_name =/);
+});
