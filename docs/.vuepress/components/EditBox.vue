@@ -510,11 +510,13 @@ function bindWorkbenchNode(t, node) {
   if (node) workbenchTracks.set(node, t);
 }
 function setWorkbenchFocus(t) { activeWorkbenchTrack = t; }
-function isWorkbenchShortcutTarget(target) {
-  return target instanceof Element && (target.matches('input, textarea, select, button, [contenteditable]:not([contenteditable="false"])') || target.closest('button'));
+function isWorkbenchTextTarget(target) {
+  return target instanceof Element && target.matches('input, textarea, select, [contenteditable]:not([contenteditable="false"])');
 }
 function handleWorkbenchShortcut(t, event) {
-  if (isWorkbenchShortcutTarget(event.target)) return;
+  const target = event.target;
+  if (isWorkbenchTextTarget(target)) return;
+  if (target instanceof Element && target.closest('button') && event.key === ' ') return;
   if (event.metaKey || event.ctrlKey || event.altKey) return;
   const line = playbackView(t).activeLineIndex >= 0 ? playbackView(t).activeLineIndex : 0;
   if (event.key === ' ') { if (event.repeat) return; event.preventDefault(); if (t._audioUrl && !t._audioErr) toggleSource(t); else togglePreview(t); return; }
@@ -528,8 +530,10 @@ function handleWorkbenchShortcut(t, event) {
 function handleWorkbenchKeydown(event) {
   const target = event.target;
   const workbench = target instanceof Element ? target.closest('.eb-workbench') : null;
-  if (!workbench || !workbenchTracks.has(workbench)) return;
-  const track = workbenchTracks.get(workbench);
+  const track = workbench && workbenchTracks.has(workbench)
+    ? workbenchTracks.get(workbench)
+    : activeWorkbenchTrack;
+  if (!track) return;
   if (track !== activeWorkbenchTrack) activeWorkbenchTrack = track;
   handleWorkbenchShortcut(track, event);
 }

@@ -120,7 +120,9 @@ test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
   assert.match(source, /window\.addEventListener\('keydown', handleWorkbenchKeydown\)/);
   assert.match(source, /window\.removeEventListener\('keydown', handleWorkbenchKeydown\)/);
   assert.match(source, /function bindWorkbenchNode\(t, node\)/);
-  assert.match(source, /function isWorkbenchShortcutTarget\(target\)/);
+  assert.match(source, /function isWorkbenchTextTarget\(target\)/);
+  assert.match(source, /workbenchTracks\.has\(workbench\)[\s\S]*?workbenchTracks\.get\(workbench\)[\s\S]*?activeWorkbenchTrack/);
+  assert.match(source, /target\.closest\('button'\) && event\.key === ' '/);
   assert.match(source, /event\.key === ' '/);
   assert.match(source, /event\.key === 'ArrowUp' \|\| event\.key === 'ArrowDown'/);
   assert.match(source, /nudgePlayhead\(t, event\.key === 'ArrowLeft' \? -1000 : 1000\)/);
@@ -128,7 +130,7 @@ test('时间轨提供慢速、边界菜单与受控拖动清理', async () => {
   assert.match(source, /seekTrack\(t, Number\(t\.rows\[next\]\?\.time\) \|\| 0\)/);
   assert.match(source, /if \(event\.repeat\) return/);
   assert.match(source, /if \(t\._audioUrl && !t\._audioErr\) toggleSource\(t\); else togglePreview\(t\)/);
-  assert.match(source, /input, textarea, select, button, \[contenteditable\]/);
+  assert.match(source, /input, textarea, select, \[contenteditable\]/);
   assert.match(source, /activeIndexAt\(t\.rows, ms\)/);
   assert.match(source, /SOURCE_PROGRESS_INTERVAL_MS = 80/);
   assert.match(source, /now - lastProgress >= SOURCE_PROGRESS_INTERVAL_MS/);
