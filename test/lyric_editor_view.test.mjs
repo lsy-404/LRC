@@ -157,13 +157,24 @@ test('逐字时间轨显示句内偏移、支持单字编辑且只更新整句�
   assert.match(source, /contenteditable="plaintext-only"/);
   assert.match(source, /formatWordOffset\(r, word\.time\)/);
   assert.match(source, /return `\+\$\{msToTimestamp\(wordOffset\(row, time\)\)\}`/);
-  assert.match(source, /row\.text = row\.words\.map\(\(item\) => item\.text\)\.join\(''\)/);
+  assert.match(source, /row\.text = updated\.text/);
   assert.match(source, /label\.textContent = formatWordOffset\(state\.row, time\)/);
   assert.match(source, /class="eb-time-sentence-progress"/);
   assert.match(source, /--eb-sentence-progress/);
   assert.match(source, /timedTrailingGapMs\(row, next\)/);
   assert.match(source, /Math\.min\(4, duration \/ average\)/);
   assert.doesNotMatch(source, /eb-time-token-progress|--eb-token-progress|tokenProgressPercent|clearTokenProgress/);
+});
+
+test('逐字时间标记输入保留完整文本，并以清空标记方式暴露缺字槽位', async () => {
+  const source = await component();
+  assert.match(source, /class="eb-time-chars" contenteditable="plaintext-only"/);
+  assert.match(source, /@input="editTimelineChar\(t, r, wi, \$event\)"/);
+  assert.match(source, /replaceTimedTokenText\(row, wordIndex, next\)/);
+  assert.doesNotMatch(source, /entered\[entered\.length - 1\]/);
+  assert.match(source, /row\.words = updated\.words/);
+  assert.match(source, /row\.text = updated\.text/);
+  assert.match(source, /String\(event\.currentTarget\.textContent \|\| ''\)\.replace/);
 });
 
 test('逐字时间轨为稀疏句提供更大的前后操作距离且保留安全夹紧', async () => {

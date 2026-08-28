@@ -169,7 +169,7 @@
                   <button v-for="slot in missingMarkerSlots(r, 0)" :key="`missing-${r._id}-${slot.textIndex}`" class="eb-time-missing" :title="`为 ${slot.text} 新增时间标记`" :aria-label="`为 ${slot.text} 新增时间标记`" @click="insertMissingMarker(t, r, li, slot.textIndex)">{{ slot.text }}</button>
                   <template v-for="(word, wi) in r.words" :key="word._id">
                   <div :ref="(node) => bindTokenNode(t, li, wi, node)" class="eb-time-token" :style="timelineTokenStyle(t, r, li, wi)">
-                    <span class="eb-time-chars"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" contenteditable="plaintext-only" spellcheck="false" tabindex="0" @focus="selectTimelineChar" @input="editTimelineChar(t, r, wi, ci, $event)" @keydown.enter.prevent="$event.currentTarget.blur()" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, ci, $event)" @keydown="openTimelineMenuFromKey(t, r, wi, ci, $event)">{{ char }}</span></span>
+                    <span class="eb-time-chars" contenteditable="plaintext-only" spellcheck="false" tabindex="0" @focus="selectTimelineChar" @input="editTimelineChar(t, r, wi, $event)" @keydown.enter.prevent="$event.currentTarget.blur()"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, ci, $event)" @keydown="openTimelineMenuFromKey(t, r, wi, ci, $event)">{{ char }}</span></span>
                     <button class="eb-time-marker" :aria-label="`调整 ${word.text} 的句内偏移`" @pointerdown="startTimeDrag(t, r, wi, $event)" @pointermove="moveTimeDrag($event)" @pointerup="finishTimeDrag($event)" @pointercancel="finishTimeDrag($event)" @lostpointercapture="finishTimeDrag($event)" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, 0, $event)" @keydown="nudgeWordTime(t, r, wi, $event)"><span>{{ formatWordOffset(r, word.time) }}</span></button>
                   </div>
                   <button v-for="slot in missingMarkerSlots(r, wi + 1)" :key="`missing-${r._id}-${slot.textIndex}`" class="eb-time-missing" :title="`为 ${slot.text} 新增时间标记`" :aria-label="`为 ${slot.text} 新增时间标记`" @click="insertMissingMarker(t, r, li, slot.textIndex)">{{ slot.text }}</button>
@@ -265,7 +265,7 @@ import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  activeIndexAt, clampWordTime, expandTimedTokens, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, parseLrc, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedCharacterAverageMs, timedLastTokenSpanMs, timedLeadFlexWeight, timedSentenceEndMs, timedSpanFlexWeight, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, transferTimedVocalRow, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
+  activeIndexAt, clampWordTime, expandTimedTokens, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, parseLrc, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, replaceTimedTokenText, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedCharacterAverageMs, timedLastTokenSpanMs, timedLeadFlexWeight, timedSentenceEndMs, timedSpanFlexWeight, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, transferTimedVocalRow, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, markLyricHistoryDirty, recordLyricHistory, redoLyricHistory, undoLyricHistory } from './lyricHistory.js';
 
@@ -398,19 +398,15 @@ function selectTimelineChar(event) {
   selection.removeAllRanges();
   selection.addRange(range);
 }
-function editTimelineChar(t, row, wordIndex, charIndex, event) {
+function editTimelineChar(t, row, wordIndex, event) {
   if (event.isComposing) return;
   const word = row.words[wordIndex];
   if (!word) return;
-  const chars = Array.from(word.text || '');
-  const entered = Array.from(event.currentTarget.textContent || '');
-  const next = entered[entered.length - 1] || '';
-  if (!next) { event.currentTarget.textContent = chars[charIndex] || ''; return; }
-  event.currentTarget.textContent = next;
-  if (chars[charIndex] === next) return;
-  chars[charIndex] = next;
-  word.text = chars.join('');
-  row.text = row.words.map((item) => item.text).join('');
+  const next = String(event.currentTarget.textContent || '').replace(/[\r\n]/g, '');
+  const updated = replaceTimedTokenText(row, wordIndex, next);
+  if (updated === row) return;
+  row.words = updated.words;
+  row.text = updated.text;
   syncTrackText(t);
   lockTiming(t);
   commitHistory(t);

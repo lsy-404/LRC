@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { activeIndexAt, clampWordTime, expandTimedTokens, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, moveTimedSelection, msToTimestamp, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadFlexWeight, timedRowBoundaryAction, timedSpanFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, timestampToMs, transferTimedVocalRow, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
+import { activeIndexAt, clampWordTime, expandTimedTokens, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, moveTimedSelection, msToTimestamp, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, replaceTimedTokenText, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadFlexWeight, timedRowBoundaryAction, timedSpanFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, timestampToMs, transferTimedVocalRow, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
 
 test('句级边界按上下文合并或拆分', () => {
   assert.equal(timedRowBoundaryAction(0, 0, 0), 'none');
@@ -187,6 +187,34 @@ test('时间轨拆分多字符 token 与合并保留未改标签', () => {
   assert.equal(merged.words[0]._id, 1);
   assert.equal(merged.words[0].time, 100);
   assert.equal(merged.text, '你好呀');
+});
+
+test('逐字时间标记可替换为多字，保留时间标识并支持内部拆分', () => {
+  let id = 10;
+  const first = { _id: 1, time: 100, text: '你' };
+  const second = { _id: 2, time: 300, text: '好' };
+  const row = { time: 100, text: '你好', words: [first, second] };
+  const replaced = replaceTimedTokenText(row, 0, '你们');
+  assert.equal(replaced.words[0]._id, 1);
+  assert.equal(replaced.words[0].time, 100);
+  assert.equal(replaced.words[1], second);
+  assert.equal(replaced.text, '你们好');
+  const split = splitTimedToken(replaced, 0, 1, () => id++);
+  assert.deepEqual(split.words.map((word) => word.text), ['你', '们', '好']);
+  assert.equal(split.words[0]._id, 1);
+});
+
+test('清空时间标记保留正文并重新暴露缺字补标槽位', () => {
+  const first = { _id: 1, time: 100, text: '你们' };
+  const second = { _id: 2, time: 300, text: '好' };
+  const row = { time: 100, text: '你们好', words: [first, second] };
+  const cleared = replaceTimedTokenText(row, 0, '');
+  assert.equal(cleared.text, '你们好');
+  assert.equal(cleared.words[0], second);
+  assert.deepEqual(missingTimedCharacterSlots(cleared), [
+    { text: '你', textIndex: 0, wordIndex: 0 },
+    { text: '们', textIndex: 1, wordIndex: 0 },
+  ]);
 });
 
 test('拖动时间不会越过相邻标签，emoji token 不截断', () => {

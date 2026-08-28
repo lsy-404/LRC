@@ -171,6 +171,27 @@ export function splitTimedToken(row, wordIndex, codePointIndex, createId = () =>
   return { ...row, words, text: words.map((item) => item.text).join('') };
 }
 
+// 替换整个时间标记单元；清空仅删除标记，保留正文以显示缺字补标槽位。
+export function replaceTimedTokenText(row, wordIndex, text) {
+  const words = [...(row?.words || [])]; const word = words[wordIndex];
+  if (!word) return row;
+  const next = String(text == null ? '' : text).replace(/[\r\n]/g, '');
+  if (next === word.text) return row;
+  if (!next) {
+    words.splice(wordIndex, 1);
+    return { ...row, words };
+  }
+  const { matched } = matchedTimedCharacters(row.words, row.text);
+  const positions = [...matched.entries()].filter(([, item]) => item.wordIndex === wordIndex).map(([index]) => index);
+  const chars = Array.from(String(row.text || ''));
+  if (positions.length === Array.from(String(word.text || '')).length) {
+    const start = positions[0]; const end = positions[positions.length - 1] + 1;
+    chars.splice(start, end - start, ...Array.from(next));
+  }
+  words[wordIndex] = { ...word, text: next };
+  return { ...row, words, text: positions.length ? chars.join('') : words.map((item) => item.text).join('') };
+}
+
 export function mergeTimedToken(row, wordIndex) {
   const words = [...(row.words || [])];
   if (wordIndex <= 0 || !words[wordIndex]) return row;
