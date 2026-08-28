@@ -7,7 +7,7 @@
         <li v-for="p in pending" :key="p.ref + '/' + p.storage_album" :class="{ processing: isProcessingPending(p) }">
           <button class="eb-pending-open" type="button" :disabled="!canOpenPending(p)" :aria-label="pendingAriaLabel(p)" @click="pick(p)">
             <span class="eb-p-album">{{ p.album }}</span>
-            <span class="eb-p-meta">
+            <span class="eb-p-meta" :title="p.message || pendingStageText(p)">
               {{ p.message || pendingStageText(p) }}<template v-if="p.progress != null"> {{ Math.round(p.progress) }}%</template><template v-if="!canOpenPending(p)"> · {{ pendingLockReason(p) }}</template> · {{ p.ref.slice(0, 7) }}<template v-if="p.contributor"> · @{{ p.contributor }}</template>
             </span>
           </button>
@@ -1434,6 +1434,7 @@ onBeforeUnmount(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   gap: .6rem;
   padding: .5rem .65rem;
   border: 1px solid var(--border-color, #ddd);
@@ -1443,7 +1444,7 @@ onBeforeUnmount(() => {
 }
 .eb-pending-open {
   display: flex;
-  flex: 1;
+  flex: 1 1 12rem;
   min-width: 0;
   justify-content: space-between;
   align-items: center;
@@ -1463,8 +1464,16 @@ onBeforeUnmount(() => {
 .eb-pending-open:disabled { cursor: default; opacity: 1; }
 .eb-pending li.processing { border-style: dashed; }
 .eb-p-album { font-weight: 600; }
-.eb-p-right { display: flex; gap: .6rem; align-items: center; }
-.eb-p-meta { font-size: .75rem; opacity: .65; white-space: nowrap; }
+.eb-p-right { display: flex; flex: 0 0 auto; flex-shrink: 0; gap: .6rem; align-items: center; position: relative; z-index: 1; }
+.eb-p-meta { min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: .75rem; opacity: .65; white-space: nowrap; }
+.eb-pending .eb-msg.inline { flex: 1 0 100%; overflow-wrap: anywhere; }
+
+@media (max-width: 720px) {
+  .eb-pending li { align-items: flex-start; }
+  .eb-pending-open { flex-basis: 100%; flex-direction: column; align-items: flex-start; gap: .15rem; }
+  .eb-p-meta { max-width: 100%; }
+  .eb-p-right { width: 100%; justify-content: flex-end; }
+}
 
 .eb-msg { font-size: .85rem; margin: .6rem 0 0; color: var(--eb-accent); }
 .eb-msg.inline { margin: 0; }

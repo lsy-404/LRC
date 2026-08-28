@@ -175,6 +175,15 @@ test('失败投稿可在待处理列表中重试，且始终不能直接进入�
   assert.match(source, /message: `重试失败：\$\{data\.message \|\| data\.error \|\| `HTTP \$\{resp\.status\}`\}`/);
 });
 
+test('失败说明不会覆盖待投稿项右侧重试操作，窄屏可换行阅读', async () => {
+  const source = await component();
+  assert.match(source, /class="eb-p-meta" :title="p\.message \|\| pendingStageText\(p\)"/);
+  assert.match(source, /\.eb-p-meta \{ min-width: 0; overflow: hidden; text-overflow: ellipsis;[^}]*white-space: nowrap; \}/);
+  assert.match(source, /\.eb-p-right \{ display: flex; flex: 0 0 auto; flex-shrink: 0;[^}]*position: relative; z-index: 1; \}/);
+  assert.match(source, /\.eb-pending li \{[\s\S]*?flex-wrap: wrap;/);
+  assert.match(source, /@media \(max-width: 720px\) \{[\s\S]*?\.eb-pending-open \{ flex-basis: 100%; flex-direction: column;/);
+});
+
 test('逐字时间轨显示句内偏移、支持单字编辑且只更新整句进度', async () => {
   const source = await component();
   assert.match(source, /:contenteditable="t\.authoritativeLrc \? 'false' : 'plaintext-only'"/);

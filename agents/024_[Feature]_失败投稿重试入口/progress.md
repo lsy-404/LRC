@@ -7,3 +7,5 @@
 - 2026-08-28：已提交独立分支，待主任务拣选并统一部署。
 - 2026-08-28：runner 的命令失败异常追加已脱敏的 stderr/stdout 尾部；最多各取 12 行、总计不超过 1200 字符，日志尾部同步脱敏。
 - 2026-08-28：`python3 test/runner/test_job_failure_detail.py` 2/2 通过；`python3 -m py_compile runner/jobs.py` 通过。
+- 2026-08-28：待投稿元信息加入 ellipsis 裁剪与完整 title；操作区固定为独立上层命中区。窄屏下状态与操作分行，完整错误可换行阅读。
+- 2026-08-28：`node --test test/lyric_editor_view.test.mjs` 19/19 通过。
