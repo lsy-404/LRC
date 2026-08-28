@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadFlexWeight, timedSpanFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
+import { activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, shiftTimedRow, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadFlexWeight, timedSpanFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
 
 test('时间戳支持厘秒和毫秒并稳定往返', () => {
   assert.equal(timestampToMs('01:02.34'), 62340);
@@ -16,6 +16,15 @@ test('逐字草稿可解析并以同一正文序列化 LRC/KLRC', () => {
   assert.equal(result.lines[0], '你好');
   assert.match(result.lrc, /\[00:01.000\]你好/);
   assert.match(result.klrc, /<00:01.350>好/);
+});
+
+test('移动句首时按 delta 平移逐字绝对时间并保持句内偏移', () => {
+  const row = { time: 1000, text: '你好', words: [{ _id: 1, time: 1100, text: '你' }, { _id: 2, time: 1350, text: '好' }] };
+  const shifted = shiftTimedRow(row, 1800);
+  assert.equal(shifted.time, 1800);
+  assert.deepEqual(shifted.words.map((word) => word.time), [1900, 2150]);
+  assert.deepEqual(shifted.words.map((word) => word.time - shifted.time), [100, 350]);
+  assert.deepEqual(serializeTimedLyrics([], [shifted]), { lrc: '[00:01.800]你好\n', klrc: '[00:01.800]<00:01.900>你<00:02.150>好\n', lines: ['你好'] });
 });
 
 test('序列化保留头部并忽略空逐字项', () => {
