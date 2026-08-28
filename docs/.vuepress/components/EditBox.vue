@@ -84,6 +84,7 @@
           :key="t._id"
           class="eb-track"
           :class="{ lowconf: isLowConf(t), lowcov: showLowCov(t), dirty: isDirty(t) }"
+          @focusin="setHistoryTrack(t, $event)"
         >
           <div class="eb-track-head">
             <input v-model.number="t.order" type="number" class="eb-input tiny" title="序号">
@@ -104,6 +105,8 @@
             <span class="eb-dim">{{ trackState(t) }}</span>
             <span class="eb-spacer" />
             <button class="eb-btn small" @click="simplifyTrack(t)">转为简体</button>
+            <button class="eb-btn small" :disabled="!canUndo(t)" @click="undoTrack(t)">撤回</button>
+            <button class="eb-btn small" :disabled="!canRedo(t)" @click="redoTrack(t)">恢复</button>
           </div>
 
           <div class="eb-workbench" aria-label="歌词校对工作区">
@@ -146,8 +149,8 @@
               <div v-if="t._view === 'lrc'">
               <div v-for="(r, li) in t.rows" :key="r._id" :ref="(node) => bindLineNode(t, li, node)" class="eb-line-editor">
               <div class="eb-lrc-row">
-                <label class="eb-time"><input v-model.number="r.time" type="number" min="0" step="10" class="eb-input ms" @change="normalizeRows(t); lockTiming(t)">毫秒</label>
-                <input v-model="r.text" class="eb-input lrc" @input="syncRowText(t, r)" @click="recordCursor(r, $event)" @keyup="recordCursor(r, $event)" @select="recordCursor(r, $event)">
+                <label class="eb-time"><input v-model.number="r.time" type="number" min="0" step="10" class="eb-input ms" @change="normalizeRows(t); lockTiming(t); commitHistory(t)">毫秒</label>
+                <input v-model="r.text" class="eb-input lrc" @input="syncRowText(t, r)" @blur="commitHistory(t)" @click="recordCursor(r, $event)" @keyup="recordCursor(r, $event)" @select="recordCursor(r, $event)">
                 <button class="eb-btn small" @click="splitFromCursor(t, r, li)">从光标拆分</button><button class="eb-btn small" @click="moveSelectionToNext(t, r, li)">选中移下一句</button><button class="eb-btn small" @click="addLine(t, li)">+ 行</button><button class="eb-btn small danger" @click="removeLine(t, li)">删</button>
               </div>
               <div class="eb-word-timeline" role="region" aria-label="逐字时间轨">
@@ -174,6 +177,7 @@
               class="eb-textarea"
               rows="6"
               @change="applyWholeText(t)"
+              @blur="commitHistory(t)"
               :placeholder="t.inst ? '伴奏轨：留空则借同名正曲时间轴或写占位' : '逐行歌词'"
               />
               <button v-if="t._view === 'text'" class="eb-btn small" @click="applyWholeText(t)">应用整段文本并保留时间轴</button>
@@ -242,6 +246,7 @@ import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
   activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedLeadFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
+import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, recordLyricHistory, redoLyricHistory, undoLyricHistory } from './lyricHistory.js';
 
 const META_FIELDS = [
   { key: 'vocal', label: '演唱', list: true },
@@ -285,6 +290,7 @@ const timelineMenu = ref(null);
 let pollTimer = null;
 let nextEditorId = 1;
 let dragState = null;
+let historyTrack = null;
 const playheads = new WeakMap();
 const playbackViews = new WeakMap();
 
@@ -331,27 +337,34 @@ function nextRowTime(t, rowIndex) { return Number(t.rows[rowIndex + 1]?.time); }
 function timelineLeadStyle(row) { return { '--eb-time-grow': timedLeadFlexWeight(row.time, row.words[0]?.time) }; }
 function timelineTokenStyle(t, row, rowIndex, wordIndex) { return { '--eb-time-grow': timedTokenFlexWeight(row.words, wordIndex, nextRowTime(t, rowIndex)) }; }
 function boundedWordTime(t, row, index, time) { const rowIndex = t.rows.findIndex((item) => item._id === row._id); const nextRow = t.rows[rowIndex + 1]; return clampWordTime(row.words, index, time, 10, row.time, index === row.words.length - 1 && nextRow ? Number(nextRow.time) - 10 : Number.POSITIVE_INFINITY); }
-function setWordTime(t, row, index, time) { row.words[index].time = boundedWordTime(t, row, index, time); updateActiveIndices(t, playheadMs(t)); lockTiming(t); }
+function setHistoryTrack(t, event) { historyTrack = event.target.closest('.eb-editor-panel') ? t : null; }
+function canUndo(t) { return canUndoLyricHistory(t._history); }
+function canRedo(t) { return canRedoLyricHistory(t._history); }
+function commitHistory(t) { recordLyricHistory(t._history, t); }
+function restoreHistory(t, restore) { if (restore(t._history, t)) { closeTimelineMenu(); updateActiveIndices(t, playheadMs(t)); } }
+function undoTrack(t) { restoreHistory(t, undoLyricHistory); }
+function redoTrack(t) { restoreHistory(t, redoLyricHistory); }
+function setWordTime(t, row, index, time) { row.words[index].time = boundedWordTime(t, row, index, time); updateActiveIndices(t, playheadMs(t)); lockTiming(t); commitHistory(t); }
 function nudgeWordTime(t, row, index, event) { if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return; event.preventDefault(); setWordTime(t, row, index, Number(row.words[index].time) + (event.key === 'ArrowLeft' ? -10 : 10)); }
 function closeTimelineMenu() { timelineMenu.value = null; }
 function openTimelineMenu(t, row, wordIndex, charIndex, event) { const x = Math.max(8, Math.min(window.innerWidth - 240, Number(event.clientX) || 8)); const y = Math.max(8, Math.min(window.innerHeight - 120, Number(event.clientY) || 8)); timelineMenu.value = { t, row, rowId: row._id, wordIndex, charIndex, rowIndex: t.rows.findIndex((item) => item._id === row._id), x, y }; nextTick(() => document.querySelector('.eb-timeline-menu [role="menuitem"]:not([disabled])')?.focus()); }
 function openTimelineMenuFromKey(t, row, wordIndex, charIndex, event) { if (!(event.shiftKey && event.key === 'F10') && event.key !== 'ContextMenu') return; event.preventDefault(); const rect = event.currentTarget.getBoundingClientRect(); openTimelineMenu(t, row, wordIndex, charIndex, { clientX: rect.left, clientY: rect.bottom }); }
-function applyTimelineBoundary() { const menu = timelineMenu.value; if (!menu) return; const next = menu.charIndex ? splitTimedToken(menu.row, menu.wordIndex, menu.charIndex, newId) : mergeTimedToken(menu.row, menu.wordIndex); if (next !== menu.row) { menu.t.rows.splice(menu.rowIndex, 1, next); syncTrackText(menu.t); lockTiming(menu.t); } closeTimelineMenu(); }
-function splitRowAtBoundary() { const menu = timelineMenu.value; if (!menu || (!menu.wordIndex && !menu.charIndex)) return; menu.t.rows = splitRowAtTokenBoundary(menu.t.rows, menu.rowIndex, menu.wordIndex, menu.charIndex, newId); syncTrackText(menu.t); lockTiming(menu.t); closeTimelineMenu(); }
-function mergeRowPrevious() { const menu = timelineMenu.value; if (!menu || menu.rowIndex <= 0) return; menu.t.rows = mergeTimedRows(menu.t.rows, menu.rowIndex); syncTrackText(menu.t); lockTiming(menu.t); closeTimelineMenu(); }
+function applyTimelineBoundary() { const menu = timelineMenu.value; if (!menu) return; const next = menu.charIndex ? splitTimedToken(menu.row, menu.wordIndex, menu.charIndex, newId) : mergeTimedToken(menu.row, menu.wordIndex); if (next !== menu.row) { menu.t.rows.splice(menu.rowIndex, 1, next); syncTrackText(menu.t); lockTiming(menu.t); commitHistory(menu.t); } closeTimelineMenu(); }
+function splitRowAtBoundary() { const menu = timelineMenu.value; if (!menu || (!menu.wordIndex && !menu.charIndex)) return; menu.t.rows = splitRowAtTokenBoundary(menu.t.rows, menu.rowIndex, menu.wordIndex, menu.charIndex, newId); syncTrackText(menu.t); lockTiming(menu.t); commitHistory(menu.t); closeTimelineMenu(); }
+function mergeRowPrevious() { const menu = timelineMenu.value; if (!menu || menu.rowIndex <= 0) return; menu.t.rows = mergeTimedRows(menu.t.rows, menu.rowIndex); syncTrackText(menu.t); lockTiming(menu.t); commitHistory(menu.t); closeTimelineMenu(); }
 function clearTimeDrag() { const state = dragState; if (!state) return; dragState = null; if (state.frame) cancelAnimationFrame(state.frame); state.node.style.transform = ''; document.removeEventListener('visibilitychange', state.visibility); if (state.node.hasPointerCapture(state.pointerId)) state.node.releasePointerCapture(state.pointerId); }
 function startTimeDrag(t, row, index, event) { if (event.button !== 0) return; event.preventDefault(); clearTimeDrag(); const node = event.currentTarget; const state = { t, row, index, node, pointerId: event.pointerId, startX: event.clientX, startTime: Number(row.words[index].time), x: event.clientX, frame: null, visibility: null }; state.visibility = () => { if (document.hidden) finishTimeDrag(); }; dragState = state; node.setPointerCapture(event.pointerId); document.addEventListener('visibilitychange', state.visibility); }
 function moveTimeDrag(event) { if (!dragState || event.pointerId !== dragState.pointerId) return; dragState.x = event.clientX; if (!dragState.frame) dragState.frame = requestAnimationFrame(() => { const state = dragState; if (!state) return; const time = boundedWordTime(state.t, state.row, state.index, state.startTime + (state.x - state.startX) * 10); state.node.style.transform = `translateX(${(time - state.startTime) / 10}px)`; state.frame = null; }); }
 function finishTimeDrag(event) { if (!dragState || (event?.pointerId != null && event.pointerId !== dragState.pointerId)) return; if (event?.clientX != null) dragState.x = event.clientX; const state = dragState; if (!allTracks().includes(state.t) || !state.t.rows.includes(state.row)) return clearTimeDrag(); setWordTime(state.t, state.row, state.index, state.startTime + (state.x - state.startX) * 10); clearTimeDrag(); }
 function normalizeRows(t) { t.rows.sort((a, b) => Number(a.time) - Number(b.time)); syncTrackText(t); }
 function syncRowText(t, row) { row.words = reconcileWordCharacters(row.words, row.text, newId, row.time); t._textDirty = true; syncTrackText(t); lockTiming(t); }
-function applyWholeText(t) { t.rows = reconcileTimedRows(t.rows, t.text, newId); normalizeRows(t); t.timingLocked = true; updateActiveIndices(t, playheadMs(t)); }
+function applyWholeText(t) { t.rows = reconcileTimedRows(t.rows, t.text, newId); normalizeRows(t); t.timingLocked = true; updateActiveIndices(t, playheadMs(t)); commitHistory(t); }
 function recordCursor(row, event) { row._selection = { start: utf16ToCodePointIndex(row.text, event.target.selectionStart), end: utf16ToCodePointIndex(row.text, event.target.selectionEnd) }; }
-function splitFromCursor(t, row, index) { t.rows = splitTimedRow(t.rows, index, row._selection?.start ?? Array.from(row.text).length, newId); syncTrackText(t); lockTiming(t); }
-function moveSelectionToNext(t, row, index) { t.rows = moveTimedSelection(t.rows, index, row._selection?.start ?? 0, row._selection?.end ?? 0, newId); syncTrackText(t); lockTiming(t); }
+function splitFromCursor(t, row, index) { t.rows = splitTimedRow(t.rows, index, row._selection?.start ?? Array.from(row.text).length, newId); syncTrackText(t); lockTiming(t); commitHistory(t); }
+function moveSelectionToNext(t, row, index) { t.rows = moveTimedSelection(t.rows, index, row._selection?.start ?? 0, row._selection?.end ?? 0, newId); syncTrackText(t); lockTiming(t); commitHistory(t); }
 function lockTiming(t) { t.timingLocked = true; }
-function addLine(t, index) { const time = Math.max(0, Number(t.rows[index]?.time || 0) + 1000); t.rows.splice(index + 1, 0, { _id: newId(), time, text: '', words: [{ _id: newId(), time, text: '' }] }); syncTrackText(t); lockTiming(t); }
-function removeLine(t, index) { t.rows.splice(index, 1); syncTrackText(t); lockTiming(t); }
+function addLine(t, index) { const time = Math.max(0, Number(t.rows[index]?.time || 0) + 1000); t.rows.splice(index + 1, 0, { _id: newId(), time, text: '', words: [{ _id: newId(), time, text: '' }] }); syncTrackText(t); lockTiming(t); commitHistory(t); }
+function removeLine(t, index) { t.rows.splice(index, 1); syncTrackText(t); lockTiming(t); commitHistory(t); }
 function previewEnd(t) { const row = t.rows[t.rows.length - 1]; const word = row?.words?.[row.words.length - 1]; return Math.max(1000, Number(word?.time || row?.time || 0)) + 1500; }
 function playbackView(t) {
   let view = playbackViews.get(t);
@@ -426,7 +439,7 @@ function cancelSourceTimer(t) { if (t._sourceTimer) { clearInterval(t._sourceTim
 function allTracks() { return edits.value.flatMap((edit) => edit.tracks); }
 function pausePreview(t) { t._playing = false; if (t._previewTimer) { clearInterval(t._previewTimer); t._previewTimer = null; } setPlayhead(t, playheadMs(t), true); }
 function togglePreview(t) { if (t._playing) return pausePreview(t); for (const other of allTracks()) pausePreview(other); t._playing = true; let last = Date.now(); t._previewTimer = setInterval(() => { const now = Date.now(); const ms = Math.min(previewEnd(t), playheadMs(t) + (now - last) * t._speed); setPlayhead(t, ms); last = now; if (ms >= previewEnd(t)) pausePreview(t); }, 100); }
-function releaseAllTracks() { clearTimeDrag(); for (const track of allTracks()) releaseAudio(track); }
+function releaseAllTracks() { clearTimeDrag(); historyTrack = null; for (const track of allTracks()) releaseAudio(track); }
 function releaseAudio(t) {
   cancelSourceTimer(t); pausePreview(t);
   if (t._audioAbort) t._audioAbort.abort();
@@ -527,6 +540,7 @@ function simplifyTrack(t) {
   // 保持已有 LRC/KLRC 的时间戳，只把文本改成简体；Phase B 不会重跑 STT。
   if (t.rows.length) lockTiming(t);
   else t._textDirty = true;
+  commitHistory(t);
 }
 const formatMs = (ms) => msToTimestamp(ms);
 
@@ -577,13 +591,15 @@ function toEdit(album, draft) {
         const words = r.words.map((word) => ({ ...word, _id: newId() }));
         return { ...r, _id: newId(), words: expandTimedTokens(words, newId, 100, Number(parsedRows[index + 1]?.time)) };
       });
-      return {
+      const track = {
         _id: newId(), order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
         coverage: t.coverage, audio: t.audio || '', klrc: t.klrc || '',
         head, rows: editorRows, timingLocked: !!t.timing_locked, _view: rows.length ? 'lrc' : 'text', _playing: false, _speed: 1, _previewMs: 0, _textDirty: false,
         _audioUrl: '', _audioElement: null, _audioLoading: false, _audioAbort: null, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _sourceTimer: null, _previewTimer: null, _volume: 1,
         text: linesToText(t.lines), _orig: t,
       };
+      track._history = createLyricHistory(track);
+      return track;
     }),
     pages: draft.pages || [],
     coverExt: draft.cover_ext || '',
@@ -809,13 +825,21 @@ onMounted(() => {
   loadPending();
   window.addEventListener('click', closeTimelineMenu);
   window.addEventListener('keydown', closeTimelineMenuOnEscape);
+  window.addEventListener('keydown', handleHistoryShortcut);
 });
 function closeTimelineMenuOnEscape(event) { if (event.key === 'Escape') closeTimelineMenu(); }
+function handleHistoryShortcut(event) {
+  if (!(event.metaKey || event.ctrlKey) || event.altKey || event.key.toLowerCase() !== 'z' || !historyTrack) return;
+  event.preventDefault();
+  if (event.shiftKey) redoTrack(historyTrack);
+  else undoTrack(historyTrack);
+}
 onBeforeUnmount(() => {
   stopPoll();
   clearTimeDrag();
   window.removeEventListener('click', closeTimelineMenu);
   window.removeEventListener('keydown', closeTimelineMenuOnEscape);
+  window.removeEventListener('keydown', handleHistoryShortcut);
   for (const e of edits.value) {
     if (e._coverPreview) URL.revokeObjectURL(e._coverPreview);
     for (const t of e.tracks) releaseAudio(t);
