@@ -155,7 +155,7 @@
                 <button class="eb-btn small eb-icon-btn" :disabled="textRowBoundaryAction(r, li) === 'none'" :aria-label="textRowBoundaryLabel(r, li)" :title="textRowBoundaryLabel(r, li)" @click="applyTextRowBoundary(t, r, li)">{{ textRowBoundaryIcon(r, li) }}</button><button class="eb-btn small eb-icon-btn" aria-label="插入歌词行" title="插入歌词行" @click="addLine(t, li)">＋</button><button class="eb-btn small danger eb-icon-btn" aria-label="删除歌词行" title="删除歌词行" @click="removeLine(t, li)">×</button>
               </div>
               <div class="eb-word-timeline" role="region" aria-label="逐字时间轨">
-                <div class="eb-time-track">
+                <div class="eb-time-track" :style="timelineTrackStyle(t, r, li)">
                   <span class="eb-time-lead" :style="timelineLeadStyle(r)" aria-hidden="true" />
                   <div v-for="(word, wi) in r.words" :key="word._id" :ref="(node) => bindTokenNode(t, li, wi, node)" class="eb-time-token" :style="timelineTokenStyle(t, r, li, wi)">
                     <span class="eb-time-chars"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" contenteditable="plaintext-only" spellcheck="false" tabindex="0" @focus="selectTimelineChar" @input="editTimelineChar(t, r, wi, ci, $event)" @keydown.enter.prevent="$event.currentTarget.blur()" @contextmenu.prevent.stop="openTimelineMenu(t, r, wi, ci, $event)" @keydown="openTimelineMenuFromKey(t, r, wi, ci, $event)">{{ char }}</span></span>
@@ -335,8 +335,17 @@ const showLowCov = (t) => isLowCoverage(t.coverage);
 const pct = (v) => Math.round((Number(v) || 0) * 100) + '%';
 
 const newId = () => nextEditorId++;
+const TIMELINE_MS_PER_PIXEL = 5;
+const TIMELINE_PADDING_PX = 64;
 function syncTrackText(t) { t.text = linesToText(t.rows.map((row) => row.text)); }
 function nextRowTime(t, rowIndex) { return Number(t.rows[rowIndex + 1]?.time); }
+function timelineTrackStyle(t, row, rowIndex) {
+  const next = nextRowTime(t, rowIndex);
+  const start = Number(row.time);
+  const end = timedSentenceEndMs(row, next);
+  const span = Number.isFinite(start) && Number.isFinite(end) ? Math.max(1000, end - start) : 1000;
+  return { '--eb-timeline-width': `${Math.ceil(span / TIMELINE_MS_PER_PIXEL) + TIMELINE_PADDING_PX * 2}px` };
+}
 function timelineLeadStyle(row) { return { '--eb-time-grow': timedLeadFlexWeight(row.time, row.words[0]?.time) }; }
 function timelineTokenStyle(t, row, rowIndex, wordIndex) {
   const duration = wordIndex === row.words.length - 1
@@ -474,14 +483,14 @@ function moveTimeDrag(event) {
   if (!dragState.frame) dragState.frame = requestAnimationFrame(() => {
     const state = dragState;
     if (!state) return;
-    const time = boundedWordTime(state.t, state.row, state.index, state.startTime + (state.x - state.startX) * 10);
-    state.node.style.transform = `translateX(${(time - state.startTime) / 10}px)`;
+    const time = boundedWordTime(state.t, state.row, state.index, state.startTime + (state.x - state.startX) * TIMELINE_MS_PER_PIXEL);
+    state.node.style.transform = `translateX(${(time - state.startTime) / TIMELINE_MS_PER_PIXEL}px)`;
     const label = state.node.querySelector('span');
     if (label) label.textContent = formatWordOffset(state.row, time);
     state.frame = null;
   });
 }
-function finishTimeDrag(event) { if (!dragState || (event?.pointerId != null && event.pointerId !== dragState.pointerId)) return; if (event?.clientX != null) dragState.x = event.clientX; const state = dragState; if (!allTracks().includes(state.t) || !state.t.rows.includes(state.row)) return clearTimeDrag(); setWordTime(state.t, state.row, state.index, state.startTime + (state.x - state.startX) * 10); clearTimeDrag(); }
+function finishTimeDrag(event) { if (!dragState || (event?.pointerId != null && event.pointerId !== dragState.pointerId)) return; if (event?.clientX != null) dragState.x = event.clientX; const state = dragState; if (!allTracks().includes(state.t) || !state.t.rows.includes(state.row)) return clearTimeDrag(); setWordTime(state.t, state.row, state.index, state.startTime + (state.x - state.startX) * TIMELINE_MS_PER_PIXEL); clearTimeDrag(); }
 function normalizeRows(t) { t.rows.sort((a, b) => Number(a.time) - Number(b.time)); syncTrackText(t); }
 function syncRowText(t, row) { row.words = reconcileWordCharacters(row.words, row.text, newId, row.time); t._textDirty = true; syncTrackText(t); lockTiming(t); }
 function applyWholeText(t) { t.rows = reconcileTimedRows(t.rows, t.text, newId); normalizeRows(t); t.timingLocked = true; updateActiveIndices(t, playheadMs(t)); commitHistory(t); }
@@ -1083,14 +1092,14 @@ onBeforeUnmount(() => {
 .eb-input.ms { width: 5.4rem; flex: none; font-family: var(--font-family-mono, monospace); }
 .eb-time { display: flex; align-items: center; gap: .2rem; font-size: .7rem; white-space: nowrap; }
 .eb-word-timeline { overflow-x: auto; padding: .4rem .2rem; contain: layout paint; border-top: 1px solid var(--border-color, #ddd); }
-.eb-time-track { position: relative; display: flex; width: 100%; min-width: max-content; gap: 0; padding-bottom: 3px; box-sizing: border-box; }
+.eb-time-track { position: relative; display: flex; width: max(100%, var(--eb-timeline-width, 100%)); min-width: max-content; gap: 0; padding: 0 4rem 3px; box-sizing: border-box; }
 .eb-time-lead { box-sizing: border-box; flex: var(--eb-time-grow, 0) 1 0; min-width: 0; border-right: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
 .eb-time-token { position: relative; box-sizing: border-box; display: flex; flex: var(--eb-time-grow, 1) 1 max-content; min-width: max-content; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
 .eb-time-token.active { background: color-mix(in srgb, var(--eb-accent) 12%, transparent); }
 .eb-time-trailing { flex: var(--eb-time-grow, 0) 1 0; min-width: 0; border-left: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
 .eb-time-sentence-progress { position: absolute; right: 0; bottom: 0; left: 0; height: 3px; pointer-events: none; background: linear-gradient(to right, var(--eb-accent) var(--eb-sentence-progress, 0%), color-mix(in srgb, var(--border-color, #ddd) 65%, transparent) var(--eb-sentence-progress, 0%)); }
 .eb-time-chars { display: flex; min-width: 2.4rem; min-height: 1.4rem; padding: .12rem .18rem; }
-.eb-time-marker { align-self: flex-start; writing-mode: vertical-rl; padding: .15rem; border: 0; border-radius: 3px; background: transparent; color: var(--eb-accent); cursor: ew-resize; font-size: .62rem; }
+.eb-time-marker { align-self: flex-start; writing-mode: vertical-rl; padding: .15rem; border: 0; border-radius: 3px; background: transparent; color: var(--eb-accent); cursor: ew-resize; touch-action: none; font-size: .62rem; }
 .eb-time-char { min-width: .8em; padding: .12rem .04rem; border-right: 1px dotted color-mix(in srgb, var(--border-color, #ddd) 75%, transparent); cursor: text; }
 .eb-time-char:focus { outline: 1px solid var(--eb-accent); outline-offset: 1px; }
 .eb-timeline-menu { position: fixed; z-index: 4; display: flex; gap: .35rem; flex-wrap: wrap; max-width: min(22rem, calc(100vw - 1rem)); padding: .35rem; border: 1px solid var(--border-color, #ddd); border-radius: 6px; background: var(--bg-color, #fff); box-shadow: 0 .25rem .8rem rgb(0 0 0 / 15%); }

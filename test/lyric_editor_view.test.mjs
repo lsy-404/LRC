@@ -156,6 +156,21 @@ test('逐字时间轨显示句内偏移、支持单字编辑且只更新整句�
   assert.doesNotMatch(source, /eb-time-token-progress|--eb-token-progress|tokenProgressPercent|clearTokenProgress/);
 });
 
+test('逐字时间轨为稀疏句提供更大的前后操作距离且保留安全夹紧', async () => {
+  const source = await component();
+  assert.match(source, /:style="timelineTrackStyle\(t, r, li\)"/);
+  assert.match(source, /const TIMELINE_MS_PER_PIXEL = 5/);
+  assert.match(source, /const TIMELINE_PADDING_PX = 64/);
+  assert.match(source, /function timelineTrackStyle\(t, row, rowIndex\)/);
+  assert.match(source, /--eb-timeline-width/);
+  assert.match(source, /width: max\(100%, var\(--eb-timeline-width, 100%\)\)/);
+  assert.match(source, /padding: 0 4rem 3px/);
+  assert.match(source, /state\.startTime \+ \(state\.x - state\.startX\) \* TIMELINE_MS_PER_PIXEL/);
+  assert.match(source, /setWordTime\(state\.t, state\.row, state\.index, state\.startTime \+ \(state\.x - state\.startX\) \* TIMELINE_MS_PER_PIXEL\)/);
+  assert.match(source, /touch-action: none/);
+  assert.match(source, /function boundedWordTime\(t, row, index, time\)/);
+});
+
 test('歌词编辑历史提供按钮、未失焦输入和键盘撤回恢复', async () => {
   const source = await component();
   assert.match(source, /:disabled="!canUndo\(t\)" @click="undoTrack\(t\)">撤回/);
