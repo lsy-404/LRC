@@ -100,3 +100,29 @@ test('声部历史深拷贝移动后的句行与首字时间', () => {
   undoLyricHistory(history, harmony);
   assert.deepEqual(harmony.rows[0].words.map((word) => word.time), [2180, 2470]);
 });
+
+test('跨声部移动作为一个历史步骤原子撤回和恢复', () => {
+  const current = track();
+  current._selectedVocal = 0;
+  current._view = 'lrc';
+  current._vocals = [
+    { id: 'main', name: '主唱', head: [], rows: current.rows, text: current.text, timingLocked: true, _view: 'lrc' },
+    { id: 'harmony', name: '合音', head: [], rows: [], text: '', timingLocked: true, _view: 'lrc' },
+  ];
+  const history = createLyricHistory(current);
+  const moved = current.rows[0];
+  current.rows = [];
+  current.text = '';
+  current._vocals[0].rows = current.rows;
+  current._vocals[0].text = current.text;
+  current._vocals[1].rows = [moved];
+  current._vocals[1].text = moved.text;
+  recordLyricHistory(history, current);
+  assert.equal(undoLyricHistory(history, current), true);
+  assert.equal(current._vocals[0].rows.length, 1);
+  assert.equal(current._vocals[1].rows.length, 0);
+  assert.equal(redoLyricHistory(history, current), true);
+  assert.equal(current._vocals[0].rows.length, 0);
+  assert.equal(current._vocals[1].rows.length, 1);
+  assert.equal(current._vocals[1].rows[0].words[0].time, 100);
+});

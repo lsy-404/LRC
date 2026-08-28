@@ -3,6 +3,21 @@ const clone = (value) => JSON.parse(JSON.stringify(value));
 export function lyricSnapshot(track) {
   const rows = clone(track.rows || []);
   for (const row of rows) delete row._selection;
+  const vocals = Array.isArray(track._vocals) ? track._vocals.map((vocal, index) => {
+    const selected = index === Number(track._selectedVocal || 0);
+    const vocalRows = clone(selected ? track.rows || [] : vocal.rows || []);
+    for (const row of vocalRows) delete row._selection;
+    return {
+      id: vocal.id,
+      name: vocal.name,
+      _id: vocal._id,
+      head: clone(selected ? track.head || [] : vocal.head || []),
+      rows: vocalRows,
+      text: selected ? track.text : vocal.text,
+      timingLocked: selected ? !!track.timingLocked : !!vocal.timingLocked,
+      _view: selected ? track._view : vocal._view,
+    };
+  }) : null;
   return {
     order: track.order,
     title: track.title,
@@ -14,6 +29,8 @@ export function lyricSnapshot(track) {
     text: track.text,
     timingLocked: !!track.timingLocked,
     textDirty: !!track._textDirty,
+    selectedVocal: Number(track._selectedVocal || 0),
+    vocals,
   };
 }
 
@@ -48,6 +65,16 @@ function restore(track, snapshot) {
   track.text = snapshot.text;
   track.timingLocked = snapshot.timingLocked;
   track._textDirty = snapshot.textDirty;
+  if (Array.isArray(snapshot.vocals) && snapshot.vocals.length) {
+    track._vocals = clone(snapshot.vocals);
+    track._selectedVocal = Math.max(0, Math.min(snapshot.selectedVocal || 0, track._vocals.length - 1));
+    const selected = track._vocals[track._selectedVocal];
+    track.head = selected.head;
+    track.rows = selected.rows;
+    track.text = selected.text;
+    track.timingLocked = selected.timingLocked;
+    track._view = selected._view;
+  }
 }
 
 export function undoLyricHistory(history, track) {

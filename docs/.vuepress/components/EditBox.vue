@@ -264,7 +264,7 @@ import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  activeIndexAt, clampWordTime, expandTimedTokens, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, parseLrc, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedCharacterAverageMs, timedLastTokenSpanMs, timedLeadFlexWeight, timedSentenceEndMs, timedSpanFlexWeight, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
+  activeIndexAt, clampWordTime, expandTimedTokens, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, parseLrc, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedCharacterAverageMs, timedLastTokenSpanMs, timedLeadFlexWeight, timedSentenceEndMs, timedSpanFlexWeight, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, transferTimedVocalRow, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, markLyricHistoryDirty, recordLyricHistory, redoLyricHistory, undoLyricHistory } from './lyricHistory.js';
 
@@ -422,7 +422,12 @@ function canUndo(t) { return canUndoLyricHistory(t._history); }
 function canRedo(t) { return canRedoLyricHistory(t._history); }
 function markHistory(t) { markLyricHistoryDirty(t._history); }
 function commitHistory(t) { recordLyricHistory(t._history, t); }
-function restoreHistory(t, restore) { if (restore(t._history, t)) { closeTimelineMenu(); clearPlaybackView(t); nextTick(() => updateActiveIndices(t, playheadMs(t))); } }
+function restoreHistory(t, restore) {
+  if (!restore(t._history, t)) return;
+  for (const vocal of t._vocals) vocal._owner = t;
+  closeTimelineMenu(); clearPlaybackView(t);
+  nextTick(() => updateAllVocalHighlights(t, playheadMs(t)));
+}
 function undoTrack(t) { restoreHistory(t, undoLyricHistory); }
 function redoTrack(t) { restoreHistory(t, redoLyricHistory); }
 function setWordTime(t, row, index, time) { row.words[index].time = boundedWordTime(t, row, index, time); updateActiveIndices(t, playheadMs(t)); lockTiming(t); commitHistory(t); }
@@ -605,35 +610,33 @@ function selectVocal(t, index) {
   persistVocal(t);
   const vocal = t._vocals[index]; if (!vocal) return;
   t._selectedVocal = index; t.head = vocal.head; t.rows = vocal.rows; t.text = vocal.text; t.timingLocked = vocal.timingLocked; t._view = vocal._view;
-  t._history = vocal._history || createLyricHistory(t); vocal._history = t._history;
   clearPlaybackView(t); nextTick(() => updateAllVocalHighlights(t, playheadMs(t)));
 }
 function addVocal(t) {
   persistVocal(t);
-  const vocal = { id: `vocal-${t._vocals.length + 1}`, name: `声部 ${t._vocals.length + 1}`, head: [], rows: [], text: '', timingLocked: false, _view: 'text', _history: null };
+  const vocal = { id: `vocal-${t._vocals.length + 1}`, name: `声部 ${t._vocals.length + 1}`, head: [], rows: [], text: '', timingLocked: false, _view: 'text', _owner: t };
   t._vocals.push(vocal); selectVocal(t, t._vocals.length - 1); markHistory(t); commitHistory(t);
 }
-function syncVocalText(vocal) { vocal.text = linesToText(vocal.rows.map((row) => row.text)); }
 function ensureHarmonyVocal(t) {
   const existing = t._vocals.find((vocal) => vocal.id === 'harmony' || vocal.name === '合音');
   if (existing) return existing;
-  const vocal = { id: 'harmony', name: '合音', head: [], rows: [], text: '', timingLocked: false, _view: 'text', _history: null, _owner: t };
+  const vocal = { id: 'harmony', name: '合音', head: [], rows: [], text: '', timingLocked: true, _view: 'lrc', _owner: t };
   t._vocals.push(vocal);
   return vocal;
 }
 function toggleHarmonyRow(t, row) {
   persistVocal(t);
-  const source = selectedVocal(t);
+  const sourceIndex = t._selectedVocal;
   const target = t._selectedVocal ? t._vocals[0] : ensureHarmonyVocal(t);
-  const index = source.rows.findIndex((item) => item === row);
-  if (!target || index < 0) return;
-  source.rows.splice(index, 1);
-  target.rows.push(row);
-  target.rows.sort((a, b) => Number(a.time) - Number(b.time));
-  syncVocalText(source);
-  syncVocalText(target);
-  t.rows = source.rows;
-  t.text = source.text;
+  const targetIndex = t._vocals.indexOf(target);
+  const rowIndex = t._vocals[sourceIndex]?.rows.findIndex((item) => item === row) ?? -1;
+  if (targetIndex < 0 || rowIndex < 0) return;
+  t._vocals = transferTimedVocalRow(t._vocals, sourceIndex, rowIndex, targetIndex);
+  for (const vocal of t._vocals) vocal._owner = t;
+  t._vocals[targetIndex].timingLocked = true;
+  t._vocals[targetIndex]._view = 'lrc';
+  const source = t._vocals[sourceIndex];
+  t.head = source.head; t.rows = source.rows; t.text = source.text; t.timingLocked = source.timingLocked; t._view = source._view;
   lockTiming(t);
   commitHistory(t);
 }
@@ -800,7 +803,7 @@ function toEdit(album, draft) {
         const words = r.words.map((word) => ({ ...word, _id: newId() }));
         return { ...r, _id: newId(), words: expandTimedTokens(words, newId, 100, Number(parsedRows[index + 1]?.time)) };
       });
-        return { ...part, _id: newId(), rows: editorRows, _view: editorRows.length ? 'lrc' : 'text', _history: null };
+        return { ...part, _id: newId(), rows: editorRows, _view: editorRows.length ? 'lrc' : 'text' };
       };
       const vocals = parseVocalDrafts(t).map(makeVocal);
       const primary = vocals[0];
@@ -812,7 +815,6 @@ function toEdit(album, draft) {
         text: primary.text, _orig: t, _vocals: vocals, _selectedVocal: 0,
       };
       track._history = createLyricHistory(track);
-      primary._history = track._history;
       for (const vocal of vocals) vocal._owner = track;
       return track;
     }),

@@ -198,7 +198,7 @@ test('歌词编辑历史提供按钮、未失焦输入和键盘撤回恢复', as
   assert.match(source, /@input="markHistory\(t\)"\s+@change="applyWholeText\(t\)"/);
   assert.match(source, /window\.addEventListener\('keydown', handleHistoryShortcut\)/);
   assert.match(source, /if \(event\.shiftKey\) redoTrack\(historyTrack\)/);
-  assert.match(source, /clearPlaybackView\(t\); nextTick\(\(\) => updateActiveIndices/);
+  assert.match(source, /clearPlaybackView\(t\);\s+nextTick\(\(\) => updateAllVocalHighlights/);
 });
 
 test('同曲多声部使用独立草稿流，并共享播放头高亮重叠歌词', async () => {
@@ -222,9 +222,10 @@ test('逐行支持标为合音与并回主唱，迁移保留时间并使用当�
   assert.match(source, /function ensureHarmonyVocal\(t\)/);
   assert.match(source, /id: 'harmony', name: '合音'/);
   assert.match(source, /function toggleHarmonyRow\(t, row\)/);
-  assert.match(source, /source\.rows\.splice\(index, 1\)/);
-  assert.match(source, /target\.rows\.push\(row\)/);
-  assert.match(source, /target\.rows\.sort\(\(a, b\) => Number\(a\.time\) - Number\(b\.time\)\)/);
+  assert.match(source, /transferTimedVocalRow\(t\._vocals, sourceIndex, rowIndex, targetIndex\)/);
+  assert.match(source, /t\._vocals\[targetIndex\]\.timingLocked = true/);
+  assert.match(source, /t\._vocals\[targetIndex\]\._view = 'lrc'/);
   assert.match(source, /function nextRowTime\(t, rowIndex\) \{ return Number\(t\.rows\[rowIndex \+ 1\]\?\.time\); \}/);
   assert.match(source, /function shiftRowTime\(t, row\)/);
+  assert.match(source, /nextTick\(\(\) => updateAllVocalHighlights\(t, playheadMs\(t\)\)\)/);
 });
