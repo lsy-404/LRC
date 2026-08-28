@@ -54,11 +54,30 @@ def test_phase_b_ignores_empty_or_untimed_vocals() -> None:
         assert (Path(tmp) / "测试" / "1 歌曲.klrc").read_text(encoding="utf-8") == MAIN_KLRC
 
 
+def test_same_timestamp_keeps_main_before_each_harmony_and_ignores_empty_part() -> None:
+    lrc, klrc = organize.merge_vocal_outputs(
+        "[00:01.000]主唱\n",
+        "[00:01.000]<00:01.120>主<00:01.300>唱\n",
+        [
+            {"timing_locked": True, "lrc": "[00:01.000]和声甲\n", "klrc": "[00:01.000]<00:01.180>和<00:01.360>甲\n"},
+            {"timing_locked": True, "lrc": "\n", "klrc": "\n"},
+            {"timing_locked": True, "lrc": "[00:01.000]和声乙\n", "klrc": "[00:01.000]<00:01.220>和<00:01.410>乙\n"},
+        ],
+    )
+    assert lrc.splitlines() == ["[00:01.000]主唱", "[00:01.000]和声甲", "[00:01.000]和声乙"]
+    assert klrc is not None and klrc.splitlines() == [
+        "[00:01.000]<00:01.120>主<00:01.300>唱",
+        "[00:01.000]<00:01.180>和<00:01.360>甲",
+        "[00:01.000]<00:01.220>和<00:01.410>乙",
+    ]
+
+
 def run() -> int:
     test_single_vocal_output_is_byte_identical()
     test_final_output_merges_timed_vocals_without_vocal_names()
     test_phase_b_ignores_empty_or_untimed_vocals()
-    print("3/3 通过")
+    test_same_timestamp_keeps_main_before_each_harmony_and_ignores_empty_part()
+    print("4/4 通过")
     return 0
 
 

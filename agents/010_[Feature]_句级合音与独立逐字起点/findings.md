@@ -6,3 +6,5 @@
 - 本子项：`parseVocalDrafts` 使用每个声部独立 `rows`，可通过纯函数只移动行对象本身；目标数组以稳定时间排序即可允许跨声部的同一时间重叠。
 - 首字时间由 `parseKaraokeRows` 的 KLRC 标记提供，行移动和序列化不应以 `row.time` 覆盖它。
 - 验证：`node --test test/lrc_draft.test.mjs` 的跨声部往返用例确认同拍行稳定保序，首字 `1250ms` 在 parse、transfer 与 serialize 后不变。
+- `serializeTimedLyrics` 会分别写出句开始与首字绝对时间；Phase B 先收集主唱再收集合音并稳定按时间排序，因此同拍主唱在前，空或未锁定合音不会进入成品。
+- 现有历史会深拷贝单个声部的 `rows`，但跨声部行移动需要额外保证撤回时不会只恢复来源而在目标声部留下重复行。

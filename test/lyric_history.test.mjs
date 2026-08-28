@@ -90,3 +90,13 @@ test('连续输入在撤回时提交为单条历史，光标位置不产生歌�
   assert.equal(redoLyricHistory(history, current), true);
   assert.equal(current.text, '你好呀');
 });
+
+test('声部历史深拷贝移动后的句行与首字时间', () => {
+  const harmony = track();
+  harmony.rows = [{ _id: 8, time: 2100, text: '和声', words: [{ _id: 9, time: 2180, text: '和' }, { _id: 10, time: 2470, text: '声' }] }];
+  const history = createLyricHistory(harmony);
+  harmony.rows = [];
+  recordLyricHistory(history, harmony);
+  undoLyricHistory(history, harmony);
+  assert.deepEqual(harmony.rows[0].words.map((word) => word.time), [2180, 2470]);
+});

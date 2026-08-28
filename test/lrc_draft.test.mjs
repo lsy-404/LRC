@@ -86,6 +86,17 @@ test('句子可跨声部稳定归并并移回主唱，保留首字时间和 toke
   assert.match(serializeVocalDrafts(returned).main.klrc, /\[00:01.000\]<00:01.250>主/);
 });
 
+test('跨声部移动句行后保留首字独立时间并分别序列化', () => {
+  const moved = { _id: 7, time: 2100, text: '和声', words: [{ _id: 8, time: 2180, text: '和' }, { _id: 9, time: 2470, text: '声' }] };
+  const saved = serializeVocalDrafts([
+    { id: 'main', name: '主唱', head: [], rows: [{ _id: 1, time: 2100, text: '主唱', words: [{ _id: 2, time: 2100, text: '主' }, { _id: 3, time: 2300, text: '唱' }] }], timingLocked: true },
+    { id: 'harmony', name: '和声', head: [], rows: [moved], timingLocked: true },
+  ]);
+  assert.match(saved.main.klrc, /^\[00:02.100\]<00:02.100>主<00:02.300>唱/m);
+  assert.match(saved.vocals[0].klrc, /^\[00:02.100\]<00:02.180>和<00:02.470>声/m);
+  assert.equal(saved.vocals[0].lines[0], '和声');
+});
+
 test('整行字符编辑以 LCS 保留未改字符的逐字时间与标识', () => {
   let nextId = 10;
   const words = [{ _id: 1, time: 100, text: '你' }, { _id: 2, time: 200, text: '好' }, { _id: 3, time: 300, text: '啊' }];
