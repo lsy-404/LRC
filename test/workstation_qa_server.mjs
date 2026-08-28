@@ -24,6 +24,8 @@ for (let row = 0; row < 180; row += 1) {
   lrc.push(`[${timestamp(start)}]${text}`);
   klrc.push(`[${timestamp(start)}]${Array.from(text).map((char, index) => `<${timestamp(start + index * 250)}>${char}`).join('')}`);
 }
+lines[0] = `${lines[0].slice(0, 2)}缺${lines[0].slice(2)}`;
+lrc[0] = `[${timestamp(0)}]${lines[0]}`;
 
 const draft = {
   meta: {},
@@ -38,6 +40,11 @@ const draft = {
     klrc: klrc.join('\n'),
     lines,
     timing_locked: true,
+    vocals: [{
+      id: 'harmony', name: '和声', lines: ['和声同时进入'], timing_locked: true,
+      lrc: '[00:00.000]和声同时进入',
+      klrc: '[00:00.000]<00:00.000>和<00:00.200>声<00:00.400>同<00:00.600>时<00:00.800>进<00:01.000>入',
+    }],
   }],
   pages: [],
   cover_ext: '',
@@ -59,8 +66,16 @@ const contentTypes = {
 createServer(async (request, response) => {
   const url = new URL(request.url || '/', `http://${request.headers.host}`);
   if (url.pathname === '/api/upload/verify') return json(response, { ok: true });
-  if (url.pathname === '/api/ingest/list') return json(response, { pending: [{ ref: '0123456789abcdef', album: '本地压力测试' }] });
-  if (url.pathname === '/api/ingest/state') return json(response, { status: 'awaiting_review', albums: [{ album: '本地压力测试', draft }] });
+  if (url.pathname === '/api/ingest/list') return json(response, { pending: [
+    { ref: 'fedcba9876543210', album: '本地处理中测试', status: 'processing', state: 'running', stage: 'processing', progress: 47, message: '正在识别、转写与对齐' },
+    { ref: '0123456789abcdef', album: '本地压力测试', status: 'A_done', state: '', stage: '', progress: null, message: '' },
+  ] });
+  if (url.pathname === '/api/ingest/state') {
+    if (url.searchParams.get('ref') === 'fedcba9876543210') return json(response, {
+      status: 'processing', albums: [], job: { state: 'running', stage: 'processing', progress: 47, message: '正在识别、转写与对齐' },
+    });
+    return json(response, { status: 'awaiting_review', albums: [{ album: '本地压力测试', draft }] });
+  }
   if (url.pathname.startsWith('/api/')) return json(response, { ok: true });
 
   const relative = normalize(decodeURIComponent(url.pathname)).replace(/^(\.\.[/\\])+/, '').replace(/^[/\\]+/, '');

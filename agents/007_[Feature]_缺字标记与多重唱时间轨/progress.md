@@ -16,3 +16,4 @@
 - 2026-08-27：审计 `organize.finalize`、声部草稿序列化实现与 `test/ingest` 测试约定。
 - 2026-08-27：在 Phase B 落盘前稳定合并已锁定附加声部的时间行，保留主声部头部且不输出声部名称。
 - 2026-08-27：运行 `test_multi_vocal_output.py`、`test_timing_lock.py`、`test_chinese_simplified.py`，共 6 项通过。
+- 2026-08-27：主线 Node 测试 135 项、Python 聚焦测试、VuePress 907 页构建通过；本地浏览器验证 180 行压力草稿、缺字补标、多声部切换和扩展时间轨。

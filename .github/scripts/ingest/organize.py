@@ -121,7 +121,8 @@ def _output_basename(track: dict[str, Any], order: Any) -> str:
         # Names are basenames only; ignore a pasted path and strip either accepted sidecar suffix.
         base = Path(raw.replace("\\", "/")).name
         while base.lower().endswith((".lrc", ".klrc")):
-            base = Path(base).stem
+            suffix_len = 5 if base.lower().endswith(".klrc") else 4
+            base = base[:-suffix_len]
         if base not in {"", ".", ".."}:
             return _sanitize_filename(base)
     title = _sanitize_filename(str(track.get("title", "")).strip() or f"track{order}")

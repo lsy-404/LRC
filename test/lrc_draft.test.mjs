@@ -102,6 +102,15 @@ test('首尾缺字从句边界插值且已有标记严格有序', () => {
   assert.ok(trailing.words.every((word, index, words) => index === 0 || words[index - 1].time < word.time));
 });
 
+test('句首或相邻标签没有空隙时仍可补标并共享边界时间', () => {
+  const atStart = { time: 100, text: '你好吗', words: [{ _id: 1, time: 100, text: '好' }, { _id: 2, time: 100, text: '吗' }] };
+  const leading = insertMissingTimedCharacter(atStart, 0, () => 3, 500);
+  assert.deepEqual(leading.words.map((word) => [word.text, word.time]), [['你', 100], ['好', 100], ['吗', 100]]);
+  const between = { time: 100, text: '你们好', words: [{ _id: 1, time: 100, text: '你' }, { _id: 2, time: 100, text: '好' }] };
+  const inserted = insertMissingTimedCharacter(between, 1, () => 4, 500);
+  assert.deepEqual(inserted.words.map((word) => [word.text, word.time]), [['你', 100], ['们', 100], ['好', 100]]);
+});
+
 test('整段文本插行或改单行仍保留其余行和未改字的时间标识', () => {
   let nextId = 20;
   const rows = [

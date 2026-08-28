@@ -45,3 +45,4 @@ def test_finalize_uses_requested_basenames_without_duplicate_suffixes() -> None:
 def test_output_basename_discards_path_components() -> None:
     assert organize._output_basename(_track(1, "歌", output_name="../../不会越界.lrc"), 1) == "不会越界"
     assert organize._output_basename(_track(2, "歌", inst=True, output_name="通用", final_name=""), 2) == "通用"
+    assert organize._output_basename(_track(3, "回退", output_name=".lrc"), 3) == "3 回退"

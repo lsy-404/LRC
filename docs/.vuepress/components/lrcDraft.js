@@ -342,8 +342,9 @@ export function insertMissingTimedCharacter(row, textIndex, createId = () => und
   const after = words[slot.wordIndex];
   const low = before ? Number(before.time) : Math.max(0, Number(row.time) || 0);
   const high = after ? Number(after.time) : Number(rowEnd);
-  const time = Number.isFinite(high) && high > low ? Math.round(low + (high - low) / 2) : Math.round(low + 100);
-  if ((before && time <= Number(before.time)) || (after && time >= Number(after.time))) return row;
+  if (Number.isFinite(high) && high < low) return row;
+  const time = Number.isFinite(high) ? Math.round(low + (high - low) / 2) : Math.round(low + 100);
+  if ((before && time < Number(before.time)) || (after && time > Number(after.time))) return row;
   words.splice(slot.wordIndex, 0, { _id: createId(), text: slot.text, time });
   return { ...row, words };
 }
