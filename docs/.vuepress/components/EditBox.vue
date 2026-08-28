@@ -267,7 +267,7 @@ import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  activeIndexAt, clampWordTime, expandTimedTokens, fillInstrumentalFallback, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, parseLrc, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, removeKnownSttWatermarks, removeKnownSttWatermarkTokens, replaceTimedTokenText, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedCharacterAverageMs, timedLastTokenSpanMs, timedLeadFlexWeight, timedSentenceEndMs, timedSpanFlexWeight, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, transferTimedVocalRow, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
+  activeIndexAt, clampWordTime, expandTimedTokens, fillInstrumentalFallback, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, parseLrc, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, removeKnownSttWatermarks, removeKnownSttWatermarkTokens, replaceTimedTokenText, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedLastTokenSpanMs, timedSentenceEndMs, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, transferTimedVocalRow, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, markLyricHistoryDirty, recordLyricHistory, redoLyricHistory, undoLyricHistory } from './lyricHistory.js';
 
@@ -376,18 +376,22 @@ function timelineTrackStyle(t, row, rowIndex) {
   const span = Number.isFinite(start) && Number.isFinite(end) ? Math.max(1000, end - start) : 1000;
   return { '--eb-timeline-width': `${Math.ceil(span / TIMELINE_MS_PER_PIXEL) + TIMELINE_PADDING_PX * 2}px` };
 }
-function timelineLeadStyle(row) { return { '--eb-time-grow': timedLeadFlexWeight(row.time, row.words[0]?.time) }; }
+// Keep flex weights in milliseconds so the track's fixed width maps directly to time.
+function timelineLeadStyle(row) {
+  const start = Number(row.time);
+  const first = Number(row.words[0]?.time);
+  return { '--eb-time-grow': Number.isFinite(start) && Number.isFinite(first) && first > start ? first - start : 0 };
+}
 function timelineTokenStyle(t, row, rowIndex, wordIndex) {
   const duration = wordIndex === row.words.length - 1
     ? timedLastTokenSpanMs(row, nextRowTime(t, rowIndex))
     : timedTokenSpanMs(row.words, wordIndex);
-  return { '--eb-time-grow': timedSpanFlexWeight(duration) };
+  return { '--eb-time-grow': Math.max(1, Number(duration) || 1) };
 }
 function timelineTrailingStyle(t, row, rowIndex) {
   const next = nextRowTime(t, rowIndex);
   const duration = timedTrailingGapMs(row, next);
-  const average = timedCharacterAverageMs(row, next);
-  return { '--eb-time-grow': duration > 0 ? Math.min(4, duration / average) : 0 };
+  return { '--eb-time-grow': Math.max(0, Number(duration) || 0) };
 }
 function missingMarkerSlots(row, wordIndex) { return missingTimedCharacterSlots(row).filter((slot) => slot.wordIndex === wordIndex); }
 function insertMissingMarker(t, row, rowIndex, textIndex) {
@@ -1226,10 +1230,10 @@ onBeforeUnmount(() => {
 .eb-time { display: flex; align-items: center; gap: .2rem; font-size: .7rem; white-space: nowrap; }
 .eb-word-timeline { overflow-x: auto; padding: .4rem .2rem; contain: layout paint; border-top: 1px solid var(--border-color, #ddd); }
 .eb-time-track { position: relative; display: flex; width: max(100%, var(--eb-timeline-width, 100%)); min-width: max-content; gap: 0; padding: 0 4rem 3px; box-sizing: border-box; }
-.eb-time-lead { box-sizing: border-box; flex: var(--eb-time-grow, 0) 1 0; min-width: 0; border-right: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
-.eb-time-token { position: relative; box-sizing: border-box; display: flex; flex: var(--eb-time-grow, 1) 1 max-content; min-width: max-content; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
+.eb-time-lead { box-sizing: border-box; flex: var(--eb-time-grow, 0) 0 0; min-width: 0; border-right: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
+.eb-time-token { position: relative; box-sizing: border-box; display: flex; flex: var(--eb-time-grow, 1) 0 0; min-width: 0; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
 .eb-time-token.active { background: color-mix(in srgb, var(--eb-accent) 12%, transparent); }
-.eb-time-trailing { flex: var(--eb-time-grow, 0) 1 0; min-width: 0; border-left: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
+.eb-time-trailing { flex: var(--eb-time-grow, 0) 0 0; min-width: 0; border-left: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
 .eb-time-sentence-progress { position: absolute; right: 0; bottom: 0; left: 0; height: 3px; pointer-events: none; background: linear-gradient(to right, var(--eb-accent) var(--eb-sentence-progress, 0%), color-mix(in srgb, var(--border-color, #ddd) 65%, transparent) var(--eb-sentence-progress, 0%)); }
 .eb-time-chars { display: flex; min-width: 2.4rem; min-height: 1.4rem; padding: .12rem .18rem; }
 .eb-time-marker { align-self: flex-start; writing-mode: vertical-rl; padding: .15rem; border: 0; border-radius: 3px; background: transparent; color: var(--eb-accent); cursor: ew-resize; touch-action: none; font-size: .62rem; }

@@ -31,7 +31,7 @@ test('播放器内联于歌词编辑区，且不保留原音与模拟说明', as
   assert.doesNotMatch(source, /eb-time-token-(?:lower|upper)/);
   assert.match(source, /timedLastTokenSpanMs\(row, nextRowTime/);
   assert.match(source, /--eb-time-grow/);
-  assert.match(source, /flex: var\(--eb-time-grow, 1\) 1 max-content/);
+  assert.match(source, /flex: var\(--eb-time-grow, 1\) 0 0/);
   assert.match(source, /min-width: max-content/);
   assert.match(source, /timelineTokenStyle\(t, r, li, wi\)/);
   assert.match(source, /part\.timingLocked \? words : expandTimedTokens\(words, newId, 100, Number\(parsedRows\[index \+ 1\]\?\.time\)\)/);
@@ -166,7 +166,8 @@ test('逐字时间轨显示句内偏移、支持单字编辑且只更新整句�
   assert.match(source, /class="eb-time-sentence-progress"/);
   assert.match(source, /--eb-sentence-progress/);
   assert.match(source, /timedTrailingGapMs\(row, next\)/);
-  assert.match(source, /Math\.min\(4, duration \/ average\)/);
+  assert.match(source, /return \{ '--eb-time-grow': Math\.max\(0, Number\(duration\) \|\| 0\) \};/);
+  assert.doesNotMatch(source, /timedSpanFlexWeight\(duration\)/);
   assert.doesNotMatch(source, /eb-time-token-progress|--eb-token-progress|tokenProgressPercent|clearTokenProgress/);
 });
 
