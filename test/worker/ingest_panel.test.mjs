@@ -62,6 +62,24 @@ test('list 从上传 manifest 发现尚未生成 review 草稿的投稿并透传
   });
 });
 
+test('list 过滤已使用、已完成和未知状态的旧 manifest', async () => {
+  const used = 'c'.repeat(32);
+  const done = 'd'.repeat(32);
+  const unknown = 'e'.repeat(32);
+  const env = envOf(fakeBucket({
+    [`web/${used}/manifest.json`]: JSON.stringify({ album: '已使用' }),
+    [`web/${used}/.used`]: '1',
+    [`web/${done}/manifest.json`]: JSON.stringify({ album: '已完成' }),
+    [`web/${unknown}/manifest.json`]: JSON.stringify({ album: '未知' }),
+  }), { INGEST_INTERNAL_CALL: async (path) => {
+    const ref = new URL(`https://x${path}`).searchParams.get('ref');
+    if (ref === done) return { ok: true, status: 200, data: { state: 'done', phase: 'phase_a' } };
+    return { ok: true, status: 200, data: { state: 'unknown' } };
+  } });
+  const resp = await listGet({ request: authedRequest('https://x/api/ingest/list'), env });
+  assert.equal((await resp.json()).pending.some((entry) => [used, done, unknown].includes(entry.ref)), false);
+});
+
 test('list 拒绝无口令请求', async () => {
   const resp = await listGet({
     request: new Request('https://x/api/ingest/list'), env: envOf(seeded()),

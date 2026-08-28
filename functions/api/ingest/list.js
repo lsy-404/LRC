@@ -37,18 +37,24 @@ export async function onRequestGet({ request, env }) {
     const parts = o.key.split('/');
     return parts.length === 3 && parts[0] === 'web' && parts[2] === 'manifest.json' && cleanRef(parts[1]);
   });
+  const usedRefs = new Set(webObjects
+    .map((o) => o.key.match(/^web\/([0-9a-f]{16,64})\/.used$/)?.[1])
+    .filter(Boolean));
   for (const object of manifests) {
     const [, ref] = object.key.split('/');
-    if (refs.has(ref)) continue;
+    if (refs.has(ref) || usedRefs.has(ref)) continue;
+    const worker = await callWorker(env, `/state?ref=${encodeURIComponent(ref)}`, null, 'GET');
+    const job = worker.ok && worker.data && worker.data.state !== 'unknown' ? worker.data : null;
+    if (!job || !['queued', 'dispatching', 'running', 'failed'].includes(job.state)) continue;
     const manifest = (await readJson(env, object.key)) || {};
     pending.push({
       ref,
       album: manifest.album || '',
-      status: 'processing',
-      state: '',
-      stage: '',
-      progress: null,
-      message: '',
+      status: job.state === 'failed' ? 'failed' : 'processing',
+      state: job.state || '',
+      stage: job.stage || '',
+      progress: Number.isFinite(Number(job.progress)) ? Number(job.progress) : null,
+      message: job.message || '',
       updated: manifest.updated || object.uploaded?.toISOString?.() || '',
       contributor: manifest.contributor || '',
       is_update: false,
@@ -56,6 +62,7 @@ export async function onRequestGet({ request, env }) {
     refs.add(ref);
   }
   await Promise.all(pending.map(async (item) => {
+    if (item.state) return;
     const worker = await callWorker(env, `/state?ref=${encodeURIComponent(item.ref)}`, null, 'GET');
     const job = worker.ok && worker.data && worker.data.state !== 'unknown' ? worker.data : null;
     if (!job) return;

@@ -147,7 +147,7 @@ test('待处理列表显示实时作业信息并在无当前 ref 时自动载入
   assert.match(source, /p\.message \|\| pendingStageText\(p\)/);
   assert.match(source, /p\.progress != null/);
   assert.match(source, /function pendingStageText\(item\)/);
-  assert.match(source, /const active = pending\.value\.find\(\(item\) => ACTIVE_JOB_STATES\.has\(item\.state\) \|\| item\.status === 'processing'\)/);
+  assert.match(source, /const active = pending\.value\.find\(\(item\) => ACTIVE_JOB_STATES\.has\(item\.state\)\)/);
   assert.match(source, /if \(!curRef\.value && !refInput\.value\.trim\(\) && active\?\.ref\)/);
   assert.match(source, /refInput\.value = active\.ref;\s*await load\(\)/);
 });

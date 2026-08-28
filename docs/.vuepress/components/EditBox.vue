@@ -743,7 +743,7 @@ async function loadPending() {
     if (!resp.ok) return;
     const data = await resp.json().catch(() => ({}));
     pending.value = Array.isArray(data.pending) ? data.pending : [];
-    const active = pending.value.find((item) => ACTIVE_JOB_STATES.has(item.state) || item.status === 'processing');
+    const active = pending.value.find((item) => ACTIVE_JOB_STATES.has(item.state));
     if (!curRef.value && !refInput.value.trim() && active?.ref) {
       refInput.value = active.ref;
       await load();

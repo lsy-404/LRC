@@ -9,8 +9,8 @@ const styles = new URL('../docs/.vuepress/styles/index.scss', import.meta.url);
 test('only workstation uses the isolated full-width workspace shell', async () => {
   const guide = await readFile(contributionGuide, 'utf8');
   const app = await readFile(workstation, 'utf8');
-  assert.match(guide, /^sidebar: false$/m);
-  assert.match(guide, /^toc: false$/m);
+  assert.doesNotMatch(guide, /^sidebar: false$/m);
+  assert.doesNotMatch(guide, /^toc: false$/m);
   assert.doesNotMatch(guide, /^containerClass: contribution-workspace$/m);
   assert.match(app, /^containerClass: contribution-workspace$/m);
 });
