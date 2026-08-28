@@ -9,3 +9,5 @@
 - 2026-08-28：`python3 test/runner/test_job_failure_detail.py` 2/2 通过；`python3 -m py_compile runner/jobs.py` 通过。
 - 2026-08-28：待投稿元信息加入 ellipsis 裁剪与完整 title；操作区固定为独立上层命中区。窄屏下状态与操作分行，完整错误可换行阅读。
 - 2026-08-28：`node --test test/lyric_editor_view.test.mjs` 19/19 通过。
+- 2026-08-28：共享音频标签读取器检查 fLaC 文件头并强制使用 `mutagen.flac.FLAC`，元信息与内嵌封面复用该路径；单文件解析失败仅输出异常类别并继续。
+- 2026-08-28：`python3 test/ingest/test_audio_content_routing.py` 4/4 通过（含真实最小合法 FLAC 改名 `.mp3`、精确 mock 路由、坏标签跳过）；`python3 -m py_compile .github/scripts/ingest/pipeline.py` 通过。

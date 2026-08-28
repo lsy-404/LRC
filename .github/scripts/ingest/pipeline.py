@@ -91,6 +91,27 @@ def pick_cover(images: list[Path]) -> Path | None:
     return max(named, key=lambda p: p.stat().st_size) if named else None
 
 
+def _has_flac_header(path: Path) -> bool:
+    try:
+        with path.open("rb") as source:
+            return source.read(4) == b"fLaC"
+    except OSError:
+        return False
+
+
+def read_audio_tags(path: Path):
+    """按内容而非扩展名选择标签解析器，坏标签不阻断整张投稿。"""
+    try:
+        if _has_flac_header(path):
+            from mutagen.flac import FLAC
+            return FLAC(str(path))
+        from mutagen import File as MutagenFile
+        return MutagenFile(str(path))
+    except Exception as exc:  # 单个来源标签不应阻断音频转写
+        print(f"  ⚠️ 跳过音频标签 {path.name}: {type(exc).__name__}", file=sys.stderr)
+        return None
+
+
 def extract_audio_meta(audios: list[Path]) -> tuple[dict, str]:
     """音频内嵌 tag → 权威元信息 + 来源线索。
 
@@ -100,11 +121,10 @@ def extract_audio_meta(audios: list[Path]) -> tuple[dict, str]:
     """
     if not audios:
         return {}, ""
-    from mutagen import File as MutagenFile
     meta: dict = {}
     hint = ""
     for a in audios:
-        tags = getattr(MutagenFile(str(a)), "tags", None) or {}
+        tags = getattr(read_audio_tags(a), "tags", None) or {}
 
         def _get(key: str) -> str:
             v = tags.get(key)
@@ -127,9 +147,8 @@ def extract_embedded_cover(audios: list[Path], work: Path) -> Path | None:
     """从音频内嵌 tag 提取封面（FLAC pictures；专辑内通常一致，取第一个带图的）。"""
     if not audios:
         return None
-    from mutagen import File as MutagenFile
     for a in audios:
-        pics = getattr(MutagenFile(str(a)), "pictures", None) or []
+        pics = getattr(read_audio_tags(a), "pictures", None) or []
         if pics:
             data = pics[0].data
             ext = ".png" if data[:4] == b"\x89PNG" else ".jpg"
