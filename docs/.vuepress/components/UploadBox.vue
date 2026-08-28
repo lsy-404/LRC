@@ -38,6 +38,19 @@
         </div>
       </div>
 
+      <div>
+        <label class="ub-label" for="ub-lyric-makers">打轴署名</label>
+        <input
+          id="ub-lyric-makers"
+          v-model="lyricMakerText"
+          type="text"
+          class="ub-input"
+          placeholder="多个署名用顿号、逗号或换行分隔"
+          :disabled="busy"
+          @blur="normalizeLyricMakerText"
+        >
+      </div>
+
       <div
         class="ub-drop"
         :class="{ over: dragOver }"
@@ -270,7 +283,7 @@
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
 import { addRef } from './refsCache.js';
 import {
-  serializeDraft, writeDraft, clearDraft, readDraft, restoreItem, debounce,
+  normalizeLyricMakers, serializeDraft, writeDraft, clearDraft, readDraft, restoreItem, debounce,
 } from './uploadDraft.js';
 
 // 验证在工作站根层（Workbench）统一完成，密码经 prop 传入
@@ -290,6 +303,7 @@ const finished = ref(false);
 const lastRef = ref('');
 const linkBili = ref('');
 const linkDizzy = ref('');
+const lyricMakerText = ref('');
 
 const fileInput = ref(null);
 const dirInput = ref(null);
@@ -306,6 +320,10 @@ const restoreMsg = ref('');
 const IMG_RE = /\.(png|jpe?g|webp|gif|bmp|tiff?)$/i;
 const isImg = (it) => IMG_RE.test(it.relPath);
 const baseName = (p) => p.split('/').pop();
+
+function normalizeLyricMakerText() {
+  lyricMakerText.value = normalizeLyricMakers(lyricMakerText.value).join('、');
+}
 
 // 编号排序：取文件名开头的数字（与 organize.py 的 _order_from_name 同约定）；
 // 无编号排最后，稳定排序保留同号/无号项的相对顺序
@@ -707,6 +725,7 @@ async function onDrop(e) {
 function syncManifest(name) {
   const bili = linkBili.value.trim();
   const dizzy = linkDizzy.value.trim();
+  const lyricMakers = normalizeLyricMakers(lyricMakerText.value);
   const links = [];
   const albumPages = [];
   // inst 弹窗的选择固化进 manifest：标记伴奏 → 管道强制按伴奏处理；
@@ -724,7 +743,7 @@ function syncManifest(name) {
     if (s) links.push([p.relPath, baseName(s.relPath)]);
   }
   const prev = items.value.findIndex((i) => i.relPath === 'manifest.toml' && i.auto);
-  if (!bili && !dizzy && !links.length && !albumPages.length
+  if (!bili && !dizzy && !lyricMakers.length && !links.length && !albumPages.length
       && !instMarked.length && !instAsSong.length) {
     if (prev !== -1) items.value.splice(prev, 1);
     return;
@@ -735,6 +754,7 @@ function syncManifest(name) {
   // 中文键必须加引号：TOML 裸键仅限 ASCII，裸中文键会让 tomllib 整文件解析失败
   if (bili) lines.push(`"发布" = "${esc(wrap('Bilibili', bili))}"`);
   if (dizzy) lines.push(`"购买" = "${esc(wrap('dizzylab', dizzy))}"`);
+  lines.push(`"歌词制作" = [${lyricMakers.map((maker) => `"${esc(maker)}"`).join(', ')}]`);
   // SP 专辑级元信息照片：管道当 credits 抽 meta，不分配歌词
   if (albumPages.length) {
     lines.push(`album_pages = [${albumPages.map((n) => `"${esc(n)}"`).join(', ')}]`);
@@ -902,6 +922,7 @@ async function run() {
       body: JSON.stringify({
         album: name,
         session,
+        lyric_maker: normalizeLyricMakers(lyricMakerText.value),
         files: items.value.map((i) => ({ n: i.n, path: i.relPath, size: i.size })),
       }),
     });
@@ -910,7 +931,7 @@ async function run() {
     lastRef.value = String(data.ref || '');
     if (lastRef.value) cacheRef(name, lastRef.value);
     // 投稿成功后草稿保留 30 天：期内重投同一专辑不必重做旋转与绑定
-    writeDraft(serializeDraft(name, items.value, Date.now(), lastRef.value));
+    writeDraft(serializeDraft(name, items.value, Date.now(), lastRef.value, lyricMakerText.value));
     finished.value = true;
     busy.value = false;
   } catch (err) {
@@ -924,7 +945,7 @@ async function run() {
 // 草稿快照（元数据级）：把每文件的用途/旋转/绑定/排序持久化，编辑过程中随时存，
 // 跨刷新不丢。File 本体无法入 localStorage，重选文件时按 relPath 匹配恢复。
 function saveDraft() {
-  writeDraft(serializeDraft(album.value, items.value));
+  writeDraft(serializeDraft(album.value, items.value, Date.now(), '', lyricMakerText.value));
 }
 const scheduleSave = debounce(saveDraft, 400);
 
@@ -942,6 +963,7 @@ function resetForNext() {
   album.value = '';
   linkBili.value = '';
   linkDizzy.value = '';
+  lyricMakerText.value = '';
   submitMsg.value = '';
   submitErr.value = false;
   showRetry.value = false;
@@ -964,13 +986,14 @@ onMounted(() => {
   restoreDraft = readDraft();
   if (restoreDraft) {
     if (!album.value && restoreDraft.album) album.value = restoreDraft.album;
+    lyricMakerText.value = restoreDraft.lyricMakers.join('、');
     const who = `「${restoreDraft.album || '未命名'}」的 ${restoreDraft.map.size} 个文件`;
     restoreMsg.value = restoreDraft.submittedRef
       ? `上次已投稿 ${who}（编号 ${restoreDraft.submittedRef.slice(0, 7)}）。如需重投，重选这些文件即可，旋转与关联都还记着。`
       : `上次编辑了 ${who}，重选这些文件即可接着来，旋转与关联都还记着。`;
   }
 });
-watch(album, () => scheduleSave());
+watch([album, lyricMakerText], () => scheduleSave());
 onBeforeUnmount(() => {
   window.removeEventListener('beforeunload', guard);
   for (const id of [...thumbs.keys()]) dropThumb(id);

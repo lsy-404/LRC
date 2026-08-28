@@ -3,6 +3,22 @@ import {
   cleanAlbum, cleanRelPath, cleanSession, cleanIndex, MAX_FILES,
 } from './_lib.js';
 
+const REQUIRED_LYRIC_MAKER = '武乙凌薇';
+
+function cleanLyricMakers(value) {
+  const seen = new Set();
+  const makers = [];
+  for (const raw of (Array.isArray(value) ? value : [])) {
+    const name = typeof raw === 'string' ? raw.trim().slice(0, 60) : '';
+    if (!name || seen.has(name)) continue;
+    seen.add(name);
+    makers.push(name);
+    if (makers.length >= 20) break;
+  }
+  if (!seen.has(REQUIRED_LYRIC_MAKER)) makers.push(REQUIRED_LYRIC_MAKER);
+  return makers;
+}
+
 // 文件本体已直传 R2（web/<session>/<n>）。这里落一份取料清单到同一前缀下，
 // 再直接叫醒同一 Worker 内的编排跑 Phase A——投稿不再经过任何 git 分支。
 // ref 即 session：后续人工闸门、Phase B、原料清理都用它对账。
@@ -34,7 +50,8 @@ export async function onRequestPost({ request, env }) {
 
   const contributor = typeof body?.contributor === 'string'
     ? body.contributor.slice(0, 60) : 'web';
-  const manifest = { version: 2, album, session, contributor, files };
+  const lyric_maker = cleanLyricMakers(body?.lyric_maker);
+  const manifest = { version: 2, album, session, contributor, lyric_maker, files };
   await env.UPLOAD_BUCKET.put(`web/${session}/manifest.json`,
     JSON.stringify(manifest, null, 1),
     { httpMetadata: { contentType: 'application/json' } });

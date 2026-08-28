@@ -559,6 +559,20 @@ def merge_meta(*sources: dict) -> dict[str, Any]:
     return merged
 
 
+def ensure_lyric_maker(meta: dict[str, Any], required: str = "武乙凌薇") -> dict[str, Any]:
+    """Normalize album timing credits and append the required contributor when absent."""
+    seen: set[str] = set()
+    makers: list[str] = []
+    for item in _as_list((meta or {}).get("lyric_maker")):
+        if item not in seen:
+            seen.add(item)
+            makers.append(item)
+    if required and required not in seen:
+        makers.append(required)
+    meta["lyric_maker"] = makers
+    return meta
+
+
 def _fmt_toml_value(value: Any, is_list: bool) -> str:
     if is_list:
         return "[" + ", ".join(f'"{v}"' for v in value) + "]"
@@ -997,6 +1011,7 @@ def build_draft(
     meta = merge_meta(manifest, llm_meta, credits_staff, per_track_staff, web_meta, existing_meta or {})
     if default_lyric_maker and not meta.get("lyric_maker"):
         meta["lyric_maker"] = [default_lyric_maker]
+    ensure_lyric_maker(meta)
 
     # 名称字段不在 FIELD_SCHEMA，merge_meta 不处理，手动按优先级计算：
     # manifest > existing_meta > album 字符串推断

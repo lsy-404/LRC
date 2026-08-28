@@ -5,14 +5,30 @@ export const DRAFT_KEY = 'lrc-upload-draft';
 
 // 草稿保留 30 天：投稿完成后也留着，期内重投同一专辑不必重做旋转与绑定
 export const MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000;
+export const REQUIRED_LYRIC_MAKER = '武乙凌薇';
 
 const store = () => (typeof localStorage === 'undefined' ? null : localStorage);
 
-export function serializeDraft(album, items, at = Date.now(), submittedRef = '') {
+export function normalizeLyricMakers(value, required = REQUIRED_LYRIC_MAKER) {
+  const raw = Array.isArray(value) ? value : String(value || '').split(/[，,、\n]/);
+  const seen = new Set();
+  const makers = [];
+  for (const item of raw) {
+    const name = String(item || '').trim();
+    if (!name || seen.has(name)) continue;
+    seen.add(name);
+    makers.push(name);
+  }
+  if (required && !seen.has(required)) makers.push(required);
+  return makers;
+}
+
+export function serializeDraft(album, items, at = Date.now(), submittedRef = '', lyricMakers = []) {
   return {
     album: album || '',
     at,
     submittedRef: submittedRef || '',
+    lyricMakers: normalizeLyricMakers(lyricMakers),
     // 自动生成的 manifest 不入草稿：它由当前绑定关系重建，用户也不会重选它
     files: (items || []).filter((i) => i && !i.auto).map((i) => ({
       relPath: i.relPath,
@@ -48,7 +64,8 @@ export function readDraft(s = store(), now = Date.now()) {
     for (const f of d.files) if (f && typeof f.relPath === 'string') map.set(f.relPath, f);
     if (!map.size) return null;
     return {
-      album: d.album || '', at: d.at || 0, submittedRef: d.submittedRef || '', map,
+      album: d.album || '', at: d.at || 0, submittedRef: d.submittedRef || '',
+      lyricMakers: normalizeLyricMakers(d.lyricMakers), map,
     };
   } catch { return null; }
 }
