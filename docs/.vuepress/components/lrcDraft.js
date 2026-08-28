@@ -162,15 +162,6 @@ export function timedTokenSpanMs(words, index, rowEnd = undefined, defaultGap = 
   return Math.max(1, end - start);
 }
 
-export function timedTokenSpanPx(words, index, rowEnd = undefined, scale = 0.1) {
-  return Math.max(0, timedTokenSpanMs(words, index, rowEnd) * scale);
-}
-
-export function timedLeadSpanPx(rowTime, firstTime, scale = 0.1) {
-  if (!Number.isFinite(Number(firstTime))) return 0;
-  return Math.max(0, Math.max(0, Number(firstTime) - Number(rowTime)) * scale);
-}
-
 // Keep duration influence bounded so layout remains usable for both dense and sparse timing.
 export function timedSpanFlexWeight(duration, reference = 500) {
   const ms = Math.max(1, Number(duration) || 1);
@@ -183,8 +174,10 @@ export function timedTokenFlexWeight(words, index, rowEnd = undefined) {
 }
 
 export function timedLeadFlexWeight(rowTime, firstTime) {
-  if (!Number.isFinite(Number(firstTime))) return 0;
-  return timedSpanFlexWeight(Math.max(1, Number(firstTime) - (Number(rowTime) || 0)));
+  const start = Number(rowTime);
+  const first = Number(firstTime);
+  if (!Number.isFinite(start) || !Number.isFinite(first) || first <= start) return 0;
+  return timedSpanFlexWeight(first - start);
 }
 
 export function splitRowAtTokenBoundary(rows, rowIndex, wordIndex, charIndex, createId = () => undefined) {

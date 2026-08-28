@@ -30,7 +30,8 @@ test('播放器内联于歌词编辑区，且不保留原音与模拟说明', as
   assert.match(source, /eb-time-token-lower/);
   assert.match(source, /timedTokenFlexWeight\(row\.words/);
   assert.match(source, /--eb-time-grow/);
-  assert.match(source, /max\(2\.4rem, max-content\)/);
+  assert.match(source, /flex: var\(--eb-time-grow, 1\) 1 max-content/);
+  assert.match(source, /min-width: max-content/);
   assert.match(source, /timelineTokenStyle\(t, r, li, wi\)/);
   assert.match(source, /expandTimedTokens\(words, newId, 100, Number\(parsedRows\[index \+ 1\]\?\.time\)\)/);
   assert.match(source, /@pointerdown="startTimeDrag\(t, r, wi, \$event\)"/);
@@ -128,8 +129,19 @@ test('逐字时间 token 显示词内进度且只更新当前 DOM 节点', async
   assert.match(source, /class="eb-time-token-progress"/);
   assert.match(source, /function tokenProgressPercent\(t, line, word, ms\)/);
   assert.match(source, /timedTokenSpanMs\(row\.words, word, nextRowTime\(t, line\)\)/);
-  assert.match(source, /node\.style\.setProperty\('--token-progress', `\$\{percent\}%`\)/);
-  assert.match(source, /node\.style\.removeProperty\('--token-progress'\)/);
+  assert.match(source, /node\.style\.setProperty\('--eb-token-progress', `\$\{percent\}%`\)/);
+  assert.match(source, /node\.style\.removeProperty\('--eb-token-progress'\)/);
   assert.match(source, /clearTokenProgress\(view\.activeToken\)/);
   assert.doesNotMatch(source, /_tokenProgress|word\._progress|word\.progress/);
+});
+
+test('歌词编辑历史提供按钮、未失焦输入和键盘撤回恢复', async () => {
+  const source = await component();
+  assert.match(source, /:disabled="!canUndo\(t\)" @click="undoTrack\(t\)">撤回/);
+  assert.match(source, /:disabled="!canRedo\(t\)" @click="redoTrack\(t\)">恢复/);
+  assert.match(source, /@input="syncRowText\(t, r\); markHistory\(t\)"/);
+  assert.match(source, /@input="markHistory\(t\)"\s+@change="applyWholeText\(t\)"/);
+  assert.match(source, /window\.addEventListener\('keydown', handleHistoryShortcut\)/);
+  assert.match(source, /if \(event\.shiftKey\) redoTrack\(historyTrack\)/);
+  assert.match(source, /clearPlaybackView\(t\); nextTick\(\(\) => updateActiveIndices/);
 });

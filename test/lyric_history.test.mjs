@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, recordLyricHistory, redoLyricHistory, undoLyricHistory } from '../docs/.vuepress/components/lyricHistory.js';
+import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, markLyricHistoryDirty, recordLyricHistory, redoLyricHistory, undoLyricHistory } from '../docs/.vuepress/components/lyricHistory.js';
 
 function track() {
   return {
@@ -13,6 +13,8 @@ function track() {
 test('每轨歌词历史恢复文本、行和逐字时间而不触及播放状态', () => {
   const current = track();
   const history = createLyricHistory(current);
+  current.title = '新标题';
+  current.head = ['[ar:新演唱]'];
   current.rows[0].words[1].time = 260;
   current.rows.push({ _id: 4, time: 400, text: '呀', words: [{ _id: 5, time: 400, text: '呀' }] });
   current.text = '你好\n呀';
@@ -30,7 +32,11 @@ test('每轨歌词历史恢复文本、行和逐字时间而不触及播放状�
   assert.equal(current._playing, false);
   assert.equal(current._sourcePlaying, true);
   assert.equal(current._id, 9);
+  assert.equal(current.title, undefined);
+  assert.deepEqual(current.head, []);
   assert.equal(redoLyricHistory(history, current), true);
+  assert.equal(current.title, '新标题');
+  assert.deepEqual(current.head, ['[ar:新演唱]']);
   assert.equal(current.rows[1].text, '呀');
   assert.equal(current.rows[0].words[1].time, 260);
 });
@@ -65,4 +71,22 @@ test('不同曲目的历史互不影响', () => {
   assert.equal(first.text, '你好');
   assert.equal(second.text, '第二曲修改');
   assert.equal(secondHistory.index, 1);
+});
+
+test('连续输入在撤回时提交为单条历史，光标位置不产生歌词快照', () => {
+  const current = track();
+  current.rows[0]._selection = { start: 1, end: 1 };
+  const history = createLyricHistory(current);
+  current.rows[0]._selection = { start: 2, end: 2 };
+  assert.equal(recordLyricHistory(history, current), false);
+  current.text = '你好呀';
+  current.rows[0].text = '你好呀';
+  markLyricHistoryDirty(history);
+  assert.equal(canUndoLyricHistory(history), true);
+  assert.equal(canRedoLyricHistory(history), false);
+  assert.equal(undoLyricHistory(history, current), true);
+  assert.equal(current.text, '你好');
+  assert.equal(history.entries.length, 2);
+  assert.equal(redoLyricHistory(history, current), true);
+  assert.equal(current.text, '你好呀');
 });

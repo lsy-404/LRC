@@ -1,21 +1,28 @@
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
 export function lyricSnapshot(track) {
-  return clone({
-    rows: track.rows,
+  const rows = clone(track.rows || []);
+  for (const row of rows) delete row._selection;
+  return {
+    order: track.order,
+    title: track.title,
+    inst: !!track.inst,
+    head: clone(track.head || []),
+    rows,
     text: track.text,
     timingLocked: !!track.timingLocked,
     textDirty: !!track._textDirty,
-  });
+  };
 }
 
 export function createLyricHistory(track, limit = 100) {
-  return { limit, entries: [lyricSnapshot(track)], index: 0 };
+  return { limit, entries: [lyricSnapshot(track)], index: 0, dirty: false };
 }
 
 export function recordLyricHistory(history, track) {
   const snapshot = lyricSnapshot(track);
   const current = history.entries[history.index];
+  history.dirty = false;
   if (JSON.stringify(current) === JSON.stringify(snapshot)) return false;
   history.entries.splice(history.index + 1);
   history.entries.push(snapshot);
@@ -24,7 +31,15 @@ export function recordLyricHistory(history, track) {
   return true;
 }
 
+export function markLyricHistoryDirty(history) {
+  if (history) history.dirty = true;
+}
+
 function restore(track, snapshot) {
+  track.order = snapshot.order;
+  track.title = snapshot.title;
+  track.inst = snapshot.inst;
+  track.head = clone(snapshot.head);
   track.rows = clone(snapshot.rows);
   track.text = snapshot.text;
   track.timingLocked = snapshot.timingLocked;
@@ -32,18 +47,22 @@ function restore(track, snapshot) {
 }
 
 export function undoLyricHistory(history, track) {
-  if (!history || history.index <= 0) return false;
+  if (!history) return false;
+  if (history.dirty) recordLyricHistory(history, track);
+  if (history.index <= 0) return false;
   history.index -= 1;
   restore(track, history.entries[history.index]);
   return true;
 }
 
 export function redoLyricHistory(history, track) {
-  if (!history || history.index >= history.entries.length - 1) return false;
+  if (!history) return false;
+  if (history.dirty) recordLyricHistory(history, track);
+  if (history.index >= history.entries.length - 1) return false;
   history.index += 1;
   restore(track, history.entries[history.index]);
   return true;
 }
 
-export function canUndoLyricHistory(history) { return !!history && history.index > 0; }
-export function canRedoLyricHistory(history) { return !!history && history.index < history.entries.length - 1; }
+export function canUndoLyricHistory(history) { return !!history && (history.dirty || history.index > 0); }
+export function canRedoLyricHistory(history) { return !!history && !history.dirty && history.index < history.entries.length - 1; }

@@ -85,10 +85,11 @@
           class="eb-track"
           :class="{ lowconf: isLowConf(t), lowcov: showLowCov(t), dirty: isDirty(t) }"
           @focusin="setHistoryTrack(t, $event)"
+          @focusout="clearHistoryTrack(t, $event)"
         >
           <div class="eb-track-head">
-            <input v-model.number="t.order" type="number" class="eb-input tiny" title="序号">
-            <input v-model="t.title" class="eb-input grow" placeholder="曲名">
+            <input v-model.number="t.order" type="number" class="eb-input tiny" title="序号" @input="markHistory(t)" @change="commitHistory(t)">
+            <input v-model="t.title" class="eb-input grow" placeholder="曲名" @input="markHistory(t)" @blur="commitHistory(t)">
             <span v-if="isLowConf(t)" class="eb-tag conf" title="视觉分轨的识别置信度低，请重点核对曲名与归属">
               识别低置信 {{ pct(t.confidence) }}
             </span>
@@ -98,7 +99,7 @@
             <span v-if="isDirty(t)" class="eb-tag edit" title="确认后 Phase B 会对该轨重新对齐">
               已修改 · 待重对齐
             </span>
-            <label class="eb-inst"><input v-model="t.inst" type="checkbox"> 伴奏/无人声</label>
+            <label class="eb-inst"><input v-model="t.inst" type="checkbox" @change="commitHistory(t)"> 伴奏/无人声</label>
           </div>
 
           <div class="eb-track-bar">
@@ -149,8 +150,8 @@
               <div v-if="t._view === 'lrc'">
               <div v-for="(r, li) in t.rows" :key="r._id" :ref="(node) => bindLineNode(t, li, node)" class="eb-line-editor">
               <div class="eb-lrc-row">
-                <label class="eb-time"><input v-model.number="r.time" type="number" min="0" step="10" class="eb-input ms" @change="normalizeRows(t); lockTiming(t); commitHistory(t)">毫秒</label>
-                <input v-model="r.text" class="eb-input lrc" @input="syncRowText(t, r)" @blur="commitHistory(t)" @click="recordCursor(r, $event)" @keyup="recordCursor(r, $event)" @select="recordCursor(r, $event)">
+                <label class="eb-time"><input v-model.number="r.time" type="number" min="0" step="10" class="eb-input ms" @input="markHistory(t)" @change="normalizeRows(t); lockTiming(t); commitHistory(t)">毫秒</label>
+                <input v-model="r.text" class="eb-input lrc" @input="syncRowText(t, r); markHistory(t)" @blur="commitHistory(t)" @click="recordCursor(r, $event)" @keyup="recordCursor(r, $event)" @select="recordCursor(r, $event)">
                 <button class="eb-btn small" @click="splitFromCursor(t, r, li)">从光标拆分</button><button class="eb-btn small" @click="moveSelectionToNext(t, r, li)">选中移下一句</button><button class="eb-btn small" @click="addLine(t, li)">+ 行</button><button class="eb-btn small danger" @click="removeLine(t, li)">删</button>
               </div>
               <div class="eb-word-timeline" role="region" aria-label="逐字时间轨">
@@ -176,6 +177,7 @@
               v-model="t.text"
               class="eb-textarea"
               rows="6"
+              @input="markHistory(t)"
               @change="applyWholeText(t)"
               @blur="commitHistory(t)"
               :placeholder="t.inst ? '伴奏轨：留空则借同名正曲时间轴或写占位' : '逐行歌词'"
@@ -246,7 +248,7 @@ import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
   activeIndexAt, clampWordTime, expandTimedTokens, mergeTimedRows, mergeTimedToken, moveTimedSelection, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedLeadFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
-import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, recordLyricHistory, redoLyricHistory, undoLyricHistory } from './lyricHistory.js';
+import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, markLyricHistoryDirty, recordLyricHistory, redoLyricHistory, undoLyricHistory } from './lyricHistory.js';
 
 const META_FIELDS = [
   { key: 'vocal', label: '演唱', list: true },
@@ -337,11 +339,13 @@ function nextRowTime(t, rowIndex) { return Number(t.rows[rowIndex + 1]?.time); }
 function timelineLeadStyle(row) { return { '--eb-time-grow': timedLeadFlexWeight(row.time, row.words[0]?.time) }; }
 function timelineTokenStyle(t, row, rowIndex, wordIndex) { return { '--eb-time-grow': timedTokenFlexWeight(row.words, wordIndex, nextRowTime(t, rowIndex)) }; }
 function boundedWordTime(t, row, index, time) { const rowIndex = t.rows.findIndex((item) => item._id === row._id); const nextRow = t.rows[rowIndex + 1]; return clampWordTime(row.words, index, time, 10, row.time, index === row.words.length - 1 && nextRow ? Number(nextRow.time) - 10 : Number.POSITIVE_INFINITY); }
-function setHistoryTrack(t, event) { historyTrack = event.target.closest('.eb-editor-panel') ? t : null; }
+function setHistoryTrack(t) { historyTrack = t; }
+function clearHistoryTrack(t, event) { if (historyTrack === t && !event.currentTarget.contains(event.relatedTarget)) historyTrack = null; }
 function canUndo(t) { return canUndoLyricHistory(t._history); }
 function canRedo(t) { return canRedoLyricHistory(t._history); }
+function markHistory(t) { markLyricHistoryDirty(t._history); }
 function commitHistory(t) { recordLyricHistory(t._history, t); }
-function restoreHistory(t, restore) { if (restore(t._history, t)) { closeTimelineMenu(); updateActiveIndices(t, playheadMs(t)); } }
+function restoreHistory(t, restore) { if (restore(t._history, t)) { closeTimelineMenu(); clearPlaybackView(t); nextTick(() => updateActiveIndices(t, playheadMs(t))); } }
 function undoTrack(t) { restoreHistory(t, undoLyricHistory); }
 function redoTrack(t) { restoreHistory(t, redoLyricHistory); }
 function setWordTime(t, row, index, time) { row.words[index].time = boundedWordTime(t, row, index, time); updateActiveIndices(t, playheadMs(t)); lockTiming(t); commitHistory(t); }
@@ -386,10 +390,10 @@ function tokenProgressPercent(t, line, word, ms) {
   return Math.max(0, Math.min(100, ((Number(ms) - start) / Math.max(1, span)) * 100));
 }
 function setTokenProgress(node, percent) {
-  if (node) node.style.setProperty('--token-progress', `${percent}%`);
+  if (node) node.style.setProperty('--eb-token-progress', `${percent}%`);
 }
 function clearTokenProgress(node) {
-  if (node) node.style.removeProperty('--token-progress');
+  if (node) node.style.removeProperty('--eb-token-progress');
 }
 function bindTokenNode(t, line, word, node) {
   const view = playbackView(t);
@@ -428,6 +432,7 @@ function clearPlaybackView(t) {
   if (!view) return;
   view.activeLine?.classList.remove('active');
   view.activeToken?.classList.remove('active');
+  clearTokenProgress(view.activeToken);
   playbackViews.delete(t);
 }
 function playheadMs(t) { return playheads.get(t) ?? (Number(t._previewMs) || 0); }
@@ -963,12 +968,13 @@ onBeforeUnmount(() => {
 .eb-word-timeline { overflow-x: auto; padding: .4rem .2rem; contain: layout paint; border-top: 1px solid var(--border-color, #ddd); }
 .eb-time-track { display: flex; width: 100%; min-width: max-content; gap: 0; }
 .eb-time-lead { box-sizing: border-box; flex: var(--eb-time-grow, 0) 1 0; min-width: 0; border-right: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
-.eb-time-token { --token-progress: 0%; position: relative; box-sizing: border-box; display: flex; flex: var(--eb-time-grow, 1) 1 max(2.4rem, max-content); min-width: 2.4rem; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
+.eb-time-token { --eb-token-progress: 0%; position: relative; box-sizing: border-box; display: flex; flex: var(--eb-time-grow, 1) 1 max-content; min-width: max-content; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
 .eb-time-token-lower { padding-top: .35rem; }
 .eb-time-token-upper { padding-bottom: .35rem; }
 .eb-time-token.active { background: color-mix(in srgb, var(--eb-accent) 12%, transparent); }
-.eb-time-token-progress { position: absolute; right: 0; bottom: 0; left: 0; height: 2px; pointer-events: none; background: linear-gradient(to right, var(--eb-accent) var(--token-progress), transparent var(--token-progress)); }
-.eb-time-chars { display: flex; min-height: 1.4rem; padding: .12rem .18rem; }
+.eb-time-token-progress { position: absolute; right: .12rem; bottom: 0; left: .12rem; height: 3px; border-radius: 999px; opacity: 0; pointer-events: none; background: linear-gradient(to right, var(--eb-accent) var(--eb-token-progress), color-mix(in srgb, var(--border-color, #ddd) 65%, transparent) var(--eb-token-progress)); }
+.eb-time-token.active .eb-time-token-progress { opacity: 1; }
+.eb-time-chars { display: flex; min-width: 2.4rem; min-height: 1.4rem; padding: .12rem .18rem; }
 .eb-time-marker { align-self: flex-start; writing-mode: vertical-rl; padding: .15rem; border: 0; border-radius: 3px; background: transparent; color: var(--eb-accent); cursor: ew-resize; font-size: .62rem; }
 .eb-time-char { min-width: .8em; padding: .12rem .04rem; border-right: 1px dotted color-mix(in srgb, var(--border-color, #ddd) 75%, transparent); cursor: context-menu; }
 .eb-time-char:focus { outline: 1px solid var(--eb-accent); outline-offset: 1px; }
