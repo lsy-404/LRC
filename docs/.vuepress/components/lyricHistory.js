@@ -7,6 +7,8 @@ export function lyricSnapshot(track) {
     order: track.order,
     title: track.title,
     inst: !!track.inst,
+    outputName: track.outputName,
+    finalName: track.finalName,
     head: clone(track.head || []),
     rows,
     text: track.text,
@@ -39,6 +41,8 @@ function restore(track, snapshot) {
   track.order = snapshot.order;
   track.title = snapshot.title;
   track.inst = snapshot.inst;
+  track.outputName = snapshot.outputName;
+  track.finalName = snapshot.finalName;
   track.head = clone(snapshot.head);
   track.rows = clone(snapshot.rows);
   track.text = snapshot.text;

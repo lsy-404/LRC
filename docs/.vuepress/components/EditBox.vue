@@ -90,6 +90,7 @@
           <div class="eb-track-head">
             <input v-model.number="t.order" type="number" class="eb-input tiny" title="序号" @input="markHistory(t)" @change="commitHistory(t)">
             <input v-model="t.title" class="eb-input grow" placeholder="曲名" @input="markHistory(t)" @blur="commitHistory(t)">
+            <input v-model="t.outputName" class="eb-input output-name" placeholder="输出文件名" aria-label="输出文件名" @input="markHistory(t)" @blur="commitHistory(t)">
             <span v-if="isLowConf(t)" class="eb-tag conf" title="视觉分轨的识别置信度低，请重点核对曲名与归属">
               识别低置信 {{ pct(t.confidence) }}
             </span>
@@ -100,6 +101,7 @@
               已修改 · 待重对齐
             </span>
             <label class="eb-inst"><input v-model="t.inst" type="checkbox" @change="commitHistory(t)"> 伴奏/无人声</label>
+            <input v-if="t.inst" v-model="t.finalName" class="eb-input output-name" placeholder="最终文件名" aria-label="最终文件名" @input="markHistory(t)" @blur="commitHistory(t)">
           </div>
 
           <div class="eb-track-bar">
@@ -779,7 +781,7 @@ function toEdit(album, draft) {
       const vocals = parseVocalDrafts(t).map(makeVocal);
       const primary = vocals[0];
       const track = {
-        _id: newId(), order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
+        _id: newId(), order: t.order, title: t.title || '', inst: !!t.inst, outputName: t.output_name || '', finalName: t.final_name || '', confidence: t.confidence,
         coverage: t.coverage, audio: t.audio || '', klrc: t.klrc || '',
         head: primary.head, rows: primary.rows, timingLocked: primary.timingLocked, _view: primary._view, _playing: false, _speed: 1, _previewMs: 0, _textDirty: false,
         _audioUrl: '', _audioElement: null, _audioLoading: false, _audioAbort: null, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _sourceTimer: null, _previewTimer: null, _volume: 1,
@@ -816,6 +818,8 @@ function toDraft(e) {
     order: Number(t.order) || t._orig.order,
     title: t.title.trim(),
     inst: !!t.inst,
+    output_name: t.outputName.trim(),
+    final_name: t.inst ? t.finalName.trim() : '',
     lines: timing.main.timing_locked ? timing.main.lines : textToLines(t._vocals[0].text),
     ...(timing.main.timing_locked ? { lrc: timing.main.lrc, klrc: timing.main.klrc, timing_locked: true } : {}),
     vocals: timing.vocals,
@@ -1070,6 +1074,7 @@ onBeforeUnmount(() => {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--eb-accent) 22%, transparent);
 }
 .eb-input.tiny { width: 3.4rem; flex: none; text-align: center; }
+.eb-input.output-name { width: min(14rem, 100%); flex: 1 1 9rem; }
 .eb-input.sel { flex: none; max-width: 14rem; }
 .eb-row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; margin-top: .6rem; }
 .grow { flex: 1; width: auto; min-width: 8rem; }

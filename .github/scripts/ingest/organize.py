@@ -113,6 +113,21 @@ def _sanitize_filename(name: str) -> str:
     return out or "untitled"
 
 
+def _output_basename(track: dict[str, Any], order: Any) -> str:
+    """Use a safe requested basename, or preserve the established order/title default."""
+    preferred = track.get("final_name") if track.get("inst") else None
+    raw = str(preferred or track.get("output_name") or "").strip()
+    if raw:
+        # Names are basenames only; ignore a pasted path and strip either accepted sidecar suffix.
+        base = Path(raw.replace("\\", "/")).name
+        while base.lower().endswith((".lrc", ".klrc")):
+            base = Path(base).stem
+        if base not in {"", ".", ".."}:
+            return _sanitize_filename(base)
+    title = _sanitize_filename(str(track.get("title", "")).strip() or f"track{order}")
+    return f"{order} {title}"
+
+
 # 伴奏/无人声轨识别：分隔符包裹匹配，避免误伤 "Inspire"/"Instant" 这类词内含 ins
 # 的正常曲名（与上传页 UploadBox.vue 的 INST_RE 同一套启发式，前后端保持一致）
 _INST_RE = re.compile(r"(?:^|[\s._()\[\]-])(?:inst(?:rumental)?|ins|off[\s_-]?vocal)(?:[\s._()\[\]-]|$)", re.I)
@@ -973,11 +988,11 @@ def finalize(draft: dict[str, Any], res_dir: Path, dry_run: bool = False) -> dic
             lrc, cov, lrc_words = t["lrc"], float(t.get("coverage") or 0.0), t.get("klrc")
         covs.append(cov)
         # build_track_lrc 匹配到音频后可能已用音频文件名回填空标题，故在其后取值
-        title = _sanitize_filename(str(t.get("title", "")).strip() or f"track{order}")
-        _emit(album_rel / f"{order} {title}.lrc", lrc)
+        basename = _output_basename(t, order)
+        _emit(album_rel / f"{basename}.lrc", lrc)
         if lrc_words:
             # 逐字增强版另存 .klrc（非 .lrc 后缀），与标准 LRC 分离以保证播放器兼容性
-            _emit(album_rel / f"{order} {title}.klrc", lrc_words)
+            _emit(album_rel / f"{basename}.klrc", lrc_words)
 
     # 未匹配到轨的音频：单独输出机器转写（不丢）——此处仅记日志，避免误入库
     leftover = [n for n in audio_words if n not in used]
