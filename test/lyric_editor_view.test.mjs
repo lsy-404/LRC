@@ -213,3 +213,18 @@ test('同曲多声部使用独立草稿流，并共享播放头高亮重叠歌�
   assert.match(source, /for \(const vocal of t\._vocals\) if \(vocal !== selectedVocal\(t\)\) updateActiveIndices\(vocal, ms\)/);
   assert.match(source, /updateAllVocalHighlights\(t, ms\)/);
 });
+
+test('逐行支持标为合音与并回主唱，迁移保留时间并使用当前声部边界', async () => {
+  const source = await component();
+  assert.match(source, /标为合音/);
+  assert.match(source, /并回主唱/);
+  assert.match(source, /@click="toggleHarmonyRow\(t, r\)"/);
+  assert.match(source, /function ensureHarmonyVocal\(t\)/);
+  assert.match(source, /id: 'harmony', name: '合音'/);
+  assert.match(source, /function toggleHarmonyRow\(t, row\)/);
+  assert.match(source, /source\.rows\.splice\(index, 1\)/);
+  assert.match(source, /target\.rows\.push\(row\)/);
+  assert.match(source, /target\.rows\.sort\(\(a, b\) => Number\(a\.time\) - Number\(b\.time\)\)/);
+  assert.match(source, /function nextRowTime\(t, rowIndex\) \{ return Number\(t\.rows\[rowIndex \+ 1\]\?\.time\); \}/);
+  assert.match(source, /function shiftRowTime\(t, row\)/);
+});

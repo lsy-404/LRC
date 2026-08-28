@@ -160,7 +160,7 @@
               <div class="eb-lrc-row">
                 <label class="eb-time"><input v-model.number="r.time" type="number" min="0" step="10" class="eb-input ms" @focus="beginRowTimeEdit(r)" @input="shiftRowTime(t, r)" @change="finishRowTimeEdit(t, r)" @blur="finishRowTimeEdit(t, r)">毫秒</label>
                 <input v-model="r.text" class="eb-input lrc" @input="syncRowText(t, r); markHistory(t)" @blur="commitHistory(t)" @click="recordCursor(r, $event)" @keyup="recordCursor(r, $event)" @select="recordCursor(r, $event)">
-                <button class="eb-btn small eb-icon-btn" :disabled="textRowBoundaryAction(r, li) === 'none'" :aria-label="textRowBoundaryLabel(r, li)" :title="textRowBoundaryLabel(r, li)" @click="applyTextRowBoundary(t, r, li)">{{ textRowBoundaryIcon(r, li) }}</button><button class="eb-btn small eb-icon-btn" aria-label="插入歌词行" title="插入歌词行" @click="addLine(t, li)">＋</button><button class="eb-btn small danger eb-icon-btn" aria-label="删除歌词行" title="删除歌词行" @click="removeLine(t, li)">×</button>
+                <button class="eb-btn small eb-icon-btn" :disabled="textRowBoundaryAction(r, li) === 'none'" :aria-label="textRowBoundaryLabel(r, li)" :title="textRowBoundaryLabel(r, li)" @click="applyTextRowBoundary(t, r, li)">{{ textRowBoundaryIcon(r, li) }}</button><button class="eb-btn small eb-icon-btn" aria-label="插入歌词行" title="插入歌词行" @click="addLine(t, li)">＋</button><button class="eb-btn small" :aria-label="t._selectedVocal ? '并回主唱' : '标为合音'" :title="t._selectedVocal ? '并回主唱' : '标为合音'" @click="toggleHarmonyRow(t, r)">{{ t._selectedVocal ? '并回主唱' : '标为合音' }}</button><button class="eb-btn small danger eb-icon-btn" aria-label="删除歌词行" title="删除歌词行" @click="removeLine(t, li)">×</button>
               </div>
               <div class="eb-word-timeline" role="region" aria-label="逐字时间轨">
                 <div class="eb-time-track" :style="timelineTrackStyle(t, r, li)">
@@ -612,6 +612,30 @@ function addVocal(t) {
   persistVocal(t);
   const vocal = { id: `vocal-${t._vocals.length + 1}`, name: `声部 ${t._vocals.length + 1}`, head: [], rows: [], text: '', timingLocked: false, _view: 'text', _history: null };
   t._vocals.push(vocal); selectVocal(t, t._vocals.length - 1); markHistory(t); commitHistory(t);
+}
+function syncVocalText(vocal) { vocal.text = linesToText(vocal.rows.map((row) => row.text)); }
+function ensureHarmonyVocal(t) {
+  const existing = t._vocals.find((vocal) => vocal.id === 'harmony' || vocal.name === '合音');
+  if (existing) return existing;
+  const vocal = { id: 'harmony', name: '合音', head: [], rows: [], text: '', timingLocked: false, _view: 'text', _history: null, _owner: t };
+  t._vocals.push(vocal);
+  return vocal;
+}
+function toggleHarmonyRow(t, row) {
+  persistVocal(t);
+  const source = selectedVocal(t);
+  const target = t._selectedVocal ? t._vocals[0] : ensureHarmonyVocal(t);
+  const index = source.rows.findIndex((item) => item === row);
+  if (!target || index < 0) return;
+  source.rows.splice(index, 1);
+  target.rows.push(row);
+  target.rows.sort((a, b) => Number(a.time) - Number(b.time));
+  syncVocalText(source);
+  syncVocalText(target);
+  t.rows = source.rows;
+  t.text = source.text;
+  lockTiming(t);
+  commitHistory(t);
 }
 function updateAllVocalHighlights(t, ms) {
   updateActiveIndices(t, ms);
