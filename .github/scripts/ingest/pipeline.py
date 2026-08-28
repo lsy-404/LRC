@@ -361,7 +361,8 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     if buckets["audio"]:
         from concurrent.futures import ThreadPoolExecutor
         kept = [a for a in buckets["audio"] if (not keep or a.name in keep) and a.name not in inst_files]
-        with ThreadPoolExecutor(max_workers=4) as pool:
+        # 每个 STT 请求前都要在容器内做 ffprobe/ffmpeg；基础规格只保留一路。
+        with ThreadPoolExecutor(max_workers=1) as pool:
             results = list(pool.map(stt_mod.transcribe_words, kept))
         for a, (words, lang, cleanup) in zip(kept, results):
             if cleanup.get("removed_word_count"):

@@ -21,6 +21,8 @@ MAX_LOG = 400
 
 _jobs: dict[str, dict] = {}
 _lock = threading.Lock()
+# Basic Container 只有 1 GiB 内存；串行作业避免多个管道同时保留音频/图片缓冲。
+_job_slot = threading.Semaphore(1)
 
 
 def _now() -> str:
@@ -49,20 +51,21 @@ def _progress(job_id: str, stage: str, value: int | None, message: str) -> None:
 
 def _execute(job_id: str, kind: str, params: dict) -> None:
     log = _log(job_id)
-    try:
-        handler = jobs.HANDLERS[kind]
-        result = handler(
-            params, log,
-            lambda stage, value, message: _progress(job_id, stage, value, message),
-        )
-        _update(job_id, state="done", result=result, stage="done", progress=100,
-                message="作业完成")
-        log(f"作业完成：{result.get('result')}")
-    except Exception as exc:
-        log(f"作业失败：{exc}")
-        log(traceback.format_exc()[-2000:])
-        _update(job_id, state="error", error=str(exc), stage="error", progress=None,
-                message=str(exc))
+    with _job_slot:
+        try:
+            handler = jobs.HANDLERS[kind]
+            result = handler(
+                params, log,
+                lambda stage, value, message: _progress(job_id, stage, value, message),
+            )
+            _update(job_id, state="done", result=result, stage="done", progress=100,
+                    message="作业完成")
+            log(f"作业完成：{result.get('result')}")
+        except Exception as exc:
+            log(f"作业失败：{exc}")
+            log(traceback.format_exc()[-2000:])
+            _update(job_id, state="error", error=str(exc), stage="error", progress=None,
+                    message=str(exc))
 
 
 class Handler(BaseHTTPRequestHandler):
