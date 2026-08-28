@@ -8,6 +8,7 @@ import re
 import sys
 import threading
 import time
+import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -27,50 +28,55 @@ def _executor_worker_counts(path: Path) -> list[int]:
     return counts
 
 
-def test_phase_a_heavy_stages_are_single_lane() -> None:
-    assert _executor_worker_counts(ROOT / ".github/scripts/ingest/ocr.py") == [1]
-    assert _executor_worker_counts(ROOT / ".github/scripts/ingest/pipeline.py") == [1]
+class ContainerMemoryGuardTest(unittest.TestCase):
+    def test_phase_a_heavy_stages_are_single_lane(self) -> None:
+        self.assertEqual(_executor_worker_counts(ROOT / ".github/scripts/ingest/ocr.py"), [1])
+        self.assertEqual(_executor_worker_counts(ROOT / ".github/scripts/ingest/pipeline.py"), [1])
+
+    def test_container_uses_basic_instance(self) -> None:
+        text = (ROOT / "worker/wrangler.jsonc").read_text(encoding="utf-8")
+        config = json.loads(re.sub(r"^\s*//.*$", "", text, flags=re.MULTILINE))
+        container = config["containers"][0]
+        self.assertEqual(container["instance_type"], "basic")
+        self.assertEqual(container["max_instances"], 5)
+
+    def test_runner_never_executes_two_jobs_at_once(self) -> None:
+        import jobs
+        import server
+
+        active = 0
+        peak = 0
+        lock = threading.Lock()
+
+        def handler(_params, _log, _report):
+            nonlocal active, peak
+            with lock:
+                active += 1
+                peak = max(peak, active)
+            time.sleep(0.03)
+            with lock:
+                active -= 1
+            return {"result": "ok"}
+
+        original = jobs.HANDLERS.get("memory_guard")
+        jobs.HANDLERS["memory_guard"] = handler
+        try:
+            threads = [
+                threading.Thread(target=server._execute,
+                                 args=(f"guard-{i}", "memory_guard", {}))
+                for i in range(2)
+            ]
+            for thread in threads:
+                thread.start()
+            for thread in threads:
+                thread.join()
+            self.assertEqual(peak, 1)
+        finally:
+            if original is None:
+                jobs.HANDLERS.pop("memory_guard", None)
+            else:
+                jobs.HANDLERS["memory_guard"] = original
 
 
-def test_container_uses_basic_instance() -> None:
-    # wrangler.jsonc currently only uses comments that JSON parsers can strip safely.
-    text = (ROOT / "worker/wrangler.jsonc").read_text(encoding="utf-8")
-    config = json.loads(re.sub(r"^\s*//.*$", "", text, flags=re.MULTILINE))
-    container = config["containers"][0]
-    assert container["instance_type"] == "basic"
-    assert container["max_instances"] == 5
-
-
-def test_runner_never_executes_two_jobs_at_once() -> None:
-    import jobs
-    import server
-
-    active = 0
-    peak = 0
-    lock = threading.Lock()
-
-    def handler(_params, _log, _report):
-        nonlocal active, peak
-        with lock:
-            active += 1
-            peak = max(peak, active)
-        time.sleep(0.03)
-        with lock:
-            active -= 1
-        return {"result": "ok"}
-
-    original = jobs.HANDLERS.get("memory_guard")
-    jobs.HANDLERS["memory_guard"] = handler
-    try:
-        threads = [threading.Thread(target=server._execute, args=(f"guard-{i}", "memory_guard", {}))
-                   for i in range(2)]
-        for thread in threads:
-            thread.start()
-        for thread in threads:
-            thread.join()
-        assert peak == 1
-    finally:
-        if original is None:
-            jobs.HANDLERS.pop("memory_guard", None)
-        else:
-            jobs.HANDLERS["memory_guard"] = original
+if __name__ == "__main__":
+    unittest.main()

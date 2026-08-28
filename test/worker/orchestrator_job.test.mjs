@@ -208,7 +208,7 @@ test('Phase A 总大小超过基础盘安全上限时不触达 Container', async
   }));
   await job.alarm();
   assert.equal(ctx.job.state, 'failed');
-  assert.match(ctx.job.error, /上传总大小 1\.26 GiB 超过 1\.25 GiB 上限；请拆分专辑后重试/);
+  assert.match(ctx.job.error, /上传总大小 1\.26 GiB 超过 1\.25 GiB 上限；请压缩原始音频后重试/);
   assert.equal(calls, 0);
 });
 

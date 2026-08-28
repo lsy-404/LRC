@@ -155,7 +155,7 @@ export class IngestJob extends DurableObject {
       if (!key) return preflightError('上传文件条目无效');
       totalSize += file.size;
       if (totalSize > MAX_UPLOAD_BYTES) {
-        return preflightError(`上传总大小 ${bytesLabel(totalSize)} 超过 ${bytesLabel(MAX_UPLOAD_BYTES)} 上限；请拆分专辑后重试`);
+        return preflightError(`上传总大小 ${bytesLabel(totalSize)} 超过 ${bytesLabel(MAX_UPLOAD_BYTES)} 上限；请压缩原始音频后重试`);
       }
       let object;
       try {
