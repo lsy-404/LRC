@@ -8,3 +8,5 @@
 - 专项测试三个断言已通过；`pytest` 不可用（系统 Python 未安装 pytest），已记录。
 - `node --test test/worker/*.test.mjs`：39 通过、5 失败；失败均为既有 Node 环境不支持 `vm.SyntheticModule` 的测试加载问题，未涉及本次改动。
 - `npx wrangler deploy --dry-run`：安装 Worker 依赖后通过，完成 Worker bundle 与 Container image build；仅有 Docker `FROM --platform` 警告。
+- 主线改用 `--experimental-vm-modules` 完整验证后 Worker 测试 91/91 通过；内存护栏测试改用 `unittest` 后 3/3 通过。
+- 已部署生产；Container v13 的实际配置为 0.25 vCPU、1 GiB 内存和 4 GB 磁盘，全部调度槽健康。
