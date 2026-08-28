@@ -74,6 +74,33 @@ export function serializeTimedLyrics(head, rows) {
   return { lrc, klrc, lines: clean.map((row) => row.text) };
 }
 
+// LRC/KLRC 本身不定义声部名称；草稿把主声部保留在原字段，其余声部各存自己的歌词流。
+export function parseVocalDrafts(track) {
+  const sources = [{ id: 'main', name: '主唱', lrc: track?.lrc, klrc: track?.klrc, lines: track?.lines, timing_locked: track?.timing_locked }, ...(Array.isArray(track?.vocals) ? track.vocals : [])];
+  return sources.map((source, index) => {
+    const { head, rows: plainRows } = parseLrc(source.lrc);
+    return {
+      id: String(source.id || (index ? `vocal-${index + 1}` : 'main')),
+      name: String(source.name || (index ? `声部 ${index + 1}` : '主唱')),
+      head,
+      rows: parseKaraokeRows(source.lrc, source.klrc),
+      text: linesToText(Array.isArray(source.lines) ? source.lines : plainRows.map((row) => row.text)),
+      timingLocked: !!source.timing_locked,
+    };
+  });
+}
+
+export function serializeVocalDrafts(vocals) {
+  const parts = (vocals || []).map((vocal, index) => ({
+    id: String(vocal.id || (index ? `vocal-${index + 1}` : 'main')),
+    name: String(vocal.name || (index ? `声部 ${index + 1}` : '主唱')),
+    ...serializeTimedLyrics(vocal.head, vocal.rows),
+    timing_locked: !!vocal.timingLocked,
+  }));
+  const [main = { lrc: '', klrc: '', lines: [], timing_locked: false }, ...vocalsOnly] = parts;
+  return { main, vocals: vocalsOnly };
+}
+
 // 把时间轴按序贴回歌词行；行数不符时 matched=false，时间戳留空
 export function alignTimestamps(rows, lines) {
   const list = Array.isArray(rows) ? rows : [];

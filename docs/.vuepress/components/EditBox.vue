@@ -110,6 +110,12 @@
             <button class="eb-btn small" :disabled="!canRedo(t)" @click="redoTrack(t)">恢复</button>
           </div>
 
+          <div class="eb-vocal-bar">
+            <label>声部 <select class="eb-select" :value="t._selectedVocal" @change="selectVocal(t, Number($event.target.value))"><option v-for="(vocal, index) in t._vocals" :key="vocal.id" :value="index">{{ vocal.name }}</option></select></label>
+            <input v-model="selectedVocal(t).name" class="eb-input vocal-name" aria-label="声部名称" @input="markHistory(t)" @blur="commitHistory(t)">
+            <button class="eb-btn small" @click="addVocal(t)">添加声部</button>
+          </div>
+
           <div class="eb-workbench" tabindex="0" aria-label="歌词校对工作区" @keydown="handleWorkbenchShortcut(t, $event)">
             <div class="eb-editor-panel">
               <div class="eb-inline-player">
@@ -188,6 +194,12 @@
               />
               <button v-if="t._view === 'text'" class="eb-btn small" @click="applyWholeText(t)">应用整段文本并保留时间轴</button>
             </div>
+            <div v-for="(vocal, index) in t._vocals" v-show="index !== t._selectedVocal" :key="vocal.id" class="eb-vocal-overlap" :aria-label="`${vocal.name} 重叠高亮`">
+              <b>{{ vocal.name }}</b>
+              <div v-for="(row, line) in vocal.rows" :key="row._id" :ref="(node) => bindLineNode(vocal, line, node)" class="eb-vocal-line">
+                <span v-for="(word, wordIndex) in row.words" :key="word._id" :ref="(node) => bindTokenNode(vocal, line, wordIndex, node)" class="eb-vocal-word">{{ word.text }}</span>
+              </div>
+            </div>
           </div>
           <audio
             v-if="t._audioUrl"
@@ -250,7 +262,7 @@ import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  activeIndexAt, clampWordTime, expandTimedTokens, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, parseLrc, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedCharacterAverageMs, timedLastTokenSpanMs, timedLeadFlexWeight, timedSentenceEndMs, timedSpanFlexWeight, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
+  activeIndexAt, clampWordTime, expandTimedTokens, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, parseLrc, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedCharacterAverageMs, timedLastTokenSpanMs, timedLeadFlexWeight, timedSentenceEndMs, timedSpanFlexWeight, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, markLyricHistoryDirty, recordLyricHistory, redoLyricHistory, undoLyricHistory } from './lyricHistory.js';
 
@@ -571,15 +583,37 @@ function clearPlaybackView(t) {
   view.progresses.forEach((node) => node?.style.removeProperty('--eb-sentence-progress'));
   playbackViews.delete(t);
 }
-function playheadMs(t) { return playheads.get(t) ?? (Number(t._previewMs) || 0); }
+function trackOwner(t) { return t._owner || t; }
+function playheadMs(t) { const track = trackOwner(t); return playheads.get(track) ?? (Number(track._previewMs) || 0); }
 function bindProgressNode(t, node) { t._progressNode = node || null; updatePlaybackDom(t); }
 function bindPlayerTimeNode(t, node) { t._playerTimeNode = node || null; updatePlaybackDom(t); }
 function updatePlaybackDom(t) { const ms = playheadMs(t); if (t._progressNode) t._progressNode.value = String(ms); if (t._playerTimeNode) t._playerTimeNode.textContent = t._audioUrl && !t._audioErr ? `${formatMs(ms)} / ${formatMs(t._audioDuration)}` : formatMs(ms); }
-function setPlayhead(t, ms, commit = false) { const next = Math.max(0, Math.round(Number(ms) || 0)); playheads.set(t, next); updateActiveIndices(t, next); updatePlaybackDom(t); if (commit) t._previewMs = next; }
+function setPlayhead(t, ms, commit = false) { const track = trackOwner(t); const next = Math.max(0, Math.round(Number(ms) || 0)); playheads.set(track, next); updateAllVocalHighlights(track, next); updatePlaybackDom(track); if (commit) track._previewMs = next; }
 function seekTrack(t, ms) { const end = t._audioUrl && !t._audioErr ? sourceEnd(t) : previewEnd(t); const next = Math.max(0, Math.min(end, Math.round(Number(ms) || 0))); setPlayhead(t, next, true); if (t._audioElement) t._audioElement.currentTime = next / 1000; }
 function nudgePlayhead(t, delta) { seekTrack(t, playheadMs(t) + delta); }
 function cancelSourceTimer(t) { if (t._sourceTimer) { clearInterval(t._sourceTimer); t._sourceTimer = null; } }
 function allTracks() { return edits.value.flatMap((edit) => edit.tracks); }
+function selectedVocal(t) { return t._vocals[t._selectedVocal] || t._vocals[0]; }
+function persistVocal(t) {
+  const vocal = selectedVocal(t); if (!vocal) return;
+  vocal.head = t.head; vocal.rows = t.rows; vocal.text = t.text; vocal.timingLocked = t.timingLocked; vocal._view = t._view;
+}
+function selectVocal(t, index) {
+  persistVocal(t);
+  const vocal = t._vocals[index]; if (!vocal) return;
+  t._selectedVocal = index; t.head = vocal.head; t.rows = vocal.rows; t.text = vocal.text; t.timingLocked = vocal.timingLocked; t._view = vocal._view;
+  t._history = vocal._history || createLyricHistory(t); vocal._history = t._history;
+  clearPlaybackView(t); nextTick(() => updateAllVocalHighlights(t, playheadMs(t)));
+}
+function addVocal(t) {
+  persistVocal(t);
+  const vocal = { id: `vocal-${t._vocals.length + 1}`, name: `声部 ${t._vocals.length + 1}`, head: [], rows: [], text: '', timingLocked: false, _view: 'text', _history: null };
+  t._vocals.push(vocal); selectVocal(t, t._vocals.length - 1); markHistory(t); commitHistory(t);
+}
+function updateAllVocalHighlights(t, ms) {
+  updateActiveIndices(t, ms);
+  for (const vocal of t._vocals) if (vocal !== selectedVocal(t)) updateActiveIndices(vocal, ms);
+}
 function pausePreview(t) { t._playing = false; if (t._previewTimer) { clearInterval(t._previewTimer); t._previewTimer = null; } setPlayhead(t, playheadMs(t), true); }
 function togglePreview(t) { if (t._playing) return pausePreview(t); for (const other of allTracks()) pausePreview(other); t._playing = true; let last = Date.now(); t._previewTimer = setInterval(() => { const now = Date.now(); const ms = Math.min(previewEnd(t), playheadMs(t) + (now - last) * t._speed); setPlayhead(t, ms); last = now; if (ms >= previewEnd(t)) pausePreview(t); }, 100); }
 function releaseAllTracks() { clearTimeDrag(); historyTrack = null; for (const track of allTracks()) releaseAudio(track); }
@@ -647,7 +681,7 @@ function sourcePlay(t, event) {
     if (!t._sourcePlaying || !t._audioElement) return;
     const now = performance.now();
     const ms = Math.round(t._audioElement.currentTime * 1000);
-    updateActiveIndices(t, ms);
+    updateAllVocalHighlights(t, ms);
     if (now - lastProgress >= SOURCE_PROGRESS_INTERVAL_MS) {
       playheads.set(t, ms);
       updatePlaybackDom(t);
@@ -728,20 +762,26 @@ function toEdit(album, draft) {
     meta,
     _selectedTrack: 0,
     tracks: (draft.tracks || []).map((t) => {
-      const { head, rows } = parseLrc(t.lrc);
-      const parsedRows = parseKaraokeRows(t.lrc, t.klrc);
-      const editorRows = parsedRows.map((r, index) => {
+      const makeVocal = (part) => {
+        const parsedRows = part.rows;
+        const editorRows = parsedRows.map((r, index) => {
         const words = r.words.map((word) => ({ ...word, _id: newId() }));
         return { ...r, _id: newId(), words: expandTimedTokens(words, newId, 100, Number(parsedRows[index + 1]?.time)) };
       });
+        return { ...part, _id: newId(), rows: editorRows, _view: editorRows.length ? 'lrc' : 'text', _history: null };
+      };
+      const vocals = parseVocalDrafts(t).map(makeVocal);
+      const primary = vocals[0];
       const track = {
         _id: newId(), order: t.order, title: t.title || '', inst: !!t.inst, confidence: t.confidence,
         coverage: t.coverage, audio: t.audio || '', klrc: t.klrc || '',
-        head, rows: editorRows, timingLocked: !!t.timing_locked, _view: rows.length ? 'lrc' : 'text', _playing: false, _speed: 1, _previewMs: 0, _textDirty: false,
+        head: primary.head, rows: primary.rows, timingLocked: primary.timingLocked, _view: primary._view, _playing: false, _speed: 1, _previewMs: 0, _textDirty: false,
         _audioUrl: '', _audioElement: null, _audioLoading: false, _audioAbort: null, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _sourceTimer: null, _previewTimer: null, _volume: 1,
-        text: linesToText(t.lines), _orig: t,
+        text: primary.text, _orig: t, _vocals: vocals, _selectedVocal: 0,
       };
       track._history = createLyricHistory(track);
+      primary._history = track._history;
+      for (const vocal of vocals) vocal._owner = track;
       return track;
     }),
     pages: draft.pages || [],
@@ -763,15 +803,17 @@ function toDraft(e) {
   }
   // 展开 _orig 以原样透传 lrc/klrc/coverage/audio/aligned 等对齐产物字段
   const tracks = e.tracks.map((t) => {
-    const timing = serializeTimedLyrics(t.head, t.rows);
+    persistVocal(t);
+    const timing = serializeVocalDrafts(t._vocals);
     return {
     ...t._orig,
     order: Number(t.order) || t._orig.order,
     title: t.title.trim(),
     inst: !!t.inst,
-    lines: t.timingLocked ? timing.lines : textToLines(t.text),
-    ...(t.timingLocked ? { lrc: timing.lrc, klrc: timing.klrc, timing_locked: true } : {}),
-    edited: t.timingLocked ? false : isDirty(t),
+    lines: timing.main.timing_locked ? timing.main.lines : textToLines(t._vocals[0].text),
+    ...(timing.main.timing_locked ? { lrc: timing.main.lrc, klrc: timing.main.klrc, timing_locked: true } : {}),
+    vocals: timing.vocals,
+    edited: timing.main.timing_locked ? false : isDirty(t),
   }; });
   return { ...e._draft, meta, tracks, cover_ext: e.coverRemoved ? '' : e.coverExt };
 }
@@ -1075,6 +1117,14 @@ onBeforeUnmount(() => {
 .eb-tag.edit { color: var(--eb-accent); }
 
 .eb-track-bar { display: flex; gap: .4rem; align-items: center; margin-bottom: .5rem; font-size: .75rem; }
+.eb-vocal-bar { display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; margin: 0 0 .5rem; font-size: .75rem; }
+.eb-vocal-bar label { display: flex; gap: .25rem; align-items: center; }
+.eb-vocal-bar .vocal-name { width: auto; flex: 1; min-width: 7rem; padding: .25rem .45rem; }
+.eb-vocal-overlap { margin: .65rem 0 0; padding: .45rem .55rem; border-left: 2px solid color-mix(in srgb, var(--eb-accent) 55%, transparent); background: color-mix(in srgb, var(--eb-accent) 4%, transparent); font-size: .82rem; }
+.eb-vocal-overlap b { display: block; margin-bottom: .25rem; font-size: .75rem; opacity: .72; }
+.eb-vocal-line { display: inline-flex; margin: .08rem .3rem .08rem 0; padding: .12rem .2rem; border-radius: 3px; }
+.eb-vocal-line.active, .eb-vocal-word.active { background: color-mix(in srgb, var(--eb-accent) 18%, transparent); }
+.eb-vocal-word { padding: 0 .04rem; }
 .eb-spacer { flex: 1; }
 .eb-btn.on { border-color: var(--eb-accent); color: var(--eb-accent); }
 

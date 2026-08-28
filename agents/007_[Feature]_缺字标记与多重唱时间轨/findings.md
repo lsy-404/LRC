@@ -1,7 +1,9 @@
-# 调研记录
+# 调研结论
 
-- [现状] -> `parseKaraokeRows` 可产生少于正文字符数量的 token；展示层只遍历 `row.words`，缺字没有可点击入口。 -> 需要按正文与现有 token 的 LCS 对齐，找出未覆盖字符位置。
-- [现状] -> `reconcileWordCharacters` 已用相邻匹配 token 插值，但会重建整个序列。 -> 新函数必须只在缺口插入 token，保留已有 token 对象、`_id` 和时间。
-- [现状] -> `setWordTime` 已负责锁定时间轴、刷新播放高亮和提交历史。 -> 插入操作沿用相同副作用。
-- [验证] -> `node --test test/lrc_draft.test.mjs test/lyric_editor_view.test.mjs`。 -> 33 项通过。
-- [构建] -> worktree 没有本地依赖；复用主 worktree 的 CLI 后，Node 仍无法从当前 worktree 的配置解析 `vuepress` 包。 -> 构建验证受依赖链接缺失阻断，未安装或改写依赖。
+- [现有模型] -> 一首歌曲由 `draft.tracks[]` 表示，`lrc`/`klrc` 各只承载一条按时间排序的歌词流 -> 不能用曲目复制来表示重唱。
+- [格式限制] -> 标准 LRC/KLRC 的时间标签可以重叠，但没有标准化声部名称字段 -> 将声部名称和各自 LRC/KLRC 写入草稿的 `vocals[]`，主声部继续使用原有顶层 `lrc`/`klrc` 供入库流程读取。
+- [播放] -> 音频与播放头当前绑定歌曲轨 -> 多声部只共享歌曲音频和播放头，各声部独立维护高亮 DOM 映射。
+- [缺字] -> `parseKaraokeRows` 可产生少于正文字符数量的 token，展示层只遍历 `row.words` -> 按正文与 token 的 LCS 映射显式显示缺字槽位。
+- [保留标签] -> 整行重建会改动未受影响 token -> 补标纯函数只插入点击字符，保留既有对象、标识和绝对时间。
+- [拖动] -> 10 ms/px 与最小内容宽度限制细调距离 -> 时间轨按句长扩展并改为 5 ms/px，仍由既有边界函数保护顺序和下一句界限。
+- [构建] -> 独立 worktree 没有 `node_modules` -> 各分支已执行聚焦 Node 测试，主线整合后再运行完整构建。

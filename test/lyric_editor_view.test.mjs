@@ -190,3 +190,16 @@ test('歌词编辑历史提供按钮、未失焦输入和键盘撤回恢复', as
   assert.match(source, /if \(event\.shiftKey\) redoTrack\(historyTrack\)/);
   assert.match(source, /clearPlaybackView\(t\); nextTick\(\(\) => updateActiveIndices/);
 });
+
+test('同曲多声部使用独立草稿流，并共享播放头高亮重叠歌词', async () => {
+  const source = await component();
+  assert.match(source, /parseVocalDrafts\(t\)\.map\(makeVocal\)/);
+  assert.match(source, /serializeVocalDrafts\(t\._vocals\)/);
+  assert.match(source, /class="eb-vocal-bar"/);
+  assert.match(source, /添加声部/);
+  assert.match(source, /function selectVocal\(t, index\)/);
+  assert.match(source, /class="eb-vocal-overlap"/);
+  assert.match(source, /function updateAllVocalHighlights\(t, ms\)/);
+  assert.match(source, /for \(const vocal of t\._vocals\) if \(vocal !== selectedVocal\(t\)\) updateActiveIndices\(vocal, ms\)/);
+  assert.match(source, /updateAllVocalHighlights\(t, ms\)/);
+});

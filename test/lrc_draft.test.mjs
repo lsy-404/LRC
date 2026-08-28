@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { activeIndexAt, clampWordTime, expandTimedTokens, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, moveTimedSelection, msToTimestamp, parseKaraokeRows, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, shiftTimedRow, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadFlexWeight, timedRowBoundaryAction, timedSpanFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
+import { activeIndexAt, clampWordTime, expandTimedTokens, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, moveTimedSelection, msToTimestamp, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadFlexWeight, timedRowBoundaryAction, timedSpanFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, timestampToMs, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
 
 test('句级边界按上下文合并或拆分', () => {
   assert.equal(timedRowBoundaryAction(0, 0, 0), 'none');
@@ -51,6 +51,20 @@ test('序列化保留头部并忽略空逐字项', () => {
   assert.match(result.lrc, /^\[ti:标题\]/);
   assert.match(result.klrc, /<00:01.100>词/);
   assert.doesNotMatch(result.klrc, /<00:01.000>/);
+});
+
+test('多声部草稿保留主声部字段并允许重叠时间', () => {
+  const parts = parseVocalDrafts({
+    lrc: '[00:01.000]主唱\n', klrc: '[00:01.000]<00:01.000>主<00:01.200>唱\n', lines: ['主唱'], timing_locked: true,
+    vocals: [{ id: 'harmony', name: '和声', lrc: '[00:01.000]和声\n', klrc: '[00:01.000]<00:01.000>和<00:01.200>声\n', lines: ['和声'], timing_locked: true }],
+  });
+  assert.equal(parts.length, 2);
+  assert.equal(parts[1].name, '和声');
+  assert.equal(parts[0].rows[0].time, parts[1].rows[0].time);
+  const saved = serializeVocalDrafts(parts);
+  assert.match(saved.main.klrc, /主[\s\S]*唱/);
+  assert.equal(saved.vocals[0].name, '和声');
+  assert.match(saved.vocals[0].klrc, /和[\s\S]*声/);
 });
 
 test('整行字符编辑以 LCS 保留未改字符的逐字时间与标识', () => {
