@@ -19,6 +19,13 @@ class _Tags(dict):
         self.pictures = [type("Picture", (), {"data": b"\x89PNG\r\n\x1a\ncover"})()]
 
 
+class _Mp4Tags(dict):
+    def __init__(self):
+        super().__init__({"©nam": ["M4A 曲名"], "trkn": [(3, 10)]})
+        self.tags = self
+        self.pictures = []
+
+
 class ContainerAudioMetadataTests(unittest.TestCase):
     def test_container_extracts_original_tag_metadata_and_embedded_cover(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -46,6 +53,16 @@ class ContainerAudioMetadataTests(unittest.TestCase):
                 manifest = {"album": "投稿专辑"}
                 pipeline.apply_audio_tag_metadata([{"file": "track.flac"}], [audio], manifest)
             self.assertEqual(manifest["album"], "投稿专辑")
+
+    def test_mp4_tuple_track_number_is_applied(self):
+        with tempfile.TemporaryDirectory() as directory:
+            audio = Path(directory) / "track.m4a"
+            audio.write_bytes(b"audio")
+            with mock.patch.object(pipeline, "read_audio_tags", return_value=_Mp4Tags()):
+                tracks = [{"file": "track.m4a", "title": "猜测", "order": 9}]
+                pipeline.apply_audio_tag_metadata(tracks, [audio], {})
+            self.assertEqual(tracks[0]["title"], "M4A 曲名")
+            self.assertEqual(tracks[0]["order"], 3)
 
 
 if __name__ == "__main__":

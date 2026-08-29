@@ -174,9 +174,9 @@ def apply_audio_tag_metadata(tracks_plan: list[dict], audios: list[Path], manife
         if title:
             track["title"] = title
         number = _tag_text(tags, "tracknumber", "TRCK", "trkn")
-        digits = re.match(r"\s*(\d+)", number)
-        if digits and int(digits.group(1)) > 0:
-            track["order"] = int(digits.group(1))
+        digits = re.search(r"\d+", number)
+        if digits and int(digits.group(0)) > 0:
+            track["order"] = int(digits.group(0))
         artist = _tag_text(tags, "artist", "TPE1", "©ART")
         if artist and not manifest.get("vocal"):
             manifest["vocal"] = [artist]
