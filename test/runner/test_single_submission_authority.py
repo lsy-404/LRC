@@ -14,7 +14,7 @@ import jobs  # noqa: E402
 
 
 class SingleSubmissionAuthorityTests(unittest.TestCase):
-    def test_phase_a_passes_server_type_and_pulls_existing_single_directory(self):
+    def _run_phase_a(self, manifest: dict):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             repo = root / "repo"
@@ -35,10 +35,6 @@ class SingleSubmissionAuthorityTests(unittest.TestCase):
                     bundle.mkdir(parents=True)
                 return ""
 
-            manifest = {
-                "album": "伪造专辑", "submission_type": "single", "contributor": "web",
-                "files": [{"n": 0, "path": "01 新曲.lrc", "size": 1}],
-            }
             with patch.object(jobs.store, "get_json", return_value=manifest), \
                  patch.object(jobs.store, "download", side_effect=download), \
                  patch.object(jobs.store, "put_tree", return_value=["review/object"]), \
@@ -46,11 +42,29 @@ class SingleSubmissionAuthorityTests(unittest.TestCase):
                  patch.object(jobs.gh, "pull_album", return_value=["meta.toml"]) as pull, \
                  patch.object(jobs, "run", side_effect=run):
                 result = jobs.phase_a({"ref": "a" * 32}, lambda _line: None)
-
-            self.assertEqual(result["result"], "ok")
-            self.assertEqual(pull.call_args.args[0], "单曲")
             command = next(command for command in commands if "ingest.pipeline" in command)
-            self.assertEqual(command[command.index("--submission-type") + 1], "single")
+            return result, pull.call_args.args[0], command
+
+    def test_phase_a_passes_server_type_and_pulls_existing_single_directory(self):
+        result, pulled_album, command = self._run_phase_a({
+            "album": "伪造专辑", "submission_type": "single", "contributor": "web",
+            "files": [{"n": 0, "path": "01 新曲.lrc", "size": 1}],
+        })
+        self.assertEqual(result["result"], "ok")
+        self.assertEqual(pulled_album, "单曲")
+        self.assertEqual(command[command.index("--submission-type") + 1], "single")
+
+    def test_phase_a_accepts_explicit_and_legacy_album_types(self):
+        for manifest in (
+            {"album": "普通专辑", "submission_type": "album", "contributor": "web",
+             "files": [{"n": 0, "path": "01 歌词.lrc", "size": 1}]},
+            {"album": "旧专辑", "contributor": "web",
+             "files": [{"n": 0, "path": "01 歌词.lrc", "size": 1}]},
+        ):
+            result, pulled_album, command = self._run_phase_a(manifest)
+            self.assertEqual(result["result"], "ok")
+            self.assertEqual(pulled_album, manifest["album"])
+            self.assertEqual(command[command.index("--submission-type") + 1], "album")
 
 
 if __name__ == "__main__":

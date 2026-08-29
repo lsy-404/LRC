@@ -105,12 +105,12 @@ def phase_a(params: dict, log, report=None) -> dict:
     ref = params["ref"]
     manifest = store.get_json(f"web/{ref}/manifest.json") or {}
     album = manifest.get("album") or ""
-    submission_type = str(manifest.get("submission_type") or "collection").strip().casefold()
+    submission_type = str(manifest.get("submission_type") or "album").strip().casefold()
     files = manifest.get("files") or []
     contributor = manifest.get("contributor") or "web"
     if not album or not files:
         raise RuntimeError(f"取料清单缺 album/files: web/{ref}/manifest.json")
-    if submission_type not in {"collection", "single"}:
+    if submission_type not in {"album", "single"}:
         raise RuntimeError(f"取料清单投稿类型无效: web/{ref}/manifest.json")
     target_album = "单曲" if submission_type == "single" else album
 
