@@ -298,7 +298,7 @@ def run(src: Path, res_dir: Path, work: Path, album: str, dry_run: bool, lyric_m
 def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bool,
                    lyric_maker: str = "", *, mode: str = "oneshot",
                    bundle_root: Path | None = None, timestamp: str = "",
-                   contributor: str = "") -> dict:
+                   contributor: str = "", submission_type: str | None = None) -> dict:
     """mode='oneshot'：素材 → build_draft（含对齐）→ finalize → res/（无闸门）。
     mode='phase_a'：素材 → build_draft → review.write_bundle 到 bundle_root/<album>/（停在待修改）。
     """
@@ -332,6 +332,10 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     # （第 2 步）也用它；meta 覆盖仍在第 5 步与音频 tag 合并
     manifest_path = src / "manifest.toml"
     manifest = org_mod._read_toml(manifest_path) if manifest_path.is_file() else {}
+    if submission_type is not None:
+        manifest["submission_type"] = submission_type
+        if org_mod.is_single_submission(submission_type):
+            manifest["album"] = org_mod.SINGLE_ALBUM_NAME
     single_submission = org_mod.is_single_submission(manifest.get("submission_type"))
     photo_links = extract_photo_links(manifest)
     if photo_links:
@@ -508,7 +512,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
 
 def run_phase_a(src: Path, res_dir: Path, work: Path, album: str, bundle_root: Path,
                 timestamp: str = "", dry_run: bool = False, lyric_maker: str = "",
-                contributor: str = "") -> dict:
+                contributor: str = "", submission_type: str | None = None) -> dict:
     """Phase A：逐专辑 OCR/STT/检索/建草稿/对齐 → review bundle（停在待人工闸门，不写 res）。"""
     work.mkdir(parents=True, exist_ok=True)
     bundle_root = Path(bundle_root)
@@ -518,7 +522,7 @@ def run_phase_a(src: Path, res_dir: Path, work: Path, album: str, bundle_root: P
     albums_out = [
         _process_album(name, asrc, res_dir, work, dry_run, lyric_maker,
                        mode="phase_a", bundle_root=bundle_root, timestamp=timestamp,
-                       contributor=contributor)
+                       contributor=contributor, submission_type=submission_type)
         for name, asrc in jobs
     ]
     ok = any(a.get("result") == "ok" for a in albums_out)
@@ -551,7 +555,11 @@ def run_phase_b(bundle_root: Path, res_dir: Path, dry_run: bool = False) -> dict
         status = review_mod.read_status(bd)
         if status.get("submission_type"):
             draft["submission_type"] = status["submission_type"]
-        org_res = org_mod.finalize(draft, res_dir=res_dir, dry_run=dry_run)
+        single_target_exists = (bool(status.get("is_update"))
+                                if org_mod.is_single_submission(draft.get("submission_type")) else None)
+        org_res = org_mod.finalize(
+            draft, res_dir=res_dir, dry_run=dry_run, single_target_exists=single_target_exists
+        )
         albums_out.append({"album": org_res["album"], "written": org_res["written"],
                            "track_count": org_res["track_count"], "matched": org_res["matched"],
                            "avg_coverage": org_res["avg_coverage"],
@@ -584,6 +592,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--res-dir", default="res")
     ap.add_argument("--work", default=".ingest_work")
     ap.add_argument("--album", default="")
+    ap.add_argument("--submission-type", default=None,
+                    help="服务端投稿类型；Phase A 中覆盖投稿原料的 manifest.toml")
     ap.add_argument("--json", help="把摘要写入该 JSON 文件")
     ap.add_argument("--lyric-maker", default="", help="歌词制作默认署名（lyric_maker 为空时填入）")
     ap.add_argument("--dry-run", action="store_true")
@@ -605,7 +615,7 @@ def main(argv: list[str] | None = None) -> int:
                 return 1
             summary = run_phase_a(src, Path(args.res_dir), Path(args.work), args.album,
                                   Path(args.bundle_root), args.timestamp, args.dry_run,
-                                  args.lyric_maker, args.contributor)
+                                  args.lyric_maker, args.contributor, args.submission_type)
         else:
             summary = run(src, Path(args.res_dir), Path(args.work), args.album,
                           args.dry_run, args.lyric_maker)

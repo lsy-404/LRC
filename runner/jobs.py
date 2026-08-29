@@ -105,30 +105,34 @@ def phase_a(params: dict, log, report=None) -> dict:
     ref = params["ref"]
     manifest = store.get_json(f"web/{ref}/manifest.json") or {}
     album = manifest.get("album") or ""
+    submission_type = str(manifest.get("submission_type") or "collection").strip().casefold()
     files = manifest.get("files") or []
     contributor = manifest.get("contributor") or "web"
     if not album or not files:
         raise RuntimeError(f"取料清单缺 album/files: web/{ref}/manifest.json")
+    if submission_type not in {"collection", "single"}:
+        raise RuntimeError(f"取料清单投稿类型无效: web/{ref}/manifest.json")
+    target_album = "单曲" if submission_type == "single" else album
 
     work = Path(tempfile.mkdtemp(prefix="phase-a-"))
     try:
         _progress(report, "downloading", 8, "正在读取投稿清单")
-        payload = work / "payload" / album
+        payload = work / "payload" / target_album
         total = 0
         for index, f in enumerate(files, start=1):
             total += store.download(f"web/{ref}/{f['n']}", payload / f["path"],
                                     int(f.get("size") or 0))
             _progress(report, "downloading", 8 + round(17 * index / len(files)),
                       f"正在读取原料（{index}/{len(files)}）")
-        log(f"取料 {len(files)} 个文件 / {total} 字节 → payload/{album}/")
+        log(f"取料 {len(files)} 个文件 / {total} 字节 → payload/{target_album}/")
 
         _progress(report, "cloning", 28, "正在准备处理脚本")
         repo = _clone_scripts(work, log)
         res_dir = repo / "res"
         res_dir.mkdir(parents=True, exist_ok=True)
-        pulled = gh.pull_album(album, res_dir)
+        pulled = gh.pull_album(target_album, res_dir)
         if pulled:
-            log(f"已有专辑「{album}」{len(pulled)} 个文件 → 增补模式")
+            log(f"已有专辑「{target_album}」{len(pulled)} 个文件 → 增补模式")
 
         bundle_root = work / "bundle"
         summary_path = work / "summary.json"
@@ -137,7 +141,7 @@ def phase_a(params: dict, log, report=None) -> dict:
                "--src", str(work / "payload"), "--res-dir", str(res_dir),
                "--bundle-root", str(bundle_root), "--timestamp", _now(),
                "--work", str(work / "ingest_work"), "--json", str(summary_path),
-               "--contributor", contributor]
+               "--contributor", contributor, "--submission-type", submission_type]
         if LYRIC_MAKER:
             cmd += ["--lyric-maker", LYRIC_MAKER]
         run(cmd, log, cwd=repo, env=_pipeline_env(repo))

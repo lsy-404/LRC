@@ -47,7 +47,7 @@ def test_phase_a_b_preserves_single_type_and_only_updates_current_lyrics() -> No
         review.write_bundle(
             bundle,
             _draft(submission_type="single", cover_path=str(uploaded_cover)),
-            extra={"submission_type": "single"},
+            extra={"submission_type": "single", "is_update": True},
         )
 
         restored = review.read_bundle(bundle)
@@ -66,33 +66,44 @@ def test_phase_a_b_preserves_single_type_and_only_updates_current_lyrics() -> No
         assert not (root / "res" / "任意名称").exists()
 
 
-def test_phase_a_marks_single_submission_for_phase_b() -> None:
+def test_phase_a_server_single_type_overrides_missing_or_forged_client_manifest() -> None:
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
         source = root / "source"
         source.mkdir()
-        source.joinpath("manifest.toml").write_text(
-            'album = "单曲"\nsubmission_type = "single"\n', encoding="utf-8"
-        )
         source.joinpath("01 新曲.lrc").write_text("[00:01.000]歌词\n", encoding="utf-8")
         (root / "res" / "单曲").mkdir(parents=True)
 
         original_available = websearch.available
-        original_read_toml = pipeline.org_mod._read_toml
         websearch.available = lambda: False
-        pipeline.org_mod._read_toml = lambda _: {"album": "单曲", "submission_type": "single"}
         try:
             result = pipeline.run_phase_a(
-                source, root / "res", root / "work", "", root / "bundles", timestamp="now"
+                source, root / "res", root / "work", "", root / "bundles", timestamp="now",
+                submission_type="single",
             )
         finally:
             websearch.available = original_available
-            pipeline.org_mod._read_toml = original_read_toml
 
         bundle = Path(result["bundles"][0])
         assert result["albums"][0]["submission_type"] == "single"
+        assert result["albums"][0]["album"] == "单曲"
         assert review.read_status(bundle)["submission_type"] == "single"
         assert review.read_bundle(bundle)["submission_type"] == "single"
+
+        forged = root / "forged"
+        forged.mkdir()
+        forged.joinpath("01 伪造.lrc").write_text("[00:01.000]歌词\n", encoding="utf-8")
+        original_read_toml = pipeline.org_mod._read_toml
+        pipeline.org_mod._read_toml = lambda _: {"album": "伪造专辑", "submission_type": "collection"}
+        try:
+            forged_result = pipeline.run_phase_a(
+                forged, root / "res", root / "work", "", root / "forged-bundles", timestamp="now",
+                submission_type="single",
+            )
+        finally:
+            pipeline.org_mod._read_toml = original_read_toml
+        assert forged_result["albums"][0]["album"] == "单曲"
+        assert forged_result["albums"][0]["submission_type"] == "single"
 
 
 def test_single_submission_without_existing_target_is_skipped_safely() -> None:
@@ -111,6 +122,25 @@ def test_single_submission_without_existing_target_is_skipped_safely() -> None:
         assert not (root / "res" / "单曲").exists()
 
 
+def test_phase_b_uses_phase_a_status_for_an_empty_runtime_directory() -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        bundle = root / "bundle"
+        review.write_bundle(
+            bundle,
+            _draft(submission_type="single"),
+            extra={"submission_type": "single", "is_update": True},
+        )
+
+        result = pipeline.run_phase_b(bundle, root / "empty-res")
+        target = root / "empty-res" / "单曲"
+        assert result["result"] == "ok"
+        assert (target / "本次曲目.lrc").is_file()
+        assert (target / "本次曲目.klrc").is_file()
+        assert not (target / "meta.toml").exists()
+        assert not (target / "cover.png").exists()
+
+
 def test_regular_album_still_writes_metadata_and_cover() -> None:
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
@@ -127,7 +157,8 @@ def test_regular_album_still_writes_metadata_and_cover() -> None:
 
 if __name__ == "__main__":
     test_phase_a_b_preserves_single_type_and_only_updates_current_lyrics()
-    test_phase_a_marks_single_submission_for_phase_b()
+    test_phase_a_server_single_type_overrides_missing_or_forged_client_manifest()
     test_single_submission_without_existing_target_is_skipped_safely()
+    test_phase_b_uses_phase_a_status_for_an_empty_runtime_directory()
     test_regular_album_still_writes_metadata_and_cover()
-    print("4/4 通过")
+    print("5/5 通过")

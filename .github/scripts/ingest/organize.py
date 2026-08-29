@@ -1049,7 +1049,10 @@ def build_draft(
     }
 
 
-def finalize(draft: dict[str, Any], res_dir: Path, dry_run: bool = False) -> dict[str, Any]:
+def finalize(
+    draft: dict[str, Any], res_dir: Path, dry_run: bool = False,
+    single_target_exists: bool | None = None,
+) -> dict[str, Any]:
     """Phase B：吃 build_draft 的成品草稿（或人工闸门校正后的草稿）→ 写 res/<专辑>/。
 
     只对人工改过（edited）或缺对齐成品的轨重跑对齐，其余直接落盘草稿里的 lrc/klrc。
@@ -1063,7 +1066,8 @@ def finalize(draft: dict[str, Any], res_dir: Path, dry_run: bool = False) -> dic
     audio_langs = draft.get("audio_langs") or {}
     cover_path = Path(draft["cover_path"]) if draft.get("cover_path") else None
 
-    if single_submission and not (res_dir / album).is_dir():
+    target_exists = (res_dir / album).is_dir() if single_target_exists is None else single_target_exists
+    if single_submission and not target_exists:
         print(
             f"⚠️  单曲投稿未落盘：目标目录不存在 {res_dir / album}；请先创建既有单曲目录",
             file=sys.stderr,
