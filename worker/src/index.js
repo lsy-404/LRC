@@ -74,6 +74,9 @@ async function store(request, env, url) {
   if (request.method === 'DELETE' && prefix !== null) {
     const p = cleanPrefix(prefix);
     if (!p) return json({ error: 'bad prefix' }, 400);
+    if (p.startsWith('web/')) {
+      return json({ error: 'raw uploads are retained' }, 409);
+    }
     let deleted = 0;
     let cursor;
     do {
@@ -106,6 +109,9 @@ async function store(request, env, url) {
     return json({ ok: true, size: obj.size });
   }
   if (request.method === 'DELETE') {
+    if (key.startsWith('web/')) {
+      return json({ error: 'raw uploads are retained' }, 409);
+    }
     await bucket.delete(key);
     return json({ ok: true });
   }

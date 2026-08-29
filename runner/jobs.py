@@ -221,7 +221,7 @@ def phase_b(params: dict, log, report=None) -> dict:
             f"- 投稿者：@{contributor}",
             f"- 专辑：`{album}`",
             f"- ref：`{ref}`",
-            f"- 来源：网页投稿 → Phase A 草稿 → 人工闸门 → Phase B 对齐（原料仅存 R2，30 天后自动清理）",
+            f"- 来源：网页投稿 → Phase A 草稿 → 人工闸门 → Phase B 对齐（原料持续保留于 R2）",
             "",
             "<details><summary>处理摘要</summary>",
             "",
