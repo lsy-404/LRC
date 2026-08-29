@@ -332,6 +332,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     # （第 2 步）也用它；meta 覆盖仍在第 5 步与音频 tag 合并
     manifest_path = src / "manifest.toml"
     manifest = org_mod._read_toml(manifest_path) if manifest_path.is_file() else {}
+    single_submission = org_mod.is_single_submission(manifest.get("submission_type"))
     photo_links = extract_photo_links(manifest)
     if photo_links:
         print(f"  🔗 manifest 携带 {len(photo_links)} 条歌词拍照绑定", file=sys.stderr)
@@ -451,12 +452,18 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
 
     # 增补检测：若目标专辑已存在于 res_dir，进入增补模式
     existing_meta: dict | None = None
-    if album:
-        existing_dir = res_dir / album
-        if existing_dir.is_dir():
-            meta_path = existing_dir / "meta.toml"
-            existing_meta = org_mod._read_toml(meta_path) if meta_path.is_file() else {}
-            print(f"  🔄 检测到已有专辑「{album}」，进入增补模式", file=sys.stderr)
+    target_album = org_mod.SINGLE_ALBUM_NAME if single_submission else album
+    target_exists = bool(target_album and (res_dir / target_album).is_dir())
+    if single_submission:
+        if target_exists:
+            print(f"  ♫ 单曲投稿将只更新「{target_album}」中的本次歌词文件", file=sys.stderr)
+        else:
+            print(f"  ⚠️  单曲目标目录不存在：{res_dir / target_album}；Phase B 将安全跳过落盘",
+                  file=sys.stderr)
+    elif target_exists:
+        meta_path = res_dir / target_album / "meta.toml"
+        existing_meta = org_mod._read_toml(meta_path) if meta_path.is_file() else {}
+        print(f"  🔄 检测到已有专辑「{target_album}」，进入增补模式", file=sys.stderr)
 
     # 增补模式允许 manifest/cover-only 提交；新建模式需要实质内容
     has_content = (tracks_explicit or booklet_text or audio_words
@@ -480,11 +487,13 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     if mode == "phase_a":
         bundle_dir = Path(bundle_root) / _album_slug(draft["album"])
         review_mod.write_bundle(bundle_dir, draft, timestamp=timestamp,
-                                extra={"is_update": existing_meta is not None,
+                                extra={"is_update": target_exists,
+                                       "submission_type": draft.get("submission_type", ""),
                                        "contributor": contributor})
         summary.update({"album": draft["album"], "phase": review_mod.STATUS_A_DONE,
                         "bundle": str(bundle_dir), "cover": cover.name if cover else None,
-                        "is_update": existing_meta is not None, "result": "ok"})
+                        "submission_type": draft.get("submission_type", ""),
+                        "is_update": target_exists, "result": "ok"})
         return summary
 
     # oneshot：直接对齐落盘
@@ -492,7 +501,8 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     summary.update({"album": org_res["album"], "written": org_res["written"],
                     "track_count": org_res["track_count"], "matched": org_res["matched"],
                     "avg_coverage": org_res["avg_coverage"], "cover": cover.name if cover else None,
-                    "is_update": existing_meta is not None, "result": "ok"})
+                    "submission_type": draft.get("submission_type", ""),
+                    "is_update": target_exists, "result": org_res.get("result", "ok")})
     return summary
 
 
@@ -539,12 +549,17 @@ def run_phase_b(bundle_root: Path, res_dir: Path, dry_run: bool = False) -> dict
     for bd in bundles:
         draft = review_mod.read_bundle(bd)
         status = review_mod.read_status(bd)
+        if status.get("submission_type"):
+            draft["submission_type"] = status["submission_type"]
         org_res = org_mod.finalize(draft, res_dir=res_dir, dry_run=dry_run)
         albums_out.append({"album": org_res["album"], "written": org_res["written"],
                            "track_count": org_res["track_count"], "matched": org_res["matched"],
                            "avg_coverage": org_res["avg_coverage"],
-                           "is_update": bool(status.get("is_update")), "result": "ok"})
-        print(f"✓ Phase B 完成：{org_res['album']}（{org_res['track_count']} 轨）", file=sys.stderr)
+                           "submission_type": draft.get("submission_type", ""),
+                           "is_update": bool(status.get("is_update")),
+                           "result": org_res.get("result", "ok")})
+        if org_res.get("result", "ok") == "ok":
+            print(f"✓ Phase B 完成：{org_res['album']}（{org_res['track_count']} 轨）", file=sys.stderr)
     ok = any(a["result"] == "ok" for a in albums_out)
     done = [a for a in albums_out if a["result"] == "ok"]
     return {"albums": albums_out, "result": "ok" if ok else "empty",

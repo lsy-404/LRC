@@ -26,7 +26,7 @@ STATUS_CONFIRMED = "confirmed"  # 人工已确认（或一键放行），待 Pha
 STATUS_B_DONE = "B_done"        # Phase B 完成，待清理
 
 # 人工闸门可编辑的 draft 字段（词流/本机 cover_path 不在其列）
-_EDITABLE_KEYS = ("album", "tracks", "meta", "names", "pages")
+_EDITABLE_KEYS = ("album", "submission_type", "tracks", "meta", "names", "pages")
 
 
 def _split_stt(draft: dict) -> dict:
@@ -80,6 +80,7 @@ def read_bundle(bundle_dir: Path) -> dict:
 
     return {
         "album": editable.get("album", ""),
+        "submission_type": editable.get("submission_type", ""),
         "tracks": editable.get("tracks", []),
         "meta": editable.get("meta", {}),
         "names": editable.get("names", {}),

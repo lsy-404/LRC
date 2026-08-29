@@ -57,6 +57,9 @@ MATCH_THRESHOLD = 0.25
 # 歌词本页↔轨候选的最低覆盖率（仅作 LLM 分配提示，阈值可比正式匹配宽）
 PAGE_MATCH_THRESHOLD = 0.20
 
+SINGLE_SUBMISSION_TYPE = "single"
+SINGLE_ALBUM_NAME = "单曲"
+
 ORGANIZE_SYSTEM = """你是音乐专辑歌词整理专家。给你一份专辑歌词本混合文本（可能含多首歌词及
 作词/作曲/编曲/演唱/调校/混音/母带/曲绘/视频/策划等制作信息和发行/购买/出品等源信息）。
 整理成结构化 JSON。
@@ -119,6 +122,11 @@ def _safe_album_name(name: Any, fallback: str = "untitled") -> str:
     if not base or base in {".", ".."}:
         base = fallback
     return _sanitize_filename(base)
+
+
+def is_single_submission(submission_type: Any) -> bool:
+    """Whether a review draft is the isolated single-track submission type."""
+    return str(submission_type or "").strip().casefold() == SINGLE_SUBMISSION_TYPE
 
 
 def _output_basename(track: dict[str, Any], order: Any) -> str:
@@ -936,7 +944,10 @@ def build_draft(
         llm_meta = {}
         album_from_plan = ""
 
+    submission_type = str(manifest.get("submission_type") or "").strip().casefold()
     album = (album_override or manifest.get("album") or album_from_plan or "untitled").strip()
+    if is_single_submission(submission_type):
+        album = SINGLE_ALBUM_NAME
 
     # 无歌词文本时：STT 词流直接分行生成轨道（增补/新建均适用，覆盖旧 LRC）
     if not tracks and audio_words:
@@ -1029,7 +1040,8 @@ def build_draft(
                  by="/".join(meta.get("lyric_maker") or []), album_meta=meta)
 
     return {
-        "album": album, "tracks": tracks, "meta": meta, "names": names,
+        "album": album, "submission_type": submission_type,
+        "tracks": tracks, "meta": meta, "names": names,
         "audio_words": audio_words, "audio_langs": audio_langs,
         "stt_cleanup": stt_cleanup,
         "cover_path": str(cover_path) if cover_path else None,
@@ -1042,13 +1054,24 @@ def finalize(draft: dict[str, Any], res_dir: Path, dry_run: bool = False) -> dic
 
     只对人工改过（edited）或缺对齐成品的轨重跑对齐，其余直接落盘草稿里的 lrc/klrc。
     """
-    album = _safe_album_name(draft.get("album"))
+    single_submission = is_single_submission(draft.get("submission_type"))
+    album = SINGLE_ALBUM_NAME if single_submission else _safe_album_name(draft.get("album"))
     tracks = draft["tracks"]
     meta = draft["meta"]
     names = draft["names"]
     audio_words = draft.get("audio_words") or {}
     audio_langs = draft.get("audio_langs") or {}
     cover_path = Path(draft["cover_path"]) if draft.get("cover_path") else None
+
+    if single_submission and not (res_dir / album).is_dir():
+        print(
+            f"⚠️  单曲投稿未落盘：目标目录不存在 {res_dir / album}；请先创建既有单曲目录",
+            file=sys.stderr,
+        )
+        return {
+            "album": album, "written": [], "track_count": len(tracks), "matched": 0,
+            "avg_coverage": 0.0, "result": "missing_single_directory",
+        }
 
     # 3) 逐轨落盘：沿用草稿成品，仅改动轨重算
     written: list[str] = []
@@ -1098,17 +1121,19 @@ def finalize(draft: dict[str, Any], res_dir: Path, dry_run: bool = False) -> dic
     if leftover:
         print(f"  ⚠️  {len(leftover)} 个音频未匹配任何轨: {leftover}", file=sys.stderr)
 
-    # 4) meta.toml — names 已由 build_draft 按优先级算好，直接渲染
-    _emit(album_rel / "meta.toml", render_meta_toml(meta, names))
+    if not single_submission:
+        # 4) meta.toml — names 已由 build_draft 按优先级算好，直接渲染
+        _emit(album_rel / "meta.toml", render_meta_toml(meta, names))
 
-    # 5) cover
-    if cover_path and cover_path.is_file():
-        ext = cover_path.suffix.lower() or ".png"
-        _emit(album_rel / f"cover{ext}", cover_path.read_bytes())
+        # 5) cover
+        if cover_path and cover_path.is_file():
+            ext = cover_path.suffix.lower() or ".png"
+            _emit(album_rel / f"cover{ext}", cover_path.read_bytes())
 
     return {
         "album": album, "written": written, "track_count": len(tracks),
         "matched": len(used), "avg_coverage": round(sum(covs) / len(covs), 3) if covs else 0.0,
+        "result": "ok",
     }
 
 
