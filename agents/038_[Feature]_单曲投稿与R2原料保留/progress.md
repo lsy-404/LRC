@@ -6,3 +6,7 @@
 - 2026-08-29：只读列出生产 `lrc-upload` 生命周期，确认存在 `expire-web-payloads-30d`。
 - 2026-08-29：移除 `expire-web-payloads-30d` 并立即复核；当前仅剩 Cloudflare 默认的未完成 multipart 7 天中止规则。
 - 2026-08-29：建立基线，Node 176/176 通过，15 个受版本控制的 Python 测试文件全部通过。
+- 2026-08-29：合并单曲前端/API、摄取落盘、R2 删除护栏及服务端权威类型修复。
+- 2026-08-29：对抗复核发现单曲仍可能经元数据补全器生成 `meta.toml`；已让 Phase B 对单曲跳过该步骤，并保留普通专辑行为。
+- 2026-08-29：集成后 Node 181/181、全部受版本控制的 Python 测试及 898 页 VuePress 构建通过。
+- 2026-08-29：`npm audit --omit=dev` 为 0 漏洞；Wrangler dry-run 读取 2812 个静态资源并成功构建 basic Container 镜像。
