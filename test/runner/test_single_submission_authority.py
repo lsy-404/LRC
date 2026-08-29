@@ -66,6 +66,78 @@ class SingleSubmissionAuthorityTests(unittest.TestCase):
             self.assertEqual(pulled_album, manifest["album"])
             self.assertEqual(command[command.index("--submission-type") + 1], "album")
 
+    def test_phase_b_single_never_invokes_album_metadata_enrichment(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            repo = root / "repo"
+            repo.mkdir()
+            commands: list[list[str]] = []
+
+            def get_tree(_prefix, destination):
+                destination = Path(destination)
+                destination.mkdir(parents=True)
+                destination.joinpath("status.json").write_text(
+                    json.dumps({"contributor": "web", "submission_type": "single"}),
+                    encoding="utf-8",
+                )
+                return ["status.json"]
+
+            def run(command, _log, **_kwargs):
+                commands.append(command)
+                if "ingest.pipeline" in command:
+                    summary = Path(command[command.index("--json") + 1])
+                    summary.write_text(json.dumps({
+                        "result": "ok", "album": "单曲", "is_update": True,
+                        "albums": [{"album": "单曲", "result": "ok", "submission_type": "single"}],
+                    }), encoding="utf-8")
+                return ""
+
+            with patch.object(jobs.store, "get_tree", side_effect=get_tree), \
+                 patch.object(jobs, "_clone_scripts", return_value=repo), \
+                 patch.object(jobs, "run", side_effect=run), \
+                 patch.object(jobs.gh, "commit_albums", return_value=None):
+                result = jobs.phase_b({"ref": "a" * 32}, lambda _line: None)
+
+            self.assertEqual(result["result"], "nochange")
+            self.assertFalse(any(any("fetch_bilibili_meta.py" in part for part in command)
+                                 for command in commands))
+
+    def test_phase_b_album_keeps_metadata_enrichment(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            repo = root / "repo"
+            repo.mkdir()
+            commands: list[list[str]] = []
+
+            def get_tree(_prefix, destination):
+                destination = Path(destination)
+                destination.mkdir(parents=True)
+                destination.joinpath("status.json").write_text(
+                    json.dumps({"contributor": "web", "submission_type": "album"}),
+                    encoding="utf-8",
+                )
+                return ["status.json"]
+
+            def run(command, _log, **_kwargs):
+                commands.append(command)
+                if "ingest.pipeline" in command:
+                    summary = Path(command[command.index("--json") + 1])
+                    summary.write_text(json.dumps({
+                        "result": "ok", "album": "普通专辑", "is_update": False,
+                        "albums": [{"album": "普通专辑", "result": "ok", "submission_type": "album"}],
+                    }), encoding="utf-8")
+                return ""
+
+            with patch.object(jobs.store, "get_tree", side_effect=get_tree), \
+                 patch.object(jobs, "_clone_scripts", return_value=repo), \
+                 patch.object(jobs, "run", side_effect=run), \
+                 patch.object(jobs.gh, "commit_albums", return_value=None):
+                result = jobs.phase_b({"ref": "a" * 32}, lambda _line: None)
+
+            self.assertEqual(result["result"], "nochange")
+            self.assertTrue(any(any("fetch_bilibili_meta.py" in part for part in command)
+                                for command in commands))
+
 
 if __name__ == "__main__":
     unittest.main()

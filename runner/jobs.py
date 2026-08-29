@@ -198,9 +198,17 @@ def phase_b(params: dict, log, report=None) -> dict:
             break
         contributor = status.get("contributor") or "web"
         is_update = bool(summary.get("is_update"))
+        single_albums = {
+            item.get("album") for item in (summary.get("albums") or [])
+            if item.get("result") == "ok" and item.get("submission_type") == "single"
+        }
 
         _progress(report, "metadata", 70, "正在补充发布信息")
         for name in names:
+            if name in single_albums:
+                # 单曲目录只提交本次歌词，不能让元信息补全器新建或覆盖 meta.toml。
+                log(f"单曲「{name}」跳过专辑元信息补充")
+                continue
             try:
                 run(["python", ".github/scripts/fetch_bilibili_meta.py", "--album", name,
                      "--auto", "--fields", "release,year,electronic"],
