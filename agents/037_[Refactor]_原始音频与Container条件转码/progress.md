@@ -9,3 +9,4 @@
 - 安装 worktree 依赖后，VuePress 构建及 Node/Python 回归通过；`wrangler types` 已生成并校验临时类型，未将生成文件纳入提交。
 - 补充可提交的转写分流回归，并让 Container 以 mutagen 的原始 tag 回填曲名、曲序、演唱、专辑和日期；Worker 增加跨目录音频 basename 冲突预检。
 - 主任务审查并合并两个子任务提交，补齐 MP4 元组曲序回归；Node 全量 176 项与 15 个受 Git 跟踪的 Python 测试文件通过。两个未纳入仓库的旧测试脚本仍引用已淘汰接口，未将其或临时修改混入提交。
+- `pnpm install --frozen-lockfile` 与 VuePress 898 页构建通过；Wrangler dry-run 读取 2812 个静态资源并成功构建 basic Container 镜像，生产依赖审计为 0 漏洞。
