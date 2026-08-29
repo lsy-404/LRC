@@ -7,4 +7,4 @@
 - [x] 调整 Container 规格为 basic，并补充根目录测试。
 - [x] 运行 Node/Python 测试、构建与静态检查，审阅差异并提交。
 - [x] 补充原音直送、伪装 FLAC、tag 元数据和跨目录重名回归。
-- [ ] 部署 Worker/Container，并在生产工作站验证前端不转码和作业状态。
+- [x] 部署 Worker/Container，并在生产工作站验证前端不转码和作业状态。

@@ -10,3 +10,5 @@
 - 补充可提交的转写分流回归，并让 Container 以 mutagen 的原始 tag 回填曲名、曲序、演唱、专辑和日期；Worker 增加跨目录音频 basename 冲突预检。
 - 主任务审查并合并两个子任务提交，补齐 MP4 元组曲序回归；Node 全量 176 项与 15 个受 Git 跟踪的 Python 测试文件通过。两个未纳入仓库的旧测试脚本仍引用已淘汰接口，未将其或临时修改混入提交。
 - `pnpm install --frozen-lockfile` 与 VuePress 898 页构建通过；Wrangler dry-run 读取 2812 个静态资源并成功构建 basic Container 镜像，生产依赖审计为 0 漏洞。
+- GitHub Actions run `33234549364` 在 2 分 33 秒内成功发布 1770 个新增/变化静态资源、Worker 与 Container，版本 `97df091e-3841-477d-b448-d580e73a0dfc`。
+- 刷新生产工作站并切到上传页，确认页面仅显示原文件选择、上传总进度和提交操作，不再出现浏览器压缩状态、压缩按钮或 WebM 转码提示；待处理作业状态列表仍正常显示。
