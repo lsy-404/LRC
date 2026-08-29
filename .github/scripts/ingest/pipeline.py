@@ -26,6 +26,8 @@ import re
 import sys
 from pathlib import Path
 
+from charset_normalizer import from_bytes
+
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
     from ingest import ocr as ocr_mod  # type: ignore
@@ -49,6 +51,13 @@ LRC_EXTS = {".lrc"}
 IGNORE_NAMES = {"manifest.toml", "upload-manifest.json", "readme.md", "readme.txt", ".gitkeep", ".ds_store"}
 IGNORE_DIRS = {".git", ".github"}
 COVER_HINT = re.compile(r"cover|封面|主视图|jacket", re.I)
+
+
+def read_uploaded_text(path: Path) -> str:
+    """按文件内容检测投稿 TXT 编码，避免把非 UTF-8 歌词替换成乱码。"""
+    raw = path.read_bytes()
+    match = from_bytes(raw).best()
+    return str(match) if match is not None else raw.decode("utf-8", errors="replace")
 
 
 def _iter_files(src: Path):
@@ -338,12 +347,12 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     tracks_explicit: list[dict] = []
     credits_parts: list[str] = []
     for p in buckets["text"]:
-        txt = p.read_text(encoding="utf-8", errors="replace")
+        txt = read_uploaded_text(p)
         if lyrics_mod.is_credits_only(txt):
             credits_parts.append(txt)
             print(f"  credits: {p.name}", file=sys.stderr)
             continue
-        parsed = lyrics_mod.parse_lyric_txt(p)
+        parsed = lyrics_mod.parse_lyric_txt(p, text=txt)
         parsed["order"] = _order_from_name(p.stem)
         if parsed["lines"]:
             tracks_explicit.append(parsed)

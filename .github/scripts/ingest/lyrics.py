@@ -143,13 +143,13 @@ def is_credits_only(text: str) -> bool:
     return staff_hits >= 3 and staff_hits >= len(lines) * 0.3
 
 
-def parse_lyric_txt(path: Path) -> dict:
+def parse_lyric_txt(path: Path, text: str | None = None) -> dict:
     """逐曲歌词 txt → {title, lines(纯歌词), staff}。
 
     规则：首行=标题（去前导序号）；首个空行前的 staff 行解析为分曲 staff；
     空行后为正文。无空行时跳过开头的 staff 行。
     """
-    raw = path.read_text(encoding="utf-8", errors="replace").splitlines()
+    raw = (text if text is not None else path.read_text(encoding="utf-8", errors="replace")).splitlines()
     title = _LEAD_NUM.sub("", raw[0]).strip() if raw else path.stem
     blank = next((i for i, l in enumerate(raw) if l.strip() == ""), None)
     if blank is not None:
