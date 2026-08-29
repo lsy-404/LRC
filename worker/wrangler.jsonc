@@ -37,7 +37,7 @@
       "class_name": "PipelineRunner",
       "image": "../runner/Dockerfile",
       "image_build_context": "..",
-      "instance_type": "lite",
+      "instance_type": "basic",
       "max_instances": 5
     }
   ],

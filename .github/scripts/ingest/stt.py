@@ -4,8 +4,8 @@
 本地 whisperx(small int8, CPU) 已换为云端 whisper-1（large-v2 级识别质量）：
 - 词级时间戳：response_format=verbose_json + timestamp_granularities word+segment
 - 多首可并发，STT 墙钟 13-15 分钟 → 约 2-3 分钟；不再需要 torch/HF 模型下载
-- 计费按音频时长（$0.006/分钟）；上传前统一 ffmpeg 转码 16kHz 单声道 MP3，
-  百 MB 级源文件压到 1-2MB，API 的 25MB 上限对任意大小源文件都不构成约束
+- 兼容且不超过 25 MB 的原文件原样直送；FLAC、其他不兼容格式或超限文件才在
+  Container 内经 ffmpeg 转为 MP3，再发送到转写接口。
 
 用法：
     python -m ingest.stt <audio> [--lang zh]
@@ -27,7 +27,9 @@ if __package__ in (None, ""):
 else:
     from . import _llm
 
-AUDIO_EXTS = {".wav", ".mp3", ".flac", ".m4a", ".aac", ".ogg", ".opus", ".webm", ".wma"}
+AUDIO_EXTS = {".wav", ".mp3", ".flac", ".m4a", ".aac", ".ogg", ".opus", ".webm", ".wma", ".mp4", ".mpeg", ".mpga"}
+OPENAI_DIRECT_EXTS = {".mp3", ".mp4", ".mpeg", ".mpga", ".m4a", ".wav", ".webm"}
+OPENAI_MAX_BYTES = 25_000_000
 
 MACHINE_NOTE = "机器转写，待人工校对"
 
@@ -230,6 +232,16 @@ def _compress_for_upload(audio: Path) -> tuple[bytes, str]:
         out.unlink(missing_ok=True)
 
 
+def _audio_for_transcription(audio: Path) -> tuple[bytes, str]:
+    """仅将不兼容或超过接口上限的原文件交给 ffmpeg。"""
+    if audio.suffix.lower() in OPENAI_DIRECT_EXTS and audio.stat().st_size <= OPENAI_MAX_BYTES:
+        return audio.read_bytes(), audio.name
+    data, name = _compress_for_upload(audio)
+    if len(data) > OPENAI_MAX_BYTES:
+        raise _llm.LLMError(f"转码后仍超过 OpenAI 25 MB 上限: {audio.name}")
+    return data, name
+
+
 def _parse_verbose_json_with_cleanup(result: dict, lang: str | None) -> tuple[list[dict], str, dict]:
     """verbose_json → ([{start,end,text,seg_end?}], 语言代码)。纯函数便于测试。"""
     words = [{"start": float(w["start"]), "end": float(w["end"]),
@@ -267,7 +279,7 @@ def transcribe_words(audio: Path, lang: str | None = None) -> tuple[list[dict], 
     }
     if lang:
         fields["language"] = lang
-    data, upload_name = _compress_for_upload(audio)
+    data, upload_name = _audio_for_transcription(audio)
     body, boundary = _multipart(fields, "file", upload_name, data)
     req = request.Request(
         f"{_llm.OPENAI_API_BASE}/audio/transcriptions", data=body,

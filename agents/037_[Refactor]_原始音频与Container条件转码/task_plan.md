@@ -1,8 +1,8 @@
 # 原始音频与 Container 条件转码
 
-- [ ] 移除浏览器音频转码和 MediaBunny 依赖，恢复原始文件上传。
-- [ ] Worker 仅校验清单与对象完整性，不执行 OpenAI 转写。
-- [ ] Container 下载原始音频，兼容且不超过 25 MB 时直接转写，否则用 ffmpeg 压缩后转写。
-- [ ] 将 Container 规格从 `lite` 调整为 `basic`，并保持全部音频就绪后再启动。
-- [ ] 增加根目录回归测试并运行全量测试。
-- [ ] 部署 Worker/Container 并完成生产浏览器验证。
+- [x] 核对当前链路及 8c3e20e/349eeae 历史实现。
+- [x] 移除浏览器端转码，保持原始文件与上传清单。
+- [x] 将音频下载、元数据/封面提取、条件转码和转写恢复到 Container。
+- [x] 让 Worker 只执行清单与 R2 对象完整性预检并调度 Container。
+- [x] 调整 Container 规格为 basic，并补充根目录测试。
+- [x] 运行 Node/Python 测试、构建与静态检查，审阅差异并提交。

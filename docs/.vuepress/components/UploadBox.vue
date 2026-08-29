@@ -60,10 +60,10 @@
       >
         <div class="ub-vinyl" aria-hidden="true"><i /></div>
         <div class="ub-row center">
-          <button class="ub-btn" :disabled="busy || compressing" @click="fileInput.click()">添加文件</button>
-          <button class="ub-btn" :disabled="busy || compressing" @click="dirInput.click()">添加文件夹</button>
-          <button class="ub-btn" :disabled="busy || compressing" @click="camInput.click()">拍照</button>
-          <button v-if="items.length" class="ub-btn ghost" :disabled="busy || compressing" @click="clearItems">清空</button>
+          <button class="ub-btn" :disabled="busy" @click="fileInput.click()">添加文件</button>
+          <button class="ub-btn" :disabled="busy" @click="dirInput.click()">添加文件夹</button>
+          <button class="ub-btn" :disabled="busy" @click="camInput.click()">拍照</button>
+          <button v-if="items.length" class="ub-btn ghost" :disabled="busy" @click="clearItems">清空</button>
         </div>
         <input ref="fileInput" type="file" multiple class="ub-hidden" @change="onPickFiles">
         <input ref="dirInput" type="file" webkitdirectory class="ub-hidden" @change="onPickDir">
@@ -107,7 +107,7 @@
                   :title="it.relPath + '（点击重命名）'"
                   @click="startEdit(it)"
                 >{{ it.relPath }}</span>
-                <select v-model="it.role" class="ub-sel" :disabled="busy || compressing" @change="applyRole(it)">
+                <select v-model="it.role" class="ub-sel" :disabled="busy" @change="applyRole(it)">
                   <option value="song">原曲</option>
                   <option value="photo">歌词本·拍照</option>
                   <option value="text">歌词本·文本</option>
@@ -118,19 +118,13 @@
                 <span class="ub-fsize">{{ fmtSize(it.size) }}</span>
                 <span class="ub-fstat" :class="statClass(it)">{{ statText(it) }}</span>
                 <button
-                  v-if="!busy && !compressing"
+                  v-if="!busy"
                   class="ub-x"
                   title="移除"
                   @click="removeItem(it)"
                 >×</button>
-                <button
-                  v-if="it.status === 'compress-fail'"
-                  class="ub-btn ghost small"
-                  :disabled="busy || compressing"
-                  @click="retryCompression(it)"
-                >重试压缩</button>
               </div>
-              <div v-if="it.status === 'up' || it.status === 'compress'" class="ub-mini"><div :style="{ width: it.pct + '%' }" /></div>
+              <div v-if="it.status === 'up'" class="ub-mini"><div :style="{ width: it.pct + '%' }" /></div>
             </li>
           </ul>
         </div>
@@ -228,12 +222,12 @@
     <!-- 02 · 提交 -->
     <section v-if="!finished" class="ub-card rise">
       <div class="ub-progress">
-        <div class="ub-bar" :class="{ live: busy || compressing }"><div :style="{ width: (compressing ? compressionOverallPct : overallPct) + '%' }" /></div>
-        <span class="ub-ptext">{{ compressing ? `${compressionText}（${Math.round(compressionOverallPct)}%）` : progressText }}</span>
+        <div class="ub-bar" :class="{ live: busy }"><div :style="{ width: overallPct + '%' }" /></div>
+        <span class="ub-ptext">{{ progressText }}</span>
       </div>
       <div class="ub-row">
         <button class="ub-btn primary big" :disabled="!canSubmit" @click="run">
-          {{ compressing ? '压缩音频…' : busy ? '处理中…' : '提交投稿' }}
+          {{ busy ? '处理中…' : '提交投稿' }}
         </button>
         <button v-if="showRetry" class="ub-btn" :disabled="busy" @click="run">重试失败文件</button>
         <span v-if="submitMsg" class="ub-msg inline" :class="{ err: submitErr }">{{ submitMsg }}</span>
@@ -291,9 +285,6 @@ import { addRef } from './refsCache.js';
 import {
   normalizeLyricMakers, serializeDraft, writeDraft, clearDraft, readDraft, restoreItem, debounce,
 } from './uploadDraft.js';
-import {
-  COMPRESSED_MIME, compressAudioFile, compressedPath, isAudioCandidate,
-} from './audioCompressor.js';
 
 // 验证在工作站根层（Workbench）统一完成，密码经 prop 传入
 const props = defineProps({ password: { type: String, default: '' } });
@@ -313,8 +304,6 @@ const lastRef = ref('');
 const linkBili = ref('');
 const linkDizzy = ref('');
 const lyricMakerText = ref('');
-const compressing = ref(false);
-const compressionText = ref('');
 
 const fileInput = ref(null);
 const dirInput = ref(null);
@@ -528,7 +517,7 @@ const fmtSize = (n) => n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB'
 
 const KIND = [
   [/(^|\/)manifest\.toml$/i, '讯', 'k-book'],
-  [/\.(flac|wav|mp3|m4a|ogg|aac|opus|webm)$/i, '音', 'k-audio'],
+  [/\.(flac|wav|mp3|m4a|ogg|aac|opus|webm|mp4|mpeg|mpga)$/i, '音', 'k-audio'],
   [/\.(png|jpe?g|webp|gif|bmp|tiff?)$/i, '图', 'k-img'],
   [/\.(pdf|docx?)$/i, '册', 'k-book'],
   [/\.(txt|lrc|md|toml)$/i, '词', 'k-text'],
@@ -540,7 +529,7 @@ const kindClass = (it) => kindOf(it)[2];
 // 快速识别：按扩展名/文件名猜用途
 function guessRole(p) {
   const base = p.split('/').pop().toLowerCase();
-  if (/\.(flac|wav|mp3|m4a|ogg|aac|opus|webm)$/.test(base)) return 'song';
+  if (/\.(flac|wav|mp3|m4a|ogg|aac|opus|webm|mp4|mpeg|mpga)$/.test(base)) return 'song';
   if (/\.(png|jpe?g|webp|gif|bmp|tiff?)$/.test(base)) {
     return /(cover|封面|主视图)/.test(base) ? 'cover' : 'photo';
   }
@@ -564,7 +553,7 @@ const isLikelyInst = (relPath) => {
 
 // 改用途 → 重写路径（封面统一改名 cover.<ext>，其余归入约定目录）
 const ROLE_DIR = { song: '音频', photo: '歌词本', text: '歌词' };
-async function applyRole(it) {
+function applyRole(it) {
   const base = it.relPath.split('/').pop();
   if (it.role === 'cover') {
     const ext = (base.match(/\.[A-Za-z0-9]+$/) || ['.png'])[0];
@@ -575,7 +564,6 @@ async function applyRole(it) {
     it.relPath = base;
   }
   scheduleSave();
-  if (it.role === 'song' && !it.compressed) await compressAudioItems([it]);
 }
 
 function startEdit(it) {
@@ -608,12 +596,6 @@ const totalBytes = computed(() => items.value.reduce((s, i) => s + i.size, 0));
 const doneBytes = computed(() => items.value.reduce((s, i) =>
   s + (i.status === 'done' ? i.size : i.status === 'up' ? i.size * i.pct / 100 : 0), 0));
 const overallPct = computed(() => totalBytes.value ? doneBytes.value / totalBytes.value * 100 : 0);
-const compressionOverallPct = computed(() => {
-  const audio = items.value.filter((it) => it.role === 'song' && isAudioCandidate(it.sourcePath || it.relPath));
-  if (!audio.length) return 0;
-  return audio.reduce((total, it) => total + (it.compressed ? 1 : it.status === 'compress' ? it.pct / 100 : 0), 0)
-    / audio.length * 100;
-});
 const progressText = computed(() => items.value.length
   ? `${fmtSize(doneBytes.value)} / ${fmtSize(totalBytes.value)}（${Math.round(overallPct.value)}%）`
   : '等待文件');
@@ -624,95 +606,22 @@ const totalText = computed(() => {
     + (dupSet.value.size ? '；存在重复路径（红色波浪线），请重命名' : '');
 });
 const canSubmit = computed(() =>
-  !busy.value && !compressing.value && items.value.length > 0 && dupSet.value.size === 0
-  && !items.value.some((it) => it.role === 'song'
-    && (it.status === 'compress-fail' || !it.compressed || it.mime !== COMPRESSED_MIME)));
+  !busy.value && items.value.length > 0 && dupSet.value.size === 0);
 
-const statText = (it) => it.status === 'compress' ? `压缩 ${it.pct}%`
-  : it.status === 'compress-fail' ? '压缩失败'
-  : it.status === 'done' ? '✓'
+const statText = (it) => it.status === 'done' ? '✓'
   : it.status === 'fail' ? '失败'
   : it.status === 'up' ? it.pct + '%' : '待传';
-const statClass = (it) => it.status === 'fail' || it.status === 'compress-fail' ? 'fail'
+const statClass = (it) => it.status === 'fail' ? 'fail'
   : it.status === 'done' ? 'done' : '';
 
 // 系统垃圾文件：任一路径段命中即整条跳过（拖文件夹常带进 .DS_Store / AppleDouble ._* 等）
 const JUNK_RE = /^(\.DS_Store|Thumbs\.db|desktop\.ini|\.Spotlight-V100|\.Trashes|__MACOSX|\._.*)$/i;
 const isJunk = (relPath) => relPath.split('/').some((seg) => JUNK_RE.test(seg));
 
-function addEmbeddedCover(file) {
-  const existing = items.value.find((it) => it.role === 'cover');
-  if (existing || !file) return existing?.relPath || '';
-  const ext = file.name.match(/\.[A-Za-z0-9]+$/)?.[0]?.toLowerCase() || '.jpg';
-  const relPath = 'cover' + ext;
-  items.value.push({
-    file, relPath, size: file.size, status: 'wait', pct: 0, n: null, uid: uid++,
-    role: 'cover', editing: false, editVal: '', linkTo: 0, auto: true,
-    mime: file.type || 'image/jpeg', sourceCover: true,
-  });
-  return relPath;
-}
-
-async function compressAudioItems(audioItems) {
-  if (!audioItems.length) return;
-  compressing.value = true;
-  submitErr.value = false;
-  try {
-    for (let index = 0; index < audioItems.length; index++) {
-      const it = audioItems[index];
-      it.status = 'compress';
-      it.pct = 0;
-      it.compressionError = '';
-      compressionText.value = `正在压缩 ${index + 1} / ${audioItems.length}：${baseName(it.relPath)}`;
-      try {
-        const result = await compressAudioFile(it.file, it.relPath, {
-          onProgress: (progress) => { it.pct = Math.round(progress * 100); },
-        });
-        const originalPath = it.relPath;
-        it.file = result.file;
-        it.relPath = result.path;
-        it.size = result.file.size;
-        it.mime = result.mime;
-        it.sourcePath = originalPath;
-        it.sourceMime = result.sourceMime;
-        it.audioMetadata = result.metadata;
-        it.compressed = true;
-        it.status = 'wait';
-        it.pct = 0;
-        it.coverPath = addEmbeddedCover(result.cover);
-      } catch (err) {
-        it.status = 'compress-fail';
-        it.compressed = false;
-        it.pct = 0;
-        it.compressionError = err instanceof Error ? err.message : '未知错误';
-        submitErr.value = true;
-        submitMsg.value = `${baseName(it.relPath)} 无法压缩：${it.compressionError}`;
-      }
-      // 每首结束后先让渲染与输入事件落地，长专辑不会把主界面连续占满。
-      await new Promise((resolve) => setTimeout(resolve, 0));
-    }
-  } finally {
-    compressing.value = false;
-    compressionText.value = '';
-    scheduleSave();
-  }
-}
-
-async function retryCompression(it) {
-  if (!it || busy.value || compressing.value) return;
-  if (it.origFile) {
-    it.file = it.origFile;
-    it.relPath = it.sourcePath || it.relPath;
-    it.size = it.file.size;
-  }
-  await compressAudioItems([it]);
-}
-
-async function addFiles(picked) {
-  if (busy.value || compressing.value) return;
+function addFiles(picked) {
+  if (busy.value) return;
   const have = new Set(items.value.map((i) => i.relPath));
   const toRotate = [];
-  const addedAudio = [];
   let restored = 0;
   for (const p of picked) {
     if (isJunk(p.relPath) || have.has(p.relPath)) continue;
@@ -723,19 +632,17 @@ async function addFiles(picked) {
       origFile: p.file, rotation: 0, porder: null,
     };
     // 按 relPath 恢复上次的用途/绑定/旋转/排序，省去重做
-    const d = restoreDraft && (restoreDraft.map.get(p.relPath) || restoreDraft.map.get(compressedPath(p.relPath)));
+    const d = restoreDraft && restoreDraft.map.get(p.relPath);
     if (d) {
       const r = restoreItem(it, d);
       if (r.rotated) toRotate.push(it);
       restored++;
     }
     items.value.push(it);
-    if (it.role === 'song' && isAudioCandidate(it.relPath)) addedAudio.push(it);
   }
   for (const it of toRotate) reapplyRotation(it);
   if (restored) restoreMsg.value = `已恢复 ${restored} 个文件的用途/绑定/旋转/顺序`;
   scheduleSave();
-  await compressAudioItems(addedAudio);
 }
 
 // 重选文件后恢复旋转：从 origFile 按绝对角度重编码（与手动旋转同逻辑，零损失）
@@ -747,26 +654,26 @@ async function reapplyRotation(it) {
   } catch { /* noop */ }
 }
 
-async function onPickFiles(e) {
-  await addFiles([...e.target.files].map((f) => ({ file: f, relPath: f.name })));
+function onPickFiles(e) {
+  addFiles([...e.target.files].map((f) => ({ file: f, relPath: f.name })));
   e.target.value = '';
 }
 
 // 拍照：相机文件名常重复（image.jpg），改用自增名并直接归入歌词本目录
-async function onPickCam(e) {
-  await addFiles([...e.target.files].map((f) => {
+function onPickCam(e) {
+  addFiles([...e.target.files].map((f) => {
     const ext = (f.name.match(/\.[A-Za-z0-9]+$/) || ['.jpg'])[0].toLowerCase();
     return { file: f, relPath: `歌词本/拍照-${camSeq++}${ext}` };
   }));
   e.target.value = '';
 }
 
-async function onPickDir(e) {
+function onPickDir(e) {
   const list = [...e.target.files];
   if (list.length && !album.value) {
     album.value = list[0].webkitRelativePath.split('/')[0];
   }
-  await addFiles(list.map((f) => ({
+  addFiles(list.map((f) => ({
     file: f,
     relPath: f.webkitRelativePath.split('/').slice(1).join('/') || f.name,
   })));
@@ -809,7 +716,7 @@ async function onDrop(e) {
   } else {
     for (const en of entries) await walk(en, '');
   }
-  await addFiles(picked);
+  addFiles(picked);
 }
 
 // 辅助信息 → manifest.toml（organize.py 原生消费：album + 发布/购买中文键，
@@ -870,23 +777,6 @@ function syncManifest(name) {
   };
   if (prev !== -1) items.value.splice(prev, 1, entry);
   else items.value.push(entry);
-}
-
-function uploadMetadata() {
-  const tracks = items.value
-    .filter((it) => it.role === 'song' && it.mime === COMPRESSED_MIME)
-    .map((it) => ({
-      path: it.relPath,
-      original_path: it.sourcePath || it.relPath,
-      mime: it.mime,
-      metadata: it.audioMetadata || {},
-    }));
-  const cover = items.value.find((it) => it.role === 'cover');
-  return {
-    version: 1,
-    tracks,
-    ...(cover ? { cover_path: cover.relPath } : {}),
-  };
 }
 
 // R2 直传会话：一次投稿一个 session（重试沿用，已传对象仍有效），条目号 n 在
@@ -976,13 +866,6 @@ const uploadFile = (it) => it.size <= DIRECT_UPLOAD_LIMIT ? uploadR2(it) : uploa
 async function run() {
   const name = album.value.trim();
   submitErr.value = false;
-  const incompleteSong = items.value.find((it) => it.role === 'song'
-    && (it.status === 'compress-fail' || !it.compressed || it.mime !== COMPRESSED_MIME));
-  if (incompleteSong) {
-    submitErr.value = true;
-    submitMsg.value = `${baseName(incompleteSong.relPath)} 还未压缩成功，不能提交`;
-    return;
-  }
   if (!name) { submitErr.value = true; submitMsg.value = '请填写专辑名称'; return; }
   if (name.includes('/') || name.includes('\\')) {
     submitErr.value = true; submitMsg.value = '专辑名称不能包含斜杠'; return;
@@ -1040,10 +923,7 @@ async function run() {
         album: name,
         session,
         lyric_maker: normalizeLyricMakers(lyricMakerText.value),
-        files: items.value.map((i) => ({
-          n: i.n, path: i.relPath, size: i.size, mime: i.mime || i.file.type || '',
-        })),
-        upload_metadata: uploadMetadata(),
+        files: items.value.map((i) => ({ n: i.n, path: i.relPath, size: i.size })),
       }),
     });
     const data = await r.json().catch(() => ({}));
