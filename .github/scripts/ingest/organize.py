@@ -129,7 +129,7 @@ def is_single_submission(submission_type: Any) -> bool:
     return str(submission_type or "").strip().casefold() == SINGLE_SUBMISSION_TYPE
 
 
-def _output_basename(track: dict[str, Any], order: Any) -> str:
+def _output_basename(track: dict[str, Any], order: Any, *, include_order: bool = True) -> str:
     """Use a safe requested basename, or preserve the established order/title default."""
     preferred = track.get("final_name") if track.get("inst") else None
     raw = str(preferred or track.get("output_name") or "").strip()
@@ -142,7 +142,7 @@ def _output_basename(track: dict[str, Any], order: Any) -> str:
         if base not in {"", ".", ".."}:
             return _sanitize_filename(base)
     title = _sanitize_filename(str(track.get("title", "")).strip() or f"track{order}")
-    return f"{order} {title}"
+    return f"{order} {title}" if include_order else title
 
 
 # 伴奏/无人声轨识别：分隔符包裹匹配，避免误伤 "Inspire"/"Instant" 这类词内含 ins
@@ -1110,7 +1110,7 @@ def finalize(draft: dict[str, Any], res_dir: Path, dry_run: bool = False) -> dic
         lrc, lrc_words = merge_vocal_outputs(lrc, lrc_words, t.get("vocals"))
         covs.append(cov)
         # build_track_lrc 匹配到音频后可能已用音频文件名回填空标题，故在其后取值
-        basename = _output_basename(t, order)
+        basename = _output_basename(t, order, include_order=not single_submission)
         _emit(album_rel / f"{basename}.lrc", lrc)
         if lrc_words:
             # 逐字增强版另存 .klrc（非 .lrc 后缀），与标准 LRC 分离以保证播放器兼容性
