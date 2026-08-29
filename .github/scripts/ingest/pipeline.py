@@ -458,7 +458,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     # 5) 整理 + 对齐 → res/<专辑>/（meta 全自动；专辑名 = 文件夹名 album）
     #    可选：若投递目录恰含 manifest.toml 则作为 meta 覆盖（非必需，不鼓励）。
     # 音频 tag 权威元信息：优先级仅次于 manifest（manifest 显式键覆盖 tag）
-    tag_meta, source_hint = ({} if uploaded_manifest else extract_audio_meta(buckets["audio"]))
+    tag_meta, source_hint = (({}, "") if uploaded_manifest else extract_audio_meta(buckets["audio"]))
     manifest = {**tag_meta, **manifest}
 
     # 增补检测：若目标专辑已存在于 res_dir，进入增补模式
