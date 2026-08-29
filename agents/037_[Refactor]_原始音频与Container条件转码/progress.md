@@ -7,3 +7,4 @@
 - 让 `ingest.stt` 对兼容且不超过 25,000,000 字节的原音直送，其余走 Container ffmpeg，并添加条件分流回归测试。
 - 新增前端原始文件/无浏览器转码、basic Container 配置，以及 Container 原始音频 tag/封面提取回归测试。
 - 安装 worktree 依赖后，VuePress 构建及 Node/Python 回归通过；`wrangler types` 已生成并校验临时类型，未将生成文件纳入提交。
+- 补充可提交的转写分流回归，并让 Container 以 mutagen 的原始 tag 回填曲名、曲序、演唱、专辑和日期；Worker 增加跨目录音频 basename 冲突预检。

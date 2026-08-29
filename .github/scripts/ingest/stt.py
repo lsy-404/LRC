@@ -234,7 +234,9 @@ def _compress_for_upload(audio: Path) -> tuple[bytes, str]:
 
 def _audio_for_transcription(audio: Path) -> tuple[bytes, str]:
     """仅将不兼容或超过接口上限的原文件交给 ffmpeg。"""
-    if audio.suffix.lower() in OPENAI_DIRECT_EXTS and audio.stat().st_size <= OPENAI_MAX_BYTES:
+    with audio.open("rb") as source:
+        flac = source.read(4) == b"fLaC"
+    if not flac and audio.suffix.lower() in OPENAI_DIRECT_EXTS and audio.stat().st_size <= OPENAI_MAX_BYTES:
         return audio.read_bytes(), audio.name
     data, name = _compress_for_upload(audio)
     if len(data) > OPENAI_MAX_BYTES:

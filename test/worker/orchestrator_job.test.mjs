@@ -188,6 +188,29 @@ test('Phase A 对象大小不符时记录清单与存储大小且绝不触达 Co
   assert.equal(calls, 0);
 });
 
+test('Phase A 拒绝不同目录中同 basename 的音频，且不触达 Container', async () => {
+  const IngestJob = await loadJob();
+  const ctx = jobContext();
+  let calls = 0;
+  const ref = '9'.repeat(32);
+  const bucket = {
+    get: async () => ({ text: async () => JSON.stringify({
+      version: 3, album: '测试专辑', session: ref,
+      files: [{ n: 0, path: 'A/同名.mp3', size: 4 }, { n: 1, path: 'B/同名.mp3', size: 4 }],
+    }) }),
+    head: async () => ({ size: 4 }),
+  };
+  const job = new IngestJob(ctx, {
+    UPLOAD_BUCKET: bucket,
+    RUNNER: { getByName: () => ({ fetch: async () => { calls += 1; return new Response(); } }) },
+  });
+  await job.fetch(new Request('https://job/start', { method: 'POST', body: JSON.stringify({ kind: 'phase_a', params: { ref } }) }));
+  await job.alarm();
+  assert.equal(ctx.job.state, 'failed');
+  assert.match(ctx.job.error, /音频文件名重复 B\/同名\.mp3/);
+  assert.equal(calls, 0);
+});
+
 test('Phase A 总大小超过基础盘安全上限时不触达 Container', async () => {
   const IngestJob = await loadJob();
   const ctx = jobContext();

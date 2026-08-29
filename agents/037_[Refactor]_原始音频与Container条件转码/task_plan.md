@@ -6,3 +6,4 @@
 - [x] 让 Worker 只执行清单与 R2 对象完整性预检并调度 Container。
 - [x] 调整 Container 规格为 basic，并补充根目录测试。
 - [x] 运行 Node/Python 测试、构建与静态检查，审阅差异并提交。
+- [x] 补充原音直送、伪装 FLAC、tag 元数据和跨目录重名回归。

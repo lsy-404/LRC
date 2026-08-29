@@ -152,6 +152,42 @@ def extract_audio_meta(audios: list[Path]) -> tuple[dict, str]:
     return meta, hint
 
 
+def _tag_text(tags: dict, *keys: str) -> str:
+    for key in keys:
+        value = tags.get(key)
+        if value:
+            text = str(value[0] if isinstance(value, (list, tuple)) else value).strip()
+            if text:
+                return text
+    return ""
+
+
+def apply_audio_tag_metadata(tracks_plan: list[dict], audios: list[Path], manifest: dict) -> None:
+    """在 Container 从原音读取 tag；显式 manifest 字段优先。"""
+    by_name = {audio.name: audio for audio in audios}
+    for track in tracks_plan:
+        audio = by_name.get(str(track.get("file") or ""))
+        if not audio:
+            continue
+        tags = getattr(read_audio_tags(audio), "tags", None) or {}
+        title = _tag_text(tags, "title", "TIT2", "©nam")
+        if title:
+            track["title"] = title
+        number = _tag_text(tags, "tracknumber", "TRCK", "trkn")
+        digits = re.match(r"\s*(\d+)", number)
+        if digits and int(digits.group(1)) > 0:
+            track["order"] = int(digits.group(1))
+        artist = _tag_text(tags, "artist", "TPE1", "©ART")
+        if artist and not manifest.get("vocal"):
+            manifest["vocal"] = [artist]
+        album = _tag_text(tags, "album", "TALB", "©alb")
+        if album and not manifest.get("album"):
+            manifest["album"] = album
+        year = _tag_text(tags, "date", "TDRC", "©day")
+        if year and not manifest.get("year"):
+            manifest["year"] = year
+
+
 def extract_embedded_cover(audios: list[Path], work: Path) -> Path | None:
     """从音频内嵌 tag 提取封面（FLAC pictures；专辑内通常一致，取第一个带图的）。"""
     if not audios:
@@ -344,6 +380,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     inst_files: set[str] = set()
     if buckets["audio"]:
         tracks_plan = org_mod.llm_order_tracks([p.name for p in buckets["audio"]], album)
+        apply_audio_tag_metadata(tracks_plan, buckets["audio"], manifest)
         org_mod.apply_inst_overrides(tracks_plan, inst_marked, inst_as_song)
         keep = {t.get("file") for t in tracks_plan}
         inst_files = {t.get("file") for t in tracks_plan if t.get("inst")}

@@ -12,6 +12,7 @@ const HOUR_MS = 60 * 60 * 1000;
 const ACTIVE_STATES = new Set(['queued', 'dispatching', 'running']);
 const MAX_UPLOAD_FILES = 500;
 const MAX_UPLOAD_BYTES = 1.25 * 1024 * 1024 * 1024;
+const AUDIO_PATH_RE = /\.(?:flac|m4a|mp3|mp4|mpeg|mpga|ogg|wav|webm)$/i;
 
 function progress(value) {
   const number = Number(value);
@@ -149,10 +150,16 @@ export class IngestJob extends DurableObject {
     }
 
     const seen = new Set();
+    const audioNames = new Set();
     let totalSize = 0;
     for (const file of manifest.files) {
       const key = validFile(file, ref, seen);
       if (!key) return preflightError('上传文件条目无效');
+      if (AUDIO_PATH_RE.test(file.path)) {
+        const name = file.path.split('/').at(-1).normalize('NFC').toLocaleLowerCase();
+        if (audioNames.has(name)) return preflightError(`音频文件名重复 ${file.path}`);
+        audioNames.add(name);
+      }
       totalSize += file.size;
       if (totalSize > MAX_UPLOAD_BYTES) {
         return preflightError(`上传总大小 ${bytesLabel(totalSize)} 超过 ${bytesLabel(MAX_UPLOAD_BYTES)} 上限；请压缩原始音频后重试`);
