@@ -7,6 +7,10 @@ export const DRAFT_KEY = 'lrc-upload-draft';
 export const MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000;
 export const REQUIRED_LYRIC_MAKER = '武乙凌薇';
 
+export function normalizeSubmissionType(value) {
+  return value === 'single' ? 'single' : 'album';
+}
+
 const store = () => (typeof localStorage === 'undefined' ? null : localStorage);
 
 export function normalizeLyricMakers(value, required = REQUIRED_LYRIC_MAKER) {
@@ -23,9 +27,10 @@ export function normalizeLyricMakers(value, required = REQUIRED_LYRIC_MAKER) {
   return makers;
 }
 
-export function serializeDraft(album, items, at = Date.now(), submittedRef = '', lyricMakers = []) {
+export function serializeDraft(album, items, at = Date.now(), submittedRef = '', lyricMakers = [], submissionType = 'album') {
   return {
     album: album || '',
+    submissionType: normalizeSubmissionType(submissionType),
     at,
     submittedRef: submittedRef || '',
     lyricMakers: normalizeLyricMakers(lyricMakers),
@@ -65,6 +70,7 @@ export function readDraft(s = store(), now = Date.now()) {
     if (!map.size) return null;
     return {
       album: d.album || '', at: d.at || 0, submittedRef: d.submittedRef || '',
+      submissionType: normalizeSubmissionType(d.submissionType),
       lyricMakers: normalizeLyricMakers(d.lyricMakers), map,
     };
   } catch { return null; }

@@ -4,6 +4,12 @@ import {
 } from './_lib.js';
 
 const REQUIRED_LYRIC_MAKER = '武乙凌薇';
+const SINGLE_ALBUM = '单曲';
+
+function cleanSubmissionType(value) {
+  if (value === undefined || value === null || value === '') return 'album';
+  return value === 'single' || value === 'album' ? value : null;
+}
 
 function cleanLyricMakers(value) {
   const seen = new Set();
@@ -27,10 +33,12 @@ export async function onRequestPost({ request, env }) {
   if (!env.UPLOAD_BUCKET) return json({ error: 'r2 not configured' }, 503);
 
   const body = await request.json().catch(() => null);
-  const album = cleanAlbum(body?.album);
+  const submission_type = cleanSubmissionType(body?.submission_type);
+  const requestedAlbum = cleanAlbum(body?.album);
+  const album = submission_type === 'single' ? SINGLE_ALBUM : requestedAlbum;
   const session = cleanSession(body?.session);
   const rawFiles = Array.isArray(body?.files) ? body.files : [];
-  if (!album || !session || !rawFiles.length || rawFiles.length > MAX_FILES) {
+  if (!submission_type || !album || !session || !rawFiles.length || rawFiles.length > MAX_FILES) {
     return json({ error: 'bad request' }, 400);
   }
 
@@ -51,7 +59,7 @@ export async function onRequestPost({ request, env }) {
   const contributor = typeof body?.contributor === 'string'
     ? body.contributor.slice(0, 60) : 'web';
   const lyric_maker = cleanLyricMakers(body?.lyric_maker);
-  const manifest = { version: 3, album, session, contributor, lyric_maker, files };
+  const manifest = { version: 3, album, submission_type, session, contributor, lyric_maker, files };
   await env.UPLOAD_BUCKET.put(`web/${session}/manifest.json`,
     JSON.stringify(manifest, null, 1),
     { httpMetadata: { contentType: 'application/json' } });

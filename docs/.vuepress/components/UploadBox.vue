@@ -12,15 +12,22 @@
 
     <!-- 01 · 选择 -->
     <section v-if="!finished" class="ub-card rise">
-      <label class="ub-label" for="ub-album">专辑名称</label>
-      <input
-        id="ub-album"
-        v-model="album"
-        type="text"
-        class="ub-input"
-        placeholder="例：专辑名称"
-        :disabled="busy"
-      >
+      <div class="ub-type" role="group" aria-label="投稿类型">
+        <button class="ub-type-btn" :class="{ on: submissionType === 'album' }" :disabled="busy" @click="submissionType = 'album'">专辑</button>
+        <button class="ub-type-btn" :class="{ on: submissionType === 'single' }" :disabled="busy" @click="submissionType = 'single'">单曲</button>
+      </div>
+      <template v-if="submissionType === 'album'">
+        <label class="ub-label" for="ub-album">专辑名称</label>
+        <input
+          id="ub-album"
+          v-model="album"
+          type="text"
+          class="ub-input"
+          placeholder="例：专辑名称"
+          :disabled="busy"
+        >
+      </template>
+      <p v-else class="ub-single-target">单曲投稿将进入「单曲」目录</p>
 
       <p v-if="restoreMsg" class="ub-restore">
         {{ restoreMsg }}
@@ -61,7 +68,7 @@
         <div class="ub-vinyl" aria-hidden="true"><i /></div>
         <div class="ub-row center">
           <button class="ub-btn" :disabled="busy" @click="fileInput.click()">添加文件</button>
-          <button class="ub-btn" :disabled="busy" @click="dirInput.click()">添加文件夹</button>
+          <button v-if="submissionType === 'album'" class="ub-btn" :disabled="busy" @click="dirInput.click()">添加文件夹</button>
           <button class="ub-btn" :disabled="busy" @click="camInput.click()">拍照</button>
           <button v-if="items.length" class="ub-btn ghost" :disabled="busy" @click="clearItems">清空</button>
         </div>
@@ -293,6 +300,7 @@ const DIRECT_UPLOAD_LIMIT = 95 * 1024 * 1024;
 const MULTIPART_PART_SIZE = 20 * 1024 * 1024;
 
 const album = ref('');
+const submissionType = ref('album');
 const items = ref([]);
 const busy = ref(false);
 const dragOver = ref(false);
@@ -670,7 +678,7 @@ function onPickCam(e) {
 
 function onPickDir(e) {
   const list = [...e.target.files];
-  if (list.length && !album.value) {
+  if (submissionType.value === 'album' && list.length && !album.value) {
     album.value = list[0].webkitRelativePath.split('/')[0];
   }
   addFiles(list.map((f) => ({
@@ -706,7 +714,7 @@ async function onDrop(e) {
 
   if (entries.length === 1 && entries[0].isDirectory) {
     const root = entries[0];
-    if (!album.value) album.value = root.name;
+    if (submissionType.value === 'album' && !album.value) album.value = root.name;
     const reader = root.createReader();
     let batch;
     do {
@@ -743,7 +751,7 @@ function syncManifest(name) {
     if (s) links.push([p.relPath, baseName(s.relPath)]);
   }
   const prev = items.value.findIndex((i) => i.relPath === 'manifest.toml' && i.auto);
-  if (!bili && !dizzy && !lyricMakers.length && !links.length && !albumPages.length
+  if (submissionType.value === 'album' && !bili && !dizzy && !lyricMakers.length && !links.length && !albumPages.length
       && !instMarked.length && !instAsSong.length) {
     if (prev !== -1) items.value.splice(prev, 1);
     return;
@@ -751,6 +759,7 @@ function syncManifest(name) {
   const esc = (s) => s.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
   const wrap = (label, v) => /^https?:\/\//.test(v) ? `[${label}](${v})` : v;
   const lines = [`album = "${esc(name)}"`];
+  if (submissionType.value === 'single') lines.push('submission_type = "single"');
   // 中文键必须加引号：TOML 裸键仅限 ASCII，裸中文键会让 tomllib 整文件解析失败
   if (bili) lines.push(`"发布" = "${esc(wrap('Bilibili', bili))}"`);
   if (dizzy) lines.push(`"购买" = "${esc(wrap('dizzylab', dizzy))}"`);
@@ -864,7 +873,7 @@ async function uploadMultipart(it) {
 const uploadFile = (it) => it.size <= DIRECT_UPLOAD_LIMIT ? uploadR2(it) : uploadMultipart(it);
 
 async function run() {
-  const name = album.value.trim();
+  const name = submissionType.value === 'single' ? '单曲' : album.value.trim();
   submitErr.value = false;
   if (!name) { submitErr.value = true; submitMsg.value = '请填写专辑名称'; return; }
   if (name.includes('/') || name.includes('\\')) {
@@ -921,6 +930,7 @@ async function run() {
       },
       body: JSON.stringify({
         album: name,
+        submission_type: submissionType.value,
         session,
         lyric_maker: normalizeLyricMakers(lyricMakerText.value),
         files: items.value.map((i) => ({ n: i.n, path: i.relPath, size: i.size })),
@@ -931,7 +941,7 @@ async function run() {
     lastRef.value = String(data.ref || '');
     if (lastRef.value) cacheRef(name, lastRef.value);
     // 投稿成功后草稿保留 30 天：期内重投同一专辑不必重做旋转与绑定
-    writeDraft(serializeDraft(name, items.value, Date.now(), lastRef.value, lyricMakerText.value));
+    writeDraft(serializeDraft(album.value, items.value, Date.now(), lastRef.value, lyricMakerText.value, submissionType.value));
     finished.value = true;
     busy.value = false;
   } catch (err) {
@@ -945,7 +955,7 @@ async function run() {
 // 草稿快照（元数据级）：把每文件的用途/旋转/绑定/排序持久化，编辑过程中随时存，
 // 跨刷新不丢。File 本体无法入 localStorage，重选文件时按 relPath 匹配恢复。
 function saveDraft() {
-  writeDraft(serializeDraft(album.value, items.value, Date.now(), '', lyricMakerText.value));
+  writeDraft(serializeDraft(album.value, items.value, Date.now(), '', lyricMakerText.value, submissionType.value));
 }
 const scheduleSave = debounce(saveDraft, 400);
 
@@ -961,6 +971,7 @@ async function copyRef() {
 function resetForNext() {
   clearItems();
   album.value = '';
+  submissionType.value = 'album';
   linkBili.value = '';
   linkDizzy.value = '';
   lyricMakerText.value = '';
@@ -986,14 +997,16 @@ onMounted(() => {
   restoreDraft = readDraft();
   if (restoreDraft) {
     if (!album.value && restoreDraft.album) album.value = restoreDraft.album;
+    submissionType.value = restoreDraft.submissionType;
     lyricMakerText.value = restoreDraft.lyricMakers.join('、');
-    const who = `「${restoreDraft.album || '未命名'}」的 ${restoreDraft.map.size} 个文件`;
+    const target = restoreDraft.submissionType === 'single' ? '单曲' : (restoreDraft.album || '未命名');
+    const who = `「${target}」的 ${restoreDraft.map.size} 个文件`;
     restoreMsg.value = restoreDraft.submittedRef
       ? `上次已投稿 ${who}（编号 ${restoreDraft.submittedRef.slice(0, 7)}）。如需重投，重选这些文件即可，旋转与关联都还记着。`
       : `上次编辑了 ${who}，重选这些文件即可接着来，旋转与关联都还记着。`;
   }
 });
-watch([album, lyricMakerText], () => scheduleSave());
+watch([album, lyricMakerText, submissionType], () => scheduleSave());
 onBeforeUnmount(() => {
   window.removeEventListener('beforeunload', guard);
   for (const id of [...thumbs.keys()]) dropThumb(id);
@@ -1038,6 +1051,12 @@ onBeforeUnmount(() => {
   padding: 1.1rem 1.3rem;
   margin-bottom: 1rem;
 }
+.ub-type { display: inline-flex; margin-bottom: .75rem; border: 1px solid var(--border-color, #ddd); border-radius: 7px; overflow: hidden; }
+.ub-type-btn { border: 0; background: transparent; color: inherit; cursor: pointer; padding: .35rem .8rem; font: inherit; font-size: .85rem; }
+.ub-type-btn + .ub-type-btn { border-left: 1px solid var(--border-color, #ddd); }
+.ub-type-btn.on { color: #fff; background: var(--ub-accent); }
+.ub-type-btn:disabled { cursor: not-allowed; opacity: .5; }
+.ub-single-target { margin: 0 0 .75rem; font-size: .9rem; color: var(--text-color-secondary, #666); }
 .rise { animation: ub-rise .35s ease both; }
 @keyframes ub-rise { from { opacity: 0; transform: translateY(8px); } }
 
