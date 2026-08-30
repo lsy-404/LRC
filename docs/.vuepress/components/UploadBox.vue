@@ -154,7 +154,7 @@
           v-for="p in photoItems"
           :key="p.uid"
           class="ub-photo"
-          :class="{ linked: p.linkTo, dropover: reorderUid === p.uid }"
+          :class="{ linked: hasPhotoLink(p), dropover: reorderUid === p.uid }"
           @dragover.prevent="reorderUid = p.uid"
           @dragleave="reorderUid = null"
           @drop.prevent="onPhotoDrop(p)"
@@ -169,6 +169,7 @@
           >
           <span class="ub-pname" :title="p.relPath">{{ baseName(p.relPath) }}</span>
           <select v-model="p.linkTo" class="ub-sel wide" multiple :disabled="busy" aria-label="关联歌曲（可多选）">
+            <option value="SP">SP · 整专元信息</option>
             <option v-for="s in songItems" :key="s.uid" :value="s.uid">{{ baseName(s.relPath) }}</option>
           </select>
           <span v-if="linkedSongIds(p).length > 1" class="ub-shared-tag" title="一张照片关联多首歌曲">共享照片 · {{ linkedSongIds(p).length }} 首</span>
@@ -269,6 +270,7 @@
           multiple
           :disabled="busy"
         >
+          <option value="SP">SP · 整专元信息</option>
           <option v-for="s in songItems" :key="s.uid" :value="s.uid">{{ baseName(s.relPath) }}</option>
         </select>
         <span v-if="previewItem.role === 'photo' && linkedSongIds(previewItem).length > 1" class="ub-shared-tag">共享照片</span>
@@ -300,10 +302,11 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
+import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import { addRef } from './refsCache.js';
 import {
-  normalizeLyricMakers, serializeDraft, writeDraft, clearDraft, readDraft, restoreItem, debounce,
+  normalizeLyricMakers, normalizePhotoLinks, collectPhotoLinks,
+  serializeDraft, writeDraft, clearDraft, readDraft, restoreItem, debounce,
 } from './uploadDraft.js';
 
 // 验证在工作站根层（Workbench）统一完成，密码经 prop 传入
@@ -516,9 +519,10 @@ function clearItems() {
   scheduleSave();
 }
 
-const linkedPhotos = (s) => photoItems.value.filter((p) => linkedSongIds(p).includes(s.uid) || linkedSongIds(p).includes(String(s.uid)));
-const linkedSongIds = (p) => Array.isArray(p?.linkTo) ? p.linkTo.filter((v) => v !== 'SP' && v !== 0 && v !== '0') : (p?.linkTo && p.linkTo !== 'SP' ? [p.linkTo] : []);
-const spPhotos = computed(() => photoItems.value.filter((p) => p.linkTo === 'SP' || (Array.isArray(p.linkTo) && p.linkTo.includes('SP'))));
+const linkedSongIds = (p) => normalizePhotoLinks(p?.linkTo).filter((v) => v !== 'SP' && v !== 0 && v !== '0');
+const hasPhotoLink = (p) => normalizePhotoLinks(p?.linkTo).length > 0;
+const linkedPhotos = (s) => photoItems.value.filter((p) => linkedSongIds(p).some((id) => String(id) === String(s.uid)));
+const spPhotos = computed(() => photoItems.value.filter((p) => normalizePhotoLinks(p.linkTo).includes('SP')));
 // 把被拖照片分配到目标（to = 曲目 uid，或 'SP' 专辑级元信息）
 function assignDragged(to) {
   const p = items.value.find((i) => i.uid === dragUid.value);
@@ -544,16 +548,17 @@ function drawMosaicAt(x, y) {
   ctx.save(); ctx.beginPath(); ctx.arc(x, y, size / 2, 0, Math.PI * 2); ctx.clip();
   ctx.imageSmoothingEnabled = false; ctx.drawImage(scratch, sx, sy, sw, sh); ctx.restore();
 }
-function startMosaicStroke(e) { if (mosaicBusy.value) return; mosaicDrawing = true; mosaicCanvas.value.setPointerCapture?.(e.pointerId); mosaicUndo.value.push(mosaicCanvas.value.toDataURL('image/png')); drawMosaicAt(...Object.values(mosaicPoint(e))); }
+function startMosaicStroke(e) { if (mosaicBusy.value) return; mosaicDrawing = true; mosaicCanvas.value.setPointerCapture?.(e.pointerId); mosaicUndo.value.push(mosaicCanvas.value.toDataURL('image/png')); const point = mosaicPoint(e); drawMosaicAt(point.x, point.y); }
 function moveMosaicStroke(e) { if (mosaicDrawing) { const p = mosaicPoint(e); drawMosaicAt(p.x, p.y); } }
 function endMosaicStroke() { mosaicDrawing = false; }
 function restoreMosaic(data) { const img = new Image(); img.onload = () => { mosaicCanvas.value.getContext('2d').drawImage(img, 0, 0); }; img.src = data; }
 function undoMosaic() { const data = mosaicUndo.value.pop(); if (data) restoreMosaic(data); }
 function resetMosaic() { if (mosaicImage) { const c = mosaicCanvas.value; c.getContext('2d').clearRect(0, 0, c.width, c.height); c.getContext('2d').drawImage(mosaicImage, 0, 0); mosaicUndo.value = []; } }
-function openMosaic(it) {
+async function openMosaic(it) {
   mosaicItem.value = it; mosaicUndo.value = [];
+  await nextTick();
   const url = URL.createObjectURL(it.file); mosaicImage = new Image();
-  mosaicImage.onload = () => { const c = mosaicCanvas.value; c.width = mosaicImage.naturalWidth; c.height = mosaicImage.naturalHeight; c.getContext('2d').drawImage(mosaicImage, 0, 0); URL.revokeObjectURL(url); };
+  mosaicImage.onload = () => { const c = mosaicCanvas.value; if (mosaicItem.value !== it || !c) { URL.revokeObjectURL(url); return; } c.width = mosaicImage.naturalWidth; c.height = mosaicImage.naturalHeight; c.getContext('2d').drawImage(mosaicImage, 0, 0); URL.revokeObjectURL(url); };
   mosaicImage.src = url;
 }
 function closeMosaic() { mosaicItem.value = null; mosaicUndo.value = []; mosaicImage = null; }
@@ -796,7 +801,7 @@ function syncManifest(name) {
   const bili = linkBili.value.trim();
   const dizzy = linkDizzy.value.trim();
   const lyricMakers = normalizeLyricMakers(lyricMakerText.value);
-  const links = [];
+  const links = collectPhotoLinks(items.value);
   const albumPages = [];
   // inst 弹窗的选择固化进 manifest：标记伴奏 → 管道强制按伴奏处理；
   // 确认原曲 → 推翻管道侧同一套文件名启发式的强制 inst
@@ -806,14 +811,7 @@ function syncManifest(name) {
     if (i.role !== 'song' || !i.instConfirmed) continue;
     (i.instMarked ? instMarked : instAsSong).push(baseName(i.relPath));
   }
-  for (const p of items.value) {
-    if (p.role !== 'photo' || !p.linkTo) continue;
-    if (p.linkTo === 'SP' || (Array.isArray(p.linkTo) && p.linkTo.includes('SP'))) { albumPages.push(baseName(p.relPath)); }
-    for (const songId of linkedSongIds(p)) {
-      const s = items.value.find((i) => i.uid === songId || String(i.uid) === String(songId));
-      if (s) links.push([p.relPath, baseName(s.relPath)]);
-    }
-  }
+  for (const p of items.value) if (p.role === 'photo' && normalizePhotoLinks(p.linkTo).includes('SP')) albumPages.push(baseName(p.relPath));
   const prev = items.value.findIndex((i) => i.relPath === 'manifest.toml' && i.auto);
   if (submissionType.value === 'album' && !bili && !dizzy && !lyricMakers.length && !links.length && !albumPages.length
       && !instMarked.length && !instAsSong.length) {
@@ -840,7 +838,7 @@ function syncManifest(name) {
   }
   if (links.length) {
     lines.push('', '["链接"]');
-    for (const [img, audio] of links) lines.push(`"${esc(img)}" = "${esc(audio)}"`);
+    for (const [img, audios] of links) lines.push(`"${esc(img)}" = [${audios.map((audio) => `"${esc(audio)}"`).join(', ')}]`);
   }
   const file = new File([lines.join('\n') + '\n'], 'manifest.toml', { type: 'application/toml' });
   const entry = {
