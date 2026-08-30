@@ -49,4 +49,3 @@ def test_enforce_page_links_reuses_shared_page_for_each_song() -> None:
         {"page.jpg": [1, 2]}, {}, {},
     )
     assert result == {"1": "同一页的两首歌词", "2": "同一页的两首歌词"}
-
