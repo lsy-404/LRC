@@ -121,6 +121,7 @@ jobs:
 
       - name: Auto Merge
         if: steps.python-audit.outcome == 'success'
+        timeout-minutes: 3
         run: |
           if gh pr merge --auto --squash "$PR_NUMBER"; then
             exit 0
