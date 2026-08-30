@@ -204,17 +204,26 @@ def extract_embedded_cover(audios: list[Path], work: Path) -> Path | None:
     return None
 
 
-def extract_photo_links(manifest: dict) -> dict[str, str]:
-    """从 manifest 弹出 [链接]/links 表（歌词拍照→音轨绑定）→ {图片名: 音频名}。
+def extract_photo_links(manifest: dict) -> dict[str, list[str]]:
+    """从 manifest 弹出 [链接]/links 表（歌词拍照→音轨绑定）→ {图片名: 音频名数组}。
 
-    basename 归一（上传页改路径只动目录段）；弹出以防误入 meta 合并链。
+    links 值兼容旧字符串和新数组；basename 归一（上传页改路径只动目录段），
+    弹出以防误入 meta 合并链。
     """
-    out: dict[str, str] = {}
+    out: dict[str, list[str]] = {}
     for key in ("links", "链接"):
         v = manifest.pop(key, None)
         if isinstance(v, dict):
             for img, audio in v.items():
-                out[Path(str(img)).name] = Path(str(audio)).name
+                values = audio if isinstance(audio, list) else [audio]
+                names = []
+                for value in values:
+                    name = Path(str(value)).name
+                    if name and name not in names:
+                        names.append(name)
+                if names:
+                    key = Path(str(img)).name
+                    out[key] = list(dict.fromkeys([*(out.get(key) or []), *names]))
     return out
 
 
