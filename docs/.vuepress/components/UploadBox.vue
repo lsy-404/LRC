@@ -168,11 +168,10 @@
             @click="previewItem = p"
           >
           <span class="ub-pname" :title="p.relPath">{{ baseName(p.relPath) }}</span>
-          <select v-model="p.linkTo" class="ub-sel wide" :disabled="busy">
-            <option :value="0">未关联</option>
-            <option value="SP">SP · 整专元信息</option>
+          <select v-model="p.linkTo" class="ub-sel wide" multiple :disabled="busy" aria-label="关联歌曲（可多选）">
             <option v-for="s in songItems" :key="s.uid" :value="s.uid">{{ baseName(s.relPath) }}</option>
           </select>
+          <span v-if="linkedSongIds(p).length > 1" class="ub-shared-tag" title="一张照片关联多首歌曲">共享照片 · {{ linkedSongIds(p).length }} 首</span>
         </div>
       </div>
       <ol class="ub-tracks">
@@ -197,7 +196,7 @@
             @dragleave.stop="reorderUid = null"
             @drop.prevent.stop="onPhotoDrop(p)"
             @click="previewItem = p"
-          >{{ baseName(p.relPath) }}<b title="解除关联" @click.stop="p.linkTo = 0">×</b></span>
+          >{{ baseName(p.relPath) }}<b title="解除关联" @click.stop="p.linkTo = []">×</b></span>
         </li>
         <li
           v-for="s in songItems"
@@ -221,7 +220,7 @@
             @dragleave.stop="reorderUid = null"
             @drop.prevent.stop="onPhotoDrop(p)"
             @click="previewItem = p"
-          >{{ baseName(p.relPath) }}<b title="解除关联" @click.stop="p.linkTo = 0">×</b></span>
+          >{{ baseName(p.relPath) }}<b title="解除关联" @click.stop="p.linkTo = []">×</b></span>
         </li>
       </ol>
     </section>
@@ -267,13 +266,15 @@
           v-if="previewItem.role === 'photo' && songItems.length"
           v-model="previewItem.linkTo"
           class="ub-sel"
+          multiple
           :disabled="busy"
         >
-          <option :value="0">未关联曲目</option>
           <option v-for="s in songItems" :key="s.uid" :value="s.uid">{{ baseName(s.relPath) }}</option>
         </select>
+        <span v-if="previewItem.role === 'photo' && linkedSongIds(previewItem).length > 1" class="ub-shared-tag">共享照片</span>
         <button :disabled="rotating || busy" @click="rotateItem(previewItem, -90)">⟲ 左转</button>
         <button :disabled="rotating || busy" @click="rotateItem(previewItem, 90)">⟳ 右转</button>
+        <button v-if="previewItem.role === 'photo'" :disabled="busy || mosaicBusy" @click="openMosaic(previewItem)">马赛克</button>
       </div>
       <img :src="thumbOf(previewItem)" :alt="previewItem.relPath">
       <button
@@ -282,6 +283,18 @@
         title="下一张"
         @click.stop="previewStep(1)"
       >›</button>
+    </div>
+    <div v-if="mosaicItem" class="ub-mosaic" @click.self="closeMosaic">
+      <section class="ub-mosaic-panel" role="dialog" aria-modal="true" aria-labelledby="ub-mosaic-title">
+        <div class="ub-mosaic-head"><h3 id="ub-mosaic-title">涂抹马赛克</h3><button class="ub-mosaic-close" @click="closeMosaic">×</button></div>
+        <p class="ub-mosaic-help">在照片上拖动涂抹需要隐藏的内容，处理结果会替换待上传图片。</p>
+        <div class="ub-mosaic-canvas-wrap"><canvas ref="mosaicCanvas" @pointerdown="startMosaicStroke" @pointermove="moveMosaicStroke" @pointerup="endMosaicStroke" @pointerleave="endMosaicStroke" /></div>
+        <div class="ub-mosaic-controls">
+          <label>笔刷 <input v-model.number="mosaicBrush" type="range" min="12" max="160" step="4"><output>{{ mosaicBrush }} px</output></label>
+          <label>颗粒 <input v-model.number="mosaicBlock" type="range" min="4" max="28" step="2"><output>{{ mosaicBlock }} px</output></label>
+        </div>
+        <div class="ub-mosaic-actions"><button class="ub-btn" :disabled="!mosaicUndo.length" @click="undoMosaic">撤销</button><button class="ub-btn" @click="resetMosaic">重置</button><span class="grow" /><button class="ub-btn" @click="closeMosaic">取消</button><button class="ub-btn primary" :disabled="mosaicBusy" @click="saveMosaic">应用马赛克</button></div>
+      </section>
     </div>
   </div>
 </template>
@@ -317,6 +330,14 @@ const fileInput = ref(null);
 const dirInput = ref(null);
 const camInput = ref(null);
 const previewItem = ref(null);
+const mosaicItem = ref(null);
+const mosaicCanvas = ref(null);
+const mosaicBrush = ref(48);
+const mosaicBlock = ref(12);
+const mosaicUndo = ref([]);
+const mosaicBusy = ref(false);
+let mosaicDrawing = false;
+let mosaicImage = null;
 const dragUid = ref(null);
 const dropUid = ref(null);
 const reorderUid = ref(null);
@@ -480,7 +501,10 @@ async function rotateAll(delta) {
 }
 function removeItem(it) {
   dropThumb(it.uid);
-  for (const p of items.value) if (p.linkTo === it.uid) p.linkTo = 0;
+  for (const p of items.value) {
+    if (Array.isArray(p.linkTo)) p.linkTo = p.linkTo.filter((id) => String(id) !== String(it.uid));
+    else if (p.linkTo === it.uid) p.linkTo = [];
+  }
   if (previewItem.value === it) previewItem.value = null;
   items.value = items.value.filter((x) => x !== it);
   scheduleSave();
@@ -492,15 +516,53 @@ function clearItems() {
   scheduleSave();
 }
 
-const linkedPhotos = (s) => photoItems.value.filter((p) => p.linkTo === s.uid);
-const spPhotos = computed(() => photoItems.value.filter((p) => p.linkTo === 'SP'));
+const linkedPhotos = (s) => photoItems.value.filter((p) => linkedSongIds(p).includes(s.uid) || linkedSongIds(p).includes(String(s.uid)));
+const linkedSongIds = (p) => Array.isArray(p?.linkTo) ? p.linkTo.filter((v) => v !== 'SP' && v !== 0 && v !== '0') : (p?.linkTo && p.linkTo !== 'SP' ? [p.linkTo] : []);
+const spPhotos = computed(() => photoItems.value.filter((p) => p.linkTo === 'SP' || (Array.isArray(p.linkTo) && p.linkTo.includes('SP'))));
 // 把被拖照片分配到目标（to = 曲目 uid，或 'SP' 专辑级元信息）
 function assignDragged(to) {
   const p = items.value.find((i) => i.uid === dragUid.value);
-  if (p && p.role === 'photo') p.linkTo = to;
+  if (p && p.role === 'photo') p.linkTo = to === 'SP' ? ['SP'] : [...new Set([...linkedSongIds(p), to])];
   dragUid.value = null;
   dropUid.value = null;
   scheduleSave();
+}
+
+function mosaicPoint(e) {
+  const c = mosaicCanvas.value;
+  const r = c.getBoundingClientRect();
+  return { x: (e.clientX - r.left) * c.width / r.width, y: (e.clientY - r.top) * c.height / r.height };
+}
+function drawMosaicAt(x, y) {
+  const c = mosaicCanvas.value; const ctx = c.getContext('2d');
+  const size = mosaicBrush.value; const block = mosaicBlock.value;
+  const sx = Math.max(0, x - size / 2); const sy = Math.max(0, y - size / 2);
+  const sw = Math.min(size, c.width - sx); const sh = Math.min(size, c.height - sy);
+  if (!sw || !sh) return;
+  const scratch = document.createElement('canvas'); scratch.width = Math.max(1, Math.ceil(sw / block)); scratch.height = Math.max(1, Math.ceil(sh / block));
+  scratch.getContext('2d').drawImage(c, sx, sy, sw, sh, 0, 0, scratch.width, scratch.height);
+  ctx.save(); ctx.beginPath(); ctx.arc(x, y, size / 2, 0, Math.PI * 2); ctx.clip();
+  ctx.imageSmoothingEnabled = false; ctx.drawImage(scratch, sx, sy, sw, sh); ctx.restore();
+}
+function startMosaicStroke(e) { if (mosaicBusy.value) return; mosaicDrawing = true; mosaicCanvas.value.setPointerCapture?.(e.pointerId); mosaicUndo.value.push(mosaicCanvas.value.toDataURL('image/png')); drawMosaicAt(...Object.values(mosaicPoint(e))); }
+function moveMosaicStroke(e) { if (mosaicDrawing) { const p = mosaicPoint(e); drawMosaicAt(p.x, p.y); } }
+function endMosaicStroke() { mosaicDrawing = false; }
+function restoreMosaic(data) { const img = new Image(); img.onload = () => { mosaicCanvas.value.getContext('2d').drawImage(img, 0, 0); }; img.src = data; }
+function undoMosaic() { const data = mosaicUndo.value.pop(); if (data) restoreMosaic(data); }
+function resetMosaic() { if (mosaicImage) { const c = mosaicCanvas.value; c.getContext('2d').clearRect(0, 0, c.width, c.height); c.getContext('2d').drawImage(mosaicImage, 0, 0); mosaicUndo.value = []; } }
+function openMosaic(it) {
+  mosaicItem.value = it; mosaicUndo.value = [];
+  const url = URL.createObjectURL(it.file); mosaicImage = new Image();
+  mosaicImage.onload = () => { const c = mosaicCanvas.value; c.width = mosaicImage.naturalWidth; c.height = mosaicImage.naturalHeight; c.getContext('2d').drawImage(mosaicImage, 0, 0); URL.revokeObjectURL(url); };
+  mosaicImage.src = url;
+}
+function closeMosaic() { mosaicItem.value = null; mosaicUndo.value = []; mosaicImage = null; }
+async function saveMosaic() {
+  const it = mosaicItem.value; const c = mosaicCanvas.value; if (!it || !c) return;
+  mosaicBusy.value = true;
+  try { const blob = await new Promise((resolve) => c.toBlob(resolve, it.file.type === 'image/png' ? 'image/png' : 'image/jpeg', .92)); if (!blob) throw new Error('encode'); it.file = new File([blob], it.file.name, { type: blob.type }); it.size = it.file.size; it.mosaicEdited = true; if (it.status === 'done') { it.status = 'wait'; it.pct = 0; } scheduleSave(); closeMosaic(); }
+  catch { submitErr.value = true; submitMsg.value = '马赛克图片保存失败'; }
+  finally { mosaicBusy.value = false; }
 }
 
 // 拖照片到另一张照片上 → 重排：把被拖照片插到目标前，给全体照片重设连续 porder
@@ -636,7 +698,7 @@ function addFiles(picked) {
     have.add(p.relPath);
     const it = {
       ...p, size: p.file.size, status: 'wait', pct: 0, n: null,
-      uid: uid++, role: guessRole(p.relPath), editing: false, editVal: '', linkTo: 0,
+      uid: uid++, role: guessRole(p.relPath), editing: false, editVal: '', linkTo: [],
       origFile: p.file, rotation: 0, porder: null,
     };
     // 按 relPath 恢复上次的用途/绑定/旋转/排序，省去重做
@@ -746,9 +808,11 @@ function syncManifest(name) {
   }
   for (const p of items.value) {
     if (p.role !== 'photo' || !p.linkTo) continue;
-    if (p.linkTo === 'SP') { albumPages.push(baseName(p.relPath)); continue; }
-    const s = items.value.find((i) => i.uid === p.linkTo && i.role === 'song');
-    if (s) links.push([p.relPath, baseName(s.relPath)]);
+    if (p.linkTo === 'SP' || (Array.isArray(p.linkTo) && p.linkTo.includes('SP'))) { albumPages.push(baseName(p.relPath)); }
+    for (const songId of linkedSongIds(p)) {
+      const s = items.value.find((i) => i.uid === songId || String(i.uid) === String(songId));
+      if (s) links.push([p.relPath, baseName(s.relPath)]);
+    }
   }
   const prev = items.value.findIndex((i) => i.relPath === 'manifest.toml' && i.auto);
   if (submissionType.value === 'album' && !bili && !dizzy && !lyricMakers.length && !links.length && !albumPages.length
@@ -1328,6 +1392,20 @@ onBeforeUnmount(() => {
   max-width: 11em;
 }
 .ub-preview-tools select:disabled { opacity: .4; cursor: not-allowed; }
+.ub-shared-tag { flex-shrink: 0; padding: .18rem .45rem; border-radius: 999px; color: #8b5cf6; background: color-mix(in srgb, #8b5cf6 14%, transparent); font-size: .7rem; font-weight: 600; }
+.ub-mosaic { position: fixed; inset: 0; z-index: 220; display: grid; place-items: center; padding: 1rem; background: rgb(0 0 0 / 72%); }
+.ub-mosaic-panel { width: min(100%, 760px); max-height: 94vh; overflow: auto; padding: 1rem; border-radius: 12px; background: var(--bg-color, #fff); color: var(--text-color, #222); box-shadow: 0 18px 60px rgb(0 0 0 / 35%); }
+.ub-mosaic-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.ub-mosaic-head h3 { margin: 0; }
+.ub-mosaic-close { border: 0; background: transparent; color: inherit; font-size: 1.5rem; cursor: pointer; }
+.ub-mosaic-help { margin: .45rem 0 .8rem; font-size: .82rem; opacity: .7; }
+.ub-mosaic-canvas-wrap { display: grid; place-items: center; min-height: 240px; border-radius: 8px; overflow: hidden; background: #111; }
+.ub-mosaic-canvas-wrap canvas { display: block; max-width: 100%; max-height: 62vh; object-fit: contain; cursor: crosshair; touch-action: none; }
+.ub-mosaic-controls { display: flex; gap: 1rem; flex-wrap: wrap; margin: .8rem 0; font-size: .8rem; }
+.ub-mosaic-controls label { display: flex; align-items: center; gap: .4rem; }
+.ub-mosaic-controls input { width: 130px; }
+.ub-mosaic-controls output { min-width: 3.5em; opacity: .65; }
+.ub-mosaic-actions { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
 
 /* 预览翻页 */
 .ub-preview-nav {
