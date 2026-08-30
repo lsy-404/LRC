@@ -65,6 +65,21 @@ test('逐字草稿可解析并以同一正文序列化 LRC/KLRC', () => {
   assert.match(result.klrc, /<00:01.350>好/);
 });
 
+test('结构化歌词行在缺少可解析 LRC 时恢复时间轴，并且 LRC 仍然优先', () => {
+  const structured = parseVocalDrafts({
+    lines: [{ time: 1234, text: '第一句' }, { time: '00:02.500', text: '第二句' }],
+    timing_locked: true,
+  })[0];
+  assert.deepEqual(structured.rows.map((row) => [row.time, row.text]), [[1234, '第一句'], [2500, '第二句']]);
+  assert.equal(structured.text, '第一句\n第二句');
+
+  const lrcFirst = parseVocalDrafts({
+    lrc: '[00:03.000]LRC 优先\n',
+    lines: [{ time: 1234, text: '结构化后备' }],
+  })[0];
+  assert.deepEqual(lrcFirst.rows.map((row) => [row.time, row.text]), [[3000, 'LRC 优先']]);
+});
+
 test('移动句首时按 delta 平移逐字绝对时间并保持句内偏移', () => {
   const row = { time: 1000, text: '你好', words: [{ _id: 1, time: 1100, text: '你' }, { _id: 2, time: 1350, text: '好' }] };
   const shifted = shiftTimedRow(row, 1800);
