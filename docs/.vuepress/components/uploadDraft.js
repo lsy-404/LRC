@@ -81,7 +81,9 @@ export function readDraft(s = store(), now = Date.now()) {
 export function restoreItem(item, saved) {
   if (!item || !saved) return { restored: false };
   if (saved.role) item.role = saved.role;
-  item.linkTo = saved.linkTo || 0;
+  item.linkTo = Array.isArray(saved.linkTo)
+    ? [...saved.linkTo]
+    : (saved.linkTo ? [saved.linkTo] : []);
   if (saved.porder != null) item.porder = saved.porder;
   if (saved.instConfirmed) item.instConfirmed = true;
   if (saved.instMarked) item.instMarked = true;
