@@ -71,6 +71,7 @@ tag:
 - [6 恋爱习题](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/6%20%E6%81%8B%E7%88%B1%E4%B9%A0%E9%A2%98.lrc)
 - [7 修月匠](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/7%20%E4%BF%AE%E6%9C%88%E5%8C%A0.lrc)
 - [8 Strayed Stalker - 迷路的跟踪狂](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/8%20Strayed%20Stalker%20-%20%E8%BF%B7%E8%B7%AF%E7%9A%84%E8%B7%9F%E8%B8%AA%E7%8B%82.lrc)
+- [9 与她宴](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/9%20%E4%B8%8E%E5%A5%B9%E5%AE%B4.lrc)
 
 ## 下载
 

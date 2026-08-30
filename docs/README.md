@@ -17,6 +17,7 @@ tagline: 虚拟歌姬专辑的信息导航与歌词共享资源库
 
 | | |
 |----|-----|
+| <img src="/albums/zaicihuhuanwodemingziba.jpg" alt="再次呼唤我的名字吧 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/zaicihuhuanwodemingziba.html">再次呼唤我的名字吧</a></h3>出品：不适用<br>发行日期：2026-07-11<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7.zip) |
 | | <h3><a class="route-link" href="/albums/SEVEN.html">SEVEN</a></h3>出品：不适用<br>发行日期：2026-06-09<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/SEVEN.zip) |
 | <img src="/albums/suliu.png" alt="溯流 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/suliu.html">溯流</a></h3>出品：蝴蝶效应_BFx<br>发行日期：2026-05-30<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%BA%AF%E6%B5%81.zip) |
 | <img src="/albums/weiai_Lamou.jpg" alt="维·爱 L'amouЯ 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/weiai_Lamou.html">维·爱 L'amouЯ</a></h3>出品：不适用<br>发行日期：2026-05-29<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%BB%B4%C2%B7%E7%88%B1%20L%27amou%D0%AF.zip) |
