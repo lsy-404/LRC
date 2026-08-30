@@ -124,25 +124,6 @@ export function parseKaraokeRows(lrc, klrc) {
   });
 }
 
-function structuredTimestampToMs(value) {
-  if (typeof value === 'number' && Number.isFinite(value)) return Math.max(0, Math.round(value));
-  if (typeof value !== 'string' || !value.trim()) return null;
-  if (/^\d+(?:\.\d+)?$/.test(value.trim())) return Math.max(0, Math.round(Number(value)));
-  if (!/^\d{1,3}:\d{2}(?:[.:]\d{1,3})?$/.test(value.trim())) return null;
-  return timestampToMs(value);
-}
-
-function parseStructuredRows(lines) {
-  if (!Array.isArray(lines)) return [];
-  return lines.flatMap((line) => {
-    if (!line || typeof line !== 'object' || Array.isArray(line)) return [];
-    const text = String(line.text ?? line.lyric ?? '').trim();
-    const time = structuredTimestampToMs(line.time ?? line.timestamp ?? line.ts);
-    if (!text || time === null) return [];
-    return [{ time, text, words: [{ time, text }] }];
-  });
-}
-
 export function serializeTimedLyrics(head, rows) {
   const clean = (rows || []).filter((row) => String(row.text || '').trim());
   const lrc = [...(head || []), ...clean.map((row) => `[${msToTimestamp(row.time)}]${row.text}`)].join('\n') + '\n';
@@ -169,15 +150,13 @@ export function parseVocalDrafts(track) {
   const usedIds = new Set();
   return sources.map((source, index) => {
     const { head, rows: plainRows } = parseLrc(source.lrc);
-    const lrcRows = parseKaraokeRows(source.lrc, source.klrc);
-    const rows = lrcRows.length ? lrcRows : parseStructuredRows(source.lines);
     const id = uniqueVocalId(usedIds, index && source.id === 'main' ? '' : source.id, index ? 'harmony' : 'main');
     return {
       id,
       name: index ? '和声' : '主唱',
       head,
-      rows,
-      text: linesToText(rows.length ? rows.map((row) => row.text) : (Array.isArray(source.lines) ? source.lines.filter((line) => typeof line === 'string') : plainRows.map((row) => row.text))),
+      rows: parseKaraokeRows(source.lrc, source.klrc),
+      text: linesToText(Array.isArray(source.lines) ? source.lines : plainRows.map((row) => row.text)),
       timingLocked: !!source.timing_locked,
     };
   });
