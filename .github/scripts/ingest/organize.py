@@ -337,27 +337,36 @@ def _page_lyric_lines(text: str) -> list[str]:
     return lyric_lines
 
 
-def link_orders_of(photo_links: dict[str, str] | None, tracks_plan: list[dict]) -> dict[str, int]:
-    """manifest 绑定（图片名→音频名）→ {页文件名: 轨 order}，basename 归一。"""
+def link_orders_of(photo_links: dict[str, list[str] | str] | None, tracks_plan: list[dict]) -> dict[str, list[int]]:
+    """manifest 绑定（图片名→音频名数组）→ {页文件名: 轨 order 数组}，basename 归一。"""
     by_file = {Path(str(t.get("file"))).name: t.get("order")
                for t in tracks_plan if t.get("file")}
-    out: dict[str, int] = {}
-    for img, audio in (photo_links or {}).items():
-        order = by_file.get(Path(str(audio)).name)
-        if order:
-            out[Path(str(img)).name] = int(order)
-        else:
-            print(f"  ⚠️  绑定目标不在轨单，忽略: {img} → {audio}", file=sys.stderr)
+    out: dict[str, list[int]] = {}
+    for img, raw_audio in (photo_links or {}).items():
+        audios = raw_audio if isinstance(raw_audio, list) else [raw_audio]
+        orders = []
+        for audio in audios:
+            order = by_file.get(Path(str(audio)).name)
+            if order and int(order) not in orders:
+                orders.append(int(order))
+            elif not order:
+                print(f"  ⚠️  绑定目标不在轨单，忽略: {img} → {audio}", file=sys.stderr)
+        if orders:
+            out[Path(str(img)).name] = orders
     return out
 
 
-def _vision_link_hints(photo_links: dict[str, str] | None, tracks_plan: list[dict]) -> str:
+def _vision_link_hints(photo_links: dict[str, list[str] | str] | None, tracks_plan: list[dict]) -> str:
     """人工绑定（图片→音频）→ 给视觉模型的强提示文本「图片名 → N. 曲名」。"""
     orders = link_orders_of(photo_links, tracks_plan)
     if not orders:
         return ""
     titles = {int(t.get("order") or 0): str(t.get("title", "")).strip() for t in tracks_plan}
-    return "\n".join(f"{img} → {o}. {titles.get(o, '')}" for img, o in orders.items())
+    hints = []
+    for img, values in orders.items():
+        labels = ", ".join(f"{order}. {titles.get(order, '')}" for order in values)
+        hints.append(f"{img} → {labels}")
+    return "\n".join(hints)
 
 
 def match_pages_to_tracks(
@@ -390,7 +399,7 @@ def match_pages_to_tracks(
 def annotate_booklet(
     pages: list[dict],
     tracks_plan: list[dict],
-    link_orders: dict[str, int],
+    link_orders: dict[str, list[int]],
     candidates: dict[str, list[tuple[int, float]]],
 ) -> str:
     """逐页文本 + 绑定/候选注解 → 供 llm_assign_booklet 的歌词本文本。"""
@@ -400,8 +409,9 @@ def annotate_booklet(
         name = pg["name"]
         tag = ""
         if name in link_orders:
-            o = link_orders[name]
-            tag = f" 【已绑定曲目 {o}. {titles.get(o, '')}】"
+            orders = link_orders[name]
+            label = '、'.join(f"{o}. {titles.get(o, '')}" for o in orders)
+            tag = f" 【已绑定曲目 {label}】"
         elif name in candidates:
             hint = " / ".join(f"{o}. {titles.get(o, '')} ({cov:.0%})" for o, cov in candidates[name])
             tag = f" 【疑似曲目 {hint}】"
@@ -413,7 +423,7 @@ def enforce_page_links(
     assignments: dict,
     pages: list[dict],
     tracks_plan: list[dict],
-    link_orders: dict[str, int],
+    link_orders: dict[str, list[int]],
     audio_words: dict[str, list],
     audio_langs: dict[str, str] | None = None,
 ) -> dict:
@@ -426,7 +436,8 @@ def enforce_page_links(
     page_text = {pg["name"]: pg.get("text", "") for pg in pages}
     linked_text: dict[int, list[str]] = {}
     for name in sorted(link_orders):
-        linked_text.setdefault(link_orders[name], []).append(page_text.get(name, ""))
+        for order in link_orders[name]:
+            linked_text.setdefault(order, []).append(page_text.get(name, ""))
     out = dict(assignments)
     for t in tracks_plan:
         order = int(t.get("order") or 0)
@@ -867,7 +878,7 @@ def build_draft(
     tracks_plan: list[dict] | None = None,
     pages: list[dict] | None = None,
     image_paths: list[Path] | None = None,
-    photo_links: dict[str, str] | None = None,
+    photo_links: dict[str, list[str] | str] | None = None,
     source_hint: str = "",
     manifest: dict,
     album_override: str = "",
@@ -1039,13 +1050,25 @@ def build_draft(
     align_tracks(tracks, album, audio_words, audio_langs,
                  by="/".join(meta.get("lyric_maker") or []), album_meta=meta)
 
+    # 将人工绑定投影到页面数据，供审核面板显示一图多曲标记；旧草稿没有这些字段时
+    # 仍可正常读取，关联本身只来自 manifest。
+    page_rows = []
+    page_links = link_orders_of(photo_links, tracks_plan or [])
+    for page in pages or []:
+        row = dict(page)
+        orders = page_links.get(Path(str(row.get("name", ""))).name, [])
+        row["linked_track_orders"] = orders
+        row["linked_track_count"] = len(orders)
+        row["is_shared"] = len(orders) > 1
+        page_rows.append(row)
+
     return {
         "album": album, "submission_type": submission_type,
         "tracks": tracks, "meta": meta, "names": names,
         "audio_words": audio_words, "audio_langs": audio_langs,
         "stt_cleanup": stt_cleanup,
         "cover_path": str(cover_path) if cover_path else None,
-        "pages": pages or [],
+        "pages": page_rows,
     }
 
 
@@ -1150,7 +1173,7 @@ def organize(
     audio_langs: dict[str, str] | None = None,
     tracks_plan: list[dict] | None = None,
     pages: list[dict] | None = None,
-    photo_links: dict[str, str] | None = None,
+    photo_links: dict[str, list[str] | str] | None = None,
     source_hint: str = "",
     manifest: dict,
     res_dir: Path,
