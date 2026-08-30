@@ -27,6 +27,27 @@ export function normalizeLyricMakers(value, required = REQUIRED_LYRIC_MAKER) {
   return makers;
 }
 
+export function normalizePhotoLinks(value) {
+  const raw = Array.isArray(value) ? value : (value ? [value] : []);
+  return [...new Set(raw.filter((item) => item === 'SP' || typeof item === 'string' || Number.isInteger(item)))];
+}
+
+export function collectPhotoLinks(items) {
+  const songs = new Map((items || [])
+    .filter((item) => item?.role === 'song')
+    .map((item) => [String(item.uid), String(item.relPath || '').split('/').pop()]));
+  const links = new Map();
+  for (const photo of (items || [])) {
+    if (photo?.role !== 'photo') continue;
+    const targets = normalizePhotoLinks(photo.linkTo)
+      .filter((target) => target !== 'SP')
+      .map((target) => songs.get(String(target)))
+      .filter(Boolean);
+    if (targets.length) links.set(photo.relPath, [...new Set(targets)]);
+  }
+  return [...links.entries()];
+}
+
 export function serializeDraft(album, items, at = Date.now(), submittedRef = '', lyricMakers = [], submissionType = 'album') {
   return {
     album: album || '',
@@ -81,7 +102,7 @@ export function readDraft(s = store(), now = Date.now()) {
 export function restoreItem(item, saved) {
   if (!item || !saved) return { restored: false };
   if (saved.role) item.role = saved.role;
-  item.linkTo = saved.linkTo || 0;
+  item.linkTo = normalizePhotoLinks(saved.linkTo);
   if (saved.porder != null) item.porder = saved.porder;
   if (saved.instConfirmed) item.instConfirmed = true;
   if (saved.instMarked) item.instMarked = true;
