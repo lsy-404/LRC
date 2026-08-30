@@ -26,5 +26,10 @@
     "opencc-js": "^1.4.2",
     "vue-scriptx": "^0.2.7",
     "vuepress-plugin-alert": "0.0.5"
+  },
+  "pnpm": {
+    "overrides": {
+      "js-yaml": "4.3.1"
+    }
   }
 }
