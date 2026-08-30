@@ -119,17 +119,20 @@ jobs:
           PR_NUMBER: ${{ steps.pr.outputs.number }}
           GH_REPO: ${{ github.repository }}
 
-      # Hold（不自动合并）：审计通过只批准 + 提示，等人工复核后手动合并（Squash）。
-      # 起因：曾有未经工作站人工闸门校正的旧流程投稿被自动合并，混入 OCR 乱码元信息。
-      # 新流程里 Phase B 的 PR 虽已经工作站校正，仍在此停一道人工确认再落 main。
-      # 要恢复自动合并：把本步换回 `gh pr merge --auto --squash` 即可。
-      - name: Hold for manual merge
+      - name: Auto Merge
         if: steps.python-audit.outcome == 'success'
         run: |
-          gh pr comment "$PR_NUMBER" --body "### 自动审计通过 · 已批准，等待人工合并
-
-          已通过安全/内容审计并自动批准，但**不自动合并**：请人工复核内容后手动合并（Squash）。
-          摄取投稿即使经工作站人工闸门校正、由 Phase B 开出，也在此停一道确认再落库。"
+          if gh pr merge --auto --squash "$PR_NUMBER"; then
+            exit 0
+          fi
+          for ((attempt = 0; attempt < 5; attempt++)); do
+            if gh pr merge --squash "$PR_NUMBER"; then
+              exit 0
+            fi
+            sleep 15
+          done
+          echo "::error::Unable to merge the approved submission"
+          exit 1
         env:
           GH_TOKEN: ${{ secrets.PULL_TOKEN }}
           PR_NUMBER: ${{ steps.pr.outputs.number }}
