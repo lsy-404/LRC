@@ -12,51 +12,18 @@
 
     <!-- 01 · 选择 -->
     <section v-if="!finished" class="ub-card rise">
-      <div class="ub-type" role="group" aria-label="投稿类型">
-        <button class="ub-type-btn" :class="{ on: submissionType === 'album' }" :disabled="busy" @click="submissionType = 'album'">专辑</button>
-        <button class="ub-type-btn" :class="{ on: submissionType === 'single' }" :disabled="busy" @click="submissionType = 'single'">单曲</button>
+      <div class="ub-editor-head">
+        <label class="ub-label">投稿配置</label>
+        <button class="ub-btn primary" :disabled="busy" @click="applySubmissionSource">应用配置</button>
       </div>
-      <template v-if="submissionType === 'album'">
-        <label class="ub-label" for="ub-album">专辑名称</label>
-        <input
-          id="ub-album"
-          v-model="album"
-          type="text"
-          class="ub-input"
-          placeholder="例：专辑名称"
-          :disabled="busy"
-        >
-      </template>
-      <p v-else class="ub-single-target">单曲投稿将进入「单曲」目录</p>
+      <MonacoLrcEditor v-model="submissionSource" language="submission" aria-label="投稿配置编辑器" @update:model-value="submissionSourceDirty = true" />
+      <p v-if="submissionSourceMsg" class="ub-msg" :class="{ err: submissionSourceErr }">{{ submissionSourceMsg }}</p>
+      <p v-if="submissionType === 'single'" class="ub-single-target">单曲投稿将进入「单曲」目录</p>
 
       <p v-if="restoreMsg" class="ub-restore">
         {{ restoreMsg }}
         <button class="ub-btn ghost small" @click="forgetDraft">忘掉</button>
       </p>
-
-      <div class="ub-aux">
-        <div>
-          <label class="ub-label">发布 PV</label>
-          <input v-model="linkBili" type="text" class="ub-input" placeholder="https://www.bilibili.com/video/BV…" :disabled="busy">
-        </div>
-        <div>
-          <label class="ub-label">购买</label>
-          <input v-model="linkDizzy" type="text" class="ub-input" placeholder="https://www.dizzylab.net/d/…" :disabled="busy">
-        </div>
-      </div>
-
-      <div>
-        <label class="ub-label" for="ub-lyric-makers">打轴署名</label>
-        <input
-          id="ub-lyric-makers"
-          v-model="lyricMakerText"
-          type="text"
-          class="ub-input"
-          placeholder="多个署名用顿号或逗号分隔"
-          :disabled="busy"
-          @blur="normalizeLyricMakerText"
-        >
-      </div>
 
       <div
         class="ub-drop"
@@ -98,30 +65,13 @@
                   @click="previewItem = it"
                 >
                 <span v-else class="ub-badge" :class="kindClass(it)">{{ kindText(it) }}</span>
-                <input
-                  v-if="it.editing"
-                  v-model="it.editVal"
-                  class="ub-input edit"
-                  autofocus
-                  @keyup.enter="commitEdit(it)"
-                  @keyup.esc="it.editing = false"
-                  @blur="commitEdit(it)"
-                >
                 <span
-                  v-else
                   class="ub-fname"
                   :class="{ dup: isDup(it) }"
-                  :title="it.relPath + '（点击重命名）'"
-                  @click="startEdit(it)"
+                  :title="it.relPath"
                 >{{ it.relPath }}</span>
-                <select v-model="it.role" class="ub-sel" :disabled="busy" @change="applyRole(it)">
-                  <option value="song">原曲</option>
-                  <option value="photo">歌词本·拍照</option>
-                  <option value="text">歌词本·文本</option>
-                  <option value="staff">Staff表</option>
-                  <option value="cover">封面</option>
-                  <option value="etc">其他</option>
-                </select>
+                <span class="ub-role">{{ roleLabel(it.role) }}</span>
+                <button v-if="isEditableText(it)" class="ub-btn small" :disabled="busy" @click="openTextEditor(it)">编辑文本</button>
                 <span class="ub-fsize">{{ fmtSize(it.size) }}</span>
                 <span class="ub-fstat" :class="statClass(it)">{{ statText(it) }}</span>
                 <button
@@ -168,10 +118,7 @@
             @click="previewItem = p"
           >
           <span class="ub-pname" :title="p.relPath">{{ baseName(p.relPath) }}</span>
-          <select v-model="p.linkTo" class="ub-sel wide" multiple :disabled="busy" aria-label="关联歌曲（可多选）">
-            <option value="SP">SP · 整专元信息</option>
-            <option v-for="s in songItems" :key="s.uid" :value="s.uid">{{ baseName(s.relPath) }}</option>
-          </select>
+          <span class="ub-pname">在投稿配置的“照片关联”中编辑</span>
           <span v-if="linkedSongIds(p).length > 1" class="ub-shared-tag" title="一张照片关联多首歌曲">共享照片 · {{ linkedSongIds(p).length }} 首</span>
         </div>
       </div>
@@ -263,16 +210,6 @@
         @click.stop="previewStep(-1)"
       >‹</button>
       <div class="ub-preview-tools" @click.stop>
-        <select
-          v-if="previewItem.role === 'photo' && songItems.length"
-          v-model="previewItem.linkTo"
-          class="ub-sel"
-          multiple
-          :disabled="busy"
-        >
-          <option value="SP">SP · 整专元信息</option>
-          <option v-for="s in songItems" :key="s.uid" :value="s.uid">{{ baseName(s.relPath) }}</option>
-        </select>
         <span v-if="previewItem.role === 'photo' && linkedSongIds(previewItem).length > 1" class="ub-shared-tag">共享照片</span>
         <button :disabled="rotating || busy" @click="rotateItem(previewItem, -90)">⟲ 左转</button>
         <button :disabled="rotating || busy" @click="rotateItem(previewItem, 90)">⟳ 右转</button>
@@ -285,6 +222,13 @@
         title="下一张"
         @click.stop="previewStep(1)"
       >›</button>
+    </div>
+    <div v-if="textItem" class="ub-text-modal" @click.self="closeTextEditor">
+      <section class="ub-text-panel" role="dialog" aria-modal="true" aria-labelledby="ub-text-title">
+        <div class="ub-editor-head"><h3 id="ub-text-title">{{ textItem.relPath }}</h3><button class="ub-mosaic-close" @click="closeTextEditor">×</button></div>
+        <MonacoLrcEditor v-model="textSource" :language="textLanguage" aria-label="投稿文本编辑器" />
+        <div class="ub-row"><button class="ub-btn" @click="closeTextEditor">取消</button><button class="ub-btn primary" @click="applyTextEditor">应用文本</button></div>
+      </section>
     </div>
     <div v-if="mosaicItem" class="ub-mosaic" @click.self="closeMosaic">
       <section class="ub-mosaic-panel" role="dialog" aria-modal="true" aria-labelledby="ub-mosaic-title">
@@ -304,6 +248,7 @@
 <script setup>
 import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import { addRef } from './refsCache.js';
+import MonacoLrcEditor from './MonacoLrcEditor.vue';
 import {
   normalizeLyricMakers, normalizePhotoLinks, collectPhotoLinks,
   serializeDraft, writeDraft, clearDraft, readDraft, restoreItem, debounce,
@@ -331,6 +276,12 @@ const lastRef = ref('');
 const linkBili = ref('');
 const linkDizzy = ref('');
 const lyricMakerText = ref('');
+const submissionSource = ref('');
+const submissionSourceDirty = ref(false);
+const submissionSourceMsg = ref('');
+const submissionSourceErr = ref(false);
+const textItem = ref(null);
+const textSource = ref('');
 
 const fileInput = ref(null);
 const dirInput = ref(null);
@@ -355,6 +306,118 @@ const restoreMsg = ref('');
 const IMG_RE = /\.(png|jpe?g|webp|gif|bmp|tiff?)$/i;
 const isImg = (it) => IMG_RE.test(it.relPath);
 const baseName = (p) => p.split('/').pop();
+const ROLE_LABELS = { song: '原曲', photo: '歌词本·拍照', text: '歌词本·文本', staff: 'Staff表', cover: '封面', etc: '其他' };
+const roleLabel = (role) => ROLE_LABELS[role] || ROLE_LABELS.etc;
+const roleFromLabel = (value) => Object.entries(ROLE_LABELS)
+  .find(([, label]) => label === value.trim())?.[0] || null;
+const isEditableText = (it) => it.role === 'text' || it.role === 'staff';
+const textLanguage = computed(() => /\.lrc$/i.test(textItem.value?.relPath || '') ? 'lrc' : 'submission');
+
+function formatSubmissionSource() {
+  const lines = [
+    `投稿类型: ${submissionType.value}`,
+    `专辑: ${album.value}`,
+    `发布 PV: ${linkBili.value}`,
+    `购买: ${linkDizzy.value}`,
+    `歌词制作: ${lyricMakerText.value}`,
+    '', '[文件]',
+  ];
+  for (const item of sortedItems.value.filter((item) => !item.auto)) {
+    lines.push(`${item.uid} | ${item.relPath} | ${roleLabel(item.role)}`);
+  }
+  lines.push('', '[照片关联]');
+  for (const item of photoItems.value) {
+    lines.push(`${item.uid} | ${normalizePhotoLinks(item.linkTo).join(', ')}`);
+  }
+  return lines.join('\n');
+}
+
+function refreshSubmissionSource() {
+  if (submissionSourceDirty.value) return;
+  submissionSource.value = formatSubmissionSource();
+}
+
+function applySubmissionSource() {
+  const sections = { top: [], files: [], links: [] };
+  let section = 'top';
+  for (const rawLine of submissionSource.value.replace(/\r/g, '').split('\n')) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith('#')) continue;
+    if (line === '[文件]') { section = 'files'; continue; }
+    if (line === '[照片关联]') { section = 'links'; continue; }
+    sections[section].push(line);
+  }
+  const fields = new Map();
+  for (const line of sections.top) {
+    const at = line.indexOf(':');
+    if (at < 1) return setSubmissionSourceError(`无法识别配置行：${line}`);
+    fields.set(line.slice(0, at).trim(), line.slice(at + 1).trim());
+  }
+  const nextType = fields.get('投稿类型');
+  if (nextType !== 'album' && nextType !== 'single') return setSubmissionSourceError('投稿类型只能是 album 或 single');
+  const nextAlbum = fields.get('专辑') || '';
+  if (nextType === 'album' && !nextAlbum) return setSubmissionSourceError('专辑投稿需要填写专辑');
+  if (nextAlbum.includes('/') || nextAlbum.includes('\\')) return setSubmissionSourceError('专辑名称不能包含斜杠');
+  const byUid = new Map(items.value.filter((item) => !item.auto).map((item) => [String(item.uid), item]));
+  const fileUpdates = [];
+  const paths = new Set();
+  for (const line of sections.files) {
+    const [rawUid, rawPath, rawRole, ...extra] = line.split('|').map((part) => part.trim());
+    const item = byUid.get(rawUid);
+    const role = roleFromLabel(rawRole || '');
+    if (!item || !rawPath || !role || extra.length) return setSubmissionSourceError(`文件行无效：${line}`);
+    if (rawPath.includes('\\') || rawPath.split('/').some((part) => !part || part === '.' || part === '..')) return setSubmissionSourceError(`文件路径无效：${rawPath}`);
+    if (paths.has(rawPath)) return setSubmissionSourceError(`文件路径重复：${rawPath}`);
+    paths.add(rawPath); fileUpdates.push({ item, path: rawPath, role }); byUid.delete(rawUid);
+  }
+  if (byUid.size) return setSubmissionSourceError('文件区必须保留全部已选文件');
+  const songIds = new Set(fileUpdates.filter(({ role }) => role === 'song').map(({ item }) => String(item.uid)));
+  const photoUpdates = new Map();
+  for (const line of sections.links) {
+    const [rawUid, rawTargets, ...extra] = line.split('|').map((part) => part.trim());
+    const item = items.value.find((candidate) => String(candidate.uid) === rawUid && candidate.role === 'photo');
+    if (!item || extra.length) return setSubmissionSourceError(`照片关联行无效：${line}`);
+    const targets = rawTargets ? rawTargets.split(',').map((target) => target.trim()).filter(Boolean) : [];
+    if (targets.some((target) => target !== 'SP' && !songIds.has(target))) return setSubmissionSourceError(`照片关联目标无效：${line}`);
+    photoUpdates.set(item, [...new Set(targets)]);
+  }
+  for (const item of items.value.filter((candidate) => candidate.role === 'photo')) {
+    if (!photoUpdates.has(item)) return setSubmissionSourceError('照片关联区必须保留全部歌词本照片');
+  }
+  submissionType.value = nextType;
+  album.value = nextAlbum;
+  linkBili.value = fields.get('发布 PV') || '';
+  linkDizzy.value = fields.get('购买') || '';
+  lyricMakerText.value = normalizeLyricMakers(fields.get('歌词制作') || '').join('、');
+  for (const update of fileUpdates) { update.item.relPath = update.path; update.item.role = update.role; }
+  for (const [item, targets] of photoUpdates) item.linkTo = targets;
+  submissionSourceDirty.value = false;
+  submissionSourceErr.value = false;
+  submissionSourceMsg.value = '配置已应用到本次投稿草稿';
+  scheduleSave();
+  refreshSubmissionSource();
+}
+
+function setSubmissionSourceError(message) {
+  submissionSourceErr.value = true;
+  submissionSourceMsg.value = message;
+}
+
+async function openTextEditor(item) {
+  if (!isEditableText(item) || busy.value) return;
+  textItem.value = item;
+  textSource.value = await item.file.text();
+}
+function closeTextEditor() { textItem.value = null; textSource.value = ''; }
+function applyTextEditor() {
+  const item = textItem.value;
+  if (!item) return;
+  item.file = new File([textSource.value], baseName(item.relPath), { type: item.file.type || 'text/plain' });
+  item.size = item.file.size;
+  if (item.status === 'done') { item.status = 'wait'; item.pct = 0; }
+  closeTextEditor();
+  scheduleSave();
+}
 
 function normalizeLyricMakerText() {
   lyricMakerText.value = normalizeLyricMakers(lyricMakerText.value).join('、');
@@ -1006,7 +1069,9 @@ async function run() {
     lastRef.value = String(data.ref || '');
     if (lastRef.value) cacheRef(name, lastRef.value);
     // 投稿成功后草稿保留 30 天：期内重投同一专辑不必重做旋转与绑定
-    writeDraft(serializeDraft(album.value, items.value, Date.now(), lastRef.value, lyricMakerText.value, submissionType.value));
+    writeDraft(serializeDraft(album.value, items.value, Date.now(), lastRef.value, lyricMakerText.value, submissionType.value, {
+      linkBili: linkBili.value, linkDizzy: linkDizzy.value,
+    }));
     finished.value = true;
     busy.value = false;
   } catch (err) {
@@ -1020,7 +1085,9 @@ async function run() {
 // 草稿快照（元数据级）：把每文件的用途/旋转/绑定/排序持久化，编辑过程中随时存，
 // 跨刷新不丢。File 本体无法入 localStorage，重选文件时按 relPath 匹配恢复。
 function saveDraft() {
-  writeDraft(serializeDraft(album.value, items.value, Date.now(), '', lyricMakerText.value, submissionType.value));
+  writeDraft(serializeDraft(album.value, items.value, Date.now(), '', lyricMakerText.value, submissionType.value, {
+    linkBili: linkBili.value, linkDizzy: linkDizzy.value,
+  }));
 }
 const scheduleSave = debounce(saveDraft, 400);
 
@@ -1064,14 +1131,21 @@ onMounted(() => {
     if (!album.value && restoreDraft.album) album.value = restoreDraft.album;
     submissionType.value = restoreDraft.submissionType;
     lyricMakerText.value = restoreDraft.lyricMakers.join('、');
+    linkBili.value = restoreDraft.linkBili;
+    linkDizzy.value = restoreDraft.linkDizzy;
     const target = restoreDraft.submissionType === 'single' ? '单曲' : (restoreDraft.album || '未命名');
     const who = `「${target}」的 ${restoreDraft.map.size} 个文件`;
     restoreMsg.value = restoreDraft.submittedRef
       ? `上次已投稿 ${who}（编号 ${restoreDraft.submittedRef.slice(0, 7)}）。如需重投，重选这些文件即可，旋转与关联都还记着。`
       : `上次编辑了 ${who}，重选这些文件即可接着来，旋转与关联都还记着。`;
   }
+  refreshSubmissionSource();
 });
-watch([album, lyricMakerText, submissionType], () => scheduleSave());
+watch([album, linkBili, linkDizzy, lyricMakerText, submissionType], () => {
+  scheduleSave();
+  refreshSubmissionSource();
+});
+watch(items, () => refreshSubmissionSource(), { deep: true });
 onBeforeUnmount(() => {
   window.removeEventListener('beforeunload', guard);
   for (const id of [...thumbs.keys()]) dropThumb(id);
@@ -1116,6 +1190,9 @@ onBeforeUnmount(() => {
   padding: 1.1rem 1.3rem;
   margin-bottom: 1rem;
 }
+.ub-editor-head { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-bottom: .5rem; }
+.ub-editor-head .ub-label, .ub-editor-head h3 { margin: 0; }
+.ub-role { flex: 0 0 6.5rem; font-size: .75rem; opacity: .72; }
 .ub-type { display: inline-flex; margin-bottom: .75rem; border: 1px solid var(--border-color, #ddd); border-radius: 7px; overflow: hidden; }
 .ub-type-btn { border: 0; background: transparent; color: inherit; cursor: pointer; padding: .35rem .8rem; font: inherit; font-size: .85rem; }
 .ub-type-btn + .ub-type-btn { border-left: 1px solid var(--border-color, #ddd); }
@@ -1395,6 +1472,9 @@ onBeforeUnmount(() => {
 .ub-preview-tools select:disabled { opacity: .4; cursor: not-allowed; }
 .ub-shared-tag { flex-shrink: 0; padding: .18rem .45rem; border-radius: 999px; color: #8b5cf6; background: color-mix(in srgb, #8b5cf6 14%, transparent); font-size: .7rem; font-weight: 600; }
 .ub-mosaic { position: fixed; inset: 0; z-index: 220; display: grid; place-items: center; padding: 1rem; background: rgb(0 0 0 / 72%); }
+.ub-text-modal { position: fixed; inset: 0; z-index: 230; display: grid; place-items: center; padding: 1rem; background: rgb(0 0 0 / 72%); }
+.ub-text-panel { width: min(100%, 960px); max-height: 94vh; padding: 1rem; border-radius: 12px; background: var(--bg-color, #fff); color: var(--text-color, #222); box-shadow: 0 18px 60px rgb(0 0 0 / 35%); }
+.ub-text-panel .monaco-lrc-editor { height: min(62vh, 42rem); }
 .ub-mosaic-panel { width: min(100%, 760px); max-height: 94vh; overflow: auto; padding: 1rem; border-radius: 12px; background: var(--bg-color, #fff); color: var(--text-color, #222); box-shadow: 0 18px 60px rgb(0 0 0 / 35%); }
 .ub-mosaic-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .ub-mosaic-head h3 { margin: 0; }

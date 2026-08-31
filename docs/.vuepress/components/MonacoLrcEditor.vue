@@ -46,6 +46,9 @@ function registerLrcLanguage(api) {
       { token: 'timestamp', foreground: 'd2a8ff' },
       { token: 'wordTimestamp', foreground: '56d4dd' },
       { token: 'credit', foreground: 'a5d6ff', fontStyle: 'italic' },
+      { token: 'section', foreground: 'd2a8ff', fontStyle: 'bold' },
+      { token: 'key', foreground: '79c0ff' }, { token: 'trackId', foreground: '56d4dd' },
+      { token: 'role', foreground: 'a5d6ff' }, { token: 'url', foreground: '8ddb8c' },
     ], colors: { 'editor.background': '#161b22' },
   });
   api.editor.defineTheme('lrc-light', {
@@ -55,7 +58,26 @@ function registerLrcLanguage(api) {
       { token: 'timestamp', foreground: '7a3eb1' },
       { token: 'wordTimestamp', foreground: '006d77' },
       { token: 'credit', foreground: '3f5f7a', fontStyle: 'italic' },
+      { token: 'section', foreground: '7a3eb1', fontStyle: 'bold' },
+      { token: 'key', foreground: '0451a5' }, { token: 'trackId', foreground: '006d77' },
+      { token: 'role', foreground: '3f5f7a' }, { token: 'url', foreground: '1a7f37' },
     ],
+  });
+  api.languages.register({ id: 'submission', extensions: ['.submission'] });
+  api.languages.setLanguageConfiguration('submission', {
+    brackets: [['[', ']']],
+    autoClosingPairs: [{ open: '[', close: ']' }, { open: '"', close: '"' }],
+  });
+  api.languages.setMonarchTokensProvider('submission', {
+    tokenizer: {
+      root: [
+        [/^\s*\[[^\]]+\]\s*$/, 'section'],
+        [/^\s*(?:投稿类型|专辑|发布 PV|购买|歌词制作)\s*:/, 'key'],
+        [/^\s*\d+\s*\|/, 'trackId'],
+        [/(?:原曲|歌词本·拍照|歌词本·文本|Staff表|封面|其他)\s*$/, 'role'],
+        [/https?:\/\/\S+/, 'url'],
+      ],
+    },
   });
 }
 

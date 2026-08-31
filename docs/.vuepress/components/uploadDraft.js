@@ -48,13 +48,15 @@ export function collectPhotoLinks(items) {
   return [...links.entries()];
 }
 
-export function serializeDraft(album, items, at = Date.now(), submittedRef = '', lyricMakers = [], submissionType = 'album') {
+export function serializeDraft(album, items, at = Date.now(), submittedRef = '', lyricMakers = [], submissionType = 'album', metadata = {}) {
   return {
     album: album || '',
     submissionType: normalizeSubmissionType(submissionType),
     at,
     submittedRef: submittedRef || '',
     lyricMakers: normalizeLyricMakers(lyricMakers),
+    linkBili: String(metadata.linkBili || ''),
+    linkDizzy: String(metadata.linkDizzy || ''),
     // 自动生成的 manifest 不入草稿：它由当前绑定关系重建，用户也不会重选它
     files: (items || []).filter((i) => i && !i.auto).map((i) => ({
       relPath: i.relPath,
@@ -93,6 +95,7 @@ export function readDraft(s = store(), now = Date.now()) {
       album: d.album || '', at: d.at || 0, submittedRef: d.submittedRef || '',
       submissionType: normalizeSubmissionType(d.submissionType),
       lyricMakers: normalizeLyricMakers(d.lyricMakers), map,
+      linkBili: String(d.linkBili || ''), linkDizzy: String(d.linkDizzy || ''),
     };
   } catch { return null; }
 }
