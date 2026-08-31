@@ -17,21 +17,17 @@ test('工作站主题支持系统默认、持久化选择和可访问切换', as
   assert.match(source, /<option value="dark">暗色<\/option>/);
   assert.match(source, /:data-theme="resolvedTheme"/);
   assert.match(source, /\.wb\[data-theme='dark'\]/);
-  assert.match(source, /--wb-surface: #161b22/);
+  assert.match(source, /--bg-color:#161b22/);
   assert.match(source, /color-scheme: dark/);
 });
 
-test('审核编辑器将显式工作站主题传递给 Monaco，并在变更时立即应用', async () => {
-  const [workbench, upload, editor, monaco] = await Promise.all([
-    readComponent('Workbench.vue'), readComponent('UploadBox.vue'), readComponent('EditBox.vue'), readComponent('MonacoLrcEditor.vue'),
+test('统一编辑器接收显式主题并将其传给 Monaco', async () => {
+  const [workbench, workspace, monaco] = await Promise.all([
+    readComponent('Workbench.vue'), readComponent('UnifiedWorkspace.vue'), readComponent('MonacoLrcEditor.vue'),
   ]);
-  assert.match(workbench, /<UploadBox v-show="tab === 'upload'" :password="password" :theme="resolvedTheme"/);
-  assert.match(upload, /theme: \{ type: String, default: '' \}/);
-  assert.match(upload, /<MonacoLrcEditor v-model="submissionSource" language="submission" :theme="props\.theme"/);
-  assert.match(upload, /<MonacoLrcEditor v-model="textSource" :language="textLanguage" :theme="props\.theme"/);
-  assert.match(workbench, /<EditBox v-show="tab === 'edit'" :password="password" :theme="resolvedTheme"/);
-  assert.match(editor, /theme: \{ type: String, default: '' \}/);
-  assert.match(editor, /<MonacoLrcEditor v-model="t\._sourceText" language="lrc" :theme="props\.theme"/);
+  assert.match(workbench, /<UnifiedWorkspace v-else :password="password" :theme="resolvedTheme"/);
+  assert.match(workspace, /theme: \{ type: String, default: 'light' \}/);
+  assert.match(workspace, /<MonacoLrcEditor v-model="selected\.content" :language="selected\.language" :theme="theme"/);
   assert.match(monaco, /theme: \{ type: String, default: '' \}/);
   assert.match(monaco, /props\.theme === 'dark' \|\| \(!props\.theme && media\?\.matches\)/);
   assert.match(monaco, /watch\(\(\) => props\.theme, applyTheme\)/);
