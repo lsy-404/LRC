@@ -22,12 +22,15 @@ test('统一工作区通过同一 Monaco 模型承载新建、导入和已有专
   assert.doesNotMatch(source, /UploadBox|EditBox/);
 });
 
-test('工作区适配器只封装已存在的 ingest 服务边界', async () => {
+test('工作区适配器只调用正式 workspace 与 R2 上传边界', async () => {
   const calls = [];
   const adapter = createWorkspaceAdapter('pw', async (url, init) => { calls.push([url, init]); return new Response(JSON.stringify({ ok: true }), { status: 200 }); });
-  await adapter.state('a b'); await adapter.save('ref', 'album', { tracks: [] }); await adapter.generate('ref');
-  assert.equal(calls[0][0], '/api/ingest/state?ref=a%20b');
-  assert.equal(calls[1][0], '/api/ingest/save');
-  assert.equal(calls[2][0], '/api/ingest/continue');
-  assert.match(calls[1][1].headers.authorization, /^Bearer /);
+  await adapter.catalog(); await adapter.list(); await adapter.draft('a b'); await adapter.create('专辑');
+  await adapter.open('album'); await adapter.lrc('ref', '歌词.lrc'); await adapter.save('ref', { album: '专辑', tracks: [] });
+  await adapter.upload('ref', 0, new Blob(['audio'], { type: 'audio/mpeg' })); await adapter.extract('ref', [{ n: 0, path: '01.mp3', size: 5 }]);
+  assert.deepEqual(calls.map(([url]) => url), [
+    '/api/workspace/catalog', '/api/workspace/list', '/api/workspace/draft?ref=a%20b', '/api/workspace/create',
+    '/api/workspace/open', '/api/workspace/lrc', '/api/workspace/save', '/api/upload/r2?session=ref&n=0', '/api/workspace/extract',
+  ]);
+  assert.match(calls[7][1].headers.authorization, /^Bearer /);
 });
