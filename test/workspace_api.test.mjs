@@ -57,6 +57,9 @@ test('new LRC workspace rejects unsafe drafts and submits uploaded files through
   const lrc = await handleApi(authedRequest('https://x/api/workspace/lrc', { method: 'POST', body: { ref: created.ref, title: '新建歌词.lrc' } }), target);
   assert.equal(lrc.status, 200);
   assert.equal((await lrc.json()).track.title, '新建歌词.lrc');
+  const savedDraft = JSON.parse(bucket.store.get(`workspace/${created.ref}/draft.json`));
+  savedDraft.tracks[0].lrc = '[00:01.000]工作区修改后歌词\n';
+  await handleApi(authedRequest('https://x/api/workspace/save', { method: 'POST', body: { ref: created.ref, draft: savedDraft } }), target);
   const unsafeFile = await handleApi(authedRequest('https://x/api/workspace/lrc', { method: 'POST', body: { ref: created.ref, title: '../escape.lrc' } }), target);
   assert.equal(unsafeFile.status, 400);
   await bucket.put(`web/${created.ref}/0`, 'audio');
@@ -64,7 +67,11 @@ test('new LRC workspace rejects unsafe drafts and submits uploaded files through
   assert.equal(response.status, 200);
   const manifest = JSON.parse(bucket.store.get(`web/${created.ref}/manifest.json`));
   assert.equal(manifest.album, '新专辑');
-  assert.deepEqual(manifest.files, [{ n: 0, path: '01.mp3', size: 5 }]);
+  assert.deepEqual(manifest.files, [
+    { n: 0, path: '01.mp3', size: 5 },
+    { n: 1, path: 'workspace/001 新建歌词.lrc', size: Buffer.byteLength('[00:01.000]工作区修改后歌词\n') },
+  ]);
+  assert.equal(bucket.store.get(`web/${created.ref}/1`), '[00:01.000]工作区修改后歌词\n');
   const duplicate = await handleApi(authedRequest('https://x/api/workspace/extract', { method: 'POST', body: { ref: created.ref, files: [{ n: 0, path: '01.mp3', size: 5 }] } }), target);
   assert.equal(duplicate.status, 409);
 });

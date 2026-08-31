@@ -87,6 +87,21 @@ function emptyDraft(album) {
   return { album, submission_type: 'album', tracks: [], meta: {}, names: { prefix: '', zh_name: album, en_name: '', suffix: '' }, pages: [], source: { kind: 'new' } };
 }
 
+function workspaceLrcPath(track, order, occupied) {
+  const raw = String(track.title || '').normalize('NFC').replace(/\.lrc$/i, '');
+  const stem = (raw.replace(/[^\p{L}\p{N} ._()-]/gu, '_').trim() || `track-${order}`).slice(0, 160);
+  const base = `workspace/${String(order).padStart(3, '0')} ${stem}`;
+  for (let suffix = 0; suffix < 1000; suffix++) {
+    const path = `${base}${suffix ? `-${suffix}` : ''}.lrc`;
+    const key = path.toLocaleLowerCase();
+    if (!occupied.has(key) && cleanRelPath(path)) {
+      occupied.add(key);
+      return path;
+    }
+  }
+  return null;
+}
+
 async function authed(request, env) {
   return !!env.UPLOAD_BUCKET && await passwordOk(bearer(request), env);
 }
@@ -174,6 +189,7 @@ export async function onExtractPost({ request, env }) {
   const files = Array.isArray(body?.files) ? body.files : [];
   const draft = ref && await readJson(env, `${ROOT}/${ref}/draft.json`);
   if (!ref || !validDraft(draft) || !files.length || files.length > MAX_FILES) return json({ error: 'bad request' }, 400);
+  if (files.length + draft.tracks.length > MAX_FILES) return json({ error: 'too many files' }, 400);
   if (await env.UPLOAD_BUCKET.head(`web/${ref}/manifest.json`)) return json({ error: 'already submitted' }, 409);
   const seenPaths = new Set(); const seenNumbers = new Set(); const manifestFiles = [];
   for (const file of files) {
@@ -183,6 +199,21 @@ export async function onExtractPost({ request, env }) {
     if (!object || object.size !== size) return json({ error: 'missing upload', n }, 409);
     seenPaths.add(path); seenNumbers.add(n); manifestFiles.push({ path, n, size });
   }
+  const occupiedPaths = new Set([...seenPaths].map((path) => path.toLocaleLowerCase()));
+  const lrcFiles = [];
+  for (const [index, track] of draft.tracks.entries()) {
+    let n = 0;
+    while (seenNumbers.has(n) && n < MAX_FILES) n += 1;
+    const path = workspaceLrcPath(track, index + 1, occupiedPaths);
+    const content = String(track.lrc || '');
+    const size = new TextEncoder().encode(content).byteLength;
+    if (n >= MAX_FILES || !path || size > MAX_TRACK_BYTES) return json({ error: 'cannot materialize draft' }, 400);
+    seenNumbers.add(n);
+    lrcFiles.push({ n, path, size, content });
+  }
+  await Promise.all(lrcFiles.map((file) => env.UPLOAD_BUCKET.put(`web/${ref}/${file.n}`, file.content,
+    { httpMetadata: { contentType: 'text/plain; charset=utf-8' } })));
+  manifestFiles.push(...lrcFiles.map(({ n, path, size }) => ({ n, path, size })));
   const manifest = { version: 3, album: draft.album, submission_type: 'album', session: ref, contributor: typeof body?.contributor === 'string' ? body.contributor.slice(0, 60) : 'workspace', lyric_maker: Array.isArray(draft.meta?.lyric_maker) ? draft.meta.lyric_maker.slice(0, 20) : [], files: manifestFiles };
   await writeJson(env, `web/${ref}/manifest.json`, manifest);
   const started = await callWorker(env, '/ingest', { ref });
