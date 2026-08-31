@@ -158,7 +158,7 @@
               </div>
               </div>
               <div v-for="(vocal, vi) in t._vocals" :key="vocal.id" class="eb-vocal-lane" :class="vocalLaneClass(vocal, vi)">
-              <div class="eb-vocal-lane-label"><span>{{ vocalLabel(vocal, vi) }}</span><div class="eb-edit-switch"><button class="eb-btn small" :class="{ on: vocal._view === 'lrc' }" @click="vocal._view = 'lrc'">逐行与逐字</button><button class="eb-btn small" :class="{ on: vocal._view === 'text' }" @click="vocal._view = 'text'">整段文本</button></div></div>
+              <div class="eb-vocal-lane-label"><span>{{ vocalLabel(vocal, vi) }}</span><div class="eb-edit-switch"><button class="eb-btn small" :class="{ on: vocal._view === 'lrc' }" @click="openLineEditor(vocal)">逐行与逐字</button><button class="eb-btn small" :class="{ on: vocal._view === 'text' }" @click="vocal._view = 'text'">整段文本</button></div></div>
               <div v-if="vocal.head.length" class="eb-lrc-head"><div v-for="(h, hi) in vocal.head" :key="hi">{{ h }}</div></div>
               <div v-if="vocal._view === 'lrc'">
               <div v-for="(r, li) in vocal.rows" :key="r._id" :ref="(node) => bindLineNode(vocal, li, node)" class="eb-line-editor" @focusin="activateVocal(t, vi)">
@@ -570,7 +570,7 @@ function normalizeRows(t) { t.rows.sort((a, b) => Number(a.time) - Number(b.time
 function syncRowText(t, row) { row.words = reconcileWordCharacters(row.words, row.text, newId, row.time); t._textDirty = true; syncTrackText(t); lockTiming(t); }
 function applyWholeText(t) { if (t.authoritativeLrc) return; t.rows = reconcileTimedRows(t.rows, t.text, newId); normalizeRows(t); t.timingLocked = true; updateActiveIndices(t, playheadMs(t)); commitHistory(t); }
 function recordCursor(row, event) { row._selection = { start: utf16ToCodePointIndex(row.text, event.target.selectionStart), end: utf16ToCodePointIndex(row.text, event.target.selectionEnd) }; }
-function lockTiming(t) { t.timingLocked = true; }
+function lockTiming(t) { t.timingLocked = true; t.untimed = false; }
 function addLine(t, index) { if (t.authoritativeLrc) return; const time = Math.max(0, Number(t.rows[index]?.time || 0) + 1000); t.rows.splice(index + 1, 0, { _id: newId(), time, text: '', words: [{ _id: newId(), time, text: '' }] }); syncTrackText(t); lockTiming(t); commitHistory(t); }
 function removeLine(t, index) { if (t.authoritativeLrc) return; t.rows.splice(index, 1); syncTrackText(t); lockTiming(t); commitHistory(t); }
 function previewEnd(t) { const row = t.rows[t.rows.length - 1]; const word = row?.words?.[row.words.length - 1]; return Math.max(1000, Number(word?.time || row?.time || 0)) + 1500; }
@@ -655,6 +655,9 @@ function activateVocal(t, index) {
   persistVocal(t);
   const vocal = t._vocals[index]; if (!vocal) return;
   t._selectedVocal = index; t.head = vocal.head; t.rows = vocal.rows; t.text = vocal.text; t.timingLocked = vocal.timingLocked; t._view = vocal._view;
+}
+function openLineEditor(vocal) {
+  vocal._view = 'lrc';
 }
 function ensureHarmonyVocal(t) {
   const existing = t._vocals.find((vocal, index) => index > 0);
@@ -820,7 +823,7 @@ function sanitizeGeneratedTrack(t, normalize = (text) => text) {
     }
     vocal.rows = fillInstrumentalFallback(vocal.rows.filter((row) => String(row.text || '').trim()));
     vocal.text = linesToText(vocal.rows.map((row) => row.text));
-    if (vocal.rows.length) vocal.timingLocked = true;
+    if (vocal.rows.length && !vocal.untimed) vocal.timingLocked = true;
   }
   const selected = selectedVocal(t);
   t.head = selected.head;

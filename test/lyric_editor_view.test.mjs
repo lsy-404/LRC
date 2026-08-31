@@ -24,6 +24,7 @@ test('播放器内联于歌词编辑区，且不保留原音与模拟说明', as
   assert.match(source, /@click="toggleSource\(t\)"/);
   assert.match(source, /@input="seekSource\(t, \$event\)"/);
   assert.match(source, /@click="simplifyTrack\(t\)"/);
+  assert.match(source, /@click="openLineEditor\(vocal\)"/);
   assert.match(source, /removeKnownSttWatermarkTokens\(row\.words\)/);
   assert.match(source, /if \(!track\.authoritativeLrc\) sanitizeGeneratedTrack\(track\);/);
   assert.match(source, /@click="addLine\(vocal, li\)"/);

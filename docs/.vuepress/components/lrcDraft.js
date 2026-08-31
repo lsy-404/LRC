@@ -155,14 +155,18 @@ export function parseVocalDrafts(track) {
   const usedIds = new Set();
   return sources.map((source, index) => {
     const { head, rows: plainRows } = parseLrc(source.lrc);
+    const lines = Array.isArray(source.lines) ? source.lines : plainRows.map((row) => row.text);
+    const parsedRows = parseKaraokeRows(source.lrc, source.klrc);
+    const untimed = !parsedRows.length && lines.length > 0;
     const id = uniqueVocalId(usedIds, index && source.id === 'main' ? '' : source.id, index ? 'harmony' : 'main');
     return {
       id,
       name: index ? '和声' : '主唱',
       head,
-      rows: parseKaraokeRows(source.lrc, source.klrc),
-      text: linesToText(Array.isArray(source.lines) ? source.lines : plainRows.map((row) => row.text)),
+      rows: untimed ? lines.map((text, line) => ({ time: line * 1000, text, words: [] })) : parsedRows,
+      text: linesToText(lines),
       timingLocked: !!source.timing_locked,
+      untimed,
     };
   });
 }

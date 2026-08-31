@@ -102,6 +102,13 @@ test('主唱和声草稿保留主唱字段并允许重叠时间', () => {
   assert.match(saved.vocals[0].klrc, /和[\s\S]*声/);
 });
 
+test('仅有文本行的草稿也初始化逐行编辑模型但不锁定时间轴', () => {
+  const [part] = parseVocalDrafts({ lines: ['第一行', '第二行'] });
+  assert.equal(part.untimed, true);
+  assert.equal(part.timingLocked, false);
+  assert.deepEqual(part.rows.map((row) => [row.time, row.text, row.words]), [[0, '第一行', []], [1000, '第二行', []]]);
+});
+
 test('遗留旧名称规范为和声，主唱和声来回移动后可完整保存', () => {
   const parts = parseVocalDrafts({
     lrc: '[00:01.000]主唱\n', klrc: '[00:01.000]<00:01.050>主<00:01.200>唱\n', lines: ['主唱'], timing_locked: true,
