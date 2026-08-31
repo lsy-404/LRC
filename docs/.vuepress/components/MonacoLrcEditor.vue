@@ -23,22 +23,23 @@ let mediaListener;
 let syncing = false;
 
 function registerLrcLanguage(api) {
-  if (api.languages.getLanguages().some((language) => language.id === 'lrc')) return;
-  api.languages.register({ id: 'lrc', extensions: ['.lrc', '.klrc'] });
-  api.languages.setLanguageConfiguration('lrc', {
-    brackets: [['[', ']'], ['<', '>']],
-    autoClosingPairs: [{ open: '[', close: ']' }, { open: '<', close: '>' }],
-  });
-  api.languages.setMonarchTokensProvider('lrc', {
-    tokenizer: {
-      root: [
-        [/^\s*(?:作词|作曲|编曲|演唱|和声|制作|混音|母带|歌词制作|词|曲|编)\s*[:：].*$/, 'credit'],
-        [/\[\d{1,3}:\d{2}(?:[.:]\d{1,3})?\]/, 'timestamp'],
-        [/<\d{1,3}:\d{2}(?:[.:]\d{1,3})?>/, 'wordTimestamp'],
-        [/\[[a-zA-Z][\w-]*:[^\]]*\]/, 'tag'],
-      ],
-    },
-  });
+  if (!api.languages.getLanguages().some((language) => language.id === 'lrc')) {
+    api.languages.register({ id: 'lrc', extensions: ['.lrc', '.klrc'] });
+    api.languages.setLanguageConfiguration('lrc', {
+      brackets: [['[', ']'], ['<', '>']],
+      autoClosingPairs: [{ open: '[', close: ']' }, { open: '<', close: '>' }],
+    });
+    api.languages.setMonarchTokensProvider('lrc', {
+      tokenizer: {
+        root: [
+          [/^\s*(?:作词|作曲|编曲|演唱|和声|制作|混音|母带|歌词制作|词|曲|编)\s*[:：].*$/, 'credit'],
+          [/\[\d{1,3}:\d{2}(?:[.:]\d{1,3})?\]/, 'timestamp'],
+          [/<\d{1,3}:\d{2}(?:[.:]\d{1,3})?>/, 'wordTimestamp'],
+          [/\[[a-zA-Z][\w-]*:[^\]]*\]/, 'tag'],
+        ],
+      },
+    });
+  }
   api.editor.defineTheme('lrc-dark', {
     base: 'vs-dark', inherit: true,
     rules: [
@@ -63,22 +64,24 @@ function registerLrcLanguage(api) {
       { token: 'role', foreground: '3f5f7a' }, { token: 'url', foreground: '1a7f37' },
     ],
   });
-  api.languages.register({ id: 'submission', extensions: ['.submission'] });
-  api.languages.setLanguageConfiguration('submission', {
-    brackets: [['[', ']']],
-    autoClosingPairs: [{ open: '[', close: ']' }, { open: '"', close: '"' }],
-  });
-  api.languages.setMonarchTokensProvider('submission', {
-    tokenizer: {
-      root: [
-        [/^\s*\[[^\]]+\]\s*$/, 'section'],
-        [/^\s*(?:投稿类型|专辑|发布 PV|购买|歌词制作)\s*:/, 'key'],
-        [/^\s*\d+\s*\|/, 'trackId'],
-        [/(?:原曲|歌词本·拍照|歌词本·文本|Staff表|封面|其他)\s*$/, 'role'],
-        [/https?:\/\/\S+/, 'url'],
-      ],
-    },
-  });
+  if (!api.languages.getLanguages().some((language) => language.id === 'submission')) {
+    api.languages.register({ id: 'submission', extensions: ['.submission'] });
+    api.languages.setLanguageConfiguration('submission', {
+      brackets: [['[', ']']],
+      autoClosingPairs: [{ open: '[', close: ']' }, { open: '"', close: '"' }],
+    });
+    api.languages.setMonarchTokensProvider('submission', {
+      tokenizer: {
+        root: [
+          [/^\s*\[[^\]]+\]\s*$/, 'section'],
+          [/^\s*(?:投稿类型|专辑|发布 PV|购买|歌词制作)\s*:/, 'key'],
+          [/^\s*\d+\s*\|/, 'trackId'],
+          [/(?:原曲|歌词本·拍照|歌词本·文本|Staff表|封面|其他)\s*$/, 'role'],
+          [/https?:\/\/\S+/, 'url'],
+        ],
+      },
+    });
+  }
 }
 
 function applyTheme() {

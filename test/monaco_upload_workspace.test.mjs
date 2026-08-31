@@ -20,6 +20,9 @@ test('上传配置与文本歌词复用 Monaco，并仅在应用时写回文件�
 test('投稿配置语言覆盖投稿字段、曲目、角色和链接，并随系统暗色主题切换', async () => {
   const source = await readFile(monacoPath, 'utf8');
   assert.match(source, /languages\.register\(\{ id: 'submission'/);
+  assert.match(source, /if \(!api\.languages\.getLanguages\(\)\.some\(\(language\) => language\.id === 'lrc'\)\) \{/);
+  assert.match(source, /if \(!api\.languages\.getLanguages\(\)\.some\(\(language\) => language\.id === 'submission'\)\) \{/);
+  assert.doesNotMatch(source, /language\.id === 'lrc'\)\) return/);
   assert.match(source, /投稿类型\|专辑\|发布 PV\|购买\|歌词制作/);
   assert.match(source, /trackId|role|url/);
   assert.match(source, /prefers-color-scheme: dark/);
