@@ -241,6 +241,26 @@ export function clampWordTime(words, index, time, minimumGap = 10, minimum = 0, 
   return Math.max(low, Math.min(high, Math.round(Number(time) || 0)));
 }
 
+export function boundedTimedSelectionOffset(words, indices, offset, minimumGap = 10, minimum = 0, maximum = Number.POSITIVE_INFINITY) {
+  const list = Array.isArray(words) ? words : [];
+  const selected = new Set((indices || []).filter((index) => Number.isInteger(index) && index >= 0 && index < list.length));
+  if (!selected.size) return 0;
+  const floor = Number.isFinite(Number(minimum)) ? Number(minimum) : 0;
+  const ceiling = Number.isFinite(Number(maximum)) ? Number(maximum) : Number.POSITIVE_INFINITY;
+  let low = Number.NEGATIVE_INFINITY;
+  let high = Number.POSITIVE_INFINITY;
+  for (const index of selected) {
+    const time = Number(list[index]?.time);
+    if (!Number.isFinite(time)) return 0;
+    const before = list[index - 1];
+    const after = list[index + 1];
+    low = Math.max(low, floor - time, before && !selected.has(index - 1) ? Number(before.time) + minimumGap - time : Number.NEGATIVE_INFINITY);
+    high = Math.min(high, ceiling - time, after && !selected.has(index + 1) ? Number(after.time) - minimumGap - time : Number.POSITIVE_INFINITY);
+  }
+  if (high < low) return 0;
+  return Math.max(low, Math.min(high, Math.round(Number(offset) || 0)));
+}
+
 export function splitTimedToken(row, wordIndex, codePointIndex, createId = () => undefined) {
   const words = [...(row.words || [])]; const word = words[wordIndex]; const chars = Array.from(word?.text || '');
   if (!word || codePointIndex <= 0 || codePointIndex >= chars.length) return row;
