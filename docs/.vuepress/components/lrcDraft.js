@@ -1,6 +1,7 @@
 // 草稿 LRC 解析：成品 LRC 正文 <-> 头部标签 / 未计时 credit 行 / 带时间轴正文行。
 
 const TS_RE = /^\[(\d{1,3}:\d{2}(?:[.:]\d{1,3})?)\](.*)$/;
+const TIMED_LINE_RE = /^(\s*\[\d{1,3}:\d{2}(?:[.:]\d{1,3})?\])(.*)$/;
 const KARAOKE_RE = /<\d{1,3}:\d{2}(?:[.:]\d{1,3})?>/g;
 const WATERMARK_KEY_RE = /[^a-z0-9一-鿿]+/g;
 const CONFIRMED_STT_WATERMARKS = new Set([
@@ -31,9 +32,12 @@ function watermarkSpan(tokens, index) {
 // 只匹配已确认的完整水印短语。孤立的 zither/harp 和普通重复歌词保持不变。
 export function removeKnownSttWatermarks(text) {
   return String(text == null ? '' : text).split('\n').map((line) => {
-    const key = watermarkKey(line);
+    const timed = TIMED_LINE_RE.exec(line);
+    const prefix = timed ? timed[1] : '';
+    const body = timed ? timed[2] : line;
+    const key = watermarkKey(stripKaraoke(body));
     if (key === 'zitherharp' || CONFIRMED_STT_WATERMARKS.has(key)) return '';
-    return line
+    const cleaned = body
       .replace(/\bzither\s*harp\b/gi, '')
       .replace(/字幕由\s*amara\s*\.?\s*org\s*(?:社区|社群|字幕组)\s*提供/gi, '')
       .replace(/由\s*amara\s*\.?\s*org\s*(?:社区|社群|字幕组)\s*提供的?字幕/gi, '')
@@ -41,6 +45,7 @@ export function removeKnownSttWatermarks(text) {
       .replace(/\byoyo\s*television\s*series\s*exclusive\b/gi, '')
       .replace(LI_ZONGSHENG_ATTRIBUTION_RE, '')
       .replace(/[ \t]{2,}/g, ' ').trim();
+    return cleaned ? `${prefix}${cleaned}` : '';
   }).join('\n');
 }
 

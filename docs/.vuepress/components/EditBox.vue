@@ -809,18 +809,29 @@ function sourceReady(t, event) {
   event.target.volume = Number(t._volume);
   event.target.playbackRate = Number(t._speed);
 }
+function sanitizeGeneratedTrack(t, normalize = (text) => text) {
+  const clean = (text) => removeKnownSttWatermarks(normalize(text));
+  t.title = clean(t.title);
+  for (const vocal of t._vocals) {
+    vocal.head = vocal.head.map(clean);
+    for (const row of vocal.rows) {
+      row.text = clean(row.text);
+      row.words = removeKnownSttWatermarkTokens(row.words).map((word) => ({ ...word, text: clean(word.text) }));
+    }
+    vocal.rows = fillInstrumentalFallback(vocal.rows.filter((row) => String(row.text || '').trim()));
+    vocal.text = linesToText(vocal.rows.map((row) => row.text));
+    if (vocal.rows.length) vocal.timingLocked = true;
+  }
+  const selected = selectedVocal(t);
+  t.head = selected.head;
+  t.rows = selected.rows;
+  t.text = selected.text;
+  t.timingLocked = selected.timingLocked;
+  t._view = selected._view;
+}
 function simplifyTrack(t) {
   if (t.authoritativeLrc) return;
-  const clean = (text) => removeKnownSttWatermarks(toSimplified(text));
-  t.title = clean(t.title);
-  t.head = t.head.map(clean);
-  t.text = clean(t.text);
-  for (const row of t.rows) {
-    row.text = clean(row.text);
-    row.words = removeKnownSttWatermarkTokens(row.words).map((word) => ({ ...word, text: clean(word.text) }));
-  }
-  t.rows = fillInstrumentalFallback(t.rows);
-  syncTrackText(t);
+  sanitizeGeneratedTrack(t, toSimplified);
   // 保持已有 LRC/KLRC 的时间戳，只把文本改成简体；Phase B 不会重跑 STT。
   if (t.rows.length) lockTiming(t);
   else t._textDirty = true;
@@ -916,6 +927,7 @@ function toEdit(album, draft) {
         _audioUrl: '', _audioElement: null, _audioLoading: false, _audioAbort: null, _audioLoadId: 0, _audioProgress: -1, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _sourceTimer: null, _previewTimer: null, _volume: 1,
         text: primary.text, _orig: t, _vocals: vocals, _selectedVocal: 0,
       };
+      if (!track.authoritativeLrc) sanitizeGeneratedTrack(track);
       track._history = createLyricHistory(track);
       for (const vocal of vocals) { vocal._owner = track; vocal._history = track._history; vocal.name = vocal.id === 'main' ? '主唱' : '和声'; }
       return track;

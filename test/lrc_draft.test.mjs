@@ -5,6 +5,7 @@ import { activeIndexAt, clampWordTime, expandTimedTokens, fillInstrumentalFallba
 test('既有草稿仅清除确认的转写水印，保留孤立乐器词和重复歌词', () => {
   assert.equal(removeKnownSttWatermarks('Zither Harp\nZ ither Har p\n字幕由 Amara.org 社区提供\n由 Amaraorg 社群提供的字幕\n优优独播剧场——YoYoTelevisionSeriesExclusive\n词曲：李宗盛\n演唱 李宗盛 编曲李宗盛 作词：李宗盛 作曲李宗盛\n寂寞词曲李宗盛尾句\n李宗盛\n演唱\n作词\n演唱李宗\nkeep'), '\n\n\n\n\n\n\n寂寞尾句\n李宗盛\n演唱\n作词\n演唱李宗\nkeep');
   assert.equal(removeKnownSttWatermarks('zither and harp\nla la la'), 'zither and harp\nla la la');
+  assert.equal(removeKnownSttWatermarks('[01:15.920]Z ither Har p\n[01:20.600]keep'), '\n[01:20.600]keep');
   const words = removeKnownSttWatermarkTokens([
     { text: 'Zither' }, { text: 'Harp' }, { text: 'zither' }, { text: 'and' }, { text: 'harp' },
   ]);
