@@ -172,8 +172,8 @@
                   <span class="eb-time-lead" :style="timelineLeadStyle(r)" aria-hidden="true" />
                   <button v-for="slot in missingMarkerSlots(r, 0)" :key="`missing-${r._id}-${slot.textIndex}`" class="eb-time-missing" :disabled="t.authoritativeLrc" :title="`为 ${slot.text} 新增时间标记`" :aria-label="`为 ${slot.text} 新增时间标记`" @click="insertMissingMarker(vocal, r, li, slot.textIndex)">{{ slot.text }}</button>
                   <template v-for="(word, wi) in r.words" :key="word._id">
-                  <div :ref="(node) => bindTokenNode(vocal, li, wi, node)" class="eb-time-token" :style="timelineTokenStyle(vocal, r, li, wi)">
-                    <span class="eb-time-chars" :contenteditable="t.authoritativeLrc ? 'false' : 'plaintext-only'" spellcheck="false" tabindex="0" :aria-label="`编辑 ${word.text}，可输入多个字`" @focus="selectTimelineChar" @input="editTimelineChar(vocal, r, wi, $event)" @keydown="openTimelineMenuFromKey(vocal, r, wi, 0, $event)" @keydown.enter.prevent="$event.currentTarget.blur()"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" @contextmenu.prevent.stop="!t.authoritativeLrc && openTimelineMenu(vocal, r, wi, ci, $event)">{{ char }}</span></span>
+                  <div :ref="(node) => bindTokenNode(vocal, li, wi, node)" class="eb-time-token" :class="timelineTokenClass(r, wi)" :style="timelineTokenStyle(vocal, r, li, wi)">
+                    <span class="eb-time-chars" :contenteditable="t.authoritativeLrc ? 'false' : 'plaintext-only'" spellcheck="false" tabindex="0" :aria-label="timelineTokenLabel(r, wi)" @focus="selectTimelineChar" @input="editTimelineChar(vocal, r, wi, $event)" @keydown="openTimelineMenuFromKey(vocal, r, wi, 0, $event)" @keydown.enter.prevent="$event.currentTarget.blur()"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" @contextmenu.prevent.stop="!t.authoritativeLrc && openTimelineMenu(vocal, r, wi, ci, $event)">{{ char }}</span></span>
                     <button class="eb-time-marker" :disabled="t.authoritativeLrc" :aria-label="`调整 ${word.text} 的句内偏移`" @pointerdown="startTimeDrag(vocal, r, wi, $event)" @pointermove="moveTimeDrag($event)" @pointerup="finishTimeDrag($event)" @pointercancel="finishTimeDrag($event)" @lostpointercapture="finishTimeDrag($event)" @contextmenu.prevent.stop="openTimelineMenu(vocal, r, wi, 0, $event)" @keydown="nudgeWordTime(vocal, r, wi, $event)"><span>{{ formatWordOffset(r, word.time) }}</span></button>
                   </div>
                   <button v-for="slot in missingMarkerSlots(r, wi + 1)" :key="`missing-${r._id}-${slot.textIndex}`" class="eb-time-missing" :disabled="t.authoritativeLrc" :title="`为 ${slot.text} 新增时间标记`" :aria-label="`为 ${slot.text} 新增时间标记`" @click="insertMissingMarker(vocal, r, li, slot.textIndex)">{{ slot.text }}</button>
@@ -266,7 +266,7 @@ import OpenCC from 'opencc-js/t2cn';
 import { stripFlacPictureBlocks } from '../lib/flac.js';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  activeIndexAt, clampWordTime, expandTimedTokens, fillInstrumentalFallback, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, parseLrc, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, removeKnownSttWatermarks, removeKnownSttWatermarkTokens, replaceTimedTokenText, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedLastTokenSpanMs, timedSentenceEndMs, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, transferTimedVocalRow, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
+  activeIndexAt, clampWordTime, expandTimedTokens, fillInstrumentalFallback, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, parseLrc, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, removeKnownSttWatermarks, removeKnownSttWatermarkTokens, replaceTimedTokenText, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedLastTokenSpanMs, timedSentenceEndMs, timedTokenLayout, timedTrailingGapMs, timedRowBoundaryAction, transferTimedVocalRow, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, markLyricHistoryDirty, recordLyricHistory, redoLyricHistory, undoLyricHistory } from './lyricHistory.js';
 
@@ -391,10 +391,15 @@ function timelineLeadStyle(row) {
   return { '--eb-time-grow': Number.isFinite(start) && Number.isFinite(first) && first > start ? first - start : 0 };
 }
 function timelineTokenStyle(t, row, rowIndex, wordIndex) {
-  const duration = wordIndex === row.words.length - 1
-    ? timedLastTokenSpanMs(row, nextRowTime(t, rowIndex))
-    : timedTokenSpanMs(row.words, wordIndex);
-  return { '--eb-time-grow': Math.max(1, Number(duration) || 1) };
+  const last = row.words[row.words.length - 1];
+  const rowEnd = Number(last?.time) + timedLastTokenSpanMs(row, nextRowTime(t, rowIndex));
+  const layout = timedTokenLayout(row.words, wordIndex, rowEnd);
+  return { '--eb-time-grow': layout.duration };
+}
+function timelineTokenClass(row, wordIndex) { return { 'same-timestamp': timedTokenLayout(row.words, wordIndex).clusterSize > 1 }; }
+function timelineTokenLabel(row, wordIndex) {
+  const word = row.words[wordIndex]; const layout = timedTokenLayout(row.words, wordIndex);
+  return layout.clusterSize > 1 ? `编辑 ${word.text}，可输入多个字；与 ${layout.clusterSize - 1} 个词元同时间戳` : `编辑 ${word.text}，可输入多个字`;
 }
 function timelineTrailingStyle(t, row, rowIndex) {
   const next = nextRowTime(t, rowIndex);
@@ -1351,8 +1356,9 @@ onBeforeUnmount(() => {
 .eb-word-timeline { overflow-x: auto; padding: .4rem .2rem; contain: layout paint; border-top: 1px solid var(--border-color, #ddd); }
 .eb-time-track { position: relative; display: flex; width: max(100%, var(--eb-timeline-width, 100%)); gap: 0; padding: 0 4rem 3px; box-sizing: border-box; }
 .eb-time-lead { box-sizing: border-box; flex: var(--eb-time-grow, 0) 0 0; min-width: 0; border-right: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
-.eb-time-token { position: relative; box-sizing: border-box; display: flex; flex: var(--eb-time-grow, 1) 0 0; min-width: 0; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
+.eb-time-token { position: relative; box-sizing: border-box; display: flex; flex: var(--eb-time-grow, 1) 0 0; min-width: max-content; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
 .eb-time-token.active { background: color-mix(in srgb, var(--eb-accent) 12%, transparent); }
+.eb-time-token.same-timestamp { background: color-mix(in srgb, var(--eb-accent) 9%, transparent); border-top: 2px solid color-mix(in srgb, var(--eb-accent) 65%, transparent); }
 .eb-time-trailing { flex: var(--eb-time-grow, 0) 0 0; min-width: 0; border-left: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
 .eb-time-sentence-progress { position: absolute; right: 0; bottom: 0; left: 0; height: 3px; pointer-events: none; background: linear-gradient(to right, var(--eb-accent) var(--eb-sentence-progress, 0%), color-mix(in srgb, var(--border-color, #ddd) 65%, transparent) var(--eb-sentence-progress, 0%)); }
 .eb-time-chars { display: flex; min-width: 2.4rem; min-height: 1.4rem; padding: .12rem .18rem; }

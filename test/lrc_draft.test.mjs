@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { activeIndexAt, clampWordTime, expandTimedTokens, fillInstrumentalFallback, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, moveTimedSelection, msToTimestamp, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, removeKnownSttWatermarks, removeKnownSttWatermarkTokens, replaceTimedTokenText, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadFlexWeight, timedRowBoundaryAction, timedSpanFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, timestampToMs, transferTimedVocalRow, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
+import { activeIndexAt, clampWordTime, expandTimedTokens, fillInstrumentalFallback, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, moveTimedSelection, msToTimestamp, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, removeKnownSttWatermarks, removeKnownSttWatermarkTokens, replaceTimedTokenText, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadFlexWeight, timedRowBoundaryAction, timedSpanFlexWeight, timedTokenFlexWeight, timedTokenLayout, timedTokenSpanMs, timestampToMs, transferTimedVocalRow, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
 
 test('既有草稿仅清除确认的转写水印，保留孤立乐器词和重复歌词', () => {
   assert.equal(removeKnownSttWatermarks('Zither Harp\nZ ither Har p\n字幕由 Amara.org 社区提供\n由 Amaraorg 社群提供的字幕\n优优独播剧场——YoYoTelevisionSeriesExclusive\n词曲：李宗盛\n演唱 李宗盛 编曲李宗盛 作词：李宗盛 作曲李宗盛\n寂寞词曲李宗盛尾句\n李宗盛\n演唱\n作词\n演唱李宗\nkeep'), '\n\n\n\n\n\n\n寂寞尾句\n李宗盛\n演唱\n作词\n演唱李宗\nkeep');
@@ -400,4 +400,11 @@ test('时间轨时长权重有上下限并支持前奏与逐字 token', () => {
   assert.equal(timedLeadFlexWeight(100, 100), 0);
   assert.equal(timedLeadFlexWeight(100, 90), 0);
   assert.equal(timedLeadFlexWeight(0, undefined), 0);
+});
+
+test('同时间戳词元作为簇均分到下一真实时间，稠密间隔不重叠', () => {
+  const words = [{ time: 100, text: '你们' }, { time: 100, text: '好' }, { time: 130, text: '呀' }];
+  assert.deepEqual(timedTokenLayout(words, 0), { duration: 15, clusterSize: 2, clusterIndex: 0 });
+  assert.deepEqual(timedTokenLayout(words, 1), { duration: 15, clusterSize: 2, clusterIndex: 1 });
+  assert.equal(timedTokenLayout(words, 2, 600).duration, 470);
 });

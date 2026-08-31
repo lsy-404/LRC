@@ -305,3 +305,12 @@ test('和声迁移使用紧凑图标按钮并保留可访问名称', async () =>
   assert.match(source, /function harmonyRowIcon\(vocal\) \{ return vocal\.id === 'main' \? '♫' : '↩'; \}/);
   assert.match(source, /toggleHarmonyRow\(vocal, r\)\">\{\{ harmonyRowIcon\(vocal\) \}\}/);
 });
+
+test('逐字时间轨高亮同时间戳簇，并按真实相邻时间布局', async () => {
+  const source = await component();
+  assert.match(source, /:class="timelineTokenClass\(r, wi\)"/);
+  assert.match(source, /function timelineTokenClass\(row, wordIndex\)/);
+  assert.match(source, /same-timestamp/);
+  assert.match(source, /timedTokenLayout\(row\.words, wordIndex/);
+  assert.match(source, /min-width: max-content/);
+});
