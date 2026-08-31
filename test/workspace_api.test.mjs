@@ -75,3 +75,16 @@ test('new LRC workspace rejects unsafe drafts and submits uploaded files through
   const duplicate = await handleApi(authedRequest('https://x/api/workspace/extract', { method: 'POST', body: { ref: created.ref, files: [{ n: 0, path: '01.mp3', size: 5 }] } }), target);
   assert.equal(duplicate.status, 409);
 });
+
+test('saved LRC tracks can start extraction without a new binary upload', async () => {
+  const bucket = fakeBucket(); const target = env(bucket);
+  const created = await (await handleApi(authedRequest('https://x/api/workspace/create', { method: 'POST', body: { album: '纯歌词专辑' } }), target)).json();
+  await handleApi(authedRequest('https://x/api/workspace/lrc', { method: 'POST', body: { ref: created.ref, title: '唯一歌词' } }), target);
+  const draft = JSON.parse(bucket.store.get(`workspace/${created.ref}/draft.json`));
+  draft.tracks[0].lrc = '[00:00.000]无需上传音频\n';
+  await handleApi(authedRequest('https://x/api/workspace/save', { method: 'POST', body: { ref: created.ref, draft } }), target);
+  const response = await handleApi(authedRequest('https://x/api/workspace/extract', { method: 'POST', body: { ref: created.ref, files: [] } }), target);
+  assert.equal(response.status, 200);
+  const manifest = JSON.parse(bucket.store.get(`web/${created.ref}/manifest.json`));
+  assert.deepEqual(manifest.files, [{ n: 0, path: 'workspace/001 唯一歌词.lrc', size: Buffer.byteLength('[00:00.000]无需上传音频\n') }]);
+});

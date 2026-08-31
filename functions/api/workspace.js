@@ -188,7 +188,7 @@ export async function onExtractPost({ request, env }) {
   const ref = cleanRef(body?.ref);
   const files = Array.isArray(body?.files) ? body.files : [];
   const draft = ref && await readJson(env, `${ROOT}/${ref}/draft.json`);
-  if (!ref || !validDraft(draft) || !files.length || files.length > MAX_FILES) return json({ error: 'bad request' }, 400);
+  if (!ref || !validDraft(draft) || (!files.length && !draft.tracks.length) || files.length > MAX_FILES) return json({ error: 'bad request' }, 400);
   if (files.length + draft.tracks.length > MAX_FILES) return json({ error: 'too many files' }, 400);
   if (await env.UPLOAD_BUCKET.head(`web/${ref}/manifest.json`)) return json({ error: 'already submitted' }, 409);
   const seenPaths = new Set(); const seenNumbers = new Set(); const manifestFiles = [];
