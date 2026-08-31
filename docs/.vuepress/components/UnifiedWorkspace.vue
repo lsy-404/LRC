@@ -4,7 +4,7 @@
       <strong>歌词工作区</strong><span class="uw-dim">{{ status }}</span><span class="uw-spacer" />
       <button class="uw-btn" type="button" @click="createWorkspace">新建专辑</button>
       <button class="uw-btn" type="button" @click="fileInput.click()">导入文件</button>
-      <button class="uw-btn primary" type="button" :disabled="generating || !localFiles.length" @click="generate">{{ generating ? '上传并生成中…' : '自动提取并生成' }}</button>
+      <button class="uw-btn primary" type="button" :disabled="generating || !canGenerate" @click="generate">{{ generating ? '上传并生成中…' : '自动提取并生成' }}</button>
       <input ref="fileInput" class="uw-hidden" type="file" multiple @change="importFiles">
     </header>
     <div class="uw-shell">
@@ -46,6 +46,7 @@ const fileInput = ref(null); const localFiles = ref([]); const workspaces = ref(
 const selected = ref(null); const saving = ref(false); const generating = ref(false); const message = ref('');
 const adapter = () => createWorkspaceAdapter(props.password);
 const status = computed(() => message.value || '在左侧创建、导入或打开专辑文件');
+const canGenerate = computed(() => localFiles.value.length > 0 || workspaces.value.some((workspace) => workspace.draft.tracks?.length > 0));
 const sourceForTrack = (track) => String(track.klrc || track.lrc || (track.lines || []).map((line) => `[00:00.000]${line}`).join('\n')) + '\n';
 const metaSource = (draft) => JSON.stringify({ album: draft.album || '', meta: draft.meta || {}, names: draft.names || {} }, null, 2) + '\n';
 

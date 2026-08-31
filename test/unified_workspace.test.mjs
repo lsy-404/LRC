@@ -30,6 +30,13 @@ test('自动提取先保存当前工作区文件，并上传 Monaco 中的文本
   assert.match(source, /: file\.raw;/);
 });
 
+test('已有 LRC 工作草稿即使没有待上传文件也能触发自动提取', async () => {
+  const source = await readFile(workspacePath, 'utf8');
+  assert.match(source, /:disabled="generating \|\| !canGenerate"/);
+  assert.match(source, /const canGenerate = computed\(\(\) => localFiles\.value\.length > 0 \|\| workspaces\.value\.some\(\(workspace\) => workspace\.draft\.tracks\?\.length > 0\)\)/);
+  assert.doesNotMatch(source, /:disabled="generating \|\| !localFiles\.length"/);
+});
+
 test('工作区适配器只调用正式 workspace 与 R2 上传边界', async () => {
   const calls = [];
   const adapter = createWorkspaceAdapter('pw', async (url, init) => { calls.push([url, init]); return new Response(JSON.stringify({ ok: true }), { status: 200 }); });
