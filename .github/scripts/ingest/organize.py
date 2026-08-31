@@ -670,6 +670,27 @@ def _credit_rows(staff: dict, album_meta: dict | None) -> list[str]:
     return rows
 
 
+def _timed_credits_rows(
+    rows: list[str],
+    first_line_ts: float | None,
+    song_end_seconds: float,
+    step_seconds: float = 0.2,
+) -> list[str]:
+    """给 credits 行加兼容时间戳：先尝试前置，放不下时从歌曲结束时间倒序回填。"""
+    if not rows:
+        return []
+    can_place_front = first_line_ts is not None and first_line_ts > (len(rows) - 1) * step_seconds
+    if can_place_front:
+        return [f"[{align_mod._fmt_ts(i * step_seconds)}]{line}" for i, line in enumerate(rows)]
+    tail_step_seconds = 0.5
+    end_ts = int(max(0.0, song_end_seconds) / tail_step_seconds) * tail_step_seconds
+    start_ts = max(0.0, end_ts - (len(rows) - 1) * tail_step_seconds)
+    return [
+        f"[{align_mod._fmt_ts(start_ts + index * tail_step_seconds)}]{line}"
+        for index, line in enumerate(rows)
+    ]
+
+
 def build_track_lrc(
     track: dict,
     album: str,
@@ -678,6 +699,7 @@ def build_track_lrc(
     audio_langs: dict[str, str] | None = None,
     by: str = "",
     album_meta: dict | None = None,
+    audio_durations: dict[str, float] | None = None,
 ) -> tuple[str, float, Optional[str]]:
     """为一轨生成 LRC：能匹配音频→对齐(timed)，否则无时间轴草稿。
 
@@ -695,6 +717,8 @@ def build_track_lrc(
     # 经 split_staff_lines 进入 staff/meta，不再原样透传）
     credits = _credit_rows(staff, album_meta)
     artist = "/".join(staff.get("vocal") or (album_meta or {}).get("vocal") or [])
+    audio_durations = audio_durations or {}
+    song_end_seconds = float(audio_durations.get(track.get("file")) or 0.0)
     if track.get("inst"):
         # 伴奏/无人声轨：没有人声可自行转写对齐（不模糊匹配到别的音频）。有同名
         # 正曲则借正曲的音频词流对同一份歌词重新 align——输入（歌词+词流）与正曲
@@ -702,6 +726,7 @@ def build_track_lrc(
         # 「纯音乐，请欣赏」占位，不留死气沉沉的空文件也不臆造歌词
         pair_file = track.get("_pair_file")
         pair_words = (audio_words or {}).get(pair_file) if pair_file else None
+        pair_end_seconds = float(audio_durations.get(pair_file) or song_end_seconds)
         if pair_words and lines:
             pair_lang = (audio_langs or {}).get(pair_file, "")
             if lyrics_mod.is_chinese_language(pair_lang):
@@ -709,11 +734,12 @@ def build_track_lrc(
                 credits = [lyrics_mod.to_simplified(c) for c in credits]
             lrc = align_mod.align(
                 lines, pair_words, title=title, album=album, artist=artist, by=by,
-                credits=credits, language=pair_lang,
+                credits=credits, language=pair_lang, song_end_seconds=pair_end_seconds,
             )
             lrc_words = align_mod.align(
                 lines, pair_words, title=title, album=album, artist=artist, by=by,
                 credits=credits, language=pair_lang, per_char=True,
+                song_end_seconds=pair_end_seconds,
             )
             cov = align_mod.coverage(lines, pair_words, language=pair_lang)
             track["audio"] = pair_file
@@ -722,7 +748,7 @@ def build_track_lrc(
                 if lyrics_mod.is_chinese_language(pair_lang) else (lrc, cov, lrc_words)
         header = f"[ti:{title}]\n[al:{album}]\n[ar:{artist}]\n[by:{by}]\n\n"
         if credits:
-            header += "\n".join(credits) + "\n\n"
+            header += "\n".join(_timed_credits_rows(credits, None, song_end_seconds)) + "\n\n"
         track["audio"] = ""
         print(f"  ○ {title}: 伴奏/无人声轨，无同名曲目可复用，写纯音乐占位行", file=sys.stderr)
         return header + "[00:01.00]纯音乐，请欣赏\n", 0.0, None
@@ -744,17 +770,18 @@ def build_track_lrc(
             title = (m.group(1) if m else stem).strip().strip("。.")
             track["title"] = title
         lang = (audio_langs or {}).get(audio, "")
+        song_end_seconds = float(audio_durations.get(audio) or song_end_seconds)
         if lyrics_mod.is_chinese_language(lang):
             # 站点数据规范为简体；whisper 转写与偶发的 OCR 不服从都在此统一转换
             lines = [lyrics_mod.to_simplified(l) for l in lines]
             credits = [lyrics_mod.to_simplified(c) for c in credits]
         lrc = align_mod.align(
             lines, audio_words[audio], title=title, album=album, artist=artist, by=by,
-            credits=credits, language=lang,
+            credits=credits, language=lang, song_end_seconds=song_end_seconds,
         )
         lrc_words = align_mod.align(
             lines, audio_words[audio], title=title, album=album, artist=artist, by=by,
-            credits=credits, language=lang, per_char=True,
+            credits=credits, language=lang, per_char=True, song_end_seconds=song_end_seconds,
         )
         cov = align_mod.coverage(lines, audio_words[audio], language=lang)
         print(f"  ♪ {title} ← {audio} (覆盖率 {cov:.0%})", file=sys.stderr)
@@ -763,7 +790,7 @@ def build_track_lrc(
     # 无匹配音频：无时间轴草稿
     header = f"[ti:{title}]\n[al:{album}]\n[ar:{artist}]\n[by:{by}]\n\n"
     if credits:
-        header += "\n".join(credits) + "\n\n"
+        header += "\n".join(_timed_credits_rows(credits, None, song_end_seconds)) + "\n\n"
     track["audio"] = ""
     print(f"  ○ {title}: 无匹配音频，输出无时间轴草稿", file=sys.stderr)
     return header + "\n".join(lines) + "\n", 0.0, None
@@ -797,6 +824,7 @@ def align_tracks(
     audio_langs: dict[str, str] | None = None,
     by: str = "",
     album_meta: dict | None = None,
+    audio_durations: dict[str, float] | None = None,
 ) -> set:
     """逐轨对齐，把成品字段写进 track；返回被占用的音频名集合。
 
@@ -808,7 +836,8 @@ def align_tracks(
             lrc, cov, lrc_words = build_authoritative_track(t, audio_words, used, audio_langs)
         else:
             lrc, cov, lrc_words = build_track_lrc(
-                t, album, audio_words, used, audio_langs, by=by, album_meta=album_meta)
+                t, album, audio_words, used, audio_langs, by=by, album_meta=album_meta,
+                audio_durations=audio_durations)
         t["lrc"] = lrc
         t["klrc"] = lrc_words
         t["coverage"] = cov
@@ -875,6 +904,7 @@ def build_draft(
     credits_text: str,
     audio_words: dict[str, list] | None,
     audio_langs: dict[str, str] | None = None,
+    audio_durations: dict[str, float] | None = None,
     tracks_plan: list[dict] | None = None,
     pages: list[dict] | None = None,
     image_paths: list[Path] | None = None,
@@ -895,6 +925,7 @@ def build_draft(
     """
     audio_words = audio_words or {}
     audio_langs = audio_langs or {}
+    audio_durations = audio_durations or {}
     stt_cleanup = stt_cleanup or {}
     tracks_explicit = tracks_explicit or []
 
@@ -1048,7 +1079,8 @@ def build_draft(
 
     # 3) 对齐：草稿即成品，闸门所见即最终写盘内容
     align_tracks(tracks, album, audio_words, audio_langs,
-                 by="/".join(meta.get("lyric_maker") or []), album_meta=meta)
+                 by="/".join(meta.get("lyric_maker") or []), album_meta=meta,
+                 audio_durations=audio_durations)
 
     # 将人工绑定投影到页面数据，供审核面板显示一图多曲标记；旧草稿没有这些字段时
     # 仍可正常读取，关联本身只来自 manifest。
@@ -1066,6 +1098,7 @@ def build_draft(
         "album": album, "submission_type": submission_type,
         "tracks": tracks, "meta": meta, "names": names,
         "audio_words": audio_words, "audio_langs": audio_langs,
+        "audio_durations": audio_durations,
         "stt_cleanup": stt_cleanup,
         "cover_path": str(cover_path) if cover_path else None,
         "pages": page_rows,
@@ -1087,6 +1120,7 @@ def finalize(
     names = draft["names"]
     audio_words = draft.get("audio_words") or {}
     audio_langs = draft.get("audio_langs") or {}
+    audio_durations = draft.get("audio_durations") or {}
     cover_path = Path(draft["cover_path"]) if draft.get("cover_path") else None
 
     target_exists = (res_dir / album).is_dir() if single_target_exists is None else single_target_exists
@@ -1130,7 +1164,8 @@ def finalize(
             else:
                 lrc, cov, lrc_words = build_track_lrc(
                     t, album, audio_words, used, audio_langs,
-                    by="/".join(meta.get("lyric_maker") or []), album_meta=meta)
+                    by="/".join(meta.get("lyric_maker") or []), album_meta=meta,
+                    audio_durations=audio_durations)
             t["lrc"], t["klrc"], t["coverage"], t["aligned"] = lrc, lrc_words, cov, True
         else:
             lrc, cov, lrc_words = t["lrc"], float(t.get("coverage") or 0.0), t.get("klrc")
@@ -1171,6 +1206,7 @@ def organize(
     credits_text: str,
     audio_words: dict[str, list] | None,
     audio_langs: dict[str, str] | None = None,
+    audio_durations: dict[str, float] | None = None,
     tracks_plan: list[dict] | None = None,
     pages: list[dict] | None = None,
     photo_links: dict[str, list[str] | str] | None = None,
@@ -1186,7 +1222,8 @@ def organize(
     """一次性跑完 = build_draft + finalize（向后兼容 CLI 与现有测试；无人工闸门）。"""
     draft = build_draft(
         tracks_explicit=tracks_explicit, booklet_text=booklet_text, credits_text=credits_text,
-        audio_words=audio_words, audio_langs=audio_langs, tracks_plan=tracks_plan,
+        audio_words=audio_words, audio_langs=audio_langs, audio_durations=audio_durations,
+        tracks_plan=tracks_plan,
         pages=pages, photo_links=photo_links, source_hint=source_hint, manifest=manifest,
         album_override=album_override, cover_path=cover_path, existing_meta=existing_meta,
         default_lyric_maker=default_lyric_maker,

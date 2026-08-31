@@ -271,7 +271,7 @@ def _parse_verbose_json_with_cleanup(result: dict, lang: str | None) -> tuple[li
     return words, code, cleanup
 
 
-def transcribe_words(audio: Path, lang: str | None = None) -> tuple[list[dict], str, dict]:
+def transcribe_words(audio: Path, lang: str | None = None) -> tuple[list[dict], str, dict, float | None]:
     """转写单个音频，返回 (词流、语言代码、清理审计)。失败抛 LLMError。
     """
     fields: dict = {
@@ -303,7 +303,7 @@ def transcribe_words(audio: Path, lang: str | None = None) -> tuple[list[dict], 
     dur = result.get("duration")
     print(f"✓ STT(云端词级) {audio.name}: {len(words)} 词, 语言={code}, 时长={dur}s",
           file=sys.stderr, flush=True)
-    return words, code, cleanup
+    return words, code, cleanup, dur
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -321,8 +321,9 @@ def main(argv: list[str] | None = None) -> int:
         print("没有可转写的音频", file=sys.stderr)
         return 0
     for a in audios:
-        words, code, cleanup = transcribe_words(a, lang=args.lang)
-        print(json.dumps({"file": a.name, "language": code, "words": words, "cleanup": cleanup},
+        words, code, cleanup, dur = transcribe_words(a, lang=args.lang)
+        print(json.dumps({"file": a.name, "language": code, "duration": dur,
+                          "words": words, "cleanup": cleanup},
                          ensure_ascii=False))
     return 0
 
