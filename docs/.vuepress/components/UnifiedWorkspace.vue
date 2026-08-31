@@ -96,17 +96,25 @@ async function save() {
     const draft = JSON.parse(JSON.stringify(remote.album.draft));
     if (remote.type === 'meta') Object.assign(draft, JSON.parse(selected.value.content));
     else { const track = draft.tracks[remote.index]; track.lrc = selected.value.content; track.klrc = ''; track.lines = selected.value.content.split('\n').filter(Boolean).map((line) => line.replace(/^\[[^\]]+\]/, '')); track.edited = true; }
-    await adapter().save(remote.album.ref, draft); const workspace = replaceWorkspace(remote.album.ref, draft); select(remote.type === 'meta' ? workspace.meta : workspace.files[remote.index]); message.value = '已保存到工作草稿';
-  } catch (error) { message.value = `保存失败：${error.message}`; } finally { saving.value = false; }
+    await adapter().save(remote.album.ref, draft); const workspace = replaceWorkspace(remote.album.ref, draft); select(remote.type === 'meta' ? workspace.meta : workspace.files[remote.index]); message.value = '已保存到工作草稿'; return true;
+  } catch (error) { message.value = `保存失败：${error.message}`; return false; } finally { saving.value = false; }
 }
 async function generate() {
+  if (selected.value?.remote && !(await save())) return;
   let workspace = selected.value?.remote?.album || workspaces.value[0];
   if (!workspace) { await createWorkspace(); workspace = selected.value?.remote?.album; }
   if (!workspace) return;
   generating.value = true; message.value = '';
   try {
     const files = [];
-    for (const [n, file] of localFiles.value.entries()) { if (!file.raw) continue; await adapter().upload(workspace.ref, n, file.raw); files.push({ n, path: file.name, size: file.raw.size }); }
+    for (const [n, file] of localFiles.value.entries()) {
+      if (!file.raw) continue;
+      const uploadFile = file.kind === 'lrc' || /^text\//.test(file.raw.type)
+        ? new File([file.content], file.name, { type: file.raw.type || 'text/plain' })
+        : file.raw;
+      await adapter().upload(workspace.ref, n, uploadFile);
+      files.push({ n, path: file.name, size: uploadFile.size });
+    }
     await adapter().extract(workspace.ref, files); message.value = '已上传并开始自动提取与生成';
   } catch (error) { message.value = `生成失败：${error.message}`; } finally { generating.value = false; }
 }

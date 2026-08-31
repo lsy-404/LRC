@@ -22,6 +22,14 @@ test('统一工作区通过同一 Monaco 模型承载新建、导入和已有专
   assert.doesNotMatch(source, /UploadBox|EditBox/);
 });
 
+test('自动提取先保存当前工作区文件，并上传 Monaco 中的文本内容', async () => {
+  const source = await readFile(workspacePath, 'utf8');
+  assert.match(source, /if \(selected\.value\?\.remote && !\(await save\(\)\)\) return;/);
+  assert.match(source, /new File\(\[file\.content\], file\.name, \{ type: file\.raw\.type \|\| 'text\/plain' \}\)/);
+  assert.match(source, /size: uploadFile\.size/);
+  assert.match(source, /: file\.raw;/);
+});
+
 test('工作区适配器只调用正式 workspace 与 R2 上传边界', async () => {
   const calls = [];
   const adapter = createWorkspaceAdapter('pw', async (url, init) => { calls.push([url, init]); return new Response(JSON.stringify({ ok: true }), { status: 200 }); });
