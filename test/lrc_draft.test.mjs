@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { activeIndexAt, clampWordTime, expandTimedTokens, fillInstrumentalFallback, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, moveTimedSelection, msToTimestamp, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, removeKnownSttWatermarks, removeKnownSttWatermarkTokens, replaceTimedTokenText, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadFlexWeight, timedRowBoundaryAction, timedSpanFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, timestampToMs, transferTimedVocalRow, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
+import { activeIndexAt, boundedTimedSelectionOffset, clampWordTime, expandTimedTokens, fillInstrumentalFallback, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, moveTimedSelection, msToTimestamp, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, removeKnownSttWatermarks, removeKnownSttWatermarkTokens, replaceTimedTokenText, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitRowAtTokenBoundary, splitTimedRow, splitTimedToken, timedLeadFlexWeight, timedRowBoundaryAction, timedSpanFlexWeight, timedTokenFlexWeight, timedTokenSpanMs, timestampToMs, transferTimedVocalRow, utf16ToCodePointIndex } from '../docs/.vuepress/components/lrcDraft.js';
 
 test('既有草稿仅清除确认的转写水印，保留孤立乐器词和重复歌词', () => {
   assert.equal(removeKnownSttWatermarks('Zither Harp\nZ ither Har p\n字幕由 Amara.org 社区提供\n由 Amaraorg 社群提供的字幕\n优优独播剧场——YoYoTelevisionSeriesExclusive\n词曲：李宗盛\n演唱 李宗盛 编曲李宗盛 作词：李宗盛 作曲李宗盛\n寂寞词曲李宗盛尾句\n李宗盛\n演唱\n作词\n演唱李宗\nkeep'), '\n\n\n\n\n\n\n寂寞尾句\n李宗盛\n演唱\n作词\n演唱李宗\nkeep');
@@ -320,6 +320,16 @@ test('过密标签的拖动保持原时间，行和下一行界限也生效', ()
   const words = [{ time: 120, text: '甲' }, { time: 200, text: '乙' }];
   assert.equal(clampWordTime(words, 0, 0, 10, 110, 190), 110);
   assert.equal(clampWordTime(words, 1, 999, 10, 110, 180), 180);
+});
+
+test('多选 token 整体拖动保留间距并受未选相邻 token 与句界限制', () => {
+  const words = [{ time: 100, text: '甲' }, { time: 200, text: '乙' }, { time: 350, text: '丙' }, { time: 500, text: '丁' }];
+  assert.equal(boundedTimedSelectionOffset(words, [1, 2], 80, 10, 50, 480), 80);
+  assert.deepEqual(words.slice(1, 3).map((word) => word.time + 80), [280, 430]);
+  assert.equal(boundedTimedSelectionOffset(words, [1, 2], -999, 10, 50, 480), -90);
+  assert.equal(boundedTimedSelectionOffset(words, [1, 2], 999, 10, 50, 480), 130);
+  assert.equal(boundedTimedSelectionOffset(words, [0, 1], -999, 10, 100, Number.POSITIVE_INFINITY), 0);
+  assert.equal(boundedTimedSelectionOffset(words, [2, 3], 999, 10, 0, 520), 20);
 });
 
 test('按 token 字符边界拆行只移动目标边界后的对象', () => {

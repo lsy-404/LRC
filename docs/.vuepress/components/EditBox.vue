@@ -172,9 +172,9 @@
                   <span class="eb-time-lead" :style="timelineLeadStyle(r)" aria-hidden="true" />
                   <button v-for="slot in missingMarkerSlots(r, 0)" :key="`missing-${r._id}-${slot.textIndex}`" class="eb-time-missing" :disabled="t.authoritativeLrc" :title="`为 ${slot.text} 新增时间标记`" :aria-label="`为 ${slot.text} 新增时间标记`" @click="insertMissingMarker(vocal, r, li, slot.textIndex)">{{ slot.text }}</button>
                   <template v-for="(word, wi) in r.words" :key="word._id">
-                  <div :ref="(node) => bindTokenNode(vocal, li, wi, node)" class="eb-time-token" :style="timelineTokenStyle(vocal, r, li, wi)">
+                  <div :ref="(node) => bindTokenNode(vocal, li, wi, node)" class="eb-time-token" :class="{ selected: isTimelineTokenSelected(vocal, r, wi) }" :style="timelineTokenStyle(vocal, r, li, wi)">
                     <span class="eb-time-chars" :contenteditable="t.authoritativeLrc ? 'false' : 'plaintext-only'" spellcheck="false" tabindex="0" :aria-label="`编辑 ${word.text}，可输入多个字`" @focus="selectTimelineChar" @input="editTimelineChar(vocal, r, wi, $event)" @keydown="openTimelineMenuFromKey(vocal, r, wi, 0, $event)" @keydown.enter.prevent="$event.currentTarget.blur()"><span v-for="(char, ci) in Array.from(word.text)" :key="`${word._id}-${ci}`" class="eb-time-char" @contextmenu.prevent.stop="!t.authoritativeLrc && openTimelineMenu(vocal, r, wi, ci, $event)">{{ char }}</span></span>
-                    <button class="eb-time-marker" :disabled="t.authoritativeLrc" :aria-label="`调整 ${word.text} 的句内偏移`" @pointerdown="startTimeDrag(vocal, r, wi, $event)" @pointermove="moveTimeDrag($event)" @pointerup="finishTimeDrag($event)" @pointercancel="finishTimeDrag($event)" @lostpointercapture="finishTimeDrag($event)" @contextmenu.prevent.stop="openTimelineMenu(vocal, r, wi, 0, $event)" @keydown="nudgeWordTime(vocal, r, wi, $event)"><span>{{ formatWordOffset(r, word.time) }}</span></button>
+                    <button class="eb-time-marker" :disabled="t.authoritativeLrc" :aria-label="`调整 ${word.text} 的句内偏移`" :aria-pressed="isTimelineTokenSelected(vocal, r, wi)" title="按住 Command 或 Ctrl 选择多个标记后整体拖动" @pointerdown="startTimeDrag(vocal, r, wi, $event)" @pointermove="moveTimeDrag($event)" @pointerup="finishTimeDrag($event)" @pointercancel="finishTimeDrag($event)" @lostpointercapture="finishTimeDrag($event)" @contextmenu.prevent.stop="openTimelineMenu(vocal, r, wi, 0, $event)" @keydown="nudgeWordTime(vocal, r, wi, $event)"><span>{{ formatWordOffset(r, word.time) }}</span></button>
                   </div>
                   <button v-for="slot in missingMarkerSlots(r, wi + 1)" :key="`missing-${r._id}-${slot.textIndex}`" class="eb-time-missing" :disabled="t.authoritativeLrc" :title="`为 ${slot.text} 新增时间标记`" :aria-label="`为 ${slot.text} 新增时间标记`" @click="insertMissingMarker(vocal, r, li, slot.textIndex)">{{ slot.text }}</button>
                   </template>
@@ -266,7 +266,7 @@ import OpenCC from 'opencc-js/t2cn';
 import { stripFlacPictureBlocks } from '../lib/flac.js';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
-  activeIndexAt, clampWordTime, expandTimedTokens, fillInstrumentalFallback, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, parseLrc, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, removeKnownSttWatermarks, removeKnownSttWatermarkTokens, replaceTimedTokenText, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedLastTokenSpanMs, timedSentenceEndMs, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, transferTimedVocalRow, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
+  activeIndexAt, boundedTimedSelectionOffset, clampWordTime, expandTimedTokens, fillInstrumentalFallback, insertMissingTimedCharacter, mergeTimedRows, mergeTimedToken, missingTimedCharacterSlots, parseLrc, parseKaraokeRows, parseVocalDrafts, reconcileTimedRows, reconcileWordCharacters, removeKnownSttWatermarks, removeKnownSttWatermarkTokens, replaceTimedTokenText, serializeTimedLyrics, serializeVocalDrafts, shiftTimedRow, splitTimedRow, splitTimedToken, splitRowAtTokenBoundary, textToLines, linesToText, timedLastTokenSpanMs, timedSentenceEndMs, timedTokenSpanMs, timedTrailingGapMs, timedRowBoundaryAction, transferTimedVocalRow, utf16ToCodePointIndex, isTrackEdited, isLowCoverage, msToTimestamp,
 } from './lrcDraft.js';
 import { canRedoLyricHistory, canUndoLyricHistory, createLyricHistory, markLyricHistoryDirty, recordLyricHistory, redoLyricHistory, undoLyricHistory } from './lyricHistory.js';
 
@@ -310,6 +310,7 @@ const jobInfo = ref(null);
 const retrying = ref(false);
 const pendingRetryState = ref({});
 const timelineMenu = ref(null);
+const timelineSelection = ref(null);
 let pollTimer = null;
 let pendingPollTimer = null;
 let nextEditorId = 1;
@@ -540,32 +541,81 @@ function handleWorkbenchKeydown(event) {
   if (track !== activeWorkbenchTrack) activeWorkbenchTrack = track;
   handleWorkbenchShortcut(track, event);
 }
+function selectedTimelineIndices(t, row) {
+  const selection = timelineSelection.value;
+  if (!selection || selection.t !== t || selection.row !== row) return [];
+  return row.words.flatMap((word, index) => selection.ids.has(word._id) ? [index] : []);
+}
+function isTimelineTokenSelected(t, row, index) { return selectedTimelineIndices(t, row).includes(index); }
+function selectTimelineTokens(t, row, index, event) {
+  const current = selectedTimelineIndices(t, row);
+  const ids = new Set(current.map((item) => row.words[item]._id));
+  if (event.metaKey || event.ctrlKey) {
+    const id = row.words[index]._id;
+    if (ids.has(id)) ids.delete(id); else ids.add(id);
+  } else if (event.shiftKey && current.length) {
+    const start = Math.min(...current); const end = Math.max(...current, index);
+    for (let item = start; item <= end; item++) ids.add(row.words[item]._id);
+  } else if (!ids.has(row.words[index]._id)) {
+    ids.clear(); ids.add(row.words[index]._id);
+  }
+  timelineSelection.value = ids.size ? { t, row, ids } : null;
+  return selectedTimelineIndices(t, row);
+}
+function selectionDragOffset(state) {
+  return boundedTimedSelectionOffset(state.row.words, state.indices, state.startTime + (state.x - state.startX) * TIMELINE_MS_PER_PIXEL - state.startTime, 10, state.row.time, state.maximum);
+}
+function paintSelectionDrag(state, offset) {
+  for (const item of state.items) {
+    item.node.style.transform = `translateX(${offset / TIMELINE_MS_PER_PIXEL}px)`;
+    const label = item.node.querySelector('span');
+    if (label) label.textContent = formatWordOffset(state.row, item.startTime + offset);
+  }
+}
 function clearTimeDrag() {
   const state = dragState;
   if (!state) return;
   dragState = null;
   if (state.frame) cancelAnimationFrame(state.frame);
-  state.node.style.transform = '';
-  const label = state.node.querySelector('span');
-  if (label) label.textContent = formatWordOffset(state.row, state.row.words[state.index]?.time);
+  for (const item of state.items) {
+    item.node.style.transform = '';
+    const label = item.node.querySelector('span');
+    if (label) label.textContent = formatWordOffset(state.row, state.row.words[item.index]?.time);
+  }
   document.removeEventListener('visibilitychange', state.visibility);
   if (state.node.hasPointerCapture(state.pointerId)) state.node.releasePointerCapture(state.pointerId);
 }
-function startTimeDrag(t, row, index, event) { if (t.authoritativeLrc || event.button !== 0) return; event.preventDefault(); clearTimeDrag(); const node = event.currentTarget; const state = { t, row, index, node, pointerId: event.pointerId, startX: event.clientX, startTime: Number(row.words[index].time), x: event.clientX, frame: null, visibility: null }; state.visibility = () => { if (document.hidden) finishTimeDrag(); }; dragState = state; node.setPointerCapture(event.pointerId); document.addEventListener('visibilitychange', state.visibility); }
+function startTimeDrag(t, row, index, event) {
+  if (t.authoritativeLrc || event.button !== 0) return;
+  event.preventDefault(); clearTimeDrag();
+  const indices = selectTimelineTokens(t, row, index, event);
+  if (event.metaKey || event.ctrlKey || event.shiftKey || !indices.length) return;
+  const rowIndex = t.rows.findIndex((item) => item._id === row._id);
+  const node = event.currentTarget;
+  const view = playbackView(t);
+  const items = indices.map((item) => ({ index: item, startTime: Number(row.words[item].time), node: view.tokens[rowIndex]?.[item]?.querySelector('.eb-time-marker') || node }));
+  const state = { t, row, index, indices, items, node, pointerId: event.pointerId, startX: event.clientX, startTime: Number(row.words[index].time), maximum: rowIndex >= 0 && t.rows[rowIndex + 1] ? Number(t.rows[rowIndex + 1].time) - 10 : Number.POSITIVE_INFINITY, x: event.clientX, frame: null, visibility: null };
+  state.visibility = () => { if (document.hidden) finishTimeDrag(); }; dragState = state; node.setPointerCapture(event.pointerId); document.addEventListener('visibilitychange', state.visibility);
+}
 function moveTimeDrag(event) {
   if (!dragState || event.pointerId !== dragState.pointerId) return;
   dragState.x = event.clientX;
   if (!dragState.frame) dragState.frame = requestAnimationFrame(() => {
     const state = dragState;
     if (!state) return;
-    const time = boundedWordTime(state.t, state.row, state.index, state.startTime + (state.x - state.startX) * TIMELINE_MS_PER_PIXEL);
-    state.node.style.transform = `translateX(${(time - state.startTime) / TIMELINE_MS_PER_PIXEL}px)`;
-    const label = state.node.querySelector('span');
-    if (label) label.textContent = formatWordOffset(state.row, time);
+    paintSelectionDrag(state, selectionDragOffset(state));
     state.frame = null;
   });
 }
-function finishTimeDrag(event) { if (!dragState || (event?.pointerId != null && event.pointerId !== dragState.pointerId)) return; if (event?.clientX != null) dragState.x = event.clientX; const state = dragState; if (!allTracks().includes(trackOwner(state.t)) || !state.t.rows.includes(state.row)) return clearTimeDrag(); setWordTime(state.t, state.row, state.index, state.startTime + (state.x - state.startX) * TIMELINE_MS_PER_PIXEL); clearTimeDrag(); }
+function finishTimeDrag(event) {
+  if (!dragState || (event?.pointerId != null && event.pointerId !== dragState.pointerId)) return;
+  if (event?.clientX != null) dragState.x = event.clientX;
+  const state = dragState;
+  if (!allTracks().includes(trackOwner(state.t)) || !state.t.rows.includes(state.row)) return clearTimeDrag();
+  const offset = selectionDragOffset(state);
+  for (const item of state.items) state.row.words[item.index].time = item.startTime + offset;
+  updateActiveIndices(state.t, playheadMs(state.t)); lockTiming(state.t); commitHistory(state.t); clearTimeDrag();
+}
 function normalizeRows(t) { t.rows.sort((a, b) => Number(a.time) - Number(b.time)); syncTrackText(t); }
 function syncRowText(t, row) { row.words = reconcileWordCharacters(row.words, row.text, newId, row.time); t._textDirty = true; syncTrackText(t); lockTiming(t); }
 function applyWholeText(t) { if (t.authoritativeLrc) return; t.rows = reconcileTimedRows(t.rows, t.text, newId); normalizeRows(t); t.timingLocked = true; updateActiveIndices(t, playheadMs(t)); commitHistory(t); }
@@ -1353,6 +1403,7 @@ onBeforeUnmount(() => {
 .eb-time-lead { box-sizing: border-box; flex: var(--eb-time-grow, 0) 0 0; min-width: 0; border-right: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
 .eb-time-token { position: relative; box-sizing: border-box; display: flex; flex: var(--eb-time-grow, 1) 0 0; min-width: 0; flex-direction: column; justify-content: space-between; min-height: 3.2rem; white-space: nowrap; border-left: 1px solid color-mix(in srgb, var(--eb-accent) 45%, transparent); }
 .eb-time-token.active { background: color-mix(in srgb, var(--eb-accent) 12%, transparent); }
+.eb-time-token.selected { background: color-mix(in srgb, var(--eb-accent) 18%, transparent); outline: 1px solid color-mix(in srgb, var(--eb-accent) 70%, transparent); outline-offset: -1px; }
 .eb-time-trailing { flex: var(--eb-time-grow, 0) 0 0; min-width: 0; border-left: 1px dashed color-mix(in srgb, var(--border-color, #ddd) 70%, transparent); }
 .eb-time-sentence-progress { position: absolute; right: 0; bottom: 0; left: 0; height: 3px; pointer-events: none; background: linear-gradient(to right, var(--eb-accent) var(--eb-sentence-progress, 0%), color-mix(in srgb, var(--border-color, #ddd) 65%, transparent) var(--eb-sentence-progress, 0%)); }
 .eb-time-chars { display: flex; min-width: 2.4rem; min-height: 1.4rem; padding: .12rem .18rem; }

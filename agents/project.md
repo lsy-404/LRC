@@ -14,4 +14,4 @@ Vue 3、VuePress 2、Vite；工作站组件位于 `docs/.vuepress/components`。
 - `functions/api/ingest/cover.js`：已有封面字节保存接口。
 
 ## 任务审计
-本任务记录见 `agents/001_[Feature]_图片马赛克与共享关联/`。
+任务记录见 `agents/` 各任务目录。

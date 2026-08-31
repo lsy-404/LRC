@@ -192,7 +192,7 @@ test('逐字时间轨显示句内偏移、支持单字编辑且只更新整句�
   assert.match(source, /formatWordOffset\(r, word\.time\)/);
   assert.match(source, /return `\+\$\{msToTimestamp\(wordOffset\(row, time\)\)\}`/);
   assert.match(source, /row\.text = updated\.text/);
-  assert.match(source, /label\.textContent = formatWordOffset\(state\.row, time\)/);
+  assert.match(source, /label\.textContent = formatWordOffset\(state\.row, item\.startTime \+ offset\)/);
   assert.match(source, /class="eb-time-sentence-progress"/);
   assert.match(source, /--eb-sentence-progress/);
   assert.match(source, /timedTrailingGapMs\(row, next\)/);
@@ -224,7 +224,7 @@ test('逐字时间轨为稀疏句提供更大的前后操作距离且保留安�
   assert.match(source, /width: max\(100%, var\(--eb-timeline-width, 100%\)\)/);
   assert.match(source, /padding: 0 4rem 3px/);
   assert.match(source, /state\.startTime \+ \(state\.x - state\.startX\) \* TIMELINE_MS_PER_PIXEL/);
-  assert.match(source, /setWordTime\(state\.t, state\.row, state\.index, state\.startTime \+ \(state\.x - state\.startX\) \* TIMELINE_MS_PER_PIXEL\)/);
+  assert.match(source, /boundedTimedSelectionOffset\(state\.row\.words, state\.indices/);
   assert.match(source, /touch-action: none/);
   assert.match(source, /function boundedWordTime\(t, row, index, time\)/);
 });
