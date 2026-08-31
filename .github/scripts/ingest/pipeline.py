@@ -418,19 +418,22 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     audio_words: dict[str, list] = {}
     audio_langs: dict[str, str] = {}
     stt_cleanup: dict[str, dict] = {}
+    audio_durations: dict[str, float] = {}
     if buckets["audio"]:
         from concurrent.futures import ThreadPoolExecutor
         kept = [a for a in buckets["audio"] if (not keep or a.name in keep) and a.name not in inst_files]
         # 每个 STT 请求前都要在容器内做 ffprobe/ffmpeg；基础规格只保留一路。
         with ThreadPoolExecutor(max_workers=1) as pool:
             results = list(pool.map(stt_mod.transcribe_words, kept))
-        for a, (words, lang, cleanup) in zip(kept, results):
+        for a, (words, lang, cleanup, duration) in zip(kept, results):
             if cleanup.get("removed_word_count"):
                 stt_cleanup[a.name] = cleanup
             if lyrics_mod.is_chinese_language(lang):
                 words = [{**word, "text": lyrics_mod.to_simplified(str(word.get("text", "")))} for word in words]
             audio_words[a.name] = words
             audio_langs[a.name] = lang
+            if duration is not None:
+                audio_durations[a.name] = float(duration)
 
         # 语言重试：检测专辑主语言，对语言离群轨重跑 STT
         if len(audio_langs) > 1:
@@ -449,13 +452,15 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
                     file=sys.stderr,
                 )
                 for a in retry_audios:
-                    words, lang, cleanup = stt_mod.transcribe_words(a, lang=majority_lang)
+                    words, lang, cleanup, duration = stt_mod.transcribe_words(a, lang=majority_lang)
                     if cleanup.get("removed_word_count"):
                         stt_cleanup[a.name] = cleanup
                     if lyrics_mod.is_chinese_language(lang):
                         words = [{**word, "text": lyrics_mod.to_simplified(str(word.get("text", "")))} for word in words]
                     audio_words[a.name] = words
                     audio_langs[a.name] = lang
+                    if duration is not None:
+                        audio_durations[a.name] = float(duration)
 
     # 5) 整理 + 对齐 → res/<专辑>/（meta 全自动；专辑名 = 文件夹名 album）
     #    可选：若投递目录恰含 manifest.toml 则作为 meta 覆盖（非必需，不鼓励）。
@@ -488,7 +493,8 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
 
     draft = org_mod.build_draft(
         tracks_explicit=tracks_explicit, booklet_text=booklet_text, credits_text=credits_text,
-        audio_words=audio_words, audio_langs=audio_langs, tracks_plan=tracks_plan,
+        audio_words=audio_words, audio_langs=audio_langs, audio_durations=audio_durations,
+        tracks_plan=tracks_plan,
         pages=pages, image_paths=image_paths, photo_links=photo_links,
         manifest=manifest, source_hint=source_hint,
         album_override=album, cover_path=cover, existing_meta=existing_meta,

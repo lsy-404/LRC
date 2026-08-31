@@ -160,6 +160,32 @@ def _fmt_ts(seconds: float, ms_digits: int = 2) -> str:
     return f"{m:02d}:{s:05.2f}"
 
 
+def _timed_credits_rows(
+    credits: list[str],
+    lyric_start_times: list[Optional[float]],
+    song_end_seconds: float,
+    step_seconds: float = 0.2,
+) -> list[str]:
+    """给制作信息行时间戳：先尝试前置，放不下时从歌曲结束时间倒序回填。"""
+    if not credits:
+        return []
+
+    first_ts: Optional[float] = next((t for t in lyric_start_times if t is not None), None)
+    can_place_front = (
+        first_ts is not None and first_ts > (len(credits) - 1) * step_seconds
+    )
+    if can_place_front:
+        return [f"[{_fmt_ts(i * step_seconds)}]{line}" for i, line in enumerate(credits)]
+
+    tail_step_seconds = 0.5
+    end_ts = int(max(0.0, song_end_seconds) / tail_step_seconds) * tail_step_seconds
+    start_ts = max(0.0, end_ts - (len(credits) - 1) * tail_step_seconds)
+    return [
+        f"[{_fmt_ts(start_ts + index * tail_step_seconds)}]{line}"
+        for index, line in enumerate(credits)
+    ]
+
+
 def align(
     reference_lines: list[str],
     words: list[dict],
@@ -171,6 +197,7 @@ def align(
     credits: list[str] | None = None,
     per_char: bool = False,
     language: str = "",
+    song_end_seconds: float | None = None,
 ) -> str:
     """返回对齐后的 LRC 文本。
 
@@ -187,6 +214,7 @@ def align(
 
     # 每个 ref 字的时间（None=未对齐上）
     ref_time: list[Optional[float]] = [None] * len(ref_meta)
+    observed_end_seconds = 0.0
     if ref_str and stt_str:
         ref_cmp = _cmp_seqs(list(ref_str), use_pinyin)
         stt_cmp = _cmp_seqs(list(stt_str), use_pinyin)
@@ -194,6 +222,8 @@ def align(
         for i, j, n in sm.get_matching_blocks():
             for k in range(n):
                 ref_time[i + k] = stt_chars[j + k].t
+        for item in stt_chars:
+            observed_end_seconds = max(observed_end_seconds, item.t)
 
     # 收集每行已对齐字的(行内偏移, 时间)，并统计每行可对齐字数
     n_lines = len(lines)
@@ -269,10 +299,11 @@ def align(
     out.append(f"[ar:{artist}]")
     out.append(f"[by:{by}]")
     out.append("")
-    # 双模式元信息：头部标签之外，credit 行原样保留在正文（未计时），
+    # 双模式元信息：头部标签之外，credit 行带兼容时间戳写入正文
     # 站点解析侧 row_field_alias 认这一形态
     if credits:
-        out.extend(credits)
+        credit_end_seconds = max(observed_end_seconds, float(song_end_seconds or 0.0))
+        out.extend(_timed_credits_rows(credits, line_start, credit_end_seconds))
         out.append("")
     for li, line in enumerate(lines):
         if not line.strip():
