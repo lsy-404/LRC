@@ -35,7 +35,7 @@
         <button class="wb-help" type="button" @click="logout">退出</button>
       </div>
       <!-- v-show 保留各面板状态：切 tab 不丢上传进度 / 编辑内容 -->
-      <UploadBox v-show="tab === 'upload'" :password="password" />
+      <UploadBox v-show="tab === 'upload'" :password="password" :theme="resolvedTheme" />
       <EditBox v-show="tab === 'edit'" :password="password" :theme="resolvedTheme" />
 
       <div v-if="showGuide" class="wb-guide-backdrop" @click.self="closeGuide">

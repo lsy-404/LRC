@@ -22,9 +22,11 @@ test('工作站主题支持系统默认、持久化选择和可访问切换', as
 });
 
 test('审核编辑器将显式工作站主题传递给 Monaco，并在变更时立即应用', async () => {
-  const [workbench, editor, monaco] = await Promise.all([
-    readComponent('Workbench.vue'), readComponent('EditBox.vue'), readComponent('MonacoLrcEditor.vue'),
+  const [workbench, upload, editor, monaco] = await Promise.all([
+    readComponent('Workbench.vue'), readComponent('UploadBox.vue'), readComponent('EditBox.vue'), readComponent('MonacoLrcEditor.vue'),
   ]);
+  assert.match(workbench, /<UploadBox v-show="tab === 'upload'" :password="password" :theme="resolvedTheme"/);
+  assert.match(upload, /theme: \{ type: String, default: '' \}/);
   assert.match(workbench, /<EditBox v-show="tab === 'edit'" :password="password" :theme="resolvedTheme"/);
   assert.match(editor, /theme: \{ type: String, default: '' \}/);
   assert.match(editor, /<MonacoLrcEditor v-model="t\._sourceText" language="lrc" :theme="props\.theme"/);

@@ -310,7 +310,10 @@ import {
 } from './uploadDraft.js';
 
 // 验证在工作站根层（Workbench）统一完成，密码经 prop 传入
-const props = defineProps({ password: { type: String, default: '' } });
+const props = defineProps({
+  password: { type: String, default: '' },
+  theme: { type: String, default: '' },
+});
 
 const DIRECT_UPLOAD_LIMIT = 95 * 1024 * 1024;
 const MULTIPART_PART_SIZE = 20 * 1024 * 1024;
