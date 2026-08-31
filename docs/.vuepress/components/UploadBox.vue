@@ -16,7 +16,7 @@
         <label class="ub-label">投稿配置</label>
         <button class="ub-btn primary" :disabled="busy" @click="applySubmissionSource">应用配置</button>
       </div>
-      <MonacoLrcEditor v-model="submissionSource" language="submission" aria-label="投稿配置编辑器" @update:model-value="submissionSourceDirty = true" />
+      <MonacoLrcEditor v-model="submissionSource" language="submission" :theme="props.theme" aria-label="投稿配置编辑器" @update:model-value="submissionSourceDirty = true" />
       <p v-if="submissionSourceMsg" class="ub-msg" :class="{ err: submissionSourceErr }">{{ submissionSourceMsg }}</p>
       <p v-if="submissionType === 'single'" class="ub-single-target">单曲投稿将进入「单曲」目录</p>
 
@@ -226,7 +226,7 @@
     <div v-if="textItem" class="ub-text-modal" @click.self="closeTextEditor">
       <section class="ub-text-panel" role="dialog" aria-modal="true" aria-labelledby="ub-text-title">
         <div class="ub-editor-head"><h3 id="ub-text-title">{{ textItem.relPath }}</h3><button class="ub-mosaic-close" @click="closeTextEditor">×</button></div>
-        <MonacoLrcEditor v-model="textSource" :language="textLanguage" aria-label="投稿文本编辑器" />
+        <MonacoLrcEditor v-model="textSource" :language="textLanguage" :theme="props.theme" aria-label="投稿文本编辑器" />
         <div class="ub-row"><button class="ub-btn" @click="closeTextEditor">取消</button><button class="ub-btn primary" @click="applyTextEditor">应用文本</button></div>
       </section>
     </div>

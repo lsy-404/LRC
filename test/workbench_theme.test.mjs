@@ -27,6 +27,8 @@ test('审核编辑器将显式工作站主题传递给 Monaco，并在变更时�
   ]);
   assert.match(workbench, /<UploadBox v-show="tab === 'upload'" :password="password" :theme="resolvedTheme"/);
   assert.match(upload, /theme: \{ type: String, default: '' \}/);
+  assert.match(upload, /<MonacoLrcEditor v-model="submissionSource" language="submission" :theme="props\.theme"/);
+  assert.match(upload, /<MonacoLrcEditor v-model="textSource" :language="textLanguage" :theme="props\.theme"/);
   assert.match(workbench, /<EditBox v-show="tab === 'edit'" :password="password" :theme="resolvedTheme"/);
   assert.match(editor, /theme: \{ type: String, default: '' \}/);
   assert.match(editor, /<MonacoLrcEditor v-model="t\._sourceText" language="lrc" :theme="props\.theme"/);
