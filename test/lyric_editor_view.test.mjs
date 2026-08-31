@@ -31,7 +31,7 @@ test('播放器内联于歌词编辑区，且不保留原音与模拟说明', as
   assert.match(source, /class="eb-word-timeline" role="region" aria-label="逐字时间轨"/);
   assert.match(source, /class="eb-time-track"/);
   assert.doesNotMatch(source, /eb-time-token-(?:lower|upper)/);
-  assert.match(source, /timedLastTokenSpanMs\(row, nextRowTime/);
+  assert.match(source, /const rowEnd = timedSentenceEndMs\(row, nextRowTime/);
   assert.match(source, /--eb-time-grow/);
   assert.match(source, /flex: var\(--eb-time-grow, 1\) 0 0/);
   assert.doesNotMatch(source, /\.eb-time-track \{[^}]*min-width: max-content/);
@@ -196,6 +196,7 @@ test('逐字时间轨显示句内偏移、支持单字编辑且只更新整句�
   assert.match(source, /class="eb-time-sentence-progress"/);
   assert.match(source, /--eb-sentence-progress/);
   assert.match(source, /timedTrailingGapMs\(row, next\)/);
+  assert.match(source, /if \(Number\.isFinite\(next\) && next > Number\(row\.time\)\) return \{ '--eb-time-grow': 0 \};/);
   assert.match(source, /return \{ '--eb-time-grow': Math\.max\(0, Number\(duration\) \|\| 0\) \};/);
   assert.doesNotMatch(source, /timedSpanFlexWeight\(duration\)/);
   assert.doesNotMatch(source, /eb-time-token-progress|--eb-token-progress|tokenProgressPercent|clearTokenProgress/);
@@ -304,4 +305,13 @@ test('和声迁移使用紧凑图标按钮并保留可访问名称', async () =>
   assert.match(source, /:aria-label="vi \? '并回主唱' : '标为和声'"/);
   assert.match(source, /function harmonyRowIcon\(vocal\) \{ return vocal\.id === 'main' \? '♫' : '↩'; \}/);
   assert.match(source, /toggleHarmonyRow\(vocal, r\)\">\{\{ harmonyRowIcon\(vocal\) \}\}/);
+});
+
+test('逐字时间轨高亮同时间戳簇，并按真实相邻时间布局', async () => {
+  const source = await component();
+  assert.match(source, /:class="\[timelineTokenClass\(r, wi\), \{ selected: isTimelineTokenSelected/);
+  assert.match(source, /function timelineTokenClass\(row, wordIndex\)/);
+  assert.match(source, /same-timestamp/);
+  assert.match(source, /timedTokenLayout\(row\.words, wordIndex/);
+  assert.match(source, /min-width: max-content/);
 });

@@ -9,7 +9,8 @@ test('时间轴视觉权重与拖动换算共享同一毫秒/像素标尺', asyn
   assert.match(source, /boundedTimedSelectionOffset/);
   assert.match(source, /Command 或 Ctrl 选择多个标记后整体拖动/);
   assert.match(source, /return \{ '--eb-time-grow': Number\.isFinite\(start\)[\s\S]*?first - start/);
-  assert.match(source, /return \{ '--eb-time-grow': Math\.max\(1, Number\(duration\) \|\| 1\) \};/);
+  assert.match(source, /const rowEnd = timedSentenceEndMs\(row, nextRowTime/);
+  assert.match(source, /return \{ '--eb-time-grow': layout\.duration \};/);
   assert.match(source, /return \{ '--eb-time-grow': Math\.max\(0, Number\(duration\) \|\| 0\) \};/);
   assert.match(source, /\.eb-time-token \{[\s\S]*?flex: var\(--eb-time-grow, 1\) 0 0;/);
   const tokenStyle = source.match(/function timelineTokenStyle\([\s\S]*?\n}/)?.[0] || '';

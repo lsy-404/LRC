@@ -7,7 +7,7 @@ test('句尾留白取四倍字均时间与下一句剩余间隔的较小值', ()
   assert.equal(timedCharacterAverageMs(row, 3000), 200);
   assert.equal(timedLastTokenSpanMs(row, 3000), 200);
   assert.equal(timedTrailingGapMs(row, 3000), 800);
-  assert.equal(timedSentenceEndMs(row, 3000), 2600);
+  assert.equal(timedSentenceEndMs(row, 3000), 3000);
 });
 
 test('末句在最后一个字之后保留四倍字均时间', () => {

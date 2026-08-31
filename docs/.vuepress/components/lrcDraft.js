@@ -339,6 +339,18 @@ export function timedTokenSpanMs(words, index, rowEnd = undefined, defaultGap = 
   return Math.max(1, end - start);
 }
 
+// Consecutive labels at one instant share the following real-time interval without overlapping.
+export function timedTokenLayout(words, index, rowEnd = undefined, defaultGap = 500) {
+  const list = words || []; const current = list[index]; if (!current) return { duration: 0, clusterSize: 0, clusterIndex: 0 };
+  const time = Number(current.time) || 0;
+  let clusterStart = index; let clusterEnd = index + 1;
+  while (clusterStart > 0 && Number(list[clusterStart - 1]?.time) === time) clusterStart--;
+  while (clusterEnd < list.length && Number(list[clusterEnd]?.time) === time) clusterEnd++;
+  const clusterSize = clusterEnd - clusterStart;
+  const duration = timedTokenSpanMs(list, clusterEnd - 1, rowEnd, defaultGap) / clusterSize;
+  return { duration: Math.max(1, duration), clusterSize, clusterIndex: index - clusterStart };
+}
+
 // Keep duration influence bounded so layout remains usable for both dense and sparse timing.
 export function timedSpanFlexWeight(duration, reference = 500) {
   const ms = Math.max(1, Number(duration) || 1);
@@ -389,6 +401,8 @@ export function timedTrailingGapMs(row, nextRowTime, defaultMs = 500) {
 
 export function timedSentenceEndMs(row, nextRowTime, defaultMs = 500) {
   const start = Number(row?.time);
+  const next = Number(nextRowTime);
+  if (Number.isFinite(start) && Number.isFinite(next) && next > start) return next;
   const words = row?.words || [];
   const last = Number(words[words.length - 1]?.time);
   const anchor = Number.isFinite(last) ? Math.max(Number.isFinite(start) ? start : 0, last) : (Number.isFinite(start) ? start : 0);
