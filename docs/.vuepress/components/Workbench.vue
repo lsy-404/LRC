@@ -24,6 +24,7 @@
         <button :class="{ on: tab === 'upload' }" role="tab" @click="tab = 'upload'">上传</button>
         <button :class="{ on: tab === 'edit' }" role="tab" @click="tab = 'edit'">修改</button>
         <button class="wb-help" type="button" @click="showGuide = true">使用指引</button>
+        <button class="wb-help" type="button" @click="logout">退出</button>
       </div>
       <!-- v-show 保留各面板状态：切 tab 不丢上传进度 / 编辑内容 -->
       <UploadBox v-show="tab === 'upload'" :password="password" />
@@ -111,6 +112,15 @@ function saveAuth(pw) {
 }
 function clearStoredAuth() {
   try { localStorage.removeItem(AUTH_KEY); } catch { /* noop */ }
+}
+function logout() {
+  clearStoredAuth();
+  password.value = '';
+  pwInput.value = '';
+  verified.value = false;
+  showGuide.value = false;
+  gateMsg.value = '';
+  gateErr.value = false;
 }
 
 async function verify(candidate, silent = false) {

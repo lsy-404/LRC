@@ -23,3 +23,12 @@ test('guide documents the complete submission flow and editor shortcuts', async 
   assert.match(source, /aria-modal="true"/);
   assert.match(source, /@keydown\.esc="closeGuide"/);
 });
+
+test('verified workbench lets a contributor clear persisted credentials and return to the gate', async () => {
+  const source = await readFile(workbench, 'utf8');
+
+  assert.match(source, /@click="logout">退出</);
+  assert.match(source, /function logout\(\) \{\s*clearStoredAuth\(\);/);
+  assert.match(source, /password\.value = '';\s*pwInput\.value = '';\s*verified\.value = false;/);
+  assert.match(source, /showGuide\.value = false;/);
+});
