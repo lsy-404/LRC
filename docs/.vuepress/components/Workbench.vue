@@ -1,5 +1,13 @@
 <template>
-  <div class="wb">
+  <div class="wb" :data-theme="resolvedTheme">
+    <div class="wb-themebar">
+      <label for="wb-theme">主题</label>
+      <select id="wb-theme" v-model="themePreference" class="wb-theme-select" aria-label="工作站主题">
+        <option value="system">跟随系统</option>
+        <option value="light">浅色</option>
+        <option value="dark">暗色</option>
+      </select>
+    </div>
     <!-- 验证（根层）：进工作站先统一验证一次，上传/修改都要求已验证 -->
     <section v-if="!verified && !restoring" class="wb-card">
       <div class="wb-row">
@@ -28,7 +36,7 @@
       </div>
       <!-- v-show 保留各面板状态：切 tab 不丢上传进度 / 编辑内容 -->
       <UploadBox v-show="tab === 'upload'" :password="password" />
-      <EditBox v-show="tab === 'edit'" :password="password" />
+      <EditBox v-show="tab === 'edit'" :password="password" :theme="resolvedTheme" />
 
       <div v-if="showGuide" class="wb-guide-backdrop" @click.self="closeGuide">
         <section
@@ -71,7 +79,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick, watch } from 'vue';
+import { computed, ref, onBeforeUnmount, onMounted, nextTick, watch } from 'vue';
 import UploadBox from './UploadBox.vue';
 import EditBox from './EditBox.vue';
 
@@ -89,6 +97,22 @@ const gateErr = ref(false);
 const showGuide = ref(false);
 const guidePanel = ref(null);
 const INTRO_KEY = 'lrc-workstation-intro-seen';
+const THEME_KEY = 'lrc-workstation-theme';
+const themePreference = ref('system');
+const systemDark = ref(false);
+let themeMedia;
+const updateSystemTheme = (event) => { systemDark.value = event.matches; };
+
+const resolvedTheme = computed(() => themePreference.value === 'system'
+  ? (systemDark.value ? 'dark' : 'light')
+  : themePreference.value);
+
+function loadThemePreference() {
+  try {
+    const stored = localStorage.getItem(THEME_KEY);
+    return ['system', 'light', 'dark'].includes(stored) ? stored : 'system';
+  } catch { return 'system'; }
+}
 
 function hasSeenIntro() {
   try { return localStorage.getItem(INTRO_KEY) === '1'; } catch { return false; }
@@ -151,6 +175,10 @@ async function verify(candidate, silent = false) {
 }
 
 onMounted(async () => {
+  themePreference.value = loadThemePreference();
+  themeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+  systemDark.value = themeMedia.matches;
+  themeMedia.addEventListener('change', updateSystemTheme);
   const stored = loadStoredAuth();
   if (stored) {
     restoring.value = true;
@@ -159,19 +187,51 @@ onMounted(async () => {
   }
 });
 
+watch(themePreference, (value) => {
+  try { localStorage.setItem(THEME_KEY, value); } catch { /* 隐私模式等不可写，仍保留当前会话选择 */ }
+});
+
 watch(showGuide, (open) => {
   if (open) nextTick(() => guidePanel.value?.focus());
 });
+
+onBeforeUnmount(() => themeMedia?.removeEventListener('change', updateSystemTheme));
 </script>
 
 <style scoped>
-.wb { margin: 1.5rem 0; --wb-accent: var(--theme-color, #3a7afe); }
+.wb {
+  margin: 1.5rem 0;
+  --wb-accent: var(--theme-color, #3a7afe);
+  --wb-surface: #fff;
+  --wb-surface-raised: #f6f8fa;
+  --wb-text: #24292f;
+  --wb-muted: #57606a;
+  --bg-color: var(--wb-surface);
+  --text-color: var(--wb-text);
+  --text-color-secondary: var(--wb-muted);
+  --border-color: #d0d7de;
+  color: var(--wb-text);
+  color-scheme: light;
+}
+.wb[data-theme='dark'] {
+  --wb-accent: #58a6ff;
+  --wb-surface: #161b22;
+  --wb-surface-raised: #1c2128;
+  --wb-text: #e6edf3;
+  --wb-muted: #8b949e;
+  --border-color: #30363d;
+  color-scheme: dark;
+}
+.wb-themebar { display: flex; justify-content: flex-end; align-items: center; gap: .45rem; margin: 0 0 .7rem; color: var(--wb-muted); font-size: .8rem; }
+.wb-theme-select { border: 1px solid var(--border-color); border-radius: 6px; padding: .28rem .45rem; background: var(--wb-surface-raised); color: var(--wb-text); font: inherit; }
+.wb-theme-select:focus-visible, .wb-tabs button:focus-visible, .wb-help:focus-visible, .wb-btn:focus-visible, .wb-icon-btn:focus-visible { outline: 2px solid var(--wb-accent); outline-offset: 2px; }
 
 .wb-card {
   border: 1px solid var(--border-color, #ddd);
   border-radius: 10px;
   padding: 1.1rem 1.3rem;
   margin-bottom: 1rem;
+  background: var(--wb-surface-raised);
 }
 .wb-verified { color: var(--wb-accent); font-size: .85rem; margin: 0 0 1rem; }
 .wb-row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
@@ -179,7 +239,7 @@ watch(showGuide, (open) => {
   padding: .5rem .65rem;
   border: 1px solid var(--border-color, #ddd);
   border-radius: 7px;
-  background: transparent;
+  background: var(--wb-surface);
   color: inherit;
   font-size: .9rem;
   box-sizing: border-box;
@@ -195,7 +255,7 @@ watch(showGuide, (open) => {
   border: 1px solid var(--border-color, #ddd);
   border-radius: 7px;
   cursor: pointer;
-  background: transparent;
+  background: var(--wb-surface-raised);
   color: inherit;
   font-size: .85rem;
 }
@@ -213,7 +273,7 @@ watch(showGuide, (open) => {
 .wb-tabs button {
   padding: .5rem 1.2rem;
   border: none;
-  background: transparent;
+  background: var(--wb-surface-raised);
   color: inherit;
   font-size: .95rem;
   cursor: pointer;
@@ -253,8 +313,8 @@ watch(showGuide, (open) => {
   border: 1px solid var(--border-color, #ddd);
   border-radius: 12px;
   padding: clamp(1.1rem, 3vw, 1.6rem);
-  background: var(--bg-color, #fff);
-  color: var(--text-color, #222);
+  background: var(--wb-surface-raised);
+  color: var(--wb-text);
   box-shadow: 0 16px 48px rgb(0 0 0 / 22%);
 }
 .wb-guide:focus { outline: 2px solid var(--wb-accent); outline-offset: 3px; }

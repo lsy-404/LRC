@@ -8,6 +8,7 @@ import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 const props = defineProps({
   modelValue: { type: String, default: '' },
   language: { type: String, default: 'lrc' },
+  theme: { type: String, default: '' },
   readOnly: { type: Boolean, default: false },
   ariaLabel: { type: String, default: 'LRC 源码编辑器' },
 });
@@ -58,7 +59,10 @@ function registerLrcLanguage(api) {
   });
 }
 
-function applyTheme() { if (monaco) monaco.editor.setTheme(media?.matches ? 'lrc-dark' : 'lrc-light'); }
+function applyTheme() {
+  if (!monaco) return;
+  monaco.editor.setTheme(props.theme === 'dark' || (!props.theme && media?.matches) ? 'lrc-dark' : 'lrc-light');
+}
 
 onMounted(async () => {
   const [apiModule, editorWorkerModule] = await Promise.all([
@@ -88,6 +92,7 @@ watch(() => props.modelValue, (value) => {
   syncing = true; model.setValue(value); syncing = false;
 });
 watch(() => props.readOnly, (value) => editor?.updateOptions({ readOnly: value }));
+watch(() => props.theme, applyTheme);
 watch(() => props.language, (value) => model && monaco.editor.setModelLanguage(model, value));
 
 onBeforeUnmount(() => {

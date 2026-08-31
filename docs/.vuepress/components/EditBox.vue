@@ -168,7 +168,7 @@
               <span class="eb-spacer" />
               <button class="eb-btn small" :disabled="t.authoritativeLrc" @click="applySourceEditor(t)">应用源码</button>
             </div>
-            <MonacoLrcEditor v-model="t._sourceText" language="lrc" :read-only="t.authoritativeLrc" :aria-label="`${t.title || '当前曲目'} ${t._sourceFormat.toUpperCase()} 源码编辑器`" />
+            <MonacoLrcEditor v-model="t._sourceText" language="lrc" :theme="props.theme" :read-only="t.authoritativeLrc" :aria-label="`${t.title || '当前曲目'} ${t._sourceFormat.toUpperCase()} 源码编辑器`" />
             <p v-if="t._sourceMessage" class="eb-msg" :class="{ err: t._sourceError }">{{ t._sourceMessage }}</p>
           </section>
 
@@ -347,7 +347,10 @@ const META_FIELDS = [
 ];
 
 // 验证在工作站根层（Workbench）统一完成，密码经 prop 传入
-const props = defineProps({ password: { type: String, default: '' } });
+const props = defineProps({
+  password: { type: String, default: '' },
+  theme: { type: String, default: '' },
+});
 const toSimplified = OpenCC.Converter({ from: 't', to: 'cn' });
 const PLAYBACK_RATES = [0.1, 0.25, 0.5, 1, 1.5, 2];
 const SOURCE_CURSOR_INTERVAL_MS = 40;
