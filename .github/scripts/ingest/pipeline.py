@@ -154,7 +154,10 @@ def extract_audio_meta(audios: list[Path]) -> tuple[dict, str]:
 
 def _tag_text(tags: dict, *keys: str) -> str:
     for key in keys:
-        value = tags.get(key)
+        try:
+            value = tags.get(key)
+        except (KeyError, TypeError, ValueError):
+            continue
         if value:
             text = str(value[0] if isinstance(value, (list, tuple)) else value).strip()
             if text:

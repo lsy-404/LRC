@@ -64,6 +64,18 @@ class ContainerAudioMetadataTests(unittest.TestCase):
             self.assertEqual(tracks[0]["title"], "M4A 曲名")
             self.assertEqual(tracks[0]["order"], 3)
 
+    def test_vorbis_tags_skip_mp4_only_keys(self):
+        from mutagen.flac import VCFLACDict
+
+        with tempfile.TemporaryDirectory() as directory:
+            audio = Path(directory) / "track.flac"
+            audio.write_bytes(b"fLaC")
+            tags = VCFLACDict()
+            with mock.patch.object(pipeline, "read_audio_tags", return_value=type("Audio", (), {"tags": tags})()):
+                tracks = [{"file": "track.flac", "title": "猜测", "order": 9}]
+                pipeline.apply_audio_tag_metadata(tracks, [audio], {})
+            self.assertEqual(tracks, [{"file": "track.flac", "title": "猜测", "order": 9}])
+
 
 if __name__ == "__main__":
     unittest.main()
