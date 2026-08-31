@@ -855,6 +855,29 @@ def track_needs_align(track: dict) -> bool:
     return bool(track.get("edited")) or not track.get("aligned") or not track.get("lrc")
 
 
+_BY_TAG_RE = re.compile(r"^\[by\s*[:：][^\]]*\]\s*$", re.IGNORECASE)
+
+
+def fill_lyric_maker_tag(content: str, lyric_makers: list[str]) -> str:
+    """Set the LRC by tag without changing the remaining header or lyrics."""
+    by = "/".join(str(name).strip() for name in lyric_makers if str(name).strip())
+    tag = f"[by:{by}]"
+    lines = str(content or "").splitlines(keepends=True)
+    for index, line in enumerate(lines):
+        if _BY_TAG_RE.fullmatch(line.rstrip("\r\n")):
+            ending = "\r\n" if line.endswith("\r\n") else "\n" if line.endswith("\n") else ""
+            lines[index] = tag + ending
+            return "".join(lines)
+
+    ending = "\r\n" if "\r\n" in content else "\n"
+    insert_at = 0
+    for index, line in enumerate(lines[:8]):
+        if re.fullmatch(r"\[(?:ti|al|ar)\s*:[^\]]*\]\s*", line.rstrip("\r\n"), re.IGNORECASE):
+            insert_at = index + 1
+    lines.insert(insert_at, tag + ending)
+    return "".join(lines)
+
+
 _TIMED_LYRIC_LINE_RE = re.compile(r"^\[(\d{1,3}):(\d{2})(?:[.:](\d{1,3}))?\]")
 
 
@@ -1170,6 +1193,10 @@ def finalize(
         else:
             lrc, cov, lrc_words = t["lrc"], float(t.get("coverage") or 0.0), t.get("klrc")
         lrc, lrc_words = merge_vocal_outputs(lrc, lrc_words, t.get("vocals"))
+        if not t.get("authoritative_lrc"):
+            lrc = fill_lyric_maker_tag(lrc, meta.get("lyric_maker") or [])
+            if lrc_words:
+                lrc_words = fill_lyric_maker_tag(lrc_words, meta.get("lyric_maker") or [])
         covs.append(cov)
         # build_track_lrc 匹配到音频后可能已用音频文件名回填空标题，故在其后取值
         basename = _output_basename(t, order, include_order=not single_submission)
