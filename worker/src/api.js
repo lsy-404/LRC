@@ -10,6 +10,7 @@ import { onRequestPost as retryIngest } from '../../functions/api/ingest/retry.j
 import { onRequestPost as saveIngest } from '../../functions/api/ingest/save.js';
 import { onRequestGet as stateIngest } from '../../functions/api/ingest/state.js';
 import { onRequestGet as audioIngest } from '../../functions/api/ingest/audio.js';
+import { onCatalogGet, onCreatePost, onDraftGet, onExtractPost, onListGet, onLrcPost, onOpenPost, onSavePost } from '../../functions/api/workspace.js';
 import { json, cleanRef } from './lib.js';
 
 const ROUTES = new Map([
@@ -27,6 +28,14 @@ const ROUTES = new Map([
   ['POST /api/ingest/continue', continueIngest],
   ['POST /api/ingest/discard', discardIngest],
   ['POST /api/ingest/retry', retryIngest],
+  ['GET /api/workspace/catalog', onCatalogGet],
+  ['GET /api/workspace/list', onListGet],
+  ['GET /api/workspace/draft', onDraftGet],
+  ['POST /api/workspace/create', onCreatePost],
+  ['POST /api/workspace/open', onOpenPost],
+  ['POST /api/workspace/lrc', onLrcPost],
+  ['POST /api/workspace/save', onSavePost],
+  ['POST /api/workspace/extract', onExtractPost],
 ]);
 
 async function callJob(env, name, path, body) {

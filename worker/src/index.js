@@ -7,7 +7,7 @@ export { PipelineRunner } from './runner.js';
 // 生成作业自己提交回 main，会再触发一次 webhook——按提交者跳过，避免自激
 const BOT_NAME = 'lrc-ingest[bot]';
 const WATCHED = ['res/', '.github/'];
-const WORKSTATION_API = ['/api/upload/', '/api/ingest/'];
+const WORKSTATION_API = ['/api/upload/', '/api/ingest/', '/api/workspace/'];
 const INTERNAL_PATHS = new Set(['/store', '/state', '/ingest', '/finalize', '/discard', '/generate', '/diag']);
 
 function jobStub(env, name) {
