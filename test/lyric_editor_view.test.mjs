@@ -6,6 +6,22 @@ const component = () => readFile(new URL('../docs/.vuepress/components/EditBox.v
 const uploadComponent = () => readFile(new URL('../docs/.vuepress/components/UploadBox.vue', import.meta.url), 'utf8');
 const workbenchComponent = () => readFile(new URL('../docs/.vuepress/components/Workbench.vue', import.meta.url), 'utf8');
 
+test('审核工作站以 Explorer 资源树切换 Meta 与当前曲目，右侧保持独立编辑区', async () => {
+  const source = await component();
+  assert.match(source, /class="eb-editor-shell rise"/);
+  assert.match(source, /class="eb-activity-bar" aria-label="工作站活动栏"/);
+  assert.match(source, /class="eb-explorer" aria-label="审核专辑资源树"/);
+  assert.match(source, /@click="selectMeta\(e\)"/);
+  assert.match(source, /@click="selectEditorTrack\(e, index\)"/);
+  assert.match(source, /const selectedEdits = computed/);
+  assert.match(source, /_activePane: 'meta'/);
+  assert.match(source, /<div v-if="e\._activePane === 'meta'" class="eb-meta-editor">/);
+  assert.match(source, /<div v-else class="eb-track-editor">/);
+  assert.match(source, /function selectEditorTrack\(edit, index\) \{[\s\S]*?edit\._activePane = 'track';[\s\S]*?await selectTrack\(edit\);/);
+  assert.match(source, /保存专辑信息/);
+  assert.match(source, /@media \(max-width: 520px\) \{[\s\S]*?\.eb-editor-shell \{ display: block;/);
+});
+
 test('每张专辑只渲染当前选中轨，并在选择时读取该轨原音', async () => {
   const source = await component();
   assert.match(source, /v-model\.number="e\._selectedTrack"/);

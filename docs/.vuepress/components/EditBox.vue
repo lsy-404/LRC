@@ -68,8 +68,36 @@
         <p>{{ jobInfo?.result?.pr ? `Phase B 已完成，已创建 PR #${jobInfo.result.pr}。` : 'Phase B 正在对齐并整理，稍后会开出 PR 供审核。' }}</p>
       </section>
 
-      <!-- 逐专辑编辑 -->
-      <section v-for="e in edits" :key="e._storageAlbum" class="eb-card rise">
+      <!-- 编辑器内核：Explorer 只负责选择，右侧才承载当前条目的编辑内容。 -->
+      <section v-if="edits.length" class="eb-editor-shell rise">
+        <nav class="eb-activity-bar" aria-label="工作站活动栏">
+          <span class="eb-activity-mark" aria-hidden="true">☰</span>
+          <span class="eb-activity-mark active" aria-hidden="true">♫</span>
+        </nav>
+        <aside class="eb-explorer" aria-label="审核专辑资源树">
+          <div class="eb-explorer-title">EXPLORER</div>
+          <div v-for="e in edits" :key="e._storageAlbum" class="eb-tree-album">
+            <button class="eb-tree-album-name" type="button" :class="{ active: e._storageAlbum === selectedAlbumKey }" @click="selectAlbum(e)">
+              {{ e.album || '未命名专辑' }}
+            </button>
+            <div v-if="e._storageAlbum === selectedAlbumKey" class="eb-tree-children">
+              <button class="eb-tree-item" type="button" :class="{ active: e._activePane === 'meta' }" @click="selectMeta(e)">
+                <span aria-hidden="true">◇</span> Meta
+              </button>
+              <button v-for="(track, index) in e.tracks" :key="track._id" class="eb-tree-item" type="button" :class="{ active: e._activePane === 'track' && e._selectedTrack === index }" @click="selectEditorTrack(e, index)">
+                <span class="eb-tree-order">{{ String(track.order).padStart(2, '0') }}</span>{{ track.title || '未命名曲目' }}
+              </button>
+            </div>
+          </div>
+        </aside>
+        <main class="eb-editor-main" aria-label="编辑器">
+          <section v-for="e in selectedEdits" :key="e._storageAlbum" class="eb-editor-pane">
+            <header class="eb-editor-titlebar">
+              <span class="eb-editor-title-icon" aria-hidden="true">{{ e._activePane === 'meta' ? '◇' : '♫' }}</span>
+              <strong>{{ e._activePane === 'meta' ? `Meta · ${e.album || '未命名专辑'}` : (e.tracks[e._selectedTrack]?.title || '未命名曲目') }}</strong>
+              <span class="eb-dim">{{ e._activePane === 'meta' ? '整专信息' : '歌词与时间轴' }}</span>
+            </header>
+            <div v-if="e._activePane === 'meta'" class="eb-meta-editor">
         <label class="eb-flabel" :for="`album-${e._storageAlbum}`">专辑名称</label>
         <input :id="`album-${e._storageAlbum}`" v-model="e.album" class="eb-input eb-album" aria-label="专辑名称" @input="syncPendingDisplay(e)">
 
@@ -79,7 +107,9 @@
             <input v-model="e.meta[f.key]" class="eb-input" :placeholder="f.list ? '多个用、分隔' : ''">
           </div>
         </div>
+            </div>
 
+        <div v-else class="eb-track-editor">
         <div class="eb-track-select">
           <label :for="`track-${e._storageAlbum}`">曲目</label>
           <select :id="`track-${e._storageAlbum}`" v-model.number="e._selectedTrack" class="eb-select" @change="selectTrack(e)">
@@ -219,7 +249,9 @@
             @timeupdate="sourceTime(t, $event)"
           />
         </div>
+        </div>
 
+        <div v-if="e._activePane === 'meta'">
         <details v-if="e.pages.length" class="eb-pages">
           <summary>OCR 原文（{{ e.pages.length }} 页 · 只读参考）</summary>
           <div v-for="p in e.pages" :key="p.name" class="eb-page">
@@ -240,16 +272,19 @@
           <button v-if="e.coverRemoved" class="eb-btn small" @click="e.coverRemoved = false">撤销移除</button>
           <span v-if="e._coverBusy" class="eb-dim">上传中…</span>
         </div>
+        </div>
 
-        <div class="eb-row">
+        <div class="eb-row eb-editor-actions">
           <button class="eb-btn" :disabled="e._saving" @click="save(e)">
-            {{ e._saving ? '保存中…' : '保存修改' }}
+            {{ e._saving ? '保存中…' : (e._activePane === 'meta' ? '保存专辑信息' : '保存修改') }}
           </button>
           <button class="eb-btn danger" :disabled="discarding" @click="discard(curRef, e._storageAlbum, e.album)">
             {{ discarding ? '丢弃中…' : '丢弃此草稿' }}
           </button>
           <span v-if="e._msg" class="eb-msg inline" :class="{ err: e._err }">{{ e._msg }}</span>
         </div>
+          </section>
+        </main>
       </section>
 
       <section v-if="edits.length && !done" class="eb-card">
@@ -303,6 +338,7 @@ const loading = ref(false);
 const msg = ref('');
 const msgErr = ref(false);
 const edits = ref([]);
+const selectedAlbumKey = ref('');
 const continuing = ref(false);
 const discarding = ref(false);
 const done = ref(false);
@@ -323,6 +359,21 @@ const workbenchTracks = new WeakMap();
 let activeWorkbenchTrack = null;
 
 const recentRefs = computed(() => dedupeRecent(cachedRefs.value, pending.value));
+const selectedEdits = computed(() => edits.value.filter((edit) => edit._storageAlbum === selectedAlbumKey.value));
+
+function selectAlbum(edit) {
+  selectedAlbumKey.value = edit._storageAlbum;
+}
+function selectMeta(edit) {
+  selectAlbum(edit);
+  edit._activePane = 'meta';
+}
+async function selectEditorTrack(edit, index) {
+  selectAlbum(edit);
+  edit._selectedTrack = index;
+  edit._activePane = 'track';
+  await selectTrack(edit);
+}
 
 function authHeaders() {
   return { authorization: 'Bearer ' + encodeURIComponent(props.password) };
@@ -966,6 +1017,7 @@ function toEdit(album, draft) {
     _originalAlbum: draft.album || album,
     _draft: draft,
     meta,
+    _activePane: 'meta',
     _selectedTrack: 0,
     tracks: (draft.tracks || []).map((t) => {
       const makeVocal = (part) => {
@@ -1078,6 +1130,7 @@ async function load(silent = false) {
       clearTimeDrag();
       releaseAllTracks();
       edits.value = [];
+      selectedAlbumKey.value = '';
       msgErr.value = false;
       msg.value = jobInfo.value?.message || '处理中，页面每 12 秒自动刷新…';
       startPoll();
@@ -1086,6 +1139,7 @@ async function load(silent = false) {
       clearTimeDrag();
       releaseAllTracks();
       edits.value = [];
+      selectedAlbumKey.value = '';
       done.value = false;
       msgErr.value = true;
       msg.value = jobInfo.value?.error || '处理失败';
@@ -1094,6 +1148,7 @@ async function load(silent = false) {
       clearTimeDrag();
       releaseAllTracks();
       edits.value = [];
+      selectedAlbumKey.value = '';
       done.value = true;
       msgErr.value = false;
       msg.value = '';
@@ -1104,6 +1159,7 @@ async function load(silent = false) {
       releaseAllTracks();
       edits.value = (data.albums || []).filter((a) => a.draft)
         .map((a) => toEdit(a.storage_album, a.draft));
+      selectedAlbumKey.value = edits.value[0]?._storageAlbum || '';
       await nextTick();
       for (const edit of edits.value) await selectTrack(edit);
       msgErr.value = false;
@@ -1282,6 +1338,39 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .eb { margin: 1.5rem 0; --eb-accent: var(--theme-color, #3a7afe); }
+.eb-editor-shell {
+  display: grid;
+  grid-template-columns: 2.7rem minmax(12rem, 17rem) minmax(0, 1fr);
+  min-height: 42rem;
+  margin: 1rem 0;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 10px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--bg-color, #fff) 94%, var(--eb-accent));
+}
+.eb-activity-bar { display: flex; flex-direction: column; align-items: center; gap: .8rem; padding: .75rem 0; border-right: 1px solid var(--border-color, #ddd); background: color-mix(in srgb, currentColor 5%, transparent); }
+.eb-activity-mark { display: grid; place-items: center; width: 1.8rem; height: 1.8rem; color: inherit; opacity: .5; font-size: 1rem; }
+.eb-activity-mark.active { color: var(--eb-accent); opacity: 1; border-left: 2px solid var(--eb-accent); }
+.eb-explorer { min-width: 0; padding: .75rem .45rem; border-right: 1px solid var(--border-color, #ddd); background: color-mix(in srgb, currentColor 3%, transparent); overflow: auto; }
+.eb-explorer-title { padding: 0 .45rem .65rem; font-size: .66rem; font-weight: 700; letter-spacing: .08em; opacity: .65; }
+.eb-tree-album + .eb-tree-album { margin-top: .35rem; }
+.eb-tree-album-name, .eb-tree-item { display: flex; width: 100%; min-width: 0; gap: .45rem; align-items: center; border: 0; border-radius: 4px; padding: .38rem .45rem; background: transparent; color: inherit; font: inherit; font-size: .82rem; text-align: left; cursor: pointer; }
+.eb-tree-album-name { font-weight: 650; }
+.eb-tree-album-name:hover, .eb-tree-item:hover { background: color-mix(in srgb, var(--eb-accent) 10%, transparent); }
+.eb-tree-album-name.active { color: var(--eb-accent); }
+.eb-tree-children { margin: .1rem 0 .3rem .5rem; border-left: 1px solid color-mix(in srgb, var(--border-color, #ddd) 80%, transparent); }
+.eb-tree-item { padding-left: .6rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.eb-tree-item.active { background: color-mix(in srgb, var(--eb-accent) 16%, transparent); color: var(--eb-accent); }
+.eb-tree-order { flex: none; width: 1.35rem; font-family: var(--font-family-mono, monospace); font-size: .69rem; opacity: .65; }
+.eb-editor-main { min-width: 0; background: var(--bg-color, #fff); }
+.eb-editor-pane { min-width: 0; }
+.eb-editor-titlebar { display: flex; min-height: 2.7rem; align-items: center; gap: .55rem; padding: 0 .9rem; border-bottom: 1px solid var(--border-color, #ddd); font-size: .85rem; }
+.eb-editor-titlebar strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.eb-editor-titlebar .eb-dim { margin-left: auto; white-space: nowrap; font-size: .75rem; }
+.eb-editor-title-icon { color: var(--eb-accent); }
+.eb-meta-editor, .eb-track-editor, .eb-editor-pane > .eb-pages, .eb-editor-pane > .eb-cover, .eb-editor-actions { margin-right: .9rem; margin-left: .9rem; }
+.eb-meta-editor, .eb-track-editor { padding-top: .9rem; }
+.eb-editor-actions { padding-bottom: .9rem; }
 .eb-card {
   border: 1px solid var(--border-color, #ddd);
   border-radius: 10px;
@@ -1523,6 +1612,19 @@ onBeforeUnmount(() => {
   .eb-pending-open { flex-basis: 100%; flex-direction: column; align-items: flex-start; gap: .15rem; }
   .eb-p-meta { max-width: 100%; }
   .eb-p-right { width: 100%; justify-content: flex-end; }
+}
+
+@media (max-width: 720px) {
+  .eb-editor-shell { grid-template-columns: 2.35rem minmax(9.5rem, 38vw) minmax(0, 1fr); min-height: 0; }
+  .eb-explorer { padding-right: .25rem; padding-left: .25rem; }
+  .eb-editor-titlebar { padding: 0 .65rem; }
+  .eb-editor-titlebar .eb-dim { display: none; }
+  .eb-meta-editor, .eb-track-editor, .eb-editor-actions { margin-right: .65rem; margin-left: .65rem; }
+}
+@media (max-width: 520px) {
+  .eb-editor-shell { display: block; }
+  .eb-activity-bar { display: none; }
+  .eb-explorer { border-right: 0; border-bottom: 1px solid var(--border-color, #ddd); max-height: 12rem; }
 }
 
 .eb-msg { font-size: .85rem; margin: .6rem 0 0; color: var(--eb-accent); }
