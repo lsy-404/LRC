@@ -152,6 +152,27 @@
             <button class="eb-btn small" :disabled="t.authoritativeLrc || !canRedo(t)" @click="redoTrack(t)">恢复</button>
           </div>
 
+          <div class="eb-edit-switch eb-source-switch" role="tablist" aria-label="歌词编辑模式">
+            <button class="eb-btn small" :class="{ on: t._editorMode === 'visual' }" role="tab" :aria-selected="t._editorMode === 'visual'" @click="openVisualEditor(t)">可视化编辑</button>
+            <button class="eb-btn small" :class="{ on: t._editorMode === 'source' }" role="tab" :aria-selected="t._editorMode === 'source'" @click="openSourceEditor(t)">源码编辑</button>
+          </div>
+
+          <section v-if="t._editorMode === 'source'" class="eb-source-editor" aria-label="当前曲目源码编辑">
+            <div class="eb-source-bar">
+              <label :for="`source-format-${t._id}`">格式</label>
+              <select :id="`source-format-${t._id}`" v-model="t._sourceFormat" class="eb-select" :disabled="t.authoritativeLrc" @change="changeSourceFormat(t)">
+                <option value="lrc">LRC</option>
+                <option value="klrc">KLRC（逐字）</option>
+              </select>
+              <span class="eb-dim">{{ t.authoritativeLrc ? '权威歌词只读' : '修改后需明确应用' }}</span>
+              <span class="eb-spacer" />
+              <button class="eb-btn small" :disabled="t.authoritativeLrc" @click="applySourceEditor(t)">应用源码</button>
+            </div>
+            <MonacoLrcEditor v-model="t._sourceText" language="lrc" :read-only="t.authoritativeLrc" :aria-label="`${t.title || '当前曲目'} ${t._sourceFormat.toUpperCase()} 源码编辑器`" />
+            <p v-if="t._sourceMessage" class="eb-msg" :class="{ err: t._sourceError }">{{ t._sourceMessage }}</p>
+          </section>
+
+          <template v-else>
           <div class="eb-vocal-legend" aria-label="主唱与和声图例">
             <span class="eb-vocal-key main">主唱</span>
             <span v-if="hasHarmony(t)" class="eb-vocal-key harmony">和声</span>
@@ -248,6 +269,7 @@
             @durationchange="sourceReady(t, $event)"
             @timeupdate="sourceTime(t, $event)"
           />
+          </template>
         </div>
         </div>
 
@@ -298,6 +320,7 @@
 <script setup>
 import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import OpenCC from 'opencc-js/t2cn';
+import MonacoLrcEditor from './MonacoLrcEditor.vue';
 import { stripFlacPictureBlocks } from '../lib/flac.js';
 import { readRefs, removeRef, dedupeRecent } from './refsCache.js';
 import {
@@ -427,7 +450,60 @@ const pct = (v) => Math.round((Number(v) || 0) * 100) + '%';
 const newId = () => nextEditorId++;
 const TIMELINE_MS_PER_PIXEL = 5;
 const TIMELINE_PADDING_PX = 64;
+const LRC_SOURCE_TAG = /^\[[a-zA-Z][\w-]*:[^\]]*\]$/;
+const LRC_SOURCE_TIME = /^\[\d{1,3}:\d{2}(?:[.:]\d{1,3})?\]/;
+const LRC_SOURCE_WORD_TIME = /<\d{1,3}:\d{2}(?:[.:]\d{1,3})?>/g;
 function syncTrackText(t) { t.text = linesToText(t.rows.map((row) => row.text)); }
+
+function sourceTextFor(t, format = t._sourceFormat) {
+  persistVocal(t);
+  const main = t._vocals[0];
+  const source = serializeTimedLyrics(main?.head, main?.rows);
+  return format === 'klrc' ? source.klrc : source.lrc;
+}
+function openVisualEditor(t) { t._editorMode = 'visual'; t._sourceMessage = ''; }
+function openSourceEditor(t) {
+  t._sourceFormat ||= 'lrc';
+  t._sourceText = sourceTextFor(t);
+  t._sourceError = false; t._sourceMessage = '';
+  t._editorMode = 'source';
+}
+function changeSourceFormat(t) { t._sourceText = sourceTextFor(t, t._sourceFormat); t._sourceError = false; t._sourceMessage = ''; }
+function invalidSourceLine(line) {
+  const value = line.trim();
+  if (!value || !value.startsWith('[')) return false;
+  const prefix = value.match(/^\[[^\]]*\]/)?.[0] || '';
+  return !LRC_SOURCE_TIME.test(value) && !LRC_SOURCE_TAG.test(prefix);
+}
+function applySourceEditor(t) {
+  if (t.authoritativeLrc) return;
+  const text = String(t._sourceText || '').replace(/\r\n?/g, '\n');
+  const badLine = text.split('\n').find(invalidSourceLine);
+  if (badLine) { t._sourceError = true; t._sourceMessage = `无法应用：无效的 LRC 标签「${badLine.trim()}」`; return; }
+  const parsed = parseLrc(text);
+  const parsedRows = parseKaraokeRows(text, t._sourceFormat === 'klrc' ? text : '');
+  if (!parsedRows.length && text.trim()) { t._sourceError = true; t._sourceMessage = '无法应用：源码中没有有效的时间歌词行。'; return; }
+  persistVocal(t);
+  const main = t._vocals[0];
+  const rows = parsedRows.map((row, index) => {
+    const words = row.words.map((word) => ({ ...word, _id: newId() }));
+    return {
+      _id: newId(), time: Number(row.time) || 0, text: row.text,
+      words: t._sourceFormat === 'klrc' ? words : expandTimedTokens(words, newId, 100, Number(parsedRows[index + 1]?.time)),
+    };
+  });
+  main.head = parsed.head;
+  main.rows = rows;
+  main.text = linesToText(rows.map((row) => row.text));
+  main.timingLocked = true;
+  main.untimed = false;
+  if (t._selectedVocal === 0) {
+    t.head = main.head; t.rows = main.rows; t.text = main.text; t.timingLocked = main.timingLocked; t._view = main._view;
+  }
+  t._sourceText = sourceTextFor(t);
+  t._sourceError = false; t._sourceMessage = '已应用到当前曲目的时间轴与保存草稿。';
+  commitHistory(t);
+}
 function nextRowTime(t, rowIndex) { return Number(t.rows[rowIndex + 1]?.time); }
 function timelineTrackStyle(t, row, rowIndex) {
   const next = nextRowTime(t, rowIndex);
@@ -1036,6 +1112,7 @@ function toEdit(album, draft) {
         head: primary.head, rows: primary.rows, timingLocked: primary.timingLocked, _view: primary._view, _playing: false, _speed: 1, _previewMs: 0, _textDirty: false,
         _audioUrl: '', _audioElement: null, _audioLoading: false, _audioAbort: null, _audioLoadId: 0, _audioProgress: -1, _audioErr: '', _audioDuration: 0, _sourcePlaying: false, _sourceTimer: null, _previewTimer: null, _volume: 1,
         text: primary.text, _orig: t, _vocals: vocals, _selectedVocal: 0,
+        _editorMode: 'visual', _sourceFormat: 'lrc', _sourceText: '', _sourceMessage: '', _sourceError: false,
       };
       if (!track.authoritativeLrc) sanitizeGeneratedTrack(track);
       track._history = createLyricHistory(track);
@@ -1463,6 +1540,9 @@ onBeforeUnmount(() => {
 .eb-vocal-lane { border-left: 3px solid var(--eb-vocal-color); padding-left: .55rem; margin: .7rem 0; }
 .eb-vocal-lane-label { display: flex; justify-content: space-between; gap: .5rem; align-items: center; margin: 0 0 .35rem; font-size: .78rem; }
 .eb-vocal-lane .eb-edit-switch { margin: 0; }
+.eb-source-switch { justify-content: flex-end; margin: 0 0 .65rem; }
+.eb-source-editor { margin: .65rem 0; }
+.eb-source-bar { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem; margin: 0 0 .45rem; font-size: .78rem; }
 .eb-spacer { flex: 1; }
 .eb-btn.on { border-color: var(--eb-accent); color: var(--eb-accent); }
 

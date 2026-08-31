@@ -5,6 +5,27 @@ import { readFile } from 'node:fs/promises';
 const component = () => readFile(new URL('../docs/.vuepress/components/EditBox.vue', import.meta.url), 'utf8');
 const uploadComponent = () => readFile(new URL('../docs/.vuepress/components/UploadBox.vue', import.meta.url), 'utf8');
 const workbenchComponent = () => readFile(new URL('../docs/.vuepress/components/Workbench.vue', import.meta.url), 'utf8');
+const monacoComponent = () => readFile(new URL('../docs/.vuepress/components/MonacoLrcEditor.vue', import.meta.url), 'utf8');
+
+test('当前曲目可在可视化与 Monaco 源码编辑间切换，源码须显式应用', async () => {
+  const [source, monaco] = await Promise.all([component(), monacoComponent()]);
+  assert.match(source, /import MonacoLrcEditor from '\.\/MonacoLrcEditor\.vue'/);
+  assert.match(source, /可视化编辑/);
+  assert.match(source, /源码编辑/);
+  assert.match(source, /<MonacoLrcEditor v-model="t\._sourceText" language="lrc"/);
+  assert.match(source, /@click="applySourceEditor\(t\)"/);
+  assert.match(source, /:disabled="t\.authoritativeLrc" @click="applySourceEditor\(t\)"/);
+  assert.match(source, /function applySourceEditor\(t\)[\s\S]*?parseLrc\(text\)[\s\S]*?parseKaraokeRows\(text, t\._sourceFormat === 'klrc' \? text : ''\)/);
+  assert.match(source, /_editorMode: 'visual', _sourceFormat: 'lrc'/);
+  assert.match(source, /main\.rows = rows[\s\S]*?main\.timingLocked = true[\s\S]*?commitHistory\(t\)/);
+  assert.match(monaco, /import\('monaco-editor'\)/);
+  assert.match(monaco, /editor\.worker\?worker/);
+  assert.match(monaco, /window\.MonacoEnvironment = \{ getWorker/);
+  assert.match(monaco, /languages\.register\(\{ id: 'lrc'/);
+  assert.match(monaco, /wordTimestamp|timestamp|credit/);
+  assert.match(monaco, /ResizeObserver/);
+  assert.match(monaco, /editor\?\.dispose\(\); model\?\.dispose\(\)/);
+});
 
 test('审核工作站以 Explorer 资源树切换 Meta 与当前曲目，右侧保持独立编辑区', async () => {
   const source = await component();
