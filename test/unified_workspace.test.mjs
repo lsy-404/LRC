@@ -12,19 +12,39 @@ test('验证后只挂载单一文件工作区，而非上传修改页签', async
   assert.doesNotMatch(source, /UploadBox|EditBox|wb-tabs|tab ===/);
 });
 
-test('统一工作区通过同一 Monaco 模型承载新建、导入和已有专辑文件', async () => {
+test('统一工作区保留上传、可视化编辑和可关闭的文件标签', async () => {
+  const source = await readFile(workspacePath, 'utf8');
+  assert.match(source, /<UploadBox :password="password" :theme="theme" \/>/);
+  assert.match(source, /<EditBox :password="password" :theme="theme" \/>/);
+  assert.match(source, /v-show="activeTab === 'upload'"/);
+  assert.match(source, /v-show="activeTab === 'edit'"/);
+  assert.match(source, /v-for="file in fileTabs"/);
+  assert.match(source, /closeFile\(file\.id\)/);
+  assert.match(source, /activeTab\.value = file\.id/);
+});
+
+test('统一工作区通过 Monaco 文件标签承载新建、导入和已有专辑文件', async () => {
   const source = await readFile(workspacePath, 'utf8');
   assert.match(source, /新建 LRC/);
   assert.match(source, /导入文件/);
   assert.match(source, /meta\.json/);
-  assert.match(source, /<MonacoLrcEditor v-model="selected\.content"/);
+  assert.match(source, /<MonacoLrcEditor v-model="activeFile\.content"/);
   assert.match(source, /自动提取并生成/);
-  assert.doesNotMatch(source, /UploadBox|EditBox/);
+  assert.match(source, /if \(!fileTabs\.value\.some\(\(tab\) => tab\.id === file\.id\)\) fileTabs\.value\.push\(file\)/);
+});
+
+test('统一工作区的左右区域独立滚动，文件编辑器占满右侧', async () => {
+  const source = await readFile(workspacePath, 'utf8');
+  assert.match(source, /\.uw-shell \{[^}]*overflow:hidden/);
+  assert.match(source, /\.uw-explorer \{[^}]*overflow-y:auto/);
+  assert.match(source, /\.uw-editor \{[^}]*overflow:hidden/);
+  assert.match(source, /\.uw-tab-panel \{ min-height:0; overflow-y:auto/);
+  assert.match(source, /\.uw-file-panel :deep\(\.monaco-lrc-editor\) \{ flex:1; min-height:0/);
 });
 
 test('自动提取先保存当前工作区文件，并上传 Monaco 中的文本内容', async () => {
   const source = await readFile(workspacePath, 'utf8');
-  assert.match(source, /if \(selected\.value\?\.remote && !\(await save\(\)\)\) return;/);
+  assert.match(source, /if \(activeFile\.value\?\.remote && !\(await save\(\)\)\) return;/);
   assert.match(source, /new File\(\[file\.content\], file\.name, \{ type: file\.raw\.type \|\| 'text\/plain' \}\)/);
   assert.match(source, /size: uploadFile\.size/);
   assert.match(source, /: file\.raw;/);
