@@ -16,10 +16,10 @@ test('统一工作区保留上传、可视化编辑和可关闭的文件标签',
   const source = await readFile(workspacePath, 'utf8');
   assert.match(source, /<UploadBox :password="password" :theme="theme" \/>/);
   assert.match(source, /<EditBox :password="password" :theme="theme" \/>/);
-  assert.match(source, /v-show="activeTab === 'upload'"/);
-  assert.match(source, /v-show="activeTab === 'edit'"/);
+  assert.match(source, /v-show="activeTab === `upload`"/);
+  assert.match(source, /v-show="activeTab === `visual`"/);
   assert.match(source, /v-for="file in fileTabs"/);
-  assert.match(source, /closeFile\(file\.id\)/);
+  assert.match(source, /closeFileTab\(file\.id\)/);
   assert.match(source, /activeTab\.value = file\.id/);
 });
 

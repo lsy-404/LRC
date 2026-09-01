@@ -26,15 +26,15 @@
         <div class="uw-tree"><button v-for="file in localFiles" :key="file.id" class="uw-file" type="button" :class="{ active: selected?.id === file.id }" @click="select(file)"><span>↥</span>{{ file.name }}</button></div>
       </aside>
       <main class="uw-editor">
-        <nav class="uw-tabs" aria-label="工作区标签页">
-          <button class="uw-tab" :class="{ active: activeTab === 'upload' }" type="button" @click="activeTab = 'upload'">上传</button>
-          <button class="uw-tab" :class="{ active: activeTab === 'edit' }" type="button" @click="activeTab = 'edit'">可视化编辑</button>
-          <button v-for="file in fileTabs" :key="file.id" class="uw-tab" :class="{ active: activeTab === file.id }" type="button" @click="activateFile(file)">
-            <span>{{ file.name }}</span><span class="uw-tab-close" :title="`关闭 ${file.name}`" aria-hidden="true" @click.stop="closeFile(file.id)">×</span>
+        <nav class="uw-tabs" role="tablist" aria-label="工作区标签页">
+          <button class="uw-tab" :class="{ active: activeTab === 'upload' }" type="button" role="tab" :aria-selected="activeTab === 'upload'" @click="activeTab = 'upload'">上传</button>
+          <button class="uw-tab" :class="{ active: activeTab === 'visual' }" type="button" role="tab" :aria-selected="activeTab === 'visual'" @click="activeTab = 'visual'">可视化编辑</button>
+          <button v-for="file in fileTabs" :key="file.id" class="uw-tab" :class="{ active: activeTab === file.id }" type="button" role="tab" :aria-selected="activeTab === file.id" @click="activateFile(file)">
+            <span>{{ file.name }}</span><span class="uw-tab-close" role="button" tabindex="0" :aria-label="`关闭 ${file.name}`" @click.stop="closeFileTab(file.id)" @keydown.enter.stop="closeFileTab(file.id)" @keydown.space.prevent.stop="closeFileTab(file.id)">×</span>
           </button>
         </nav>
-        <section v-show="activeTab === 'upload'" class="uw-tab-panel uw-feature-panel"><UploadBox :password="password" :theme="theme" /></section>
-        <section v-show="activeTab === 'edit'" class="uw-tab-panel uw-feature-panel"><EditBox :password="password" :theme="theme" /></section>
+        <section v-show="activeTab === `upload`" class="uw-tab-panel uw-feature-panel"><UploadBox :password="password" :theme="theme" /></section>
+        <section v-show="activeTab === `visual`" class="uw-tab-panel uw-feature-panel"><EditBox :password="password" :theme="theme" /></section>
         <section v-if="activeFile" class="uw-tab-panel uw-file-panel">
           <MonacoLrcEditor v-model="activeFile.content" :language="activeFile.language" :theme="theme" :aria-label="`${activeFile.name} 编辑器`" />
           <footer class="uw-actions"><button class="uw-btn" type="button" :disabled="!activeFile.remote || saving" @click="save">{{ saving ? '保存中…' : '保存工作草稿' }}</button><span class="uw-dim">{{ message }}</span></footer>
@@ -68,7 +68,7 @@ function select(file) {
   message.value = '';
 }
 function activateFile(file) { selected.value = file; activeTab.value = file.id; }
-function closeFile(id) {
+function closeFileTab(id) {
   const index = fileTabs.value.findIndex((file) => file.id === id);
   if (index < 0) return;
   const wasActive = activeTab.value === id;
