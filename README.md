@@ -109,6 +109,7 @@
 - [Dear](https://github.com/wuyilingwei/LRC#dear)
 - [星愿StarWish](https://github.com/wuyilingwei/LRC#%E6%98%9F%E6%84%BFstarwish)
 - [单曲](https://github.com/wuyilingwei/LRC#%E5%8D%95%E6%9B%B2)
+- [淡漠](https://github.com/wuyilingwei/LRC#%E6%B7%A1%E6%BC%A0)
 <!-- ALBUM_LIST_END -->
 
 ## 贡献指南
@@ -2508,6 +2509,29 @@ _暂无 LRC 文件_
 | [神的女儿们(星尘永夜).lrc](res/%E5%8D%95%E6%9B%B2/%E7%A5%9E%E7%9A%84%E5%A5%B3%E5%84%BF%E4%BB%AC%28%E6%98%9F%E5%B0%98%E6%B0%B8%E5%A4%9C%29.lrc) | [下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%95%E6%9B%B2/%E7%A5%9E%E7%9A%84%E5%A5%B3%E5%84%BF%E4%BB%AC%28%E6%98%9F%E5%B0%98%E6%B0%B8%E5%A4%9C%29.lrc) |
 | [第四天灾的宙宇分界线.lrc](res/%E5%8D%95%E6%9B%B2/%E7%AC%AC%E5%9B%9B%E5%A4%A9%E7%81%BE%E7%9A%84%E5%AE%99%E5%AE%87%E5%88%86%E7%95%8C%E7%BA%BF.lrc) | [下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%95%E6%9B%B2/%E7%AC%AC%E5%9B%9B%E5%A4%A9%E7%81%BE%E7%9A%84%E5%AE%99%E5%AE%87%E5%88%86%E7%95%8C%E7%BA%BF.lrc) |
 | [零和Zero-Sum(星尘永夜 2024Ver.).lrc](res/%E5%8D%95%E6%9B%B2/%E9%9B%B6%E5%92%8CZero-Sum%28%E6%98%9F%E5%B0%98%E6%B0%B8%E5%A4%9C%202024Ver.%29.lrc) | [下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%8D%95%E6%9B%B2/%E9%9B%B6%E5%92%8CZero-Sum%28%E6%98%9F%E5%B0%98%E6%B0%B8%E5%A4%9C%202024Ver.%29.lrc) |
+
+</details>
+
+---
+
+### 淡漠
+
+**[下载专辑歌词包](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B7%A1%E6%BC%A0.zip)**
+
+<details>
+<summary>查看详细曲目 (9 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [2 淡漠 (feat. Lovelorn Revenge)- 赤羽.lrc](res/%E6%B7%A1%E6%BC%A0/2%20%E6%B7%A1%E6%BC%A0%20%28feat.%20Lovelorn%20Revenge%29-%20%E8%B5%A4%E7%BE%BD.lrc) | [下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%A1%E6%BC%A0/2%20%E6%B7%A1%E6%BC%A0%20%28feat.%20Lovelorn%20Revenge%29-%20%E8%B5%A4%E7%BE%BD.lrc) |
+| [3 多重孤立- 诗岸- 赤羽.lrc](res/%E6%B7%A1%E6%BC%A0/3%20%E5%A4%9A%E9%87%8D%E5%AD%A4%E7%AB%8B-%20%E8%AF%97%E5%B2%B8-%20%E8%B5%A4%E7%BE%BD.lrc) | [下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%A1%E6%BC%A0/3%20%E5%A4%9A%E9%87%8D%E5%AD%A4%E7%AB%8B-%20%E8%AF%97%E5%B2%B8-%20%E8%B5%A4%E7%BE%BD.lrc) |
+| [4 无形- 赤羽.lrc](res/%E6%B7%A1%E6%BC%A0/4%20%E6%97%A0%E5%BD%A2-%20%E8%B5%A4%E7%BE%BD.lrc) | [下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%A1%E6%BC%A0/4%20%E6%97%A0%E5%BD%A2-%20%E8%B5%A4%E7%BE%BD.lrc) |
+| [5 Interlude. Fall of the Stars- Eleanor Forte.lrc](res/%E6%B7%A1%E6%BC%A0/5%20Interlude.%20Fall%20of%20the%20Stars-%20Eleanor%20Forte.lrc) | [下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%A1%E6%BC%A0/5%20Interlude.%20Fall%20of%20the%20Stars-%20Eleanor%20Forte.lrc) |
+| [6 星空下的幻想 (淡漠Ver.)- 诗岸.lrc](res/%E6%B7%A1%E6%BC%A0/6%20%E6%98%9F%E7%A9%BA%E4%B8%8B%E7%9A%84%E5%B9%BB%E6%83%B3%20%28%E6%B7%A1%E6%BC%A0Ver.%29-%20%E8%AF%97%E5%B2%B8.lrc) | [下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%A1%E6%BC%A0/6%20%E6%98%9F%E7%A9%BA%E4%B8%8B%E7%9A%84%E5%B9%BB%E6%83%B3%20%28%E6%B7%A1%E6%BC%A0Ver.%29-%20%E8%AF%97%E5%B2%B8.lrc) |
+| [7 孤单的约定 (淡漠 Ver.)- 诗岸.lrc](res/%E6%B7%A1%E6%BC%A0/7%20%E5%AD%A4%E5%8D%95%E7%9A%84%E7%BA%A6%E5%AE%9A%20%28%E6%B7%A1%E6%BC%A0%20Ver.%29-%20%E8%AF%97%E5%B2%B8.lrc) | [下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%A1%E6%BC%A0/7%20%E5%AD%A4%E5%8D%95%E7%9A%84%E7%BA%A6%E5%AE%9A%20%28%E6%B7%A1%E6%BC%A0%20Ver.%29-%20%E8%AF%97%E5%B2%B8.lrc) |
+| [8 45 Conduct (Remastered)- 赤羽- Eleanor Forte.lrc](res/%E6%B7%A1%E6%BC%A0/8%2045%20Conduct%20%28Remastered%29-%20%E8%B5%A4%E7%BE%BD-%20Eleanor%20Forte.lrc) | [下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%A1%E6%BC%A0/8%2045%20Conduct%20%28Remastered%29-%20%E8%B5%A4%E7%BE%BD-%20Eleanor%20Forte.lrc) |
+| [9 读梦者 (Remastered)- 诗岸- Eleanor Forte.lrc](res/%E6%B7%A1%E6%BC%A0/9%20%E8%AF%BB%E6%A2%A6%E8%80%85%20%28Remastered%29-%20%E8%AF%97%E5%B2%B8-%20Eleanor%20Forte.lrc) | [下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%A1%E6%BC%A0/9%20%E8%AF%BB%E6%A2%A6%E8%80%85%20%28Remastered%29-%20%E8%AF%97%E5%B2%B8-%20Eleanor%20Forte.lrc) |
+| [10 City Fear (Remastered)- Eleanor Forte.lrc](res/%E6%B7%A1%E6%BC%A0/10%20City%20Fear%20%28Remastered%29-%20Eleanor%20Forte.lrc) | [下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%A1%E6%BC%A0/10%20City%20Fear%20%28Remastered%29-%20Eleanor%20Forte.lrc) |
 
 </details>
 

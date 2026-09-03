@@ -115,6 +115,7 @@ tagline: 虚拟歌姬专辑的信息导航与歌词共享资源库
 | | <h3><a class="route-link" href="/albums/Dear.html">Dear</a></h3>出品：霾Axis<br>发行日期：2016-07-04<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Dear.zip) |
 | <img src="/albums/xingyuan_StarWish.jpg" alt="星愿 StarWish 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/xingyuan_StarWish.html">星愿 StarWish</a></h3>出品：平行四界Quadimension<br>发行日期：2016-03-04<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E6%84%BF%20StarWish.zip) |
 | <img src="/albums/danqu.jpg" alt="单曲 封面" style="width: 100%; border-radius: 12px;"> | <h3><a class="route-link" href="/albums/danqu.html">单曲</a></h3>出品：不适用<br>发行日期：不适用<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%8D%95%E6%9B%B2.zip) |
+| | <h3><a class="route-link" href="/albums/danmo.html">淡漠</a></h3>出品：不适用<br>发行日期：不适用<br><br>[ZIP 下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B7%A1%E6%BC%A0.zip) |
 
 </div>
 
