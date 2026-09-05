@@ -7,8 +7,8 @@
   "observability": { "enabled": true },
 
   "routes": [
-    { "pattern": "ingest.lrc.wuyilingwei.com", "custom_domain": true },
-    { "pattern": "lrc.wuyilingwei.com", "custom_domain": true }
+    { "pattern": "ingest.lrc.voidcarve.com", "custom_domain": true },
+    { "pattern": "lrc.voidcarve.com", "custom_domain": true }
   ],
 
   "assets": {

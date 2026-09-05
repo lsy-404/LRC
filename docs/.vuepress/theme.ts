@@ -4,7 +4,7 @@ import navbar from "./navbar";
 import sidebar from "./sidebar";
 
 export default hopeTheme({
-  hostname: "https://lrc.wuyilingwei.com",
+  hostname: "https://lrc.voidcarve.com",
 
 
   logo: "/logo.png",
