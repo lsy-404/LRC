@@ -21,7 +21,7 @@ V宇宙可以是中v也能是日v还能是五V —— 星菌
 
 ## 联系方式
 
-- GitHub Issue: [wuyilingwei/LRC](https://github.com/wuyilingwei/LRC)
+- GitHub Issue: [lsy-404/LRC](https://github.com/lsy-404/LRC)
 - Admin Email: [admin@wuyilingwei.com](mailto:admin@wuyilingwei.com)
 
 ## 贡献

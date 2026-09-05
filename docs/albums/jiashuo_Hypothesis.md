@@ -52,11 +52,11 @@ tag:
 
 ## 曲目列表
 
-- [1 同步 Synchronisation](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%81%87%E8%AF%B4Hypothesis/1%20%E5%90%8C%E6%AD%A5%20Synchronisation.lrc)
-- [2 模拟认知 Simulated Cognition](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%81%87%E8%AF%B4Hypothesis/2%20%E6%A8%A1%E6%8B%9F%E8%AE%A4%E7%9F%A5%20Simulated%20Cognition.lrc)
-- [3 幻觉 Hallucination](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%81%87%E8%AF%B4Hypothesis/3%20%E5%B9%BB%E8%A7%89%20Hallucination.lrc)
-- [4 情感镇痛 Emotion Analgesia](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%81%87%E8%AF%B4Hypothesis/4%20%E6%83%85%E6%84%9F%E9%95%87%E7%97%9B%20Emotion%20Analgesia.lrc)
+- [1 同步 Synchronisation](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%81%87%E8%AF%B4Hypothesis/1%20%E5%90%8C%E6%AD%A5%20Synchronisation.lrc)
+- [2 模拟认知 Simulated Cognition](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%81%87%E8%AF%B4Hypothesis/2%20%E6%A8%A1%E6%8B%9F%E8%AE%A4%E7%9F%A5%20Simulated%20Cognition.lrc)
+- [3 幻觉 Hallucination](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%81%87%E8%AF%B4Hypothesis/3%20%E5%B9%BB%E8%A7%89%20Hallucination.lrc)
+- [4 情感镇痛 Emotion Analgesia](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%81%87%E8%AF%B4Hypothesis/4%20%E6%83%85%E6%84%9F%E9%95%87%E7%97%9B%20Emotion%20Analgesia.lrc)
 
 ## 下载
 
-下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%81%87%E8%AF%B4Hypothesis.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E5%81%87%E8%AF%B4Hypothesis.zip)

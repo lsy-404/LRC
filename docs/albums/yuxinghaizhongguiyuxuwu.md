@@ -41,11 +41,11 @@ tag:
 
 ## 曲目列表
 
-- [于星海中归于虚无](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%8E%E6%98%9F%E6%B5%B7%E4%B8%AD%E5%BD%92%E4%BA%8E%E8%99%9A%E6%97%A0/%E4%BA%8E%E6%98%9F%E6%B5%B7%E4%B8%AD%E5%BD%92%E4%BA%8E%E8%99%9A%E6%97%A0.lrc)
-- [如岚](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%8E%E6%98%9F%E6%B5%B7%E4%B8%AD%E5%BD%92%E4%BA%8E%E8%99%9A%E6%97%A0/%E5%A6%82%E5%B2%9A.lrc)
-- [海帆歌](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%8E%E6%98%9F%E6%B5%B7%E4%B8%AD%E5%BD%92%E4%BA%8E%E8%99%9A%E6%97%A0/%E6%B5%B7%E5%B8%86%E6%AD%8C.lrc)
-- [赛德娜sedna](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%8E%E6%98%9F%E6%B5%B7%E4%B8%AD%E5%BD%92%E4%BA%8E%E8%99%9A%E6%97%A0/%E8%B5%9B%E5%BE%B7%E5%A8%9Csedna.lrc)
+- [于星海中归于虚无](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BA%8E%E6%98%9F%E6%B5%B7%E4%B8%AD%E5%BD%92%E4%BA%8E%E8%99%9A%E6%97%A0/%E4%BA%8E%E6%98%9F%E6%B5%B7%E4%B8%AD%E5%BD%92%E4%BA%8E%E8%99%9A%E6%97%A0.lrc)
+- [如岚](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BA%8E%E6%98%9F%E6%B5%B7%E4%B8%AD%E5%BD%92%E4%BA%8E%E8%99%9A%E6%97%A0/%E5%A6%82%E5%B2%9A.lrc)
+- [海帆歌](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BA%8E%E6%98%9F%E6%B5%B7%E4%B8%AD%E5%BD%92%E4%BA%8E%E8%99%9A%E6%97%A0/%E6%B5%B7%E5%B8%86%E6%AD%8C.lrc)
+- [赛德娜sedna](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BA%8E%E6%98%9F%E6%B5%B7%E4%B8%AD%E5%BD%92%E4%BA%8E%E8%99%9A%E6%97%A0/%E8%B5%9B%E5%BE%B7%E5%A8%9Csedna.lrc)
 
 ## 下载
 
-下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%BA%8E%E6%98%9F%E6%B5%B7%E4%B8%AD%E5%BD%92%E4%BA%8E%E8%99%9A%E6%97%A0.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E4%BA%8E%E6%98%9F%E6%B5%B7%E4%B8%AD%E5%BD%92%E4%BA%8E%E8%99%9A%E6%97%A0.zip)

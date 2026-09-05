@@ -18,7 +18,7 @@ README_PATH = str(PROJECT.get("readme_path", "README.md"))
 RES_DIR = str(PROJECT.get("res_dir", "res"))
 PACK_DIR = str(PROJECT.get("pack_dir", "pack"))
 COVER_EXTENSIONS = {str(item) for item in COMMON.get("cover_ext", [".jpg", ".png", ".jpeg", ".webp", ".bmp"])}
-REPO = str(PROJECT.get("repo", "wuyilingwei/LRC"))
+REPO = str(PROJECT.get("repo", "lsy-404/LRC"))
 
 def github_slug(text):
     """Generate a GitHub-like anchor slug from a heading text.

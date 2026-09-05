@@ -62,15 +62,15 @@ tag:
 
 ## 曲目列表
 
-- [1 CHU～CHU～CHU](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E8%AF%ADStarWhisper/1%20CHU%EF%BD%9ECHU%EF%BD%9ECHU.lrc)
-- [2 空想世界的某一天](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E8%AF%ADStarWhisper/2%20%E7%A9%BA%E6%83%B3%E4%B8%96%E7%95%8C%E7%9A%84%E6%9F%90%E4%B8%80%E5%A4%A9.lrc)
-- [3 地球毁灭的那一刻](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E8%AF%ADStarWhisper/3%20%E5%9C%B0%E7%90%83%E6%AF%81%E7%81%AD%E7%9A%84%E9%82%A3%E4%B8%80%E5%88%BB.lrc)
-- [4 间隙](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E8%AF%ADStarWhisper/4%20%E9%97%B4%E9%9A%99.lrc)
-- [5 六月的明天](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E8%AF%ADStarWhisper/5%20%E5%85%AD%E6%9C%88%E7%9A%84%E6%98%8E%E5%A4%A9.lrc)
-- [6 D!SCOLOЯ](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E8%AF%ADStarWhisper/6%20D%21SCOLO%D0%AF.lrc)
-- [7 每当有流星划过夜空](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E8%AF%ADStarWhisper/7%20%E6%AF%8F%E5%BD%93%E6%9C%89%E6%B5%81%E6%98%9F%E5%88%92%E8%BF%87%E5%A4%9C%E7%A9%BA.lrc)
-- [8 生死一舞的爱语](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%98%9F%E8%AF%ADStarWhisper/8%20%E7%94%9F%E6%AD%BB%E4%B8%80%E8%88%9E%E7%9A%84%E7%88%B1%E8%AF%AD.lrc)
+- [1 CHU～CHU～CHU](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%98%9F%E8%AF%ADStarWhisper/1%20CHU%EF%BD%9ECHU%EF%BD%9ECHU.lrc)
+- [2 空想世界的某一天](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%98%9F%E8%AF%ADStarWhisper/2%20%E7%A9%BA%E6%83%B3%E4%B8%96%E7%95%8C%E7%9A%84%E6%9F%90%E4%B8%80%E5%A4%A9.lrc)
+- [3 地球毁灭的那一刻](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%98%9F%E8%AF%ADStarWhisper/3%20%E5%9C%B0%E7%90%83%E6%AF%81%E7%81%AD%E7%9A%84%E9%82%A3%E4%B8%80%E5%88%BB.lrc)
+- [4 间隙](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%98%9F%E8%AF%ADStarWhisper/4%20%E9%97%B4%E9%9A%99.lrc)
+- [5 六月的明天](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%98%9F%E8%AF%ADStarWhisper/5%20%E5%85%AD%E6%9C%88%E7%9A%84%E6%98%8E%E5%A4%A9.lrc)
+- [6 D!SCOLOЯ](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%98%9F%E8%AF%ADStarWhisper/6%20D%21SCOLO%D0%AF.lrc)
+- [7 每当有流星划过夜空](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%98%9F%E8%AF%ADStarWhisper/7%20%E6%AF%8F%E5%BD%93%E6%9C%89%E6%B5%81%E6%98%9F%E5%88%92%E8%BF%87%E5%A4%9C%E7%A9%BA.lrc)
+- [8 生死一舞的爱语](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%98%9F%E8%AF%ADStarWhisper/8%20%E7%94%9F%E6%AD%BB%E4%B8%80%E8%88%9E%E7%9A%84%E7%88%B1%E8%AF%AD.lrc)
 
 ## 下载
 
-下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%98%9F%E8%AF%ADStarWhisper.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E6%98%9F%E8%AF%ADStarWhisper.zip)

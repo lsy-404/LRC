@@ -13,7 +13,7 @@ CONFIG = load_config()
 PROJECT = CONFIG.get("project", {})
 COMMON = CONFIG.get("common", {})
 
-REPO = str(PROJECT.get("repo", "wuyilingwei/LRC"))
+REPO = str(PROJECT.get("repo", "lsy-404/LRC"))
 ROOT_DIR = Path(__file__).resolve().parents[2]
 RES_DIR = ROOT_DIR / str(PROJECT.get("res_dir", "res"))
 DOCS_DIR = ROOT_DIR / str(PROJECT.get("docs_dir", "docs"))

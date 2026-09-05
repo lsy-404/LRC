@@ -32,6 +32,6 @@ export default navbar([
   {
     text: "Github",
     icon: "mynaui:api-solid",
-    link: "https://github.com/wuyilingwei/LRC"
+    link: "https://github.com/lsy-404/LRC"
   },
 ]);

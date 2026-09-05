@@ -8,7 +8,7 @@ redirectFrom:
 感谢你的贡献！
 这个项目维护着**虚拟歌姬专辑的导航信息、元数据和歌词数据库**。
 
-仓库地址：[https://github.com/wuyilingwei/LRC](https://github.com/wuyilingwei/LRC)
+仓库地址：[https://github.com/lsy-404/LRC](https://github.com/lsy-404/LRC)
 
 ---
 
@@ -56,7 +56,7 @@ Git 是一个协作工具，能让许多人**在同一个项目上工作而不�
 
 你可以选择**任何你觉得舒服的方式**：
 
-- 直接在 [GitHub 在线编辑器](https://github.com/wuyilingwei/LRC/tree/main/res) 中编辑  
+- 直接在 [GitHub 在线编辑器](https://github.com/lsy-404/LRC/tree/main/res) 中编辑  
   *(推荐第一次使用 Git 的用户)*
   
 - 使用 Git 软件（如 [GitHub Desktop](https://github.com/apps/desktop)安装完成后点击网页上的 Code - Open with Github Desktop）

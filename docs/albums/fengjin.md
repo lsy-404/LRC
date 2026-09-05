@@ -67,17 +67,17 @@ tag:
 
 ## 曲目列表
 
-- [1 枫声](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/1%20%E6%9E%AB%E5%A3%B0.lrc)
-- [2 放逐自我](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/2%20%E6%94%BE%E9%80%90%E8%87%AA%E6%88%91.lrc)
-- [3 雨落风铃](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/3%20%E9%9B%A8%E8%90%BD%E9%A3%8E%E9%93%83.lrc)
-- [4 诗的教诲](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/4%20%E8%AF%97%E7%9A%84%E6%95%99%E8%AF%B2.lrc)
-- [5 记忆里的过去](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/5%20%E8%AE%B0%E5%BF%86%E9%87%8C%E7%9A%84%E8%BF%87%E5%8E%BB.lrc)
-- [6 花的七种语言](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/6%20%E8%8A%B1%E7%9A%84%E4%B8%83%E7%A7%8D%E8%AF%AD%E8%A8%80.lrc)
-- [7 卑微着完美](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/7%20%E5%8D%91%E5%BE%AE%E7%9D%80%E5%AE%8C%E7%BE%8E.lrc)
-- [8 多想多想](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/8%20%E5%A4%9A%E6%83%B3%E5%A4%9A%E6%83%B3.lrc)
-- [9 一半](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/9%20%E4%B8%80%E5%8D%8A.lrc)
-- [10 灰烬](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9E%AB%E7%83%AC/10%20%E7%81%B0%E7%83%AC.lrc)
+- [1 枫声](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9E%AB%E7%83%AC/1%20%E6%9E%AB%E5%A3%B0.lrc)
+- [2 放逐自我](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9E%AB%E7%83%AC/2%20%E6%94%BE%E9%80%90%E8%87%AA%E6%88%91.lrc)
+- [3 雨落风铃](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9E%AB%E7%83%AC/3%20%E9%9B%A8%E8%90%BD%E9%A3%8E%E9%93%83.lrc)
+- [4 诗的教诲](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9E%AB%E7%83%AC/4%20%E8%AF%97%E7%9A%84%E6%95%99%E8%AF%B2.lrc)
+- [5 记忆里的过去](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9E%AB%E7%83%AC/5%20%E8%AE%B0%E5%BF%86%E9%87%8C%E7%9A%84%E8%BF%87%E5%8E%BB.lrc)
+- [6 花的七种语言](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9E%AB%E7%83%AC/6%20%E8%8A%B1%E7%9A%84%E4%B8%83%E7%A7%8D%E8%AF%AD%E8%A8%80.lrc)
+- [7 卑微着完美](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9E%AB%E7%83%AC/7%20%E5%8D%91%E5%BE%AE%E7%9D%80%E5%AE%8C%E7%BE%8E.lrc)
+- [8 多想多想](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9E%AB%E7%83%AC/8%20%E5%A4%9A%E6%83%B3%E5%A4%9A%E6%83%B3.lrc)
+- [9 一半](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9E%AB%E7%83%AC/9%20%E4%B8%80%E5%8D%8A.lrc)
+- [10 灰烬](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9E%AB%E7%83%AC/10%20%E7%81%B0%E7%83%AC.lrc)
 
 ## 下载
 
-下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%9E%AB%E7%83%AC.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E6%9E%AB%E7%83%AC.zip)

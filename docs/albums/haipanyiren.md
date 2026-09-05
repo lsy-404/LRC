@@ -71,19 +71,19 @@ tag:
 
 ## 曲目列表
 
-- [01 轻轻的](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/01%20%E8%BD%BB%E8%BD%BB%E7%9A%84.lrc)
-- [02 镜花水月](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/02%20%E9%95%9C%E8%8A%B1%E6%B0%B4%E6%9C%88.lrc)
-- [03 Untitled Answer](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/03%20Untitled%20Answer.lrc)
-- [04 小小心情](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/04%20%E5%B0%8F%E5%B0%8F%E5%BF%83%E6%83%85.lrc)
-- [05 深海星](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/05%20%E6%B7%B1%E6%B5%B7%E6%98%9F.lrc)
-- [06 Faith Ballads](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/06%20Faith%20Ballads.lrc)
-- [07 月下潮汐](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/07%20%E6%9C%88%E4%B8%8B%E6%BD%AE%E6%B1%90.lrc)
-- [08  枕烟庭深](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/08%20%20%E6%9E%95%E7%83%9F%E5%BA%AD%E6%B7%B1.lrc)
-- [09 海中雨](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/09%20%E6%B5%B7%E4%B8%AD%E9%9B%A8.lrc)
-- [10 我的风筝](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/10%20%E6%88%91%E7%9A%84%E9%A3%8E%E7%AD%9D.lrc)
-- [11 只是人海而已](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/11%20%E5%8F%AA%E6%98%AF%E4%BA%BA%E6%B5%B7%E8%80%8C%E5%B7%B2.lrc)
-- [12 美人鱼](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/12%20%E7%BE%8E%E4%BA%BA%E9%B1%BC.lrc)
+- [01 轻轻的](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/01%20%E8%BD%BB%E8%BD%BB%E7%9A%84.lrc)
+- [02 镜花水月](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/02%20%E9%95%9C%E8%8A%B1%E6%B0%B4%E6%9C%88.lrc)
+- [03 Untitled Answer](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/03%20Untitled%20Answer.lrc)
+- [04 小小心情](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/04%20%E5%B0%8F%E5%B0%8F%E5%BF%83%E6%83%85.lrc)
+- [05 深海星](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/05%20%E6%B7%B1%E6%B5%B7%E6%98%9F.lrc)
+- [06 Faith Ballads](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/06%20Faith%20Ballads.lrc)
+- [07 月下潮汐](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/07%20%E6%9C%88%E4%B8%8B%E6%BD%AE%E6%B1%90.lrc)
+- [08  枕烟庭深](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/08%20%20%E6%9E%95%E7%83%9F%E5%BA%AD%E6%B7%B1.lrc)
+- [09 海中雨](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/09%20%E6%B5%B7%E4%B8%AD%E9%9B%A8.lrc)
+- [10 我的风筝](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/10%20%E6%88%91%E7%9A%84%E9%A3%8E%E7%AD%9D.lrc)
+- [11 只是人海而已](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/11%20%E5%8F%AA%E6%98%AF%E4%BA%BA%E6%B5%B7%E8%80%8C%E5%B7%B2.lrc)
+- [12 美人鱼](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA/12%20%E7%BE%8E%E4%BA%BA%E9%B1%BC.lrc)
 
 ## 下载
 
-下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E6%B5%B7%E7%9B%BC%E4%BC%8A%E4%BA%BA.zip)

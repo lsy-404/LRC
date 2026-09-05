@@ -71,16 +71,16 @@ tag:
 
 ## 曲目列表
 
-- [1 Intro](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/1%20Intro.lrc)
-- [2 米勒](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/2%20%E7%B1%B3%E5%8B%92.lrc)
-- [3 银河偏航日志](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/3%20%E9%93%B6%E6%B2%B3%E5%81%8F%E8%88%AA%E6%97%A5%E5%BF%97.lrc)
-- [4 花与电波](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/4%20%E8%8A%B1%E4%B8%8E%E7%94%B5%E6%B3%A2.lrc)
-- [5 Revolt.Rain](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/5%20Revolt.Rain.lrc)
-- [6 相会于流星之终](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/6%20%E7%9B%B8%E4%BC%9A%E4%BA%8E%E6%B5%81%E6%98%9F%E4%B9%8B%E7%BB%88.lrc)
-- [7 热季风与灰候鸟](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/7%20%E7%83%AD%E5%AD%A3%E9%A3%8E%E4%B8%8E%E7%81%B0%E5%80%99%E9%B8%9F.lrc)
-- [8 未名星](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/8%20%E6%9C%AA%E5%90%8D%E6%98%9F.lrc)
-- [9 城市爱情物语](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/9%20%E5%9F%8E%E5%B8%82%E7%88%B1%E6%83%85%E7%89%A9%E8%AF%AD.lrc)
+- [1 Intro](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/1%20Intro.lrc)
+- [2 米勒](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/2%20%E7%B1%B3%E5%8B%92.lrc)
+- [3 银河偏航日志](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/3%20%E9%93%B6%E6%B2%B3%E5%81%8F%E8%88%AA%E6%97%A5%E5%BF%97.lrc)
+- [4 花与电波](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/4%20%E8%8A%B1%E4%B8%8E%E7%94%B5%E6%B3%A2.lrc)
+- [5 Revolt.Rain](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/5%20Revolt.Rain.lrc)
+- [6 相会于流星之终](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/6%20%E7%9B%B8%E4%BC%9A%E4%BA%8E%E6%B5%81%E6%98%9F%E4%B9%8B%E7%BB%88.lrc)
+- [7 热季风与灰候鸟](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/7%20%E7%83%AD%E5%AD%A3%E9%A3%8E%E4%B8%8E%E7%81%B0%E5%80%99%E9%B8%9F.lrc)
+- [8 未名星](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/8%20%E6%9C%AA%E5%90%8D%E6%98%9F.lrc)
+- [9 城市爱情物语](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3/9%20%E5%9F%8E%E5%B8%82%E7%88%B1%E6%83%85%E7%89%A9%E8%AF%AD.lrc)
 
 ## 下载
 
-下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E6%B7%B1%E7%A9%BA%E4%BD%99%E9%9F%B3.zip)

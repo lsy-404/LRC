@@ -47,14 +47,14 @@ tag:
 
 ## 曲目列表
 
-- [1 song of iris](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/1%20song%20of%20iris.lrc)
-- [2 月神之呓](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/2%20%E6%9C%88%E7%A5%9E%E4%B9%8B%E5%91%93.lrc)
-- [3 永生之酒](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/3%20%E6%B0%B8%E7%94%9F%E4%B9%8B%E9%85%92.lrc)
-- [4 魔女之愿](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/4%20%E9%AD%94%E5%A5%B3%E4%B9%8B%E6%84%BF.lrc)
-- [5 魔女之宴](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/5%20%E9%AD%94%E5%A5%B3%E4%B9%8B%E5%AE%B4.lrc)
-- [6 诗人之茧](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/6%20%E8%AF%97%E4%BA%BA%E4%B9%8B%E8%8C%A7.lrc)
-- [Iris](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Iris/Iris.lrc)
+- [1 song of iris](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Iris/1%20song%20of%20iris.lrc)
+- [2 月神之呓](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Iris/2%20%E6%9C%88%E7%A5%9E%E4%B9%8B%E5%91%93.lrc)
+- [3 永生之酒](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Iris/3%20%E6%B0%B8%E7%94%9F%E4%B9%8B%E9%85%92.lrc)
+- [4 魔女之愿](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Iris/4%20%E9%AD%94%E5%A5%B3%E4%B9%8B%E6%84%BF.lrc)
+- [5 魔女之宴](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Iris/5%20%E9%AD%94%E5%A5%B3%E4%B9%8B%E5%AE%B4.lrc)
+- [6 诗人之茧](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Iris/6%20%E8%AF%97%E4%BA%BA%E4%B9%8B%E8%8C%A7.lrc)
+- [Iris](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Iris/Iris.lrc)
 
 ## 下载
 
-下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Iris.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/Iris.zip)

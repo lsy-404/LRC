@@ -71,16 +71,16 @@ tag:
 
 ## 曲目列表
 
-- [1 光晕](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/1%20%E5%85%89%E6%99%95.lrc)
-- [2 SAD星人](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/2%20SAD%E6%98%9F%E4%BA%BA.lrc)
-- [3 第一反应](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/3%20%E7%AC%AC%E4%B8%80%E5%8F%8D%E5%BA%94.lrc)
-- [4 热伤风](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/4%20%E7%83%AD%E4%BC%A4%E9%A3%8E.lrc)
-- [5 童铃谣](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/5%20%E7%AB%A5%E9%93%83%E8%B0%A3.lrc)
-- [6 黑花鸢尾之歌](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/6%20%E9%BB%91%E8%8A%B1%E9%B8%A2%E5%B0%BE%E4%B9%8B%E6%AD%8C.lrc)
-- [7 悠久](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/7%20%E6%82%A0%E4%B9%85.lrc)
-- [8 魔女之愿](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/8%20%E9%AD%94%E5%A5%B3%E4%B9%8B%E6%84%BF.lrc)
-- [9 种魂川上忽地笑](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/9%20%E7%A7%8D%E9%AD%82%E5%B7%9D%E4%B8%8A%E5%BF%BD%E5%9C%B0%E7%AC%91.lrc)
+- [1 光晕](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/1%20%E5%85%89%E6%99%95.lrc)
+- [2 SAD星人](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/2%20SAD%E6%98%9F%E4%BA%BA.lrc)
+- [3 第一反应](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/3%20%E7%AC%AC%E4%B8%80%E5%8F%8D%E5%BA%94.lrc)
+- [4 热伤风](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/4%20%E7%83%AD%E4%BC%A4%E9%A3%8E.lrc)
+- [5 童铃谣](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/5%20%E7%AB%A5%E9%93%83%E8%B0%A3.lrc)
+- [6 黑花鸢尾之歌](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/6%20%E9%BB%91%E8%8A%B1%E9%B8%A2%E5%B0%BE%E4%B9%8B%E6%AD%8C.lrc)
+- [7 悠久](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/7%20%E6%82%A0%E4%B9%85.lrc)
+- [8 魔女之愿](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/8%20%E9%AD%94%E5%A5%B3%E4%B9%8B%E6%84%BF.lrc)
+- [9 种魂川上忽地笑](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1/9%20%E7%A7%8D%E9%AD%82%E5%B7%9D%E4%B8%8A%E5%BF%BD%E5%9C%B0%E7%AC%91.lrc)
 
 ## 下载
 
-下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension%20X-1.zip)

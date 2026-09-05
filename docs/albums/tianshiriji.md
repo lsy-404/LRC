@@ -49,13 +49,13 @@ tag:
 
 ## 曲目列表
 
-- [1 金平糖 (EP Ver.)](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0/1%20%E9%87%91%E5%B9%B3%E7%B3%96%20%28EP%20Ver.%29.lrc)
-- [2 微醺巧克力 (EP Ver.)](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0/2%20%E5%BE%AE%E9%86%BA%E5%B7%A7%E5%85%8B%E5%8A%9B%20%28EP%20Ver.%29.lrc)
-- [3 小熊软糖的骑士梦 (EP Ver.)](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0/3%20%E5%B0%8F%E7%86%8A%E8%BD%AF%E7%B3%96%E7%9A%84%E9%AA%91%E5%A3%AB%E6%A2%A6%20%28EP%20Ver.%29.lrc)
-- [4 金平糖 (Remix)](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0/4%20%E9%87%91%E5%B9%B3%E7%B3%96%20%28Remix%29.lrc)
-- [5 微醺巧克力 (Remix)](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0/5%20%E5%BE%AE%E9%86%BA%E5%B7%A7%E5%85%8B%E5%8A%9B%20%28Remix%29.lrc)
-- [6 小熊软糖的骑士梦 (Remix)](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0/6%20%E5%B0%8F%E7%86%8A%E8%BD%AF%E7%B3%96%E7%9A%84%E9%AA%91%E5%A3%AB%E6%A2%A6%20%28Remix%29.lrc)
+- [1 金平糖 (EP Ver.)](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0/1%20%E9%87%91%E5%B9%B3%E7%B3%96%20%28EP%20Ver.%29.lrc)
+- [2 微醺巧克力 (EP Ver.)](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0/2%20%E5%BE%AE%E9%86%BA%E5%B7%A7%E5%85%8B%E5%8A%9B%20%28EP%20Ver.%29.lrc)
+- [3 小熊软糖的骑士梦 (EP Ver.)](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0/3%20%E5%B0%8F%E7%86%8A%E8%BD%AF%E7%B3%96%E7%9A%84%E9%AA%91%E5%A3%AB%E6%A2%A6%20%28EP%20Ver.%29.lrc)
+- [4 金平糖 (Remix)](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0/4%20%E9%87%91%E5%B9%B3%E7%B3%96%20%28Remix%29.lrc)
+- [5 微醺巧克力 (Remix)](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0/5%20%E5%BE%AE%E9%86%BA%E5%B7%A7%E5%85%8B%E5%8A%9B%20%28Remix%29.lrc)
+- [6 小熊软糖的骑士梦 (Remix)](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0/6%20%E5%B0%8F%E7%86%8A%E8%BD%AF%E7%B3%96%E7%9A%84%E9%AA%91%E5%A3%AB%E6%A2%A6%20%28Remix%29.lrc)
 
 ## 下载
 
-下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E7%94%9C%E9%A3%9F%E6%97%A5%E8%AE%B0.zip)

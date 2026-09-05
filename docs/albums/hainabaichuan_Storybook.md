@@ -69,16 +69,16 @@ tag:
 
 ## 曲目列表
 
-- [1 蜜药](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/1%20%E8%9C%9C%E8%8D%AF.lrc)
-- [2 cola palapa](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/2%20cola%20palapa.lrc)
-- [3 strand siren - 搁浅的塞壬](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/3%20strand%20siren%20-%20%E6%90%81%E6%B5%85%E7%9A%84%E5%A1%9E%E5%A3%AC.lrc)
-- [4 墨恋仙](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/4%20%E5%A2%A8%E6%81%8B%E4%BB%99.lrc)
-- [5 一剪人间客](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/5%20%E4%B8%80%E5%89%AA%E4%BA%BA%E9%97%B4%E5%AE%A2.lrc)
-- [6 海底](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/6%20%E6%B5%B7%E5%BA%95.lrc)
-- [7 百里芭蕉百里花](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/7%20%E7%99%BE%E9%87%8C%E8%8A%AD%E8%95%89%E7%99%BE%E9%87%8C%E8%8A%B1.lrc)
-- [8 零和Zero-Sum](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/8%20%E9%9B%B6%E5%92%8CZero-Sum.lrc)
-- [9 最后的守护](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/9%20%E6%9C%80%E5%90%8E%E7%9A%84%E5%AE%88%E6%8A%A4.lrc)
+- [1 蜜药](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/1%20%E8%9C%9C%E8%8D%AF.lrc)
+- [2 cola palapa](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/2%20cola%20palapa.lrc)
+- [3 strand siren - 搁浅的塞壬](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/3%20strand%20siren%20-%20%E6%90%81%E6%B5%85%E7%9A%84%E5%A1%9E%E5%A3%AC.lrc)
+- [4 墨恋仙](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/4%20%E5%A2%A8%E6%81%8B%E4%BB%99.lrc)
+- [5 一剪人间客](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/5%20%E4%B8%80%E5%89%AA%E4%BA%BA%E9%97%B4%E5%AE%A2.lrc)
+- [6 海底](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/6%20%E6%B5%B7%E5%BA%95.lrc)
+- [7 百里芭蕉百里花](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/7%20%E7%99%BE%E9%87%8C%E8%8A%AD%E8%95%89%E7%99%BE%E9%87%8C%E8%8A%B1.lrc)
+- [8 零和Zero-Sum](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/8%20%E9%9B%B6%E5%92%8CZero-Sum.lrc)
+- [9 最后的守护](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook/9%20%E6%9C%80%E5%90%8E%E7%9A%84%E5%AE%88%E6%8A%A4.lrc)
 
 ## 下载
 
-下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E6%B5%B7%E7%BA%B3%E7%99%BE%E5%B7%9DStorybook.zip)

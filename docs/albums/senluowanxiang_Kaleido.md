@@ -60,16 +60,16 @@ tag:
 
 ## 曲目列表
 
-- [1 噩梦铺](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/1%20%E5%99%A9%E6%A2%A6%E9%93%BA.lrc)
-- [2 Requiem of Excalibur](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/2%20Requiem%20of%20Excalibur.lrc)
-- [3 四季](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/3%20%E5%9B%9B%E5%AD%A3.lrc)
-- [4 恒星坠落之时](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/4%20%E6%81%92%E6%98%9F%E5%9D%A0%E8%90%BD%E4%B9%8B%E6%97%B6.lrc)
-- [5 静止时间](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/5%20%E9%9D%99%E6%AD%A2%E6%97%B6%E9%97%B4.lrc)
-- [6 带我逃跑](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/6%20%E5%B8%A6%E6%88%91%E9%80%83%E8%B7%91.lrc)
-- [7 Talking to the Rain](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/7%20Talking%20to%20the%20Rain.lrc)
-- [8 尘埃](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/8%20%E5%B0%98%E5%9F%83.lrc)
-- [9 斑驳](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/9%20%E6%96%91%E9%A9%B3.lrc)
+- [1 噩梦铺](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/1%20%E5%99%A9%E6%A2%A6%E9%93%BA.lrc)
+- [2 Requiem of Excalibur](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/2%20Requiem%20of%20Excalibur.lrc)
+- [3 四季](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/3%20%E5%9B%9B%E5%AD%A3.lrc)
+- [4 恒星坠落之时](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/4%20%E6%81%92%E6%98%9F%E5%9D%A0%E8%90%BD%E4%B9%8B%E6%97%B6.lrc)
+- [5 静止时间](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/5%20%E9%9D%99%E6%AD%A2%E6%97%B6%E9%97%B4.lrc)
+- [6 带我逃跑](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/6%20%E5%B8%A6%E6%88%91%E9%80%83%E8%B7%91.lrc)
+- [7 Talking to the Rain](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/7%20Talking%20to%20the%20Rain.lrc)
+- [8 尘埃](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/8%20%E5%B0%98%E5%9F%83.lrc)
+- [9 斑驳](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido/9%20%E6%96%91%E9%A9%B3.lrc)
 
 ## 下载
 
-下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E6%A3%AE%E7%BD%97%E4%B8%87%E8%B1%A1Kaleido.zip)

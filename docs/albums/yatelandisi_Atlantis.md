@@ -61,15 +61,15 @@ tag:
 
 ## 曲目列表
 
-- [1 樂園-Atlantis-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/1%20%E6%A8%82%E5%9C%92-Atlantis-.lrc)
-- [2 少年永梦](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/2%20%E5%B0%91%E5%B9%B4%E6%B0%B8%E6%A2%A6.lrc)
-- [3 水天一色](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/3%20%E6%B0%B4%E5%A4%A9%E4%B8%80%E8%89%B2.lrc)
-- [4 月光掌](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/4%20%E6%9C%88%E5%85%89%E6%8E%8C.lrc)
-- [5 START](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/5%20START.lrc)
-- [6 龙女](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/6%20%E9%BE%99%E5%A5%B3.lrc)
-- [7 绮凝盏](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/7%20%E7%BB%AE%E5%87%9D%E7%9B%8F.lrc)
-- [8 降临](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/8%20%E9%99%8D%E4%B8%B4.lrc)
+- [1 樂園-Atlantis-](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/1%20%E6%A8%82%E5%9C%92-Atlantis-.lrc)
+- [2 少年永梦](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/2%20%E5%B0%91%E5%B9%B4%E6%B0%B8%E6%A2%A6.lrc)
+- [3 水天一色](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/3%20%E6%B0%B4%E5%A4%A9%E4%B8%80%E8%89%B2.lrc)
+- [4 月光掌](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/4%20%E6%9C%88%E5%85%89%E6%8E%8C.lrc)
+- [5 START](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/5%20START.lrc)
+- [6 龙女](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/6%20%E9%BE%99%E5%A5%B3.lrc)
+- [7 绮凝盏](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/7%20%E7%BB%AE%E5%87%9D%E7%9B%8F.lrc)
+- [8 降临](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis/8%20%E9%99%8D%E4%B8%B4.lrc)
 
 ## 下载
 
-下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E4%BA%9A%E7%89%B9%E5%85%B0%E8%92%82%E6%96%AFAtlantis.zip)

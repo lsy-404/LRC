@@ -67,16 +67,16 @@ tag:
 
 ## 曲目列表
 
-- [1 不夜国](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/1%20%E4%B8%8D%E5%A4%9C%E5%9B%BD.lrc)
-- [2 dancing like a wind](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/2%20dancing%20like%20a%20wind.lrc)
-- [3 希望悬空](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/3%20%E5%B8%8C%E6%9C%9B%E6%82%AC%E7%A9%BA.lrc)
-- [4 沙舟](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/4%20%E6%B2%99%E8%88%9F.lrc)
-- [5 优雅的罪恶之源](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/5%20%E4%BC%98%E9%9B%85%E7%9A%84%E7%BD%AA%E6%81%B6%E4%B9%8B%E6%BA%90.lrc)
-- [6 少年诗](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/6%20%E5%B0%91%E5%B9%B4%E8%AF%97.lrc)
-- [7 第七恒星自毁](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/7%20%E7%AC%AC%E4%B8%83%E6%81%92%E6%98%9F%E8%87%AA%E6%AF%81.lrc)
-- [8 Mandala](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/8%20Mandala.lrc)
-- [9 苍穹](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/9%20%E8%8B%8D%E7%A9%B9.lrc)
+- [1 不夜国](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/1%20%E4%B8%8D%E5%A4%9C%E5%9B%BD.lrc)
+- [2 dancing like a wind](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/2%20dancing%20like%20a%20wind.lrc)
+- [3 希望悬空](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/3%20%E5%B8%8C%E6%9C%9B%E6%82%AC%E7%A9%BA.lrc)
+- [4 沙舟](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/4%20%E6%B2%99%E8%88%9F.lrc)
+- [5 优雅的罪恶之源](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/5%20%E4%BC%98%E9%9B%85%E7%9A%84%E7%BD%AA%E6%81%B6%E4%B9%8B%E6%BA%90.lrc)
+- [6 少年诗](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/6%20%E5%B0%91%E5%B9%B4%E8%AF%97.lrc)
+- [7 第七恒星自毁](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/7%20%E7%AC%AC%E4%B8%83%E6%81%92%E6%98%9F%E8%87%AA%E6%AF%81.lrc)
+- [8 Mandala](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/8%20Mandala.lrc)
+- [9 苍穹](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom/9%20%E8%8B%8D%E7%A9%B9.lrc)
 
 ## 下载
 
-下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E5%90%89%E5%85%89%E7%89%87%E7%BE%BDQueendom.zip)

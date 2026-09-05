@@ -12,7 +12,7 @@ except ModuleNotFoundError:  # pragma: no cover
 
 DEFAULT_CONFIG: dict[str, Any] = {
     "project": {
-        "repo": "wuyilingwei/LRC",
+        "repo": "lsy-404/LRC",
         "res_dir": "res",
         "docs_dir": "docs",
         "albums_dir": "docs/albums",

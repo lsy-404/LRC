@@ -13,7 +13,7 @@ import urllib.request
 from pathlib import Path
 
 API = "https://api.github.com"
-REPO = os.environ.get("GH_REPO", "wuyilingwei/LRC")
+REPO = os.environ.get("GH_REPO", "lsy-404/LRC")
 TOKEN = os.environ.get("GH_TOKEN", "")
 TIMEOUT = 120
 

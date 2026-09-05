@@ -55,15 +55,15 @@ tag:
 
 ## 曲目列表
 
-- [1 Chasing the shadow.](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Starlit%20Whisper/1%20Chasing%20the%20shadow..lrc)
-- [2 Shadow Trace](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Starlit%20Whisper/2%20Shadow%20Trace.lrc)
-- [3 热岛之人](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Starlit%20Whisper/3%20%E7%83%AD%E5%B2%9B%E4%B9%8B%E4%BA%BA.lrc)
-- [4 勿忘草](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Starlit%20Whisper/4%20%E5%8B%BF%E5%BF%98%E8%8D%89.lrc)
-- [5 半梦](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Starlit%20Whisper/5%20%E5%8D%8A%E6%A2%A6.lrc)
-- [6 天使引擎](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Starlit%20Whisper/6%20%E5%A4%A9%E4%BD%BF%E5%BC%95%E6%93%8E.lrc)
-- [7 Shadow Trace -Japanese Ver-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Starlit%20Whisper/7%20Shadow%20Trace%20-Japanese%20Ver-.lrc)
-- [8 半梦-星尘Ver-](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/Starlit%20Whisper/8%20%E5%8D%8A%E6%A2%A6-%E6%98%9F%E5%B0%98Ver-.lrc)
+- [1 Chasing the shadow.](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Starlit%20Whisper/1%20Chasing%20the%20shadow..lrc)
+- [2 Shadow Trace](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Starlit%20Whisper/2%20Shadow%20Trace.lrc)
+- [3 热岛之人](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Starlit%20Whisper/3%20%E7%83%AD%E5%B2%9B%E4%B9%8B%E4%BA%BA.lrc)
+- [4 勿忘草](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Starlit%20Whisper/4%20%E5%8B%BF%E5%BF%98%E8%8D%89.lrc)
+- [5 半梦](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Starlit%20Whisper/5%20%E5%8D%8A%E6%A2%A6.lrc)
+- [6 天使引擎](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Starlit%20Whisper/6%20%E5%A4%A9%E4%BD%BF%E5%BC%95%E6%93%8E.lrc)
+- [7 Shadow Trace -Japanese Ver-](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Starlit%20Whisper/7%20Shadow%20Trace%20-Japanese%20Ver-.lrc)
+- [8 半梦-星尘Ver-](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Starlit%20Whisper/8%20%E5%8D%8A%E6%A2%A6-%E6%98%9F%E5%B0%98Ver-.lrc)
 
 ## 下载
 
-下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/Starlit%20Whisper.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/Starlit%20Whisper.zip)

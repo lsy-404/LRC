@@ -17,7 +17,7 @@ import gh
 import pack
 import store
 
-REPO = os.environ.get("GH_REPO", "wuyilingwei/LRC")
+REPO = os.environ.get("GH_REPO", "lsy-404/LRC")
 LYRIC_MAKER = os.environ.get("LYRIC_MAKER", "")
 BOT_NAME = "lrc-ingest[bot]"
 BOT_EMAIL = "lrc-ingest@users.noreply.github.com"

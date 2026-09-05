@@ -53,19 +53,19 @@ tag:
 
 ## 曲目列表
 
-- [1 日出](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/1%20%E6%97%A5%E5%87%BA.lrc)
-- [2 Mandala](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/2%20Mandala.lrc)
-- [3 灯火](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/3%20%E7%81%AF%E7%81%AB.lrc)
-- [4 酣梦流光](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/4%20%E9%85%A3%E6%A2%A6%E6%B5%81%E5%85%89.lrc)
-- [5 后知后觉](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/5%20%E5%90%8E%E7%9F%A5%E5%90%8E%E8%A7%89.lrc)
-- [6 酣梦流光 feat.Minus std](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/6%20%E9%85%A3%E6%A2%A6%E6%B5%81%E5%85%89%20feat.Minus%20std.lrc)
-- [7 后知后觉 feat.星尘V4](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/7%20%E5%90%8E%E7%9F%A5%E5%90%8E%E8%A7%89%20feat.%E6%98%9F%E5%B0%98V4.lrc)
-- [8 日出 (instrumental)](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/8%20%E6%97%A5%E5%87%BA%20%28instrumental%29.lrc)
-- [9 Mandala (instrumental)](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/9%20Mandala%20%28instrumental%29.lrc)
-- [10 灯火 (instrumental)](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/10%20%E7%81%AF%E7%81%AB%20%28instrumental%29.lrc)
-- [11 酣梦流光 (instrumental)](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/11%20%E9%85%A3%E6%A2%A6%E6%B5%81%E5%85%89%20%28instrumental%29.lrc)
-- [12 后知后觉 (instrumental)](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/12%20%E5%90%8E%E7%9F%A5%E5%90%8E%E8%A7%89%20%28instrumental%29.lrc)
+- [1 日出](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/1%20%E6%97%A5%E5%87%BA.lrc)
+- [2 Mandala](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/2%20Mandala.lrc)
+- [3 灯火](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/3%20%E7%81%AF%E7%81%AB.lrc)
+- [4 酣梦流光](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/4%20%E9%85%A3%E6%A2%A6%E6%B5%81%E5%85%89.lrc)
+- [5 后知后觉](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/5%20%E5%90%8E%E7%9F%A5%E5%90%8E%E8%A7%89.lrc)
+- [6 酣梦流光 feat.Minus std](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/6%20%E9%85%A3%E6%A2%A6%E6%B5%81%E5%85%89%20feat.Minus%20std.lrc)
+- [7 后知后觉 feat.星尘V4](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/7%20%E5%90%8E%E7%9F%A5%E5%90%8E%E8%A7%89%20feat.%E6%98%9F%E5%B0%98V4.lrc)
+- [8 日出 (instrumental)](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/8%20%E6%97%A5%E5%87%BA%20%28instrumental%29.lrc)
+- [9 Mandala (instrumental)](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/9%20Mandala%20%28instrumental%29.lrc)
+- [10 灯火 (instrumental)](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/10%20%E7%81%AF%E7%81%AB%20%28instrumental%29.lrc)
+- [11 酣梦流光 (instrumental)](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/11%20%E9%85%A3%E6%A2%A6%E6%B5%81%E5%85%89%20%28instrumental%29.lrc)
+- [12 后知后觉 (instrumental)](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE/12%20%E5%90%8E%E7%9F%A5%E5%90%8E%E8%A7%89%20%28instrumental%29.lrc)
 
 ## 下载
 
-下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/wuyilingwei/LRC@main/pack/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE.zip)
+下载本专辑所有歌词文件：[ZIP 打包下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE.zip)
