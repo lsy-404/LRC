@@ -97,9 +97,9 @@ _NAME_FIELDS = {"prefix", "zh_name", "en_name", "suffix"}
 
 def infer_album_names(folder_name: str) -> tuple[str, str, str, str]:
     """智能推断专辑前缀、中文名、英文名和后缀
-    
+
     优先使用LLM解析，失败则回退：直接将文件夹名作为中文名
-    
+
     返回 (prefix, zh_name, en_name, suffix) 元组
     """
     # 尝试LLM解析
@@ -110,13 +110,13 @@ def infer_album_names(folder_name: str) -> tuple[str, str, str, str]:
             zh_name = result.get("zh_name", "")
             en_name = result.get("en_name", "")
             suffix = result.get("suffix", "")
-            
+
             # 如果中文名和英文名完全相同，说明是纯英文名，清空中文名
             if zh_name and en_name and zh_name == en_name:
                 zh_name = ""
-            
+
             return prefix, zh_name, en_name, suffix
-    
+
     # LLM不可用时，直接将文件夹名作为中文名
     text = folder_name.strip()
     if not text:
@@ -219,12 +219,12 @@ def process_album(
 
     # 从 LRC 提取
     lrc_meta = merge_album_lrc_metadata(lrc_files)
-    
+
     # 推断专辑名称（仅在必要时调用）
     # 如果现有meta中已有任意名称字段且不是force_names模式，则跳过LLM调用
     has_any_name = any(existing_meta.get(field) for field in _NAME_FIELDS)
     need_infer = force_names or not has_any_name
-    
+
     if need_infer:
         inferred_prefix, inferred_zh, inferred_en, inferred_suffix = infer_album_names(album_name)
         names = {
@@ -261,13 +261,13 @@ def process_album(
         status = "[changed]" if changed else "[unchanged]"
         with _PRINT_LOCK:
             print(f"  {status} {album_name}")
-        
+
         # 显示名称字段
         for field in ["prefix", "zh_name", "en_name", "suffix"]:
             val = merged.get(field) or ""
             ex_val = existing_meta.get(field) or ""
             inf_val = names.get(field) or ""
-            
+
             if not val:
                 source = " [空]"
             elif ex_val and not force_names:
@@ -276,12 +276,12 @@ def process_album(
                 source = " [推断]" if LLM_CLIENT else " [文件夹名]"
             else:
                 source = ""
-            
+
             display_name = {"prefix": "前缀", "zh_name": "中文名", "en_name": "英文名", "suffix": "后缀"}[field]
             if val or verbose:
                 with _PRINT_LOCK:
                     print(f"    {display_name:<6} = {val or '(空)'}{source}")
-        
+
         # 显示其他字段
         for internal, toml_key, typ in FIELD_SCHEMA:
             if internal in _NAME_FIELDS:
@@ -341,7 +341,7 @@ def main() -> None:
     print(f"{mode}开始处理 {len(album_dirs)} 张专辑（{args.workers} 线程并发）...\n")
 
     changed_count = 0
-    
+
     # 使用线程池并发处理
     with ThreadPoolExecutor(max_workers=args.workers) as executor:
         # 提交所有任务
@@ -355,7 +355,7 @@ def main() -> None:
             ): album_dir
             for album_dir in album_dirs
         }
-        
+
         # 收集结果
         for future in as_completed(future_to_album):
             album_dir = future_to_album[future]

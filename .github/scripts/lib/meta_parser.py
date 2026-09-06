@@ -26,7 +26,7 @@ def _decode_bytes(raw: bytes) -> str:
 
 def _unescape_toml_string(s: str) -> str:
     """解析 TOML 字符串中的转义序列。
-    
+
     支持标准 TOML 转义：\\, \", \n, \t, \r, \b, \f
     """
     result = []
