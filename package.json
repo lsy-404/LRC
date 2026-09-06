@@ -1,6 +1,7 @@
 {
   "name": "lrc-vuepress",
   "version": "1.0.0",
+  "packageManager": "pnpm@9.15.9",
   "description": "VuePress site for LRC albums",
   "scripts": {
     "docs:build": "vuepress build docs",
