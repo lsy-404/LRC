@@ -1,12 +1,12 @@
 import {
-  json, passwordOk, bearer, cleanRef, cleanAlbum,
+  json, requireUser, cleanRef, cleanAlbum,
   REVIEW, readJson, writeJson, nowStamp,
 } from './_lib.js';
 
 // POST /api/ingest/save { ref, album, draft } — 保存人工校正后的草稿。
 // 同时刷新 status.updated 并标记 edited，避免编辑期间被超时闸门抢跑。
 export async function onRequestPost({ request, env }) {
-  if (!(await passwordOk(bearer(request), env))) return json({ error: 'unauthorized' }, 401);
+  if (!(await requireUser({ request, env }))) return json({ error: 'unauthorized' }, 401);
   if (!env.UPLOAD_BUCKET) return json({ error: 'r2 not configured' }, 503);
 
   const body = await request.json().catch(() => null);

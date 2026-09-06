@@ -12,7 +12,7 @@
 输出 res/<专辑>/：
 - <序号> <曲名>.lrc：音频按覆盖率匹配到轨 → align 强制对齐成标准行级 timed LRC；
   无匹配音频则写无时间轴草稿
-- <序号> <曲名>.klrc：同一次对齐的逐字增强版侧车文件（行内附 <字时间> 标签），
+- <序号> <曲名>.elrc：同一次对齐的逐字增强版侧车文件（行内附 <字时间> 标签），
   仅在匹配到音频时才有；与 .lrc 分文件存放，不影响标准 LRC 播放器/解析器兼容性
 - meta.toml：credits/staff 抽取 + manifest 覆盖
 - cover.<ext>：若提供封面
@@ -136,12 +136,15 @@ def _output_basename(track: dict[str, Any], order: Any, *, include_order: bool =
     if raw:
         # Names are basenames only; ignore a pasted path and strip either accepted sidecar suffix.
         base = Path(raw.replace("\\", "/")).name
-        while base.lower().endswith((".lrc", ".klrc")):
-            suffix_len = 5 if base.lower().endswith(".klrc") else 4
+        while base.lower().endswith((".lrc", ".elrc")):
+            suffix_len = 5 if base.lower().endswith(".elrc") else 4
             base = base[:-suffix_len]
         if base not in {"", ".", ".."}:
             return _sanitize_filename(base)
-    title = _sanitize_filename(str(track.get("title", "")).strip() or f"track{order}")
+    title = Path(str(track.get("title", "")).replace("\\", "/")).name.strip() or f"track{order}"
+    while title.lower().endswith((".lrc", ".elrc")):
+        title = title[:-5] if title.lower().endswith(".elrc") else title[:-4]
+    title = _sanitize_filename(title)
     return f"{order} {title}" if include_order else title
 
 
@@ -493,7 +496,7 @@ def llm_split_booklet(source_text: str, album_hint: str) -> dict:
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# 视觉分轨（去 OCR 转录）：多模态模型(gpt-5.6-luna)直接吃图片，一步出分配+meta+置信度
+# 视觉分轨（去 OCR 转录）：多模态模型直接处理图片，一步出分配+meta+置信度
 # ──────────────────────────────────────────────────────────────────────────────
 ASSIGN_VISION_SYSTEM = """你是音乐专辑歌词整理专家。给你专辑的**权威轨单**（来自音频文件，顺序与
 曲名以此为准，不得增删改）和**歌词本图片**（按顺序给出，每图前标注文件名；可能含多首歌词及
@@ -578,7 +581,7 @@ def merge_meta(*sources: dict) -> dict[str, Any]:
     return merged
 
 
-def ensure_lyric_maker(meta: dict[str, Any], required: str = "武乙凌薇") -> dict[str, Any]:
+def ensure_lyric_maker(meta: dict[str, Any], required: str = "") -> dict[str, Any]:
     """Normalize album timing credits and append the required contributor when absent."""
     seen: set[str] = set()
     makers: list[str] = []
@@ -594,8 +597,8 @@ def ensure_lyric_maker(meta: dict[str, Any], required: str = "武乙凌薇") -> 
 
 def _fmt_toml_value(value: Any, is_list: bool) -> str:
     if is_list:
-        return "[" + ", ".join(f'"{v}"' for v in value) + "]"
-    return f'"{value}"'
+        return json.dumps([str(v) for v in value], ensure_ascii=False)
+    return json.dumps(str(value), ensure_ascii=False)
 
 
 _NAME_INTERNALS = {k for k, _ in NAME_FIELDS}
@@ -614,18 +617,18 @@ def render_meta_toml(meta: dict[str, Any], names: dict[str, str]) -> str:
     for f in FIELD_SCHEMA:
         internal, toml_key = f["internal"], f["toml_key"]
         if internal in _NAME_INTERNALS:
-            lines.append(f'{toml_key} = "{names.get(internal, "")}"')
+            lines.append(f'{json.dumps(toml_key, ensure_ascii=False)} = {_fmt_toml_value(names.get(internal, ""), False)}')
             emitted_names = True
             continue
         is_list = f["type"] == "list"
-        lines.append(f"{toml_key} = {_fmt_toml_value(meta.get(internal, [] if is_list else ''), is_list)}")
+        lines.append(f"{json.dumps(toml_key, ensure_ascii=False)} = {_fmt_toml_value(meta.get(internal, [] if is_list else ''), is_list)}")
         if internal == "produce" and not schema_has_names and not emitted_names:
             for key, label in NAME_FIELDS:
-                lines.append(f'{label} = "{names.get(key, "")}"')
+                lines.append(f'{json.dumps(label, ensure_ascii=False)} = {_fmt_toml_value(names.get(key, ""), False)}')
             emitted_names = True
     if not emitted_names:
         for key, label in NAME_FIELDS:
-            lines.append(f'{label} = "{names.get(key, "")}"')
+            lines.append(f'{json.dumps(label, ensure_ascii=False)} = {_fmt_toml_value(names.get(key, ""), False)}')
     return "\n".join(lines) + "\n"
 
 
@@ -705,7 +708,7 @@ def build_track_lrc(
 
     返回 (lrc, 覆盖率, lrc_words)。lrc 是标准行级 LRC（不含逐字标签，
     保证任何播放器/解析器兼容）；lrc_words 是同一份对齐结果的逐字增强版
-    （行内 <字时间> 标签），另存 .klrc 侧车文件，不匹配音频时为 None。
+    （行内 <字时间> 标签），另存 .elrc 侧车文件，不匹配音频时为 None。
 
     副作用：把匹配到的音频名写回 track["audio"]（未匹配为 ""），空标题由音频
     文件名回填，歌词本无文本时 STT 草稿行写回 track["lines"]。
@@ -802,16 +805,19 @@ def build_authoritative_track(
     used: set,
     audio_langs: dict[str, str] | None = None,
 ) -> tuple[str, float, Optional[str]]:
-    """Retain uploaded LRC verbatim and optionally attach a bounded KLRC sidecar."""
+    """Retain uploaded LRC verbatim and optionally attach a bounded ELRC sidecar."""
     source_lrc = str(track.get("lrc") or "")
     lines = track.get("lines") or []
     audio = track.get("file") if track.get("file") in (audio_words or {}) else (
         match_audio_to_track(lines, audio_words, used, audio_langs) if audio_words else None)
+    existing_klrc = track.get("klrc")
     if not audio:
         track["audio"] = ""
-        return source_lrc, 0.0, None
+        return source_lrc, 0.0, existing_klrc
     used.add(audio)
     track["audio"] = audio
+    if existing_klrc:
+        return source_lrc, 1.0, existing_klrc
     klrc, coverage = authority_mod.build_authoritative_klrc(source_lrc, audio_words[audio])
     print(f"  ♪ {track.get('title', audio)} ← {audio}（权威 LRC，逐字覆盖率 {coverage:.0%}）", file=sys.stderr)
     return source_lrc, coverage, klrc
@@ -869,6 +875,8 @@ def fill_lyric_maker_tag(content: str, lyric_makers: list[str]) -> str:
             lines[index] = tag + ending
             return "".join(lines)
 
+    if not by:
+        return content
     ending = "\r\n" if "\r\n" in content else "\n"
     insert_at = 0
     for index, line in enumerate(lines[:8]):
@@ -957,7 +965,7 @@ def build_draft(
     if tracks_explicit:
         tracks = sorted(tracks_explicit, key=lambda t: t.get("order", 0) or 0)
         album_from_plan = ""
-    elif tracks_plan and audio_words:
+    elif tracks_plan:
         # 音频为中心：轨=音频（曲名/曲序以音频文件为权威），歌词本 OCR 只做
         # 歌词修正与元信息一补——每曲分配到的原文找不到就留空（届时用该曲
         # 自身 STT 词流出草稿），不发明不凑数。
@@ -978,6 +986,8 @@ def build_draft(
             if isinstance(vis_pages, list) and vis_pages:
                 pages = [{"name": str(p.get("name", "")), "kind": "VISION",
                           "text": str(p.get("text", ""))} for p in vis_pages]
+                assignments = enforce_page_links(assignments, pages, tracks_plan,
+                    link_orders_of(photo_links, tracks_plan), audio_words, audio_langs)
         elif booklet_text or pages:
             link_orders: dict[str, int] = {}
             if pages:
@@ -1087,7 +1097,7 @@ def build_draft(
     meta = merge_meta(manifest, llm_meta, credits_staff, per_track_staff, web_meta, existing_meta or {})
     if default_lyric_maker and not meta.get("lyric_maker"):
         meta["lyric_maker"] = [default_lyric_maker]
-    ensure_lyric_maker(meta)
+    ensure_lyric_maker(meta, default_lyric_maker)
 
     # 名称字段不在 FIELD_SCHEMA，merge_meta 不处理，手动按优先级计算：
     # manifest > existing_meta > album 字符串推断
@@ -1202,8 +1212,8 @@ def finalize(
         basename = _output_basename(t, order, include_order=not single_submission)
         _emit(album_rel / f"{basename}.lrc", lrc)
         if lrc_words:
-            # 逐字增强版另存 .klrc（非 .lrc 后缀），与标准 LRC 分离以保证播放器兼容性
-            _emit(album_rel / f"{basename}.klrc", lrc_words)
+            # 逐字增强版另存 .elrc（非 .lrc 后缀），与标准 LRC 分离以保证播放器兼容性
+            _emit(album_rel / f"{basename}.elrc", lrc_words)
 
     # 未匹配到轨的音频：单独输出机器转写（不丢）——此处仅记日志，避免误入库
     leftover = [n for n in audio_words if n not in used]

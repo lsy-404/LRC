@@ -1,5 +1,5 @@
 import {
-  json, passwordOk, bearer, callWorker, cleanRef, REVIEW, listPrefix, readJson,
+  json, requireUser, callWorker, cleanRef, REVIEW, listPrefix, readJson,
 } from './_lib.js';
 
 const ACTIVE_STATES = new Set(['queued', 'dispatching', 'running']);
@@ -8,7 +8,7 @@ const ACTIVE_STATES = new Set(['queued', 'dispatching', 'running']);
 // 返回该 ref 下每张专辑的 status + draft（可编辑对象；不含词流 stt）。
 // 前缀为空 → status:'processing'（Phase A 还没写完，或已被 Phase B 清理）。
 export async function onRequestGet({ request, env }) {
-  if (!(await passwordOk(bearer(request), env))) return json({ error: 'unauthorized' }, 401);
+  if (!(await requireUser({ request, env }))) return json({ error: 'unauthorized' }, 401);
   if (!env.UPLOAD_BUCKET) return json({ error: 'r2 not configured' }, 503);
 
   const ref = cleanRef(new URL(request.url).searchParams.get('ref'));

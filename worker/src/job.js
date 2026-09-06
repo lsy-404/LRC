@@ -68,6 +68,9 @@ export class IngestJob extends DurableObject {
 
   async start(kind, params) {
     const running = await this.ctx.storage.get('job');
+    if (kind === 'phase_a' && running?.params?.ref === params.ref && running.state !== 'failed') {
+      return { ok: true, already: true, state: running.state, phase: running.phase };
+    }
     if (running && ACTIVE_STATES.has(running.state)) {
       // 生成作业单实例串行，跑的过程中又有新提交 → 记一笔，跑完补一轮，别丢更新
       if (kind === 'generate') {

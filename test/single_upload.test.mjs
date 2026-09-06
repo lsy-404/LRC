@@ -1,11 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
-import { readDraft, serializeDraft } from '../docs/.vuepress/components/uploadDraft.js';
 import { onRequestPost as finalizePost } from '../functions/api/upload/finalize.js';
 import { authedRequest, fakeBucket } from './worker/_fakeR2.mjs';
 
 const REF = 'b'.repeat(32);
+const USERS = { getByName: () => ({ resolveSession: () => ({ id: 1, name: 'editor', display_name: 'Editor', github: null, role: 'editor', status: 'active' }) }) };
 
 test('单曲 finalize 强制落入单曲并保留同一 web session 前缀', async () => {
   const bucket = fakeBucket();
@@ -17,7 +16,7 @@ test('单曲 finalize 强制落入单曲并保留同一 web session 前缀', asy
       },
     }),
     env: {
-      UPLOAD_PASSWORD: 'pw', UPLOAD_BUCKET: bucket,
+      UPLOAD_PASSWORD: 'pw', UPLOAD_BUCKET: bucket, USERS,
       INGEST_INTERNAL_CALL: async () => ({ ok: true, status: 200, data: { ok: true } }),
     },
   });
@@ -36,25 +35,7 @@ test('finalize 拒绝未知投稿类型', async () => {
         files: [{ n: 0, path: '音频/01.mp3', size: 1 }],
       },
     }),
-    env: { UPLOAD_PASSWORD: 'pw', UPLOAD_BUCKET: fakeBucket() },
+    env: { UPLOAD_PASSWORD: 'pw', UPLOAD_BUCKET: fakeBucket(), USERS },
   });
   assert.equal(response.status, 400);
-});
-
-test('单曲草稿恢复投稿类型，旧草稿仍按专辑处理', () => {
-  const item = { relPath: '音频/01.mp3', role: 'song' };
-  const single = serializeDraft('', [item], 10, '', [], 'single');
-  const storage = { getItem: () => JSON.stringify(single), removeItem() {} };
-  assert.equal(readDraft(storage, 11).submissionType, 'single');
-  const oldStorage = { getItem: () => JSON.stringify({ album: '旧专辑', at: 10, files: [item] }), removeItem() {} };
-  assert.equal(readDraft(oldStorage, 11).submissionType, 'album');
-});
-
-test('单曲界面不提供目标专辑输入，提交与自动 manifest 均携带投稿类型', async () => {
-  const source = await readFile(new URL('../docs/.vuepress/components/UploadBox.vue', import.meta.url), 'utf8');
-  assert.match(source, /submissionType === 'single'/);
-  assert.match(source, /单曲投稿将进入「单曲」目录/);
-  assert.match(source, /submission_type: submissionType\.value/);
-  assert.match(source, /submission_type = "single"/);
-  assert.match(source, /submissionType\.value = 'album'/);
 });

@@ -3,11 +3,11 @@ import assert from 'node:assert/strict';
 import {
   onRequestPost, onRequestPut, onRequestDelete,
 } from '../../functions/api/upload/multipart.js';
-import { fakeBucket } from './_fakeR2.mjs';
+import { fakeBucket, authenticatedUsers } from './_fakeR2.mjs';
 
 const REF = 'a'.repeat(32);
-const env = () => ({ UPLOAD_PASSWORD: 'pw', UPLOAD_BUCKET: fakeBucket() });
-const auth = { authorization: 'Bearer pw' };
+const env = () => ({ USERS: authenticatedUsers(), UPLOAD_BUCKET: fakeBucket() });
+const auth = { cookie: 'lrc_session=test-session' };
 
 test('multipart 拒绝未验证的上传请求', async () => {
   const target = env();
@@ -85,4 +85,21 @@ test('multipart 可中止未完成上传', async () => {
     env: target,
   });
   assert.equal(response.status, 200);
+});
+
+test('a committed manifest locks only its own raw and multipart upload targets', async () => {
+  const target = env();
+  const base = `https://x/api/upload/multipart?session=${REF}&n=0`;
+  const created = await onRequestPost({ request: new Request(base + '&action=create', { method: 'POST', headers: auth }), env: target });
+  const { uploadId } = await created.json();
+  const part = await onRequestPut({ request: new Request(base + `&action=part&uploadId=${uploadId}&partNumber=1`, { method: 'PUT', headers: auth, body: 'new' }), env: target });
+  const { etag } = await part.json();
+  await target.UPLOAD_BUCKET.put(`web/${REF}/0`, 'original');
+  await target.UPLOAD_BUCKET.put(`web/${REF}/manifest.json`, '{}');
+  assert.equal((await onRequestPost({ request: new Request(base + `&action=complete&uploadId=${uploadId}`, { method: 'POST', headers: auth, body: JSON.stringify({ parts: [{ partNumber: 1, etag }] }) }), env: target })).status, 409);
+  const { onRequestPost: rawUpload } = await import('../../functions/api/upload/r2.js');
+  assert.equal((await rawUpload({ request: new Request(`https://x/api/upload/r2?session=${REF}&n=0`, { method: 'POST', headers: { ...auth, 'content-length': '3' }, body: 'new' }), env: target })).status, 409);
+  assert.equal(target.UPLOAD_BUCKET.store.get(`web/${REF}/0`), 'original');
+  const other = base.replace(REF, 'b'.repeat(32));
+  assert.equal((await onRequestPost({ request: new Request(other + '&action=create', { method: 'POST', headers: auth }), env: target })).status, 200);
 });

@@ -1,4 +1,4 @@
-import { json, passwordOk, bearer, cleanRef, cleanAlbum, REVIEW } from './_lib.js';
+import { json, requireUser, cleanRef, cleanAlbum, REVIEW } from './_lib.js';
 
 // POST /api/ingest/cover?ref=&album=&ext=.jpg — 换封面，请求体为图片原始字节。
 // 直接落到 bundle 里的 cover<ext>；draft.cover_ext 由面板保存时同步。
@@ -6,7 +6,7 @@ const MAX_BYTES = 20 * 1024 * 1024;
 const EXT_RE = /^\.[a-z0-9]{1,5}$/;
 
 export async function onRequestPost({ request, env }) {
-  if (!(await passwordOk(bearer(request), env))) return json({ error: 'unauthorized' }, 401);
+  if (!(await requireUser({ request, env }))) return json({ error: 'unauthorized' }, 401);
   if (!env.UPLOAD_BUCKET) return json({ error: 'r2 not configured' }, 503);
 
   const url = new URL(request.url);

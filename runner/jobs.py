@@ -18,7 +18,7 @@ import pack
 import store
 
 REPO = os.environ.get("GH_REPO", "lsy-404/LRC")
-LYRIC_MAKER = os.environ.get("LYRIC_MAKER", "")
+LYRIC_MAKER = os.environ.get("REQUIRED_LYRIC_MAKER", "")
 BOT_NAME = "lrc-ingest[bot]"
 BOT_EMAIL = "lrc-ingest@users.noreply.github.com"
 FAILURE_OUTPUT_LINES = 12
@@ -142,6 +142,9 @@ def phase_a(params: dict, log, report=None) -> dict:
                "--bundle-root", str(bundle_root), "--timestamp", _now(),
                "--work", str(work / "ingest_work"), "--json", str(summary_path),
                "--contributor", contributor, "--submission-type", submission_type]
+        makers = manifest.get("lyric_maker") or []
+        makers = list(dict.fromkeys(name.strip() for name in makers if isinstance(name, str) and name.strip())) if isinstance(makers, list) else []
+        cmd += ["--lyric-makers", json.dumps(makers, ensure_ascii=False)]
         if LYRIC_MAKER:
             cmd += ["--lyric-maker", LYRIC_MAKER]
         run(cmd, log, cwd=repo, env=_pipeline_env(repo))

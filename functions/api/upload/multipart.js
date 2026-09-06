@@ -1,4 +1,5 @@
-import { json, passwordOk, bearer, cleanSession, cleanIndex } from './_lib.js';
+import { json, cleanSession, cleanIndex } from './_lib.js';
+import { requireUser } from '../auth/_lib.js';
 
 const MAX_PARTS = 10_000;
 
@@ -32,7 +33,7 @@ function cleanParts(value) {
 }
 
 async function allowed(request, env) {
-  return (await passwordOk(bearer(request), env)) && !!env.UPLOAD_BUCKET;
+  return !!(await requireUser({ request, env })) && !!env.UPLOAD_BUCKET;
 }
 
 export async function onRequestPost({ request, env }) {
@@ -40,6 +41,7 @@ export async function onRequestPost({ request, env }) {
   const { url, session, n, key } = context(request);
   if (!session || n === null) return json({ error: 'bad request' }, 400);
 
+  if (await env.UPLOAD_BUCKET.head(`web/${session}/manifest.json`)) return json({ error: 'submission locked' }, 409);
   const action = url.searchParams.get('action');
   if (action === 'create') {
     const upload = await env.UPLOAD_BUCKET.createMultipartUpload(key);

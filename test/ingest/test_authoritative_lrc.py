@@ -65,10 +65,29 @@ def test_authoritative_lrc_survives_draft_finalize_and_stt_enrichment() -> None:
         assert written.read_bytes() == SOURCE.encode("utf-8")
 
 
+def test_elrc_sidecar_is_merged_and_survives_without_stt() -> None:
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        lrc = "[00:01.000]歌词\n"
+        elrc = "[00:01.000]<00:01.000>歌<00:01.200>词\n"
+        root.joinpath("001 歌曲.lrc").write_text(lrc, encoding="utf-8")
+        root.joinpath("001 歌曲.elrc").write_text(elrc, encoding="utf-8")
+        buckets = pipeline.classify(root)
+        assert len(buckets["lrc"]) == 2
+        track = authority_lrc.load_authoritative_track(root / "001 歌曲.lrc", 1, root / "001 歌曲.elrc")
+        draft = organize.build_draft(tracks_explicit=[track], booklet_text="", credits_text="", manifest={"album": "测试"}, audio_words={})
+        assert draft["tracks"][0]["lrc"] == lrc
+        assert draft["tracks"][0]["klrc"] == elrc
+        output = root / "res"
+        organize.finalize(draft, output)
+        assert next(output.glob("测试/*.elrc")).read_text(encoding="utf-8") == elrc
+
+
 def run() -> int:
     test_lrc_is_classified_instead_of_discarded()
     test_authoritative_lrc_survives_draft_finalize_and_stt_enrichment()
-    print("2/2 通过")
+    test_elrc_sidecar_is_merged_and_survives_without_stt()
+    print("3/3 通过")
     return 0
 
 

@@ -1,8 +1,8 @@
-import { json, passwordOk, bearer, callWorker, cleanRef } from './_lib.js';
+import { json, requireUser, callWorker, cleanRef } from './_lib.js';
 
 // POST /api/ingest/retry { ref } — Phase A 失败后用原始 manifest 重新排队，不重传原料。
 export async function onRequestPost({ request, env }) {
-  if (!(await passwordOk(bearer(request), env))) return json({ error: 'unauthorized' }, 401);
+  if (!(await requireUser({ request, env }))) return json({ error: 'unauthorized' }, 401);
 
   const body = await request.json().catch(() => null);
   const ref = cleanRef(body?.ref);

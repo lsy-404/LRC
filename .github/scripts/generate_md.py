@@ -293,10 +293,10 @@ def main() -> None:
         def _song_line(song: dict) -> str:
             line = (f"- [{song['title']}](https://cdn.jsdelivr.net/gh/{REPO}@main/res/"
                     f"{urllib.parse.quote(album)}/{urllib.parse.quote(song['file'])})")
-            klrc_name = song["file"].rsplit(".", 1)[0] + ".klrc"
-            if (album_dir / klrc_name).exists():
+            elrc_name = song["file"].rsplit(".", 1)[0] + ".elrc"
+            if (album_dir / elrc_name).exists():
                 line += (f"（[逐字歌词](https://cdn.jsdelivr.net/gh/{REPO}@main/res/"
-                         f"{urllib.parse.quote(album)}/{urllib.parse.quote(klrc_name)})）")
+                         f"{urllib.parse.quote(album)}/{urllib.parse.quote(elrc_name)})）")
             return line
 
         song_lines = "\n".join(_song_line(song) for song in songs)

@@ -1,0 +1,7 @@
+pytest>=8,<10
+pypinyin
+mutagen
+zhconv
+charset-normalizer
+Pillow
+httpx

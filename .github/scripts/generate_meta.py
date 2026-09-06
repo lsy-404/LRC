@@ -38,6 +38,7 @@ python .github/scripts/generate_meta.py --verbose
 
 from __future__ import annotations
 
+import json
 import argparse
 import io
 import sys
@@ -130,8 +131,7 @@ def infer_album_names(folder_name: str) -> tuple[str, str, str, str]:
 def _fmt_str(value: str) -> str:
     """将字符串值格式化为 TOML 字符串字面量（保留内嵌引号，使用双引号包裹）。"""
     # 若值本身含双引号，转义；若含换行，也转义
-    escaped = value.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n")
-    return f'"{escaped}"'
+    return json.dumps(value, ensure_ascii=False)
 
 
 def _fmt_list(values: list[str]) -> str:
@@ -149,10 +149,10 @@ def serialize_meta(meta: dict[str, Any]) -> str:
         value = meta.get(internal)
         if typ == "list":
             lst = value if isinstance(value, list) else []
-            lines.append(f"{toml_key} = {_fmt_list(lst)}")
+            lines.append(f"{_fmt_str(toml_key)} = {_fmt_list(lst)}")
         else:
             s = str(value) if value else ""
-            lines.append(f"{toml_key} = {_fmt_str(s)}")
+            lines.append(f"{_fmt_str(toml_key)} = {_fmt_str(s)}")
     return "\n".join(lines) + "\n"
 
 

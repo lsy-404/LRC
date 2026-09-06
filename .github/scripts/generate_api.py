@@ -60,16 +60,16 @@ def format_display_name(prefix: str, zh_name: str, en_name: str, suffix: str, fa
     return " ".join(parts) if parts else fallback
 
 
-def _merge_word_timings(lyrics: list[dict[str, Any]], klrc_file: Path) -> list[dict[str, Any]]:
-    """把 .klrc 侧车文件（逐字增强 LRC）的 words 合并进标准 .lrc 解析出的行列表。
+def _merge_word_timings(lyrics: list[dict[str, Any]], elrc_file: Path) -> list[dict[str, Any]]:
+    """把 .elrc 侧车文件（逐字增强 LRC）的 words 合并进标准 .lrc 解析出的行列表。
 
-    .klrc 与对应 .lrc 由同一次 align() 对齐产出，行时间戳逐字节相同，按 time 精确匹配。
-    没有 .klrc（未匹配到音频/旧数据）时原样返回，行上不出现 words 键。
+    .elrc 与对应 .lrc 由同一次 align() 对齐产出，行时间戳逐字节相同，按 time 精确匹配。
+    没有 .elrc（未匹配到音频/旧数据）时原样返回，行上不出现 words 键。
     """
-    if not klrc_file.is_file():
+    if not elrc_file.is_file():
         return lyrics
     words_by_time = {
-        entry["time"]: entry["words"] for entry in load_lrc_lines(klrc_file) if entry.get("words")
+        entry["time"]: entry["words"] for entry in load_lrc_lines(elrc_file) if entry.get("words")
     }
     for entry in lyrics:
         words = words_by_time.get(entry["time"])
@@ -96,9 +96,9 @@ def build_album_entry(album_dir: Path) -> dict[str, Any]:
     songs = [
         {
             "title": lrc_file.stem,
-            # klrc 标记仅在侧车存在时输出（可发现逐字歌词下载能力，维持字节纪律）
-            **({"klrc": True} if lrc_file.with_suffix(".klrc").is_file() else {}),
-            "lyrics": _merge_word_timings(load_lrc_lines(lrc_file), lrc_file.with_suffix(".klrc")),
+            # elrc 标记仅在侧车存在时输出（可发现逐字歌词下载能力，维持字节纪律）
+            **({"elrc": True} if lrc_file.with_suffix(".elrc").is_file() else {}),
+            "lyrics": _merge_word_timings(load_lrc_lines(lrc_file), lrc_file.with_suffix(".elrc")),
         }
         for lrc_file in lrc_files
     ]

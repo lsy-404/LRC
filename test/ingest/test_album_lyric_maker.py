@@ -14,8 +14,8 @@ SOURCE = "[00:01.000]原始歌词\n"
 
 
 def test_timing_credits_are_deduplicated_and_required_credit_is_appended() -> None:
-    assert organize.ensure_lyric_maker({"lyric_maker": ["甲", "乙", "甲"]})["lyric_maker"] == ["甲", "乙", "武乙凌薇"]
-    assert organize.ensure_lyric_maker({"lyric_maker": ["甲", "武乙凌薇", "甲", "乙"]})["lyric_maker"] == ["甲", "武乙凌薇", "乙"]
+    assert organize.ensure_lyric_maker({"lyric_maker": ["甲", "乙", "甲"]}, "指定署名")["lyric_maker"] == ["甲", "乙", "指定署名"]
+    assert organize.ensure_lyric_maker({"lyric_maker": ["甲", "指定署名", "甲", "乙"]})["lyric_maker"] == ["甲", "指定署名", "乙"]
 
 
 def test_manifest_timing_credit_only_enriches_meta_for_authoritative_lrc() -> None:
@@ -29,12 +29,12 @@ def test_manifest_timing_credit_only_enriches_meta_for_authoritative_lrc() -> No
         try:
             draft = organize.build_draft(
                 tracks_explicit=[track], booklet_text="", credits_text="",
-                manifest={"album": "测试", "lyric_maker": ["甲", "武乙凌薇", "甲", "乙"]},
+                manifest={"album": "测试", "lyric_maker": ["甲", "指定署名", "甲", "乙"]},
                 audio_words={},
             )
         finally:
             websearch.available = prior_available
-        assert draft["meta"]["lyric_maker"] == ["甲", "武乙凌薇", "乙"]
+        assert draft["meta"]["lyric_maker"] == ["甲", "指定署名", "乙"]
         assert draft["tracks"][0]["lrc"] == SOURCE
 
 

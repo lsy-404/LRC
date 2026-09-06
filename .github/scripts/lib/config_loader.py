@@ -25,7 +25,7 @@ DEFAULT_CONFIG: dict[str, Any] = {
     "pull": {
         "whitelist_url": ["bilibili.com", "b23.tv", "taobao.com", "tb.cn", "m.tb.cn", "e.tb.cn", "dizzylab.com"],
         "lrc_max_kb": 20,
-        "klrc_max_kb": 80,
+        "elrc_max_kb": 80,
         "meta_max_kb": 5,
         "cover_max_mb": 5,
         "max_files_per_folder": 60,

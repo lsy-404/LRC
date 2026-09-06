@@ -7,7 +7,7 @@ import { onRequestPost as savePost } from '../../functions/api/ingest/save.js';
 import { onRequestPost as discardPost } from '../../functions/api/ingest/discard.js';
 import { onRequestPost as coverPost } from '../../functions/api/ingest/cover.js';
 import { onRequestPost as retryPost } from '../../functions/api/ingest/retry.js';
-import { fakeBucket, authedRequest } from './_fakeR2.mjs';
+import { fakeBucket, authedRequest, authenticatedUsers } from './_fakeR2.mjs';
 
 const REF = 'a'.repeat(32);
 const REF2 = 'b'.repeat(32);
@@ -29,7 +29,7 @@ function seeded() {
 }
 
 const envOf = (bucket, extra = {}) => ({
-  UPLOAD_BUCKET: bucket, UPLOAD_PASSWORD: 'pw', ...extra,
+  UPLOAD_BUCKET: bucket, USERS: authenticatedUsers(), ...extra,
 });
 
 test('list 枚举全部待处理草稿并按时间倒序', async () => {
@@ -59,7 +59,7 @@ test('list 从上传 manifest 发现尚未生成 review 草稿的投稿并透传
   assert.deepEqual(item, {
     ref, album: '上传中专辑', status: 'processing', state: 'running', stage: 'writing_review', progress: 62,
     storage_album: '上传中专辑',
-    message: '正在写入审核草稿', updated: '', contributor: 'web', is_update: false,
+    message: '正在写入审核草稿', updated: '', contributor: 'web', owner: '', is_update: false,
   });
 });
 
@@ -221,7 +221,7 @@ test('cover 写入 bundle 封面', async () => {
   const bucket = seeded();
   const req = new Request(`https://x/cover?ref=${REF}&album=${encodeURIComponent(ALBUM)}&ext=.jpg`, {
     method: 'POST',
-    headers: { authorization: 'Bearer pw', 'content-length': '5' },
+    headers: { cookie: 'lrc_session=test-session', 'content-length': '5' },
     body: 'bytes',
   });
   const resp = await coverPost({ request: req, env: envOf(bucket) });
@@ -232,7 +232,7 @@ test('cover 写入 bundle 封面', async () => {
 test('cover 拒绝非法后缀', async () => {
   const req = new Request(`https://x/cover?ref=${REF}&album=x&ext=.exe.sh`, {
     method: 'POST',
-    headers: { authorization: 'Bearer pw', 'content-length': '5' },
+    headers: { cookie: 'lrc_session=test-session', 'content-length': '5' },
     body: 'bytes',
   });
   const resp = await coverPost({ request: req, env: envOf(seeded()) });

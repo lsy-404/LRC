@@ -1,5 +1,5 @@
 import {
-  json, passwordOk, bearer, callWorker, cleanRef, cleanAlbum,
+  json, requireUser, callWorker, cleanRef, cleanAlbum,
   REVIEW, listPrefix, deletePrefix,
 } from './_lib.js';
 
@@ -7,7 +7,7 @@ import {
 // 原始上传持续保留在 R2；这里删的是可重新生成的审核派生态，不可恢复。
 // 该 ref 下已无草稿时顺手撤掉编排里的超时闹钟，免得 72h 后又跑一次空的 Phase B。
 export async function onRequestPost({ request, env }) {
-  if (!(await passwordOk(bearer(request), env))) return json({ error: 'unauthorized' }, 401);
+  if (!(await requireUser({ request, env }))) return json({ error: 'unauthorized' }, 401);
   if (!env.UPLOAD_BUCKET) return json({ error: 'r2 not configured' }, 503);
 
   const body = await request.json().catch(() => null);

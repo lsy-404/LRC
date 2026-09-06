@@ -1,6 +1,6 @@
 """专辑压缩包重建：按内容哈希判断过期，替代原先靠 git 历史比对的增量检测。
 
-打包内容与站点下载入口一致：歌词(.lrc/.klrc)、文本(.txt)、meta.toml、封面。
+打包内容与站点下载入口一致：歌词(.lrc/.elrc)、文本(.txt)、meta.toml、封面。
 """
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ import zipfile
 from pathlib import Path
 
 INDEX_NAME = ".index.json"
-_EXTS = (".lrc", ".klrc", ".txt")
+_EXTS = (".lrc", ".elrc", ".txt")
 
 
 def _members(album_dir: Path) -> list[Path]:

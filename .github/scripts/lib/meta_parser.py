@@ -94,7 +94,16 @@ def _parse_array(value: str) -> list[str]:
     in_quote = False
     quote_char = ""
 
+    escaped = False
     for char in body:
+        if escaped:
+            current.append(char)
+            escaped = False
+            continue
+        if char == "\\" and in_quote and quote_char == '"':
+            current.append(char)
+            escaped = True
+            continue
         if char in {'"', "'"}:
             if not in_quote:
                 in_quote = True
@@ -133,7 +142,7 @@ def parse_meta_text(content: str) -> dict[str, Any]:
         if not match:
             continue
 
-        key = match.group(1).strip()
+        key = _parse_scalar(match.group(1))
         value = match.group(2).strip()
         canonical = mapping.get(key)
         if not canonical:

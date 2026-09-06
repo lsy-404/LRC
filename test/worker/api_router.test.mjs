@@ -1,14 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { handleApi } from '../../worker/src/api.js';
-import { fakeBucket, authedRequest } from './_fakeR2.mjs';
+import { fakeBucket, authedRequest, authenticatedUsers } from './_fakeR2.mjs';
 
 const REF = 'e'.repeat(32);
 
 test('workstation API uses its local Durable Object instead of a public Worker request', async () => {
   const requests = [];
   const env = {
-    UPLOAD_PASSWORD: 'pw',
+    USERS: authenticatedUsers(),
     UPLOAD_BUCKET: fakeBucket(),
     JOB: { getByName: (name) => ({ fetch: async (request) => {
       requests.push({ name, request });

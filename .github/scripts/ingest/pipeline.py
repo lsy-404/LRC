@@ -47,7 +47,7 @@ else:
     from . import authority_lrc as authority_mod
 
 TEXT_EXTS = {".txt"}
-LRC_EXTS = {".lrc"}
+LRC_EXTS = {".lrc", ".elrc"}
 IGNORE_NAMES = {"manifest.toml", "readme.md", "readme.txt", ".gitkeep", ".ds_store"}
 IGNORE_DIRS = {".git", ".github"}
 COVER_HINT = re.compile(r"cover|封面|主视图|jacket", re.I)
@@ -56,6 +56,10 @@ COVER_HINT = re.compile(r"cover|封面|主视图|jacket", re.I)
 def read_uploaded_text(path: Path) -> str:
     """按文件内容检测投稿 TXT 编码，避免把非 UTF-8 歌词替换成乱码。"""
     raw = path.read_bytes()
+    try:
+        return raw.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        pass
     match = from_bytes(raw).best()
     return str(match) if match is not None else raw.decode("utf-8", errors="replace")
 
@@ -307,11 +311,21 @@ def run(src: Path, res_dir: Path, work: Path, album: str, dry_run: bool, lyric_m
 def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bool,
                    lyric_maker: str = "", *, mode: str = "oneshot",
                    bundle_root: Path | None = None, timestamp: str = "",
-                   contributor: str = "", submission_type: str | None = None) -> dict:
+                   contributor: str = "", submission_type: str | None = None, lyric_makers: list[str] | None = None) -> dict:
     """mode='oneshot'：素材 → build_draft（含对齐）→ finalize → res/（无闸门）。
     mode='phase_a'：素材 → build_draft → review.write_bundle 到 bundle_root/<album>/（停在待修改）。
     """
     buckets = classify(src)
+    manifest_path = src / "manifest.toml"
+    manifest = org_mod._read_toml(manifest_path) if manifest_path.is_file() else {}
+    if lyric_makers is not None:
+        manifest["lyric_maker"] = lyric_makers
+    roles = manifest.pop("asset_roles", {})
+    roles = roles if isinstance(roles, dict) else {}
+    def role(path):
+        return roles.get(path.relative_to(src).as_posix(), "")
+    for kind in buckets:
+        buckets[kind] = [path for path in buckets[kind] if role(path) != "etc"]
     summary: dict = {k: [p.name for p in v] for k, v in buckets.items()}
     print(f"分流：图片{len(buckets['image'])} 文档{len(buckets['doc'])} 音频{len(buckets['audio'])} "
           f"文字{len(buckets['text'])} LRC{len(buckets['lrc'])} 其他{len(buckets['other'])}", file=sys.stderr)
@@ -321,26 +335,30 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     credits_parts: list[str] = []
     for p in buckets["text"]:
         txt = read_uploaded_text(p)
-        if lyrics_mod.is_credits_only(txt):
+        if role(p) == "staff" or lyrics_mod.is_credits_only(txt):
             credits_parts.append(txt)
             print(f"  credits: {p.name}", file=sys.stderr)
             continue
         parsed = lyrics_mod.parse_lyric_txt(p, text=txt)
         parsed["order"] = _order_from_name(p.stem)
+        parsed["_source_stem"] = p.stem
         if parsed["lines"]:
             tracks_explicit.append(parsed)
             print(f"  歌词轨: {p.name} → {parsed['title']} ({len(parsed['lines'])} 行)", file=sys.stderr)
 
     # 上传 LRC 是绝对权威来源。它从此处起携带原始文本到草稿和最终输出；后续
-    # STT 只可生成独立 .klrc 侧车，不能改写、清理、排序或格式化该 LRC。
-    for order, p in enumerate(buckets["lrc"], len(tracks_explicit) + 1):
-        tracks_explicit.append(authority_mod.load_authoritative_track(p, order))
-        print(f"  权威 LRC: {p.name}", file=sys.stderr)
+    # STT 只可生成独立 .elrc 侧车，不能改写、清理、排序或格式化该 LRC。
+    authoritative: dict[str, dict] = {}
+    for p in buckets["lrc"]:
+        pair = authoritative.setdefault(p.stem.casefold(), {"lrc": None, "elrc": None})
+        pair[p.suffix.lower()[1:]] = p
+    for order, pair in enumerate(authoritative.values(), len(tracks_explicit) + 1):
+        source = pair["lrc"] or pair["elrc"]
+        tracks_explicit.append(authority_mod.load_authoritative_track(source, order, pair["elrc"]))
+        print(f"  权威 LRC: {source.name}", file=sys.stderr)
 
     # manifest 提前读：伴奏/原曲 显式标记须在轨单编排（第 3 步）生效，SP 页分流
     # （第 2 步）也用它；meta 覆盖仍在第 5 步与音频 tag 合并
-    manifest_path = src / "manifest.toml"
-    manifest = org_mod._read_toml(manifest_path) if manifest_path.is_file() else {}
     if submission_type is not None:
         manifest["submission_type"] = submission_type
         if org_mod.is_single_submission(submission_type):
@@ -354,15 +372,30 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
     # 2) 图片 OCR + 文档抽取 → 逐页歌词本文本（保留页出处，供绑定/置信度匹配；
     #    拼接版供纯文本分轨与抽 credits）
     pages: list[dict] = []
-    cover = pick_cover(buckets["image"]) or extract_embedded_cover(buckets["audio"], work)
+    requested_cover = str(manifest.pop("cover", "") or "")
+    cover = next((p for p in buckets["image"] if p.relative_to(src).as_posix() == requested_cover), None)
+    if requested_cover:
+        if cover is None:
+            raise ValueError("Selected cover is not an uploaded image")
+        from PIL import Image
+        try:
+            with Image.open(cover) as selected_image:
+                selected_image.verify()
+        except Exception as error:
+            raise ValueError("Selected cover is not a valid image") from error
+    cover = cover or pick_cover(buckets["image"]) or extract_embedded_cover(buckets["audio"], work)
     ocr_images = [p for p in buckets["image"] if p != cover]  # 封面不做歌词处理
-    # 图片走一步 vision：build_draft 用 luna 直接看图分轨（OCR 和出词合并），不跑会
+    # 图片走一步 vision：build_draft 直接看图分轨（OCR 和出词合并），不跑会
     # 「拒绝难图」的独立 OCR。pdf/docx vision 读不了 → 抽文本进 credits 供抽 meta；
     # 无图（纯文本/文档投稿）时才把文档文本作为分轨用 pages 走旧文本路径。
-    image_paths = ocr_images or None
+    album_pages = extract_album_pages(manifest)
+    staff_images = [p for p in ocr_images if role(p) == "staff" or (p.name in album_pages and p.name not in photo_links)]
+    if staff_images:
+        credits_parts.extend(text for text in ocr_mod.run(staff_images).values() if text.strip())
+    image_paths = [p for p in ocr_images if p not in staff_images] or None
     if buckets["doc"]:
         for name, t in doc_mod.run(buckets["doc"]).items():
-            if image_paths:
+            if image_paths or name in album_pages or any(p.name == name and role(p) == "staff" for p in buckets["doc"]):
                 if t.strip():
                     credits_parts.append(t)
             else:
@@ -379,6 +412,9 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
                 credits_parts.extend(pg["text"] for pg in sp_pages if pg["text"].strip())
                 print(f"  ◈ SP 专辑级页 {len(sp_pages)} 张 → credits", file=sys.stderr)
 
+    if not buckets["audio"] and image_paths:
+        pages.extend({"name": name, "kind": "OCR", "text": text} for name, text in ocr_mod.run(image_paths).items())
+        image_paths = None
     booklet_text = "\n\n".join(f"# === {p['name']} ({p['kind']}) ===\n{p['text']}" for p in pages)
     credits_text = "\n\n".join(credits_parts) or booklet_text
 
@@ -408,11 +444,15 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
         # 逐字侧车，不会因模糊匹配失败而改走自动生成歌词。
         by_stem = {Path(t["file"]).stem.casefold(): t["file"] for t in tracks_plan if t.get("file")}
         for track in tracks_explicit:
-            if not track.get("authoritative_lrc"):
-                continue
             stem = str(track.get("_source_stem") or "").casefold()
             if stem in by_stem:
                 track["file"] = by_stem[stem]
+            else:
+                clean = re.sub(r"^\d+[ _.-]+", "", stem)
+                candidates = [name for audio_stem, name in by_stem.items()
+                              if re.sub(r"^\d+[ _.-]+", "", audio_stem) == clean]
+                if len(candidates) == 1:
+                    track["file"] = candidates[0]
 
     # 4) 音频 → 词级时间戳（云端 whisper-1 并发；伴奏/无人声轨没有人声可转写，跳过）
     audio_words: dict[str, list] = {}
@@ -479,12 +519,13 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
             print(f"  ⚠️  单曲目标目录不存在：{res_dir / target_album}；Phase B 将安全跳过落盘",
                   file=sys.stderr)
     elif target_exists:
-        meta_path = res_dir / target_album / "meta.toml"
-        existing_meta = org_mod._read_toml(meta_path) if meta_path.is_file() else {}
+        from lib.meta_parser import load_album_meta
+        existing_meta, _ = load_album_meta(res_dir / target_album)
         print(f"  🔄 检测到已有专辑「{target_album}」，进入增补模式", file=sys.stderr)
 
     # 增补模式允许 manifest/cover-only 提交；新建模式需要实质内容
     has_content = (tracks_explicit or booklet_text or audio_words
+                   or tracks_plan or image_paths or credits_text
                    or (existing_meta is not None and (manifest or cover)))
     if not has_content:
         summary.update({"album": album, "result": "empty"})
@@ -527,7 +568,7 @@ def _process_album(album: str, src: Path, res_dir: Path, work: Path, dry_run: bo
 
 def run_phase_a(src: Path, res_dir: Path, work: Path, album: str, bundle_root: Path,
                 timestamp: str = "", dry_run: bool = False, lyric_maker: str = "",
-                contributor: str = "", submission_type: str | None = None) -> dict:
+                contributor: str = "", submission_type: str | None = None, lyric_makers: list[str] | None = None) -> dict:
     """Phase A：逐专辑 OCR/STT/检索/建草稿/对齐 → review bundle（停在待人工闸门，不写 res）。"""
     work.mkdir(parents=True, exist_ok=True)
     bundle_root = Path(bundle_root)
@@ -537,7 +578,7 @@ def run_phase_a(src: Path, res_dir: Path, work: Path, album: str, bundle_root: P
     albums_out = [
         _process_album(name, asrc, res_dir, work, dry_run, lyric_maker,
                        mode="phase_a", bundle_root=bundle_root, timestamp=timestamp,
-                       contributor=contributor, submission_type=submission_type)
+                       contributor=contributor, submission_type=submission_type, lyric_makers=lyric_makers)
         for name, asrc in jobs
     ]
     ok = any(a.get("result") == "ok" for a in albums_out)
@@ -611,6 +652,7 @@ def main(argv: list[str] | None = None) -> int:
                     help="服务端投稿类型；Phase A 中覆盖投稿原料的 manifest.toml")
     ap.add_argument("--json", help="把摘要写入该 JSON 文件")
     ap.add_argument("--lyric-maker", default="", help="歌词制作默认署名（lyric_maker 为空时填入）")
+    ap.add_argument("--lyric-makers", default=None, type=json.loads, help="服务端已验证的歌词制作署名列表")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args(argv)
 
@@ -630,7 +672,7 @@ def main(argv: list[str] | None = None) -> int:
                 return 1
             summary = run_phase_a(src, Path(args.res_dir), Path(args.work), args.album,
                                   Path(args.bundle_root), args.timestamp, args.dry_run,
-                                  args.lyric_maker, args.contributor, args.submission_type)
+                                  args.lyric_maker, args.contributor, args.submission_type, args.lyric_makers)
         else:
             summary = run(src, Path(args.res_dir), Path(args.work), args.album,
                           args.dry_run, args.lyric_maker)

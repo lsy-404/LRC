@@ -1,9 +1,9 @@
 import {
-  json, passwordOk, bearer, callWorker,
+  json, callWorker,
   cleanAlbum, cleanRelPath, cleanSession, cleanIndex, MAX_FILES,
 } from './_lib.js';
+import { requireUser } from '../auth/_lib.js';
 
-const REQUIRED_LYRIC_MAKER = '武乙凌薇';
 const SINGLE_ALBUM = '单曲';
 
 function cleanSubmissionType(value) {
@@ -11,7 +11,7 @@ function cleanSubmissionType(value) {
   return value === 'single' || value === 'album' ? value : null;
 }
 
-function cleanLyricMakers(value) {
+function cleanLyricMakers(value, required) {
   const seen = new Set();
   const makers = [];
   for (const raw of (Array.isArray(value) ? value : [])) {
@@ -21,7 +21,7 @@ function cleanLyricMakers(value) {
     makers.push(name);
     if (makers.length >= 20) break;
   }
-  if (!seen.has(REQUIRED_LYRIC_MAKER)) makers.push(REQUIRED_LYRIC_MAKER);
+  if (required && !seen.has(required)) makers.push(required);
   return makers;
 }
 
@@ -29,7 +29,8 @@ function cleanLyricMakers(value) {
 // 再直接叫醒同一 Worker 内的编排跑 Phase A——投稿不再经过任何 git 分支。
 // ref 即 session：后续人工闸门、Phase B、原料清理都用它对账。
 export async function onRequestPost({ request, env }) {
-  if (!(await passwordOk(bearer(request), env))) return json({ error: 'unauthorized' }, 401);
+  const user = await requireUser({ request, env });
+  if (!user) return json({ error: 'unauthorized' }, 401);
   if (!env.UPLOAD_BUCKET) return json({ error: 'r2 not configured' }, 503);
 
   const body = await request.json().catch(() => null);
@@ -42,6 +43,10 @@ export async function onRequestPost({ request, env }) {
     return json({ error: 'bad request' }, 400);
   }
 
+  if (await env.UPLOAD_BUCKET.head(`web/${session}/manifest.json`)) {
+    const retried = await callWorker(env, '/ingest', { ref: session });
+    return retried.ok ? json({ ok: true, ref: session, retried: true, job: retried.data }) : json({ error: 'ingest', status: retried.status }, 502);
+  }
   const files = [];
   const seenPath = new Set();
   const seenN = new Set();
@@ -56,9 +61,9 @@ export async function onRequestPost({ request, env }) {
     files.push({ n, path, size: Number(f?.size) || 0 });
   }
 
-  const contributor = typeof body?.contributor === 'string'
-    ? body.contributor.slice(0, 60) : 'web';
-  const lyric_maker = cleanLyricMakers(body?.lyric_maker);
+  const contributor = user.github || user.name;
+  const lyric_maker = cleanLyricMakers(body?.lyric_maker, env.REQUIRED_LYRIC_MAKER);
+  if (!lyric_maker.includes(user.display_name)) lyric_maker.push(user.display_name);
   const manifest = { version: 3, album, submission_type, session, contributor, lyric_maker, files };
   await env.UPLOAD_BUCKET.put(`web/${session}/manifest.json`,
     JSON.stringify(manifest, null, 1),

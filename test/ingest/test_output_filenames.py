@@ -28,7 +28,7 @@ def test_finalize_uses_requested_basenames_without_duplicate_suffixes() -> None:
         "meta": {},
         "names": {},
         "tracks": [
-            _track(1, "普通", output_name="普通输出.klrc"),
+            _track(1, "普通", output_name="普通输出.elrc"),
             _track(2, "伴奏", inst=True, output_name="通用输出", final_name="最终输出.lrc"),
             _track(3, "回退"),
         ],
@@ -36,9 +36,9 @@ def test_finalize_uses_requested_basenames_without_duplicate_suffixes() -> None:
     organize.finalize(draft, res_dir=root)
     album = root / "测试专辑"
     assert (album / "普通输出.lrc").is_file()
-    assert (album / "普通输出.klrc").is_file()
+    assert (album / "普通输出.elrc").is_file()
     assert (album / "最终输出.lrc").is_file()
-    assert (album / "最终输出.klrc").is_file()
+    assert (album / "最终输出.elrc").is_file()
     assert (album / "3 回退.lrc").is_file()
 
 

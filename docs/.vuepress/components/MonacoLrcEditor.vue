@@ -1,5 +1,5 @@
 <template>
-  <div ref="host" class="monaco-lrc-editor" :aria-label="ariaLabel" />
+  <div ref="host" class="monaco-lrc-editor" :aria-label="ariaLabel"><p v-if="loadError" class="monaco-load-error" role="alert">编辑器载入失败。<button type="button" @click="reloadEditor">刷新页面重试</button></p></div>
 </template>
 
 <script setup>
@@ -14,6 +14,8 @@ const props = defineProps({
 });
 const emit = defineEmits(['update:modelValue']);
 const host = ref(null);
+const loadError = ref(false);
+const reloadEditor = () => window.location.reload();
 let editor;
 let model;
 let monaco;
@@ -21,10 +23,11 @@ let observer;
 let media;
 let mediaListener;
 let syncing = false;
+let disposed = false;
 
 function registerLrcLanguage(api) {
   if (!api.languages.getLanguages().some((language) => language.id === 'lrc')) {
-    api.languages.register({ id: 'lrc', extensions: ['.lrc', '.klrc'] });
+    api.languages.register({ id: 'lrc', extensions: ['.lrc', '.elrc'] });
     api.languages.setLanguageConfiguration('lrc', {
       brackets: [['[', ']'], ['<', '>']],
       autoClosingPairs: [{ open: '[', close: ']' }, { open: '<', close: '>' }],
@@ -50,7 +53,7 @@ function registerLrcLanguage(api) {
       { token: 'section', foreground: 'd2a8ff', fontStyle: 'bold' },
       { token: 'key', foreground: '79c0ff' }, { token: 'trackId', foreground: '56d4dd' },
       { token: 'role', foreground: 'a5d6ff' }, { token: 'url', foreground: '8ddb8c' },
-    ], colors: { 'editor.background': '#161b22' },
+    ], colors: { 'editor.background': '#111113' },
   });
   api.editor.defineTheme('lrc-light', {
     base: 'vs', inherit: true,
@@ -64,24 +67,7 @@ function registerLrcLanguage(api) {
       { token: 'role', foreground: '3f5f7a' }, { token: 'url', foreground: '1a7f37' },
     ],
   });
-  if (!api.languages.getLanguages().some((language) => language.id === 'submission')) {
-    api.languages.register({ id: 'submission', extensions: ['.submission'] });
-    api.languages.setLanguageConfiguration('submission', {
-      brackets: [['[', ']']],
-      autoClosingPairs: [{ open: '[', close: ']' }, { open: '"', close: '"' }],
-    });
-    api.languages.setMonarchTokensProvider('submission', {
-      tokenizer: {
-        root: [
-          [/^\s*\[[^\]]+\]\s*$/, 'section'],
-          [/^\s*(?:投稿类型|专辑|发布 PV|购买|歌词制作)\s*:/, 'key'],
-          [/^\s*\d+\s*\|/, 'trackId'],
-          [/(?:原曲|歌词本·拍照|歌词本·文本|Staff表|封面|其他)\s*$/, 'role'],
-          [/https?:\/\/\S+/, 'url'],
-        ],
-      },
-    });
-  }
+
 }
 
 function applyTheme() {
@@ -90,12 +76,15 @@ function applyTheme() {
 }
 
 onMounted(async () => {
-  const [apiModule, editorWorkerModule] = await Promise.all([
+  try {
+  const [apiModule, editorWorkerModule, jsonWorkerModule] = await Promise.all([
     import('monaco-editor'),
     import('monaco-editor/esm/vs/editor/editor.worker?worker'),
+    import('monaco-editor/esm/vs/language/json/json.worker?worker'),
   ]);
+  if (disposed || !host.value) return;
   monaco = apiModule;
-  window.MonacoEnvironment = { getWorker: () => new editorWorkerModule.default() };
+  window.MonacoEnvironment = { getWorker: (_, label) => label === 'json' ? new jsonWorkerModule.default() : new editorWorkerModule.default() };
   registerLrcLanguage(monaco);
   media = window.matchMedia('(prefers-color-scheme: dark)');
   mediaListener = () => applyTheme();
@@ -110,6 +99,7 @@ onMounted(async () => {
   model.onDidChangeContent(() => { if (!syncing) emit('update:modelValue', model.getValue()); });
   observer = new ResizeObserver(() => editor?.layout());
   observer.observe(host.value);
+  } catch { if (!disposed) loadError.value = true; }
 });
 
 watch(() => props.modelValue, (value) => {
@@ -118,9 +108,11 @@ watch(() => props.modelValue, (value) => {
 });
 watch(() => props.readOnly, (value) => editor?.updateOptions({ readOnly: value }));
 watch(() => props.theme, applyTheme);
+watch(() => props.ariaLabel, (value) => editor?.updateOptions({ ariaLabel: value }));
 watch(() => props.language, (value) => model && monaco.editor.setModelLanguage(model, value));
 
 onBeforeUnmount(() => {
+  disposed = true;
   observer?.disconnect();
   media?.removeEventListener('change', mediaListener);
   editor?.dispose(); model?.dispose();
@@ -129,4 +121,6 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .monaco-lrc-editor { height: 25rem; border: 1px solid var(--border-color, #ddd); border-radius: 6px; overflow: hidden; text-align: left; }
+.monaco-load-error { padding:1rem; font-size:.85rem; }
+.monaco-load-error button { color:inherit; background:transparent; border:1px solid var(--border-color); padding:.3rem .5rem; cursor:pointer; }
 </style>

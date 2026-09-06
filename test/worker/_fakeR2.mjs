@@ -1,3 +1,14 @@
+import { createHash } from 'node:crypto';
+import { createFakeDirectory, usersBinding } from './_fakeUserDirectory.mjs';
+
+export function authenticatedUsers({ github = null } = {}) {
+  const dir = createFakeDirectory();
+  const { user } = dir.createUser({ name: 'editor', display_name: 'Editor', role: 'editor' });
+  if (github) dir.bindGithub(user.id, github);
+  dir.createSession({ token_hash: createHash('sha256').update('test-session').digest('hex'), user_id: user.id, issued_at: Date.now(), expires_at: Date.now() + 3600000 });
+  return usersBinding(dir);
+}
+
 // 内存版 R2 桶：够跑 list/get/put/delete，list 按 limit 分页以覆盖游标分支。
 
 export function fakeBucket(init = {}) {
@@ -88,11 +99,11 @@ export function fakeBucket(init = {}) {
   };
 }
 
-export function authedRequest(url, { method = 'GET', body, password = 'pw' } = {}) {
+export function authedRequest(url, { method = 'GET', body } = {}) {
   return new Request(url, {
     method,
     headers: {
-      authorization: `Bearer ${encodeURIComponent(password)}`,
+      cookie: 'lrc_session=test-session',
       ...(body ? { 'content-type': 'application/json' } : {}),
     },
     body: body ? JSON.stringify(body) : undefined,

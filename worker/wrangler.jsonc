@@ -14,7 +14,7 @@
   "assets": {
     "directory": "../docs/.vuepress/dist",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/upload/*", "/api/ingest/*"]
+    "run_worker_first": ["/api/upload/*", "/api/ingest/*", "/api/workspace/*", "/api/auth/*"]
   },
 
   "r2_buckets": [
@@ -24,12 +24,14 @@
   "durable_objects": {
     "bindings": [
       { "name": "JOB", "class_name": "IngestJob" },
-      { "name": "RUNNER", "class_name": "PipelineRunner" }
+      { "name": "RUNNER", "class_name": "PipelineRunner" },
+      { "name": "USERS", "class_name": "UserDirectory" }
     ]
   },
 
   "migrations": [
-    { "tag": "v1", "new_sqlite_classes": ["IngestJob", "PipelineRunner"] }
+    { "tag": "v1", "new_sqlite_classes": ["IngestJob", "PipelineRunner"] },
+    { "tag": "v2", "new_sqlite_classes": ["UserDirectory"] }
   ],
 
   "containers": [
@@ -44,6 +46,7 @@
 
   "vars": {
     "GH_REPO": "lsy-404/LRC",
-    "REVIEW_TIMEOUT_HOURS": "72"
+    "REVIEW_TIMEOUT_HOURS": "72",
+    "REQUIRED_LYRIC_MAKER": ""
   }
 }

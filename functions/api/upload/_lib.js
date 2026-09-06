@@ -1,4 +1,4 @@
-// upload 代理共享工具：鉴权、路径清洗、编排 Worker 调用。
+// upload 代理共享工具：路径清洗与编排 Worker 调用。
 
 export function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
@@ -7,41 +7,15 @@ export function json(data, status = 200) {
   });
 }
 
-async function sha256(text) {
-  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
-  return new Uint8Array(digest);
-}
-
-// 摘要后比较：等长、恒时
-async function secretOk(candidate, expected) {
-  if (typeof candidate !== 'string' || !candidate || !expected) return false;
-  const [a, b] = await Promise.all([sha256(candidate), sha256(expected)]);
-  let diff = 0;
-  for (let i = 0; i < a.length; i++) diff |= a[i] ^ b[i];
-  return diff === 0;
-}
-
-// 贡献者投稿口令（浏览器侧）
-export function passwordOk(candidate, env) {
-  return secretOk(candidate, env.UPLOAD_PASSWORD);
-}
-
-// 客户端将密码 encodeURIComponent 后放入 Bearer（HTTP 头不允许非 Latin-1）
-export function bearer(request) {
-  const h = request.headers.get('authorization') || '';
-  if (!h.startsWith('Bearer ')) return '';
-  try {
-    return decodeURIComponent(h.slice(7));
-  } catch {
-    return '';
-  }
-}
-
 export async function callWorker(env, path, body, method = 'POST') {
   if (typeof env.INGEST_INTERNAL_CALL !== 'function') {
     return { ok: false, status: 503, data: { error: 'ingest is not available in this runtime' } };
   }
-  return env.INGEST_INTERNAL_CALL(path, body, method);
+  try {
+    return await env.INGEST_INTERNAL_CALL(path, body, method);
+  } catch {
+    return { ok: false, status: 503, data: { error: 'ingest unavailable; retry this submission' } };
+  }
 }
 
 // 控制字符（C0 与 DEL）

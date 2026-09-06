@@ -20,12 +20,14 @@ async function loadWorker() {
   });
   const job = new vm.SyntheticModule(['IngestJob'], function () { this.setExport('IngestJob', class {}); });
   const runner = new vm.SyntheticModule(['PipelineRunner'], function () { this.setExport('PipelineRunner', class {}); });
+  const users = new vm.SyntheticModule(['UserDirectory'], function () { this.setExport('UserDirectory', class {}); });
   const module = new vm.SourceTextModule(source, { identifier: 'index.js' });
   await module.link((specifier) => ({
     './lib.js': lib,
     './api.js': api,
     './job.js': job,
     './runner.js': runner,
+    './users.js': users,
   })[specifier]);
   await module.evaluate();
   return module.namespace.default;

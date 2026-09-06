@@ -75,7 +75,7 @@ def pull_album(album: str, res_dir: Path, ref: str = "main") -> list[str]:
         if e.get("type") != "file":
             continue
         name = e.get("name", "")
-        if not name.endswith((".toml", ".lrc", ".klrc", ".txt")):
+        if not name.endswith((".toml", ".lrc", ".elrc", ".txt")):
             continue
         blob = read_file(f"res/{album}/{name}", ref)
         if blob is None:

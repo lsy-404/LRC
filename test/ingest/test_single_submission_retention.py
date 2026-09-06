@@ -57,9 +57,9 @@ def test_phase_a_b_preserves_single_type_and_only_updates_current_lyrics() -> No
         assert result["result"] == "ok"
         assert result["albums"][0]["submission_type"] == "single"
         assert (target / "本次曲目.lrc").is_file()
-        assert (target / "本次曲目.klrc").is_file()
+        assert (target / "本次曲目.elrc").is_file()
         assert not (target / "1 本次曲目.lrc").exists()
-        assert not (target / "1 本次曲目.klrc").exists()
+        assert not (target / "1 本次曲目.elrc").exists()
         assert target.joinpath("9 已有曲目.lrc").read_text(encoding="utf-8") == "[00:01.000]保留\n"
         assert target.joinpath("meta.toml").read_text(encoding="utf-8") == old_meta
         assert target.joinpath("cover.png").read_bytes() == b"existing-cover"
@@ -136,7 +136,7 @@ def test_phase_b_uses_phase_a_status_for_an_empty_runtime_directory() -> None:
         target = root / "empty-res" / "单曲"
         assert result["result"] == "ok"
         assert (target / "本次曲目.lrc").is_file()
-        assert (target / "本次曲目.klrc").is_file()
+        assert (target / "本次曲目.elrc").is_file()
         assert not (target / "meta.toml").exists()
         assert not (target / "cover.png").exists()
 

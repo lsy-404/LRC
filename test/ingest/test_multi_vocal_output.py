@@ -51,7 +51,7 @@ def test_phase_b_ignores_empty_or_untimed_vocals() -> None:
         }, Path(tmp))
         assert output["track_count"] == 1
         assert (Path(tmp) / "测试" / "1 歌曲.lrc").read_text(encoding="utf-8") == MAIN_LRC
-        assert (Path(tmp) / "测试" / "1 歌曲.klrc").read_text(encoding="utf-8") == MAIN_KLRC
+        assert (Path(tmp) / "测试" / "1 歌曲.elrc").read_text(encoding="utf-8") == MAIN_KLRC
 
 
 def test_same_timestamp_keeps_main_before_each_harmony_and_ignores_empty_part() -> None:

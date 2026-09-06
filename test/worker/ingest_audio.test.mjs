@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { onRequestGet } from '../../functions/api/ingest/audio.js';
-import { fakeBucket, authedRequest } from './_fakeR2.mjs';
+import { fakeBucket, authedRequest, authenticatedUsers } from './_fakeR2.mjs';
 
 const REF = 'f'.repeat(32);
 const bucket = () => fakeBucket({
@@ -10,7 +10,7 @@ const bucket = () => fakeBucket({
   ] }),
   [`web/${REF}/7`]: 'abcdef',
 });
-const env = (UPLOAD_BUCKET) => ({ UPLOAD_BUCKET, UPLOAD_PASSWORD: 'pw' });
+const env = (UPLOAD_BUCKET) => ({ UPLOAD_BUCKET, USERS: authenticatedUsers() });
 
 test('审核原音只由 manifest 精确映射，且用认证流式返回', async () => {
   const response = await onRequestGet({
@@ -49,7 +49,7 @@ test('审核原音支持单段 Range，拒绝任意对象路径与越界范围',
   assert.equal(response.status, 200);
   const ranged = await onRequestGet({
     request: new Request(`https://x/api/ingest/audio?ref=${REF}&name=${encodeURIComponent('悸动.flac')}`, {
-      headers: { authorization: 'Bearer pw', range: 'bytes=2-4' },
+      headers: { cookie: 'lrc_session=test-session', range: 'bytes=2-4' },
     }), env: env(bucket()),
   });
   assert.equal(ranged.status, 206);

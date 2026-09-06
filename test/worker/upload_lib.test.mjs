@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  cleanAlbum, cleanRelPath, cleanSession, cleanIndex, passwordOk, bearer, callWorker,
+  cleanAlbum, cleanRelPath, cleanSession, cleanIndex, callWorker,
 } from '../../functions/api/upload/_lib.js';
 
 test('cleanAlbum 接受正常专辑名', () => {
@@ -78,22 +78,4 @@ test('callWorker 转交同一 Worker 内部调度器', async () => {
   const r = await callWorker(env, '/ingest', { ref: 'b'.repeat(32) });
   assert.equal(r, expected);
   assert.deepEqual(seen, [{ path: '/ingest', body: { ref: 'b'.repeat(32) }, method: 'POST' }]);
-});
-
-test('passwordOk 摘要比较', async () => {
-  const env = { UPLOAD_PASSWORD: '秘密pass123' };
-  assert.equal(await passwordOk('秘密pass123', env), true);
-  assert.equal(await passwordOk('wrong', env), false);
-  assert.equal(await passwordOk('', env), false);
-  assert.equal(await passwordOk('x', {}), false);
-  assert.equal(await passwordOk(undefined, env), false);
-});
-
-test('bearer 解码 Authorization 头', () => {
-  const req = (v) => ({ headers: { get: () => v } });
-  assert.equal(bearer(req('Bearer abc')), 'abc');
-  assert.equal(bearer(req('Bearer ' + encodeURIComponent('秘密pass123'))), '秘密pass123');
-  assert.equal(bearer(req('Bearer %zz')), '');
-  assert.equal(bearer(req(null)), '');
-  assert.equal(bearer(req('Basic abc')), '');
 });

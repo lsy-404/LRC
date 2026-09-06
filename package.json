@@ -11,12 +11,18 @@
     "generate-api": "python3 .github/scripts/generate_api.py",
     "test-meta": "python3 .github/scripts/test_meta.py",
     "update-meta-dates": "python3 .github/scripts/update_meta_dates.py",
-    "upgrade": "pnpm dlx vp-update"
+    "upgrade": "pnpm dlx vp-update",
+    "test:node": "node --test 'test/*.test.mjs'",
+    "test:component": "vitest run"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.8",
+    "@vue/test-utils": "^2.5.0",
     "@vuepress/bundler-vite": "2.0.0-rc.19",
     "@vuepress/plugin-search": "2.0.0-rc.74",
     "@vuepress/plugin-slimsearch": "2.0.0-rc.74",
+    "happy-dom": "^20.12.0",
+    "vitest": "^4.1.11",
     "vue": "^3.5.13",
     "vuepress": "2.0.0-rc.19",
     "vuepress-theme-hope": "2.0.0-rc.71"

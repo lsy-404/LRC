@@ -1,4 +1,5 @@
-import { json, passwordOk, bearer, cleanSession, cleanIndex } from './_lib.js';
+import { json, cleanSession, cleanIndex } from './_lib.js';
+import { requireUser } from '../auth/_lib.js';
 
 // R2 直传：浏览器把文件原始二进制流式写入 R2，绕开旧 base64→GitHub create-blob
 // 通道的两层天花板（create-blob 实测 ~40MiB 解码上限即 502；base64 膨胀 4/3 使
@@ -8,13 +9,14 @@ import { json, passwordOk, bearer, cleanSession, cleanIndex } from './_lib.js';
 const MAX_BYTES = 100 * 1024 * 1024;
 
 export async function onRequestPost({ request, env }) {
-  if (!(await passwordOk(bearer(request), env))) return json({ error: 'unauthorized' }, 401);
+  if (!(await requireUser({ request, env }))) return json({ error: 'unauthorized' }, 401);
   if (!env.UPLOAD_BUCKET) return json({ error: 'r2 not configured' }, 503);
 
   const url = new URL(request.url);
   const session = cleanSession(url.searchParams.get('session'));
   const n = cleanIndex(url.searchParams.get('n'));
   if (!session || n === null) return json({ error: 'bad request' }, 400);
+  if (await env.UPLOAD_BUCKET.head(`web/${session}/manifest.json`)) return json({ error: 'submission locked' }, 409);
   const len = Number(request.headers.get('content-length'));
   if (!Number.isInteger(len) || len <= 0 || len > MAX_BYTES) {
     return json({ error: 'bad length' }, 400);

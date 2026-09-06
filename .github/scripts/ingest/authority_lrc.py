@@ -57,16 +57,22 @@ def _timed_rows(content: str) -> list[tuple[float, str, str]]:
     return rows
 
 
-def load_authoritative_track(path: Path, order: int) -> dict[str, Any]:
+def _plain_lrc(content: str) -> str:
+    return _KARAOKE_RE.sub("", content)
+
+
+def load_authoritative_track(path: Path, order: int, sidecar: Path | None = None) -> dict[str, Any]:
     """Load an uploaded LRC without altering a single lyric character."""
     content = decode_lrc_bytes(path.read_bytes())
-    title = _title(content, path.stem)
+    elrc = decode_lrc_bytes(sidecar.read_bytes()) if sidecar else (content if path.suffix.lower() == ".elrc" else None)
+    lrc = _plain_lrc(content) if path.suffix.lower() == ".elrc" else content
+    title = _title(lrc, path.stem)
     return {
         "order": order,
         "title": title,
-        "lines": [body for _, _, body in _timed_rows(content) if body],
-        "lrc": content,
-        "klrc": None,
+        "lines": [body for _, _, body in _timed_rows(lrc) if body],
+        "lrc": lrc,
+        "klrc": elrc,
         "coverage": 0.0,
         "audio": "",
         "aligned": True,

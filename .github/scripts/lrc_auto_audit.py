@@ -308,7 +308,7 @@ def main() -> int:
     error_msgs: list[str] = []
 
     lrc_max_size = int(PULL_CONFIG.get("lrc_max_kb", 20)) * 1024
-    klrc_max_size = int(PULL_CONFIG.get("klrc_max_kb", 80)) * 1024
+    elrc_max_size = int(PULL_CONFIG.get("elrc_max_kb", 80)) * 1024
     meta_max_size = int(PULL_CONFIG.get("meta_max_kb", 5)) * 1024
     cover_max_size = int(PULL_CONFIG.get("cover_max_mb", 5)) * 1024 * 1024
     max_files_per_folder = int(PULL_CONFIG.get("max_files_per_folder", 60))
@@ -337,8 +337,8 @@ def main() -> int:
         except OSError:
             continue
 
-        if ext in {".lrc", ".txt", ".klrc"}:
-            max_size = klrc_max_size if ext == ".klrc" else lrc_max_size
+        if ext in {".lrc", ".txt", ".elrc"}:
+            max_size = elrc_max_size if ext == ".elrc" else lrc_max_size
             if file_size > max_size:
                 error_msgs.append(f"❌ 歌词文件过大 (>{max_size // 1024}KB): {file}")
             try:

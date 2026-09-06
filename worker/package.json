@@ -10,6 +10,7 @@
     "@cloudflare/containers": "^0.3.7"
   },
   "devDependencies": {
-    "wrangler": "^4.118.0"
+    "wrangler": "^4.118.0",
+    "miniflare": "5.20260730.0-alpha"
   }
 }

@@ -270,3 +270,19 @@ test('成功、失败和取消都会停止对应处理器，停止失败不覆�
     assert.equal(ctx.job.state, scenario.expected, scenario.name);
   }
 });
+
+test('replayed phase A submission retains the same queued, active and completed job', async () => {
+  const IngestJob = await loadJob();
+  const ctx = jobContext();
+  const job = new IngestJob(ctx, runnerEnv(async () => new Response('', { status: 202 })));
+  const params = { ref: 'f'.repeat(32) };
+  await job.start('phase_a', params);
+  const jobId = ctx.job.jobId;
+  for (const state of ['queued', 'running', 'done']) {
+    await ctx.storage.put('job', { ...ctx.job, state });
+    const result = await job.start('phase_a', params);
+    assert.equal(result.ok, true);
+    assert.equal(result.already, true);
+    assert.equal(ctx.job.jobId, jobId);
+  }
+});

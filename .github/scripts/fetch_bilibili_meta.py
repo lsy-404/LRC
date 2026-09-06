@@ -295,8 +295,7 @@ FIELD_SCHEMA: list[tuple[str, str, str]] = [
 
 
 def _fmt_str(value: str) -> str:
-    escaped = value.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n")
-    return f'"{escaped}"'
+    return json.dumps(value, ensure_ascii=False)
 
 
 def _fmt_list(values: list[str]) -> str:
@@ -311,10 +310,10 @@ def serialize_meta(meta: dict[str, Any]) -> str:
         value = meta.get(internal)
         if typ == "list":
             lst = value if isinstance(value, list) else []
-            lines.append(f"{toml_key} = {_fmt_list(lst)}")
+            lines.append(f"{_fmt_str(toml_key)} = {_fmt_list(lst)}")
         else:
             s = str(value) if value else ""
-            lines.append(f"{toml_key} = {_fmt_str(s)}")
+            lines.append(f"{_fmt_str(toml_key)} = {_fmt_str(s)}")
     return "\n".join(lines) + "\n"
 
 

@@ -1,9 +1,9 @@
-import { json, passwordOk, bearer, callWorker, cleanRef, REVIEW, listPrefix, readJson } from './_lib.js';
+import { json, requireUser, callWorker, cleanRef, REVIEW, listPrefix, readJson } from './_lib.js';
 
 // GET /api/ingest/list — 列出所有待处理草稿，供修改面板直接选择（免记 ref）。
 // 每张专辑必有一个 status.json，据此枚举比逐层列目录省一轮往返。
 export async function onRequestGet({ request, env }) {
-  if (!(await passwordOk(bearer(request), env))) return json({ error: 'unauthorized' }, 401);
+  if (!(await requireUser({ request, env }))) return json({ error: 'unauthorized' }, 401);
   if (!env.UPLOAD_BUCKET) return json({ error: 'r2 not configured' }, 503);
 
   const [reviewObjects, webObjects] = await Promise.all([
@@ -33,6 +33,7 @@ export async function onRequestGet({ request, env }) {
       message: '',
       updated: st?.updated || '',
       contributor: st?.contributor || '',
+      owner: st?.owner || '',
       is_update: !!st?.is_update,
     };
   }));
@@ -66,6 +67,7 @@ export async function onRequestGet({ request, env }) {
       message: job.message || '',
       updated: manifest.updated || object.uploaded?.toISOString?.() || '',
       contributor: manifest.contributor || '',
+      owner: manifest.owner || '',
       is_update: false,
     });
     refs.add(ref);

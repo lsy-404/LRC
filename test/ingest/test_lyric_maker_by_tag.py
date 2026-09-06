@@ -37,7 +37,7 @@ def test_finalize_syncs_saved_lyric_maker_to_non_authoritative_lrc_and_klrc() ->
         organize.finalize(_draft(["甲", "乙"]), root)
         album = root / "测试专辑"
         lrc = album.joinpath("1 自动填充.lrc").read_text(encoding="utf-8")
-        klrc = album.joinpath("1 自动填充.klrc").read_text(encoding="utf-8")
+        klrc = album.joinpath("1 自动填充.elrc").read_text(encoding="utf-8")
         authoritative = album.joinpath("2 权威原文.lrc").read_text(encoding="utf-8")
         for output in (lrc, klrc):
             assert output.startswith("[ti:曲名]\n[al:专辑]\n[ar:歌手]\n[by:甲/乙]\n\n")

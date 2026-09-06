@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import tomllib
 import sys
 import tempfile
 from pathlib import Path
@@ -24,5 +25,5 @@ def test_finalize_uses_safe_renamed_album_for_directory_and_metadata() -> None:
     album = root / "新专辑"
     assert result["album"] == "新专辑"
     assert (album / "1 歌曲.lrc").is_file()
-    assert "中文名 = \"新专辑\"" in (album / "meta.toml").read_text(encoding="utf-8")
+    assert tomllib.loads((album / "meta.toml").read_text(encoding="utf-8"))["中文名"] == "新专辑"
     assert not (root / ".." / "新专辑").exists()

@@ -54,6 +54,14 @@ class SingleSubmissionAuthorityTests(unittest.TestCase):
         self.assertEqual(pulled_album, "单曲")
         self.assertEqual(command[command.index("--submission-type") + 1], "single")
 
+    def test_phase_a_passes_trusted_manifest_credits(self):
+        _, _, command = self._run_phase_a({
+            "album": "Album", "submission_type": "album", "contributor": "account",
+            "lyric_maker": ["Editor", "Extra", "Editor"],
+            "files": [{"n": 0, "path": "song.lrc", "size": 1}],
+        })
+        self.assertEqual(json.loads(command[command.index("--lyric-makers") + 1]), ["Editor", "Extra"])
+
     def test_phase_a_accepts_explicit_and_legacy_album_types(self):
         for manifest in (
             {"album": "普通专辑", "submission_type": "album", "contributor": "web",

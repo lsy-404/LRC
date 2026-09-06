@@ -2,70 +2,102 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createWorkspaceAdapter } from '../docs/.vuepress/components/workspaceAdapter.js';
+import { hasComponent } from './helpers/vueSource.mjs';
 
-const workspacePath = new URL('../docs/.vuepress/components/UnifiedWorkspace.vue', import.meta.url);
+const workspacePath = new URL('../docs/.vuepress/components/Workspace.vue', import.meta.url);
 const workbenchPath = new URL('../docs/.vuepress/components/Workbench.vue', import.meta.url);
 
-test('验证后只挂载单一文件工作区，而非上传修改页签', async () => {
+test('Workbench 验证通过后只挂载单一工作区外壳，不直接持有上传/编辑页签', async () => {
   const source = await readFile(workbenchPath, 'utf8');
-  assert.match(source, /<UnifiedWorkspace v-else/);
-  assert.doesNotMatch(source, /UploadBox|EditBox|wb-tabs|tab ===/);
+  assert.ok(hasComponent(source, 'Workspace'));
+  assert.doesNotMatch(source, /UploadBox|EditBox/);
 });
 
-test('统一工作区保留上传、可视化编辑和可关闭的文件标签', async () => {
+test('工作区通过可关闭的文件标签承载新建、导入和已有专辑文件', async () => {
   const source = await readFile(workspacePath, 'utf8');
-  assert.match(source, /<UploadBox :password="password" :theme="theme" \/>/);
-  assert.match(source, /<EditBox :password="password" :theme="theme" \/>/);
-  assert.match(source, /v-show="activeTab === `upload`"/);
-  assert.match(source, /v-show="activeTab === `visual`"/);
-  assert.match(source, /v-for="file in fileTabs"/);
-  assert.match(source, /closeFileTab\(file\.id\)/);
-  assert.match(source, /activeTab\.value = file\.id/);
+  assert.ok(hasComponent(source, 'WorkspaceExplorer'));
+  assert.ok(hasComponent(source, 'WorkspaceTabs'));
+  assert.ok(hasComponent(source, 'TrackTextView'));
+  assert.match(source, /function closeDocument\(/);
 });
 
-test('统一工作区通过 Monaco 文件标签承载新建、导入和已有专辑文件', async () => {
+test('自动提取会先落盘当前工作区文件的未保存修改，再把编辑内容作为上传素材', async () => {
   const source = await readFile(workspacePath, 'utf8');
-  assert.match(source, /新建 LRC/);
-  assert.match(source, /导入文件/);
-  assert.match(source, /meta\.json/);
-  assert.match(source, /<MonacoLrcEditor v-model="activeFile\.content"/);
-  assert.match(source, /自动提取并生成/);
-  assert.match(source, /if \(!fileTabs\.value\.some\(\(tab\) => tab\.id === file\.id\)\) fileTabs\.value\.push\(file\)/);
+  assert.match(source, /async function saveActive\(/);
+  assert.match(source, /await uploadPending\(entry\)/);
 });
 
-test('统一工作区的左右区域独立滚动，文件编辑器占满右侧', async () => {
-  const source = await readFile(workspacePath, 'utf8');
-  assert.match(source, /\.uw-shell \{[^}]*overflow:hidden/);
-  assert.match(source, /\.uw-explorer \{[^}]*overflow-y:auto/);
-  assert.match(source, /\.uw-editor \{[^}]*overflow:hidden/);
-  assert.match(source, /\.uw-tab-panel \{ min-height:0; overflow-y:auto/);
-  assert.match(source, /\.uw-file-panel :deep\(\.monaco-lrc-editor\) \{ flex:1; min-height:0/);
-});
 
-test('自动提取先保存当前工作区文件，并上传 Monaco 中的文本内容', async () => {
-  const source = await readFile(workspacePath, 'utf8');
-  assert.match(source, /if \(activeFile\.value\?\.remote && !\(await save\(\)\)\) return;/);
-  assert.match(source, /new File\(\[file\.content\], file\.name, \{ type: file\.raw\.type \|\| 'text\/plain' \}\)/);
-  assert.match(source, /size: uploadFile\.size/);
-  assert.match(source, /: file\.raw;/);
-});
-
-test('已有 LRC 工作草稿即使没有待上传文件也能触发自动提取', async () => {
-  const source = await readFile(workspacePath, 'utf8');
-  assert.match(source, /:disabled="generating \|\| !canGenerate"/);
-  assert.match(source, /const canGenerate = computed\(\(\) => localFiles\.value\.length > 0 \|\| workspaces\.value\.some\(\(workspace\) => workspace\.draft\.tracks\?\.length > 0\)\)/);
-  assert.doesNotMatch(source, /:disabled="generating \|\| !localFiles\.length"/);
-});
 
 test('工作区适配器只调用正式 workspace 与 R2 上传边界', async () => {
   const calls = [];
-  const adapter = createWorkspaceAdapter('pw', async (url, init) => { calls.push([url, init]); return new Response(JSON.stringify({ ok: true }), { status: 200 }); });
+  const adapter = createWorkspaceAdapter(async (url, init) => { calls.push([url, init]); return new Response(JSON.stringify({ ok: true }), { status: 200 }); });
   await adapter.catalog(); await adapter.list(); await adapter.draft('a b'); await adapter.create('专辑');
   await adapter.open('album'); await adapter.lrc('ref', '歌词.lrc'); await adapter.save('ref', { album: '专辑', tracks: [] });
-  await adapter.upload('ref', 0, new Blob(['audio'], { type: 'audio/mpeg' })); await adapter.extract('ref', [{ n: 0, path: '01.mp3', size: 5 }]);
+  await adapter.upload('ref', 0, new Blob(['audio'], { type: 'audio/mpeg' }));
+  await adapter.asset('ref', { n: 0, path: '01.mp3', role: 'song', size: 5, linkTo: [] });
+  await adapter.extract('ref');
   assert.deepEqual(calls.map(([url]) => url), [
     '/api/workspace/catalog', '/api/workspace/list', '/api/workspace/draft?ref=a%20b', '/api/workspace/create',
-    '/api/workspace/open', '/api/workspace/lrc', '/api/workspace/save', '/api/upload/r2?session=ref&n=0', '/api/workspace/extract',
+    '/api/workspace/open', '/api/workspace/lrc', '/api/workspace/save', '/api/upload/r2?session=ref&n=0',
+    '/api/workspace/asset', '/api/workspace/extract',
   ]);
-  assert.match(calls[7][1].headers.authorization, /^Bearer /);
+  assert.equal(calls[7][1].credentials, 'same-origin');
+  assert.deepEqual(JSON.parse(calls[8][1].body), { ref: 'ref', n: 0, path: '01.mp3', role: 'song', size: 5, linkTo: [] });
+  // extract 只带 ref：素材清单以服务端草稿为准，不再由前端复述
+  assert.deepEqual(JSON.parse(calls[9][1].body), { ref: 'ref' });
+});
+
+
+
+test('工作区适配器同一边界收拢待修改审核面板的 ingest 通道', async () => {
+  const calls = [];
+  const adapter = createWorkspaceAdapter(async (url, init) => { calls.push([url, init]); return new Response(JSON.stringify({ ok: true, pending: [] }), { status: 200 }); });
+  await adapter.pending();
+  await adapter.state('ref1');
+  await adapter.saveReview('ref1', 'album1', { album: '专辑', tracks: [] });
+  await adapter.continue('ref1');
+  await adapter.retry('ref1');
+  await adapter.cover('ref1', 'album1', '.png', new Blob(['x'], { type: 'image/png' }));
+  assert.deepEqual(calls.map(([url]) => url), [
+    '/api/ingest/list', '/api/ingest/state?ref=ref1', '/api/ingest/save', '/api/ingest/continue', '/api/ingest/retry',
+    '/api/ingest/cover?ref=ref1&album=album1&ext=.png',
+  ]);
+  assert.equal(calls[0][1].credentials, 'same-origin');
+  assert.deepEqual(JSON.parse(calls[2][1].body), { ref: 'ref1', album: 'album1', draft: { album: '专辑', tracks: [] } });
+  assert.deepEqual(JSON.parse(calls[3][1].body), { ref: 'ref1' });
+});
+
+test('工作区适配器 discard：404 视为草稿已不存在，按丢弃成功处理', async () => {
+  const adapter = createWorkspaceAdapter(async () => new Response(JSON.stringify({ error: 'not found' }), { status: 404 }));
+  const result = await adapter.discard('ref1', 'album1');
+  assert.equal(result.ok, true);
+});
+
+test('工作区适配器 discard：非 404 的失败仍然抛出', async () => {
+  const adapter = createWorkspaceAdapter(async () => new Response(JSON.stringify({ error: 'unauthorized' }), { status: 401 }));
+  await assert.rejects(() => adapter.discard('ref1', 'album1'), /unauthorized/);
+});
+
+test('工作区适配器 audio：返回原始流式响应（不做 json 解析），供调用方读取 status/body', async () => {
+  let captured;
+  const fakeResponse = new Response(new Blob(['bytes']), { status: 206 });
+  const adapter = createWorkspaceAdapter(async (url, init) => { captured = { url, init }; return fakeResponse; });
+  const controller = new AbortController();
+  const resp = await adapter.audio('ref1', '01.mp3', controller.signal);
+  assert.equal(resp, fakeResponse);
+  assert.equal(captured.url, '/api/ingest/audio?ref=ref1&name=01.mp3');
+  assert.equal(captured.init.credentials, 'same-origin');
+  assert.equal(captured.init.signal, controller.signal);
+});
+
+test('工作区适配器：HTTP 失败时抛出的 Error 携带 status，供调用方区分 401/404 等特例', async () => {
+  const adapter = createWorkspaceAdapter(async () => new Response(JSON.stringify({ error: '登录已失效' }), { status: 401 }));
+  try {
+    await adapter.state('ref1');
+    assert.fail('应抛出异常');
+  } catch (error) {
+    assert.equal(error.status, 401);
+    assert.match(error.message, /登录已失效/);
+  }
 });

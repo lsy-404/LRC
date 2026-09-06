@@ -1,9 +1,9 @@
-import { json, passwordOk, bearer, callWorker, cleanRef } from './_lib.js';
+import { json, requireUser, callWorker, cleanRef } from './_lib.js';
 
 // POST /api/ingest/continue { ref } — 人工确认（或一键放行）后启动编排跑 Phase B。
 // 编排侧幂等：草稿已被消费或丢弃时直接返回，重复触发安全。
 export async function onRequestPost({ request, env }) {
-  if (!(await passwordOk(bearer(request), env))) return json({ error: 'unauthorized' }, 401);
+  if (!(await requireUser({ request, env }))) return json({ error: 'unauthorized' }, 401);
 
   const body = await request.json().catch(() => null);
   const ref = cleanRef(body?.ref);
