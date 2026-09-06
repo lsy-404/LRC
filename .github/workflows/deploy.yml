@@ -1,20 +1,21 @@
 name: Deploy to Cloudflare Worker
 
 on:
-  # Site-source-only changes (Vue components, theme config, markdown pages).
-  # The two generated output dirs are excluded: the generate job commits them and
-  # then dispatches this workflow itself, so a path trigger would deploy twice.
+  # Generated catalog updates dispatch deployment separately.
   push:
     branches:
       - main
     paths:
+      - '.github/workflows/deploy.yml'
+      - '.node-version'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
       - 'docs/**'
       - 'functions/**'
       - 'worker/**'
       - 'runner/**'
       - '!docs/albums/**'
       - '!docs/.vuepress/public/api/**'
-  # Dispatched by the ingest worker's generate job, and available for manual runs
   workflow_dispatch:
 
 jobs:
@@ -33,12 +34,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version-file: '.node-version'
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6.0.10
-        with:
-          version: '9'
 
       - name: Cache pnpm dependencies
         uses: actions/cache@v5
@@ -49,7 +48,7 @@ jobs:
             ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Install Worker dependencies
         run: npm ci --prefix worker
