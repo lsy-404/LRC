@@ -65,7 +65,7 @@ function registerLrcLanguage(api) {
       { token: 'section', foreground: '7a3eb1', fontStyle: 'bold' },
       { token: 'key', foreground: '0451a5' }, { token: 'trackId', foreground: '006d77' },
       { token: 'role', foreground: '3f5f7a' }, { token: 'url', foreground: '1a7f37' },
-    ],
+    ], colors: {},
   });
 
 }
@@ -99,7 +99,12 @@ onMounted(async () => {
   model.onDidChangeContent(() => { if (!syncing) emit('update:modelValue', model.getValue()); });
   observer = new ResizeObserver(() => editor?.layout());
   observer.observe(host.value);
-  } catch { if (!disposed) loadError.value = true; }
+  } catch (error) {
+    if (!disposed) {
+      loadError.value = true;
+      console.error('Lyric editor could not load', error);
+    }
+  }
 });
 
 watch(() => props.modelValue, (value) => {
