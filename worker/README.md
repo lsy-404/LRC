@@ -8,7 +8,7 @@ Assets 部署；`/api/upload/*` 与 `/api/ingest/*` 先进入脚本，其余站�
 ```
 pnpm run docs:build
 cd worker
-CLOUDFLARE_ACCOUNT_ID=<account> npx wrangler deploy --containers-rollout=immediate
+CLOUDFLARE_ACCOUNT_ID=<account> corepack pnpm@10.34.6 exec wrangler deploy --containers-rollout=immediate
 ```
 
 会用本机 Docker 构建 `../runner/Dockerfile` 并推到 Cloudflare 镜像仓库。
@@ -17,7 +17,7 @@ CLOUDFLARE_ACCOUNT_ID=<account> npx wrangler deploy --containers-rollout=immedia
 ## 必需的 Worker 密钥
 
 ```
-npx wrangler secret put <NAME>
+corepack pnpm@10.34.6 --dir worker exec wrangler secret put <NAME>
 ```
 
 | 名称 | 用途 |

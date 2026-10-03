@@ -2,6 +2,7 @@
   "name": "lrc-ingest",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.34.6",
   "scripts": {
     "deploy": "wrangler deploy",
     "dev": "wrangler dev"
@@ -12,5 +13,11 @@
   "devDependencies": {
     "wrangler": "^4.118.0",
     "miniflare": "5.20260730.0-alpha"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "workerd"
+    ]
   }
 }

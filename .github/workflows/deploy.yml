@@ -51,7 +51,8 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Install Worker dependencies
-        run: npm ci --prefix worker
+        working-directory: worker
+        run: corepack pnpm@10.34.6 install --frozen-lockfile
 
       - name: Build VuePress site
         run: pnpm run docs:build
@@ -62,4 +63,5 @@ jobs:
           apiToken: ${{ secrets.CF_WORKERS_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           workingDirectory: worker
+          packageManager: pnpm
           command: deploy --containers-rollout=immediate
