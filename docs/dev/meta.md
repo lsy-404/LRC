@@ -8,12 +8,12 @@ icon: material-symbols:analytics
 
 本报告显示所有专辑的元数据完整性检查结果。
 
-- **总计**：100 个专辑
-- **已检查**：100 个
+- **总计**：108 个专辑
+- **已检查**：108 个
 - **跳过**：0 个
-- **完整**：33 个
+- **完整**：39 个
 - **提示**：0 个
-- **警告**：34 个
+- **警告**：36 个
 - **错误**：33 个
 
 ## 错误：核心元数据缺失
@@ -229,6 +229,10 @@ icon: material-symbols:analytics
 
 - 缺少英文名
 
+### 南北极星EP Vol.1
+
+- 缺少英文名
+
 ### 塌陷于38°C的蓝
 
 - 缺少英文名
@@ -236,6 +240,10 @@ icon: material-symbols:analytics
 ### 平行四界RE：BIRTH
 
 - 缺少中文名
+
+### 平行四界Vocal Collection
+
+- 缺少电子版本信息
 
 ### 平行四界×轻文轻小说 EP Vol.1
 
@@ -362,10 +370,16 @@ icon: material-symbols:analytics
 - 天方夜谭Fairyland
 - 天马行空Fairytale
 - 平行四界LIVE TOUR OFFICIAL ALBUM
+- 平行四界Quadimension
 - 平行四界Quadimension Finale
 - 平行四界Quadimension X-1
 - 平行四界Quadimension X-2
 - 平行四界Quadimension X-3
+- 平行四界Quadimension2
+- 平行四界Quadimension3
+- 平行四界Quadimension4
+- 平行四界Quadimension5
+- 平行四界Quadimension6
 - 星之海StarOcean
 - 星愿StarWish
 - 星语StarWhisper
