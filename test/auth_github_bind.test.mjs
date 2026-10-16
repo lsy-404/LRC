@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { handleApi } from '../worker/src/api.js';
+import { createHash } from 'node:crypto';
+import { handleApi } from './worker/_studio.mjs';
 import { createFakeDirectory, usersBinding } from './worker/_fakeUserDirectory.mjs';
 
 function req(url, { method = 'GET', body, cookie } = {}) {
@@ -41,7 +42,7 @@ function fakeGithubFetch({ tokenByCode = {}, loginByToken = {} } = {}) {
 
 function freshEnv({ configured = true, github } = {}) {
   const dir = createFakeDirectory();
-  const env = { UPLOAD_PASSWORD: 'root-secret', USERS: usersBinding(dir) };
+  const env = { USERS: usersBinding(dir) };
   if (configured) {
     env.GITHUB_OAUTH_CLIENT_ID = 'client-id';
     env.GITHUB_OAUTH_CLIENT_SECRET = 'client-secret';
@@ -50,23 +51,17 @@ function freshEnv({ configured = true, github } = {}) {
   return { env, dir };
 }
 
-async function bootstrapAdmin(env, name = 'root') {
-  const res = await handleApi(req('https://x/api/auth/bootstrap', {
-    method: 'POST', body: { token: 'root-secret', name, password: 'a-strong-pass' },
-  }), env);
-  return { cookie: cookieOf(res), user: (await res.json()).user };
+// 统一身份登录后的会话直接落到用户目录：GitHub 绑定只关心当前会话属于谁。
+async function signIn(env, name) {
+  const dir = env.USERS.getByName('directory');
+  const { user } = await dir.createUser({ name, display_name: name, role: 'editor', password_hash: '', salt: '', iterations: 0 });
+  const token = `${name}-session`;
+  await dir.createSession({ token_hash: createHash('sha256').update(token).digest('hex'), user_id: user.id, issued_at: Date.now(), expires_at: Date.now() + 3600000 });
+  return { cookie: `lrc_session=${token}`, user: await dir.getUserById(user.id) };
 }
 
-async function registerEditor(env, adminCookie, name) {
-  const inviteRes = await handleApi(req('https://x/api/auth/invite', {
-    method: 'POST', body: {}, cookie: adminCookie,
-  }), env);
-  const { code } = await inviteRes.json();
-  const res = await handleApi(req('https://x/api/auth/register', {
-    method: 'POST', body: { invite_code: code, name, password: 'password123' },
-  }), env);
-  return { cookie: cookieOf(res), user: (await res.json()).user };
-}
+const bootstrapAdmin = (env, name = 'root') => signIn(env, name);
+const registerEditor = (env, _adminCookie, name) => signIn(env, name);
 
 async function startFlow(env, cookie) {
   const res = await handleApi(req('https://x/api/auth/github/start', { cookie }), env);

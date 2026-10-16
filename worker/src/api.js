@@ -10,68 +10,51 @@ import { onRequestPost as saveIngest } from '../../functions/api/ingest/save.js'
 import { onRequestGet as stateIngest } from '../../functions/api/ingest/state.js';
 import { onRequestGet as audioIngest } from '../../functions/api/ingest/audio.js';
 import { onAssetPost, onAudioGet, onCatalogGet, onCreatePost, onDocumentPost, onDraftGet, onExtractPost, onListGet, onLrcPost, onOpenPost, onSavePost } from '../../functions/api/workspace.js';
-import { onRequestPost as authBootstrap } from '../../functions/api/auth/bootstrap.js';
-import { onRequestPost as authRegister } from '../../functions/api/auth/register.js';
-import { onRequestPost as authLogin } from '../../functions/api/auth/login.js';
-import { onRequestPost as authLogout } from '../../functions/api/auth/logout.js';
 import { onRequestGet as authMeGet, onRequestPatch as authMePatch } from '../../functions/api/auth/me.js';
-import { onRequestPost as authInvitePost, onRequestDelete as authInviteDelete } from '../../functions/api/auth/invite.js';
-import { onRequestGet as authInvitesGet } from '../../functions/api/auth/invites.js';
-import { onRequestGet as authUsersGet } from '../../functions/api/auth/users.js';
-import { onRequestPatch as authUserPatch } from '../../functions/api/auth/user.js';
-
 import { onRequestGet as authGithubStart } from '../../functions/api/auth/githubStart.js';
 import { onRequestGet as authGithubCallback } from '../../functions/api/auth/githubCallback.js';
 import { onRequestDelete as authGithubDelete } from '../../functions/api/auth/github.js';
-import { onRequestGet as authSetupGet } from '../../functions/api/auth/setup.js';
 import { onMediaGet, onWorkspaceCoverGet, onReviewCoverGet, onReviewMediaGet, onDiscardPost as discardWorkspace } from '../../functions/api/workspaceMedia.js';
+import { studioServer } from './studio.js';
 import { json, cleanRef } from './lib.js';
 
-const ROUTES = new Map([
-  ['POST /api/upload/r2', uploadR2],
-  ['POST /api/upload/multipart', multipartUploadPost],
-  ['PUT /api/upload/multipart', multipartUploadPut],
-  ['DELETE /api/upload/multipart', multipartUploadDelete],
-  ['POST /api/upload/finalize', finalizeUpload],
-  ['GET /api/ingest/list', listIngest],
-  ['GET /api/ingest/state', stateIngest],
-  ['GET /api/ingest/audio', audioIngest],
-  ['POST /api/ingest/save', saveIngest],
-  ['POST /api/ingest/cover', uploadCover],
-  ['POST /api/ingest/continue', continueIngest],
-  ['POST /api/ingest/discard', discardIngest],
-  ['POST /api/ingest/retry', retryIngest],
-  ['GET /api/workspace/media', onMediaGet],
-  ['GET /api/workspace/cover', onWorkspaceCoverGet],
-  ['GET /api/ingest/cover', onReviewCoverGet],
-  ['GET /api/ingest/media', onReviewMediaGet],
-  ['POST /api/workspace/discard', discardWorkspace],
-  ['GET /api/workspace/catalog', onCatalogGet],
-  ['GET /api/workspace/list', onListGet],
-  ['GET /api/workspace/draft', onDraftGet],
-  ['POST /api/workspace/create', onCreatePost],
-  ['POST /api/workspace/open', onOpenPost],
-  ['POST /api/workspace/lrc', onLrcPost],
-  ['POST /api/workspace/document', onDocumentPost],
-  ['POST /api/workspace/save', onSavePost],
-  ['POST /api/workspace/asset', onAssetPost],
-  ['GET /api/workspace/audio', onAudioGet],
-  ['POST /api/workspace/extract', onExtractPost],
-  ['POST /api/auth/bootstrap', authBootstrap],
-  ['POST /api/auth/register', authRegister],
-  ['POST /api/auth/login', authLogin],
-  ['GET /api/auth/setup', authSetupGet],
-  ['POST /api/auth/logout', authLogout],
-  ['GET /api/auth/me', authMeGet],
-  ['PATCH /api/auth/me', authMePatch],
-  ['POST /api/auth/invite', authInvitePost],
-  ['DELETE /api/auth/invite', authInviteDelete],
-  ['GET /api/auth/invites', authInvitesGet],
-  ['GET /api/auth/users', authUsersGet],
-  ['PATCH /api/auth/user', authUserPatch],
-  ['GET /api/auth/github/start', authGithubStart],
-  ['GET /api/auth/github/callback', authGithubCallback],
-  ['DELETE /api/auth/github', authGithubDelete],
+// 每条路由附带所需的工作站动作；动作由当前用户在曲库中的权限决定（见 worker/src/studio.js）。
+// 'session' 只要求有效的单点登录会话，'public' 不校验（GitHub 回调由一次性 state 绑定发起者）。
+export const ROUTES = new Map([
+  ['POST /api/upload/r2', [uploadR2, 'edit']],
+  ['POST /api/upload/multipart', [multipartUploadPost, 'edit']],
+  ['PUT /api/upload/multipart', [multipartUploadPut, 'edit']],
+  ['DELETE /api/upload/multipart', [multipartUploadDelete, 'edit']],
+  ['POST /api/upload/finalize', [finalizeUpload, 'submit']],
+  ['GET /api/ingest/list', [listIngest, 'browse']],
+  ['GET /api/ingest/state', [stateIngest, 'browse']],
+  ['GET /api/ingest/audio', [audioIngest, 'listen']],
+  ['POST /api/ingest/save', [saveIngest, 'edit']],
+  ['POST /api/ingest/cover', [uploadCover, 'edit']],
+  ['POST /api/ingest/continue', [continueIngest, 'submit']],
+  ['POST /api/ingest/discard', [discardIngest, 'discard']],
+  ['POST /api/ingest/retry', [retryIngest, 'submit']],
+  ['GET /api/workspace/media', [onMediaGet, 'browse']],
+  ['GET /api/workspace/cover', [onWorkspaceCoverGet, 'browse']],
+  ['GET /api/ingest/cover', [onReviewCoverGet, 'browse']],
+  ['GET /api/ingest/media', [onReviewMediaGet, 'browse']],
+  ['POST /api/workspace/discard', [discardWorkspace, 'discard']],
+  ['GET /api/workspace/catalog', [onCatalogGet, 'browse']],
+  ['GET /api/workspace/list', [onListGet, 'browse']],
+  ['GET /api/workspace/draft', [onDraftGet, 'browse']],
+  ['POST /api/workspace/create', [onCreatePost, 'edit']],
+  ['POST /api/workspace/open', [onOpenPost, 'edit']],
+  ['POST /api/workspace/lrc', [onLrcPost, 'edit']],
+  ['POST /api/workspace/document', [onDocumentPost, 'edit']],
+  ['POST /api/workspace/save', [onSavePost, 'edit']],
+  ['POST /api/workspace/asset', [onAssetPost, 'edit']],
+  ['GET /api/workspace/audio', [onAudioGet, 'listen']],
+  ['POST /api/workspace/extract', [onExtractPost, 'submit']],
+  ['GET /api/auth/me', [authMeGet, 'session']],
+  ['PATCH /api/auth/me', [authMePatch, 'session']],
+  ['GET /api/auth/github/start', [authGithubStart, 'session']],
+  ['GET /api/auth/github/callback', [authGithubCallback, 'public']],
+  ['DELETE /api/auth/github', [authGithubDelete, 'session']],
 ]);
 
 async function callJob(env, name, path, body) {
@@ -108,17 +91,34 @@ async function callIngest(env, path, body, method) {
   return { ok: false, status: 404, data: { error: 'not found' } };
 }
 
-export async function handleApi(request, env) {
+export async function handleApi(request, env, studio = studioServer()) {
   const url = new URL(request.url);
   if (!['GET', 'HEAD', 'OPTIONS'].includes(request.method)) {
     const origin = request.headers.get('origin');
     if (origin && origin !== url.origin) return json({ error: 'csrf' }, 403);
   }
-  const handler = ROUTES.get(`${request.method} ${url.pathname}`);
-  if (!handler) return json({ error: 'not found' }, 404);
+  const owned = await studio.handle(request, env);
+  if (owned) return owned;
+  const route = ROUTES.get(`${request.method} ${url.pathname}`);
+  if (!route) return json({ error: 'not found' }, 404);
+  const [handler, action] = route;
   const apiEnv = Object.create(env);
   Object.defineProperty(apiEnv, 'INGEST_INTERNAL_CALL', {
     value: (path, body, method) => callIngest(env, path, body, method),
   });
+  Object.defineProperty(apiEnv, 'STUDIO', { value: studio });
+  if (action !== 'public') {
+    let account;
+    if (action === 'session') {
+      account = (await studio.describe(request, env))?.account;
+      if (!account) return json({ error: 'unauthorized' }, 401);
+    } else {
+      const gate = await studio.authorize(request, env, action);
+      if (!gate.ok) return gate.response;
+      account = gate.session.account;
+    }
+    Object.defineProperty(apiEnv, 'STUDIO_USER', { value: account.user });
+    Object.defineProperty(apiEnv, 'STUDIO_SUBJECT', { value: account.subject });
+  }
   return handler({ request, env: apiEnv });
 }

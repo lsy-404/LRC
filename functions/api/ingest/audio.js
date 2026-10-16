@@ -21,6 +21,10 @@ export async function onRequestGet({ request, env }) {
   const manifest = await readJson(env, `web/${ref}/manifest.json`);
   const matches = (manifest?.files || []).filter((file) => baseName(file?.path) === name && audioContentType(file.path));
   if (matches.length !== 1 || !Number.isInteger(matches[0].n)) return json({ error: 'audio not found' }, 404);
+  // Library-backed audio streams from the library as the reviewer, under the reviewer's own permissions.
+  if (matches[0].library) {
+    return env.STUDIO && env.STUDIO_SUBJECT ? env.STUDIO.library.stream(env, env.STUDIO_SUBJECT, matches[0].library, request) : json({ error: 'library unavailable' }, 503);
+  }
 
   const key = `web/${ref}/${matches[0].n}`;
   const head = await env.UPLOAD_BUCKET.head?.(key);

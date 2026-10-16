@@ -14,6 +14,7 @@ on:
       - 'functions/**'
       - 'worker/**'
       - 'runner/**'
+      - 'studio/**'
       - '!docs/albums/**'
       - '!docs/.vuepress/public/api/**'
   workflow_dispatch:
@@ -50,12 +51,29 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # 工作站是私有方案包：只下载编译产物并校验摘要，源码不进入本仓库
+      - name: Fetch private studio solution
+        env:
+          GH_TOKEN: ${{ secrets.PLATFORM_KIT_TOKEN }}
+        run: |
+          set -euo pipefail
+          VERSION=$(node -p "require('./studio/package.json').dependencies['@platform-kit/solution-studio'].match(/solution-studio-(.+)\.tgz$/)[1]")
+          mkdir -p vendor
+          gh release download "solution-studio-v${VERSION}" --repo lsy-404/platform-kit-internal --dir vendor --pattern "solution-studio-${VERSION}.tgz" --pattern "solution-studio-${VERSION}.tgz.sha256"
+          (cd vendor && sha256sum -c "solution-studio-${VERSION}.tgz.sha256")
+
       - name: Install Worker dependencies
         working-directory: worker
         run: corepack pnpm@10.34.6 install --frozen-lockfile
 
       - name: Build VuePress site
         run: pnpm run docs:build
+
+      - name: Build studio
+        run: |
+          pnpm --dir studio install --frozen-lockfile
+          pnpm --dir studio run build
+          test -f docs/.vuepress/dist/studio/index.html
 
       - name: Deploy Worker with static assets
         uses: cloudflare/wrangler-action@v4.0.0

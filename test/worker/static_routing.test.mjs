@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
 
-async function loadWorker() {
+async function loadWorker(studioFake = {}) {
   const source = await fs.readFile(new URL('../../worker/src/index.js', import.meta.url), 'utf8');
   const lib = new vm.SyntheticModule(['json', 'authorized', 'cleanRef', 'cleanKey', 'cleanPrefix'], function () {
     this.setExport('json', (data, status = 200) => Response.json(data, { status }));
@@ -18,6 +18,7 @@ async function loadWorker() {
   const job = new vm.SyntheticModule(['IngestJob'], function () { this.setExport('IngestJob', class {}); });
   const runner = new vm.SyntheticModule(['PipelineRunner'], function () { this.setExport('PipelineRunner', class {}); });
   const users = new vm.SyntheticModule(['UserDirectory'], function () { this.setExport('UserDirectory', class {}); });
+  const studio = new vm.SyntheticModule(['studioServer'], function () { this.setExport('studioServer', () => studioFake); });
   const module = new vm.SourceTextModule(source, { identifier: 'index.js' });
   await module.link((specifier) => ({
     './lib.js': lib,
@@ -25,6 +26,7 @@ async function loadWorker() {
     './job.js': job,
     './runner.js': runner,
     './users.js': users,
+    './studio.js': studio,
   })[specifier]);
   await module.evaluate();
   return module.namespace.default;

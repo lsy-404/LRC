@@ -1,0 +1,19 @@
+{
+  "name": "lrc-studio",
+  "private": true,
+  "type": "module",
+  "description": "Host entry that builds the private studio solution into /studio/.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@platform-kit/solution-studio": "file:../vendor/solution-studio-0.1.0.tgz",
+    "monaco-editor": "^0.55.1",
+    "opencc-js": "^1.4.2",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "vite": "^7.3.1"
+  }
+}

@@ -2,7 +2,7 @@ import { directory } from './_lib.js';
 import { githubConfigured, exchangeCodeForToken, fetchGithubLogin } from './_github.js';
 
 function redirect(params) {
-  return new Response(null, { status: 302, headers: { location: `/contribute/workstation.html?${new URLSearchParams(params)}` } });
+  return new Response(null, { status: 302, headers: { location: `/studio/?${new URLSearchParams(params)}` } });
 }
 
 export async function onRequestGet({ request, env }) {

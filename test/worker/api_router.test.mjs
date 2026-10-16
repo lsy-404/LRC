@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { handleApi } from '../../worker/src/api.js';
+import { handleApi } from './_studio.mjs';
 import { fakeBucket, authedRequest, authenticatedUsers } from './_fakeR2.mjs';
 
 const REF = 'e'.repeat(32);

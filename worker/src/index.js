@@ -1,5 +1,6 @@
 import { json, authorized, cleanRef, cleanKey, cleanPrefix } from './lib.js';
 import { handleApi } from './api.js';
+import { studioServer } from './studio.js';
 
 export { IngestJob } from './job.js';
 export { PipelineRunner } from './runner.js';
@@ -8,7 +9,7 @@ export { UserDirectory } from './users.js';
 // 生成作业自己提交回 main，会再触发一次 webhook——按提交者跳过，避免自激
 const BOT_NAME = 'lrc-ingest[bot]';
 const WATCHED = ['res/', '.github/'];
-const WORKSTATION_API = ['/api/upload/', '/api/ingest/', '/api/workspace/', '/api/auth/'];
+const WORKSTATION_API = ['/api/upload/', '/api/ingest/', '/api/workspace/', '/api/auth/', '/api/library/'];
 const INTERNAL_PATHS = new Set(['/store', '/state', '/ingest', '/finalize', '/discard', '/generate', '/diag']);
 
 function jobStub(env, name) {
@@ -51,6 +52,23 @@ function touchesWatched(payload) {
     }
   }
   return false;
+}
+
+// 清单中标记为曲库音频的原料不落 R2：按清单记录的提交者身份从曲库流式转交给容器
+async function libraryObject(env, key) {
+  const match = key.match(/^web\/([0-9a-f]{16,64})\/(\d+)$/);
+  if (!match) return json({ error: 'not found' }, 404);
+  const manifestObject = await env.UPLOAD_BUCKET.get(`web/${match[1]}/manifest.json`);
+  let manifest = null;
+  try { manifest = manifestObject ? JSON.parse(await manifestObject.text()) : null; } catch { manifest = null; }
+  const file = (manifest?.files || []).find((item) => item?.n === Number(match[2]) && typeof item.library === 'string');
+  if (!file || typeof manifest.subject !== 'string') return json({ error: 'not found' }, 404);
+  const upstream = await studioServer().library.stream(env, manifest.subject, file.library);
+  if (!upstream.ok) return json({ error: 'library unavailable' }, upstream.status === 404 ? 404 : 502);
+  const headers = new Headers({ 'content-type': 'application/octet-stream' });
+  const length = upstream.headers.get('content-length');
+  if (length) headers.set('content-length', length);
+  return new Response(upstream.body, { headers });
 }
 
 // 容器内没有 R2 绑定，读写原料与草稿一律经此代读代写；键前缀已在 cleanKey 收窄
@@ -97,7 +115,7 @@ async function store(request, env, url) {
 
   if (request.method === 'GET') {
     const obj = await bucket.get(key);
-    if (!obj) return json({ error: 'not found' }, 404);
+    if (!obj) return libraryObject(env, key);
     return new Response(obj.body, {
       headers: {
         'content-type': 'application/octet-stream',

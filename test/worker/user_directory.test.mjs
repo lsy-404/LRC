@@ -45,87 +45,65 @@ test('会话查找、过期回收与 last_seen 续期', async () => {
   assert.equal(dir.resolveSession('tok1', now + 1000), null);
 });
 
-test('邀请生命周期：创建、原子占用、终态确认、释放、吊销', async () => {
+test('统一身份首次登录：按用户名认领旧账号，否则新建编辑者', async () => {
   const dir = await createDirectory();
-  const { user: admin } = dir.createUser({
-    name: 'root', display_name: 'Root', role: 'admin',
-    password_hash: 'h', salt: 's', iterations: 1000,
-  });
-  const now = Date.now();
-  dir.createInvite({ code_hash: 'codehash1', role: 'editor', created_by: admin.id, created_at: now, expires_at: now + 10_000 });
+  const legacy = dir.createUser({ name: 'maker', display_name: '旧展示名', role: 'admin', password_hash: 'h', salt: 's', iterations: 1000 }).user;
 
-  const invite = dir.getInvite('codehash1');
-  assert.equal(invite.role, 'editor');
-  assert.equal(invite.used_by, null);
+  const claimed = dir.resolveIdentity({ subject: 'acct-1', preferred_username: 'Maker', display_name: 'Provider Name' });
+  assert.equal(claimed.ok, true);
+  assert.equal(claimed.user.id, legacy.id);
+  assert.equal(claimed.user.subject, 'acct-1');
+  assert.equal(claimed.user.display_name, '旧展示名');
 
-  const claimed = dir.claimInvite('codehash1', now);
-  assert.deepEqual(claimed, { ok: true, role: 'editor' });
-  assert.equal(dir.getInvite('codehash1').used_by, 0);
+  const again = dir.resolveIdentity({ subject: 'acct-1', preferred_username: 'renamed' });
+  assert.equal(again.user.id, legacy.id);
 
-  // 占用期间（建号还没跑完）再抢一次必须失败，这正是本次要修的并发缺陷的核心断言
-  assert.deepEqual(dir.claimInvite('codehash1', now), { ok: false, reason: 'used' });
+  const stranger = dir.resolveIdentity({ subject: 'acct-2', preferred_username: 'maker' });
+  assert.deepEqual(stranger, { ok: false, reason: 'conflict' });
 
-  dir.finalizeInvite('codehash1', 42);
-  assert.equal(dir.getInvite('codehash1').used_by, 42);
+  const fresh = dir.resolveIdentity({ subject: 'acct-3', preferred_username: 'newcomer', display_name: '新人' });
+  assert.equal(fresh.ok, true);
+  assert.equal(fresh.user.name, 'newcomer');
+  assert.equal(fresh.user.role, 'editor');
+  assert.equal(fresh.user.display_name, '新人');
 
-  assert.equal(dir.listInvites().length, 1);
-  assert.equal(dir.deleteInvite('codehash1'), true);
-  assert.equal(dir.getInvite('codehash1'), null);
-  assert.equal(dir.deleteInvite('codehash1'), false);
+  const unusual = dir.resolveIdentity({ subject: 'ACCT/4', preferred_username: '中文名' });
+  assert.match(unusual.user.name, /^u-acct4$/);
+  const taken = dir.resolveIdentity({ subject: 'acct-5', preferred_username: 'newcomer-x' });
+  assert.equal(taken.user.name, 'newcomer-x');
 });
 
-test('建号失败后 releaseInvite 把邀请码放回未使用状态', async () => {
+test('停用账号不能通过统一身份登录', async () => {
   const dir = await createDirectory();
-  const { user: admin } = dir.createUser({
-    name: 'root2', display_name: 'Root2', role: 'admin',
-    password_hash: 'h', salt: 's', iterations: 1000,
-  });
-  const now = Date.now();
-  dir.createInvite({ code_hash: 'codehash2', role: 'editor', created_by: admin.id, created_at: now, expires_at: now + 10_000 });
-
-  assert.deepEqual(dir.claimInvite('codehash2', now), { ok: true, role: 'editor' });
-  dir.releaseInvite('codehash2');
-  const released = dir.getInvite('codehash2');
-  assert.equal(released.used_by, null);
-  assert.equal(released.used_at, null);
-
-  // 放回未使用后应该能被重新占用
-  assert.deepEqual(dir.claimInvite('codehash2', now), { ok: true, role: 'editor' });
+  const { user } = dir.resolveIdentity({ subject: 'acct-1', preferred_username: 'maker' });
+  dir.ctx.storage.sql.exec("UPDATE users SET status = 'disabled' WHERE id = ?", user.id);
+  assert.deepEqual(dir.resolveIdentity({ subject: 'acct-1', preferred_username: 'maker' }), { ok: false, reason: 'disabled' });
 });
 
-test('过期邀请码占用失败，且不会被误判为已使用', async () => {
+test('单点登录会话：只认带身份主体的会话，可按主体或 sid 撤销', async () => {
   const dir = await createDirectory();
   const now = Date.now();
-  dir.createInvite({ code_hash: 'codehash3', role: 'editor', created_by: 1, created_at: now - 20_000, expires_at: now - 1000 });
-  assert.deepEqual(dir.claimInvite('codehash3', now), { ok: false, reason: 'expired' });
+  const { user } = dir.resolveIdentity({ subject: 'acct-1', preferred_username: 'maker' });
+  dir.createSession({ token_hash: 'sso', user_id: user.id, issued_at: now, expires_at: now + 60000, subject: 'acct-1', id_token: 'id.jwt', sid: 'sid-1' });
+  dir.createSession({ token_hash: 'legacy', user_id: user.id, issued_at: now, expires_at: now + 60000 });
+  dir.createSession({ token_hash: 'other-device', user_id: user.id, issued_at: now, expires_at: now + 60000, subject: 'acct-1', sid: 'sid-2' });
+
+  assert.deepEqual(Object.keys(dir.sessionDetail('sso', now)), ['user', 'id_token']);
+  assert.equal(dir.sessionDetail('sso', now).id_token, 'id.jwt');
+  assert.equal(dir.sessionDetail('legacy', now), null);
+
+  dir.revokeSessions({ sid: 'sid-1' });
+  assert.equal(dir.sessionDetail('sso', now), null);
+  assert.ok(dir.sessionDetail('other-device', now));
+  dir.revokeSessions({ subject: 'acct-1' });
+  assert.equal(dir.sessionDetail('other-device', now), null);
 });
 
-test('countActiveAdmins 只数在职管理员，listUsers 不泄漏口令字段', async () => {
+test('旧库在启动时补齐单点登录列', async () => {
   const dir = await createDirectory();
-  dir.createUser({ name: 'a1', display_name: 'A1', role: 'admin', password_hash: 'h', salt: 's', iterations: 1000 });
-  const { user: a2 } = dir.createUser({ name: 'a2', display_name: 'A2', role: 'admin', password_hash: 'h', salt: 's', iterations: 1000 });
-  dir.createUser({ name: 'e1', display_name: 'E1', role: 'editor', password_hash: 'h', salt: 's', iterations: 1000 });
-  assert.equal(dir.countActiveAdmins(), 2);
-
-  dir.updateRoleAndStatus(a2.id, { status: 'disabled' });
-  assert.equal(dir.countActiveAdmins(), 1);
-
-  const listed = dir.listUsers();
-  assert.equal(listed.length, 3);
-  for (const u of listed) {
-    assert.equal('password_hash' in u, false);
-    assert.equal('salt' in u, false);
-    assert.equal('iterations' in u, false);
-  }
-});
-
-test('updateRoleAndStatus 拒绝打掉最后一名在职管理员', async () => {
-  const dir = await createDirectory();
-  const { user: admin } = dir.createUser({
-    name: 'sole-admin', display_name: 'Sole', role: 'admin', password_hash: 'h', salt: 's', iterations: 1000,
-  });
-  assert.deepEqual(dir.updateRoleAndStatus(admin.id, { role: 'editor' }), { ok: false, reason: 'last_admin' });
-  assert.equal(dir.getUserById(admin.id).role, 'admin');
+  const columns = (table) => dir.ctx.storage.sql.exec(`PRAGMA table_info(${table})`).toArray().map((row) => row.name);
+  assert.ok(columns('users').includes('subject'));
+  assert.ok(['subject', 'id_token', 'sid'].every((name) => columns('sessions').includes(name)));
 });
 
 test('oauth state 一次性消费：查到即删，重放与过期都拿不到 user_id', async () => {

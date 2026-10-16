@@ -10,7 +10,7 @@ class FakeDurableObject {
   }
 }
 
-async function loadJob() {
+async function loadJob(studioFake = {}) {
   const source = await fs.readFile(new URL('../../worker/src/job.js', import.meta.url), 'utf8');
   const workers = new vm.SyntheticModule(['DurableObject'], function () {
     this.setExport('DurableObject', FakeDurableObject);
@@ -20,10 +20,12 @@ async function loadJob() {
       status, headers: { 'content-type': 'application/json' },
     }));
   });
+  const studio = new vm.SyntheticModule(['studioServer'], function () { this.setExport('studioServer', () => studioFake); });
   const module = new vm.SourceTextModule(source, { identifier: 'job.js' });
   await module.link((specifier) => {
     if (specifier === 'cloudflare:workers') return workers;
     if (specifier === './lib.js') return lib;
+    if (specifier === './studio.js') return studio;
     throw new Error(`unexpected import: ${specifier}`);
   });
   await module.evaluate();
@@ -285,4 +287,44 @@ test('replayed phase A submission retains the same queued, active and completed 
     assert.equal(result.already, true);
     assert.equal(ctx.job.jobId, jobId);
   }
+});
+
+async function preflightWithLibrary(song, manifestExtra = {}) {
+  const ref = '2'.repeat(32);
+  const lookups = [];
+  const IngestJob = await loadJob({ library: { song: async (_env, subject, id) => { lookups.push([subject, id]); return song; } } });
+  const ctx = jobContext();
+  let calls = 0;
+  const bucket = {
+    get: async () => ({ text: async () => JSON.stringify({
+      version: 3, album: '测试专辑', session: ref, subject: 'acct-42',
+      files: [{ n: 0, path: '01 星河.flac', size: 12, library: 'so-1' }], ...manifestExtra,
+    }) }),
+    head: async () => { throw new Error('library audio is not read from R2'); },
+  };
+  const job = new IngestJob(ctx, {
+    UPLOAD_BUCKET: bucket,
+    RUNNER: { getByName: () => ({ fetch: async () => { calls += 1; return Response.json({ ok: true, accepted: true }); } }) },
+  });
+  await job.fetch(new Request('https://job/start', { method: 'POST', body: JSON.stringify({ kind: 'phase_a', params: { ref } }) }));
+  await job.alarm();
+  return { ctx, calls, lookups };
+}
+
+test('Phase A 曲库音频以提交者身份核对存在与大小，不读取 R2', async () => {
+  const { ctx, calls, lookups } = await preflightWithLibrary({ id: 'so-1', size: 12 });
+  assert.deepEqual(lookups, [['acct-42', 'so-1']]);
+  assert.notEqual(ctx.job.state, 'failed');
+  assert.equal(calls, 1);
+});
+
+test('Phase A 曲库音频不可读或大小变化时记录失败且不触达 Container', async () => {
+  const missing = await preflightWithLibrary(null);
+  assert.equal(missing.ctx.job.state, 'failed');
+  assert.match(missing.ctx.job.error, /曲库中找不到 01 星河\.flac/);
+  assert.equal(missing.calls, 0);
+  const changed = await preflightWithLibrary({ id: 'so-1', size: 13 });
+  assert.match(changed.ctx.job.error, /已变化（清单 12，曲库 13）/);
+  const anonymous = await preflightWithLibrary({ id: 'so-1', size: 12 }, { subject: undefined });
+  assert.match(anonymous.ctx.job.error, /上传文件条目无效/);
 });

@@ -17,6 +17,8 @@ const DOCUMENT_EXTENSIONS = /\.(?:txt|md|json)$/i;
 const LYRIC_EXTENSIONS = /\.(?:lrc|elrc)$/i;
 const RESERVED_NAMES = new Set(['meta.json', 'manifest.toml', 'manifest.json']);
 const REF_RE = /^[0-9a-f]{32}$/;
+const LIBRARY_ID_RE = /^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$/;
+const LIBRARY_AUDIO_EXTENSIONS = /^(?:mp3|flac|wav|m4a|aac|ogg|opus|wma|aiff?)$/i;
 
 function cleanRef(value) { return typeof value === 'string' && REF_RE.test(value) ? value : null; }
 
@@ -81,8 +83,19 @@ function validAssetLink(item) {
   return item === 'SP' || (Number.isInteger(item) && item > 0 && item <= MAX_FILES);
 }
 
+// Library-backed audio lives in the music library; the draft keeps only its song id.
+function validLibraryId(value) {
+  return typeof value === 'string' && LIBRARY_ID_RE.test(value);
+}
+
+function validLibraryRef(library) {
+  return !!library && typeof library === 'object' && !Array.isArray(library) && validLibraryId(library.id)
+    && (library.path === undefined || (typeof library.path === 'string' && library.path.length <= 400));
+}
+
 function validAsset(asset) {
   return !!asset && typeof asset === 'object' && !Array.isArray(asset)
+    && (asset.library === undefined || (asset.role === 'song' && validLibraryRef(asset.library)))
     && Number.isInteger(asset.n) && asset.n >= 0 && asset.n < MAX_FILES
     && typeof asset.path === 'string' && cleanRelPath(asset.path) === asset.path && asset.path.length <= 200
     && !isReservedPath(asset.path)
@@ -200,6 +213,7 @@ function validDraft(draft) {
   } catch { return false; }
   return draft.tracks.every((track) => track && typeof track === 'object'
     && typeof track.title === 'string' && track.title.length <= 200
+    && (track.library_song === undefined || validLibraryId(track.library_song))
     && (track.lyric_stem === undefined || (typeof track.lyric_stem === 'string' && track.lyric_stem.length <= 200 && cleanRelPath(track.lyric_stem) === track.lyric_stem && !isReservedPath(`${track.lyric_stem}.lrc`)))
     && typeof (track.lrc || '') === 'string' && new TextEncoder().encode(track.lrc || '').byteLength <= MAX_TRACK_BYTES
     && typeof (track.klrc || '') === 'string' && new TextEncoder().encode(track.klrc || '').byteLength <= MAX_TRACK_BYTES)
@@ -376,8 +390,10 @@ export async function onAssetPost({ request, env }) {
   const role = cleanAssetRole(body?.role);
   const size = Number(body?.size);
   const linkTo = Array.isArray(body?.linkTo) ? body.linkTo : [];
+  const library = body?.library === undefined ? undefined : body.library;
   if (!ref || n === null || (body?.replace_n !== undefined && replace_n === null) || !path || !role || !Number.isInteger(size) || size <= 0
-    || linkTo.length > MAX_ASSET_LINKS || !linkTo.every(validAssetLink)) return json({ error: 'bad request' }, 400);
+    || linkTo.length > MAX_ASSET_LINKS || !linkTo.every(validAssetLink)
+    || (library !== undefined && (role !== 'song' || !validLibraryRef(library)))) return json({ error: 'bad request' }, 400);
   const current = await writableWorkspace(env, ref);
   if (!current) return json({ error: 'workspace submitted' }, 409);
   const draft = await readJson(env, `${ROOT}/${ref}/draft.json`);
@@ -386,9 +402,11 @@ export async function onAssetPost({ request, env }) {
   if (!assets.some((item) => item.n === n) && assets.length >= MAX_ASSETS) return json({ error: 'too many assets' }, 400);
   const replaced = replace_n === null ? null : assets.find((item) => item.n === replace_n);
   if (replace_n !== null && (!replaced || replace_n === n || assets.some((item) => item.n === n))) return json({ error: 'invalid replacement' }, 409);
-  const object = await env.UPLOAD_BUCKET.head(`web/${ref}/${n}`);
-  if (!object || object.size !== size) return json({ error: 'missing upload', n }, 409);
-  const asset = { n, path, role, size, linkTo };
+  if (!library) {
+    const object = await env.UPLOAD_BUCKET.head(`web/${ref}/${n}`);
+    if (!object || object.size !== size) return json({ error: 'missing upload', n }, 409);
+  }
+  const asset = { n, path, role, size, linkTo, ...(library ? { library: { id: library.id, ...(library.path ? { path: library.path } : {}) } } : {}) };
   const candidate = { ...draft, assets: [...assets.filter((item) => item.n !== n && item.n !== replace_n), asset].sort((a, b) => a.n - b.n) };
   if (!validDraft(candidate)) return json({ error: 'file path conflict' }, 409);
   draft.assets = candidate.assets;
@@ -408,6 +426,7 @@ export async function onAudioGet({ request, env }) {
   const asset = validDraft(draft) && Array.isArray(draft.assets) ? draft.assets.find((item) => item.n === n) : null;
   const type = asset && audioContentType(asset.path);
   if (!asset || !type) return json({ error: 'audio not found' }, 404);
+  if (asset.library) return env.STUDIO && env.STUDIO_SUBJECT ? env.STUDIO.library.stream(env, env.STUDIO_SUBJECT, asset.library.id, request) : json({ error: 'library unavailable' }, 503);
 
   const key = `web/${ref}/${n}`;
   const head = await env.UPLOAD_BUCKET.head?.(key);
@@ -466,6 +485,9 @@ export async function onExtractPost({ request, env }) {
     return json({ ok: true, ref, submitted: true, job: priorStatus.job || 'queued' });
   }
   if (assets.filter((asset) => asset.role === 'cover').length > 1) return json({ error: 'only one cover is allowed' }, 400);
+  const subject = env.STUDIO_SUBJECT;
+  const librarySong = async (id) => (env.STUDIO && subject ? env.STUDIO.library.song(env, subject, id) : null);
+  const libraryTracks = draft.tracks.map((track, index) => ({ track, index })).filter(({ track }) => track.library_song);
   const seenPaths = new Set(); const seenNumbers = new Set(); const manifestFiles = [];
   const existingObjectNumbers = new Set((await listPrefix(env, `web/${ref}/`))
     .map((item) => item.key.match(new RegExp(`^web/${ref}/(\\d+)$`))?.[1])
@@ -476,12 +498,38 @@ export async function onExtractPost({ request, env }) {
     if (path?.toLowerCase() === 'manifest.toml') return json({ error: 'manifest.toml is generated by the workspace' }, 400);
     if (asset.role === 'cover' && !/\.(?:png|jpe?g|webp)$/i.test(path || '')) return json({ error: 'invalid cover format' }, 400);
     if (!path || n === null || !Number.isInteger(size) || size <= 0 || seenPaths.has(path.toLowerCase()) || seenNumbers.has(n)) return json({ error: 'invalid file entry' }, 400);
+    if (asset.library) {
+      const song = await librarySong(asset.library.id);
+      if (!song?.size) return json({ error: 'library song unavailable', path }, 409);
+      seenPaths.add(path.toLowerCase()); seenNumbers.add(n); manifestFiles.push({ path, n, size: song.size, library: asset.library.id });
+      continue;
+    }
     const object = await env.UPLOAD_BUCKET.head(`web/${ref}/${n}`);
     if (!object || object.size !== size) return json({ error: 'missing upload', n }, 409);
     seenPaths.add(path.toLowerCase()); seenNumbers.add(n); manifestFiles.push({ path, n, size });
   }
   for (const n of existingObjectNumbers) if (!seenNumbers.has(n)) seenNumbers.add(n);
   const occupiedPaths = new Set([...seenPaths, ...documentFiles.map((document) => document.path)].map((path) => path.toLocaleLowerCase()));
+  // Tracks bound to a library song without an uploaded copy become manifest audio entries streamed at ingest time.
+  const manifestTracks = draft.tracks.map((track) => ({ ...track }));
+  const manifestAssets = [...assets];
+  for (const { track, index } of libraryTracks) {
+    const uploaded = assets.find((asset) => asset.library?.id === track.library_song);
+    if (uploaded) { manifestTracks[index].audio = uploaded.path; continue; }
+    const song = await librarySong(track.library_song);
+    const suffix = String(song?.suffix || '').toLowerCase();
+    if (!song?.size || !LIBRARY_AUDIO_EXTENSIONS.test(suffix)) return json({ error: 'library song unavailable', track: index + 1 }, 409);
+    const base = `${String(track.order || index + 1).padStart(2, '0')} ${track.title || 'Track'}`.replace(/[\\/:*?"<>|\u0000-\u001f]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 150);
+    let path = `${base}.${suffix}`;
+    for (let copy = 2; occupiedPaths.has(path.toLocaleLowerCase()); copy += 1) path = `${base} (${copy}).${suffix}`;
+    let n = 0;
+    while (seenNumbers.has(n) && n < MAX_FILES) n += 1;
+    if (n >= MAX_FILES || !cleanRelPath(path)) return json({ error: 'too many files' }, 400);
+    seenNumbers.add(n); occupiedPaths.add(path.toLocaleLowerCase());
+    manifestFiles.push({ path, n, size: song.size, library: track.library_song });
+    manifestAssets.push({ n, path, role: 'song', size: song.size, linkTo: [track.order || index + 1] });
+    manifestTracks[index].audio = path;
+  }
   const documentFilesToWrite = [];
   for (const document of documentFiles) {
     let n = 0;
@@ -527,12 +575,13 @@ export async function onExtractPost({ request, env }) {
   if (manifestN >= MAX_FILES) return json({ error: 'too many files' }, 400);
   const lyric_maker = [...new Set((Array.isArray(draft.meta?.lyric_maker) ? draft.meta.lyric_maker : []).filter((name) => typeof name === 'string' && name.trim()).map((name) => name.trim().slice(0, 60)).slice(0, 20))];
   for (const name of [auth.user.display_name, env.REQUIRED_LYRIC_MAKER]) if (name && !lyric_maker.includes(name)) lyric_maker.push(name);
-  const manifestText = workspaceManifest({ ...draft, meta: { ...draft.meta, lyric_maker } }, assets);
+  const manifestText = workspaceManifest({ ...draft, tracks: manifestTracks, meta: { ...draft.meta, lyric_maker } }, manifestAssets);
   const manifestSize = new TextEncoder().encode(manifestText).byteLength;
   await env.UPLOAD_BUCKET.put(`web/${ref}/${manifestN}`, manifestText, { httpMetadata: { contentType: 'text/plain; charset=utf-8' } });
   manifestFiles.push({ n: manifestN, path: 'manifest.toml', size: manifestSize });
   const contributor = auth.user.github || auth.user.name;
-  const manifest = { version: 3, album: draft.album, submission_type: draft.submission_type || 'album', session: ref, contributor, lyric_maker, files: manifestFiles };
+  if (manifestFiles.some((file) => file.library) && !subject) return json({ error: 'library unavailable' }, 503);
+  const manifest = { version: 3, album: draft.album, submission_type: draft.submission_type || 'album', session: ref, contributor, lyric_maker, files: manifestFiles, ...(subject ? { subject } : {}) };
   await writeJson(env, `web/${ref}/manifest.json`, manifest);
   await writeJson(env, `${ROOT}/${ref}/status.json`, { ...priorStatus, submitted: true, job_started: false, job: 'starting', updated: nowStamp() });
   const started = await callWorker(env, '/ingest', { ref });

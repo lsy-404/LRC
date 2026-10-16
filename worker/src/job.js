@@ -1,4 +1,5 @@
 import { DurableObject } from 'cloudflare:workers';
+import { studioServer } from './studio.js';
 import { json } from './lib.js';
 
 // 每个 ref 一个实例：单线程执行天然串行，取代原先 workflow 的并发组；
@@ -166,6 +167,14 @@ export class IngestJob extends DurableObject {
       totalSize += file.size;
       if (totalSize > MAX_UPLOAD_BYTES) {
         return preflightError(`上传总大小 ${bytesLabel(totalSize)} 超过 ${bytesLabel(MAX_UPLOAD_BYTES)} 上限；请压缩原始音频后重试`);
+      }
+      if (file.library !== undefined) {
+        // 曲库音频不落 R2：以提交者身份向曲库核对歌曲仍可读且大小一致，取料时再经 /store 流式转交
+        if (typeof file.library !== 'string' || typeof manifest.subject !== 'string') return preflightError('上传文件条目无效');
+        const song = await studioServer().library.song(this.env, manifest.subject, file.library).catch(() => null);
+        if (!song) return preflightError(`曲库中找不到 ${file.path}，或提交者没有读取权限`);
+        if (song.size !== file.size) return preflightError(`曲库文件 ${file.path} 已变化（清单 ${file.size}，曲库 ${song.size}），请重新提取生成`);
+        continue;
       }
       let object;
       try {

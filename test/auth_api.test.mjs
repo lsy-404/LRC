@@ -1,256 +1,53 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { handleApi } from '../worker/src/api.js';
-import { sha256Hex } from '../functions/api/auth/_lib.js';
-import { createFakeDirectory, usersBinding } from './worker/_fakeUserDirectory.mjs';
+import { handleApi, fakeStudio } from './worker/_studio.mjs';
+import { authenticatedUsers, authedRequest } from './worker/_fakeR2.mjs';
 
-function req(url, { method = 'GET', body, cookie } = {}) {
-  const headers = {};
-  if (body !== undefined) headers['content-type'] = 'application/json';
-  if (cookie) headers.cookie = cookie;
-  return new Request(url, { method, headers, body: body !== undefined ? JSON.stringify(body) : undefined });
-}
-
-function cookieOf(response) {
-  return (response.headers.get('set-cookie') || '').split(';')[0];
-}
-
-function freshEnv() {
-  const dir = createFakeDirectory();
-  return { env: { UPLOAD_PASSWORD: 'root-secret', USERS: usersBinding(dir) }, dir };
-}
-
-async function bootstrapAdmin(env, name = 'root') {
-  const res = await handleApi(req('https://x/api/auth/bootstrap', {
-    method: 'POST', body: { token: 'root-secret', name, password: 'a-strong-pass' },
-  }), env);
-  return { response: res, cookie: cookieOf(res), user: (await res.json()).user };
-}
-
-test('bootstrap 用 UPLOAD_PASSWORD 建立首个管理员，且只能用一次', async () => {
-  const { env } = await freshEnv();
-  const bad = await handleApi(req('https://x/api/auth/bootstrap', {
-    method: 'POST', body: { token: 'wrong', name: 'root', password: 'a-strong-pass' },
-  }), env);
-  assert.equal(bad.status, 401);
-
-  const { response, user } = await bootstrapAdmin(env);
-  assert.equal(response.status, 201);
-  assert.equal(user.role, 'admin');
-  assert.ok(cookieOf(response).startsWith('lrc_session='));
-
-  const second = await handleApi(req('https://x/api/auth/bootstrap', {
-    method: 'POST', body: { token: 'root-secret', name: 'root2', password: 'a-strong-pass' },
-  }), env);
-  assert.equal(second.status, 409);
-});
-
-test('注册必须带邀请码，无邀请码直接拒绝', async () => {
-  const { env } = await freshEnv();
-  const res = await handleApi(req('https://x/api/auth/register', {
-    method: 'POST', body: { name: 'alice', password: 'password123' },
-  }), env);
-  assert.equal(res.status, 400);
-});
-
-test('邀请码一次性使用，注册成功后复用被拒', async () => {
-  const { env } = await freshEnv();
-  const { cookie: adminCookie } = await bootstrapAdmin(env);
-  const inviteRes = await handleApi(req('https://x/api/auth/invite', {
-    method: 'POST', body: {}, cookie: adminCookie,
-  }), env);
-  assert.equal(inviteRes.status, 201);
-  const { code } = await inviteRes.json();
-
-  const registered = await handleApi(req('https://x/api/auth/register', {
-    method: 'POST', body: { invite_code: code, name: 'alice', password: 'password123' },
-  }), env);
-  assert.equal(registered.status, 201);
-  assert.equal((await registered.json()).user.role, 'editor');
-
-  const reused = await handleApi(req('https://x/api/auth/register', {
-    method: 'POST', body: { invite_code: code, name: 'bob', password: 'password123' },
-  }), env);
-  assert.equal(reused.status, 400);
-});
-
-test('注册角色只能来自邀请码，客户端 role 不能提权', async () => {
-  const { env, dir } = await freshEnv();
-  const { cookie: adminCookie } = await bootstrapAdmin(env);
-  const inviteRes = await handleApi(req('https://x/api/auth/invite', {
-    method: 'POST', body: { role: 'editor' }, cookie: adminCookie,
-  }), env);
-  const { code } = await inviteRes.json();
-
-  const registered = await handleApi(req('https://x/api/auth/register', {
-    method: 'POST', body: { invite_code: code, name: 'role-check', password: 'password123', role: 'admin' },
-  }), env);
-  assert.equal(registered.status, 201);
-  assert.equal((await registered.json()).user.role, 'editor');
-  assert.equal(dir.getUserByName('role-check').role, 'editor');
-});
-
-test('并发用同一个邀请码注册，只有一个请求成功', async () => {
-  const { env, dir } = await freshEnv();
-  const { cookie: adminCookie } = await bootstrapAdmin(env);
-  const inviteRes = await handleApi(req('https://x/api/auth/invite', {
-    method: 'POST', body: {}, cookie: adminCookie,
-  }), env);
-  const { code } = await inviteRes.json();
-
-  // 两个请求真正并发发出（Promise.all，不是先后 await），复现「查未用 -> 慢操作 -> 才回写已用」
-  // 之间的窗口：register.js 内部有 PBKDF2 派生等多个真实异步操作，两个 handleApi 调用会天然交错。
-  const [first, second] = await Promise.all([
-    handleApi(req('https://x/api/auth/register', {
-      method: 'POST', body: { invite_code: code, name: 'racer-a', password: 'password123' },
-    }), env),
-    handleApi(req('https://x/api/auth/register', {
-      method: 'POST', body: { invite_code: code, name: 'racer-b', password: 'password123' },
-    }), env),
-  ]);
-
-  assert.deepEqual([first.status, second.status].sort(), [201, 400]);
-  const winner = first.status === 201 ? first : second;
-  const { user: winnerUser } = await winner.json();
-
-  // 邀请码最终只被赢家消费一次，不是残留成占位值或者被两次注册各写一半
-  const invite = dir.getInvite(await sha256Hex(code));
-  assert.equal(invite.used_by, winnerUser.id);
-
-  // 只有赢家那个用户名真正建号成功
-  assert.equal(dir.getUserByName('racer-a') !== null, first.status === 201);
-  assert.equal(dir.getUserByName('racer-b') !== null, second.status === 201);
-});
-
-test('过期邀请码被拒', async () => {
-  const { env, dir } = await freshEnv();
-  const { user: admin } = await bootstrapAdmin(env);
-  const code = 'a'.repeat(32);
-  await dir.createInvite({
-    code_hash: await sha256Hex(code), role: 'editor',
-    created_by: admin.id, created_at: Date.now() - 10_000, expires_at: Date.now() - 1000,
-  });
-  const res = await handleApi(req('https://x/api/auth/register', {
-    method: 'POST', body: { invite_code: code, name: 'carol', password: 'password123' },
-  }), env);
-  assert.equal(res.status, 400);
-});
-
-test('用户名重复被拒', async () => {
-  const { env } = await freshEnv();
-  const { cookie: adminCookie } = await bootstrapAdmin(env);
-  async function invite() {
-    const r = await handleApi(req('https://x/api/auth/invite', {
-      method: 'POST', body: {}, cookie: adminCookie,
-    }), env);
-    return (await r.json()).code;
+test('统一身份与曲库路径先交给工作站方案处理', async () => {
+  const seen = [];
+  const studio = fakeStudio({ handle: async (request) => { const path = new URL(request.url).pathname; seen.push(path); return path.startsWith('/api/auth/sso/') || path.startsWith('/api/library/') ? Response.json({ owned: path }) : null; } });
+  for (const path of ['/api/auth/sso/start', '/api/library/albums']) {
+    const response = await handleApi(new Request(`https://x${path}`), { USERS: authenticatedUsers() }, studio);
+    assert.deepEqual(await response.json(), { owned: path });
   }
-
-  const first = await handleApi(req('https://x/api/auth/register', {
-    method: 'POST', body: { invite_code: await invite(), name: 'dupuser', password: 'password123' },
-  }), env);
-  assert.equal(first.status, 201);
-
-  const dup = await handleApi(req('https://x/api/auth/register', {
-    method: 'POST', body: { invite_code: await invite(), name: 'dupuser', password: 'password123' },
-  }), env);
-  assert.equal(dup.status, 409);
+  assert.deepEqual(seen, ['/api/auth/sso/start', '/api/library/albums']);
 });
 
-test('建号抛异常后邀请码可重试', async () => {
-  const { env, dir } = await freshEnv();
-  const { cookie: adminCookie } = await bootstrapAdmin(env);
-  const inviteRes = await handleApi(req('https://x/api/auth/invite', {
-    method: 'POST', body: {}, cookie: adminCookie,
-  }), env);
-  const { code } = await inviteRes.json();
-  const originalCreateUser = dir.createUser;
-  dir.createUser = () => { throw new Error('simulated create failure'); };
-
-  await assert.rejects(
-    handleApi(req('https://x/api/auth/register', {
-      method: 'POST', body: { invite_code: code, name: 'retry-a', password: 'password123' },
-    }), env),
-    /simulated create failure/,
-  );
-
-  dir.createUser = originalCreateUser;
-  const retry = await handleApi(req('https://x/api/auth/register', {
-    method: 'POST', body: { invite_code: code, name: 'retry-b', password: 'password123' },
-  }), env);
-  assert.equal(retry.status, 201);
-});
-
-test('登录失败不泄漏用户是否存在，响应体一致且耗时接近', async () => {
-  const { env } = await freshEnv();
-  const { cookie: adminCookie } = await bootstrapAdmin(env);
-  const inviteRes = await handleApi(req('https://x/api/auth/invite', {
-    method: 'POST', body: {}, cookie: adminCookie,
-  }), env);
-  const { code } = await inviteRes.json();
-  await handleApi(req('https://x/api/auth/register', {
-    method: 'POST', body: { invite_code: code, name: 'erin', password: 'password123' },
-  }), env);
-
-  // 预热一次，避开首次调用的 JIT/模块加载抖动
-  await handleApi(req('https://x/api/auth/login', {
-    method: 'POST', body: { name: 'erin', password: 'wrong-pass' },
-  }), env);
-
-  const t0 = performance.now();
-  const wrongPassword = await handleApi(req('https://x/api/auth/login', {
-    method: 'POST', body: { name: 'erin', password: 'wrong-pass' },
-  }), env);
-  const t1 = performance.now();
-  const noSuchUser = await handleApi(req('https://x/api/auth/login', {
-    method: 'POST', body: { name: 'nobody-here', password: 'wrong-pass' },
-  }), env);
-  const t2 = performance.now();
-
-  assert.equal(wrongPassword.status, 401);
-  assert.equal(noSuchUser.status, 401);
-  assert.deepEqual(await wrongPassword.json(), await noSuchUser.json());
-  // 两条路径都跑同一次 PBKDF2：耗时差应该远小于一次哈希本身的耗时，而不是「一次哈希、一次几乎不耗时」
-  assert.ok(Math.abs((t1 - t0) - (t2 - t1)) < 300, '用户存在与否不应造成明显的响应耗时差异');
-});
-
-test('会话过期后被拒绝，且登出会清除会话', async () => {
-  const { env, dir } = await freshEnv();
-  const { cookie: adminCookie } = await bootstrapAdmin(env);
-
-  const ok = await handleApi(req('https://x/api/auth/me', { cookie: adminCookie }), env);
-  assert.equal(ok.status, 200);
-
-  const token = adminCookie.slice('lrc_session='.length);
-  const tokenHash = await sha256Hex(token);
-  dir.expireSessionForTest(tokenHash);
-
-  const expired = await handleApi(req('https://x/api/auth/me', { cookie: adminCookie }), env);
-  assert.equal(expired.status, 401);
-});
-
-test('登出会清除当前会话', async () => {
-  const { env } = await freshEnv();
-  const { cookie: adminCookie } = await bootstrapAdmin(env);
-  assert.equal((await handleApi(req('https://x/api/auth/me', { cookie: adminCookie }), env)).status, 200);
-
-  const logout = await handleApi(req('https://x/api/auth/logout', { method: 'POST', cookie: adminCookie }), env);
-  assert.equal(logout.status, 200);
-
-  const afterLogout = await handleApi(req('https://x/api/auth/me', { cookie: adminCookie }), env);
-  assert.equal(afterLogout.status, 401);
-});
-
-test('password change invalidates every old session and the old password', async () => {
-  const { env } = freshEnv();
-  const { cookie: first } = await bootstrapAdmin(env);
-  const login = await handleApi(req('https://x/api/auth/login', { method: 'POST', body: { name: 'root', password: 'a-strong-pass' } }), env);
-  const second = cookieOf(login);
-  const changed = await handleApi(req('https://x/api/auth/me', { method: 'PATCH', cookie: first, body: { old_password: 'a-strong-pass', new_password: 'changed-password' } }), env);
-  assert.equal(changed.status, 200);
-  for (const cookie of [first, second]) {
-    assert.equal((await handleApi(req('https://x/api/auth/me', { cookie }), env)).status, 401);
+test('口令登录、注册、邀请与用户管理入口已下线', async () => {
+  const env = { USERS: authenticatedUsers() };
+  for (const [method, path] of [['POST', '/api/auth/login'], ['POST', '/api/auth/register'], ['POST', '/api/auth/bootstrap'], ['POST', '/api/auth/logout'], ['POST', '/api/auth/invite'], ['GET', '/api/auth/invites'], ['GET', '/api/auth/users'], ['PATCH', '/api/auth/user'], ['GET', '/api/auth/setup']]) {
+    const response = await handleApi(authedRequest(`https://x${path}`, { method, body: method === 'GET' ? undefined : {} }), env);
+    assert.equal(response.status, 404, `${method} ${path}`);
   }
-  assert.equal((await handleApi(req('https://x/api/auth/login', { method: 'POST', body: { name: 'root', password: 'a-strong-pass' } }), env)).status, 401);
-  assert.equal((await handleApi(req('https://x/api/auth/login', { method: 'POST', body: { name: 'root', password: 'changed-password' } }), env)).status, 200);
+});
+
+test('me 返回账号、曲库权限动作、身份提供方与 GitHub 配置，不泄漏口令与主体', async () => {
+  const env = { USERS: authenticatedUsers(), GITHUB_OAUTH_CLIENT_ID: 'id', GITHUB_OAUTH_CLIENT_SECRET: 'secret' };
+  const response = await handleApi(authedRequest('https://x/api/auth/me'), env, fakeStudio({ actions: { submit: false } }));
+  const body = await response.json();
+  assert.equal(response.status, 200);
+  assert.equal(body.user.name, 'editor');
+  assert.equal(body.actions.submit, false);
+  assert.equal(body.actions.edit, true);
+  assert.equal(body.provider, 'Test Access');
+  assert.equal(body.githubConfigured, true);
+  for (const key of ['password_hash', 'salt', 'iterations', 'subject']) assert.equal(key in body.user, false);
+});
+
+test('me 只允许修改展示名，未登录返回 401', async () => {
+  const env = { USERS: authenticatedUsers() };
+  assert.equal((await handleApi(new Request('https://x/api/auth/me'), env)).status, 401);
+  const renamed = await handleApi(authedRequest('https://x/api/auth/me', { method: 'PATCH', body: { display_name: '  新名字 ', new_password: 'ignored-password' } }), env);
+  assert.equal((await renamed.json()).user.display_name, '新名字');
+  const invalid = await handleApi(authedRequest('https://x/api/auth/me', { method: 'PATCH', body: { display_name: '' } }), env);
+  assert.equal(invalid.status, 400);
+});
+
+test('跨站写请求在交给方案之前就被拒绝', async () => {
+  let handled = false;
+  const studio = fakeStudio({ handle: async () => { handled = true; return Response.json({ ok: true }); } });
+  const request = new Request('https://x/api/auth/sso/logout', { method: 'POST', headers: { origin: 'https://evil.example' } });
+  const response = await handleApi(request, { USERS: authenticatedUsers() }, studio);
+  assert.equal(response.status, 403);
+  assert.equal(handled, false);
 });

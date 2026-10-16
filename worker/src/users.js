@@ -1,6 +1,6 @@
 import { DurableObject } from 'cloudflare:workers';
 
-// 用户目录：单例 DO（getByName('directory')），SQLite 存三张表。
+// 用户目录：单例 DO（getByName('directory')），SQLite 存用户、会话与 GitHub 绑定状态。
 // ctx.storage.sql 是同步 API，建表和增删改查都不需要 await。
 const SCHEMA = [
   `CREATE TABLE IF NOT EXISTS users (
@@ -22,15 +22,6 @@ const SCHEMA = [
     issued_at INTEGER NOT NULL,
     expires_at INTEGER NOT NULL
   )`,
-  `CREATE TABLE IF NOT EXISTS invites (
-    code_hash TEXT PRIMARY KEY,
-    role TEXT NOT NULL,
-    created_by INTEGER NOT NULL,
-    created_at INTEGER NOT NULL,
-    expires_at INTEGER NOT NULL,
-    used_by INTEGER,
-    used_at INTEGER
-  )`,
   `CREATE TABLE IF NOT EXISTS oauth_states (
     state TEXT PRIMARY KEY,
     user_id INTEGER NOT NULL,
@@ -38,6 +29,29 @@ const SCHEMA = [
     expires_at INTEGER NOT NULL
   )`,
 ];
+
+// Columns added for single sign-on; existing tables gain them in place.
+const MIGRATIONS = [
+  ['users', 'subject', 'ALTER TABLE users ADD COLUMN subject TEXT'],
+  ['sessions', 'subject', 'ALTER TABLE sessions ADD COLUMN subject TEXT'],
+  ['sessions', 'id_token', 'ALTER TABLE sessions ADD COLUMN id_token TEXT'],
+  ['sessions', 'sid', 'ALTER TABLE sessions ADD COLUMN sid TEXT'],
+];
+const INDEXES = [
+  'CREATE UNIQUE INDEX IF NOT EXISTS users_subject ON users(subject) WHERE subject IS NOT NULL',
+  'CREATE INDEX IF NOT EXISTS sessions_subject ON sessions(subject)',
+];
+const NAME_RE = /^[a-z0-9_-]{3,32}$/;
+
+function cleanName(value) {
+  const name = typeof value === 'string' ? value.trim().toLowerCase() : '';
+  return NAME_RE.test(name) ? name : null;
+}
+
+function cleanDisplay(value, fallback) {
+  const text = typeof value === 'string' ? value.normalize('NFC').trim() : '';
+  return text && text.length <= 60 && !/[\u0000-\u001f\u007f]/.test(text) ? text : fallback;
+}
 
 function first(cursor) {
   const rows = cursor.toArray();
@@ -47,7 +61,12 @@ function first(cursor) {
 export class UserDirectory extends DurableObject {
   constructor(ctx, env) {
     super(ctx, env);
-    for (const statement of SCHEMA) this.ctx.storage.sql.exec(statement);
+    const sql = this.ctx.storage.sql;
+    for (const statement of SCHEMA) sql.exec(statement);
+    for (const [table, column, statement] of MIGRATIONS) {
+      if (!sql.exec(`PRAGMA table_info(${table})`).toArray().some((row) => row.name === column)) sql.exec(statement);
+    }
+    for (const statement of INDEXES) sql.exec(statement);
   }
 
   // ---- users ----
@@ -83,54 +102,58 @@ export class UserDirectory extends DurableObject {
       'UPDATE users SET display_name = ? WHERE id = ? RETURNING *', display_name, id));
   }
 
-  updatePassword(id, { password_hash, salt, iterations }) {
-    this.ctx.storage.sql.exec(
-      'UPDATE users SET password_hash = ?, salt = ?, iterations = ? WHERE id = ?',
-      password_hash, salt, iterations, id);
-  }
-
-  // role/status 联动改，且「是否会打掉最后一名在职管理员」的判断和落库在同一次方法调用里做完：
-  // DO 方法体内没有 await，中途不会被别的并发调用打断，判断用的行数就是落库时的行数。
-  updateRoleAndStatus(id, { role, status }) {
-    const target = first(this.ctx.storage.sql.exec('SELECT * FROM users WHERE id = ?', id));
-    if (!target) return { ok: false, reason: 'not_found' };
-
-    const nextRole = role !== undefined ? role : target.role;
-    const nextStatus = status !== undefined ? status : target.status;
-    const isActiveAdmin = target.role === 'admin' && target.status === 'active';
-    const losesAdmin = nextRole !== 'admin' || nextStatus !== 'active';
-    if (isActiveAdmin && losesAdmin && this.countActiveAdmins() <= 1) {
-      return { ok: false, reason: 'last_admin' };
-    }
-
-    const updated = first(this.ctx.storage.sql.exec(
-      'UPDATE users SET role = ?, status = ? WHERE id = ? RETURNING *', nextRole, nextStatus, id));
-    return { ok: true, user: updated };
-  }
-
   touchLastSeen(id, now) {
     this.ctx.storage.sql.exec('UPDATE users SET last_seen = ? WHERE id = ?', now, id);
   }
 
-  countActiveAdmins() {
-    return first(this.ctx.storage.sql.exec(
-      "SELECT COUNT(*) AS n FROM users WHERE role = 'admin' AND status = 'active'")).n;
-  }
+  // ---- single sign-on identities ----
 
-  listUsers() {
-    return this.ctx.storage.sql.exec(
-      'SELECT id, name, display_name, github, role, status, created_at, last_seen FROM users ORDER BY id',
-    ).toArray();
+  // Maps an identity subject to a local account in one synchronous call: an existing link wins, an
+  // unlinked account whose name equals the provider's username is claimed, otherwise a new editor is created.
+  resolveIdentity({ subject, preferred_username, display_name }) {
+    const sql = this.ctx.storage.sql;
+    if (typeof subject !== 'string' || !subject || subject.length > 255) return { ok: false, reason: 'conflict' };
+    const linked = first(sql.exec('SELECT * FROM users WHERE subject = ?', subject));
+    if (linked) return linked.status === 'active' ? { ok: true, user: linked } : { ok: false, reason: 'disabled' };
+    const preferred = cleanName(preferred_username);
+    const legacy = preferred && first(sql.exec('SELECT * FROM users WHERE name = ?', preferred));
+    if (legacy) {
+      if (legacy.subject) return { ok: false, reason: 'conflict' };
+      if (legacy.status !== 'active') return { ok: false, reason: 'disabled' };
+      return { ok: true, user: first(sql.exec('UPDATE users SET subject = ? WHERE id = ? RETURNING *', subject, legacy.id)) };
+    }
+    const base = preferred || `u-${subject.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 12) || 'member'}`;
+    let name = base;
+    for (let suffix = 2; first(sql.exec('SELECT id FROM users WHERE name = ?', name)); suffix += 1) name = `${base.slice(0, 28)}-${suffix}`;
+    const user = first(sql.exec(
+      `INSERT INTO users (name, display_name, role, status, password_hash, salt, iterations, created_at, subject)
+       VALUES (?, ?, 'editor', 'active', '', '', 0, ?, ?) RETURNING *`,
+      name, cleanDisplay(display_name, name), Date.now(), subject));
+    return { ok: true, user };
   }
 
   // ---- sessions ----
 
-  createSession({ token_hash, user_id, issued_at, expires_at }) {
+  createSession({ token_hash, user_id, issued_at, expires_at, subject = null, id_token = null, sid = null }) {
     // 顺手清理已过期会话，不需要单独的定时任务
     this.ctx.storage.sql.exec('DELETE FROM sessions WHERE expires_at < ?', issued_at);
     this.ctx.storage.sql.exec(
-      'INSERT INTO sessions (token_hash, user_id, issued_at, expires_at) VALUES (?, ?, ?, ?)',
-      token_hash, user_id, issued_at, expires_at);
+      'INSERT INTO sessions (token_hash, user_id, issued_at, expires_at, subject, id_token, sid) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      token_hash, user_id, issued_at, expires_at, subject, id_token, sid);
+  }
+
+  // Single sign-on sessions only: the session must carry the subject its account is linked to.
+  sessionDetail(token_hash, now) {
+    const session = first(this.ctx.storage.sql.exec('SELECT * FROM sessions WHERE token_hash = ?', token_hash));
+    if (!session || !session.subject) return null;
+    const user = this.resolveSession(token_hash, now);
+    if (!user || user.subject !== session.subject) return null;
+    return { user, id_token: session.id_token || null };
+  }
+
+  revokeSessions({ subject, sid }) {
+    if (sid) this.ctx.storage.sql.exec('DELETE FROM sessions WHERE sid = ?', sid);
+    if (subject) this.ctx.storage.sql.exec('DELETE FROM sessions WHERE subject = ?', subject);
   }
 
   deleteSession(token_hash) {
@@ -157,58 +180,6 @@ export class UserDirectory extends DurableObject {
     }
     this.touchLastSeen(user.id, now);
     return user;
-  }
-
-  // ---- invites ----
-
-  createInvite({ code_hash, role, created_by, created_at, expires_at }) {
-    this.ctx.storage.sql.exec(
-      'INSERT INTO invites (code_hash, role, created_by, created_at, expires_at) VALUES (?, ?, ?, ?, ?)',
-      code_hash, role, created_by, created_at, expires_at);
-  }
-
-  getInvite(code_hash) {
-    return first(this.ctx.storage.sql.exec('SELECT * FROM invites WHERE code_hash = ?', code_hash));
-  }
-
-  // 原子占用：校验（未用、未过期）与置位在同一条 UPDATE 里完成，不留「读到可用」和「写入已用」
-  // 之间的窗口。占位用 used_by = 0（AUTOINCREMENT 从 1 开始，0 不是合法用户 id），
-  // 建号成功后 finalizeInvite 补上真实 id；建号失败（撞用户名）用 releaseInvite 放回未使用状态，
-  // 邀请码不会因为一次失败的注册尝试就被烧掉。
-  claimInvite(code_hash, now) {
-    const claimed = first(this.ctx.storage.sql.exec(
-      `UPDATE invites SET used_by = 0, used_at = ?
-       WHERE code_hash = ? AND used_by IS NULL AND expires_at > ?
-       RETURNING role`, now, code_hash, now));
-    if (claimed) return { ok: true, role: claimed.role };
-
-    // 占用没抢到：再读一次只是为了给调用方一个准确的失败原因，不影响原子性判断本身
-    const invite = this.getInvite(code_hash);
-    if (!invite) return { ok: false, reason: 'not_found' };
-    if (invite.used_by !== null) return { ok: false, reason: 'used' };
-    return { ok: false, reason: 'expired' };
-  }
-
-  finalizeInvite(code_hash, used_by) {
-    this.ctx.storage.sql.exec('UPDATE invites SET used_by = ? WHERE code_hash = ?', used_by, code_hash);
-  }
-
-  releaseInvite(code_hash) {
-    this.ctx.storage.sql.exec(
-      'UPDATE invites SET used_by = NULL, used_at = NULL WHERE code_hash = ?', code_hash);
-  }
-
-  deleteInvite(code_hash) {
-    const cursor = this.ctx.storage.sql.exec(
-      'DELETE FROM invites WHERE code_hash = ? RETURNING code_hash', code_hash);
-    return first(cursor) !== null;
-  }
-
-  listInvites() {
-    return this.ctx.storage.sql.exec(
-      `SELECT code_hash, role, created_by, created_at, expires_at, used_by, used_at
-       FROM invites ORDER BY created_at DESC`,
-    ).toArray();
   }
 
   // ---- github oauth binding ----

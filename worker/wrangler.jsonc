@@ -14,8 +14,13 @@
   "assets": {
     "directory": "../docs/.vuepress/dist",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/upload/*", "/api/ingest/*", "/api/workspace/*", "/api/auth/*"]
+    "run_worker_first": ["/api/upload/*", "/api/ingest/*", "/api/workspace/*", "/api/auth/*", "/api/library/*"]
   },
+
+  // 曲库网关：EdgeSonic 的 StudioGateway 入口只经服务绑定可达，工作站以当前用户身份调用
+  "services": [
+    { "binding": "EDGESONIC", "service": "edgesonic", "entrypoint": "StudioGateway" }
+  ],
 
   "r2_buckets": [
     { "binding": "UPLOAD_BUCKET", "bucket_name": "lrc-upload" }
@@ -47,6 +52,10 @@
   "vars": {
     "GH_REPO": "lsy-404/LRC",
     "REVIEW_TIMEOUT_HOURS": "72",
-    "REQUIRED_LYRIC_MAKER": ""
+    "REQUIRED_LYRIC_MAKER": "",
+    "SSO_ISSUER": "https://id.voidcarve.com",
+    "SSO_CLIENT_ID": "lrc-studio",
+    "SSO_PROVIDER_NAME": "Voidcarve Access",
+    "LIBRARY_UPLOAD_ROOT": "LRC"
   }
 }

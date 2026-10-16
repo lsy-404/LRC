@@ -1,108 +1,51 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { handleApi } from '../worker/src/api.js';
-import { createFakeDirectory, usersBinding } from './worker/_fakeUserDirectory.mjs';
+import { ROUTES } from '../worker/src/api.js';
+import { handleApi, fakeStudio } from './worker/_studio.mjs';
+import { authenticatedUsers, authedRequest, fakeBucket } from './worker/_fakeR2.mjs';
 
-function req(url, { method = 'GET', body, cookie } = {}) {
-  const headers = {};
-  if (body !== undefined) headers['content-type'] = 'application/json';
-  if (cookie) headers.cookie = cookie;
-  return new Request(url, { method, headers, body: body !== undefined ? JSON.stringify(body) : undefined });
-}
+const ACTIONS = new Set(['browse', 'listen', 'edit', 'discard', 'submit', 'download', 'session', 'public']);
 
-function cookieOf(response) {
-  return (response.headers.get('set-cookie') || '').split(';')[0];
-}
-
-function freshEnv() {
-  const dir = createFakeDirectory();
-  return { UPLOAD_PASSWORD: 'root-secret', USERS: usersBinding(dir) };
-}
-
-async function bootstrapAdmin(env, name = 'root') {
-  const res = await handleApi(req('https://x/api/auth/bootstrap', {
-    method: 'POST', body: { token: 'root-secret', name, password: 'a-strong-pass' },
-  }), env);
-  return { cookie: cookieOf(res), user: (await res.json()).user };
-}
-
-async function inviteAndRegister(env, adminCookie, name, role) {
-  const inviteRes = await handleApi(req('https://x/api/auth/invite', {
-    method: 'POST', body: { role }, cookie: adminCookie,
-  }), env);
-  const { code } = await inviteRes.json();
-  const registered = await handleApi(req('https://x/api/auth/register', {
-    method: 'POST', body: { invite_code: code, name, password: 'password123' },
-  }), env);
-  return { cookie: cookieOf(registered), user: (await registered.json()).user };
-}
-
-test('编辑者可以访问 requireUser 守卫的端点', async () => {
-  const env = await freshEnv();
-  const { cookie: adminCookie } = await bootstrapAdmin(env);
-  const { cookie: editorCookie } = await inviteAndRegister(env, adminCookie, 'ed1', 'editor');
-
-  const me = await handleApi(req('https://x/api/auth/me', { cookie: editorCookie }), env);
-  assert.equal(me.status, 200);
-  assert.equal((await me.json()).user.role, 'editor');
+test('每条站内路由都声明了工作站动作，只有 GitHub 回调公开', () => {
+  for (const [route, [handler, action]] of ROUTES) {
+    assert.equal(typeof handler, 'function', route);
+    assert.ok(ACTIONS.has(action), `${route} → ${action}`);
+  }
+  assert.deepEqual([...ROUTES].filter(([, [, action]]) => action === 'public').map(([route]) => route), ['GET /api/auth/github/callback']);
+  assert.equal(ROUTES.get('POST /api/workspace/extract')[1], 'submit');
+  assert.equal(ROUTES.get('POST /api/ingest/continue')[1], 'submit');
+  assert.equal(ROUTES.get('POST /api/workspace/discard')[1], 'discard');
+  assert.equal(ROUTES.get('GET /api/workspace/audio')[1], 'listen');
+  assert.equal(ROUTES.get('POST /api/upload/r2')[1], 'edit');
 });
 
-test('编辑者不能发邀请，也不能管理用户', async () => {
-  const env = await freshEnv();
-  const { cookie: adminCookie } = await bootstrapAdmin(env);
-  const { cookie: editorCookie, user: editor } = await inviteAndRegister(env, adminCookie, 'ed2', 'editor');
-
-  const createInvite = await handleApi(req('https://x/api/auth/invite', {
-    method: 'POST', body: {}, cookie: editorCookie,
-  }), env);
-  assert.equal(createInvite.status, 403);
-
-  const listInvites = await handleApi(req('https://x/api/auth/invites', { cookie: editorCookie }), env);
-  assert.equal(listInvites.status, 403);
-
-  const listUsers = await handleApi(req('https://x/api/auth/users', { cookie: editorCookie }), env);
-  assert.equal(listUsers.status, 403);
-
-  const patchUser = await handleApi(req('https://x/api/auth/user', {
-    method: 'PATCH', body: { id: editor.id, role: 'admin' }, cookie: editorCookie,
-  }), env);
-  assert.equal(patchUser.status, 403);
+test('没有单点登录会话时业务与账号路由一律 401', async () => {
+  const env = { USERS: authenticatedUsers(), UPLOAD_BUCKET: fakeBucket() };
+  for (const [method, path] of [['GET', '/api/workspace/list'], ['POST', '/api/workspace/create'], ['GET', '/api/ingest/list'], ['GET', '/api/auth/github/start']]) {
+    const response = await handleApi(new Request(`https://x${path}`, { method }), env);
+    assert.equal(response.status, 401, `${method} ${path}`);
+  }
 });
 
-test('最后一名管理员不可被降级或停用', async () => {
-  const env = await freshEnv();
-  const { cookie: adminCookie, user: admin } = await bootstrapAdmin(env);
-
-  const demoteSelf = await handleApi(req('https://x/api/auth/user', {
-    method: 'PATCH', body: { id: admin.id, role: 'editor' }, cookie: adminCookie,
-  }), env);
-  assert.equal(demoteSelf.status, 409);
-
-  const disableSelf = await handleApi(req('https://x/api/auth/user', {
-    method: 'PATCH', body: { id: admin.id, status: 'disabled' }, cookie: adminCookie,
-  }), env);
-  assert.equal(disableSelf.status, 409);
-
-  // 场上有第二名在任管理员时，第一名才能被降级
-  const { cookie: admin2Cookie, user: admin2 } = await inviteAndRegister(env, adminCookie, 'root2', 'admin');
-  const demoteOk = await handleApi(req('https://x/api/auth/user', {
-    method: 'PATCH', body: { id: admin.id, role: 'editor' }, cookie: adminCookie,
-  }), env);
-  assert.equal(demoteOk.status, 200);
-
-  // 现在只剩 admin2 一名管理员，它同样不能自我降级
-  const lastOneLeft = await handleApi(req('https://x/api/auth/user', {
-    method: 'PATCH', body: { id: admin2.id, role: 'editor' }, cookie: admin2Cookie,
-  }), env);
-  assert.equal(lastOneLeft.status, 409);
+test('缺少对应曲库权限时返回 403 且不执行处理器', async () => {
+  const bucket = fakeBucket();
+  const env = { USERS: authenticatedUsers(), UPLOAD_BUCKET: bucket };
+  const denied = await handleApi(authedRequest('https://x/api/workspace/create', { method: 'POST', body: { album: '专辑' } }), env, fakeStudio({ actions: { edit: false } }));
+  assert.equal(denied.status, 403);
+  assert.equal(bucket.store.size, 0);
+  const browseOnly = fakeStudio({ actions: { edit: false, submit: false, discard: false, listen: false } });
+  for (const [method, path] of [['POST', '/api/workspace/extract'], ['POST', '/api/ingest/continue'], ['POST', '/api/workspace/discard'], ['GET', '/api/workspace/audio'], ['POST', '/api/upload/r2']]) {
+    const response = await handleApi(authedRequest(`https://x${path}`, { method, body: method === 'GET' ? undefined : {} }), env, browseOnly);
+    assert.equal(response.status, 403, `${method} ${path}`);
+  }
+  assert.equal((await handleApi(authedRequest('https://x/api/workspace/list'), env, browseOnly)).status, 200);
 });
 
-test('disabled editors lose existing business and account sessions immediately', async () => {
-  const env = freshEnv();
-  const { cookie: adminCookie } = await bootstrapAdmin(env);
-  const { cookie, user } = await inviteAndRegister(env, adminCookie, 'disabled-editor', 'editor');
-  const disabled = await handleApi(req('https://x/api/auth/user', { method: 'PATCH', cookie: adminCookie, body: { id: user.id, status: 'disabled' } }), env);
-  assert.equal(disabled.status, 200);
-  assert.equal((await handleApi(req('https://x/api/auth/me', { cookie }), env)).status, 401);
-  assert.equal((await handleApi(req('https://x/api/ingest/list', { cookie }), env)).status, 401);
+test('授权通过后处理器使用方案解析出的账号署名', async () => {
+  const bucket = fakeBucket();
+  const env = { USERS: authenticatedUsers({ github: 'octocat' }), UPLOAD_BUCKET: bucket };
+  const response = await handleApi(authedRequest('https://x/api/workspace/create', { method: 'POST', body: { album: '署名专辑' } }), env);
+  const { ref } = await response.json();
+  const status = JSON.parse(bucket.store.get(`workspace/${ref}/status.json`));
+  assert.equal(status.owner, 'octocat');
 });

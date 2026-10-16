@@ -14,24 +14,19 @@
     "update-meta-dates": "python3 .github/scripts/update_meta_dates.py",
     "upgrade": "pnpm dlx vp-update",
     "test:node": "node --test 'test/*.test.mjs'",
-    "test:component": "vitest run"
+    "studio:install": "pnpm --dir studio install --frozen-lockfile",
+    "studio:build": "pnpm --dir studio run build"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.8",
-    "@vue/test-utils": "^2.5.0",
     "@vuepress/bundler-vite": "2.0.0-rc.19",
     "@vuepress/plugin-search": "2.0.0-rc.74",
     "@vuepress/plugin-slimsearch": "2.0.0-rc.74",
-    "happy-dom": "^20.12.0",
-    "vitest": "^4.1.11",
     "vue": "^3.5.13",
     "vuepress": "2.0.0-rc.19",
     "vuepress-theme-hope": "2.0.0-rc.71"
   },
   "dependencies": {
     "markdown-it": "^14.1.0",
-    "monaco-editor": "^0.55.1",
-    "opencc-js": "^1.4.2",
     "vue-scriptx": "^0.2.7",
     "vuepress-plugin-alert": "0.0.5"
   },

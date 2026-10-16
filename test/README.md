@@ -1,10 +1,10 @@
 # Regression tests
 
-Use Node.js 24 or newer and Python 3.11 or newer. Worker runtime tests use Miniflare and the production SQLite UserDirectory.
+Use Node.js 24 or newer and Python 3.11 or newer. Worker runtime tests use Miniflare and the production SQLite UserDirectory. The worker depends on the private studio solution: place `solution-studio-<version>.tgz` in `vendor/` before installing the worker dependencies. Studio client tests live with the private solution.
 
 ```sh
-npm ci --prefix worker
-node --test test/*.test.mjs
+corepack pnpm@10.34.6 --dir worker install --frozen-lockfile
+PYTHONIOENCODING=utf-8 node --test test/*.test.mjs
 node --experimental-vm-modules --test test/worker/*.test.mjs
 python3 -m venv test/.venv
 test/.venv/bin/pip install -r test/requirements.txt
