@@ -29,8 +29,8 @@
 - [终梦Journeyed on Everdream](https://github.com/lsy-404/LRC#%E7%BB%88%E6%A2%A6journeyed-on-everdream)
 - [秩序之瑕](https://github.com/lsy-404/LRC#%E7%A7%A9%E5%BA%8F%E4%B9%8B%E7%91%95)
 - [假说Hypothesis](https://github.com/lsy-404/LRC#%E5%81%87%E8%AF%B4hypothesis)
-- [织肉匠 - le bricoleur du devenir](https://github.com/lsy-404/LRC#%E7%BB%87%E8%82%89%E5%8C%A0-le-bricoleur-du-devenir)
 - [Starlit Whisper](https://github.com/lsy-404/LRC#starlit-whisper)
+- [织肉匠 - le bricoleur du devenir](https://github.com/lsy-404/LRC#%E7%BB%87%E8%82%89%E5%8C%A0-le-bricoleur-du-devenir)
 - [南北谐响诗](https://github.com/lsy-404/LRC#%E5%8D%97%E5%8C%97%E8%B0%90%E5%93%8D%E8%AF%97)
 - [页间曲](https://github.com/lsy-404/LRC#%E9%A1%B5%E9%97%B4%E6%9B%B2)
 - [星-城](https://github.com/lsy-404/LRC#%E6%98%9F-%E5%9F%8E)
@@ -55,8 +55,8 @@
 - [月初日暮](https://github.com/lsy-404/LRC#%E6%9C%88%E5%88%9D%E6%97%A5%E6%9A%AE)
 - [藏雪SnowGrave](https://github.com/lsy-404/LRC#%E8%97%8F%E9%9B%AAsnowgrave)
 - [海客谈](https://github.com/lsy-404/LRC#%E6%B5%B7%E5%AE%A2%E8%B0%88)
-- [秘宝旅人I](https://github.com/lsy-404/LRC#%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAi)
 - [伊甸园](https://github.com/lsy-404/LRC#%E4%BC%8A%E7%94%B8%E5%9B%AD)
+- [秘宝旅人I](https://github.com/lsy-404/LRC#%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAi)
 - [数风流](https://github.com/lsy-404/LRC#%E6%95%B0%E9%A3%8E%E6%B5%81)
 - [ELOHIM](https://github.com/lsy-404/LRC#elohim)
 - [卧室四格](https://github.com/lsy-404/LRC#%E5%8D%A7%E5%AE%A4%E5%9B%9B%E6%A0%BC)
@@ -104,6 +104,7 @@
 - [平行四界Quadimension6](https://github.com/lsy-404/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Cquadimension6)
 - [Freesia](https://github.com/lsy-404/LRC#freesia)
 - [平行四界LIVE TOUR OFFICIAL ALBUM](https://github.com/lsy-404/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Clive-tour-official-album)
+- [平行四界Vocal Collection](https://github.com/lsy-404/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Cvocal-collection)
 - [蝴蝶旅客](https://github.com/lsy-404/LRC#%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2)
 - [星语StarWhisper](https://github.com/lsy-404/LRC#%E6%98%9F%E8%AF%ADstarwhisper)
 - [茜色诗集](https://github.com/lsy-404/LRC#%E8%8C%9C%E8%89%B2%E8%AF%97%E9%9B%86)
@@ -115,7 +116,6 @@
 - [平行四界Quadimension4](https://github.com/lsy-404/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Cquadimension4)
 - [平行四界Quadimension3](https://github.com/lsy-404/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Cquadimension3)
 - [平行四界Quadimension2](https://github.com/lsy-404/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Cquadimension2)
-- [平行四界Vocal Collection](https://github.com/lsy-404/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Cvocal-collection)
 - [平行四界Quadimension](https://github.com/lsy-404/LRC#%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8Cquadimension)
 - [单曲](https://github.com/lsy-404/LRC#%E5%8D%95%E6%9B%B2)
 - [淡漠](https://github.com/lsy-404/LRC#%E6%B7%A1%E6%BC%A0)
@@ -574,30 +574,6 @@
 
 ---
 
-<img src="https://raw.githubusercontent.com/lsy-404/LRC/main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/cover.jpg" alt="专辑封面" width="120" align="right">
-
-### 织肉匠 - le bricoleur du devenir
-
-**[下载专辑歌词包](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir.zip)**
-
-<details>
-<summary>查看详细曲目 (8 首)</summary>
-
-| 曲目 | 操作 |
-| :- | :-: |
-| [1 丝 - Silk.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/1%20%E4%B8%9D%20-%20Silk.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/1%20%E4%B8%9D%20-%20Silk.lrc) |
-| [2 猎歌 - Tracking Song.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/2%20%E7%8C%8E%E6%AD%8C%20-%20Tracking%20Song.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/2%20%E7%8C%8E%E6%AD%8C%20-%20Tracking%20Song.lrc) |
-| [3 无根水 - Aleatory Deluge.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/3%20%E6%97%A0%E6%A0%B9%E6%B0%B4%20-%20Aleatory%20Deluge.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/3%20%E6%97%A0%E6%A0%B9%E6%B0%B4%20-%20Aleatory%20Deluge.lrc) |
-| [4 涡 - Whorl.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/4%20%E6%B6%A1%20-%20Whorl.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/4%20%E6%B6%A1%20-%20Whorl.lrc) |
-| [5 珠 - Pearl.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/5%20%E7%8F%A0%20-%20Pearl.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/5%20%E7%8F%A0%20-%20Pearl.lrc) |
-| [6 胚芽流 - Germinal Influx.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/6%20%E8%83%9A%E8%8A%BD%E6%B5%81%20-%20Germinal%20Influx.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/6%20%E8%83%9A%E8%8A%BD%E6%B5%81%20-%20Germinal%20Influx.lrc) |
-| [7 家谣 - Homeward Tune.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/7%20%E5%AE%B6%E8%B0%A3%20-%20Homeward%20Tune.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/7%20%E5%AE%B6%E8%B0%A3%20-%20Homeward%20Tune.lrc) |
-| [8 角 - Horn.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/8%20%E8%A7%92%20-%20Horn.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/8%20%E8%A7%92%20-%20Horn.lrc) |
-
-</details>
-
----
-
 <img src="https://raw.githubusercontent.com/lsy-404/LRC/main/res/Starlit%20Whisper/cover.png" alt="专辑封面" width="120" align="right">
 
 ### Starlit Whisper
@@ -617,6 +593,30 @@
 | [6 天使引擎.lrc](res/Starlit%20Whisper/6%20%E5%A4%A9%E4%BD%BF%E5%BC%95%E6%93%8E.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Starlit%20Whisper/6%20%E5%A4%A9%E4%BD%BF%E5%BC%95%E6%93%8E.lrc) |
 | [7 Shadow Trace -Japanese Ver-.lrc](res/Starlit%20Whisper/7%20Shadow%20Trace%20-Japanese%20Ver-.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Starlit%20Whisper/7%20Shadow%20Trace%20-Japanese%20Ver-.lrc) |
 | [8 半梦-星尘Ver-.lrc](res/Starlit%20Whisper/8%20%E5%8D%8A%E6%A2%A6-%E6%98%9F%E5%B0%98Ver-.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/Starlit%20Whisper/8%20%E5%8D%8A%E6%A2%A6-%E6%98%9F%E5%B0%98Ver-.lrc) |
+
+</details>
+
+---
+
+<img src="https://raw.githubusercontent.com/lsy-404/LRC/main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 织肉匠 - le bricoleur du devenir
+
+**[下载专辑歌词包](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir.zip)**
+
+<details>
+<summary>查看详细曲目 (8 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [1 丝 - Silk.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/1%20%E4%B8%9D%20-%20Silk.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/1%20%E4%B8%9D%20-%20Silk.lrc) |
+| [2 猎歌 - Tracking Song.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/2%20%E7%8C%8E%E6%AD%8C%20-%20Tracking%20Song.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/2%20%E7%8C%8E%E6%AD%8C%20-%20Tracking%20Song.lrc) |
+| [3 无根水 - Aleatory Deluge.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/3%20%E6%97%A0%E6%A0%B9%E6%B0%B4%20-%20Aleatory%20Deluge.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/3%20%E6%97%A0%E6%A0%B9%E6%B0%B4%20-%20Aleatory%20Deluge.lrc) |
+| [4 涡 - Whorl.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/4%20%E6%B6%A1%20-%20Whorl.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/4%20%E6%B6%A1%20-%20Whorl.lrc) |
+| [5 珠 - Pearl.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/5%20%E7%8F%A0%20-%20Pearl.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/5%20%E7%8F%A0%20-%20Pearl.lrc) |
+| [6 胚芽流 - Germinal Influx.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/6%20%E8%83%9A%E8%8A%BD%E6%B5%81%20-%20Germinal%20Influx.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/6%20%E8%83%9A%E8%8A%BD%E6%B5%81%20-%20Germinal%20Influx.lrc) |
+| [7 家谣 - Homeward Tune.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/7%20%E5%AE%B6%E8%B0%A3%20-%20Homeward%20Tune.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/7%20%E5%AE%B6%E8%B0%A3%20-%20Homeward%20Tune.lrc) |
+| [8 角 - Horn.lrc](res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/8%20%E8%A7%92%20-%20Horn.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%BB%87%E8%82%89%E5%8C%A0%20-%20le%20bricoleur%20du%20devenir/8%20%E8%A7%92%20-%20Horn.lrc) |
 
 </details>
 
@@ -1212,6 +1212,31 @@ _暂无 LRC 文件_
 
 ---
 
+### 伊甸园
+
+**[下载专辑歌词包](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E4%BC%8A%E7%94%B8%E5%9B%AD.zip)**
+
+<details>
+<summary>查看详细曲目 (11 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [不正确女孩.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E4%B8%8D%E6%AD%A3%E7%A1%AE%E5%A5%B3%E5%AD%A9.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E4%B8%8D%E6%AD%A3%E7%A1%AE%E5%A5%B3%E5%AD%A9.lrc) |
+| [乔戈里的自白信.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E4%B9%94%E6%88%88%E9%87%8C%E7%9A%84%E8%87%AA%E7%99%BD%E4%BF%A1.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E4%B9%94%E6%88%88%E9%87%8C%E7%9A%84%E8%87%AA%E7%99%BD%E4%BF%A1.lrc) |
+| [再见伊甸园.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E5%86%8D%E8%A7%81%E4%BC%8A%E7%94%B8%E5%9B%AD.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E5%86%8D%E8%A7%81%E4%BC%8A%E7%94%B8%E5%9B%AD.lrc) |
+| [年轮.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E5%B9%B4%E8%BD%AE.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E5%B9%B4%E8%BD%AE.lrc) |
+| [我们的.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E6%88%91%E4%BB%AC%E7%9A%84.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E6%88%91%E4%BB%AC%E7%9A%84.lrc) |
+| [旧日浮光.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E6%97%A7%E6%97%A5%E6%B5%AE%E5%85%89.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E6%97%A7%E6%97%A5%E6%B5%AE%E5%85%89.lrc) |
+| [月光色.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E6%9C%88%E5%85%89%E8%89%B2.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E6%9C%88%E5%85%89%E8%89%B2.lrc) |
+| [深海REVUE.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E6%B7%B1%E6%B5%B7REVUE.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E6%B7%B1%E6%B5%B7REVUE.lrc) |
+| [燃尽微光.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E7%87%83%E5%B0%BD%E5%BE%AE%E5%85%89.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E7%87%83%E5%B0%BD%E5%BE%AE%E5%85%89.lrc) |
+| [红舞鞋.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E7%BA%A2%E8%88%9E%E9%9E%8B.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E7%BA%A2%E8%88%9E%E9%9E%8B.lrc) |
+| [行星轨迹.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E8%A1%8C%E6%98%9F%E8%BD%A8%E8%BF%B9.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E8%A1%8C%E6%98%9F%E8%BD%A8%E8%BF%B9.lrc) |
+
+</details>
+
+---
+
 <img src="https://raw.githubusercontent.com/lsy-404/LRC/main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/cover.png" alt="专辑封面" width="120" align="right">
 
 ### 秘宝旅人I
@@ -1233,31 +1258,6 @@ _暂无 LRC 文件_
 | [8 与你的旅行.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/8%20%E4%B8%8E%E4%BD%A0%E7%9A%84%E6%97%85%E8%A1%8C.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/8%20%E4%B8%8E%E4%BD%A0%E7%9A%84%E6%97%85%E8%A1%8C.lrc) |
 | [9 无形火.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/9%20%E6%97%A0%E5%BD%A2%E7%81%AB.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/9%20%E6%97%A0%E5%BD%A2%E7%81%AB.lrc) |
 | [10 贤者之书.lrc](res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/10%20%E8%B4%A4%E8%80%85%E4%B9%8B%E4%B9%A6.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E7%A7%98%E5%AE%9D%E6%97%85%E4%BA%BAI/10%20%E8%B4%A4%E8%80%85%E4%B9%8B%E4%B9%A6.lrc) |
-
-</details>
-
----
-
-### 伊甸园
-
-**[下载专辑歌词包](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E4%BC%8A%E7%94%B8%E5%9B%AD.zip)**
-
-<details>
-<summary>查看详细曲目 (11 首)</summary>
-
-| 曲目 | 操作 |
-| :- | :-: |
-| [不正确女孩.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E4%B8%8D%E6%AD%A3%E7%A1%AE%E5%A5%B3%E5%AD%A9.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E4%B8%8D%E6%AD%A3%E7%A1%AE%E5%A5%B3%E5%AD%A9.lrc) |
-| [乔戈里的自白信.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E4%B9%94%E6%88%88%E9%87%8C%E7%9A%84%E8%87%AA%E7%99%BD%E4%BF%A1.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E4%B9%94%E6%88%88%E9%87%8C%E7%9A%84%E8%87%AA%E7%99%BD%E4%BF%A1.lrc) |
-| [再见伊甸园.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E5%86%8D%E8%A7%81%E4%BC%8A%E7%94%B8%E5%9B%AD.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E5%86%8D%E8%A7%81%E4%BC%8A%E7%94%B8%E5%9B%AD.lrc) |
-| [年轮.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E5%B9%B4%E8%BD%AE.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E5%B9%B4%E8%BD%AE.lrc) |
-| [我们的.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E6%88%91%E4%BB%AC%E7%9A%84.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E6%88%91%E4%BB%AC%E7%9A%84.lrc) |
-| [旧日浮光.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E6%97%A7%E6%97%A5%E6%B5%AE%E5%85%89.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E6%97%A7%E6%97%A5%E6%B5%AE%E5%85%89.lrc) |
-| [月光色.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E6%9C%88%E5%85%89%E8%89%B2.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E6%9C%88%E5%85%89%E8%89%B2.lrc) |
-| [深海REVUE.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E6%B7%B1%E6%B5%B7REVUE.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E6%B7%B1%E6%B5%B7REVUE.lrc) |
-| [燃尽微光.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E7%87%83%E5%B0%BD%E5%BE%AE%E5%85%89.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E7%87%83%E5%B0%BD%E5%BE%AE%E5%85%89.lrc) |
-| [红舞鞋.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E7%BA%A2%E8%88%9E%E9%9E%8B.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E7%BA%A2%E8%88%9E%E9%9E%8B.lrc) |
-| [行星轨迹.lrc](res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E8%A1%8C%E6%98%9F%E8%BD%A8%E8%BF%B9.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BC%8A%E7%94%B8%E5%9B%AD/%E8%A1%8C%E6%98%9F%E8%BD%A8%E8%BF%B9.lrc) |
 
 </details>
 
@@ -2033,7 +2033,7 @@ _暂无 LRC 文件_
 
 ---
 
-<img src="https://raw.githubusercontent.com/lsy-404/LRC/main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/cover.jpg" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/lsy-404/LRC/main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/Cover.png" alt="专辑封面" width="120" align="right">
 
 ### 丛林法则Jungle Rules
 
@@ -2411,6 +2411,30 @@ _暂无 LRC 文件_
 
 ---
 
+<img src="https://raw.githubusercontent.com/lsy-404/LRC/main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/cover.jpg" alt="专辑封面" width="120" align="right">
+
+### 平行四界Vocal Collection
+
+**[下载专辑歌词包](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection.zip)**
+
+<details>
+<summary>查看详细曲目 (8 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [01 星之伊始-东京塔子.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/01%20%E6%98%9F%E4%B9%8B%E4%BC%8A%E5%A7%8B-%E4%B8%9C%E4%BA%AC%E5%A1%94%E5%AD%90.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/01%20%E6%98%9F%E4%B9%8B%E4%BC%8A%E5%A7%8B-%E4%B8%9C%E4%BA%AC%E5%A1%94%E5%AD%90.lrc) |
+| [02 焉有曲-雨洛.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/02%20%E7%84%89%E6%9C%89%E6%9B%B2-%E9%9B%A8%E6%B4%9B.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/02%20%E7%84%89%E6%9C%89%E6%9B%B2-%E9%9B%A8%E6%B4%9B.lrc) |
+| [03 Hemisphere-三无Marblue.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/03%20Hemisphere-%E4%B8%89%E6%97%A0Marblue.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/03%20Hemisphere-%E4%B8%89%E6%97%A0Marblue.lrc) |
+| [04 SOLAR STORM-Mr.Mo.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/04%20SOLAR%20STORM-Mr.Mo.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/04%20SOLAR%20STORM-Mr.Mo.lrc) |
+| [05 女孩你为何踮脚尖-双笙.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/05%20%E5%A5%B3%E5%AD%A9%E4%BD%A0%E4%B8%BA%E4%BD%95%E8%B8%AE%E8%84%9A%E5%B0%96-%E5%8F%8C%E7%AC%99.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/05%20%E5%A5%B3%E5%AD%A9%E4%BD%A0%E4%B8%BA%E4%BD%95%E8%B8%AE%E8%84%9A%E5%B0%96-%E5%8F%8C%E7%AC%99.lrc) |
+| [06 夏夕-小魂feat.双笙.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/06%20%E5%A4%8F%E5%A4%95-%E5%B0%8F%E9%AD%82feat.%E5%8F%8C%E7%AC%99.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/06%20%E5%A4%8F%E5%A4%95-%E5%B0%8F%E9%AD%82feat.%E5%8F%8C%E7%AC%99.lrc) |
+| [07 染殇-排骨教主.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/07%20%E6%9F%93%E6%AE%87-%E6%8E%92%E9%AA%A8%E6%95%99%E4%B8%BB.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/07%20%E6%9F%93%E6%AE%87-%E6%8E%92%E9%AA%A8%E6%95%99%E4%B8%BB.lrc) |
+| [08 星愿StarWish-茶理理.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/08%20%E6%98%9F%E6%84%BFStarWish-%E8%8C%B6%E7%90%86%E7%90%86.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/08%20%E6%98%9F%E6%84%BFStarWish-%E8%8C%B6%E7%90%86%E7%90%86.lrc) |
+
+</details>
+
+---
+
 <img src="https://raw.githubusercontent.com/lsy-404/LRC/main/res/%E8%9D%B4%E8%9D%B6%E6%97%85%E5%AE%A2/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 蝴蝶旅客
@@ -2669,30 +2693,6 @@ _暂无 LRC 文件_
 | [07 女孩你为何踮脚尖.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension2/07%20%E5%A5%B3%E5%AD%A9%E4%BD%A0%E4%B8%BA%E4%BD%95%E8%B8%AE%E8%84%9A%E5%B0%96.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension2/07%20%E5%A5%B3%E5%AD%A9%E4%BD%A0%E4%B8%BA%E4%BD%95%E8%B8%AE%E8%84%9A%E5%B0%96.lrc) |
 | [08 Seattle物语.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension2/08%20Seattle%E7%89%A9%E8%AF%AD.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension2/08%20Seattle%E7%89%A9%E8%AF%AD.lrc) |
 | [09 Endless Wishes.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension2/09%20Endless%20Wishes.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CQuadimension2/09%20Endless%20Wishes.lrc) |
-
-</details>
-
----
-
-<img src="https://raw.githubusercontent.com/lsy-404/LRC/main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/cover.jpg" alt="专辑封面" width="120" align="right">
-
-### 平行四界Vocal Collection
-
-**[下载专辑歌词包](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection.zip)**
-
-<details>
-<summary>查看详细曲目 (8 首)</summary>
-
-| 曲目 | 操作 |
-| :- | :-: |
-| [01 星之伊始-东京塔子.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/01%20%E6%98%9F%E4%B9%8B%E4%BC%8A%E5%A7%8B-%E4%B8%9C%E4%BA%AC%E5%A1%94%E5%AD%90.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/01%20%E6%98%9F%E4%B9%8B%E4%BC%8A%E5%A7%8B-%E4%B8%9C%E4%BA%AC%E5%A1%94%E5%AD%90.lrc) |
-| [02 焉有曲-雨洛.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/02%20%E7%84%89%E6%9C%89%E6%9B%B2-%E9%9B%A8%E6%B4%9B.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/02%20%E7%84%89%E6%9C%89%E6%9B%B2-%E9%9B%A8%E6%B4%9B.lrc) |
-| [03 Hemisphere-三无Marblue.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/03%20Hemisphere-%E4%B8%89%E6%97%A0Marblue.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/03%20Hemisphere-%E4%B8%89%E6%97%A0Marblue.lrc) |
-| [04 SOLAR STORM-Mr.Mo.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/04%20SOLAR%20STORM-Mr.Mo.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/04%20SOLAR%20STORM-Mr.Mo.lrc) |
-| [05 女孩你为何踮脚尖-双笙.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/05%20%E5%A5%B3%E5%AD%A9%E4%BD%A0%E4%B8%BA%E4%BD%95%E8%B8%AE%E8%84%9A%E5%B0%96-%E5%8F%8C%E7%AC%99.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/05%20%E5%A5%B3%E5%AD%A9%E4%BD%A0%E4%B8%BA%E4%BD%95%E8%B8%AE%E8%84%9A%E5%B0%96-%E5%8F%8C%E7%AC%99.lrc) |
-| [06 夏夕-小魂feat.双笙.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/06%20%E5%A4%8F%E5%A4%95-%E5%B0%8F%E9%AD%82feat.%E5%8F%8C%E7%AC%99.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/06%20%E5%A4%8F%E5%A4%95-%E5%B0%8F%E9%AD%82feat.%E5%8F%8C%E7%AC%99.lrc) |
-| [07 染殇-排骨教主.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/07%20%E6%9F%93%E6%AE%87-%E6%8E%92%E9%AA%A8%E6%95%99%E4%B8%BB.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/07%20%E6%9F%93%E6%AE%87-%E6%8E%92%E9%AA%A8%E6%95%99%E4%B8%BB.lrc) |
-| [08 星愿StarWish-茶理理.lrc](res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/08%20%E6%98%9F%E6%84%BFStarWish-%E8%8C%B6%E7%90%86%E7%90%86.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%B9%B3%E8%A1%8C%E5%9B%9B%E7%95%8CVocal%20Collection/08%20%E6%98%9F%E6%84%BFStarWish-%E8%8C%B6%E7%90%86%E7%90%86.lrc) |
 
 </details>
 

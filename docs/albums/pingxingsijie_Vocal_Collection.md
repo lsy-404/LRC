@@ -1,7 +1,7 @@
 ---
 title: "平行四界 Vocal Collection"
-date: 2014-04-04
-order: -20140404
+date: 2017-07-29
+order: -20170729
 category:
   - "平行四界Quadimension"
 tag:
@@ -41,7 +41,7 @@ tag:
 
 <img src="./pingxingsijie_Vocal_Collection.jpg" alt="平行四界 Vocal Collection 封面" class="album-cover" />
 
-**发行日期:** 2014-04-04
+**发行日期:** 2017-07-29
 
 **出品:** 平行四界Quadimension
 
