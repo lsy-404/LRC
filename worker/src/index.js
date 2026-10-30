@@ -137,7 +137,7 @@ async function store(request, env, url) {
   return json({ error: 'method not allowed' }, 405);
 }
 
-export default {
+const worker = {
   async fetch(request, env) {
     const url = new URL(request.url);
 
@@ -209,5 +209,18 @@ export default {
       default:
         return json({ error: 'not found' }, 404);
     }
+  },
+};
+
+// ingest 子域只服务采集与 API，同一份静态页不应被当作重复站点收录
+const NOINDEX_HOST = 'ingest.lrc.voidcarve.com';
+
+export default {
+  async fetch(request, env) {
+    const response = await worker.fetch(request, env);
+    if (new URL(request.url).hostname !== NOINDEX_HOST || response.webSocket) return response;
+    const tagged = new Response(response.body, response);
+    tagged.headers.set('x-robots-tag', 'noindex');
+    return tagged;
   },
 };
