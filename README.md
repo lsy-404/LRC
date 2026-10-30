@@ -47,8 +47,8 @@
 - [Killer Maids from Outer Space](https://github.com/lsy-404/LRC#killer-maids-from-outer-space)
 - [依睐·幻想曲](https://github.com/lsy-404/LRC#%E4%BE%9D%E7%9D%90%E5%B9%BB%E6%83%B3%E6%9B%B2)
 - [再见,碳酸海 Deluxe](https://github.com/lsy-404/LRC#%E5%86%8D%E8%A7%81%E7%A2%B3%E9%85%B8%E6%B5%B7-deluxe)
-- [天南海北酥](https://github.com/lsy-404/LRC#%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5)
 - [信风至北](https://github.com/lsy-404/LRC#%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97)
+- [天南海北酥](https://github.com/lsy-404/LRC#%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5)
 - [星遇](https://github.com/lsy-404/LRC#%E6%98%9F%E9%81%87)
 - [与你相连的雪之羁绊](https://github.com/lsy-404/LRC#%E4%B8%8E%E4%BD%A0%E7%9B%B8%E8%BF%9E%E7%9A%84%E9%9B%AA%E4%B9%8B%E7%BE%81%E7%BB%8A)
 - [夏浪派对2024](https://github.com/lsy-404/LRC#%E5%A4%8F%E6%B5%AA%E6%B4%BE%E5%AF%B92024)
@@ -1009,6 +1009,24 @@ _暂无 LRC 文件_
 
 ---
 
+### 信风至北
+
+**[下载专辑歌词包](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97.zip)**
+
+<details>
+<summary>查看详细曲目 (4 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [信风至北.lrc](res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97.lrc) |
+| [挚爱.lrc](res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E6%8C%9A%E7%88%B1.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E6%8C%9A%E7%88%B1.lrc) |
+| [遥远的续想.lrc](res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E9%81%A5%E8%BF%9C%E7%9A%84%E7%BB%AD%E6%83%B3.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E9%81%A5%E8%BF%9C%E7%9A%84%E7%BB%AD%E6%83%B3.lrc) |
+| [长情.lrc](res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E9%95%BF%E6%83%85.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E9%95%BF%E6%83%85.lrc) |
+
+</details>
+
+---
+
 <img src="https://raw.githubusercontent.com/lsy-404/LRC/main/res/%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 天南海北酥
@@ -1033,24 +1051,6 @@ _暂无 LRC 文件_
 | [红尘寄雪.lrc](res/%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5/%E7%BA%A2%E5%B0%98%E5%AF%84%E9%9B%AA.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5/%E7%BA%A2%E5%B0%98%E5%AF%84%E9%9B%AA.lrc) |
 | [魔法烹调大作战.lrc](res/%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5/%E9%AD%94%E6%B3%95%E7%83%B9%E8%B0%83%E5%A4%A7%E4%BD%9C%E6%88%98.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5/%E9%AD%94%E6%B3%95%E7%83%B9%E8%B0%83%E5%A4%A7%E4%BD%9C%E6%88%98.lrc) |
 | [黄楼月.lrc](res/%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5/%E9%BB%84%E6%A5%BC%E6%9C%88.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E5%A4%A9%E5%8D%97%E6%B5%B7%E5%8C%97%E9%85%A5/%E9%BB%84%E6%A5%BC%E6%9C%88.lrc) |
-
-</details>
-
----
-
-### 信风至北
-
-**[下载专辑歌词包](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97.zip)**
-
-<details>
-<summary>查看详细曲目 (4 首)</summary>
-
-| 曲目 | 操作 |
-| :- | :-: |
-| [信风至北.lrc](res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97.lrc) |
-| [挚爱.lrc](res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E6%8C%9A%E7%88%B1.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E6%8C%9A%E7%88%B1.lrc) |
-| [遥远的续想.lrc](res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E9%81%A5%E8%BF%9C%E7%9A%84%E7%BB%AD%E6%83%B3.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E9%81%A5%E8%BF%9C%E7%9A%84%E7%BB%AD%E6%83%B3.lrc) |
-| [长情.lrc](res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E9%95%BF%E6%83%85.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E4%BF%A1%E9%A3%8E%E8%87%B3%E5%8C%97/%E9%95%BF%E6%83%85.lrc) |
 
 </details>
 
@@ -2033,7 +2033,7 @@ _暂无 LRC 文件_
 
 ---
 
-<img src="https://raw.githubusercontent.com/lsy-404/LRC/main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/Cover.png" alt="专辑封面" width="120" align="right">
+<img src="https://raw.githubusercontent.com/lsy-404/LRC/main/res/%E4%B8%9B%E6%9E%97%E6%B3%95%E5%88%99Jungle%20Rules/cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 丛林法则Jungle Rules
 
