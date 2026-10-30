@@ -1,5 +1,6 @@
 ---
 title: "FIND ZERO"
+description: "《FIND ZERO》专辑歌词：出品糖果工坊CandyFactory，演唱赤塚優一、初音ミク、赤羽、星尘，发行于2020-08-07，收录13首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2020-08-07
 order: -20200807
 category:
@@ -26,9 +27,9 @@ tag:
   - "文件"
 ---
 
-# FIND ZERO
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">FIND ZERO</span></nav>
 
-<img src="./FIND_ZERO.jpg" alt="FIND ZERO 封面" class="album-cover" />
+<img src="./FIND_ZERO.webp" alt="FIND ZERO 封面" width="960" height="960" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2020-08-07
 

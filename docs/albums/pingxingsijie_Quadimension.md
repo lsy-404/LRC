@@ -1,5 +1,6 @@
 ---
 title: "平行四界 Quadimension"
+description: "《平行四界 Quadimension》专辑歌词：出品平行四界Quadimension，演唱洛天依，发行于2014-04-04，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2014-04-04
 order: -20140404
 category:
@@ -23,9 +24,9 @@ tag:
   - "文件"
 ---
 
-# 平行四界 Quadimension
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">平行四界 Quadimension</span></nav>
 
-<img src="./pingxingsijie_Quadimension.jpg" alt="平行四界 Quadimension 封面" class="album-cover" />
+<img src="./pingxingsijie_Quadimension.webp" alt="平行四界 Quadimension 封面" width="640" height="640" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2014-04-04
 

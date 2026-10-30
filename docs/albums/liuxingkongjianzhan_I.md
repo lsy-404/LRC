@@ -1,5 +1,6 @@
 ---
 title: "流星空间站 Meteory I"
+description: "《流星空间站 Meteory I》专辑歌词：出品靘鱼研究所，演唱星尘、Minus、诗岸、海伊，发行于2022-12-31，收录12首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2022-12-31
 order: -20221231
 category:
@@ -24,9 +25,9 @@ tag:
   - "文件"
 ---
 
-# 流星空间站 Meteory I
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">流星空间站 Meteory I</span></nav>
 
-<img src="./liuxingkongjianzhan_I.jpg" alt="流星空间站 Meteory I 封面" class="album-cover" />
+<img src="./liuxingkongjianzhan_I.webp" alt="流星空间站 Meteory I 封面" width="913" height="913" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2022-12-31
 

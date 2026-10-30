@@ -1,5 +1,6 @@
 ---
 title: "月初日暮"
+description: "《月初日暮》专辑歌词：出品胧，演唱星尘、牧心、赤羽、Minus，发行于2024-07-18，收录12首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2024-07-18
 order: -20240718
 category:
@@ -23,9 +24,9 @@ tag:
   - "文件"
 ---
 
-# 月初日暮
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">月初日暮</span></nav>
 
-<img src="./yuechurimu.jpg" alt="月初日暮 封面" class="album-cover" />
+<img src="./yuechurimu.webp" alt="月初日暮 封面" width="1000" height="1000" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2024-07-18
 

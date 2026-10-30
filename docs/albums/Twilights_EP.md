@@ -1,5 +1,6 @@
 ---
 title: "Twilights EP"
+description: "《Twilights EP》专辑歌词：演唱牧心、星尘、海伊，发行于2026-02-23，收录5首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2026-02-23
 order: -20260223
 category:
@@ -23,9 +24,9 @@ tag:
   - "文件"
 ---
 
-# Twilights EP
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">Twilights EP</span></nav>
 
-<img src="./Twilights_EP.jpg" alt="Twilights EP 封面" class="album-cover" />
+<img src="./Twilights_EP.webp" alt="Twilights EP 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2026-02-23
 

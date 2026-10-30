@@ -1,5 +1,6 @@
 ---
 title: "平行四界 Quadimension Finale"
+description: "《平行四界 Quadimension Finale》专辑歌词：出品平行四界Quadimension，演唱海伊、赤羽、诗岸、苍穹，发行于2023-05-24，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2023-05-24
 order: -20230524
 category:
@@ -35,9 +36,9 @@ tag:
   - "文件"
 ---
 
-# 平行四界 Quadimension Finale
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">平行四界 Quadimension Finale</span></nav>
 
-<img src="./pingxingsijie_Quadimension_Finale.png" alt="平行四界 Quadimension Finale 封面" class="album-cover" />
+<img src="./pingxingsijie_Quadimension_Finale.webp" alt="平行四界 Quadimension Finale 封面" width="1000" height="1000" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2023-05-24
 

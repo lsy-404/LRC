@@ -1,5 +1,6 @@
 ---
 title: "虚拟工程师日志 episodes-of-engineers-virtualization"
+description: "《虚拟工程师日志 episodes-of-engineers-virtualization》专辑歌词：出品Zill，演唱海伊、星尘、夏语遥，发行于2023-05-14，收录6首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2023-05-14
 order: -20230514
 category:
@@ -18,9 +19,9 @@ tag:
   - "文件"
 ---
 
-# 虚拟工程师日志 episodes-of-engineers-virtualization
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">虚拟工程师日志 episodes-of-engineers-virtualization</span></nav>
 
-<img src="./xunigongchengshirizhi.jpg" alt="虚拟工程师日志 episodes-of-engineers-virtualization 封面" class="album-cover" />
+<img src="./xunigongchengshirizhi.webp" alt="虚拟工程师日志 episodes-of-engineers-virtualization 封面" width="1024" height="1024" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2023-05-14
 

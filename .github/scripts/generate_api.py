@@ -89,7 +89,7 @@ def build_album_entry(album_dir: Path) -> dict[str, Any]:
     display_name = format_display_name(prefix, zh_name, en_name, suffix, album_dir.name)
 
     cover_file, cover_ext = find_cover(album_dir)
-    cover_url = f"/albums/{slug}{cover_ext}" if cover_file else None
+    cover_url = f"/albums/{slug}.webp" if cover_file else None
 
     lrc_files = sorted((path for path in album_dir.iterdir() if path.suffix.lower() == ".lrc"),
                        key=lambda p: natural_sort_key(p.name))

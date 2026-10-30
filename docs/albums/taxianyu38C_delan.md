@@ -1,5 +1,6 @@
 ---
 title: "塌陷于38°C的蓝"
+description: "《塌陷于38°C的蓝》专辑歌词：出品我是石榴皮，演唱星尘、海伊、诗岸，发行于2020-03-20，收录10首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2020-03-20
 order: -20200320
 category:
@@ -17,9 +18,9 @@ tag:
   - "文件"
 ---
 
-# 塌陷于38°C的蓝
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">塌陷于38°C的蓝</span></nav>
 
-<img src="./taxianyu38C_delan.jpg" alt="塌陷于38°C的蓝 封面" class="album-cover" />
+<img src="./taxianyu38C_delan.webp" alt="塌陷于38°C的蓝 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2020-03-20
 

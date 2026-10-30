@@ -1,5 +1,6 @@
 ---
 title: "Write You a Song"
+description: "《Write You a Song》专辑歌词：出品喻川，演唱乐正龙牙、赤羽、苍穹、海伊，发行于2020-12-18，收录6首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2020-12-18
 order: -20201218
 category:
@@ -22,9 +23,9 @@ tag:
   - "文件"
 ---
 
-# Write You a Song
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">Write You a Song</span></nav>
 
-<img src="./Write_You_a_Song.jpg" alt="Write You a Song 封面" class="album-cover" />
+<img src="./Write_You_a_Song.webp" alt="Write You a Song 封面" width="750" height="750" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2020-12-18
 

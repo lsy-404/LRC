@@ -1,5 +1,6 @@
 ---
 title: "夏日应时而至 彩胶版"
+description: "《夏日应时而至 彩胶版》专辑歌词：发行于2025-05-22，可在线浏览曲目并下载 LRC 歌词。"
 date: 2025-05-22
 order: -20250522
 category:
@@ -18,7 +19,7 @@ tag:
   - "文件"
 ---
 
-# 夏日应时而至 彩胶版
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">夏日应时而至 彩胶版</span></nav>
 
 
 

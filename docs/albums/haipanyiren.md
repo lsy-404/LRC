@@ -1,5 +1,6 @@
 ---
 title: "海盼伊人"
+description: "《海盼伊人》专辑歌词：出品梗梗、夜屠灵，演唱海伊、赤羽、花筝Anly、星尘，发行于2020-04-23，收录12首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2020-04-23
 order: -20200423
 category:
@@ -41,9 +42,9 @@ tag:
   - "文件"
 ---
 
-# 海盼伊人
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">海盼伊人</span></nav>
 
-<img src="./haipanyiren.jpg" alt="海盼伊人 封面" class="album-cover" />
+<img src="./haipanyiren.webp" alt="海盼伊人 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2020-04-23
 

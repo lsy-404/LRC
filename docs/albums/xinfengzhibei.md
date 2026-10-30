@@ -1,5 +1,6 @@
 ---
 title: "信风至北"
+description: "《信风至北》专辑歌词：出品起开，演唱乐正龙牙、言和，发行于2024-08-31，收录4首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2024-08-31
 order: -20240831
 category:
@@ -18,7 +19,7 @@ tag:
   - "文件"
 ---
 
-# 信风至北
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">信风至北</span></nav>
 
 
 

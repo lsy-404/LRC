@@ -1,5 +1,6 @@
 ---
 title: "月光入侵计划"
+description: "《月光入侵计划》专辑歌词：出品我是石榴皮，演唱诗岸，发行于2020-07-27，收录5首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2020-07-27
 order: -20200727
 category:
@@ -16,9 +17,9 @@ tag:
   - "文件"
 ---
 
-# 月光入侵计划
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">月光入侵计划</span></nav>
 
-<img src="./yueguangruqinjihua.jpg" alt="月光入侵计划 封面" class="album-cover" />
+<img src="./yueguangruqinjihua.webp" alt="月光入侵计划 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2020-07-27
 

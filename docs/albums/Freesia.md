@@ -1,5 +1,6 @@
 ---
 title: "Freesia"
+description: "《Freesia》专辑歌词：出品Zeno、匙，演唱星尘，发行于2017-10-01，收录12首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2017-10-01
 order: -20171001
 category:
@@ -15,9 +16,9 @@ tag:
   - "文件"
 ---
 
-# Freesia
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">Freesia</span></nav>
 
-<img src="./Freesia.jpg" alt="Freesia 封面" class="album-cover" />
+<img src="./Freesia.webp" alt="Freesia 封面" width="750" height="750" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2017-10-01
 

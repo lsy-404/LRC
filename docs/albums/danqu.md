@@ -1,5 +1,6 @@
 ---
 title: "单曲"
+description: "《单曲》专辑歌词：收录6首曲目，可在线浏览曲目并下载 LRC 歌词。"
 order: -19700101
 category:
   - "未知出品方"
@@ -11,9 +12,9 @@ tag:
   - "文件"
 ---
 
-# 单曲
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">单曲</span></nav>
 
-<img src="./danqu.jpg" alt="单曲 封面" class="album-cover" />
+<img src="./danqu.webp" alt="单曲 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 
 ## 曲目列表

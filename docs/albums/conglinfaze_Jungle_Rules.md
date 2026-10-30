@@ -1,5 +1,6 @@
 ---
 title: "丛林法则 Jungle Rules"
+description: "《丛林法则 Jungle Rules》专辑歌词：出品平行四界Quadimension，演唱星尘、苍穹、诗岸，发行于2020-02-28，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2020-02-28
 order: -20200228
 category:
@@ -33,9 +34,9 @@ tag:
   - "文件"
 ---
 
-# 丛林法则 Jungle Rules
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">丛林法则 Jungle Rules</span></nav>
 
-<img src="./conglinfaze_Jungle_Rules.jpg" alt="丛林法则 Jungle Rules 封面" class="album-cover" />
+<img src="./conglinfaze_Jungle_Rules.webp" alt="丛林法则 Jungle Rules 封面" width="500" height="500" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2020-02-28
 

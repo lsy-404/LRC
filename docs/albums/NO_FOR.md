@@ -1,5 +1,6 @@
 ---
 title: "NO FOR"
+description: "《NO FOR》专辑歌词：出品超正常中心，演唱洛天依，发行于2022-02-05，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2022-02-05
 order: -20220205
 category:
@@ -16,7 +17,7 @@ tag:
   - "文件"
 ---
 
-# NO FOR
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">NO FOR</span></nav>
 
 
 

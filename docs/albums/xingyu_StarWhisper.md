@@ -1,5 +1,6 @@
 ---
 title: "星语 StarWhisper"
+description: "《星语 StarWhisper》专辑歌词：出品平行四界Quadimension，演唱星尘，发行于2017-01-31，收录8首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2017-01-31
 order: -20170131
 category:
@@ -30,9 +31,9 @@ tag:
   - "文件"
 ---
 
-# 星语 StarWhisper
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">星语 StarWhisper</span></nav>
 
-<img src="./xingyu_StarWhisper.jpg" alt="星语 StarWhisper 封面" class="album-cover" />
+<img src="./xingyu_StarWhisper.webp" alt="星语 StarWhisper 封面" width="700" height="700" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2017-01-31
 

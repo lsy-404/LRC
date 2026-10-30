@@ -1,5 +1,6 @@
 ---
 title: "Dear"
+description: "《Dear》专辑歌词：出品霾Axis，演唱洛天依、言和、乐正绫、星尘，发行于2016-07-04，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2016-07-04
 order: -20160704
 category:
@@ -26,7 +27,7 @@ tag:
   - "文件"
 ---
 
-# Dear
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">Dear</span></nav>
 
 
 

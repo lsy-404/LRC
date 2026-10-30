@@ -1,5 +1,6 @@
 ---
 title: "天地晴雨手账"
+description: "《天地晴雨手账》专辑歌词：演唱洛天依，发行于2025-07-23，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2025-07-23
 order: -20250723
 category:
@@ -23,7 +24,7 @@ tag:
   - "文件"
 ---
 
-# 天地晴雨手账
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">天地晴雨手账</span></nav>
 
 
 

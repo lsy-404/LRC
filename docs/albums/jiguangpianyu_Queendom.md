@@ -1,5 +1,6 @@
 ---
 title: "吉光片羽 Queendom"
+description: "《吉光片羽 Queendom》专辑歌词：出品平行四界Quadimension，演唱星尘、苍穹、赤羽，发行于2020-06-12，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2020-06-12
 order: -20200612
 category:
@@ -37,9 +38,9 @@ tag:
   - "文件"
 ---
 
-# 吉光片羽 Queendom
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">吉光片羽 Queendom</span></nav>
 
-<img src="./jiguangpianyu_Queendom.jpg" alt="吉光片羽 Queendom 封面" class="album-cover" />
+<img src="./jiguangpianyu_Queendom.webp" alt="吉光片羽 Queendom 封面" width="500" height="500" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2020-06-12
 

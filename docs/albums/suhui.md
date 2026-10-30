@@ -1,5 +1,6 @@
 ---
 title: "溯洄"
+description: "《溯洄》专辑歌词：出品忘川风华录，演唱洛天依、乐正绫、星尘、心华，发行于2019-07-06，收录10首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2019-07-06
 order: -20190706
 category:
@@ -30,9 +31,9 @@ tag:
   - "文件"
 ---
 
-# 溯洄
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">溯洄</span></nav>
 
-<img src="./suhui.png" alt="溯洄 封面" class="album-cover" />
+<img src="./suhui.webp" alt="溯洄 封面" width="1060" height="1060" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2019-07-06
 

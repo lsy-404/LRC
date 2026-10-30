@@ -1,5 +1,6 @@
 ---
 title: "SEVEN"
+description: "《SEVEN》专辑歌词：发行于2026-06-09，收录10首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2026-06-09
 order: -20260609
 category:
@@ -12,7 +13,7 @@ tag:
   - "文件"
 ---
 
-# SEVEN
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">SEVEN</span></nav>
 
 
 

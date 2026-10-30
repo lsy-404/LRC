@@ -1,5 +1,6 @@
 ---
 title: "淡漠"
+description: "《淡漠》专辑歌词：收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 order: -1
 category:
   - "未知出品方"
@@ -11,7 +12,7 @@ tag:
   - "文件"
 ---
 
-# 淡漠
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">淡漠</span></nav>
 
 
 

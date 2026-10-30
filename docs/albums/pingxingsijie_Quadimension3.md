@@ -1,5 +1,6 @@
 ---
 title: "平行四界 Quadimension 3"
+description: "《平行四界 Quadimension 3》专辑歌词：出品平行四界Quadimension，演唱洛天依、乐正绫、结月缘，发行于2015-07-10，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2015-07-10
 order: -20150710
 category:
@@ -33,9 +34,9 @@ tag:
   - "文件"
 ---
 
-# 平行四界 Quadimension 3
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">平行四界 Quadimension 3</span></nav>
 
-<img src="./pingxingsijie_Quadimension3.jpg" alt="平行四界 Quadimension 3 封面" class="album-cover" />
+<img src="./pingxingsijie_Quadimension3.webp" alt="平行四界 Quadimension 3 封面" width="640" height="640" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2015-07-10
 

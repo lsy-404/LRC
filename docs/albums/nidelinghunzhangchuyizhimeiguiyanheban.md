@@ -1,5 +1,6 @@
 ---
 title: "你的灵魂长出一枝玫瑰 言和版"
+description: "《你的灵魂长出一枝玫瑰 言和版》专辑歌词：演唱言和，发行于2025-03-21，收录13首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2025-03-21
 order: -20250321
 category:
@@ -23,7 +24,7 @@ tag:
   - "文件"
 ---
 
-# 你的灵魂长出一枝玫瑰 言和版
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">你的灵魂长出一枝玫瑰 言和版</span></nav>
 
 
 

@@ -1,5 +1,6 @@
 ---
 title: "天方夜谭 Fairyland"
+description: "《天方夜谭 Fairyland》专辑歌词：出品平行四界Quadimension，演唱星尘、海伊、苍穹，发行于2019-04-05，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2019-04-05
 order: -20190405
 category:
@@ -29,9 +30,9 @@ tag:
   - "文件"
 ---
 
-# 天方夜谭 Fairyland
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">天方夜谭 Fairyland</span></nav>
 
-<img src="./tianfangyetan_Fairyland.jpg" alt="天方夜谭 Fairyland 封面" class="album-cover" />
+<img src="./tianfangyetan_Fairyland.webp" alt="天方夜谭 Fairyland 封面" width="500" height="500" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2019-04-05
 

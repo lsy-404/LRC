@@ -1,5 +1,6 @@
 ---
 title: "秘宝旅人 Polaris II"
+description: "《秘宝旅人 Polaris II》专辑歌词：出品秘宝旅人，演唱Minus、小春六花、ナースロボ＿タイプＴ、默辰，发行于2025-07-04，收录7首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2025-07-04
 order: -20250704
 category:
@@ -34,9 +35,9 @@ tag:
   - "文件"
 ---
 
-# 秘宝旅人 Polaris II
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">秘宝旅人 Polaris II</span></nav>
 
-<img src="./mibaolvren_II_Polaris.jpg" alt="秘宝旅人 Polaris II 封面" class="album-cover" />
+<img src="./mibaolvren_II_Polaris.webp" alt="秘宝旅人 Polaris II 封面" width="1041" height="1041" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2025-07-04
 

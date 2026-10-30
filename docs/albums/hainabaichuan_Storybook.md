@@ -1,5 +1,6 @@
 ---
 title: "海纳百川 Storybook"
+description: "《海纳百川 Storybook》专辑歌词：出品平行四界Quadimension，演唱星尘、海伊、诗岸，发行于2020-11-06，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2020-11-06
 order: -20201106
 category:
@@ -37,9 +38,9 @@ tag:
   - "文件"
 ---
 
-# 海纳百川 Storybook
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">海纳百川 Storybook</span></nav>
 
-<img src="./hainabaichuan_Storybook.jpg" alt="海纳百川 Storybook 封面" class="album-cover" />
+<img src="./hainabaichuan_Storybook.webp" alt="海纳百川 Storybook 封面" width="500" height="500" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2020-11-06
 

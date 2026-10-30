@@ -1,5 +1,6 @@
 ---
 title: "页间曲"
+description: "《页间曲》专辑歌词：出品星韵社，演唱赤羽、洛天依、永夜MInus、星尘，发行于2025-10-10，收录10首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2025-10-10
 order: -20251010
 category:
@@ -36,9 +37,9 @@ tag:
   - "文件"
 ---
 
-# 页间曲
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">页间曲</span></nav>
 
-<img src="./yejianqu.jpg" alt="页间曲 封面" class="album-cover" />
+<img src="./yejianqu.webp" alt="页间曲 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2025-10-10
 

@@ -1,5 +1,6 @@
 ---
 title: "Iris"
+description: "《Iris》专辑歌词：出品Zeno，演唱星尘、永夜，发行于2026-01-31，收录7首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2026-01-31
 order: -20260131
 category:
@@ -15,9 +16,9 @@ tag:
   - "文件"
 ---
 
-# Iris
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">Iris</span></nav>
 
-<img src="./Iris.png" alt="Iris 封面" class="album-cover" />
+<img src="./Iris.webp" alt="Iris 封面" width="1000" height="1000" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2026-01-31
 

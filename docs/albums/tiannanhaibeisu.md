@@ -1,5 +1,6 @@
 ---
 title: "天南海北酥"
+description: "《天南海北酥》专辑歌词：演唱洛天依、乐正绫、洛天依乐正绫，发行于2024-08-31，收录13首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2024-08-31
 order: -20240831
 category:
@@ -24,9 +25,9 @@ tag:
   - "文件"
 ---
 
-# 天南海北酥
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">天南海北酥</span></nav>
 
-<img src="./tiannanhaibeisu.jpg" alt="天南海北酥 封面" class="album-cover" />
+<img src="./tiannanhaibeisu.webp" alt="天南海北酥 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2024-08-31
 

@@ -1,5 +1,6 @@
 ---
 title: "藏雪 SnowGrave"
+description: "《藏雪 SnowGrave》专辑歌词：出品北极圈ArcticLab，演唱星尘、海伊，发行于2024-01-12，收录5首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2024-01-12
 order: -20240112
 category:
@@ -26,9 +27,9 @@ tag:
   - "文件"
 ---
 
-# 藏雪 SnowGrave
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">藏雪 SnowGrave</span></nav>
 
-<img src="./cangxue_SnowGrave.jpg" alt="藏雪 SnowGrave 封面" class="album-cover" />
+<img src="./cangxue_SnowGrave.webp" alt="藏雪 SnowGrave 封面" width="1000" height="1000" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2024-01-12
 

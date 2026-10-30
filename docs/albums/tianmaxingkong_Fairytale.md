@@ -1,5 +1,6 @@
 ---
 title: "天马行空 Fairytale"
+description: "《天马行空 Fairytale》专辑歌词：出品平行四界Quadimension，演唱星尘、赤羽、诗岸，发行于2019-07-05，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2019-07-05
 order: -20190705
 category:
@@ -37,9 +38,9 @@ tag:
   - "文件"
 ---
 
-# 天马行空 Fairytale
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">天马行空 Fairytale</span></nav>
 
-<img src="./tianmaxingkong_Fairytale.jpg" alt="天马行空 Fairytale 封面" class="album-cover" />
+<img src="./tianmaxingkong_Fairytale.webp" alt="天马行空 Fairytale 封面" width="500" height="500" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2019-07-05
 

@@ -1,5 +1,6 @@
 ---
 title: "视星等4.44"
+description: "《视星等4.44》专辑歌词：出品霾Axis，演唱狐狸座，发行于2022-11-19，收录5首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2022-11-19
 order: -20221119
 category:
@@ -26,7 +27,7 @@ tag:
   - "文件"
 ---
 
-# 视星等4.44
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">视星等4.44</span></nav>
 
 
 

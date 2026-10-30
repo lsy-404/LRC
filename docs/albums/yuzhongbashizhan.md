@@ -1,5 +1,6 @@
 ---
 title: "雨中巴士站"
+description: "《雨中巴士站》专辑歌词：出品我是石榴皮，演唱星尘，发行于2018-11-10，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2018-11-10
 order: -20181110
 category:
@@ -15,9 +16,9 @@ tag:
   - "文件"
 ---
 
-# 雨中巴士站
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">雨中巴士站</span></nav>
 
-<img src="./yuzhongbashizhan.jpg" alt="雨中巴士站 封面" class="album-cover" />
+<img src="./yuzhongbashizhan.webp" alt="雨中巴士站 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2018-11-10
 

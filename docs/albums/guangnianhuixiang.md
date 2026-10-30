@@ -1,5 +1,6 @@
 ---
 title: "光年回响"
+description: "《光年回响》专辑歌词：出品薛钦，演唱洛天依，发行于2026-03-20，收录10首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2026-03-20
 order: -20260320
 category:
@@ -25,9 +26,9 @@ tag:
   - "文件"
 ---
 
-# 光年回响
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">光年回响</span></nav>
 
-<img src="./guangnianhuixiang.png" alt="光年回响 封面" class="album-cover" />
+<img src="./guangnianhuixiang.webp" alt="光年回响 封面" width="618" height="623" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2026-03-20
 

@@ -1,5 +1,6 @@
 ---
 title: "依睐·幻想曲"
+description: "《依睐·幻想曲》专辑歌词：出品闹闹丶，演唱洛天依，发行于2025-02-13，收录12首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2025-02-13
 order: -20250213
 category:
@@ -26,7 +27,7 @@ tag:
   - "文件"
 ---
 
-# 依睐·幻想曲
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">依睐·幻想曲</span></nav>
 
 
 

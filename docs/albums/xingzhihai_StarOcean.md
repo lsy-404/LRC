@@ -1,5 +1,6 @@
 ---
 title: "星之海 StarOcean"
+description: "《星之海 StarOcean》专辑歌词：出品平行四界Quadimension，演唱星尘、海伊，发行于2018-08-11，收录10首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2018-08-11
 order: -20180811
 category:
@@ -31,9 +32,9 @@ tag:
   - "文件"
 ---
 
-# 星之海 StarOcean
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">星之海 StarOcean</span></nav>
 
-<img src="./xingzhihai_StarOcean.jpg" alt="星之海 StarOcean 封面" class="album-cover" />
+<img src="./xingzhihai_StarOcean.webp" alt="星之海 StarOcean 封面" width="900" height="900" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2018-08-11
 

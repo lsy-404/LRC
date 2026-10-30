@@ -1,5 +1,6 @@
 ---
 title: "繁星于雨云之上"
+description: "《繁星于雨云之上》专辑歌词：出品会咬人的白海豹，演唱星尘、永夜、洛天依、乐正绫，发行于2025-05-01，收录7首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2025-05-01
 order: -20250501
 category:
@@ -31,9 +32,9 @@ tag:
   - "文件"
 ---
 
-# 繁星于雨云之上
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">繁星于雨云之上</span></nav>
 
-<img src="./fanxingyuyuyunzhishang.jpg" alt="繁星于雨云之上 封面" class="album-cover" />
+<img src="./fanxingyuyuyunzhishang.webp" alt="繁星于雨云之上 封面" width="1000" height="1000" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2025-05-01
 

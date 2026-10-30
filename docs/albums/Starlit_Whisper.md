@@ -1,5 +1,6 @@
 ---
 title: "Starlit Whisper"
+description: "《Starlit Whisper》专辑歌词：出品胧，演唱星尘、赤羽、诗岸、海伊，发行于2025-12-05，收录8首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2025-12-05
 order: -20251205
 category:
@@ -25,9 +26,9 @@ tag:
   - "文件"
 ---
 
-# Starlit Whisper
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">Starlit Whisper</span></nav>
 
-<img src="./Starlit_Whisper.png" alt="Starlit Whisper 封面" class="album-cover" />
+<img src="./Starlit_Whisper.webp" alt="Starlit Whisper 封面" width="640" height="640" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2025-12-05
 

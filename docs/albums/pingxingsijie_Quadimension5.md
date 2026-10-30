@@ -1,5 +1,6 @@
 ---
 title: "平行四界 Quadimension 5"
+description: "《平行四界 Quadimension 5》专辑歌词：出品平行四界Quadimension，演唱洛天依、乐正绫、星尘，发行于2016-06-17，收录10首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2016-06-17
 order: -20160617
 category:
@@ -35,9 +36,9 @@ tag:
   - "文件"
 ---
 
-# 平行四界 Quadimension 5
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">平行四界 Quadimension 5</span></nav>
 
-<img src="./pingxingsijie_Quadimension5.jpg" alt="平行四界 Quadimension 5 封面" class="album-cover" />
+<img src="./pingxingsijie_Quadimension5.webp" alt="平行四界 Quadimension 5 封面" width="700" height="700" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2016-06-17
 

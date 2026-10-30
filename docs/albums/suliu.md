@@ -1,5 +1,6 @@
 ---
 title: "溯流"
+description: "《溯流》专辑歌词：出品蝴蝶效应_BFx，演唱星尘、海伊、诗岸，发行于2026-05-30，收录13首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2026-05-30
 order: -20260530
 category:
@@ -38,9 +39,9 @@ tag:
   - "文件"
 ---
 
-# 溯流
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">溯流</span></nav>
 
-<img src="./suliu.png" alt="溯流 封面" class="album-cover" />
+<img src="./suliu.webp" alt="溯流 封面" width="1200" height="675" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2026-05-30
 

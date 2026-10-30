@@ -1,5 +1,6 @@
 ---
 title: "茜色诗集 Akane Poems"
+description: "《茜色诗集 Akane Poems》专辑歌词：出品泠鸢yousa，演唱泠鸢yousa，发行于2016-12-04，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2016-12-04
 order: -20161204
 category:
@@ -23,9 +24,9 @@ tag:
   - "文件"
 ---
 
-# 茜色诗集 Akane Poems
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">茜色诗集 Akane Poems</span></nav>
 
-<img src="./qianseshiji.jpg" alt="茜色诗集 Akane Poems 封面" class="album-cover" />
+<img src="./qianseshiji.webp" alt="茜色诗集 Akane Poems 封面" width="1000" height="1000" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2016-12-04
 

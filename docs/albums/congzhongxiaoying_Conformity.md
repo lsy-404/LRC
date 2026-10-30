@@ -1,5 +1,6 @@
 ---
 title: "从众效应 Conformity"
+description: "《从众效应 Conformity》专辑歌词：演唱洛天依、乐正绫、乐正龙牙、墨清弦，发行于2019-03-29，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2019-03-29
 order: -20190329
 category:
@@ -19,7 +20,7 @@ tag:
   - "文件"
 ---
 
-# 从众效应 Conformity
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">从众效应 Conformity</span></nav>
 
 
 

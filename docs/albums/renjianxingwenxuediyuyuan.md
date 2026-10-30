@@ -1,5 +1,6 @@
 ---
 title: "人間型文學地獄園"
+description: "《人間型文學地獄園》专辑歌词：出品Asian Lo-Fi Inc.，演唱星尘Infinity、GUMI、重音テト，发行于2026-02-01，收录5首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2026-02-01
 order: -20260201
 category:
@@ -21,9 +22,9 @@ tag:
   - "文件"
 ---
 
-# 人間型文學地獄園
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">人間型文學地獄園</span></nav>
 
-<img src="./renjianxingwenxuediyuyuan.jpg" alt="人間型文學地獄園 封面" class="album-cover" />
+<img src="./renjianxingwenxuediyuyuan.webp" alt="人間型文學地獄園 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2026-02-01
 

@@ -1,5 +1,6 @@
 ---
 title: "数风流"
+description: "《数风流》专辑歌词：出品忘川风华录，演唱苍穹、赤羽、海伊、星尘Minus，发行于2023-11-08，收录14首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2023-11-08
 order: -20231108
 category:
@@ -48,9 +49,9 @@ tag:
   - "文件"
 ---
 
-# 数风流
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">数风流</span></nav>
 
-<img src="./shufengliu.jpg" alt="数风流 封面" class="album-cover" />
+<img src="./shufengliu.webp" alt="数风流 封面" width="1080" height="1080" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2023-11-08
 

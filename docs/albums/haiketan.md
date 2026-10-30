@@ -1,5 +1,6 @@
 ---
 title: "海客谈"
+description: "《海客谈》专辑歌词：出品海鲜面、邪叫教主，演唱洛天依、乐正绫、言和，发行于2023-12-22，收录15首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2023-12-22
 order: -20231222
 category:
@@ -24,7 +25,7 @@ tag:
   - "文件"
 ---
 
-# 海客谈
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">海客谈</span></nav>
 
 
 

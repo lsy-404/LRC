@@ -1,5 +1,6 @@
 ---
 title: "深潜之宙"
+description: "《深潜之宙》专辑歌词：出品奶牛组，演唱苍穹，发行于2019-12-14，收录5首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2019-12-14
 order: -20191214
 category:
@@ -18,9 +19,9 @@ tag:
   - "文件"
 ---
 
-# 深潜之宙
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">深潜之宙</span></nav>
 
-<img src="./shenqianzhizhou.jpg" alt="深潜之宙 封面" class="album-cover" />
+<img src="./shenqianzhizhou.webp" alt="深潜之宙 封面" width="1000" height="1000" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2019-12-14
 

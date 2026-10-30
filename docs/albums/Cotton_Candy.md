@@ -1,5 +1,6 @@
 ---
 title: "Cotton Candy"
+description: "《Cotton Candy》专辑歌词：出品墨蓝酱油，演唱音街ウナ、星尘、洛天依、乐正绫，发行于2020-03-13，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2020-03-13
 order: -20200313
 category:
@@ -18,7 +19,7 @@ tag:
   - "文件"
 ---
 
-# Cotton Candy
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">Cotton Candy</span></nav>
 
 
 

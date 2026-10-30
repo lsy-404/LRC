@@ -1,5 +1,6 @@
 ---
 title: "碎屑"
+description: "《碎屑》专辑歌词：出品电鱼，演唱星尘、海伊，发行于2026-08-09，收录12首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2026-08-09
 order: -20260809
 category:
@@ -16,9 +17,9 @@ tag:
   - "文件"
 ---
 
-# 碎屑
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">碎屑</span></nav>
 
-<img src="./suixie.jpg" alt="碎屑 封面" class="album-cover" />
+<img src="./suixie.webp" alt="碎屑 封面" width="1100" height="1100" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2026-08-09
 
