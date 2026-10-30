@@ -2,9 +2,13 @@ import { hopeTheme } from "vuepress-theme-hope";
 import { Page } from "vuepress"
 import navbar from "./navbar";
 import sidebar from "./sidebar";
+import { albumStructuredData, siteStructuredData } from "./structuredData";
+
+const hostname = "https://lrc.voidcarve.com";
+const NOINDEX_PREFIXES = ["/tag/", "/timeline/", "/star/", "/article/", "/category/", "/contribute/workstation", "/dev/", "/404"];
 
 export default hopeTheme({
-  hostname: "https://lrc.voidcarve.com",
+  hostname,
 
 
   logo: "/logo.png",
@@ -67,6 +71,23 @@ export default hopeTheme({
     // 图标资源
     icon: {
       assets: "iconify",
+    },
+
+    seo: {
+      canonical: (page) => (page.path.startsWith("/404") ? null : `${hostname}${page.path}`),
+      fallBackImage: `${hostname}/logo.png`,
+      isArticle: (page) => page.path.startsWith("/albums/"),
+      jsonLd: (jsonLD, page) =>
+        (albumStructuredData(page, hostname) as typeof jsonLD | null) ?? siteStructuredData(jsonLD, page, hostname),
+      customHead: (head, page) => {
+        if (page.path === "/albums/" || NOINDEX_PREFIXES.some((prefix) => page.path.startsWith(prefix))) {
+          head.push(["meta", { name: "robots", content: "noindex,follow" }]);
+        }
+      },
+    },
+
+    sitemap: {
+      excludePaths: ["/404.html", "/contribute/workstation", "/dev/", "/dev/meta.html"],
     },
 
     // 歌词网站不需要评论功能

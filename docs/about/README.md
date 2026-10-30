@@ -1,9 +1,8 @@
 ---
 title: 关于本站
 icon: material-symbols:info
+description: V宇宙词站是社区维护的公益项目，整理虚拟歌姬专辑信息与 LRC 歌词，说明资源来源、联系方式与参与方式。
 ---
-
-# 关于本站
 
 V宇宙词站是一个由社区驱动维护的 wiki 公益性项目，旨在为虚拟歌姬专辑提供信息导航和歌词共享资源库（Curated dataset），和任何官方无关。
 

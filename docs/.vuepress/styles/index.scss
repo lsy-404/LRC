@@ -47,3 +47,9 @@
 }
 
 // 投稿流程是工作区而不是文档阅读页，只在对应路由解除主题的阅读宽度约束。
+
+.album-breadcrumb {
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--vp-c-text-mute, #6b7280);
+}
