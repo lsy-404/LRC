@@ -1,6 +1,7 @@
 ---
 title: 版权信息
 icon: material-symbols:copyright
+description: 站内 LRC 歌词的 CC BY-NC-SA 4.0 使用协议、“非商业性使用”的本站解释以及 DMCA 版权投诉方式。
 ---
 ## 使用协议
 

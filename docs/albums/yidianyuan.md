@@ -1,5 +1,6 @@
 ---
 title: "伊甸园"
+description: "《伊甸园》专辑歌词：出品Licis，演唱言和，发行于2023-11-25，收录11首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2023-11-25
 order: -20231125
 category:
@@ -18,7 +19,7 @@ tag:
   - "文件"
 ---
 
-# 伊甸园
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">伊甸园</span></nav>
 
 
 

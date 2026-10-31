@@ -1,5 +1,6 @@
 ---
 title: "亚特兰蒂斯 Atlantis"
+description: "《亚特兰蒂斯 Atlantis》专辑歌词：出品平行四界Quadimension，演唱海伊，发行于2018-10-30，收录8首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2018-10-30
 order: -20181030
 category:
@@ -31,9 +32,9 @@ tag:
   - "文件"
 ---
 
-# 亚特兰蒂斯 Atlantis
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">亚特兰蒂斯 Atlantis</span></nav>
 
-<img src="./yatelandisi_Atlantis.jpg" alt="亚特兰蒂斯 Atlantis 封面" class="album-cover" />
+<img src="./yatelandisi_Atlantis.webp" alt="亚特兰蒂斯 Atlantis 封面" width="900" height="900" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2018-10-30
 

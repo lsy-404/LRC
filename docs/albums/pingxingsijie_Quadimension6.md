@@ -1,5 +1,6 @@
 ---
 title: "平行四界 Quadimension6"
+description: "《平行四界 Quadimension6》专辑歌词：出品平行四界Quadimension，演唱星尘、洛天依、乐正绫、言和，发行于2018-03-23，收录8首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2018-03-23
 order: -20180323
 category:
@@ -32,9 +33,9 @@ tag:
   - "文件"
 ---
 
-# 平行四界 Quadimension6
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">平行四界 Quadimension6</span></nav>
 
-<img src="./pingxingsijie_Quadimension6.jpg" alt="平行四界 Quadimension6 封面" class="album-cover" />
+<img src="./pingxingsijie_Quadimension6.webp" alt="平行四界 Quadimension6 封面" width="540" height="540" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2018-03-23
 

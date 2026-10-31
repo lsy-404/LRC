@@ -1,5 +1,6 @@
 ---
 title: "甘泽谣"
+description: "《甘泽谣》专辑歌词：演唱小白龙，发行于2020-04-24，收录10首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2020-04-24
 order: -20200424
 category:
@@ -18,7 +19,7 @@ tag:
   - "文件"
 ---
 
-# 甘泽谣
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">甘泽谣</span></nav>
 
 
 

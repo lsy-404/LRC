@@ -1,5 +1,6 @@
 ---
 title: "平行四界 Quadimension X-1"
+description: "《平行四界 Quadimension X-1》专辑歌词：出品平行四界Quadimension，演唱牧心、诗岸、海伊、星尘，发行于2021-06-04，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2021-06-04
 order: -20210604
 category:
@@ -39,9 +40,9 @@ tag:
   - "文件"
 ---
 
-# 平行四界 Quadimension X-1
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">平行四界 Quadimension X-1</span></nav>
 
-<img src="./pingxingsijie_Quadimension_X-1.jpg" alt="平行四界 Quadimension X-1 封面" class="album-cover" />
+<img src="./pingxingsijie_Quadimension_X-1.webp" alt="平行四界 Quadimension X-1 封面" width="942" height="942" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2021-06-04
 

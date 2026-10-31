@@ -1,5 +1,6 @@
 ---
 title: "再见，碳酸海 Deluxe"
+description: "《再见，碳酸海 Deluxe》专辑歌词：出品Sodatune，演唱洛天依、乐正绫、洛天依/乐正绫，发行于2024-10-02，收录14首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2024-10-02
 order: -20241002
 category:
@@ -24,9 +25,9 @@ tag:
   - "文件"
 ---
 
-# 再见，碳酸海 Deluxe
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">再见，碳酸海 Deluxe</span></nav>
 
-<img src="./zaijiantansuanhai_Deluxe.jpg" alt="再见，碳酸海 Deluxe 封面" class="album-cover" />
+<img src="./zaijiantansuanhai_Deluxe.webp" alt="再见，碳酸海 Deluxe 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2024-10-02
 

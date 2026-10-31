@@ -1,5 +1,6 @@
 ---
 title: "百万花王"
+description: "《百万花王》专辑歌词：出品平行四界Quadimension，演唱星尘，发行于2020-08-12，收录10首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2020-08-12
 order: -20200812
 category:
@@ -17,9 +18,9 @@ tag:
   - "文件"
 ---
 
-# 百万花王
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">百万花王</span></nav>
 
-<img src="./baiwanhuawang.jpg" alt="百万花王 封面" class="album-cover" />
+<img src="./baiwanhuawang.webp" alt="百万花王 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2020-08-12
 

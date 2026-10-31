@@ -1,5 +1,6 @@
 ---
 title: "苍穹之痕：混沌时代"
+description: "《苍穹之痕：混沌时代》专辑歌词：出品踏云社，演唱墨清弦、星尘、心华、乐正绫，发行于2022-01-01，收录5首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2022-01-01
 order: -20220101
 category:
@@ -33,7 +34,7 @@ tag:
   - "文件"
 ---
 
-# 苍穹之痕：混沌时代
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">苍穹之痕：混沌时代</span></nav>
 
 
 

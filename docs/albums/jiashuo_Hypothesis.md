@@ -1,5 +1,6 @@
 ---
 title: "假说 Hypothesis"
+description: "《假说 Hypothesis》专辑歌词：出品喻川YuChuan，演唱默辰、岸晓，发行于2025-12-06，收录4首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2025-12-06
 order: -20251206
 category:
@@ -22,9 +23,9 @@ tag:
   - "文件"
 ---
 
-# 假说 Hypothesis
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">假说 Hypothesis</span></nav>
 
-<img src="./jiashuo_Hypothesis.jpg" alt="假说 Hypothesis 封面" class="album-cover" />
+<img src="./jiashuo_Hypothesis.webp" alt="假说 Hypothesis 封面" width="1200" height="1153" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2025-12-06
 

@@ -1,5 +1,6 @@
 ---
 title: "于星海中归于虚无"
+description: "《于星海中归于虚无》专辑歌词：出品罗绮星雨，演唱星尘，发行于2026-04-26，收录4首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2026-04-26
 order: -20260426
 category:
@@ -19,9 +20,9 @@ tag:
   - "文件"
 ---
 
-# 于星海中归于虚无
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">于星海中归于虚无</span></nav>
 
-<img src="./yuxinghaizhongguiyuxuwu.jpg" alt="于星海中归于虚无 封面" class="album-cover" />
+<img src="./yuxinghaizhongguiyuxuwu.webp" alt="于星海中归于虚无 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2026-04-26
 

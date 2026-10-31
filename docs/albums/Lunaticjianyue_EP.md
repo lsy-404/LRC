@@ -1,5 +1,6 @@
 ---
 title: "见月 Lunatic EP"
+description: "《见月 Lunatic EP》专辑歌词：发行于2021-06-21，收录2首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2021-06-21
 order: -20210621
 category:
@@ -15,7 +16,7 @@ tag:
   - "文件"
 ---
 
-# 见月 Lunatic EP
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">见月 Lunatic EP</span></nav>
 
 
 

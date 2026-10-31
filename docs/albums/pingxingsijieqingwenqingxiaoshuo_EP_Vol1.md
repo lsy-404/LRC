@@ -1,5 +1,6 @@
 ---
 title: "平行四界×轻文轻小说 Vol.1"
+description: "《平行四界×轻文轻小说 Vol.1》专辑歌词：出品平行四界Quadimension，演唱星尘，发行于2016-07-24，收录4首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2016-07-24
 order: -20160724
 category:
@@ -24,9 +25,9 @@ tag:
   - "文件"
 ---
 
-# 平行四界×轻文轻小说 Vol.1
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">平行四界×轻文轻小说 Vol.1</span></nav>
 
-<img src="./pingxingsijieqingwenqingxiaoshuo_EP_Vol1.png" alt="平行四界×轻文轻小说 Vol.1 封面" class="album-cover" />
+<img src="./pingxingsijieqingwenqingxiaoshuo_EP_Vol1.webp" alt="平行四界×轻文轻小说 Vol.1 封面" width="700" height="700" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2016-07-24
 

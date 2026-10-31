@@ -1,6 +1,7 @@
 ---
 title: 贡献指南
 icon: material-symbols:person-add
+description: 向 V宇宙词站贡献专辑信息与歌词的流程，包括注册 GitHub 账户、文件结构、提交更改、自动审核规则与发布流程。
 redirectFrom:
   - /CONTRIBUTING.html
 ---
@@ -28,7 +29,7 @@ Staff 表与封面后提交，完全无需 Git。可用的操作取决于账号�
 你需要一个 GitHub 账户来贡献。
 
 - 如果还没有账户，请在这里注册：  
-   [GitHub 注册](https://github.com/signup?return_to=https%3A%2F%2Fgithub.com%2Fwuyilingwei%2FLRC&source=login)
+   [GitHub 注册](https://github.com/signup?return_to=https%3A%2F%2Fgithub.com%2Flsy-404%2FLRC&source=login)
 
 ---
 

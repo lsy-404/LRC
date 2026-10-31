@@ -1,5 +1,6 @@
 ---
 title: "生息 Leave in Breath"
+description: "《生息 Leave in Breath》专辑歌词：出品北极圈ArcticLab，演唱海伊、星尘，发行于2025-03-22，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2025-03-22
 order: -20250322
 category:
@@ -34,9 +35,9 @@ tag:
   - "文件"
 ---
 
-# 生息 Leave in Breath
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">生息 Leave in Breath</span></nav>
 
-<img src="./shengxi_Leave_in_Breath.jpg" alt="生息 Leave in Breath 封面" class="album-cover" />
+<img src="./shengxi_Leave_in_Breath.webp" alt="生息 Leave in Breath 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2025-03-22
 

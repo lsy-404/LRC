@@ -1,5 +1,6 @@
 ---
 title: "卧室四格 Mobiusroom"
+description: "《卧室四格 Mobiusroom》专辑歌词：出品靘鱼研究所，演唱言和，发行于2023-07-06，收录6首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2023-07-06
 order: -20230706
 category:
@@ -24,9 +25,9 @@ tag:
   - "文件"
 ---
 
-# 卧室四格 Mobiusroom
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">卧室四格 Mobiusroom</span></nav>
 
-<img src="./woshisige.jpg" alt="卧室四格 Mobiusroom 封面" class="album-cover" />
+<img src="./woshisige.webp" alt="卧室四格 Mobiusroom 封面" width="1000" height="1000" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2023-07-06
 

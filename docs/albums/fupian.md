@@ -1,5 +1,6 @@
 ---
 title: "负片"
+description: "《负片》专辑歌词：出品复响、沈病娇，演唱星尘minus，发行于2022-08-12，收录8首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2022-08-12
 order: -20220812
 category:
@@ -16,9 +17,9 @@ tag:
   - "文件"
 ---
 
-# 负片
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">负片</span></nav>
 
-<img src="./fupian.jpg" alt="负片 封面" class="album-cover" />
+<img src="./fupian.webp" alt="负片 封面" width="1000" height="1000" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2022-08-12
 

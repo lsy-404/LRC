@@ -1,5 +1,6 @@
 ---
 title: "秘宝旅人 I"
+description: "《秘宝旅人 I》专辑歌词：出品秘宝旅人，演唱苍穹、星尘Infinity、海伊、诗岸，发行于2023-11-25，收录10首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2023-11-25
 order: -20231125
 category:
@@ -32,9 +33,9 @@ tag:
   - "文件"
 ---
 
-# 秘宝旅人 I
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">秘宝旅人 I</span></nav>
 
-<img src="./mibaolvren_I.png" alt="秘宝旅人 I 封面" class="album-cover" />
+<img src="./mibaolvren_I.webp" alt="秘宝旅人 I 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2023-11-25
 

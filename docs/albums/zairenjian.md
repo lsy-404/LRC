@@ -1,5 +1,6 @@
 ---
 title: "在人间"
+description: "《在人间》专辑歌词：演唱言和，发行于2023-06-23，收录7首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2023-06-23
 order: -20230623
 category:
@@ -17,7 +18,7 @@ tag:
   - "文件"
 ---
 
-# 在人间
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">在人间</span></nav>
 
 
 

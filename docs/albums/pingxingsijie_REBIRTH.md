@@ -1,5 +1,6 @@
 ---
 title: "平行四界 RE: BIRTH"
+description: "《平行四界 RE: BIRTH》专辑歌词：出品平行四界Quadimension，演唱星尘、赤羽、海伊、诗岸，发行于2025-08-12，收录8首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2025-08-12
 order: -20250812
 category:
@@ -35,9 +36,9 @@ tag:
   - "文件"
 ---
 
-# 平行四界 RE: BIRTH
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">平行四界 RE: BIRTH</span></nav>
 
-<img src="./pingxingsijie_REBIRTH.jpg" alt="平行四界 RE: BIRTH 封面" class="album-cover" />
+<img src="./pingxingsijie_REBIRTH.webp" alt="平行四界 RE: BIRTH 封面" width="1000" height="1000" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2025-08-12
 

@@ -1,5 +1,6 @@
 ---
 title: "与你相连的雪之羁绊 Home Snow with You"
+description: "《与你相连的雪之羁绊 Home Snow with You》专辑歌词：出品雪人Snowman，演唱星尘、Stuart，发行于2024-08-07，收录8首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2024-08-07
 order: -20240807
 category:
@@ -23,9 +24,9 @@ tag:
   - "文件"
 ---
 
-# 与你相连的雪之羁绊 Home Snow with You
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">与你相连的雪之羁绊 Home Snow with You</span></nav>
 
-<img src="./yunixiangliandexuezhijiban.jpg" alt="与你相连的雪之羁绊 Home Snow with You 封面" class="album-cover" />
+<img src="./yunixiangliandexuezhijiban.webp" alt="与你相连的雪之羁绊 Home Snow with You 封面" width="1199" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2024-08-07
 

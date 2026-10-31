@@ -1,5 +1,6 @@
 ---
 title: "织肉匠 le bricoleur du devenir"
+description: "《织肉匠 le bricoleur du devenir》专辑歌词：出品磁带君，演唱牧心、永夜Minus、星尘、海伊，发行于2025-12-05，收录8首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2025-12-05
 order: -20251205
 category:
@@ -25,9 +26,9 @@ tag:
   - "文件"
 ---
 
-# 织肉匠 le bricoleur du devenir
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">织肉匠 le bricoleur du devenir</span></nav>
 
-<img src="./zhiroujiang_-_le_bricoleur_du_devenir.jpg" alt="织肉匠 le bricoleur du devenir 封面" class="album-cover" />
+<img src="./zhiroujiang_-_le_bricoleur_du_devenir.webp" alt="织肉匠 le bricoleur du devenir 封面" width="1172" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2025-12-05
 

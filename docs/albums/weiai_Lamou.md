@@ -1,5 +1,6 @@
 ---
 title: "维·爱 L'amouЯ"
+description: "《维·爱 L'amouЯ》专辑歌词：演唱海伊、赤羽、诗岸、星尘，发行于2026-05-29，收录7首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2026-05-29
 order: -20260529
 category:
@@ -20,9 +21,9 @@ tag:
   - "文件"
 ---
 
-# 维·爱 L'amouЯ
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">维·爱 L'amouЯ</span></nav>
 
-<img src="./weiai_Lamou.jpg" alt="维·爱 L'amouЯ 封面" class="album-cover" />
+<img src="./weiai_Lamou.webp" alt="维·爱 L'amouЯ 封面" width="960" height="960" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2026-05-29
 

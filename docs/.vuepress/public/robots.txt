@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /studio/
+Disallow: /api/auth/
+Disallow: /api/upload/
+Disallow: /api/ingest/
+Disallow: /api/workspace/
+Disallow: /api/library/

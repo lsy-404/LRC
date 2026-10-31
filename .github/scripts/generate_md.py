@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import re
-import shutil
+from glob import escape as glob_escape
 import urllib.parse
 from pathlib import Path
+
+from PIL import Image
 
 from lib.config_loader import load_config
 from lib.meta_parser import load_album_meta
@@ -19,6 +21,8 @@ RES_DIR = ROOT_DIR / str(PROJECT.get("res_dir", "res"))
 DOCS_DIR = ROOT_DIR / str(PROJECT.get("docs_dir", "docs"))
 ALBUMS_DIR = ROOT_DIR / str(PROJECT.get("albums_dir", "docs/albums"))
 COVER_EXTENSIONS = [str(item) for item in COMMON.get("cover_ext", [".jpg", ".png", ".jpeg", ".webp", ".bmp"])]
+COVER_MAX_SIDE = 1200
+COVER_WEBP_QUALITY = 82
 BVID_RE = re.compile(r"\b(BV[0-9A-Za-z]{10})\b", re.IGNORECASE)
 
 
@@ -131,6 +135,37 @@ def find_cover(album_path: Path) -> tuple[Path | None, str]:
     return None, ""
 
 
+def convert_cover(source: Path, album_file_name: str) -> tuple[str, int, int]:
+    """把封面转成 WebP 写入专辑目录，清理同名旧格式，返回扩展名与尺寸"""
+    with Image.open(source) as image:
+        image.thumbnail((COVER_MAX_SIDE, COVER_MAX_SIDE))
+        if image.mode not in ("RGB", "RGBA"):
+            image = image.convert("RGBA" if "transparency" in image.info else "RGB")
+        width, height = image.size
+        image.save(ALBUMS_DIR / f"{album_file_name}.webp", "WEBP", quality=COVER_WEBP_QUALITY, method=6)
+    for old in ALBUMS_DIR.glob(f"{glob_escape(album_file_name)}.*"):
+        if old.suffix.lower() in COVER_EXTENSIONS and old.suffix.lower() != ".webp":
+            old.unlink()
+    return ".webp", width, height
+
+
+def album_description(display_name: str, info: dict, song_count: int) -> str:
+    parts = [f"《{display_name}》专辑歌词"]
+    details = []
+    if not is_disabled_value(info.get("produce")):
+        details.append(f"出品{'、'.join(info['produce'][:2])}")
+    if not is_disabled_value(info.get("vocal")):
+        details.append(f"演唱{'、'.join(info['vocal'][:4])}")
+    year_text = str(info.get("year") or "").strip()
+    if year_text and year_text != "1970-01-01" and not is_disabled_value(year_text):
+        details.append(f"发行于{year_text}")
+    if song_count:
+        details.append(f"收录{song_count}首曲目")
+    text = parts[0] + ("：" + "，".join(details) if details else "")
+    text += "，可在线浏览曲目并下载 LRC 歌词。"
+    return text if len(text) <= 160 else text[:159] + "…"
+
+
 def ensure_dirs() -> None:
     ALBUMS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -195,19 +230,13 @@ def main() -> None:
             song_title = lrc_file.stem
             songs.append({"title": song_title, "file": lrc_file.name})
 
-        cover_file, cover_ext = find_cover(album_dir)
-        if cover_file:
-            dest_cover = ALBUMS_DIR / f"{album_file_name}{cover_ext}"
-            shutil.copyfile(cover_file, dest_cover)
-
-        # 检查cover文件是否存在（文件名已是小写）
+        cover_file, _ = find_cover(album_dir)
         has_cover = False
         cover_display_ext = ""
-        if cover_ext:
-            target = ALBUMS_DIR / f"{album_file_name}{cover_ext}"
-            if target.exists():
-                has_cover = True
-                cover_display_ext = cover_ext
+        cover_width = cover_height = 0
+        if cover_file:
+            cover_display_ext, cover_width, cover_height = convert_cover(cover_file, album_file_name)
+            has_cover = True
 
         tags = [album]
         # 添加前缀、中英文名和后缀到 tag（如果有值且不是占位符）
@@ -321,14 +350,15 @@ def main() -> None:
         tag_lines = "".join(f"  - {format_tag_for_yaml(tag)}\n" for tag in tags)
         md_content = f"""---
 title: {yaml_quote(display_name)}
+description: {yaml_quote(album_description(display_name, info, len(songs)))}
 {date_line}{order_line}category:
   - {yaml_quote(category_value)}
 tag:
 {tag_lines}---
 
-# {display_name}
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">{display_name}</span></nav>
 
-{f'<img src="./{album_file_name}{cover_display_ext}" alt="{display_name} 封面" class="album-cover" />' if has_cover else ''}
+{f'<img src="./{album_file_name}{cover_display_ext}" alt="{display_name} 封面" width="{cover_width}" height="{cover_height}" fetchpriority="high" class="album-cover" />' if has_cover else ''}
 
 {((chr(10) + chr(10)).join(info_display) + chr(10)) if info_display else ''}
 ## 曲目列表
@@ -363,6 +393,7 @@ tag:
                 "name": display_name,
                 "file_name": album_file_name,
                 "cover": cover_url,
+                "cover_size": (cover_width, cover_height),
                 "produce": produce_display,
                 "year": year_display,
                 "year_raw": year_raw,  # 用于排序的原始值
@@ -374,13 +405,13 @@ tag:
     album_cards.sort(key=lambda card: parse_sortable_date(str(card["year_raw"])), reverse=True)
 
     cards_text = ["| | |", "|----|-----|"]
-    for card in album_cards:
+    for index, card in enumerate(album_cards):
         year_line = f"发行日期：{card['year']}"
         zip_url = f"https://cdn.jsdelivr.net/gh/{REPO}@main/pack/{urllib.parse.quote(card['name'])}.zip"
 
         # 双列表格布局，左边图片，右边信息
         if card["cover"]:
-            card_html = f"| <img src=\"{card['cover']}\" alt=\"{card['name']} 封面\" style=\"width: 100%; border-radius: 12px;\"> | <h3><a class=\"route-link\" href=\"/albums/{card['file_name']}.html\">{card['name']}</a></h3>出品：{card['produce']}<br>{year_line}<br><br>[ZIP 下载]({zip_url}) |"
+            card_html = f"| <img src=\"{card['cover']}\" alt=\"{card['name']} 封面\" width=\"{card['cover_size'][0]}\" height=\"{card['cover_size'][1]}\" {'' if index < 2 else 'loading=\"lazy\" '}decoding=\"async\" style=\"width: 100%; height: auto; border-radius: 12px;\"> | <h3><a class=\"route-link\" href=\"/albums/{card['file_name']}.html\">{card['name']}</a></h3>出品：{card['produce']}<br>{year_line}<br><br>[ZIP 下载]({zip_url}) |"
         else:
             card_html = f"| | <h3><a class=\"route-link\" href=\"/albums/{card['file_name']}.html\">{card['name']}</a></h3>出品：{card['produce']}<br>{year_line}<br><br>[ZIP 下载]({zip_url}) |"
         cards_text.append(card_html)
@@ -388,6 +419,7 @@ tag:
     docs_readme = f"""---
 icon: material-symbols:home
 title: 首页
+description: 收录虚拟歌姬专辑的出品、演唱与曲目信息，提供 LRC 歌词在线浏览与下载，歌词遵循 CC BY-NC-SA 4.0 协议。
 heroText: V宇宙词站
 tagline: 虚拟歌姬专辑的信息导航与歌词共享资源库
 ---

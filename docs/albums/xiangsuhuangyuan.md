@@ -1,5 +1,6 @@
 ---
 title: "像素荒原 PixelWasteland"
+description: "《像素荒原 PixelWasteland》专辑歌词：出品我是石榴皮，演唱诗岸、星尘、永夜Minus、洛天依，发行于2025-09-10，收录17首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2025-09-10
 order: -20250910
 category:
@@ -20,9 +21,9 @@ tag:
   - "文件"
 ---
 
-# 像素荒原 PixelWasteland
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">像素荒原 PixelWasteland</span></nav>
 
-<img src="./xiangsuhuangyuan.jpg" alt="像素荒原 PixelWasteland 封面" class="album-cover" />
+<img src="./xiangsuhuangyuan.webp" alt="像素荒原 PixelWasteland 封面" width="1024" height="1024" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2025-09-10
 

@@ -1,5 +1,6 @@
 ---
 title: "蝴蝶旅客"
+description: "《蝴蝶旅客》专辑歌词：出品小野道，演唱星尘，发行于2017-04-22，收录10首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2017-04-22
 order: -20170422
 category:
@@ -18,9 +19,9 @@ tag:
   - "文件"
 ---
 
-# 蝴蝶旅客
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">蝴蝶旅客</span></nav>
 
-<img src="./hudielvke.jpg" alt="蝴蝶旅客 封面" class="album-cover" />
+<img src="./hudielvke.webp" alt="蝴蝶旅客 封面" width="700" height="700" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2017-04-22
 

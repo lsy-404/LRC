@@ -1,5 +1,6 @@
 ---
 title: "绮遇 Pr7sm"
+description: "《绮遇 Pr7sm》专辑歌词：出品墨清弦相关收集站，演唱墨清弦，发行于2026-05-23，收录8首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2026-05-23
 order: -20260523
 category:
@@ -40,9 +41,9 @@ tag:
   - "文件"
 ---
 
-# 绮遇 Pr7sm
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">绮遇 Pr7sm</span></nav>
 
-<img src="./Pr7smqiyu.jpg" alt="绮遇 Pr7sm 封面" class="album-cover" />
+<img src="./Pr7smqiyu.webp" alt="绮遇 Pr7sm 封面" width="1200" height="653" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2026-05-23
 

@@ -1,5 +1,6 @@
 ---
 title: "星遇"
+description: "《星遇》专辑歌词：出品青蓝、夜屠灵，演唱星尘，发行于2024-08-12，收录10首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2024-08-12
 order: -20240812
 category:
@@ -32,9 +33,9 @@ tag:
   - "文件"
 ---
 
-# 星遇
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">星遇</span></nav>
 
-<img src="./xingyu.jpg" alt="星遇 封面" class="album-cover" />
+<img src="./xingyu.webp" alt="星遇 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2024-08-12
 

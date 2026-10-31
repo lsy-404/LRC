@@ -1,5 +1,6 @@
 ---
 title: "平行四界 Quadimension X-3"
+description: "《平行四界 Quadimension X-3》专辑歌词：出品平行四界Quadimension，演唱星尘、海伊、诗岸、苍穹，发行于2022-04-03，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2022-04-03
 order: -20220403
 category:
@@ -40,9 +41,9 @@ tag:
   - "文件"
 ---
 
-# 平行四界 Quadimension X-3
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">平行四界 Quadimension X-3</span></nav>
 
-<img src="./pingxingsijie_Quadimension_X-3.jpg" alt="平行四界 Quadimension X-3 封面" class="album-cover" />
+<img src="./pingxingsijie_Quadimension_X-3.webp" alt="平行四界 Quadimension X-3 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2022-04-03
 

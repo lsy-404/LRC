@@ -1,5 +1,6 @@
 ---
 title: "metaphorical girl Re"
+description: "《metaphorical girl Re》专辑歌词：出品TOPKINGCREAM，演唱星尘Infinity，发行于2026-04-29，收录9首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2026-04-29
 order: -20260429
 category:
@@ -16,9 +17,9 @@ tag:
   - "文件"
 ---
 
-# metaphorical girl Re
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">metaphorical girl Re</span></nav>
 
-<img src="./metaphorical_girl_Re.png" alt="metaphorical girl Re 封面" class="album-cover" />
+<img src="./metaphorical_girl_Re.webp" alt="metaphorical girl Re 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2026-04-29
 

@@ -1,5 +1,6 @@
 ---
 title: "星愿 StarWish"
+description: "《星愿 StarWish》专辑歌词：出品平行四界Quadimension，演唱星尘，发行于2016-03-04，收录8首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2016-03-04
 order: -20160304
 category:
@@ -31,9 +32,9 @@ tag:
   - "文件"
 ---
 
-# 星愿 StarWish
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">星愿 StarWish</span></nav>
 
-<img src="./xingyuan_StarWish.jpg" alt="星愿 StarWish 封面" class="album-cover" />
+<img src="./xingyuan_StarWish.webp" alt="星愿 StarWish 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2016-03-04
 

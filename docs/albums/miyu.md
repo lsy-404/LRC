@@ -1,5 +1,6 @@
 ---
 title: "蜜獄"
+description: "《蜜獄》专辑歌词：出品奶牛组，演唱星尘、赤羽、海伊、诗岸，发行于2021-12-03，收录7首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2021-12-03
 order: -20211203
 category:
@@ -23,9 +24,9 @@ tag:
   - "文件"
 ---
 
-# 蜜獄
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">蜜獄</span></nav>
 
-<img src="./miyu.jpg" alt="蜜獄 封面" class="album-cover" />
+<img src="./miyu.webp" alt="蜜獄 封面" width="1000" height="1000" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2021-12-03
 

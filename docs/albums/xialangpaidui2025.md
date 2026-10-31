@@ -1,5 +1,6 @@
 ---
 title: "夏浪派对 2025"
+description: "《夏浪派对 2025》专辑歌词：出品种薯小铺、幻想色散，演唱洛天依、乐正绫，发行于2025-07-20，收录17首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2025-07-20
 order: -20250720
 category:
@@ -34,7 +35,7 @@ tag:
   - "文件"
 ---
 
-# 夏浪派对 2025
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">夏浪派对 2025</span></nav>
 
 
 

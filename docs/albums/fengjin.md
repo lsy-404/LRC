@@ -1,5 +1,6 @@
 ---
 title: "枫烬"
+description: "《枫烬》专辑歌词：出品寒 Sir、夜屠灵，演唱苍穹、赤羽、海伊、牧心，发行于2020-11-20，收录10首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2020-11-20
 order: -20201120
 category:
@@ -37,9 +38,9 @@ tag:
   - "文件"
 ---
 
-# 枫烬
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">枫烬</span></nav>
 
-<img src="./fengjin.jpg" alt="枫烬 封面" class="album-cover" />
+<img src="./fengjin.webp" alt="枫烬 封面" width="1080" height="1080" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2020-11-20
 

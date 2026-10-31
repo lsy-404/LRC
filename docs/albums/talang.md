@@ -1,5 +1,6 @@
 ---
 title: "踏浪"
+description: "《踏浪》专辑歌词：出品忘川风华录，演唱赤羽、海伊、诗岸、苍穹，发行于2021-07-23，收录10首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2021-07-23
 order: -20210723
 category:
@@ -35,9 +36,9 @@ tag:
   - "文件"
 ---
 
-# 踏浪
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">踏浪</span></nav>
 
-<img src="./talang.jpg" alt="踏浪 封面" class="album-cover" />
+<img src="./talang.webp" alt="踏浪 封面" width="668" height="668" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2021-07-23
 

@@ -1,5 +1,6 @@
 ---
 title: "平行四界 LIVE TOUR OFFICIAL ALBUM"
+description: "《平行四界 LIVE TOUR OFFICIAL ALBUM》专辑歌词：出品平行四界Quadimension，演唱星尘，发行于2017-08-12，收录14首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2017-08-12
 order: -20170812
 category:
@@ -39,9 +40,9 @@ tag:
   - "文件"
 ---
 
-# 平行四界 LIVE TOUR OFFICIAL ALBUM
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">平行四界 LIVE TOUR OFFICIAL ALBUM</span></nav>
 
-<img src="./pingxingsijie_LIVE_TOUR_OFFICIAL_ALBUM.jpg" alt="平行四界 LIVE TOUR OFFICIAL ALBUM 封面" class="album-cover" />
+<img src="./pingxingsijie_LIVE_TOUR_OFFICIAL_ALBUM.webp" alt="平行四界 LIVE TOUR OFFICIAL ALBUM 封面" width="700" height="700" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2017-08-12
 

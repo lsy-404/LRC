@@ -1,5 +1,6 @@
 ---
 title: "秩序之瑕 Blemishes of the Cosmos"
+description: "《秩序之瑕 Blemishes of the Cosmos》专辑歌词：出品蝴蝶效应_BFx，演唱星尘Infinity、Yuma、Mai、诗岸，发行于2025-12-13，收录6首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2025-12-13
 order: -20251213
 category:
@@ -20,9 +21,9 @@ tag:
   - "文件"
 ---
 
-# 秩序之瑕 Blemishes of the Cosmos
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">秩序之瑕 Blemishes of the Cosmos</span></nav>
 
-<img src="./zhixuzhixia.png" alt="秩序之瑕 Blemishes of the Cosmos 封面" class="album-cover" />
+<img src="./zhixuzhixia.webp" alt="秩序之瑕 Blemishes of the Cosmos 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2025-12-13
 

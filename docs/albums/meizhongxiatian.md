@@ -1,5 +1,6 @@
 ---
 title: "每种夏天"
+description: "《每种夏天》专辑歌词：出品种薯小铺，演唱洛天依，发行于2026-04-21，收录10首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2026-04-21
 order: -20260421
 category:
@@ -20,9 +21,9 @@ tag:
   - "文件"
 ---
 
-# 每种夏天
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">每种夏天</span></nav>
 
-<img src="./meizhongxiatian.png" alt="每种夏天 封面" class="album-cover" />
+<img src="./meizhongxiatian.webp" alt="每种夏天 封面" width="1200" height="675" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2026-04-21
 

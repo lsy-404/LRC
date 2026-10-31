@@ -1,5 +1,6 @@
 ---
 title: "再次呼唤我的名字吧"
+description: "《再次呼唤我的名字吧》专辑歌词：演唱诗岸、乐正绫、洛天依、星尘，发行于2026-07-11，收录24首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2026-07-11
 order: -20260711
 category:
@@ -27,9 +28,9 @@ tag:
   - "文件"
 ---
 
-# 再次呼唤我的名字吧
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">再次呼唤我的名字吧</span></nav>
 
-<img src="./zaicihuhuanwodemingziba.jpg" alt="再次呼唤我的名字吧 封面" class="album-cover" />
+<img src="./zaicihuhuanwodemingziba.webp" alt="再次呼唤我的名字吧 封面" width="1000" height="1000" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2026-07-11
 

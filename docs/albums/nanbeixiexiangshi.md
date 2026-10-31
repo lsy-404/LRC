@@ -1,5 +1,6 @@
 ---
 title: "南北谐响诗"
+description: "《南北谐响诗》专辑歌词：出品闹闹丶、陆柒柒_Lv77，演唱洛天依、乐正绫，发行于2025-11-24，收录7首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2025-11-24
 order: -20251124
 category:
@@ -22,7 +23,7 @@ tag:
   - "文件"
 ---
 
-# 南北谐响诗
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">南北谐响诗</span></nav>
 
 
 

@@ -1,5 +1,6 @@
 ---
 title: "夏浪派对 2024"
+description: "《夏浪派对 2024》专辑歌词：出品幻想色散、7-TONE创作互助会，演唱洛天依、乐正绫、潋妤，发行于2024-07-25，收录14首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2024-07-25
 order: -20240725
 category:
@@ -36,7 +37,7 @@ tag:
   - "文件"
 ---
 
-# 夏浪派对 2024
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">夏浪派对 2024</span></nav>
 
 
 

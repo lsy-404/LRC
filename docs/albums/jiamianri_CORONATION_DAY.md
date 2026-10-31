@@ -1,5 +1,6 @@
 ---
 title: "加冕日 CORONATION DAY"
+description: "《加冕日 CORONATION DAY》专辑歌词：出品Aya-亚夜-，演唱赤羽，发行于2023-04-19，收录13首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2023-04-19
 order: -20230419
 category:
@@ -16,9 +17,9 @@ tag:
   - "文件"
 ---
 
-# 加冕日 CORONATION DAY
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">加冕日 CORONATION DAY</span></nav>
 
-<img src="./jiamianri_CORONATION_DAY.jpg" alt="加冕日 CORONATION DAY 封面" class="album-cover" />
+<img src="./jiamianri_CORONATION_DAY.webp" alt="加冕日 CORONATION DAY 封面" width="500" height="500" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2023-04-19
 

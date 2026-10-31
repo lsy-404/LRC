@@ -1,5 +1,6 @@
 ---
 title: "甜食日记 Dessert Diary"
+description: "《甜食日记 Dessert Diary》专辑歌词：出品奶牛组，演唱星尘，发行于2021-08-07，收录6首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2021-08-07
 order: -20210807
 category:
@@ -17,9 +18,9 @@ tag:
   - "文件"
 ---
 
-# 甜食日记 Dessert Diary
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">甜食日记 Dessert Diary</span></nav>
 
-<img src="./tianshiriji.jpg" alt="甜食日记 Dessert Diary 封面" class="album-cover" />
+<img src="./tianshiriji.webp" alt="甜食日记 Dessert Diary 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2021-08-07
 

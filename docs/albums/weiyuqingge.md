@@ -1,5 +1,6 @@
 ---
 title: "为羽轻歌"
+description: "《为羽轻歌》专辑歌词：出品萱草、夜屠灵，演唱赤羽、星尘、心华、诗岸，发行于2020-09-01，收录10首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2020-09-01
 order: -20200901
 category:
@@ -26,9 +27,9 @@ tag:
   - "文件"
 ---
 
-# 为羽轻歌
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">为羽轻歌</span></nav>
 
-<img src="./weiyuqingge.jpg" alt="为羽轻歌 封面" class="album-cover" />
+<img src="./weiyuqingge.webp" alt="为羽轻歌 封面" width="1180" height="1054" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2020-09-01
 

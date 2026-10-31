@@ -1,5 +1,6 @@
 ---
 title: "流星空间站 流星空间站聆星者 Starteller II"
+description: "《流星空间站 流星空间站聆星者 Starteller II》专辑歌词：出品流星空间站创作组，演唱星尘infinity、永夜Minus、诗岸、言和，发行于2025-05-02，收录6首曲目，可在线浏览曲目并下载 LRC 歌词。"
 date: 2025-05-02
 order: -20250502
 category:
@@ -30,9 +31,9 @@ tag:
   - "文件"
 ---
 
-# 流星空间站 流星空间站聆星者 Starteller II
+<nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">流星空间站 流星空间站聆星者 Starteller II</span></nav>
 
-<img src="./liuxingkongjianzhan_II_lingxingzhe.jpg" alt="流星空间站 流星空间站聆星者 Starteller II 封面" class="album-cover" />
+<img src="./liuxingkongjianzhan_II_lingxingzhe.webp" alt="流星空间站 流星空间站聆星者 Starteller II 封面" width="1000" height="1000" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2025-05-02
 
