@@ -38,7 +38,7 @@ tag:
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1FhEx6XEMu/)
 
-**购买:** [dizzylab](https://www.dizzylab.net/albums/d/trueName/)
+**电子:** [Dizzylab](https://www.dizzylab.net/albums/d/trueName/) ￥28
 
 **演唱:** 诗岸、乐正绫、洛天依、星尘、海伊、言和、心华、徵羽摩柯、墨清弦、乐正龙牙、GUMI
 
