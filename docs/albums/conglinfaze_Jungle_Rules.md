@@ -36,7 +36,7 @@ tag:
 
 <nav class="album-breadcrumb" aria-label="面包屑"><a class="route-link" href="/">首页</a> / <span aria-current="page">丛林法则 Jungle Rules</span></nav>
 
-<img src="./conglinfaze_Jungle_Rules.webp" alt="丛林法则 Jungle Rules 封面" width="500" height="500" fetchpriority="high" class="album-cover" />
+<img src="./conglinfaze_Jungle_Rules.webp" alt="丛林法则 Jungle Rules 封面" width="1200" height="1200" fetchpriority="high" class="album-cover" />
 
 **发行日期:** 2020-02-28
 
