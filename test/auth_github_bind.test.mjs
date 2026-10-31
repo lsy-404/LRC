@@ -92,7 +92,7 @@ test('已登录且已配置时 start 重定向到 GitHub 授权页，scope 留�
   const location = new URL(res.headers.get('location'));
   assert.equal(location.origin + location.pathname, 'https://github.com/login/oauth/authorize');
   assert.equal(location.searchParams.get('client_id'), 'client-id');
-  assert.equal(location.searchParams.get('redirect_uri'), 'https://lrc.voidcarve.com/api/auth/github/callback');
+  assert.equal(location.searchParams.get('redirect_uri'), 'https://lrc.leisiyu.dev/api/auth/github/callback');
   assert.ok(location.searchParams.get('state'));
   assert.equal(location.searchParams.has('scope'), false);
 });
