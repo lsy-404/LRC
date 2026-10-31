@@ -4,7 +4,7 @@ import navbar from "./navbar";
 import sidebar from "./sidebar";
 import { albumStructuredData, siteStructuredData } from "./structuredData";
 
-const hostname = "https://lrc.voidcarve.com";
+const hostname = "https://lrc.leisiyu.dev";
 const NOINDEX_PREFIXES = ["/tag/", "/timeline/", "/star/", "/article/", "/category/", "/contribute/workstation", "/dev/", "/404"];
 
 export default hopeTheme({

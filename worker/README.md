@@ -56,14 +56,14 @@ corepack pnpm@10.34.6 --dir worker exec wrangler secret put <NAME>
   "client_name": "LRC 工作站",
   "client_secret": "<至少 32 字符>",
   "token_endpoint_auth_method": "client_secret_basic",
-  "redirect_uris": ["https://lrc.voidcarve.com/api/auth/sso/callback"],
-  "post_logout_redirect_uris": ["https://lrc.voidcarve.com/studio/"],
-  "backchannel_logout_uri": "https://lrc.voidcarve.com/api/auth/sso/backchannel-logout",
+  "redirect_uris": ["https://lrc.leisiyu.dev/api/auth/sso/callback"],
+  "post_logout_redirect_uris": ["https://lrc.leisiyu.dev/studio/"],
+  "backchannel_logout_uri": "https://lrc.leisiyu.dev/api/auth/sso/backchannel-logout",
   "grant_types": ["authorization_code"],
   "response_types": ["code"],
   "scope": "openid profile email",
   "require_signed_request_object": false,
-  "client_uri": "https://lrc.voidcarve.com/studio/"
+  "client_uri": "https://lrc.leisiyu.dev/studio/"
 }
 ```
 

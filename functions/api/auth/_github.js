@@ -6,7 +6,7 @@ const TOKEN_URL = 'https://github.com/login/oauth/access_token';
 const USER_URL = 'https://api.github.com/user';
 
 // OAuth 回调固定为正式站点，避免其他绑定域名改变登记地址。
-export const CALLBACK_URL = 'https://lrc.voidcarve.com/api/auth/github/callback';
+export const CALLBACK_URL = 'https://lrc.leisiyu.dev/api/auth/github/callback';
 
 export const STATE_TTL_MS = 10 * 60 * 1000;
 export const STATE_BYTES = 24;
