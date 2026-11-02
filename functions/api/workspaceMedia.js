@@ -1,6 +1,6 @@
 import { json, requireUser } from './auth/_lib.js';
 import { cleanAlbum, cleanIndex } from './upload/_lib.js';
-import { readJson, deletePrefix, audioContentType } from './ingest/_lib.js';
+import { readJson, deletePrefix, audioContentType, callWorker, REVIEW } from './ingest/_lib.js';
 
 const validRef = (value) => typeof value === 'string' && /^[0-9a-f]{32}$/.test(value);
 const imageType = (name) => ({ png:'image/png', jpg:'image/jpeg', jpeg:'image/jpeg', webp:'image/webp', gif:'image/gif', bmp:'image/bmp' })[String(name).split('.').at(-1).toLowerCase()];
@@ -57,7 +57,8 @@ export async function onDiscardPost({request,env}) {
   const denied=await access(request,env);if(denied)return denied;
   const body=await request.json().catch(()=>null);const ref=body?.ref;
   if(!validRef(ref))return json({error:'bad request'},400);
-  if(await env.UPLOAD_BUCKET.head(`web/${ref}/manifest.json`))return json({error:'submission already started'},409);
   await deletePrefix(env,`workspace/${ref}/`);
+  // 已提交的工作区还要撤掉审核产物并通知编排取消；web/<ref>/ 原始上传按惯例保留。
+  if(await env.UPLOAD_BUCKET.head(`web/${ref}/manifest.json`)){await deletePrefix(env,`${REVIEW}/${ref}/`);await callWorker(env,'/discard',{ref});}
   return json({ok:true,ref});
 }
