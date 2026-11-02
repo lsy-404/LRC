@@ -12,8 +12,8 @@ importers:
         specifier: ^0.3.7
         version: 0.3.7
       '@platform-kit/solution-studio':
-        specifier: file:../vendor/solution-studio-0.1.0.tgz
-        version: file:../vendor/solution-studio-0.1.0.tgz(monaco-editor@0.57.0)(opencc-js@1.4.2)(vue@3.5.44)
+        specifier: file:../vendor/solution-studio-0.2.0.tgz
+        version: file:../vendor/solution-studio-0.2.0.tgz(monaco-editor@0.57.0)(opencc-js@1.4.2)(vue@3.5.44)
     devDependencies:
       miniflare:
         specifier: 5.20260730.0-alpha
@@ -422,9 +422,9 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@platform-kit/solution-studio@file:../vendor/solution-studio-0.1.0.tgz':
-    resolution: {integrity: sha512-NLVkxj7kvj3eOASzHkMzWbxNss9S6pAJ95j7MtO5dEdT+4uWzH6fZa3IoBcxfQqCLGBTLMYb8YMzbyMHYGLYNA==, tarball: file:../vendor/solution-studio-0.1.0.tgz}
-    version: 0.1.0
+  '@platform-kit/solution-studio@file:../vendor/solution-studio-0.2.0.tgz':
+    resolution: {integrity: sha512-V+0zRrxkbRP5uAw/OQeFIkdg81wRSnJSPCqJkJ5ZT4KnUw3/vUp6bxIWFuLN8yaXjxDUSPD4LEUjSP6duQz3Ig==, tarball: file:../vendor/solution-studio-0.2.0.tgz}
+    version: 0.2.0
     peerDependencies:
       monaco-editor: '>=0.50.0'
       opencc-js: ^1.0.5
@@ -863,7 +863,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@platform-kit/solution-studio@file:../vendor/solution-studio-0.1.0.tgz(monaco-editor@0.57.0)(opencc-js@1.4.2)(vue@3.5.44)':
+  '@platform-kit/solution-studio@file:../vendor/solution-studio-0.2.0.tgz(monaco-editor@0.57.0)(opencc-js@1.4.2)(vue@3.5.44)':
     dependencies:
       monaco-editor: 0.57.0
       opencc-js: 1.4.2
