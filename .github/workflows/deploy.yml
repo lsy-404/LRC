@@ -23,12 +23,15 @@ on:
 
 jobs:
   deploy:
-    # 在 runner center（GitEdge 路由的 self-hosted runner）上与私有方案源码合并构建；该 runner 需要 Docker 构建容器镜像
-    runs-on: [self-hosted, lrc-build]
+    # 在 runner center 上用 PAT 签出私有方案源码合并构建；wrangler 用本机 Docker 构建容器镜像
+    runs-on: [self-hosted, linux, need-mem-3g, CPU-PREFER]
     permissions:
       contents: read
 
     steps:
+      - name: Clean workspace
+        run: find "$GITHUB_WORKSPACE" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
+
       - name: Checkout code
         uses: actions/checkout@v6
         with:
@@ -84,3 +87,8 @@ jobs:
           workingDirectory: worker
           packageManager: pnpm
           command: deploy --containers-rollout=immediate
+
+      # 持久 runner 不保留私有源码与构建产物
+      - name: Wipe workspace
+        if: always()
+        run: find "$GITHUB_WORKSPACE" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
