@@ -1,0 +1,16 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "lrc-site",
+  "compatibility_date": "2026-08-26",
+  "workers_dev": true,
+  "observability": { "enabled": true },
+
+  "routes": [
+    { "pattern": "lrc.leisiyu.dev", "custom_domain": true }
+  ],
+
+  "assets": {
+    "directory": "./docs/.vuepress/dist",
+    "not_found_handling": "404-page"
+  }
+}
