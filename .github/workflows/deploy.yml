@@ -1,4 +1,4 @@
-name: Deploy to Cloudflare Worker
+name: Deploy site to Cloudflare Worker
 
 on:
   # Generated catalog updates dispatch deployment separately.
@@ -10,28 +10,19 @@ on:
       - '.node-version'
       - 'package.json'
       - 'pnpm-lock.yaml'
+      - 'wrangler.jsonc'
       - 'docs/**'
-      - 'functions/**'
-      - 'worker/**'
-      - 'runner/**'
-      - 'studio/**'
-      - 'scripts/solution.mjs'
-      - 'solution.ref'
       - '!docs/albums/**'
       - '!docs/.vuepress/public/api/**'
   workflow_dispatch:
 
 jobs:
   deploy:
-    # 在 runner center 上用 PAT 签出私有方案源码合并构建；wrangler 用本机 Docker 构建容器镜像
-    runs-on: [self-hosted, linux, need-mem-3g, CPU-PREFER]
+    runs-on: ubuntu-latest
     permissions:
       contents: read
 
     steps:
-      - name: Clean workspace
-        run: find "$GITHUB_WORKSPACE" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
-
       - name: Checkout code
         uses: actions/checkout@v6
         with:
@@ -49,46 +40,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Read pinned studio solution commit
-        id: solution
-        run: echo "ref=$(tr -d '[:space:]' < solution.ref)" >> "$GITHUB_OUTPUT"
-
-      - name: Checkout studio solution source
-        uses: actions/checkout@v6
-        with:
-          repository: lsy-404/platform-kit-internal
-          ref: ${{ steps.solution.outputs.ref }}
-          token: ${{ secrets.PLATFORM_KIT_TOKEN }}
-          path: .solution/src
-          fetch-depth: 1
-          persist-credentials: false
-
-      - name: Build studio solution
-        run: pnpm run solution
-
-      - name: Install Worker dependencies
-        working-directory: worker
-        run: corepack pnpm@10.34.6 install --frozen-lockfile
-
       - name: Build VuePress site
         run: pnpm run docs:build
-
-      - name: Build studio
-        run: |
-          pnpm --dir studio install --frozen-lockfile
-          pnpm --dir studio run build
-          test -f docs/.vuepress/dist/studio/index.html
 
       - name: Deploy Worker with static assets
         uses: cloudflare/wrangler-action@v4.0.0
         with:
           apiToken: ${{ secrets.CF_WORKERS_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          workingDirectory: worker
-          packageManager: pnpm
-          command: deploy --containers-rollout=immediate
-
-      # 持久 runner 不保留私有源码与构建产物
-      - name: Wipe workspace
-        if: always()
-        run: find "$GITHUB_WORKSPACE" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
+          wranglerVersion: '4.118.0'
+          command: deploy

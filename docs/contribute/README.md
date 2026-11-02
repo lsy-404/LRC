@@ -84,8 +84,6 @@ Git 是一个协作工具，能让许多人**在同一个项目上工作而不�
 │   └── *.zip        # 专辑歌词包
 ├── .github/
 │   └── scripts/      # 自动化脚本
-├── worker/           # 摄取与生成的编排 Worker
-├── runner/           # 作业容器镜像
 ├── docs/             # VuePress 文档源文件
 │   ├── .vuepress/    # VuePress 配置文件夹
 │   ├── README.md     # 网站首页内容

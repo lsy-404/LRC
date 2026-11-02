@@ -126,6 +126,18 @@
 
 详情请参阅 [CONTRIBUTING.md](./docs/CONTRIBUTING.md)
 
+## 站点部署
+
+本仓库只包含公开站点与内容脚本，歌词工作站与摄取后端位于独立的私有仓库。站点是纯静态 Worker `lrc-site`：
+
+```sh
+pnpm install --frozen-lockfile
+pnpm run docs:build
+pnpm dlx wrangler@4.118.0 deploy
+```
+
+推送到 `main` 后由 `.github/workflows/deploy.yml` 自动部署。
+
 ## 完整目录
 ---
 <!-- CATALOG_START -->
