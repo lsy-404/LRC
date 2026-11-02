@@ -9,7 +9,7 @@ import { onRequestPost as retryIngest } from '../../functions/api/ingest/retry.j
 import { onRequestPost as saveIngest } from '../../functions/api/ingest/save.js';
 import { onRequestGet as stateIngest } from '../../functions/api/ingest/state.js';
 import { onRequestGet as audioIngest } from '../../functions/api/ingest/audio.js';
-import { onAssetPost, onAudioGet, onCatalogGet, onCreatePost, onDocumentPost, onDraftGet, onExtractPost, onListGet, onLrcPost, onOpenPost, onSavePost } from '../../functions/api/workspace.js';
+import { onAssetPost, onAudioGet, onCatalogGet, onCreatePost, onDocumentPost, onDraftGet, onExtractPost, onListGet, onLrcPost, onOpenPost, onPublishedGet, onSavePost } from '../../functions/api/workspace.js';
 import { onRequestGet as authMeGet, onRequestPatch as authMePatch } from '../../functions/api/auth/me.js';
 import { onRequestGet as authGithubStart } from '../../functions/api/auth/githubStart.js';
 import { onRequestGet as authGithubCallback } from '../../functions/api/auth/githubCallback.js';
@@ -43,6 +43,7 @@ export const ROUTES = new Map([
   ['GET /api/workspace/list', [onListGet, 'browse']],
   ['GET /api/workspace/draft', [onDraftGet, 'browse']],
   ['POST /api/workspace/create', [onCreatePost, 'edit']],
+  ['GET /api/workspace/published', [onPublishedGet, 'browse']],
   ['POST /api/workspace/open', [onOpenPost, 'edit']],
   ['POST /api/workspace/lrc', [onLrcPost, 'edit']],
   ['POST /api/workspace/document', [onDocumentPost, 'edit']],

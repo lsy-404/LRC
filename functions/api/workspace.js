@@ -314,6 +314,15 @@ export async function onOpenPost({ request, env }) {
   return ref ? json({ ok: true, ref, draft }) : json({ error: 'workspace unavailable' }, 503);
 }
 
+export async function onPublishedGet({ request, env }) {
+  const auth = await userFor(request, env); if (auth.error) return auth.error;
+  const slug = new URL(request.url).searchParams.get('slug');
+  if (!slug || !/^[A-Za-z0-9_-]{1,180}$/.test(slug)) return json({ error: 'bad album' }, 400);
+  const draft = catalogDraft(await readAssetJson(request, env, `/api/albums/${slug}.json`));
+  if (!draft || !validDraft(draft)) return json({ error: 'album unavailable' }, 404);
+  return json({ ok: true, draft });
+}
+
 export async function onSavePost({ request, env }) {
   const auth = await userFor(request, env); if (auth.error) return auth.error;
   const body = await request.json().catch(() => null);
