@@ -8,7 +8,6 @@
 
   "routes": [
     { "pattern": "ingest.lrc.voidcarve.com", "custom_domain": true },
-    { "pattern": "lrc.voidcarve.com", "custom_domain": true },
     { "pattern": "lrc.leisiyu.dev", "custom_domain": true }
   ],
 
