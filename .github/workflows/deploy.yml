@@ -15,13 +15,16 @@ on:
       - 'worker/**'
       - 'runner/**'
       - 'studio/**'
+      - 'scripts/solution.mjs'
+      - 'solution.ref'
       - '!docs/albums/**'
       - '!docs/.vuepress/public/api/**'
   workflow_dispatch:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    # 在 runner center（GitEdge 路由的 self-hosted runner）上与私有方案源码合并构建；该 runner 需要 Docker 构建容器镜像
+    runs-on: [self-hosted, lrc-build]
     permissions:
       contents: read
 
@@ -40,27 +43,25 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v6.0.10
 
-      - name: Cache pnpm dependencies
-        uses: actions/cache@v5
-        with:
-          path: ~/.local/share/pnpm/store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # 工作站是私有方案包：只下载编译产物并校验摘要，源码不进入本仓库
-      - name: Fetch private studio solution
-        env:
-          GH_TOKEN: ${{ secrets.PLATFORM_KIT_TOKEN }}
-        run: |
-          set -euo pipefail
-          VERSION=$(node -p "require('./studio/package.json').dependencies['@platform-kit/solution-studio'].match(/solution-studio-(.+)\.tgz$/)[1]")
-          mkdir -p vendor
-          gh release download "solution-studio-v${VERSION}" --repo lsy-404/platform-kit-internal --dir vendor --pattern "solution-studio-${VERSION}.tgz" --pattern "solution-studio-${VERSION}.tgz.sha256"
-          (cd vendor && sha256sum -c "solution-studio-${VERSION}.tgz.sha256")
+      - name: Read pinned studio solution commit
+        id: solution
+        run: echo "ref=$(tr -d '[:space:]' < solution.ref)" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout studio solution source
+        uses: actions/checkout@v6
+        with:
+          repository: lsy-404/platform-kit-internal
+          ref: ${{ steps.solution.outputs.ref }}
+          token: ${{ secrets.PLATFORM_KIT_TOKEN }}
+          path: .solution/src
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Build studio solution
+        run: pnpm run solution
 
       - name: Install Worker dependencies
         working-directory: worker

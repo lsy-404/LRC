@@ -9,10 +9,14 @@ Assets 部署；`/api/{upload,ingest,workspace,auth,library}/*` 先进入脚本�
 
 ## 部署
 
-先把私有包放到 `vendor/`（CI 用 `PLATFORM_KIT_TOKEN` 从 `lsy-404/platform-kit-internal` 的 Release 下载并校验摘要）：
+私有方案按根目录 `solution.ref` 固定的 `lsy-404/platform-kit-internal` commit 从源码构建：`pnpm run solution`
+把源码签出到 `.solution/src`，构建后 stage 到 `.solution/package`，`studio/` 与 `worker/` 以 `file:` 目录依赖引用。
+本地可用 `SOLUTION_REPO=<本地私有仓库路径>` 从已有检出克隆。CI 部署作业在 runner center 的 `[self-hosted, lrc-build]`
+runner 上运行，用 `PLATFORM_KIT_TOKEN` 签出私有源码；更新工作站只需修改 `solution.ref`。
 
 ```
 pnpm install --frozen-lockfile
+pnpm run solution
 corepack pnpm@10.34.6 --dir worker install --frozen-lockfile
 pnpm run docs:build
 pnpm run studio:install && pnpm run studio:build

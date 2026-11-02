@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@platform-kit/solution-studio':
-        specifier: file:../vendor/solution-studio-0.3.0.tgz
-        version: file:../vendor/solution-studio-0.3.0.tgz(monaco-editor@0.55.1)(opencc-js@1.4.2)(vue@3.5.44)
+        specifier: file:../.solution/package
+        version: file:../.solution/package(monaco-editor@0.55.1)(opencc-js@1.4.2)(vue@3.5.44)
       monaco-editor:
         specifier: ^0.55.1
         version: 0.55.1
@@ -210,9 +210,8 @@ packages:
     os: [linux]
     libc: [glibc]
 
-  '@platform-kit/solution-studio@file:../vendor/solution-studio-0.3.0.tgz':
-    resolution: {integrity: sha512-UPRmKaC3hQDUeesFxFvk7W7O5Ck/q5FQvjCv3G2kTEL+l7CXmXWTXNcwbaoHaQSKVCQpC1jenBs/v5RtFcv/AQ==, tarball: file:../vendor/solution-studio-0.3.0.tgz}
-    version: 0.3.0
+  '@platform-kit/solution-studio@file:../.solution/package':
+    resolution: {directory: ../.solution/package, type: directory}
     peerDependencies:
       monaco-editor: '>=0.50.0'
       opencc-js: ^1.0.5
@@ -610,7 +609,7 @@ snapshots:
   '@napi-rs/lzma-linux-x64-gnu@1.5.1':
     optional: true
 
-  '@platform-kit/solution-studio@file:../vendor/solution-studio-0.3.0.tgz(monaco-editor@0.55.1)(opencc-js@1.4.2)(vue@3.5.44)':
+  '@platform-kit/solution-studio@file:../.solution/package(monaco-editor@0.55.1)(opencc-js@1.4.2)(vue@3.5.44)':
     dependencies:
       monaco-editor: 0.55.1
       opencc-js: 1.4.2

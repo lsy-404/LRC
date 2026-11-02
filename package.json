@@ -14,6 +14,7 @@
     "update-meta-dates": "python3 .github/scripts/update_meta_dates.py",
     "upgrade": "pnpm dlx vp-update",
     "test:node": "node --test 'test/*.test.mjs'",
+    "solution": "node scripts/solution.mjs",
     "studio:install": "pnpm --dir studio install --frozen-lockfile",
     "studio:build": "pnpm --dir studio run build"
   },
