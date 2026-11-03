@@ -11,6 +11,7 @@
 ## 收录专辑
 
 <!-- ALBUM_LIST_START -->
+- [星尘Stardust](https://github.com/lsy-404/LRC#%E6%98%9F%E5%B0%98stardust)
 - [碎屑](https://github.com/lsy-404/LRC#%E7%A2%8E%E5%B1%91)
 - [再次呼唤我的名字吧](https://github.com/lsy-404/LRC#%E5%86%8D%E6%AC%A1%E5%91%BC%E5%94%A4%E6%88%91%E7%9A%84%E5%90%8D%E5%AD%97%E5%90%A7)
 - [SEVEN](https://github.com/lsy-404/LRC#seven)
@@ -128,6 +129,29 @@
 ## 完整目录
 ---
 <!-- CATALOG_START -->
+<img src="https://raw.githubusercontent.com/lsy-404/LRC/main/res/%E6%98%9F%E5%B0%98Stardust/Cover.png" alt="专辑封面" width="120" align="right">
+
+### 星尘Stardust
+
+**[下载专辑歌词包](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/pack/%E6%98%9F%E5%B0%98Stardust.zip)**
+
+<details>
+<summary>查看详细曲目 (7 首)</summary>
+
+| 曲目 | 操作 |
+| :- | :-: |
+| [01 荼蘼.lrc](res/%E6%98%9F%E5%B0%98Stardust/01%20%E8%8D%BC%E8%98%BC.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%98%9F%E5%B0%98Stardust/01%20%E8%8D%BC%E8%98%BC.lrc) |
+| [02 是旅人啊.lrc](res/%E6%98%9F%E5%B0%98Stardust/02%20%E6%98%AF%E6%97%85%E4%BA%BA%E5%95%8A.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%98%9F%E5%B0%98Stardust/02%20%E6%98%AF%E6%97%85%E4%BA%BA%E5%95%8A.lrc) |
+| [03 常世.lrc](res/%E6%98%9F%E5%B0%98Stardust/03%20%E5%B8%B8%E4%B8%96.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%98%9F%E5%B0%98Stardust/03%20%E5%B8%B8%E4%B8%96.lrc) |
+| [04 浮尘.lrc](res/%E6%98%9F%E5%B0%98Stardust/04%20%E6%B5%AE%E5%B0%98.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%98%9F%E5%B0%98Stardust/04%20%E6%B5%AE%E5%B0%98.lrc) |
+| [05 凭香怡人婪尾春.lrc](res/%E6%98%9F%E5%B0%98Stardust/05%20%E5%87%AD%E9%A6%99%E6%80%A1%E4%BA%BA%E5%A9%AA%E5%B0%BE%E6%98%A5.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%98%9F%E5%B0%98Stardust/05%20%E5%87%AD%E9%A6%99%E6%80%A1%E4%BA%BA%E5%A9%AA%E5%B0%BE%E6%98%A5.lrc) |
+| [06 春暖飞花.lrc](res/%E6%98%9F%E5%B0%98Stardust/06%20%E6%98%A5%E6%9A%96%E9%A3%9E%E8%8A%B1.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%98%9F%E5%B0%98Stardust/06%20%E6%98%A5%E6%9A%96%E9%A3%9E%E8%8A%B1.lrc) |
+| [07 巴别塔.lrc](res/%E6%98%9F%E5%B0%98Stardust/07%20%E5%B7%B4%E5%88%AB%E5%A1%94.lrc) | [下载](https://cdn.jsdelivr.net/gh/lsy-404/LRC@main/res/%E6%98%9F%E5%B0%98Stardust/07%20%E5%B7%B4%E5%88%AB%E5%A1%94.lrc) |
+
+</details>
+
+---
+
 <img src="https://raw.githubusercontent.com/lsy-404/LRC/main/res/%E7%A2%8E%E5%B1%91/Cover.jpg" alt="专辑封面" width="120" align="right">
 
 ### 碎屑

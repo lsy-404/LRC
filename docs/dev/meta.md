@@ -8,10 +8,10 @@ icon: material-symbols:analytics
 
 本报告显示所有专辑的元数据完整性检查结果。
 
-- **总计**：108 个专辑
-- **已检查**：108 个
+- **总计**：109 个专辑
+- **已检查**：109 个
 - **跳过**：0 个
-- **完整**：39 个
+- **完整**：40 个
 - **提示**：0 个
 - **警告**：36 个
 - **错误**：33 个
@@ -381,6 +381,7 @@ icon: material-symbols:analytics
 - 平行四界Quadimension5
 - 平行四界Quadimension6
 - 星之海StarOcean
+- 星尘Stardust
 - 星愿StarWish
 - 星语StarWhisper
 - 森罗万象Kaleido
