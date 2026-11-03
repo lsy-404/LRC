@@ -23,7 +23,13 @@ jobs:
         github.event.comment.user.login == github.repository_owner
       )
     runs-on: ubuntu-latest
-    
+    env:
+      # Repository secrets are unavailable for pull requests from forks. Use the
+      # scoped workflow token for read-only operations and only perform writes
+      # when the dedicated token is present.
+      AUDIT_TOKEN: ${{ secrets.PULL_TOKEN || github.token }}
+      HAS_PULL_TOKEN: ${{ secrets.PULL_TOKEN != '' }}
+
     steps:
       - name: Resolve PR context
         id: pr
@@ -44,7 +50,7 @@ jobs:
             echo "head_repo=$(echo "$pr_json" | jq -r '.head.repo.full_name')" >> $GITHUB_OUTPUT
           fi
         env:
-          GH_TOKEN: ${{ secrets.PULL_TOKEN }}
+          GH_TOKEN: ${{ env.AUDIT_TOKEN }}
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -53,7 +59,7 @@ jobs:
           fetch-tags: false
           repository: ${{ steps.pr.outputs.head_repo }}
           ref: ${{ steps.pr.outputs.head_sha }}
-          token: ${{ secrets.PULL_TOKEN }}
+          token: ${{ env.AUDIT_TOKEN }}
 
       - name: Checkout base workflow scripts
         uses: actions/checkout@v4
@@ -63,12 +69,12 @@ jobs:
           repository: ${{ github.repository }}
           ref: ${{ github.sha }}
           path: .ci-base
-          token: ${{ secrets.PULL_TOKEN }}
+          token: ${{ env.AUDIT_TOKEN }}
 
       - name: Fetch PR base commit
         run: |
           if ! git remote get-url base >/dev/null 2>&1; then
-            git remote add base "https://x-access-token:${{ secrets.PULL_TOKEN }}@github.com/${{ github.repository }}.git"
+            git remote add base "https://x-access-token:${{ env.AUDIT_TOKEN }}@github.com/${{ github.repository }}.git"
           fi
           # Checkout code 是浅克隆(depth=1)，PR head 与 base_sha 各自独立浅拉取
           # 互不相连，merge-base 算不出来(git 报 "no merge base")。audit 脚本用
@@ -93,14 +99,14 @@ jobs:
         continue-on-error: true
 
       - name: Notify Failure
-        if: steps.python-audit.outcome == 'failure'
+        if: steps.python-audit.outcome == 'failure' && env.HAS_PULL_TOKEN == 'true'
         run: |
           ERRORS=$(cat audit_errors.txt)
           gh pr comment "$PR_NUMBER" --body "### ⚠️ 自动化审计未通过
           感谢您的贡献！但本次提交存在以下问题，请修改后重新推送：
-          
+
           $ERRORS
-          
+
           ---
           *修改代码后直接 Push，系统会自动重新检查。*"
         env:
@@ -109,7 +115,7 @@ jobs:
           GH_REPO: ${{ github.repository }}
 
       - name: Auto Approve
-        if: steps.python-audit.outcome == 'success'
+        if: steps.python-audit.outcome == 'success' && env.HAS_PULL_TOKEN == 'true'
         run: gh pr review "$PR_NUMBER" --approve
         env:
           # PULL_TOKEN 和开 PR 用的是同一身份，GitHub 不允许自己批准自己的 PR
@@ -120,7 +126,7 @@ jobs:
           GH_REPO: ${{ github.repository }}
 
       - name: Auto Merge
-        if: steps.python-audit.outcome == 'success'
+        if: steps.python-audit.outcome == 'success' && env.HAS_PULL_TOKEN == 'true'
         timeout-minutes: 3
         run: |
           if gh pr merge --auto --squash "$PR_NUMBER"; then
@@ -138,3 +144,9 @@ jobs:
           GH_TOKEN: ${{ secrets.PULL_TOKEN }}
           PR_NUMBER: ${{ steps.pr.outputs.number }}
           GH_REPO: ${{ github.repository }}
+
+      - name: Mark audit failure
+        if: steps.python-audit.outcome == 'failure'
+        run: |
+          cat audit_errors.txt
+          exit 1
