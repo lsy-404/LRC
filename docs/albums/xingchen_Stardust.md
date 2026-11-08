@@ -34,7 +34,7 @@ tag:
 
 **出品:** 平行四界Quadimension
 
-**歌词制作:** StrangeUtaGame、RQvan
+**歌词制作:** RQvan
 
 **发布:** [Bilibili](https://www.bilibili.com/video/BV1LFYX6fEBT/)
 
