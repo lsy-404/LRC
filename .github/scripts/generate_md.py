@@ -391,6 +391,7 @@ tag:
         album_cards.append(
             {
                 "name": display_name,
+                "dir": album,
                 "file_name": album_file_name,
                 "cover": cover_url,
                 "cover_size": (cover_width, cover_height),
@@ -407,7 +408,7 @@ tag:
     cards_text = ["| | |", "|----|-----|"]
     for index, card in enumerate(album_cards):
         year_line = f"发行日期：{card['year']}"
-        zip_url = f"https://cdn.jsdelivr.net/gh/{REPO}@main/pack/{urllib.parse.quote(card['name'])}.zip"
+        zip_url = f"https://cdn.jsdelivr.net/gh/{REPO}@main/pack/{urllib.parse.quote(card['dir'])}.zip"
 
         # 双列表格布局，左边图片，右边信息
         if card["cover"]:
